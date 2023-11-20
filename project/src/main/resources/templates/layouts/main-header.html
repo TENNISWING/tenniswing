@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<th:block th:fragment="header">
+		<!-- header -->
+            <header class="mb-4">
+                <div class="header-top">
+                    <div class="container">
+                        <div class="logo">
+                            <a href="/">
+                                <h3><i class="fa-solid fa-baseball"></i>TennisWing.</h3>
+                            </a>   
+                        </div>
+                        <div class="header-top-right">                        
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="코트 찾기">                                
+                                <button type="button" class="input-group-text">
+                                    <i class="icon dripicons dripicons-search fs-3"></i>
+                                </button>
+                            </div> 
+                        
+                            <a href="cart">
+                                <div class="icon dripicons dripicons-cart text fs-3"></div>
+                            </a>
+                            <a href="mypage">
+                                <div class="icon dripicons dripicons-user fs-3"></div>
+                            </a>
+                            <a href="javascirpt:void(0)" class="burger-btn d-block d-xl-none">
+                                <div class="icon dripicons dripicons-menu fs-3"></div>
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <nav class="main-navbar">
+                    <div class="container">
+                        <ul class="ms-3">
+                            <li class="menu-item has-sub">
+                                <a href="javascript:void(0)" class="menu-link">
+                                    <span><i class="fa-solid fa-people-arrows"></i>소셜매치</span>
+                                </a>
+                                <div class="submenu">
+                                    <div class="submenu-group-wrapper">
+                                        <ul class="submenu-group">
+                                            <li class="submenu-item">
+                                                <a href="match" class='submenu-link'>매치</a>
+                                            </li>
+                                            <li class="submenu-item  ">
+                                                <a href="groupmatch" class='submenu-link'>그룹매치</a>
+                                            </li>
+                                            <li class="submenu-item  ">
+                                                <a href="tournament" class='submenu-link'>대회</a>
+                                            </li>
+                                            <li class="submenu-item  ">
+                                                <a href="starter" class='submenu-link'>스타터</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="menu-item">
+                                <a href="court" class='menu-link'>
+                                    <span><i class="fa-solid fa-clock-rotate-left"></i>코트예약</span>
+                                </a>
+                            </li>
+
+                            <li class="menu-item has-sub">
+                                <a href="javascript:void(0)" class="menu-link">
+                                    <span><i class="fa-solid fa-people-group"></i>클럽</span>
+                                </a>
+                                <div class="submenu">
+                                    <div class="submenu-group-wrapper">
+                                        <ul class="submenu-group">
+                                            <li class="submenu-item">
+                                                <a href="club" class='submenu-link'>클럽목록</a>
+                                            </li>
+                                            <li class="submenu-item">
+                                                <a href="clubform" class='submenu-link'>클럽창설</a>
+                                            </li>
+                                            <li class="submenu-item">
+                                                <a href="myclub" class='submenu-link'>마이클럽</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="menu-item has-sub">
+                                <a href="javascript:void(0)" class="menu-link">
+                                    <span><i class="fa-solid fa-comments"></i>커뮤니티</span>
+                                </a>
+                                <div class="submenu">
+                                    <div class="submenu-group-wrapper">
+                                        <ul class="submenu-group">
+                                            <li class="submenu-item">
+                                                <a href="sns" class='submenu-link'>SNS</a>
+                                            </li>
+                                            <li class="submenu-item">
+                                                <a href="freeboard" class='submenu-link'>자유게시판</a>
+                                            </li>
+                                            <li class="submenu-item">
+                                                <a href="noticeboard" class='submenu-link'>공지사항</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="menu-item has-sub">
+                                <a href="javascript:void(0)" class="menu-link">
+                                    <span><i class="fa-solid fa-store"></i>쇼핑</span>
+                                </a>
+                                <div class="submenu">
+                                    <div class="submenu-group-wrapper">
+                                        <ul class="submenu-group">
+                                            <li class="submenu-item">
+                                                <a href="shop" class='submenu-link'>쇼핑몰</a>
+                                            </li>
+                                            <li class="submenu-item">
+                                                <a href="swingmarket" class='submenu-link'>스윙마켓</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!-- End header -->	
+	</th:block>
+</html>

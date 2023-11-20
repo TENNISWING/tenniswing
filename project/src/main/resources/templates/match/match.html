@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/main-layout}">
+
+	<th:block layout:fragment="content">
+		 <!-- match sub menu -->
+            <div class="container mb-4">
+                <ul class="nav d-flex justify-content-around text-center">
+                    <li class="d-flex flex-column"><a href="javascript:void(0)"><div><i class="fa-brands fa-meetup fs-3 text-info"></i></div>매치</a></li>
+                    <li class="d-flex flex-column"><a href="javascript:void(0)"><div><i class="fa-solid fa-users-line fs-3 text-primary"></i></div>그룹 매치</a></li>
+                    <li class="d-flex flex-column"><a href="javascript:void(0)"><div><i class="fa-solid fa-trophy fs-3 text-warning"></i></div>대회</a></li>
+                    <li class="d-flex flex-column"><a href="javascript:void(0)"><div><i class="fa-solid fa-seedling fs-3 text-green"></i></div>스타터</a></li>
+                </ul>
+            </div>
+            <!-- End match sub menu  -->
+
+            <!-- slide banner -->
+            <div class="container-fluid mb-2 bg-light-info">
+                <div class="container pt-3 pb-3">
+                    <div class="swiper mySwiper banner" data-aos="fade-up">
+                        <div class="swiper-wrapper banner">
+                            <div class="swiper-slide banner text-center">
+                                <img src="/assets/img/slide.png" class="img-fluid" alt="">
+                            </div>
+                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
+                                    class="img-fluid" alt=""></div>
+                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
+                                    class="img-fluid" alt=""></div>
+                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
+                                    class="img-fluid" alt=""></div>
+                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
+                                    class="img-fluid" alt=""></div>
+                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
+                                    class="img-fluid" alt=""></div>
+                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
+                                    class="img-fluid" alt=""></div>
+                        </div>
+                        <div class="swiper-pagination banner"></div>
+                    </div>
+                </div>
+                <script>
+                    var swiper = new Swiper(".mySwiper.banner", {
+                        loop: true,
+                        loopPreventsSliding: true,
+                        grabCursor: true,
+                        autoplay: {
+                            delay: 2000,
+                            pauseOnMouseEnter: true,
+                            disableOnInteraction: false
+                        },
+                        pagination: {
+                            el: ".swiper-pagination.banner",
+                            dynamicBullets: true,
+                            clickable: true,
+                        },
+                    });
+                </script>
+            </div>
+            <!-- End slide banner -->
+
+            <!-- date slide -->
+            <div class="container mt-3 mb-5">
+                <!-- Swiper -->
+                <div class="swiper mySwiper dateslide">
+                    <div class="swiper-wrapper dateslide">
+                        <!-- <div class="swiper-slide dateslide">resizeme</div>            -->
+                    </div>
+                    <div class="swiper-button-next dateslide text-green"></div>
+                    <div class="swiper-button-prev dateslide text-green"></div>
+                    <script>
+                        var swiper = new Swiper(".mySwiper.dateslide", {            
+
+                            direction : getDirection(),
+                            on: {
+                                resize: function () {
+                                swiper.changeDirection(getDirection());
+                                },
+                            },
+                            pagination: {
+                                el: ".swiper-pagination.dateslide",                         
+                            },
+                            navigation: {
+                                nextEl: ".swiper-button-next.dateslide",
+                                prevEl: ".swiper-button-prev.dateslide",
+                            },
+                            breakpoints: {
+                                320: {
+                                    slidesPerView: 5,
+                                },
+                                480: {
+                                    slidesPerView: 5,
+                                },
+                                640: {
+                                    slidesPerView: 5,
+                                },
+                                992: {
+                                    slidesPerView: 7,
+                                }
+                            }
+                        });
+
+                        function getDirection() {
+                            var windowWidth = window.innerWidth;
+                            var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
+                            return direction;
+                            }
+
+                        const days = ["일", "월", "화", "수", "목", "금", "토", "일", "월", "화", "수", "목", "금", "토"];
+                        let dateGetDay = new Date().getDay();
+                        let dateGetDate = new Date().getDate();
+                        let dateArry = [];
+
+                        for (let i = 0; i < 14; i++) {
+                            dateArry.push({
+                                "day": days[i],
+                                "date": dateGetDate + i
+                            })
+                        }
+                    
+                        $.each(dateArry, (idx, ele) => {
+                            if (idx == 0) {
+                                $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
+                                                    <div class="text-white bg-green rounded-pill">
+                                                    ${ele.date}<br>
+                                                    ${ele.day}</div></div>`)
+                            } else {
+                                $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
+                                                    <div class="text-dark">
+                                                    ${ele.date}<br>
+                                                    ${ele.day}</div></div>`)
+                            }
+                        })
+                        $('.swiper-wrapper.dateslide > div div').on('click', function (e) {
+                            //태그네임 가져오기                 
+                            console.log($(e.target).prop('tagName'))
+                            $('.swiper-wrapper.dateslide > div div').attr('class', 'text-dark')
+                            $(e.target).attr('class','bg-green rounded-pill text-white');
+                            // $(e.target).attr('class','bg-green rounded-pill text-white');                           
+                            // $(e.target)
+                            // if ($(e.target).prop('tagName') == 'A') {                                
+                            //     $('.swiper-wrapper.dateslide a').attr('class', 'link-dark');
+                            //     $(e.target).parent().attr('class', 'bg-green rounded-pill');
+                            //     $(e.target).attr('class', 'text-white');
+                            // }else if ($(e.target).prop('tagName') == 'DIV') {                                
+                            //     $('.swiper-wrapper.dateslide a').attr('class', 'link-dark');
+                            //     $(e.target).attr('class', 'bg-green rounded-pill');
+                            //     $(e.target).children().attr('class', 'text-white');
+                            // }else{}
+                        })
+                    </script>
+                </div>
+            </div>
+            <!-- End date slide -->
+
+            <!-- match table -->
+            <div class="container">
+                <div class="card-body">
+                    <h5 class="card-title">매치</h5>
+                    <!-- Default Table -->
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-center">
+                                    <b>14 : 00</b>
+                                </td>
+                                <td>
+                                    서남센터 테니스장 12번 코트
+                                </td>
+                                <td class="text-end">
+                                    <button type="button" class="btn btn-primary">신청 가능</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <b>14 : 00</b>
+                                </td>
+                                <td>
+                                    서남센터 테니스장 12번 코트
+                                </td>
+                                <td class="text-end">
+                                    <button type="button" class="btn btn-secondary disabled">매칭 완료</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <b>14 : 00</b>
+                                </td>
+                                <td>
+                                    서남센터 테니스장 12번 코트
+                                </td>
+                                <td class="text-end">
+                                    <button type="button" class="btn btn-danger">마감 임박</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="container">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">다음</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- End match table -->
+
+            <!-- viewed history -->
+            <div class="container">
+                <h5 class="card-title">최근 매치 조회 내역</h5>
+                <!-- Swiper -->
+                <div class="swiper mySwiper history">
+
+                    <div class="swiper-wrapper history">
+                        <!-- <div class="swiper-slide dateslide"><span class="bg-primary p-3">slide 1</span></div>             -->
+                        <div class="swiper-slide history card">
+                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
+                            <h5 class="card-title">14 : 00</h5>
+                            <p class="card-text">서남센터 테니스장 12코트</p>
+                        </div>
+                        <div class="swiper-slide history card">
+                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
+                            <h5 class="card-title">14 : 00</h5>
+                            <p class="card-text">서남센터 테니스장 12코트</p>
+                        </div>
+                        <div class="swiper-slide history card">
+                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
+                            <h5 class="card-title">14 : 00</h5>
+                            <p class="card-text">서남센터 테니스장 12코트</p>
+                        </div>
+                        <div class="swiper-slide history card">
+                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
+                            <h5 class="card-title">14 : 00</h5>
+                            <p class="card-text">서남센터 테니스장 12코트</p>
+                        </div>
+                        <div class="swiper-slide history card">
+                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
+                            <h5 class="card-title">14 : 00</h5>
+                            <p class="card-text">서남센터 테니스장 12코트</p>
+                        </div>
+                        <div class="swiper-slide history card">
+                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
+                            <h5 class="card-title">14 : 00</h5>
+                            <p class="card-text">서남센터 테니스장 12코트</p>
+                        </div>
+                        <div class="swiper-slide history card">
+                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
+                            <h5 class="card-title">14 : 00</h5>
+                            <p class="card-text">서남센터 테니스장 12코트</p>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination history"></div>
+                    <script>
+                        var swiper = new Swiper(".mySwiper.history", {
+                            slidesPerView: 5,
+                            height: 300,
+                            pagination: {
+                                el: ".swiper-pagination.history",
+                                type: "progressbar"
+                            },
+                            breakpoints: {
+                                320: {
+                                    slidesPerView: 3,
+                                    spaceBetween: 10
+                                },
+                                480: {
+                                    slidesPerView: 3,
+                                    spaceBetween: 20
+                                },
+                                640: {
+                                    slidesPerView: 4,
+                                    spaceBetween: 20
+                                },
+                                992: {
+                                    slidesPerView: 4,
+                                    spaceBetween: 20
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+            <!-- End viewed history -->
+	</th:block>
+
+</html>
