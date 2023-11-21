@@ -1,15 +1,16 @@
-package com.tenniswing.project;
+package com.tenniswing.project.shop.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomeController {
+public class ShopController {
 	
-	@GetMapping("/")  
-	public String matchPage(Model model) { 			
-		return "match/match";
+	@GetMapping("shop")  
+	public String shopPage(Model model) {		
+		return "shop/shop";
 	}
-
+	
+	
 }
