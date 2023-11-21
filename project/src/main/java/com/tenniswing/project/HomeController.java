@@ -27,8 +27,4 @@ public class HomeController {
 		return "community/community";
 	}
 	
-	@GetMapping("shop")  
-	public String shopPage(Model model) {		
-		return "shop/shop";
-	}
 }
