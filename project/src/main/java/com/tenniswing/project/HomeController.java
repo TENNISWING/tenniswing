@@ -11,20 +11,5 @@ public class HomeController {
 	public String matchPage(Model model) { 			
 		return "match/match";
 	}
-	
-	@GetMapping("court")  
-	public String courtPage(Model model) { 			
-		return "court/court";
-	}
-	
-	@GetMapping("club")  
-	public String clubPage(Model model) { 		
-		return "club/club";
-	}
-	
-	@GetMapping("sns")  
-	public String communityPage(Model model) { 			
-		return "community/community";
-	}
-	
+
 }
