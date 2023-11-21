@@ -11,5 +11,6 @@ public class HomeController {
 	public String matchPage(Model model) { 			
 		return "match/match";
 	}
-
+  
 }
+
