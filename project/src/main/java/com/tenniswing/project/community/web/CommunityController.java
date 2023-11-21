@@ -1,4 +1,4 @@
-package com.tenniswing.project.community;
+package com.tenniswing.project.community.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
