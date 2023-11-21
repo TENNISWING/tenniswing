@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.tenniswing.project.member.mapper.MemberMapper">
+  	<!-- 전체 조회  -->
+  	<select id="selectAllEmpInfo" resultType="EmpVO">
+  		SELECT employee_id
+  			  , first_name
+  			  , last_name
+  			  , email
+  			  , phone_number
+  			  , hire_date
+  			  , job_id
+  			  , salary
+  			  , commission_pct
+  			  , manager_id
+  			  , department_id
+  		 FROM employees
+  		 ORDER BY employee_id
+  	</select>
+  	
+  	<!-- 단건조회 -->
+  	<select id="selectEmpInfo" resultType="EmpVO">
+  		SELECT employee_id
+  			  , first_name
+  			  , last_name
+  			  , email
+  			  , phone_number
+  			  , hire_date
+  			  , job_id
+  			  , salary
+  			  , commission_pct
+  			  , manager_id
+  			  , department_id
+  		 FROM employees
+  		 WHERE employee_id = #{employeeId}
+  		 <!-- LIKE '%' || #{keyword} || '%'
+  		 	  LIKE '%${keyword}%'		   -->
+  	</select>
+  	
+  	<!-- <if> => 조건이 true인 경우 -->
+  	<!-- <foreach> => 반복문 : 배열로 넘어온 데이터 처리 --> 
+	<!--
+	<select id="selectPostIn" resultType="domain.blog.Post">
+		SELECT *
+		FROM POST P
+		<where>
+			<foreach item="item"(임시변수) index="index" collection="list" (배열)
+				(처음 시작 값)open="ID in (" separator="," close=")" nullable="true">
+				#{item}
+			</foreach>
+		</where>
+	</select> 
+	-->
+  	<!-- <choose> => 다중 if문 -->
+  	<!-- <trim> => 문장 구성 -->
+  	
+  	<!-- 등록 -->
+  	<insert id="insertEmpInfo" parameterType="EmpVO">
+  	 	<selectKey keyProperty="employeeId" 
+  	 			   resultType="int" 
+  	 			   order="BEFORE">
+  	 		<!-- primarykey가 숫자일 경우 사용 -->
+  	 		SELECT NVL(MAX(employee_id), 0) + 1 
+			FROM employees
+  	 	</selectKey>
+  	 	INSERT INTO employees
+  	 			(
+  	 				employee_id
+  	 				,first_name
+  	 				,last_name
+  	 				,email
+  	 				,hire_date
+  	 				,job_id
+  	 				<if test="salary > 0">
+  	 				,salary
+  	 				</if>
+  	 			)
+  	 			VALUES
+  	 			(
+  	 				#{employeeId}
+  	 				,#{firstName}
+  	 				,#{lastName}
+  	 				,#{email}
+  	 				<choose>
+  	 					<when test="hireDate != null">,#{hireDate}</when>
+  	 					<otherwise>,sysdate</otherwise>
+  	 				</choose>  	 				
+  	 				,#{jobId}
+  	 				<if test="salary > 0">
+  	 				,#{salary}
+  	 				</if>
+  	 			)
+  	 			
+  	</insert>
+  	
+  	<!-- 수정 : 전제조건, 전체 데이터 전송 -->
+  	<update id="updateEmpInfo" parameterType="EmpVO">
+  		UPDATE employees
+  			SET
+  				first_name = #{firstName}
+  			  , email = #{email}
+  			  , salary = #{salary}
+  		WHERE employee_id = #{employeeId}
+  	</update>
+  	
+  	<!-- 수정 : 전제조건, 변경된 데이터만 올 경우 Dynamic Sql -->
+  	<update id="updateEmpInfoDynamic" parameterType="EmpVO">
+  		UPDATE employees	  <!--  prefixOverrides="AND |OR "  앞 부분에 대해 처리-->
+  			<trim prefix="set" suffixOverrides="," > <!-- 뒷부분에 대해 처리 -->
+  				<if test="firstName != null and !firstName.equals('')">first_name = #{firstName},</if>
+  				<if test="email != null and !email.equals('')">email = #{email},</if>
+  				<if test="salary > 0">salary = #{salary},</if>
+  			</trim>
+  		WHERE employee_id = #{employeeId}
+  		
+<!--   		UPDATE employees
+  			<set>
+  				<if test="firstName != null and !firstName.equals('')">first_name = #{firstName},</if>
+  				<if test="email != null and !email.equals('')">email = #{email},</if>
+  				<if test="salary > 0">salary = #{salary},</if>
+  			</set>  				
+  		WHERE employee_id = #{employeeId} -->
+  	</update>
+  	
+  	<!-- 삭제 -->
+  	<delete id="deleteEmpInfo" parameterType="int">
+  		DELETE FROM employees
+  		WHERE employee_id = #{empid} <!-- 기본타입으로 한건만 넘어올 경우 #에 다 집어넣어서 일치하지 않아도 됨 -->
+  	</delete>
+  </mapper>
