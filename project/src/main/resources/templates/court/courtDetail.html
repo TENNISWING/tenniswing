@@ -66,32 +66,32 @@
 		<section class="product-main">
 			<div class="container">
 				<div class="row product-detail">
-					<div class="col-md-6">
+					<div class="col-md-6" style="width: 70%">
 						<div class="product-gallery">
 							<div
 								class="product-gallery__thumb swiper productGallerySwiperThumb">
 								<div class="swiper-wrapper">
 									<div class="swiper-slide">
 										<div class="gallery-item">
-											<img src="/assetsSuper/images/products/prod-01.png"
+											<img src="/assets/img/card.jpg"
 												alt="product iamge" />
 										</div>
 									</div>
 									<div class="swiper-slide">
 										<div class="gallery-item">
-											<img src="/assetsSuper/images/products/prod-02.png"
+											<img src="/assets/img/card.jpg"
 												alt="product iamge" />
 										</div>
 									</div>
 									<div class="swiper-slide">
 										<div class="gallery-item">
-											<img src="/assetsSuper/images/products/prod-03.png"
+											<img src="/assets/img/card.jpg"
 												alt="product iamge" />
 										</div>
 									</div>
 									<div class="swiper-slide">
 										<div class="gallery-item">
-											<img src="/assetsSuper/images/products/prod-04.png"
+											<img src="/assets/img/card.jpg"
 												alt="product iamge" />
 										</div>
 									</div>
@@ -101,25 +101,25 @@
 								<div class="swiper-wrapper">
 									<div class="swiper-slide">
 										<div class="gallery-item">
-											<img src="/assetsSuper/images/products/prod-01.png"
+											<img src="/assets/img/card.jpg"
 												alt="product iamge" />
 										</div>
 									</div>
 									<div class="swiper-slide">
 										<div class="gallery-item">
-											<img src="/assetsSuper/images/products/prod-02.png"
+											<img src="/assets/img/card.jpg"
 												alt="product iamge" />
 										</div>
 									</div>
 									<div class="swiper-slide">
 										<div class="gallery-item">
-											<img src="/assetsSuper/images/products/prod-03.png"
+											<img src="/assets/img/card.jpg"
 												alt="product iamge" />
 										</div>
 									</div>
 									<div class="swiper-slide">
 										<div class="gallery-item">
-											<img src="/assetsSuper/images/products/prod-04.png"
+											<img src="/assets/img/card.jpg"
 												alt="product iamge" />
 										</div>
 									</div>
@@ -128,7 +128,7 @@
 						</div>
 					</div>
 					
-					<div class="col-md-6">
+					<div class="col-md-6" style="margin-top: 20px; width: 30%">
 						<div class="product-detail__wrapper">
 							<h2 class="product-detail__title">EB 18 Large Cage Free
 								White A Egg</h2>
@@ -196,7 +196,7 @@
 								</div>
 							</div>
 
-							<div class="product-detail__attr">
+							<!-- <div class="product-detail__attr">
 								<div class="product__attr">
 									<span class="product-detail--stroke">Size</span>
 									<ul class="product__attr--size">
@@ -217,7 +217,7 @@
 										</li>
 									</ul>
 								</div>
-							</div>
+							</div> -->
 							<div class="product-detail__qty">
 						        <span class="product-detail--stroke">quantity</span>
 						        <div class="quantity quantity--outline">
@@ -234,108 +234,18 @@
 					</div>
 						
 					<!-- date slide -->
-					<div class="col-md-6" style="margin-top: 20px;">
-						<!-- Swiper -->
-						<!-- <div class="swiper mySwiper dateslide">
-                    <div class="swiper-wrapper dateslide"> -->
-						<!-- <div class="swiper-slide dateslide">resizeme</div> -->
-						<!-- </div>
-                    <div class="swiper-button-next dateslide text-green"></div>
-                    <div class="swiper-button-prev dateslide text-green"></div>
-                    <script>
-                        var swiper = new Swiper(".mySwiper.dateslide", {            
-
-                            direction : getDirection(),
-                            on: {
-                                resize: function () {
-                                swiper.changeDirection(getDirection());
-                                },
-                            },
-                            pagination: {
-                                el: ".swiper-pagination.dateslide",                         
-                            },
-                            navigation: {
-                                nextEl: ".swiper-button-next.dateslide",
-                                prevEl: ".swiper-button-prev.dateslide",
-                            },
-                            breakpoints: {
-                                320: {
-                                    slidesPerView: 5,
-                                },
-                                480: {
-                                    slidesPerView: 5,
-                                },
-                                640: {
-                                    slidesPerView: 5,
-                                },
-                                992: {
-                                    slidesPerView: 7,
-                                }
-                            }
-                        });
-
-                        function getDirection() {
-                            var windowWidth = window.innerWidth;
-                            var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
-                            return direction;
-                            }
-
-                        const days = ["일", "월", "화", "수", "목", "금", "토", "일", "월", "화", "수", "목", "금", "토"];
-                        let dateGetDay = new Date().getDay();
-                        let dateGetDate = new Date().getDate();
-                        let dateArry = [];
-
-                        for (let i = 0; i < 14; i++) {
-                            dateArry.push({
-                                "day": days[i],
-                                "date": dateGetDate + i
-                            })
-                        }
-                    
-                        $.each(dateArry, (idx, ele) => {
-                            if (idx == 0) {
-                                $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                                    <div class="text-white bg-green rounded-pill">
-                                                    ${ele.date}<br>
-                                                    ${ele.day}</div></div>`)
-                            } else {
-                                $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                                    <div class="text-dark">
-                                                    ${ele.date}<br>
-                                                    ${ele.day}</div></div>`)
-                            }
-                        })
-                        $('.swiper-wrapper.dateslide > div div').on('click', function (e) {
-                            //태그네임 가져오기                 
-                            console.log($(e.target).prop('tagName'))
-                            $('.swiper-wrapper.dateslide > div div').attr('class', 'text-dark')
-                            $(e.target).attr('class','bg-green rounded-pill text-white');
-                            // $(e.target).attr('class','bg-green rounded-pill text-white');                           
-                            // $(e.target)
-                            // if ($(e.target).prop('tagName') == 'A') {                                
-                            //     $('.swiper-wrapper.dateslide a').attr('class', 'link-dark');
-                            //     $(e.target).parent().attr('class', 'bg-green rounded-pill');
-                            //     $(e.target).attr('class', 'text-white');
-                            // }else if ($(e.target).prop('tagName') == 'DIV') {                                
-                            //     $('.swiper-wrapper.dateslide a').attr('class', 'link-dark');
-                            //     $(e.target).attr('class', 'bg-green rounded-pill');
-                            //     $(e.target).children().attr('class', 'text-white');
-                            // }else{}
-                        })
-                    </script>
-                </div>
-            </div> -->
+					<div class="col-md-6" style="margin-top: 20px; width: 27%">
+						<h5>예약 날짜 선택</h5>
 						<div class="modal-body">
 							<input type="date" class="form-control flatpickr-always-open"
 								placeholder="Select date..">
 						</div>
 					</div>
 					<!-- End date slide -->
-					
-					<div class="col-md-6">
+					<div class="col-md-6" style="width: 73%">
 						<div class="card">
 							<div class="card-header">
-								<h5 class="card-title">Horizontal Navs</h5>
+								<h5>코트 및 예약 시간 선택</h5>
 							</div>
 							<div class="card-body">
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -355,45 +265,230 @@
 								<div class="tab-content" id="myTabContent">
 									<div class="tab-pane fade show active" id="home"
 										role="tabpanel" aria-labelledby="home-tab">
-										<p class='my-2'>Lorem ipsum dolor sit amet, consectetur
-											adipiscing elit. Nulla ut nulla neque. Ut hendrerit nulla a
-											euismod pretium. Fusce venenatis sagittis ex efficitur
-											suscipit. In tempor mattis fringilla. Sed id tincidunt
-											orci, et volutpat ligula. Aliquam sollicitudin sagittis ex,
-											a rhoncus nisl feugiat quis. Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit. Nunc ultricies ligula a tempor
-											vulputate. Suspendisse pretium mollis ultrices.</p>
+										<div>
+											<p class='my-2'>
+											<b style="display: block;">1코트<br>
+											<span class="badge bg-light-success">실내</span>&nbsp;
+											<span class="badge bg-light-warning">11000원/2시간당</span><br>
+											</b>
+											<span class="badge bg-success">   </span>
+											<span class="badge bg-success">   </span>
+											<span class="badge bg-success">   </span>
+											<span class="badge bg-success">   </span>
+											<span class="badge bg-light-success">   </span>
+											<span class="badge bg-light-success">   </span>
+											<span class="badge bg-success">   </span>
+											<span class="badge bg-success">   </span>
+											<span class="badge bg-success">   </span>
+											<span class="badge bg-success">   </span>
+											<span class="badge bg-success">   </span>
+											<span class="badge bg-light-success">   </span>
+											<span class="badge bg-light-success">   </span>
+											<span class="badge bg-success">   </span>
+											<br>
+											<span style="font-size: 10px;">9시</span>
+											</p>
+											<div>
+												<p>
+						                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+						                                1코트 사진 보기
+						                            </button>
+					                            </p>
+					                            <div class="collapse" id="collapseExample">
+						                            <div class="row gallery" data-bs-toggle="modal" data-bs-target="#galleryModal">
+							                            <div class="col-6 col-sm-6 col-lg-3 mt-2 mt-md-0 mb-md-0 mb-2">
+							                                <a href="#">
+							                                    <img class="w-100 active" src="https://images.unsplash.com/photo-1633008808000-ce86bff6c1ed?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyN3x8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" data-bs-target="#Gallerycarousel" data-bs-slide-to="0">
+							                                </a>
+							                            </div>
+							                            <div class="col-6 col-sm-6 col-lg-3 mt-2 mt-md-0 mb-md-0 mb-2">
+							                                <a href="#">
+							                                    <img class="w-100" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80" data-bs-target="#Gallerycarousel" data-bs-slide-to="1">
+							                                </a>
+							                            </div>
+							                            <div class="col-6 col-sm-6 col-lg-3 mt-2 mt-md-0 mb-md-0 mb-2">
+							                                <a href="#">
+							                                    <img class="w-100" src="https://images.unsplash.com/photo-1632951634308-d7889939c125?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0M3x8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" data-bs-target="#Gallerycarousel" data-bs-slide-to="2">
+							                                </a>
+							                            </div>
+							                            <div class="col-6 col-sm-6 col-lg-3 mt-2 mt-md-0 mb-md-0 mb-2">
+							                                <a href="#">
+							                                    <img class="w-100" src="https://images.unsplash.com/photo-1632949107130-fc0d4f747b26?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3OHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" data-bs-target="#Gallerycarousel" data-bs-slide-to="3">
+							                                </a>
+							                            </div>
+			                        				</div>
+						                        </div>
+					                        </div>
+										</div>
+                        				<div>
+											<p class='my-2'>
+											<b style="display: block;">2코트<br>
+											<span class="badge bg-light-success">실내</span>&nbsp;
+											<span class="badge bg-light-warning">11000원/2시간당</span></b>
+											<span class="badge bg-success">   </span>
+											<span class="badge bg-success">   </span>
+											<span class="badge bg-success">   </span>
+											<span class="badge bg-success">   </span>
+											<span class="badge bg-light-success">   </span>
+											<span class="badge bg-light-success">   </span>
+											<span class="badge bg-success">   </span>
+											</p>
+											<div>
+												</p>
+						                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+						                                2코트 사진 보기
+						                            </button>
+					                            </p>
+					                            <div class="collapse" id="collapseExample2">
+						                            <div class="row gallery" data-bs-toggle="modal" data-bs-target="#galleryModal">
+							                            <div class="col-6 col-sm-6 col-lg-3 mt-2 mt-md-0 mb-md-0 mb-2">
+							                                <a href="#">
+							                                    <img class="w-100 active" src="https://images.unsplash.com/photo-1633008808000-ce86bff6c1ed?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyN3x8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" data-bs-target="#Gallerycarousel" data-bs-slide-to="0">
+							                                </a>
+							                            </div>
+							                            <div class="col-6 col-sm-6 col-lg-3 mt-2 mt-md-0 mb-md-0 mb-2">
+							                                <a href="#">
+							                                    <img class="w-100" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80" data-bs-target="#Gallerycarousel" data-bs-slide-to="1">
+							                                </a>
+							                            </div>
+							                            <div class="col-6 col-sm-6 col-lg-3 mt-2 mt-md-0 mb-md-0 mb-2">
+							                                <a href="#">
+							                                    <img class="w-100" src="https://images.unsplash.com/photo-1632951634308-d7889939c125?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0M3x8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" data-bs-target="#Gallerycarousel" data-bs-slide-to="2">
+							                                </a>
+							                            </div>
+							                            <div class="col-6 col-sm-6 col-lg-3 mt-2 mt-md-0 mb-md-0 mb-2">
+							                                <a href="#">
+							                                    <img class="w-100" src="https://images.unsplash.com/photo-1632949107130-fc0d4f747b26?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3OHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" data-bs-target="#Gallerycarousel" data-bs-slide-to="3">
+							                                </a>
+							                            </div>
+			                        				</div>
+						                        </div>
+					                        </div>
+										</div>
+										<br>
+										<p style="text-align: right;">
+											<span class="badge bg-success">   </span> 예약 가능    
+											<span class="badge bg-light-success">   </span> 예약 불가
+										</p>
+									</div>
+									<div class="modal fade" id="galleryModal" tabindex="-1" role="dialog"
+									aria-labelledby="galleryModalTitle" aria-hidden="true">
+									    <div class="modal-dialog modal-dialog-centered modal-dialog-centered"
+									role="document">
+									        <div class="modal-content">
+									            <div class="modal-header">
+									                <h5 class="modal-title" id="galleryModalTitle">Our Gallery Example</h5>
+									                <button type="button" class="close" data-bs-dismiss="modal"
+									                    aria-label="Close">
+									                    <i data-feather="x"></i>
+									                </button>
+									            </div>
+									            <div class="modal-body">
+									
+									                <div id="Gallerycarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+									                    <div class="carousel-indicators">
+									                        <button type="button" data-bs-target="#Gallerycarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+									                        <button type="button" data-bs-target="#Gallerycarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+									                        <button type="button" data-bs-target="#Gallerycarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+									                        <button type="button" data-bs-target="#Gallerycarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+									                        </div>
+									                    <div class="carousel-inner">
+									                        <div class="carousel-item active">
+									                            <img class="d-block w-100" src="https://images.unsplash.com/photo-1633008808000-ce86bff6c1ed?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyN3x8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
+									                        </div>
+									                        <div class="carousel-item">
+									                            <img class="d-block w-100" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80">
+									                        </div>
+									                        <div class="carousel-item">
+									                            <img class="d-block w-100" src="https://images.unsplash.com/photo-1632951634308-d7889939c125?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0M3x8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
+									                        </div>
+									                        <div class="carousel-item">
+									                            <img class="d-block w-100" src="https://images.unsplash.com/photo-1632949107130-fc0d4f747b26?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3OHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
+									                        </div>
+									                    </div>
+									                    <a class="carousel-control-prev" href="#Gallerycarousel" role="button" type="button" data-bs-slide="prev">
+									                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									                    </a>
+									                    <a class="carousel-control-next" href="#Gallerycarousel" role="button" data-bs-slide="next">
+									                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+									                    </a>
+									                </div>
+									            </div>
+									
+									            <div class="modal-footer">
+									                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									            </div>
+									        </div>
+									    </div>
 									</div>
 									<div class="tab-pane fade" id="profile" role="tabpanel"
 										aria-labelledby="profile-tab">
 										<br>
-										<p>이용가격 : 12000원 (2시간당)</p>
-										<a href="#" class="btn btn-outline-success" style="width: 100%; margin: 5px;">09:00 ~ 11:00(2시간)</a>
-										<a href="#" class="btn btn-outline-success" style="width: 100%; margin: 5px;">11:00 ~ 13:00(2시간)</a>
-										<a href="#" class="btn btn-outline-success" style="width: 100%; margin: 5px;">16:00 ~ 18:00(2시간)</a>
+										<p><span class="badge bg-light-success" style="font-size: 15px">실내</span>&nbsp;
+										<span class="badge bg-light-warning" style="font-size: 15px">이용가격 : 11000원 (2시간당)</span></p>
+										<div class="product-detail__wrapper">
+											<div class="product-detail__attr">
+												<div class="product__attr">
+													<ul class="product__attr--size">
+														<li style="width: 100%; height: 50px;"><input type="radio" name="filterBySize"
+															id="sizeXXL-01" value="xxl" /> <label for="sizeXXL-01" style="height: 35px;">9:00 ~ 11:00</label>
+														</li>
+														<li style="width: 100%; height: 50px;"><input type="radio" name="filterBySize"
+															id="sizeXL-01" value="xl" /> <label for="sizeXL-01" style="height: 35px;">11:00 ~ 13:00</label>
+														</li>
+														<li style="width: 100%; height: 50px;"><input type="radio" name="filterBySize" id="sizeL-01"
+															value="l" /> <label for="sizeL-01" style="height: 35px;">16:00 ~ 18:00</label></li>
+														<li style="width: 100%; height: 50px;"><input type="radio" name="filterBySize" id="sizeM-01"
+															value="m" /> <label for="sizeM-01" style="height: 35px;">23:00 ~ 25:00</label></li>
+														<li style="width: 100%; height: 50px;"><input type="radio" name="filterBySize" id="sizeS-01"
+															value="s" /> <label for="sizeS-01" style="height: 35px;">03:00 ~ 05:00</label></li>
+														<li style="width: 98%; height: 50px;"><input type="radio" name="filterBySize" id="sizeX-01"
+															value="x" /> <label for="sizeX-01" style="height: 35px;">03:00 ~ 05:00</label></li>
+													</ul>
+												</div>
+											</div>
 										</div>
+									</div>
 									<div class="tab-pane fade" id="contact" role="tabpanel"
 										aria-labelledby="contact-tab">
-										<p class="mt-2">Duis ultrices purus non eros fermentum
-											hendrerit. Aenean ornare interdum viverra. Sed ut odio
-											velit. Aenean eu diam dictum nibh rhoncus mattis quis ac
-											risus. Vivamus eu congue ipsum. Maecenas id sollicitudin
-											ex. Cras in ex vestibulum, posuere orci at, sollicitudin
-											purus. Morbi mollis elementum enim, in cursus sem placerat
-											ut.</p>
+										<br>
+										<p><span class="badge bg-light-success" style="font-size: 15px">실외</span>&nbsp;
+										<span class="badge bg-light-warning" style="font-size: 15px">이용가격 : 11000원 (2시간당)</span></p>
+										<div class="product-detail__wrapper">
+											<div class="product-detail__attr">
+												<div class="product__attr">
+													<ul class="product__attr--size">
+														<li style="width: 100%; height: 50px;"><input type="radio" name="filterBySize"
+															id="sizeA-01" value="xxl" /> <label for="sizeA-01" style="height: 35px;">9:00 ~ 11:00</label>
+														</li>
+														<li style="width: 100%; height: 50px;"><input type="radio" name="filterBySize"
+															id="sizeB-01" value="xl" /> <label for="sizeB-01" style="height: 35px;">11:00 ~ 13:00</label>
+														</li>
+														<li style="width: 100%; height: 50px;"><input type="radio" name="filterBySize" id="sizeC-01"
+															value="l" /> <label for="sizeC-01" style="height: 35px;">16:00 ~ 18:00</label></li>
+														<li style="width: 100%; height: 50px;"><input type="radio" name="filterBySize" id="sizeD-01"
+															value="m" /> <label for="sizeD-01" style="height: 35px;">23:00 ~ 25:00</label></li>
+														<li style="width: 100%; height: 50px;"><input type="radio" name="filterBySize" id="sizeE-01"
+															value="s" /> <label for="sizeE-01" style="height: 35px;">03:00 ~ 05:00</label></li>
+														<li style="width: 98%; height: 50px;"><input type="radio" name="filterBySize" id="sizeF-01"
+															value="x" /> <label for="sizeF-01" style="height: 35px;">03:00 ~ 05:00</label></li>
+													</ul>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="justify-content-center text-center">
-								<div class="product-detail__action" style="width: 200px; display: inline-block; margin: 10px;">
-							        <a href="product-single.html" class="btn btn-primary btn-outline w-100">Add to Cart</a>
-							    </div>
-							    <div class="product-detail__action" style="width: 200px; display: inline-block; margin: 10px;">
-							        <a href="court" class="btn btn-primary btn-outline w-100">Go to List</a>
-							    </div>
-						    </div>
 						</div>
 					</div>
+					<div class="justify-content-center text-center">
+						<div class="product-detail__action" style="width: 200px; display: inline-block; margin: 10px;">
+					        <a href="reserveCourt" class="btn btn-primary btn-outline w-100">Add to Cart</a>
+					    </div>
+					    <div class="product-detail__action" style="width: 200px; display: inline-block; margin: 10px;">
+					        <a href="court" class="btn btn-primary btn-outline w-100">Go to List</a>
+					    </div>
+				    </div>
 
 					<div class="row product-info">
 						<div class="col-12">
@@ -465,13 +560,79 @@
 								<div class="tab-pane fade" id="women-tab-pane" role="tabpanel"
 									aria-labelledby="women-tab" tabindex="0">
 									<div class="content__body">
-										<p>Lorem ipsum, dolor sit amet consectetur adipisicing
-											elit. Atque, non! Non quisquam repellat ullam eos, error
-											voluptates eligendi tenetur veritatis, eius cumque dolor,
-											vero excepturi. Repellendus, blanditiis. Incidunt mollitia ex
-											ipsum minus quia nesciunt repudiandae obcaecati tempore
-											laudantium vitae, velit, dolore molestiae soluta voluptate.
-											Doloremque nemo culpa voluptas sit magni.</p>
+										<div class="review__form pb-30">
+			                                <h3 class="sec__title">Leave a Comment</h3>
+			                                <form action="#" class="form__wrapper">
+			                                    <div class="form-group">
+			                                        <label for="area">Comment</label>
+			                                        <textarea name="area" cols="30" rows="5" id="area" class="form-control form-area" placeholder="Type a comment"></textarea>
+			                                    </div>
+			                                    <div style="text-align: right;">
+			                                    	<button type="submit" class="btn btn-primary" style="margin:0">Submit</button>
+			                                    </div>
+			                                </form>
+			                            </div>
+			                            <div class="client__review">
+			                                <h3 class="sec__title">Comments (2)</h3>
+			                                <div class="review__wrapper">
+			                                    <div class="review__item">
+			                                        <div class="avatar">
+			                                            <img src="assets/images/avatar/avatar-01.png" alt="avatar" />
+			                                        </div>
+			                                        <div class="review__content">
+			                                            <div class="review__desc">
+			                                                <div class="review__wrap">
+			                                                    <h5><a href="#">Hena Sinha</a></h5>
+			                                                    <div class="rating">
+			                                                        <ul>
+			                                                            <li><i class="fa-solid fa-star"></i></li>
+			                                                            <li><i class="fa-solid fa-star"></i></li>
+			                                                            <li><i class="fa-solid fa-star"></i></li>
+			                                                            <li><i class="fa-solid fa-star"></i></li>
+			                                                            <li><i class="fa-regular fa-star"></i></li>
+			                                                        </ul>
+			                                                    </div>
+			                                                </div>
+			                                                <div class="date">18 Jun 2022</div>
+			                                            </div>
+			                                            <div class="review__para">
+			                                                <p>
+			                                                    There are many variations of passages of Lorem Ipsum available, but the majority have thank you suffered alteration in some
+			                                                    form, by injected humour, or randomised words which don't look.
+			                                                </p>
+			                                            </div>
+			                                        </div>
+			                                    </div>
+			                                    <div class="review__item">
+			                                        <div class="avatar">
+			                                            <img src="assets/images/avatar/avatar-02.png" alt="avatar" />
+			                                        </div>
+			                                        <div class="review__content">
+			                                            <div class="review__desc">
+			                                                <div class="review__wrap">
+			                                                    <h5><a href="#">Brenna Das</a></h5>
+			                                                    <div class="rating">
+			                                                        <ul>
+			                                                            <li><i class="fa-solid fa-star"></i></li>
+			                                                            <li><i class="fa-solid fa-star"></i></li>
+			                                                            <li><i class="fa-solid fa-star"></i></li>
+			                                                            <li><i class="fa-solid fa-star"></i></li>
+			                                                            <li><i class="fa-regular fa-star"></i></li>
+			                                                        </ul>
+			                                                    </div>
+			                                                </div>
+			                                                <div class="date">18 Jun 2022</div>
+			                                            </div>
+			                                            <div class="review__para">
+			                                                <p>
+			                                                    There are many variations of passages of Lorem Ipsum available, but the majority have thank you suffered alteration in some
+			                                                    form, by injected humour, or randomised words which don't look.
+			                                                </p>
+			                                            </div>
+			                                        </div>
+			                                    </div>
+			                                </div>
+			                            </div>
 									</div>
 								</div>
 								<div class="tab-pane fade" id="electronics-tab-pane"
@@ -496,8 +657,7 @@
 	</div>
 	<!-- End match table -->
 	
-	
-    
+	<br>
 	<!-- viewed history -->
 	<div class="container">
 		<h5 class="card-title">관련 코트장</h5>

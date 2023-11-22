@@ -15,4 +15,9 @@ public class CourtController {
 	public String courtDetailPage(Model model) { 			
 		return "court/courtDetail";
 	}
+	
+	@GetMapping("reserveCourt")  
+	public String reserveCourtPage(Model model) { 			
+		return "court/reserveCourt";
+	}
 }
