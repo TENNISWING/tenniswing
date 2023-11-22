@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/main-layout}">
+<head>
+	<!-- Super Css -->
+		<!-- font awesome -->
+        <link rel="stylesheet" href="/assetsSuper/css/all.min.css" />
+        <!-- bootstraph -->
+        <!-- <link rel="stylesheet" href="/assetsSuper/css/bootstrap.min.css" /> -->
+        <!-- Fancy Box -->
+        <link rel="stylesheet" href="/assetsSuper/css/jquery.fancybox.min.css" />
+        <!-- swiper js -->
+        <link rel="stylesheet" href="/assetsSuper/css/swiper-bundle.min.css" />
+        <!-- Nice Select -->
+        <link rel="stylesheet" href="/assetsSuper/css/nice-select.css" />
+        <!-- Countdown js -->
+        <link rel="stylesheet" href="/assetsSuper/css/jquery.countdown.css" />
+        <!-- User's CSS Here -->
+        <link rel="stylesheet" href="/assetsSuper/css/style.css" />
+</head>
+	<th:block layout:fragment="content">
+
+            <!-- slide banner -->
+            <div class="container-fluid mb-2 bg-light-info">
+                <div class="container pt-3 pb-3">
+                    <div class="swiper mySwiper banner" data-aos="fade-up">
+                        <div class="swiper-wrapper banner">
+                            <div class="swiper-slide banner text-center">
+                                <img src="/assets/img/slide.png" class="img-fluid" alt="">
+                            </div>
+                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
+                                    class="img-fluid" alt=""></div>
+                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
+                                    class="img-fluid" alt=""></div>
+                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
+                                    class="img-fluid" alt=""></div>
+                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
+                                    class="img-fluid" alt=""></div>
+                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
+                                    class="img-fluid" alt=""></div>
+                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
+                                    class="img-fluid" alt=""></div>
+                        </div>
+                        <div class="swiper-pagination banner"></div>
+                    </div>
+                </div>
+                <script>
+                    var swiper = new Swiper(".mySwiper.banner", {
+                        loop: true,
+                        loopPreventsSliding: true,
+                        grabCursor: true,
+                        autoplay: {
+                            delay: 2000,
+                            pauseOnMouseEnter: true,
+                            disableOnInteraction: false
+                        },
+                        pagination: {
+                            el: ".swiper-pagination.banner",
+                            dynamicBullets: true,
+                            clickable: true,
+                        },
+                    });
+                </script>
+            </div>
+            <!-- End slide banner -->
+
+            <!-- date slide -->
+            <div class="container mt-3 mb-5">
+                <!-- Swiper -->
+                <div class="swiper mySwiper dateslide">
+                    <div class="swiper-wrapper dateslide">
+                         <!-- <div class="swiper-slide dateslide">resizeme</div> -->
+                    </div>
+                    <div class="swiper-button-next dateslide text-green"></div>
+                    <div class="swiper-button-prev dateslide text-green"></div>
+                    <script>
+                        var swiper = new Swiper(".mySwiper.dateslide", {            
+
+                            direction : getDirection(),
+                            on: {
+                                resize: function () {
+                                swiper.changeDirection(getDirection());
+                                },
+                            },
+                            pagination: {
+                                el: ".swiper-pagination.dateslide",                         
+                            },
+                            navigation: {
+                                nextEl: ".swiper-button-next.dateslide",
+                                prevEl: ".swiper-button-prev.dateslide",
+                            },
+                            breakpoints: {
+                                320: {
+                                    slidesPerView: 5,
+                                },
+                                480: {
+                                    slidesPerView: 5,
+                                },
+                                640: {
+                                    slidesPerView: 5,
+                                },
+                                992: {
+                                    slidesPerView: 7,
+                                }
+                            }
+                        });
+
+                        function getDirection() {
+                            var windowWidth = window.innerWidth;
+                            var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
+                            return direction;
+                            }
+
+                        const days = ["일", "월", "화", "수", "목", "금", "토", "일", "월", "화", "수", "목", "금", "토"];
+                        let dateGetDay = new Date().getDay();
+                        let dateGetDate = new Date().getDate();
+                        let dateArry = [];
+
+                        for (let i = 0; i < 14; i++) {
+                            dateArry.push({
+                                "day": days[i],
+                                "date": dateGetDate + i
+                            })
+                        }
+                    
+                        $.each(dateArry, (idx, ele) => {
+                            if (idx == 0) {
+                                $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
+                                                    <div class="text-white bg-green rounded-pill">
+                                                    ${ele.date}<br>
+                                                    ${ele.day}</div></div>`)
+                            } else {
+                                $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
+                                                    <div class="text-dark">
+                                                    ${ele.date}<br>
+                                                    ${ele.day}</div></div>`)
+                            }
+                        })
+                        $('.swiper-wrapper.dateslide > div div').on('click', function (e) {
+                            //태그네임 가져오기                 
+                            console.log($(e.target).prop('tagName'))
+                            $('.swiper-wrapper.dateslide > div div').attr('class', 'text-dark')
+                            $(e.target).attr('class','bg-green rounded-pill text-white');
+                            // $(e.target).attr('class','bg-green rounded-pill text-white');                           
+                            // $(e.target)
+                            // if ($(e.target).prop('tagName') == 'A') {                                
+                            //     $('.swiper-wrapper.dateslide a').attr('class', 'link-dark');
+                            //     $(e.target).parent().attr('class', 'bg-green rounded-pill');
+                            //     $(e.target).attr('class', 'text-white');
+                            // }else if ($(e.target).prop('tagName') == 'DIV') {                                
+                            //     $('.swiper-wrapper.dateslide a').attr('class', 'link-dark');
+                            //     $(e.target).attr('class', 'bg-green rounded-pill');
+                            //     $(e.target).children().attr('class', 'text-white');
+                            // }else{}
+                        })
+                    </script>
+                </div>
+            </div>
+            <!-- End date slide -->
+			
+            
+            <!-- courtroom card -->
+            <div class="container">
+                <!-- <div class="card-body">
+                    <h5 class="card-title">매치</h5> -->
+                    <!-- Default Table -->
+                    <!-- <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-center">
+                                    <b>14 : 00</b>
+                                </td>
+                                <td>
+                                    서남센터 테니스장 12번 코트
+                                </td>
+                                <td class="text-end">
+                                    <button type="button" class="btn btn-primary">신청 가능</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <b>14 : 00</b>
+                                </td>
+                                <td>
+                                    서남센터 테니스장 12번 코트
+                                </td>
+                                <td class="text-end">
+                                    <button type="button" class="btn btn-secondary disabled">매칭 완료</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <b>14 : 00</b>
+                                </td>
+                                <td>
+                                    서남센터 테니스장 12번 코트
+                                </td>
+                                <td class="text-end">
+                                    <button type="button" class="btn btn-danger">마감 임박</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table> -->
+            <section class="product-main">
+            <div class="container">
+                <div class="row product-detail">
+                    <div class="col-md-6">
+                        <div class="product-gallery">
+                            <div class="product-gallery__thumb swiper productGallerySwiperThumb">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="/assetsSuper/images/products/prod-01.png" alt="product iamge" />
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="/assetsSuper/images/products/prod-02.png" alt="product iamge" />
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="/assetsSuper/images/products/prod-03.png" alt="product iamge" />
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="/assetsSuper/images/products/prod-04.png" alt="product iamge" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-gallery__main swiper productGallerySwiper">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="/assetsSuper/images/products/prod-01.png" alt="product iamge" />
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="/assetsSuper/images/products/prod-02.png" alt="product iamge" />
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="/assetsSuper/images/products/prod-03.png" alt="product iamge" />
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="/assetsSuper/images/products/prod-04.png" alt="product iamge" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="product-detail__wrapper">
+                            <h2 class="product-detail__title">EB 18 Large Cage Free White A Egg</h2>
+                            <div class="product-detail__meta">
+                                <div class="rating">
+                                    <ul>
+                                        <li><i class="fa-solid fa-star"></i></li>
+                                        <li><i class="fa-solid fa-star"></i></li>
+                                        <li><i class="fa-solid fa-star"></i></li>
+                                        <li><i class="fa-regular fa-star"></i></li>
+                                        <li><i class="fa-regular fa-star"></i></li>
+                                    </ul>
+                                    <div class="total__rating">
+                                        <a href="#">(3,822 ratings)</a>
+                                    </div>
+                                </div>
+                                <ul class="right-meta">
+                                    <li>
+                                        <a href="#" class="share__btn">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M2.6665 8V13.3333C2.6665 13.687 2.80698 14.0261 3.05703 14.2761C3.30708 14.5262 3.64622 14.6667 3.99984 14.6667H11.9998C12.3535 14.6667 12.6926 14.5262 12.9426 14.2761C13.1927 14.0261 13.3332 13.687 13.3332 13.3333V8"
+                                                    stroke="#002642"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                />
+                                                <path d="M10.6668 3.99998L8.00016 1.33331L5.3335 3.99998" stroke="#002642" stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M8 1.33331V9.99998" stroke="#002642" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            Share
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="wishlist__btn">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M13.8936 3.07333C13.5531 2.73267 13.1488 2.46243 12.7038 2.27805C12.2588 2.09368 11.7819 1.99878 11.3002 1.99878C10.8186 1.99878 10.3416 2.09368 9.89667 2.27805C9.4517 2.46243 9.04741 2.73267 8.70691 3.07333L8.00024 3.78L7.29357 3.07333C6.60578 2.38553 5.67293 1.99914 4.70024 1.99914C3.72755 1.99914 2.7947 2.38553 2.10691 3.07333C1.41911 3.76112 1.03271 4.69397 1.03271 5.66666C1.03271 6.63935 1.41911 7.5722 2.10691 8.26L2.81358 8.96666L8.00024 14.1533L13.1869 8.96666L13.8936 8.26C14.2342 7.91949 14.5045 7.51521 14.6889 7.07023C14.8732 6.62526 14.9681 6.14832 14.9681 5.66666C14.9681 5.185 14.8732 4.70807 14.6889 4.26309C14.5045 3.81812 14.2342 3.41383 13.8936 3.07333V3.07333Z"
+                                                    stroke="black"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                />
+                                            </svg>
+                                            Add to Wishlist
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="stock__item">In-stock</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <h3 class="product-detail__price">$15.00</h3>
+                            <p class="product-detail__short_desc">
+                                There are many variations of passages of Lorem Ipsum and available,majority have suffered alteration in somey form, by injected humour, or
+                                randomised words which don't look even slightly believable.
+                            </p>
+                            <div class="product-detail__attr">
+                                <div class="product__attr">
+                                    <span class="product-detail--stroke">Filter By Color</span>
+                                    <ul class="product__attr--color">
+                                        <li>
+                                            <input type="radio" name="filterByColor" id="colorGreen01" value="green" />
+                                            <label for="colorGreen01" data-bg="#12B76A"></label>
+                                        </li>
+
+                                        <li>
+                                            <input type="radio" name="filterByColor" id="colorYellow01" value="yellow" />
+                                            <label for="colorYellow01" data-bg="#F1C584"></label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="product-detail__attr">
+                                <div class="product__attr">
+                                    <span class="product-detail--stroke">Size</span>
+                                    <ul class="product__attr--size">
+                                        <li>
+                                            <input type="radio" name="filterBySize" id="sizeXXL-01" value="xxl" />
+                                            <label for="sizeXXL-01">XXL</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" name="filterBySize" id="sizeXL-01" value="xl" />
+                                            <label for="sizeXL-01">XL</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" name="filterBySize" id="sizeL-01" value="l" />
+                                            <label for="sizeL-01">L</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" name="filterBySize" id="sizeM-01" value="m" />
+                                            <label for="sizeM-01">M</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" name="filterBySize" id="sizeS-01" value="s" />
+                                            <label for="sizeS-01">S</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" name="filterBySize" id="sizeXS-01" value="xs" />
+                                            <label for="sizeXS-01">XS</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="product-detail__qty">
+                                <span class="product-detail--stroke">quantity</span>
+                                <div class="quantity quantity--outline">
+                                    <button type="button" class="decressQnt">
+                                        <span class="bar"></span>
+                                    </button>
+                                    <input class="qnttinput" type="number" disabled value="0" min="01" max="100" />
+                                    <button type="button" class="incressQnt">
+                                        <span class="bar"></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="product-detail__action">
+                                <div class="item">
+                                    <a href="#" class="btn btn-primary btn-outline">Add to Cart</a>
+                                </div>
+                                <div class="item">
+                                    <a href="#" class="btn btn-primary btn-filled">Buy Now</a>
+                                </div>
+                            </div>
+                            <div class="product-detail__accordion accordion" id="productDetailAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="accordionOne">
+                                        <button
+                                            class="accordion-button product-detail--stroke collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#accordion_one"
+                                            aria-controls="accordion_one"
+                                        >
+                                            Shipping & Returns
+                                        </button>
+                                    </h2>
+                                    <div id="accordion_one" class="accordion-collapse collapse" aria-labelledby="accordionOne" data-bs-parent="#productDetailAccordion">
+                                        <div class="accordion-body">
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, porro.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="accordionTwo">
+                                        <button
+                                            class="accordion-button product-detail--stroke collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#accordion_two"
+                                            aria-controls="accordion_two"
+                                        >
+                                            Care instructions
+                                        </button>
+                                    </h2>
+                                    <div id="accordion_two" class="accordion-collapse collapse" aria-labelledby="accordionTwo" data-bs-parent="#productDetailAccordion">
+                                        <div class="accordion-body">
+                                            <p>
+                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui cum beataesimilique, quae vel inventore veniam ducimus cupiditate
+                                                dolorem consequatur explicabo magnam expedita accusamus nihil quas dolorum! Accusamus, omnis aliquid?
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="accordionThree">
+                                        <button
+                                            class="accordion-button product-detail--stroke collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#accordion_three"
+                                            aria-controls="accordion_three"
+                                        >
+                                            Specifications
+                                        </button>
+                                    </h2>
+                                    <div id="accordion_three" class="accordion-collapse collapse" aria-labelledby="accordionThree" data-bs-parent="#productDetailAccordion">
+                                        <div class="accordion-body">
+                                            <p>
+                                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel nobis, ab odio ipsa suscipit maxime assumenda laboriosam. Nemo, soluta
+                                                ratione?
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row product-info">
+                    <div class="col-12">
+                        <div class="tabs__wrapper tabs__wrapper--v3">
+                            <div class="tabs__filter">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button
+                                            class="nav-link active"
+                                            id="home-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#home-tab-pane"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="home-tab-pane"
+                                            aria-selected="true"
+                                        >
+                                            Product Details
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button
+                                            class="nav-link"
+                                            id="groceries-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#groceries-tab-pane"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="groceries-tab-pane"
+                                            aria-selected="false"
+                                        >
+                                            Additional Information
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button
+                                            class="nav-link"
+                                            id="women-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#women-tab-pane"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="women-tab-pane"
+                                            aria-selected="false"
+                                        >
+                                            Reviews
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button
+                                            class="nav-link"
+                                            id="electronics-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#electronics-tab-pane"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="electronics-tab-pane"
+                                            aria-selected="false"
+                                        >
+                                            Questions
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                                <div class="content__body">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui cursus malesuada massa vitae sed elementum volutpat consectetur. Amet turpis
+                                        aenean praesent arcu turpis elementum vitae euismod ante. Dui diam vitae lorem faucibus non. Arcu maecenas ornare sit tortor.
+                                        <br />
+                                        <br />
+                                        Proin nulla elit ornare enim enim. Mauris placerat mauris at consequat. Quis elementum ipsum et cras sit sagittis eu, aliquet nibh. Eu nulla
+                                        nunc, purus phasellus facilisi risus molestie. Faucibus amet ut tempor, vehicula amet. Duis aliquam tellus urna, nisl vivamus sed aliquam
+                                        tincidunt. Vitae mi varius egestas sed tristique cras odio. Tempor aliquam eget phasellus sit lectus imperdiet. Arcu adipiscing lorem eu leo
+                                        orci condimentum imperdiet. Morbi tellus velit nunc massa turpis tortor quis. Rutrum at faucibus quam consectetur.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="groceries-tab-pane" role="tabpanel" aria-labelledby="groceries-tab" tabindex="0">
+                                <div class="content__body">
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi aliquam quod sapiente maxime necessitatibus natus incidunt voluptate, ut
+                                        illo asperiores. Provident error sit fuga amet magnam sed reiciendis minus odio.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="women-tab-pane" role="tabpanel" aria-labelledby="women-tab" tabindex="0">
+                                <div class="content__body">
+                                    <p>
+                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque, non! Non quisquam repellat ullam eos, error voluptates eligendi tenetur
+                                        veritatis, eius cumque dolor, vero excepturi. Repellendus, blanditiis. Incidunt mollitia ex ipsum minus quia nesciunt repudiandae obcaecati
+                                        tempore laudantium vitae, velit, dolore molestiae soluta voluptate. Doloremque nemo culpa voluptas sit magni.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="electronics-tab-pane" role="tabpanel" aria-labelledby="electronics-tab" tabindex="0">
+                                <div class="content__body">
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, placeat quibusdam. Reiciendis veritatis facere, perspiciatis unde nostrum
+                                        hic deleniti, optio quibusdam quae repellendus laboriosam aut perferendis quis dolore, deserunt illo animi quod tempora adipisci consequatur
+                                        enim! Aspernatur corporis provident, iusto laborum vero libero similique debitis inventore repellat doloribus. Neque, ipsam!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+            </div>
+            <!-- End match table -->
+
+            <!-- viewed history -->
+            <div class="container">
+                <h5 class="card-title">Related Court</h5>
+                <!-- Swiper -->
+                <div class="swiper mySwiper history">
+
+                    <div class="swiper-wrapper history">
+                        <!-- <div class="swiper-slide dateslide"><span class="bg-primary p-3">slide 1</span></div>             -->
+                        <div class="swiper-slide history card">
+                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
+                            <h5 class="card-title">14 : 00</h5>
+                            <p class="card-text">서남센터 테니스장 12코트</p>
+                        </div>
+                        <div class="swiper-slide history card">
+                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
+                            <h5 class="card-title">14 : 00</h5>
+                            <p class="card-text">서남센터 테니스장 12코트</p>
+                        </div>
+                        <div class="swiper-slide history card">
+                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
+                            <h5 class="card-title">14 : 00</h5>
+                            <p class="card-text">서남센터 테니스장 12코트</p>
+                        </div>
+                        <div class="swiper-slide history card">
+                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
+                            <h5 class="card-title">14 : 00</h5>
+                            <p class="card-text">서남센터 테니스장 12코트</p>
+                        </div>
+                        <div class="swiper-slide history card">
+                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
+                            <h5 class="card-title">14 : 00</h5>
+                            <p class="card-text">서남센터 테니스장 12코트</p>
+                        </div>
+                        <div class="swiper-slide history card">
+                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
+                            <h5 class="card-title">14 : 00</h5>
+                            <p class="card-text">서남센터 테니스장 12코트</p>
+                        </div>
+                        <div class="swiper-slide history card">
+                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
+                            <h5 class="card-title">14 : 00</h5>
+                            <p class="card-text">서남센터 테니스장 12코트</p>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination history"></div>
+                    <script>
+                        var swiper = new Swiper(".mySwiper.history", {
+                            slidesPerView: 5,
+                            height: 300,
+                            pagination: {
+                                el: ".swiper-pagination.history",
+                                type: "progressbar"
+                            },
+                            breakpoints: {
+                                320: {
+                                    slidesPerView: 3,
+                                    spaceBetween: 10
+                                },
+                                480: {
+                                    slidesPerView: 3,
+                                    spaceBetween: 20
+                                },
+                                640: {
+                                    slidesPerView: 4,
+                                    spaceBetween: 20
+                                },
+                                992: {
+                                    slidesPerView: 4,
+                                    spaceBetween: 20
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+            <!-- End viewed history -->
+	</th:block>
+	<!-- Super JS -->
+		<!-- JS -->
+        <!-- <script src="assets/js/jquery-3.6.0.min.js"></script> -->
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.fancybox.min.js"></script>
+        <script src="assets/js/jquery.plugin.min.js"></script>
+        <script src="assets/js/jquery.countdown.min.js"></script>
+        <script src="assets/js/counterup.min.js"></script>
+        <script src="assets/js/jquery.waypoints.js"></script>
+        <script src="assets/js/jquery.nice-select.js"></script>
+        <!-- <script src="assets/js/swiper-bundle.min.js"></script> -->
+        <script src="assets/js/scripts.js"></script>
+</html>

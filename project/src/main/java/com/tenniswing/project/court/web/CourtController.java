@@ -10,4 +10,9 @@ public class CourtController {
 	public String courtPage(Model model) { 			
 		return "court/court";
 	}
+	
+	@GetMapping("courtDetail")  
+	public String courtDetailPage(Model model) { 			
+		return "court/courtDetail";
+	}
 }
