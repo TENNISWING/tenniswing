@@ -1,25 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/main-layout}">
 <style>
-.snsdiv {
-	margin: 0 auto;
-}
+	.snsdiv {
+		margin: 0 auto;
+	}
 </style>
 <th:block layout:fragment="content">
 	<!-- community sub menu -->
 	<div class="container mb-4">
 		<ul class="nav d-flex justify-content-around text-center">
-			<li class="d-flex flex-column"><a href="sns"><div>
+			<li class="d-flex flex-column"><a href="sns">
+					<div>
 						<i class="fa-solid fa-photo-film fs-3 text-info"></i>
-					</div>SNS</a></li>
-			<li class="d-flex flex-column"><a href="freeboardList"><div>
+					</div>SNS
+				</a></li>
+			<li class="d-flex flex-column"><a href="freeboardList">
+					<div>
 						<i class="fa-solid fa-chalkboard-teacher fs-3 text-primary"></i>
-					</div>자유게시판</a></li>
-			<li class="d-flex flex-column"><a href="noticeList"><div>
+					</div>자유게시판
+				</a></li>
+			<li class="d-flex flex-column"><a href="noticeList">
+					<div>
 						<i class="fa-solid fa-clipboard-list fs-3 text-warning"></i>
-					</div>공지사항</a></li>
+					</div>공지사항
+				</a></li>
 		</ul>
 	</div>
 	<!-- End community sub menu  -->
@@ -28,6 +33,7 @@
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6">
+
 				<!-- Basic card section start -->
 				<section id="content-types">
 					<div class="row">
@@ -215,7 +221,28 @@
 						</script>
 
 					</div>
-				</section>
+					<div class="swiper-pagination main"></div>
+					<div class="swiper-button-next main"></div>
+					<div class="swiper-button-prev main"></div>
+				</div>
+
+				<!-- Initialize Swiper -->
+				<script>
+					var swiper = new Swiper(".mySwiper", {
+						slidesPerView: "auto",
+						spaceBetween: 30,
+						pagination: {
+							el: ".swiper-pagination main",
+							clickable: true,
+						},
+						navigation: {
+							nextEl: ".swiper-button-next main",
+							prevEl: ".swiper-button-prev main",
+						},
+						 mousewheel: false,
+					     keyboard: false,
+					});
+				</script>
 			</div>
 			<div class="col-3"></div>
 		</div>

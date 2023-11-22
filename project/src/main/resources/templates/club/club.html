@@ -25,7 +25,7 @@
 			<div class="page-title">
 				<div class="row">
 					<div class="col-12 col-md-6 order-md-1 order-last">
-						<h3 style="color:black">원하는 유형의 클럽을 찾아보세요</h3>
+						<h3 style="color: black">원하는 유형의 클럽을 찾아보세요</h3>
 						<p class="text-subtitle text-muted">클럽에 가입하여 함께 테니스를 치세요오오</p>
 						<br>
 					</div>
@@ -33,16 +33,232 @@
 						<nav aria-label="breadcrumb"
 							class="breadcrumb-header float-start float-lg-end">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Email
-									Application</li>
+								<li class="breadcrumb-item"><a href="index.html">클럽</a></li>
+								<li class="breadcrumb-item active" aria-current="page">클럽
+									목록</li>
 							</ol>
 						</nav>
 					</div>
 				</div>
-			</div>
-			<section class="section content-area-wrapper">
+				<hr>
+				<!-- ============= 체크박스  -->
 				
+				<ul class="list-unstyled mb-0">
+					<li class="d-inline-block me-2 mb-1">
+						<div>
+							<p class="text-subtitle text-muted" style="font-weight: bold;">요일</p>
+						</div>
+					</li>
+					<li class="d-inline-block me-2 mb-1">
+						<div class="form-check">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox"
+									class="form-check-input form-check-success" checked
+									name="customCheck" id="customColorCheck3"> <label
+									class="form-check-label">월요일</label>
+							</div>
+						</div>
+					</li>
+					<li class="d-inline-block me-2 mb-1">
+						<div class="form-check">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox"
+									class="form-check-input form-check-success" name="customCheck"
+									id="customColorCheck3"> <label class="form-check-label">화요일</label>
+							</div>
+						</div>
+					</li>
+					<li class="d-inline-block me-2 mb-1">
+						<div class="form-check">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox"
+									class="form-check-input form-check-success" name="customCheck"
+									id="customColorCheck3"> <label class="form-check-label">수요일</label>
+							</div>
+						</div>
+					</li>
+					<li class="d-inline-block me-2 mb-1">
+						<div class="form-check">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox"
+									class="form-check-input form-check-success" name="customCheck"
+									id="customColorCheck3"> <label class="form-check-label">목요일</label>
+							</div>
+						</div>
+					</li>
+					<li class="d-inline-block me-2 mb-1">
+						<div class="form-check">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox"
+									class="form-check-input form-check-success" name="customCheck"
+									id="customColorCheck3"> <label class="form-check-label">금요일</label>
+							</div>
+						</div>
+					</li>
+					<li class="d-inline-block me-2 mb-1">
+						<div class="form-check">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox"
+									class="form-check-input form-check-success" name="customCheck"
+									id="customColorCheck3"> <label class="form-check-label">토요일</label>
+							</div>
+						</div>
+					</li>
+					<li class="d-inline-block me-2 mb-1">
+						<div class="form-check">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox"
+									class="form-check-input form-check-success" name="customCheck"
+									id="customColorCheck3"> <label class="form-check-label">일요일</label>
+							</div>
+						</div>
+					</li>
+				</ul>
+
+				<ul class="list-unstyled mb-0">
+					<li class="d-inline-block me-2 mb-1">
+						<div>
+							<p class="text-subtitle text-muted" style="font-weight: bold;">시간대</p>
+						</div>
+					</li>
+					<li class="d-inline-block me-2 mb-1">
+						<div class="form-check">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox"
+									class="form-check-input form-check-success" checked
+									name="customCheck" id="customColorCheck3"> <label
+									class="form-check-label">아침</label>
+							</div>
+						</div>
+					</li>
+					<li class="d-inline-block me-2 mb-1">
+						<div class="form-check">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox"
+									class="form-check-input form-check-success" name="customCheck"
+									id="customColorCheck3"> <label class="form-check-label">점심</label>
+							</div>
+						</div>
+					</li>
+					<li class="d-inline-block me-2 mb-1">
+						<div class="form-check">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox"
+									class="form-check-input form-check-success" name="customCheck"
+									id="customColorCheck3"> <label class="form-check-label">저녁</label>
+							</div>
+						</div>
+					</li>
+					<li class="d-inline-block me-2 mb-1">
+						<div class="form-check">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox"
+									class="form-check-input form-check-success" name="customCheck"
+									id="customColorCheck3"> <label class="form-check-label">심야</label>
+							</div>
+						</div>
+					</li>
+					
+				</ul>
+			</div>
+			<section class="archive-category">
+			<div class="row align-items-center">
+				<div class="col-12">
+					<div class="filter__area">
+						<div class="section-title__wrap">
+							<form action="#" class="product-filter">
+								<div class="custom__dropdown custom__dropdown__v2">
+									<div class="selected">
+										<div class="selected_item selected_item-v2">내지역</div>
+									</div>
+									<ul class="list list__v2">
+										<li>$100.00 - $200.00</li>
+										<li>$100.00 - $200.00</li>
+										<li>$100.00 - $200.00</li>
+										<li>$100.00 - $200.00</li>
+										<li>$100.00 - $200.00</li>
+									</ul>
+								</div>
+								<div class="custom__dropdown custom__dropdown__v2">
+									<div class="selected">
+										<div class="selected_item selected_item-v2">성별</div>
+									</div>
+									<ul class="list list__v2">
+										<li>남녀모두</li>
+										<li>남자</li>
+										<li>여자</li>
+									</ul>
+								</div>
+								<div class="custom__dropdown custom__dropdown__v2">
+									<div class="selected">
+										<div class="selected_item selected_item-v2">레벨</div>
+									</div>
+									<ul class="list list__v2">
+										<li>1 year warranty</li>
+										<li>2 year warranty</li>
+										<li>3 year warranty</li>
+										<li>4 year warranty</li>
+										<li>5 year warranty</li>
+									</ul>
+								</div>
+								<div class="custom__dropdown custom__dropdown__v2">
+									<div class="selected">
+										<div class="selected_item selected_item-v2">연령대</div>
+									</div>
+									<ul class="list list__v2">
+										<li>10-20대</li>
+										<li>20-30대</li>
+										<li>30-40대</li>
+										<li>40-50대</li>
+										<li>50-60대</li>
+										<li>60대 이상</li>
+									</ul>
+								</div>
+								<div class="custom__dropdown custom__dropdown__v2">
+									<div class="selected">
+										<div class="selected_item selected_item-v2">delivery
+											Speed</div>
+									</div>
+									<ul class="list list__v2">
+										<li>Fast</li>
+										<li>Slow</li>
+										<li>Emergency</li>
+									</ul>
+								</div>
+							</form>
+							<ul class="filtered-query">
+								<li><span class="value">CareVe</span> <a href="#"
+									class="action">&times;</a></li>
+								<li><span class="color" data-bg="red"></span> <span
+									class="value">Red</span> <a href="#" class="action">&times;</a>
+								</li>
+								<li><span class="color" data-bg="green"></span> <span
+									class="value">green</span> <a href="#" class="action">&times;</a>
+								</li>
+								<li><span class="value">In-stock</span> <a href="#"
+									class="action">&times;</a></li>
+								<li><span class="value">Rating: 5 & Up</span> <a href="#"
+									class="action">&times;</a></li>
+								<li><span class="value">2 Days</span> <a href="#"
+									class="action">&times;</a></li>
+								<li class="clearAll"><a href="#">Clear all</a></li>
+							</ul>
+						</div>
+
+						<div class="shortBy-select select__style d-lg-flex d-none">
+							<label for="sortBy2">Sort by:</label> <select name="sortBy" id="sortBy2">
+								<option value="0">최신순</option>
+								<option value="0">인기순</option>
+								<option value="0">이름순</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			</section>
+
+			<section class="section content-area-wrapper">
+
 				<div class="content-right">
 					<div class="content-overlay"></div>
 					<div class="content-wrapper">
@@ -54,32 +270,29 @@
 								<!-- Email list Area -->
 								<div class="email-app-list-wrapper">
 									<div class="email-app-list">
-										
+
 										<!-- email user list start -->
 										<div class="email-user-list list-group ps ps--active-y">
 											<ul class="users-list-wrapper media-list">
 												<li class="media">
 													<div class="user-action">
-														
+
 														<span class="favorite text-warning"> <svg
-																class="bi" width="1.5em" height="1.5em"
-																fill="currentColor">
-                                                       
-                                                    </svg>
+																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
 														</span>
 													</div>
 													<div class="pr-50">
 														<div>
-															<img src="./assets/compiled/jpg/1.jpg"
-																alt="avtar img holder" style="width: 80px; border-radius: 70%;">
+															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
 														</div>
 													</div>
 													<div class="media-body">
 														<div class="user-details">
 															<div class="mail-items">
-																<span class="list-group-item-text text-truncate">최강 테니스👍 
-																<div class="badge badge-pill bg-light-info me-1">멤버수</div>
-																<div class="badge badge-pill bg-light-warning me-1">모집중</div></span>
+																<span class="list-group-item-text text-truncate">최강 테니스👍
+																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
+																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
+																</span>
 															</div>
 														</div>
 														<div class="mail-message">
@@ -106,539 +319,488 @@
 																</span>
 															</div>
 														</div>
-														
+
 													</div>
 													<div class="mail-meta-item">
-																<div class="float-right"> 
-																<span
-																	class="mail-date"><button type="button"  style="margin:0"
-																			class="btn btn-primary btn-block my-4 compose-btn">
-																			가입
-																		</button></span>
-																</div>
-															</div>
-												</li>
-												<li class="media mail-read">
-													<div class="user-action">
-														<div class="checkbox-con me-3">
-															<div class="checkbox checkbox-shadow checkbox-sm">
-																<input type="checkbox" id="checkboxsmall2"
-																	class='form-check-input'> <label
-																	for="checkboxsmall2"></label>
-															</div>
-														</div>
-														<span class="favorite"> <svg class="bi"
-																width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-																	xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
-														</span>
-													</div>
-													<div class="pr-50">
-														<div class="avatar">
-															<img class="rounded-circle"
-																src="./assets/compiled/jpg/3.jpg"
-																alt="Generic placeholder image">
-														</div>
-													</div>
-													<div class="media-body">
-														<div class="user-details">
-															<div class="mail-items">
-																<span class="list-group-item-text text-truncate">Ecommerce
-																	website Paypal integration 😃</span>
-															</div>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="mail-date">2:15 AM</span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text mb-0 truncate">We will
-																start the new application development soon once this
-																will be completed.</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-danger bullet-sm"></span>
-																</span>
-															</div>
+														<div class="float-right">
+															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
 														</div>
 													</div>
 												</li>
 												<li class="media">
 													<div class="user-action">
-														<div class="checkbox-con me-3">
-															<div class="checkbox checkbox-shadow checkbox-sm">
-																<input type="checkbox" id="checkboxsmall3"
-																	class='form-check-input'> <label
-																	for="checkboxsmall3"></label>
-															</div>
-														</div>
-														<span class="favorite"> <svg class="bi"
-																width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-																	xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
-														</span>
-													</div>
-													<div class="pr-50">
-														<div class="avatar">
-															<img class="rounded-circle"
-																src="./assets/compiled/jpg/7.jpg"
-																alt="Generic placeholder image">
-														</div>
-													</div>
-													<div class="media-body">
-														<div class="user-details">
-															<div class="mail-items">
-																<span class="list-group-item-text text-truncate">How
-																	To Set Intentions That Energize You</span>
-															</div>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="mail-date">2:15 AM</span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text mb-0 truncate">I will
-																provide you more details after this Saturday. Hope that
-																will be fine for you..</p>
-															<div class="mail-meta-item">
-																<span class="float-right d-flex align-items-center">
-																	<i class="bi bi-paperclip me-3"></i> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-													</div>
-												</li>
-												<li class="media">
-													<div class="user-action">
-														<div class="checkbox-con me-3">
-															<div class="checkbox checkbox-shadow checkbox-sm">
-																<input type="checkbox" id="checkboxsmall4"
-																	class='form-check-input'> <label
-																	for="checkboxsmall4"></label>
-															</div>
-														</div>
-														<span class="favorite"> <svg class="bi"
-																width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-																	xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
-														</span>
-													</div>
-													<div class="pr-50">
-														<div class="avatar">
-															<img class="rounded-circle"
-																src="./assets/compiled/jpg/5.jpg"
-																alt="Generic placeholder image">
-														</div>
-													</div>
-													<div class="media-body">
-														<div class="user-details">
-															<div class="mail-items">
-																<span class="list-group-item-text text-truncate">Harness
-																	The Power Of Words In Your Life</span>
-															</div>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="mail-date">Yesterday</span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text text-truncate mb-0">
-																When the equation, first to ability the forwards, the a
-																but travelling, outlines sentinels bad expand to
-																goodness....</p>
-															<div class="mail-meta-item">
-																<span class="float-right d-flex align-items-center">
-																	<i class="bi bi-paperclip me-3"></i> <span
-																	class="bullet bullet-warning bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-													</div>
-												</li>
-												<li class="media mail-read">
-													<div class="user-action">
-														<div class="checkbox-con me-3">
-															<div class="checkbox checkbox-shadow checkbox-sm">
-																<input type="checkbox" id="checkboxsmall5"
-																	class='form-check-input'> <label
-																	for="checkboxsmall5"></label>
-															</div>
-														</div>
-														<span class="favorite"> <svg class="bi"
-																width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-																	xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
-														</span>
-													</div>
-													<div class="pr-50">
-														<div class="avatar">
-															<img class="rounded-circle"
-																src="./assets/compiled/jpg/3.jpg"
-																alt="Generic placeholder image">
-														</div>
-													</div>
-													<div class="media-body">
-														<div class="user-details">
-															<div class="mail-items">
-																<span class="list-group-item-text text-truncate mb-0">Helen
-																	Keller A Teller And A Seller</span>
-															</div>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="mail-date">15 July</span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text mb-0 truncate">Thanks
-																for your feedback ! Here's a new layout for a new Modern
-																Admin theme.</p>
-															<div class="mail-meta-item">
-																<span class="float-right d-flex align-items-center">
-																	<i class="bi bi-paperclip me-3"></i> <span
-																	class="bullet bullet-warning bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-													</div>
-												</li>
-												<li class="media mail-read">
-													<div class="user-action">
-														<div class="checkbox-con me-3">
-															<div class="checkbox checkbox-shadow checkbox-sm">
-																<input type="checkbox" id="checkboxsmall6"
-																	class='form-check-input'> <label
-																	for="checkboxsmall6"></label>
-															</div>
-														</div>
+
 														<span class="favorite text-warning"> <svg
-																class="bi" width="1.5em" height="1.5em"
-																fill="currentColor">
-                                                        <use
-																	xlink:href="assets/static/images/bootstrap-icons.svg#star-fill" />
-                                                    </svg>
+																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
 														</span>
 													</div>
 													<div class="pr-50">
-														<div class="avatar">
-															<img class="rounded-circle"
-																src="./assets/compiled/jpg/8.jpg"
-																alt="Generic placeholder image">
+														<div>
+															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
 														</div>
 													</div>
 													<div class="media-body">
 														<div class="user-details">
 															<div class="mail-items">
-																<span class="list-group-item-text text-truncate mb-0">
-																	Use Your Reset Button To Change Your Vibration 🎉 </span>
-															</div>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="mail-date">12-07-2019</span>
+																<span class="list-group-item-text text-truncate">최강 테니스👍
+																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
+																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
 																</span>
 															</div>
 														</div>
 														<div class="mail-message">
-															<p class="list-group-item-text mb-0 truncate">Hey
-																John, bah kivu decrete epanorthotic unnotched Argyroneta
-																nonius veratrine preimaginary.</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-info bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-													</div>
-												</li>
-												<li class="media">
-													<div class="user-action">
-														<div class="checkbox-con me-3">
-															<div class="checkbox checkbox-shadow checkbox-sm">
-																<input type="checkbox" id="checkboxsmall7"
-																	class='form-check-input'> <label
-																	for="checkboxsmall7"></label>
-															</div>
-														</div>
-														<span class="favorite text-warning"> <svg
-																class="bi" width="1.5em" height="1.5em"
-																fill="currentColor">
-                                                        <use
-																	xlink:href="assets/static/images/bootstrap-icons.svg#star-fill" />
-                                                    </svg>
-														</span>
-													</div>
-													<div class="pr-50">
-														<div class="avatar">
-															<img class="rounded-circle"
-																src="./assets/compiled/jpg/5.jpg"
-																alt="Generic placeholder image">
-														</div>
-													</div>
-													<div class="media-body">
-														<div class="user-details">
-															<div class="mail-items">
-																<span class="list-group-item-text text-truncate mb-0">Harness
-																	The Power Of Words In Your Life</span>
-															</div>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="mail-date">03-29-2019</span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text mb-0 truncate">Hope
-																your like it, or feel free to comment, feedback or
-																rebound !</p>
+															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
 															<div class="mail-meta-item">
 																<span class="float-right"> <span
 																	class="bullet bullet-success bullet-sm"></span>
 																</span>
 															</div>
 														</div>
-													</div>
-												</li>
-												<li class="media mail-read">
-													<div class="user-action">
-														<div class="checkbox-con me-3">
-															<div class="checkbox checkbox-shadow checkbox-sm">
-																<input type="checkbox" id="checkboxsmall8"
-																	class='form-check-input'> <label
-																	for="checkboxsmall8"></label>
-															</div>
-														</div>
-														<span class="favorite"> <svg class="bi"
-																width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-																	xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
-														</span>
-													</div>
-													<div class="pr-50">
-														<div class="avatar">
-															<img class="rounded-circle"
-																src="./assets/compiled/jpg/8.jpg"
-																alt="Generic placeholder image">
-														</div>
-													</div>
-													<div class="media-body">
-														<div class="user-details">
-															<div class="mail-items">
-																<span class="list-group-item-text text-truncate mb-0">Hypnosis
-																	12 Steps To Acquire Mind Power</span>
-															</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
 															<div class="mail-meta-item">
 																<span class="float-right"> <span
-																	class="mail-date">19 Jun</span>
+																	class="bullet bullet-success bullet-sm"></span>
 																</span>
 															</div>
 														</div>
 														<div class="mail-message">
-															<p class="list-group-item-text mb-0 truncate">
-																Monstrous with geared from far and these, morals, phase
-																rome; Class. Called get amidst of geared from next...</p>
+															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
 															<div class="mail-meta-item">
 																<span class="float-right"> <span
-																	class="bullet bullet-danger bullet-sm"></span>
+																	class="bullet bullet-success bullet-sm"></span>
 																</span>
 															</div>
 														</div>
+
 													</div>
-												</li>
-												<li class="media mail-read">
-													<div class="user-action">
-														<div class="checkbox-con me-3">
-															<div class="checkbox checkbox-shadow checkbox-sm">
-																<input type="checkbox" id="checkboxsmall9"
-																	class='form-check-input'> <label
-																	for="checkboxsmall9"></label>
-															</div>
-														</div>
-														<span class="favorite"> <svg class="bi"
-																width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-																	xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
-														</span>
-													</div>
-													<div class="pr-50">
-														<div class="avatar">
-															<img class="rounded-circle"
-																src="./assets/compiled/jpg/6.jpg"
-																alt="Generic placeholder image">
-														</div>
-													</div>
-													<div class="media-body">
-														<div class="user-details">
-															<div class="mail-items">
-																<span class="list-group-item-text text-truncate mb-0">How
-																	To Stop Living Your Life On Autopilot</span>
-															</div>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="mail-date">2 Jun</span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text mb-0 truncate">Thanks
-																for your feedback ! Here's a new layout for a new Modern
-																Admin theme.</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-info bullet-sm"></span>
-																</span>
-															</div>
+													<div class="mail-meta-item">
+														<div class="float-right">
+															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
 														</div>
 													</div>
 												</li>
 												<li class="media">
 													<div class="user-action">
-														<div class="checkbox-con me-3">
-															<div class="checkbox checkbox-shadow checkbox-sm">
-																<input type="checkbox" id="checkboxsmall10"
-																	class='form-check-input'> <label
-																	for="checkboxsmall10"></label>
-															</div>
-														</div>
-														<span class="favorite"> <svg class="bi"
-																width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-																	xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
+
+														<span class="favorite text-warning"> <svg
+																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
 														</span>
 													</div>
 													<div class="pr-50">
-														<div class="avatar">
-															<img class="rounded-circle"
-																src="./assets/compiled/jpg/5.jpg"
-																alt="Generic placeholder image">
+														<div>
+															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
 														</div>
 													</div>
 													<div class="media-body">
 														<div class="user-details">
 															<div class="mail-items">
-																<span class="list-group-item-text text-truncate mb-0">
-																	Invest a few hours contributing to the software you use
-																	and love. 🍕 </span>
-															</div>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="mail-date">29 May</span>
+																<span class="list-group-item-text text-truncate">최강 테니스👍
+																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
+																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
 																</span>
 															</div>
 														</div>
 														<div class="mail-message">
-															<p class="list-group-item-text mb-0 truncate">Hope
-																your like it, or feel free to comment, feedback or
-																rebound !</p>
+															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
 															<div class="mail-meta-item">
 																<span class="float-right"> <span
-																	class="bullet bullet-info bullet-sm"></span>
+																	class="bullet bullet-success bullet-sm"></span>
 																</span>
 															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+
+													</div>
+													<div class="mail-meta-item">
+														<div class="float-right">
+															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
 														</div>
 													</div>
 												</li>
 												<li class="media">
 													<div class="user-action">
-														<div class="checkbox-con me-3">
-															<div class="checkbox checkbox-shadow checkbox-sm">
-																<input type="checkbox" id="checkboxsmall11"
-																	class='form-check-input'> <label
-																	for="checkboxsmall11"></label>
-															</div>
-														</div>
-														<span class="favorite"> <svg class="bi"
-																width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-																	xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
+
+														<span class="favorite text-warning"> <svg
+																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
 														</span>
 													</div>
 													<div class="pr-50">
-														<div class="avatar">
-															<img class="rounded-circle"
-																src="./assets/compiled/jpg/1.jpg"
-																alt="Generic placeholder image">
+														<div>
+															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
 														</div>
 													</div>
 													<div class="media-body">
 														<div class="user-details">
 															<div class="mail-items">
-																<span class="list-group-item-text text-truncate mb-0">Harness
-																	The Power Of Words In Your Life</span>
-															</div>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="mail-date">17 May</span>
+																<span class="list-group-item-text text-truncate">최강 테니스👍
+																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
+																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
 																</span>
 															</div>
 														</div>
 														<div class="mail-message">
-															<p class="list-group-item-text mb-0 truncate">Hope
-																your like it, or feel free to comment, feedback or
-																rebound !.</p>
+															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
 															<div class="mail-meta-item">
 																<span class="float-right"> <span
-																	class="bullet bullet-warning bullet-sm"></span>
+																	class="bullet bullet-success bullet-sm"></span>
 																</span>
 															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+
+													</div>
+													<div class="mail-meta-item">
+														<div class="float-right">
+															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
 														</div>
 													</div>
 												</li>
-												<li class="media mail-read">
+												<li class="media">
 													<div class="user-action">
-														<div class="checkbox-con me-3">
-															<div class="checkbox checkbox-shadow checkbox-sm">
-																<input type="checkbox" id="checkboxsmall12"
-																	class='form-check-input'> <label
-																	for="checkboxsmall12"></label>
-															</div>
-														</div>
-														<span class="favorite"> <svg class="bi"
-																width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-																	xlink:href="assets/static/images/bootstrap-icons.svg#star" />
-                                                    </svg>
+
+														<span class="favorite text-warning"> <svg
+																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
 														</span>
 													</div>
 													<div class="pr-50">
-														<div class="avatar">
-															<img class="rounded-circle"
-																src="./assets/compiled/jpg/3.jpg"
-																alt="Generic placeholder image">
+														<div>
+															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
 														</div>
 													</div>
 													<div class="media-body">
 														<div class="user-details">
 															<div class="mail-items">
-																<span class="list-group-item-text text-truncate mb-0">
-																	Know Yourself Your Inner Power </span>
-															</div>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="mail-date">21 Mar</span>
+																<span class="list-group-item-text text-truncate">최강 테니스👍
+																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
+																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
 																</span>
 															</div>
 														</div>
 														<div class="mail-message">
-															<p class="list-group-item-text mb-0 truncate">Hope
-																your like it, or feel free to comment, feedback or
-																rebound !</p>
+															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
 															<div class="mail-meta-item">
 																<span class="float-right"> <span
-																	class="bullet bullet-warning bullet-sm"></span>
+																	class="bullet bullet-success bullet-sm"></span>
 																</span>
 															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+
+													</div>
+													<div class="mail-meta-item">
+														<div class="float-right">
+															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
+														</div>
+													</div>
+												</li>
+												<li class="media">
+													<div class="user-action">
+
+														<span class="favorite text-warning"> <svg
+																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
+														</span>
+													</div>
+													<div class="pr-50">
+														<div>
+															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
+														</div>
+													</div>
+													<div class="media-body">
+														<div class="user-details">
+															<div class="mail-items">
+																<span class="list-group-item-text text-truncate">최강 테니스👍
+																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
+																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+
+													</div>
+													<div class="mail-meta-item">
+														<div class="float-right">
+															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
+														</div>
+													</div>
+												</li>
+												<li class="media">
+													<div class="user-action">
+
+														<span class="favorite text-warning"> <svg
+																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
+														</span>
+													</div>
+													<div class="pr-50">
+														<div>
+															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
+														</div>
+													</div>
+													<div class="media-body">
+														<div class="user-details">
+															<div class="mail-items">
+																<span class="list-group-item-text text-truncate">최강 테니스👍
+																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
+																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+
+													</div>
+													<div class="mail-meta-item">
+														<div class="float-right">
+															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
+														</div>
+													</div>
+												</li>
+												<li class="media">
+													<div class="user-action">
+
+														<span class="favorite text-warning"> <svg
+																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
+														</span>
+													</div>
+													<div class="pr-50">
+														<div>
+															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
+														</div>
+													</div>
+													<div class="media-body">
+														<div class="user-details">
+															<div class="mail-items">
+																<span class="list-group-item-text text-truncate">최강 테니스👍
+																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
+																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+
+													</div>
+													<div class="mail-meta-item">
+														<div class="float-right">
+															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
+														</div>
+													</div>
+												</li>
+												<li class="media">
+													<div class="user-action">
+
+														<span class="favorite text-warning"> <svg
+																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
+														</span>
+													</div>
+													<div class="pr-50">
+														<div>
+															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
+														</div>
+													</div>
+													<div class="media-body">
+														<div class="user-details">
+															<div class="mail-items">
+																<span class="list-group-item-text text-truncate">최강 테니스👍
+																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
+																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+
+													</div>
+													<div class="mail-meta-item">
+														<div class="float-right">
+															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
+														</div>
+													</div>
+												</li>
+												<li class="media">
+													<div class="user-action">
+
+														<span class="favorite text-warning"> <svg
+																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
+														</span>
+													</div>
+													<div class="pr-50">
+														<div>
+															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
+														</div>
+													</div>
+													<div class="media-body">
+														<div class="user-details">
+															<div class="mail-items">
+																<span class="list-group-item-text text-truncate">최강 테니스👍
+																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
+																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+														<div class="mail-message">
+															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
+															<div class="mail-meta-item">
+																<span class="float-right"> <span
+																	class="bullet bullet-success bullet-sm"></span>
+																</span>
+															</div>
+														</div>
+
+													</div>
+													<div class="mail-meta-item">
+														<div class="float-right">
+															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
 														</div>
 													</div>
 												</li>
@@ -654,10 +816,10 @@
 												<div class="ps__thumb-x" tabindex="0"
 													style="left: 0px; width: 0px;"></div>
 											</div>
-											
+
 										</div>
-									
-									<div class="email-action">
+
+										<div class="email-action">
 											<!-- action left start here -->
 											<div class="action-left d-flex align-items-center">
 												<!-- select All checkbox -->
@@ -792,7 +954,7 @@
 												</button>
 											</div>
 										</div>
-										
+
 									</div>
 								</div>
 								<!--/ Email list Area -->

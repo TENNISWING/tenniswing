@@ -32,6 +32,14 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
   font-family: "Manrope", sans-serif;
   color: var(--color-default);
@@ -41,10 +49,18 @@ a {
   color: var(--color-default);
   text-decoration: none;
   font-size: 14px;
+  padding:3px;
 }
 
 a:hover {
   text-decoration: none;
+}
+
+
+.nav a {
+    font-family: yg-jalnan;
+    font-size: 1.5rem;
+    font-style: italic;
 }
 
 h1,
