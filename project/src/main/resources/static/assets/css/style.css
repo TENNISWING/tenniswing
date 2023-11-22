@@ -92,7 +92,7 @@
  * phone-mid
  * phone-xm
  */
-* {
+/* * {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
@@ -929,7 +929,7 @@ section {
             flex: 0 0 auto;
     width: 100%;
   }
-}
+} */
 /*********************************
 /*  Input Apperance Start
 *********************************/
@@ -956,7 +956,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
 /*********************************
 /* Custom Scroll Bar Start
 *********************************/
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
 }
@@ -970,7 +970,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
 ::-webkit-scrollbar-thumb {
   background-color: #eb5e28;
   border-radius: 10px;
-}
+} */
 
 /*********************************
 /* Custom Scroll Bar End
@@ -978,7 +978,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
 /*********************************
 /* Preloader Css Start
 *********************************/
-#preloader {
+/* #preloader {
   position: fixed;
   top: 0;
   left: 0;
@@ -1076,14 +1076,14 @@ input[type=date]::-webkit-calendar-picker-indicator {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
-}
+} */
 /*********************************
 /* Preloader Css End
 *********************************/
 /*********************************
 /* Scroll Up Css Start
 *********************************/
-.scroll-top {
+/* .scroll-top {
   width: 50px;
   height: 50px;
   line-height: 50px;
@@ -1121,7 +1121,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
 }
 .scroll-top:hover {
   background: #252522;
-}
+} */
 
 /*********************************
 /* Scroll Up Css End
@@ -1129,7 +1129,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
 /*********************************
 /* Swiper Arrow Center Start
 *********************************/
-.swiper__arrow-center .swiper-button-next,
+/* .swiper__arrow-center .swiper-button-next,
 .swiper__arrow-center .swiper-button-prev {
   top: 50%;
   left: 0;
@@ -1196,7 +1196,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   .swiper__arrow-center .swiper-button-prev {
     margin-left: 20px;
   }
-}
+} */
 
 /*********************************
 /* Swiper Arrow Center End
@@ -1204,7 +1204,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
 /*********************************
 /*  Common Css Start
 *********************************/
-.border-none {
+/* .border-none {
   border: none !important;
 }
 
@@ -1269,12 +1269,12 @@ button:hover, button:focus {
           box-shadow: 0px 2px 4px -2px rgba(16, 24, 40, 0.0588235294) !important;
   -webkit-box-shadow: 0px 4px 8px -2px rgba(16, 24, 40, 0.1019607843) !important;
           box-shadow: 0px 4px 8px -2px rgba(16, 24, 40, 0.1019607843) !important;
-}
+} */
 
 /*********************************
 /*  row Custom
 *********************************/
-.row > * {
+/* .row > * {
   max-width: 100%;
   padding-right: calc(var(--bs-gutter-x) * 1);
   padding-left: calc(var(--bs-gutter-x) * 1);
@@ -1297,11 +1297,11 @@ button:hover, button:focus {
             flex: 0 0 auto;
     width: 50%;
   }
-}
+} */
 /*********************************
 /*  Heading Typography
 *********************************/
-h1 {
+/* h1 {
   font-family: "Inter", sans-serif;
   font-size: 110px;
   font-weight: 500;
@@ -1363,18 +1363,18 @@ h4 {
   font-size: 24px;
   line-height: 30px;
   font-weight: 500;
-}
+} */
 
 /*********************************
 /*  Content Typography
 *********************************/
-p {
+/* p {
   font-family: "Inter", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
   color: #403c39;
-}
+} */
 
 /*********************************
 /*  Section Tittle Start
@@ -1443,7 +1443,7 @@ p {
 /*********************************
 /* Custom Width
 *********************************/
-.w-25 {
+/* .w-25 {
   width: 25%;
 }
 
@@ -1461,12 +1461,12 @@ p {
 
 .w-100 {
   width: 100%;
-}
+} */
 
 /*********************************
 /*  Button Start
 *********************************/
-.btn {
+/* .btn {
   font-family: "Inter", sans-serif;
   font-size: 16px;
   line-height: 24px;
@@ -1751,7 +1751,7 @@ p {
 }
 .primary__btn:hover {
   color: #6941c6;
-}
+} */
 
 /* ============================ */
 /* Section Header Start */
@@ -3975,6 +3975,7 @@ p {
   color: #eb5e28;
   font-weight: 600;
   padding: 14px 35px;
+  border-radius: 8px;
 }
 .hero__wrapper .hero__btn .btn:hover {
   background: #252522;
@@ -11022,7 +11023,7 @@ p {
 /*********************************
 /*  Footer Start
 *********************************/
-.footer__section {
+/* .footer__section {
   padding-top: 50px;
   background: -webkit-gradient(linear, left bottom, left top, from(rgba(255, 157, 120, 0.02)), to(rgba(255, 157, 120, 0.02))), -webkit-gradient(linear, left bottom, left top, from(#ffffff), to(#ffffff));
   background: linear-gradient(0deg, rgba(255, 157, 120, 0.02), rgba(255, 157, 120, 0.02)), linear-gradient(0deg, #ffffff, #ffffff);
@@ -11235,7 +11236,7 @@ p {
   .footer__bottom .link {
     margin-bottom: 10px;
   }
-}
+} */
 
 /*********************************
 /*  Footer End
@@ -11243,7 +11244,7 @@ p {
 /*********************************
 /* SideBar Start
 *********************************/
-.user__dashboard {
+/* .user__dashboard {
   padding: 50px 0 140px;
 }
 @media screen and (max-width: 991px) {
@@ -11399,7 +11400,7 @@ p {
 }
 .tracking__message .btn__group .tracking-btn {
   color: #475467;
-}
+} */
 
 /*********************************
 /* SideBar End
@@ -11407,7 +11408,7 @@ p {
 /*********************************
 /* Dashboard Title Start
 *********************************/
-.dashboard__title {
+/* .dashboard__title {
   margin-bottom: 30px;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -11478,7 +11479,7 @@ p {
         -ms-flex-direction: column;
             flex-direction: column;
   }
-}
+} */
 
 /*********************************
 /* Dashboard Title End
@@ -11486,7 +11487,7 @@ p {
 /*********************************
 /* Progress Bar Satrt
 *********************************/
-.order__percent {
+/* .order__percent {
   margin-bottom: 20px;
 }
 
@@ -11533,7 +11534,7 @@ p {
   color: #475467;
   font-weight: 500;
   margin-bottom: 0;
-}
+} */
 
 /*********************************
 /* Progress Bar End
@@ -11541,7 +11542,7 @@ p {
 /*********************************
 /* profile__card Start
 *********************************/
-.profile__card {
+/* .profile__card {
   width: 100%;
   padding: 24px;
   border-radius: 16px;
@@ -11719,21 +11720,21 @@ p {
   line-height: 24px;
   letter-spacing: 0em;
   color: #403c39;
-}
+} */
 
 /*********************************
 /* profile__card End
 *********************************/
-@media screen and (max-width: 991px) {
+/* @media screen and (max-width: 991px) {
   .main__wrapper {
     margin-top: 30px;
   }
-}
+} */
 
 /*********************************
 /* profile__trackOrder Start
 *********************************/
-.profile__trackOrder {
+/* .profile__trackOrder {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
@@ -11774,7 +11775,7 @@ p {
   height: 100%;
   max-width: 110px;
   display: block;
-}
+} */
 
 /*********************************
 /* profile__trackOrder End
@@ -11782,7 +11783,7 @@ p {
 /*********************************
 /* Dashboard SideBar Start
 *********************************/
-.flyOut-sidebar {
+/* .flyOut-sidebar {
   position: fixed;
   height: 100%;
   width: 100%;
@@ -12068,7 +12069,7 @@ p {
 }
 #sideBar .nav__item .nav__list.active .icon svg path, #sideBar .nav__item .nav__list:hover .icon svg path {
   stroke: #eb5e28;
-}
+} */
 
 /*********************************
 /* Dashboard SideBar End
@@ -12076,7 +12077,7 @@ p {
 /*********************************
 /* Dashboard MainPage Start
 *********************************/
-.dashboard__mainWrapper {
+/* .dashboard__mainWrapper {
   height: 100%;
 }
 
@@ -12627,7 +12628,7 @@ p {
   font-weight: 400;
   line-height: 17px;
   color: #939393;
-}
+} */
 
 /*********************************
 /* Dashboard MainPage End
@@ -12635,7 +12636,7 @@ p {
 /*********************************
 /* Start Summary Start
 *********************************/
-.state__summary .stateBox {
+/* .state__summary .stateBox {
   background: #fff;
   border-radius: 16px;
   -webkit-box-shadow: 0px 12px 24px 4px rgba(145, 158, 171, 0.1215686275);
@@ -12770,7 +12771,7 @@ p {
   .state__summary .stateBox .Minichart {
     max-width: 100px;
   }
-}
+} */
 
 /*********************************
 /* Start Summary End
@@ -12778,7 +12779,7 @@ p {
 /*********************************
 /* Card Start
 *********************************/
-.card {
+/* .card {
   padding: 24px;
   border: none;
   border-radius: 24px;
@@ -12881,7 +12882,7 @@ p {
 }
 .visitors .apexcharts-legend-series:last-of-type {
   border: none;
-}
+} */
 
 /*********************************
 /* Card End
@@ -12889,7 +12890,7 @@ p {
 /*********************************
 /* Dashboard Table Start
 *********************************/
-.dashboard__table {
+/* .dashboard__table {
   margin-bottom: 0;
 }
 .dashboard__table thead {
@@ -13023,7 +13024,7 @@ p {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-}
+} */
 
 /*********************************
 /* Dashboard Table end
@@ -13031,7 +13032,7 @@ p {
 /*********************************
 /* Progress bar Start
 *********************************/
-.progress__info .single-progressbar {
+/* .progress__info .single-progressbar {
   display: block;
   margin-bottom: 20px;
 }
@@ -13079,7 +13080,7 @@ p {
   font-family: "Inter", sans-serif;
   font-size: 12px;
   line-height: 18px;
-}
+} */
 
 /*********************************
 /* Progress bar End
@@ -13087,7 +13088,7 @@ p {
 /*********************************
 /* Dashboard Product Start
 *********************************/
-.dashboard__product {
+/* .dashboard__product {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -13153,7 +13154,7 @@ p {
 }
 .dashboard__product .rating li {
   color: #eb5e28;
-}
+} */
 
 /*********************************
 /* Dashboard Product End
@@ -13161,7 +13162,7 @@ p {
 /*********************************
 /* Dashboard Breadcrumb Start
 *********************************/
-.dashboard__breadcrumb .breadcrumb__meta ul {
+/* .dashboard__breadcrumb .breadcrumb__meta ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -13204,7 +13205,7 @@ p {
 }
 .dashboard__breadcrumb .breadcrumb__meta ul li:last-of-type::after {
   display: none;
-}
+} */
 
 /*********************************
 /* Dashboard Breadcrumb End
@@ -13212,7 +13213,7 @@ p {
 /*********************************
 /* Dashboard Header Start
 *********************************/
-.dashboard__header {
+/* .dashboard__header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -13284,7 +13285,7 @@ p {
   .dashboard__header .add__btn {
     margin-top: 15px;
   }
-}
+} */
 
 /*********************************
 /* Dashboard Header End
@@ -13292,7 +13293,7 @@ p {
 /*********************************
 /* Dashboard Search Filer Start
 *********************************/
-.dashboard__search--filter {
+/* .dashboard__search--filter {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -13339,7 +13340,7 @@ p {
 }
 .dashboard__search--filter .filter__btn svg path {
   stroke: currentColor;
-}
+} */
 
 /*********************************
 /* Dashboard Search Filer End
@@ -13347,7 +13348,7 @@ p {
 /*********************************
 /* User Profile Start
 *********************************/
-.user__profile .user__avatar {
+/* .user__profile .user__avatar {
   height: 200px;
   width: 200px;
   border-radius: 50%;
@@ -13530,7 +13531,7 @@ p {
   line-height: 20px;
   color: #667085;
   margin-bottom: 0;
-}
+} */
 
 /*********************************
 /* User Profile End
@@ -13538,7 +13539,7 @@ p {
 /*********************************
 /* Calender Start
 *********************************/
-.flatpickr-calendar {
+/* .flatpickr-calendar {
   width: 320px;
   padding: 20px;
   background: #fff;
@@ -13629,7 +13630,7 @@ p {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
-}
+} */
 
 /*********************************
 /* Calender End
@@ -13637,7 +13638,7 @@ p {
 /*********************************
 /* Custom Radion Btn
 *********************************/
-.custom__radio {
+/* .custom__radio {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -13717,7 +13718,7 @@ p {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1);
-}
+} */
 
 /*********************************
 /* Custom Radion Btn
@@ -13725,7 +13726,7 @@ p {
 /*********************************
 /* Custom CheckBox Btn
 *********************************/
-.checkBox__flex {
+/* .checkBox__flex {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
@@ -13816,7 +13817,7 @@ p {
   vertical-align: middle;
   cursor: pointer;
   margin-right: 8px;
-}
+} */
 
 /*********************************
 /* Custom CheckBox Btn
@@ -13824,7 +13825,7 @@ p {
 /*********************************
 /* User List Start
 *********************************/
-.card__wrapper {
+/* .card__wrapper {
   background: #fff;
   border-radius: 8px;
   padding: 24px;
@@ -13968,7 +13969,7 @@ p {
   line-height: 20px;
   color: #667085;
   display: block;
-}
+} */
 
 /*********************************
 /* Custom Radion Btn
@@ -13976,7 +13977,7 @@ p {
 /*********************************
 /* Address card Start
 *********************************/
-.address__wrapper {
+/* .address__wrapper {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
@@ -14061,7 +14062,7 @@ p {
   .address__cards .address__list li {
     font-size: 15px;
   }
-}
+} */
 
 /*********************************
 /* Address card End
@@ -14069,7 +14070,7 @@ p {
 /*********************************
 /* Invoice Start
 *********************************/
-.invoice__main .invoice__wrapper {
+/* .invoice__main .invoice__wrapper {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
@@ -14340,14 +14341,14 @@ p {
   table td.border-none {
     border: none;
   }
-}
+} */
 /*********************************
 /* Invoice End
 *********************************/
 /*********************************
 /* Footer Start
 *********************************/
-.dashboard__footer {
+/* .dashboard__footer {
   position: fixed;
   background: #fff;
   bottom: 0;
@@ -14394,7 +14395,7 @@ p {
     margin: 5px 0;
     font-size: 14px;
   }
-}
+} */
 
 /*********************************
 /* Footer End
@@ -14402,7 +14403,7 @@ p {
 /*********************************
 /* Chat  Start
 *********************************/
-.chat__wrapper {
+/* .chat__wrapper {
   width: calc(100% - 60px);
   height: calc(100% - 60px);
   border: 1px solid rgba(145, 158, 171, 0.1215686275);
@@ -15434,7 +15435,7 @@ p {
 .chat__compose textarea:focus {
   border-color: #eb5e28;
   outline: none;
-}
+} */
 
 /*********************************
 /* Chat  End
@@ -15442,7 +15443,7 @@ p {
 /*********************************
 /* List Start
 *********************************/
-.list {
+/* .list {
   list-style: none;
 }
 .list__item {
@@ -15483,12 +15484,12 @@ p {
   font-size: 16px;
   margin-right: 8px;
   color: currentColor;
-}
+} */
 
 /*********************************
 /* Dashboard Start
 *********************************/
-.dashboard-block__title h4 {
+/* .dashboard-block__title h4 {
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
@@ -15520,7 +15521,7 @@ p {
 
 .dashboard__form {
   margin-top: 16px;
-}
+} */
 
 /*********************************
 /*  Archive page (Categories)
