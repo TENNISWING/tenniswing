@@ -40,6 +40,7 @@ body {
 a {
   color: var(--color-default);
   text-decoration: none;
+  font-size: 14px;
 }
 
 a:hover {
@@ -56,11 +57,11 @@ h6 {
 }
 
 .bg-green{
-  background-color: #008374;
+  background-color: #3DD394;
 }
 
 .text-green{
-  color: #008374;
+  color: #DEE0E4;
 }
 
 
@@ -81,6 +82,7 @@ h6 {
   padding-top: 5px;
   padding-bottom: 5px;
   cursor: pointer;
+  font-size: 16px;
 }
 
 
