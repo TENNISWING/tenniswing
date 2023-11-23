@@ -22,29 +22,25 @@
 
 	<div class="container">
 		<div class="page-heading email-application overflow-hidden">
-			<div class="page-title">
-				<div class="row">
-					<div class="col-12 col-md-6 order-md-1 order-last">
-						<h3 style="color: black">원하는 유형의 클럽을 찾아보세요</h3>
-						<p class="text-subtitle text-muted">클럽에 가입하여 함께 테니스를 치세요오오</p>
-						<br>
-					</div>
-					<div class="col-12 col-md-6 order-md-2 order-first">
-						<nav aria-label="breadcrumb"
-							class="breadcrumb-header float-start float-lg-end">
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="index.html">클럽</a></li>
-								<li class="breadcrumb-item active" aria-current="page">클럽
-									목록</li>
-							</ol>
-						</nav>
-					</div>
+			<div class="row">
+				<div class="col-12 col-md-6 order-md-1 order-last">
+					<h3 style="color: black">원하는 유형의 클럽을 찾아보세요</h3>
+					<p class="text-subtitle text-muted">클럽에 가입하여 함께 테니스를 치세요오오</p>
+					<br>
 				</div>
-				<hr>
-				<!-- ============= 드롭박스  -->				
+				<div class="col-12 col-md-6 order-md-2 order-first">
+					<nav aria-label="breadcrumb"
+						class="breadcrumb-header float-start float-lg-end">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="index.html">클럽</a></li>
+							<li class="breadcrumb-item active" aria-current="page">클럽 목록</li>
+						</ol>
+					</nav>
+				</div>
 			</div>
+			<hr>
+			<!-- ============= 드롭박스  -->				
 			<section class="archive-category">
-			<div class="row align-items-center">
 				<div class="col-12">
 					<div class="filter__area">
 						<div class="section-title__wrap">
@@ -120,7 +116,6 @@
 										<li>60대 이상</li>
 									</ul>
 								</div>
-								
 							</form>
 							<ul class="filtered-query">
 								<li><span class="value">CareVe</span> <a href="#"
@@ -150,7 +145,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			
 			</section>
 
 			<section class="section content-area-wrapper">
@@ -170,7 +165,7 @@
 										<!-- email user list start -->
 										<div class="email-user-list list-group ps ps--active-y">
 											<ul class="users-list-wrapper media-list">
-												<li class="media">
+												<li class="media"   th:each="num : ${#numbers.sequence(1,10)}">
 													<div class="user-action">
 
 														<span class="favorite text-warning"> <svg
@@ -183,7 +178,7 @@
 														</div>
 													</div>
 													<div class="media-body">
-														<div class="user-details">
+														<div class="user-details" >
 															<div class="mail-items">
 																<span class="list-group-item-text text-truncate">최강 테니스👍
 																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
@@ -224,12 +219,10 @@
 																							data-bs-toggle="modal" data-bs-target="#exampleModalCenter">가입</button></span>
 														</div>
 													</div> 
-													
-													<!-- 클럽 가입 신청 버튼 Modal  -->
-													<div class="modal fade" id="exampleModalCenter"
-														tabindex="-1" role="dialog"
-														aria-labelledby="exampleModalCenterTitle"
-														aria-hidden="true">
+												</li>
+												<!-- 클럽 가입 신청 버튼 Modal  -->
+													<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+														 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 														<div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
 															role="document">
 															<div class="modal-content">
@@ -245,7 +238,6 @@
 																		<img src="./assets/img/card.jpg"
 																			style="width: 400px; align: center;">
 																	</div>
-
 																	<p>여기는 클럽 소개글 쏼라쏼라Croissant jelly-o halvah
 																		chocolate sesame snaps. Brownie caramels candy canes
 																		chocolate cake marshmallow icing lollipop I love.
@@ -263,484 +255,8 @@
 															</div>
 														</div>
 													</div>
-												</li>
-												<li class="media">
-													<div class="user-action">
-
-														<span class="favorite text-warning"> <svg
-																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
-														</span>
-													</div>
-													<div class="pr-50">
-														<div>
-															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
-														</div>
-													</div>
-													<div class="media-body">
-														<div class="user-details">
-															<div class="mail-items">
-																<span class="list-group-item-text text-truncate">최강 테니스👍
-																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
-																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-
-													</div>
-													<div class="mail-meta-item">
-														<div class="float-right">
-															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
-														</div>
-													</div>
-												</li>
-												<li class="media">
-													<div class="user-action">
-
-														<span class="favorite text-warning"> <svg
-																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
-														</span>
-													</div>
-													<div class="pr-50">
-														<div>
-															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
-														</div>
-													</div>
-													<div class="media-body">
-														<div class="user-details">
-															<div class="mail-items">
-																<span class="list-group-item-text text-truncate">최강 테니스👍
-																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
-																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-
-													</div>
-													<div class="mail-meta-item">
-														<div class="float-right">
-															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
-														</div>
-													</div>
-												</li>
-												<li class="media">
-													<div class="user-action">
-
-														<span class="favorite text-warning"> <svg
-																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
-														</span>
-													</div>
-													<div class="pr-50">
-														<div>
-															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
-														</div>
-													</div>
-													<div class="media-body">
-														<div class="user-details">
-															<div class="mail-items">
-																<span class="list-group-item-text text-truncate">최강 테니스👍
-																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
-																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-
-													</div>
-													<div class="mail-meta-item">
-														<div class="float-right">
-															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
-														</div>
-													</div>
-												</li>
-												<li class="media">
-													<div class="user-action">
-
-														<span class="favorite text-warning"> <svg
-																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
-														</span>
-													</div>
-													<div class="pr-50">
-														<div>
-															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
-														</div>
-													</div>
-													<div class="media-body">
-														<div class="user-details">
-															<div class="mail-items">
-																<span class="list-group-item-text text-truncate">최강 테니스👍
-																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
-																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-
-													</div>
-													<div class="mail-meta-item">
-														<div class="float-right">
-															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
-														</div>
-													</div>
-												</li>
-												<li class="media">
-													<div class="user-action">
-
-														<span class="favorite text-warning"> <svg
-																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
-														</span>
-													</div>
-													<div class="pr-50">
-														<div>
-															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
-														</div>
-													</div>
-													<div class="media-body">
-														<div class="user-details">
-															<div class="mail-items">
-																<span class="list-group-item-text text-truncate">최강 테니스👍
-																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
-																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-
-													</div>
-													<div class="mail-meta-item">
-														<div class="float-right">
-															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
-														</div>
-													</div>
-												</li>
-												<li class="media">
-													<div class="user-action">
-
-														<span class="favorite text-warning"> <svg
-																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
-														</span>
-													</div>
-													<div class="pr-50">
-														<div>
-															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
-														</div>
-													</div>
-													<div class="media-body">
-														<div class="user-details">
-															<div class="mail-items">
-																<span class="list-group-item-text text-truncate">최강 테니스👍
-																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
-																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-
-													</div>
-													<div class="mail-meta-item">
-														<div class="float-right">
-															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
-														</div>
-													</div>
-												</li>
-												<li class="media">
-													<div class="user-action">
-
-														<span class="favorite text-warning"> <svg
-																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
-														</span>
-													</div>
-													<div class="pr-50">
-														<div>
-															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
-														</div>
-													</div>
-													<div class="media-body">
-														<div class="user-details">
-															<div class="mail-items">
-																<span class="list-group-item-text text-truncate">최강 테니스👍
-																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
-																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-
-													</div>
-													<div class="mail-meta-item">
-														<div class="float-right">
-															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
-														</div>
-													</div>
-												</li>
-												<li class="media">
-													<div class="user-action">
-
-														<span class="favorite text-warning"> <svg
-																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
-														</span>
-													</div>
-													<div class="pr-50">
-														<div>
-															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
-														</div>
-													</div>
-													<div class="media-body">
-														<div class="user-details">
-															<div class="mail-items">
-																<span class="list-group-item-text text-truncate">최강 테니스👍
-																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
-																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-
-													</div>
-													<div class="mail-meta-item">
-														<div class="float-right">
-															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
-														</div>
-													</div>
-												</li>
-												<li class="media">
-													<div class="user-action">
-
-														<span class="favorite text-warning"> <svg
-																class="bi" width="1.5em" height="1.5em" fill="currentColor"></svg>
-														</span>
-													</div>
-													<div class="pr-50">
-														<div>
-															<img src="./assets/compiled/jpg/1.jpg" alt="avtar img holder" style="width: 80px; border-radius: 70%;">
-														</div>
-													</div>
-													<div class="media-body">
-														<div class="user-details">
-															<div class="mail-items">
-																<span class="list-group-item-text text-truncate">최강 테니스👍
-																	<div class="badge badge-pill bg-light-info me-1">멤버수</div>
-																	<div class="badge badge-pill bg-light-warning me-1">모집중</div>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">최강 테니스 클럽 소개글!!</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">경기 수원시 / 수원 테니스 파크</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-														<div class="mail-message">
-															<p class="list-group-item-text truncate mb-0">남녀모두 / 연령대 / 요일-시간대 / 레벨</p>
-															<div class="mail-meta-item">
-																<span class="float-right"> <span
-																	class="bullet bullet-success bullet-sm"></span>
-																</span>
-															</div>
-														</div>
-
-													</div>
-													<div class="mail-meta-item">
-														<div class="float-right">
-															<span class="mail-date"><button type="button" style="margin: 0" class="btn btn-primary btn-block my-4 compose-btn"> 가입</button></span>
-														</div>
-													</div>
-												</li>
+												
+													
 											</ul>
 											<!-- email user list end -->
 
