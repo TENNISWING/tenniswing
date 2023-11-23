@@ -15,7 +15,7 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">
-                    jQuery Datatable
+                    Court List
                 </h5>
             </div>
             <div class="card-body">
@@ -23,24 +23,26 @@
                     <table class="table" id="table1">
                         <thead>
                             <tr>
+                            	<th>Court No</th>
+                                <th>image</th>
                                 <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>City</th>
-                                <th>Status</th>
+                                <th>Location</th>
+                                <th>Price</th>
+                                <th>Button</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr th:each="num : ${#numbers.sequence(1,10)}">
+                            	<td>01</td>
                                 <td>Graiden</td>
                                 <td>vehicula.aliquet@semconsequat.co.uk</td>
                                 <td>076 4820 8838</td>
                                 <td>Offenburg</td>
                                 <td>
-                                    <span class="badge bg-success">Active</span>
+                                    <i class="bi bi-three-dots"></i>
                                 </td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td>Dale</td>
                                 <td>fringilla.euismod.enim@quam.ca</td>
                                 <td>0500 527693</td>
@@ -264,7 +266,7 @@
                                 <td>
                                     <span class="badge bg-success">Active</span>
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
