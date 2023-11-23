@@ -21,21 +21,11 @@
   		 ORDER BY employee_id
   	</select>
   	
-  	<!-- 단건조회 -->
-  	<select id="selectEmpInfo" resultType="MemberVO">
-  		SELECT employee_id
-  			  , first_name
-  			  , last_name
-  			  , email
-  			  , phone_number
-  			  , hire_date
-  			  , job_id
-  			  , salary
-  			  , commission_pct
-  			  , manager_id
-  			  , department_id
-  		 FROM employees
-  		 WHERE employee_id = #{employeeId}
+  	<!-- 로그인 -->
+  	<select id="memberLogin" resultType="MemberVO">
+  		SELECT *
+  		FROM MEM
+  		WHERE MEM_ID = #{memId}
   		 <!-- LIKE '%' || #{keyword} || '%'
   		 	  LIKE '%${keyword}%'		   -->
   	</select>

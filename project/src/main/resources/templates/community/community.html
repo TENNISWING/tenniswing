@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/main-layout}">
 <style>
-	.snsdiv {
-		margin: 0 auto;
-	}
+.snsdiv {
+	margin: 0 auto;
+}
 </style>
 <th:block layout:fragment="content">
 	<!-- community sub menu -->
@@ -14,17 +15,17 @@
 					<div>
 						<i class="fa-solid fa-photo-film fs-3 text-info"></i>
 					</div>SNS
-				</a></li>
+			</a></li>
 			<li class="d-flex flex-column"><a href="freeboardList">
 					<div>
 						<i class="fa-solid fa-chalkboard-teacher fs-3 text-primary"></i>
 					</div>자유게시판
-				</a></li>
+			</a></li>
 			<li class="d-flex flex-column"><a href="noticeList">
 					<div>
 						<i class="fa-solid fa-clipboard-list fs-3 text-warning"></i>
 					</div>공지사항
-				</a></li>
+			</a></li>
 		</ul>
 	</div>
 	<!-- End community sub menu  -->
@@ -33,107 +34,41 @@
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6">
-
-				<!-- Basic card section start -->
-				<section id="content-types">
-					<div class="row">
-					   <!-- snstemplate swiper -->
-						<div class="swiper mySwiper snstem">
-							<div class="swiper-wrapper snstem">
-								<div th:each="num : ${#numbers.sequence(1,5)}" class="swiper-slide snstem">
-									<div class="snsdiv col-xl-12 border border-1 rounded-4">
-										<div class="card snsimg">
-											<div class="card-content">
-												<div class="card-body">
-													<h4 class="card-title">클럽매치데이</h4>
-													<h6 class="card-subtitle">Support card subtitle</h6>
-												</div>
-												<div id="carouselExampleControls" class="carousel slide"
-													data-ride="carousel">
-													<div class="carousel-inner">
-														<div class="carousel-item active">
-															<img src="./assets/compiled/jpg/banana.jpg"
-																class="d-block w-100" alt="...">
-														</div>
-														<div class="carousel-item">
-															<img src="./assets/compiled/jpg/bg-mountain.jpg"
-																class="d-block w-100" alt="...">
-														</div>
-													</div>
-													<a class="carousel-control-prev"
-														href="#carouselExampleControls" role="button"
-														data-bs-slide="prev"> <span
-														class="carousel-control-prev-icon" aria-hidden="true"></span>
-														<span class="visually-hidden">Previous</span>
-													</a> <a class="carousel-control-next"
-														href="#carouselExampleControls" role="button"
-														data-bs-slide="next"> <span
-														class="carousel-control-next-icon" aria-hidden="true"></span>
-														<span class="visually-hidden">Next</span>
-													</a>
-												</div>
-												<div class="card-body">
-												<h6 class="card-subtitle">작성자</h6>
-													<p class="card-text">재은이와 아이들 클럽이랑 매치 한 날ㅋㅋㅋㅋㅋ</p>
-													<p class="card-text"></p>
-															<div class="buttons">
-															<a href="#" class="btn icon btn-success"><i class="fa-solid fa-thumbs-up fs-5 text-white"></i></a>
-															<a href="#" class="btn icon btn-success"><i class="fa-solid fa-comment fs-5 text-white"></i></a>
-															<a href="#" class="btn icon btn-success"><i class="fa-solid fa-share-from-square fs-5 text-white"></i></a>
-															<a href="#" class="btn icon btn-success"><i class="fa-regular fa-bookmark fs-5 text-white"></i></a>
-											
-														</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-						
-
-							</div>
-							<div class="swiper-pagination snstem"></div>
-						</div>
-
-						<!-- Swiper JS -->
-
-						<!-- Initialize Swiper -->
-						<script>
-							/* var swiper = new Swiper(".mySwiper.snstem", {
-								direction : "vertical",
-								autoplay :  false,
-								loop: true,
-								pagination : {
-									
-									el : ".swiper-pagination.snstem",
-									clickable : true,
-								},
-								scrollbar:{
-									el : '.swiper-pagination.snstem',
-							        draggable: true,
-							        dragSize: '500px'
-								
-							    }
-							}); */
-							 var swiper = new Swiper(".mySwiper", {
-							      direction: "vertical",
-							      pagination: {
-							        el: ".swiper-pagination",
-							        clickable: true,
-							      },
-							    });
-						</script>
-
-					</div>
-				</div>
-
-			
-			</div>
+				 <div class="container pt-3 pb-3">
+                    <div class="swiper mySwiper banner" data-aos="fade-up">
+                        <div class="swiper-wrapper banner">
+                            <div class="swiper-slide banner text-center">
+                                <img src="/assets/img/match/slide.png" class="img-fluid" alt="">
+                            </div>
+                            <div class="swiper-slide banner text-center"><img src="/assets/img/match/slide.png"
+                                    class="img-fluid" alt=""></div>
+                        </div>
+                        <div class="swiper-pagination banner"></div>
+                    </div>
+                </div>
+                <script>
+                    var swiper = new Swiper(".mySwiper.banner", {
+                        loop: true,
+                        direction: "vertical",
+                        loopPreventsSliding: true,
+                        grabCursor: true,
+                        autoplay: {
+                            delay: 2000,
+                            pauseOnMouseEnter: true,
+                            disableOnInteraction: false
+                        },
+                        pagination: {
+                            el: ".swiper-pagination.banner",
+                            dynamicBullets: true,
+                            clickable: true,
+                        },
+                    });
+                </script>
 			<div class="col-3"></div>
 		</div>
 
 
 	</div>
-
 </th:block>
 
 </html>
