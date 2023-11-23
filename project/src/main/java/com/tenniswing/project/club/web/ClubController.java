@@ -11,4 +11,9 @@ public class ClubController {
 	public String clubPage(Model model) { 		
 		return "club/club";
 	}
+	
+	@GetMapping("clubform")  
+	public String clubFormPage(Model model) { 		
+		return "club/clubform";
+	}
 }
