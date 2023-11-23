@@ -23,9 +23,6 @@ public class CrtroomVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date crtroomRegiDate;
 	
-	// 코트 상세 테이블
-	private int crtDetailNo;
-	private int crtUserPrice;
-	private String useUnitTime;
-	private int crtroomIndoorOutdoor;
-} 
+	// 첨부파일
+	
+}
