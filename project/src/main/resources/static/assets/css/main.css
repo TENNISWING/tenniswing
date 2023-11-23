@@ -40,6 +40,9 @@
     font-style: normal;
 }
 
+.carousel-item img {
+	height : 800px;
+}
 body {
   font-family: "Manrope", sans-serif;
   color: var(--color-default);
