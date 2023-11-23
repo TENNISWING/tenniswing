@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.tenniswing.project.community.service.SnsVO;
+
 @Controller
 public class CommunityController {
 	// SNS 메인
@@ -22,5 +24,11 @@ public class CommunityController {
 	@GetMapping("noticeList")
 	public String noticeListPage(Model model) {
 		return "community/noticeList";
+	}
+	
+	// sns 등록폼
+	@GetMapping("snsRegister")
+	public String snsRegPage(SnsVO snsVO, Model model) {
+		return "community/snsRegister";
 	}
 }
