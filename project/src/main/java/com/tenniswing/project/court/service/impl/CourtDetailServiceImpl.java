@@ -12,17 +12,24 @@ public class CourtDetailServiceImpl implements CourtDetailService {
 
 	@Autowired
 	CourtDetailMapper courtDetailMapper;
-	
+
 	@Override
 	public int insertCourtDetail(CrtDetailInfoVO crtDetailInfoVO) {
-		int result = courtDetailMapper.insertCourtDetail(crtDetailInfoVO);
-		
-		if(result == 1) {
-			return crtDetailInfoVO.getCrtDetailNo();
-		}
-		else {
-			return -1;
-		}
+		// TODO Auto-generated method stub
+		return 0;
 	}
-
 }
+	
+//	@Override
+//	public int insertCourtDetail(CrtDetailInfoVO crtDetailInfoVO) {
+//		int result = courtDetailMapper.insertCourtDetail(crtDetailInfoVO);
+//		
+//		if(result == 1) {
+//			return crtDetailInfoVO.getCrtDetailNo();
+//		}
+//		else {
+//			return -1;
+//		}
+//	}
+
+//}
