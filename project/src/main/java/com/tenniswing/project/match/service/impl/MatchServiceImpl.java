@@ -19,22 +19,22 @@ public class MatchServiceImpl implements MatchService {
 
 	@Override
 	public MatchVO selectMatch(MatchVO matchVO) {
-		return null;
+		return matchMapper.selectMatch(matchVO);
 	}
 
 	@Override
 	public int insertMatch(MatchVO matchVO) {
-		return 0;
+		return matchMapper.insertMatch(matchVO);
 	}
 
 	@Override
 	public int updateMatch(MatchVO matchVO) {
-		return 0;
+		return matchMapper.updateMatch(matchVO);
 	}
 
 	@Override
 	public int deleteMatch(MatchVO matchVO) {
-		return 0;
+		return matchMapper.deleteMatch(matchVO);
 	}
 
 }
