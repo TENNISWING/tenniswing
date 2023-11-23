@@ -7,16 +7,26 @@ import lombok.Data;
 @Data
 public class MatchVO {
 	private int matchNo;
-	private String matchMemNo;
-	private Date matchDate;
-	private Date matchTime;
-	private String matchGateWay;
-	private String matchProgState;
-	private int crtNo;
-	private String matchNtrp;
-	private String matchLv;
-	private String matchGen;
-	private int matchCrtUseAmt;
-	private int matchRcrPsnNum;
-	private String matchDetailCtt;
+	private String memNo;
+	private Date date;
+	private Date time;
+	private String gateWay;
+	private String progState;
+	private String ntrp;
+	private String lv;
+	private String gen;
+	private int crtUseAmt;
+	private int recruitPsnNum;
+	private String detailCtt;
+	private int crtroomNo;
+	
+	private String clubName;
+	private int clubNo;
+	
+	private String contName;
+	private Date startDate;
+	private Date endDate;
+	private int contAttendCost;
+	
+	private int rsPrice;	
 }
