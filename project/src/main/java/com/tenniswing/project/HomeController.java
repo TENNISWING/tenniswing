@@ -11,5 +11,15 @@ public class HomeController {
 	public String matchPage(Model model) { 			
 		return "match/match";
 	}
+	
+	@GetMapping("/admin")
+	public String adminPage(Model model) { 			
+		return "admin/dashboard";
+	}
+	
+	@GetMapping("/host")
+	public String hostPage(Model model) { 			
+		return "host/dashboard";
+	}
 }
 
