@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class MemberVO {
-	private String memNo;
+	private int memNo;
 	private String memId;
 	private String name;
 	private String pwd;
@@ -20,11 +20,15 @@ public class MemberVO {
 	//profile
 	private String nick;
 	private String age;
+	private String lv;
 	private String region;
 	private String gen;
+	private String ntrp;
 	private String preferGameWay;
 	private String preferAge;
 	private int crtroomNo;
 	private String prImage;	
+	private int mannerPoint;	
+	
 }
 
