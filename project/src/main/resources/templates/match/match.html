@@ -6,14 +6,11 @@
 	<th:block layout:fragment="content">
 		 <!-- match sub menu -->
             <div class="container mb-4">
-                <ul class="nav d-flex justify-content-around text-center matchmenu">
-                    <li class="d-flex flex-column"><a href="/">매치</a></li>
-                    <li class="d-flex flex-column"><a href="/">│</a></li>
-                    <li class="d-flex flex-column"><a href="clubmatch">클럽</a></li>
-                    <li class="d-flex flex-column"><a href="/">│</a></li>
-                    <li class="d-flex flex-column"><a href="contestmatch">대회</a></li>
-                    <li class="d-flex flex-column"><a href="/">│</a></li>
-                    <li class="d-flex flex-column"><a href="startermatch">스타터</a></li>
+                <ul class="nav d-flex justify-content-around text-center matchsidevar">
+                    <li class="d-flex flex-column"><a href="/"><img src="assets/img/match/icon/icon1.png" class=" miconimg">매치</a></li>
+                    <li class="d-flex flex-column"><a href="clubmatch"><img src="assets/img/match/icon/icon2.png" class=" miconimg">클럽</a></li>
+                    <li class="d-flex flex-column"><a href="contestmatch"><img src="assets/img/match/icon/icon3.png" class=" miconimg">대회</a></li>
+                    <li class="d-flex flex-column"><a href="startermatch"><img src="assets/img/match/icon/icon4.png" class=" miconimg">스타터</a></li>
                 </ul>
             </div>
             <!-- End match sub menu  -->
@@ -56,7 +53,7 @@
             <div class="container mt-3 mb-5">
                 <!-- Swiper -->
                 <div class="swiper mySwiper dateslide">
-                    <div class="swiper-wrapper dateslide">
+                    <div class="swiper-wrapper dateslide matchdate">
                         <!-- <div class="swiper-slide dateslide">resizeme</div>            -->
                     </div>
                     <div class="swiper-button-next dateslide text-green"></div>
@@ -148,7 +145,7 @@
 
             <!-- match table -->
             <div class="container">
-                <div class="card-body">
+                <div class="card-body mcardbody">
                     <h5 class="card-title mb-4 mtitle">매치</h5>
                     <!-- Default Table -->
                     <table class="table">
@@ -161,7 +158,7 @@
                                     서남센터 테니스장 12번 코트
                                 </a></td>
                                 <td class="text-end">
-                                    <button type="button" class="btn btn-primary">신청 가능</button>
+                                    <button type="button" class="btn btn-primary matchbtn1">신청 가능</button>
                                 </td>
                             </tr>
                             <tr>
@@ -172,7 +169,7 @@
                                     서남센터 테니스장 12번 코트
                                 </td>
                                 <td class="text-end">
-                                    <button type="button" class="btn btn-secondary disabled">매칭 완료</button>
+                                    <button type="button" class="btn btn-secondary disabled matchbtn2">매칭 완료</button>
                                 </td>
                             </tr>
                             <tr>
@@ -183,7 +180,7 @@
                                     서남센터 테니스장 12번 코트
                                 </td>
                                 <td class="text-end">
-                                    <button type="button" class="btn btn-danger">마감 임박</button>
+                                    <button type="button" class="btn btn-danger matchbtn3">마감 임박</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -216,7 +213,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-12">
+				<div class="col-12 msection">
 					<div class="product__wrapper swiper__pagination">
 						<div class="swiper trending__Swiper">
 							<div class="swiper-wrapper">
@@ -273,7 +270,7 @@
 											<div class="product__bottom">
 												<div class="cart__action__btn">
 													<td class="text-end">
-					                                    <button type="button" class="btn btn-primary">구장 예약</button>
+					                                    <button type="button" class="btn btn-primary matchbtn4">구장 예약</button>
 					                                </td>
 													<div class="quantity cart__quantity">
 														<button type="button" class="decressQnt">

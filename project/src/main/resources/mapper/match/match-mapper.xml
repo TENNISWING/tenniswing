@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.tenniswing.project.match.mapper.MatchMapper">
+  	<!-- 전체 조회  -->
+  	<select id="selectAllMatch" resultType="MatchVO">
+  		SELECT match_no
+  				, mem_no
+  				, match_date
+  				, time
+  				, gate_way
+  				, prog_state
+  				, ntrp
+  				, lv
+  				, gen
+  				, crt_use_amt
+  				, recruit_psn_num
+  				, detail_ctt
+  				, crtroom_no
+  		FROM match
+  		ORDER BY match_no
+   	</select>
+   	
+   	<!-- 클럽 전체 조회  -->
+  	<select id="selectAllClubMatch" resultType="MatchVO">
+  		SELECT match_no
+  				, club_name
+  				, match_date
+  				, time
+  				, game_way
+  				, prog_state
+  				, recruit_psn_num
+  				, club_no
+  				, ntrp
+  				, lv
+  				, crt_use_amt
+  				, detail_ctt
+  				, crtroom_no
+  		FROM club_match
+  		ORDER BY match_no
+   	</select>
+   	
+   	<!-- 대회 전체 조회  -->
+  	<select id="selectAllContMatch" resultType="MatchVO">
+  		SELECT match_no
+  				, cont_name
+  				, start_date
+  				, end_date
+  				, time
+  				, prog_state
+  				, recruit_psn_num
+  				, ntrp
+  				, lv
+  				, cont_attend_cost
+  				, detail_ctt
+  				, crtroom_no
+  		FROM cont_match
+  		ORDER BY match_no
+   	</select>
+
+	<!-- 스타터 전체 조회  -->
+  	<select id="selectAllStarterMatch" resultType="MatchVO">
+  		SELECT match_no
+  				, mem_no
+  				, match_date
+  				, time
+  				, prog_state
+  				, ntrp
+  				, lv
+  				, gen
+  				, rsprice
+  				, recruit_psn_num
+  				, detail_ctt
+  				, crtroom_no
+  		FROM starter_match
+  		ORDER BY match_no
+   	</select>
+
+  	<!-- 단건조회 -->
+  	<select id="selectMatch" resultType="MatchVO">
+  		SELECT match_no
+  				, mem_no
+  				, match_date
+  				, time
+  				, game_way
+  				, prog_state
+  				, ntrp
+  				, lv
+  				, gen
+  				, crt_use_amt
+  				, recruit_psn_num
+  				, detail_ctt
+  				, crtroom_no
+  		FROM match
+  		WHERE match_no = #{matchNo}
+  	</select>
+  	
+  	<!-- 클럽 단건조회 -->
+  	<select id="selectClubMatch" resultType="MatchVO">
+  		SELECT match_no
+  				, mem_no
+  				, match_date
+  				, time
+  				, game_way
+  				, prog_state
+  				, ntrp
+  				, lv
+  				, gen
+  				, crt_use_amt
+  				, recruit_psn_num
+  				, detail_ctt
+  				, crtroom_no
+  		FROM club_match
+  		WHERE match_no = #{matchNo}
+  	</select>
+  	
+  	<!-- 대회 단건조회 -->
+  	<select id="selectContMatch" resultType="MatchVO">
+  		SELECT match_no
+  				, cont_name
+  				, start_date
+  				, end_date
+  				, time
+  				, game_way
+  				, prog_state
+  				, recruit_psn_num
+  				, ntrp
+  				, lv
+  				, cont_attend_cost
+  				, detail_ctt
+  				, crtroom_no
+  		FROM cont_match
+  		WHERE match_no = #{matchNo}
+  	</select>
+  	
+  	<!-- 스타터 단건조회 -->
+  	<select id="selectStarterMatch" resultType="MatchVO">
+  		SELECT match_no
+  				, mem_no
+  				, match_date
+  				, time
+  				, game_way
+  				, prog_state
+  				, ntrp
+  				, lv
+  				, gen
+  				, crt_use_amt
+  				, recruit_psn_num
+  				, detail_ctt
+  				, crtroom_no
+  		FROM starter_match
+  		WHERE match_no = #{matchNo}
+  	</select>
+  	
+  	<!-- 등록 -->
+  	<insert id="insertMatch" parameterType="MatchVO">
+  	 	<selectKey keyProperty="matchNo" 
+  	 			   resultType="int" 
+  	 			   order="BEFORE">
+  	 		<!-- primarykey가 숫자일 경우 사용 -->
+  	 		SELECT NVL(MAX(match_no), 0) + 1 
+			FROM match
+  	 	</selectKey>
+  	 	INSERT INTO match
+  	 			(
+	  	 			match_no
+	  				, mem_no
+	  				, match_date
+	  				, time
+	  				, game_way
+	  				, prog_state
+	  				, ntrp
+	  				, lv
+	  				, gen
+	  				, crt_use_amt
+	  				, recruit_psn_num
+	  				, detail_ctt
+	  				, crtroom_no
+  	 			)
+  	 			VALUES
+  	 			(
+  	 				#{matchNo}
+  	 				,#{memNo}
+  	 				,#{matchDate}
+  	 				,#{time}
+  	 				,#{gameWay}
+  	 				,#{progState}
+  	 				,#{ntrp}
+  	 				,#{lv}
+  	 				,#{gen}
+  	 				,#{crtUseAmt}
+  	 				,#{recruitPsnNum}
+  	 				,#{detailCtt}
+  	 				,#{crtroomNo}  	 				
+  	 			)  	 			
+  	</insert>
+  	
+  	<!-- 클럽 등록 -->
+  	<insert id="insertClubMatch" parameterType="MatchVO">
+  	 	<selectKey keyProperty="matchNo" 
+  	 			   resultType="int" 
+  	 			   order="BEFORE">
+  	 		<!-- primarykey가 숫자일 경우 사용 -->
+  	 		SELECT NVL(MAX(match_no), 0) + 1 
+			FROM match
+  	 	</selectKey>
+  	 	INSERT INTO club_match
+  	 			(
+		  	 		match_no
+	  				, club_name
+	  				, match_date
+	  				, time
+	  				, game_way
+	  				, prog_state
+	  				, recruit_psn_num
+	  				, club_no
+	  				, ntrp
+	  				, lv
+	  				, crt_use_amt
+	  				, detail_ctt
+	  				, crtroom_no
+  	 			)
+  	 			VALUES
+  	 			(
+  	 				#{matchNo}
+  	 				,#{clubName}
+  	 				,#{matchDate}
+  	 				,#{time}
+  	 				,#{gameWay}
+  	 				,#{progState}
+  	 				,#{recruitPsnNum}
+  	 				,#{clubNo}
+  	 				,#{ntrp}
+  	 				,#{lv}
+  	 				,#{crtUseAmt}
+  	 				,#{detailCtt}
+  	 				,#{crtroomNo}  	 				
+  	 			)  	 			
+  	</insert>
+  	
+  	<!-- 대회 등록 -->
+  	<insert id="insertContMatch" parameterType="MatchVO">
+  	 	<selectKey keyProperty="matchNo" 
+  	 			   resultType="int" 
+  	 			   order="BEFORE">
+  	 		<!-- primarykey가 숫자일 경우 사용 -->
+  	 		SELECT NVL(MAX(match_no), 0) + 1 
+			FROM match
+  	 	</selectKey>
+  	 	INSERT INTO cont_match
+  	 			(
+	  	 			match_no
+	  				, cont_name
+	  				, start_date
+	  				, end_date
+	  				, time
+	  				, prog_state
+	  				, recruit_psn_num
+	  				, ntrp
+	  				, lv
+	  				, cont_attend_cost
+	  				, detail_ctt
+	  				, crtroom_no
+  	 			)
+  	 			VALUES
+  	 			(
+  	 				#{matchNo}
+  	 				,#{contName}
+  	 				,#{startDate}
+  	 				,#{endDate}
+  	 				,#{time}
+  	 				,#{progState}
+  	 				,#{ntrp}
+  	 				,#{lv}
+  	 				,#{contAttendCost}
+  	 				,#{detailCtt}
+  	 				,#{crtroomNo}  	 				
+  	 			)  	 			
+  	</insert>
+  	
+  	  	
+  	<!-- 스타터 등록 -->
+  	<insert id="insertStarterMatch" parameterType="MatchVO">
+  	 	<selectKey keyProperty="matchNo" 
+  	 			   resultType="int" 
+  	 			   order="BEFORE">
+  	 		<!-- primarykey가 숫자일 경우 사용 -->
+  	 		SELECT NVL(MAX(match_no), 0) + 1 
+			FROM match
+  	 	</selectKey>
+  	 	INSERT INTO starter_match
+  	 			(
+	  	 			match_no
+	  				, mem_no
+	  				, match_date
+	  				, time
+	  				, prog_state
+	  				, ntrp
+	  				, lv
+	  				, gen
+	  				, rsprice
+	  				, recruit_psn_num
+	  				, detail_ctt
+	  				, crtroom_no
+  	 			)
+  	 			VALUES
+  	 			(
+  	 				#{matchNo}
+  	 				,#{memNo}
+  	 				,#{matchDate}
+  	 				,#{time}
+  	 				,#{progState}
+  	 				,#{ntrp}
+  	 				,#{lv}
+  	 				,#{gen}
+  	 				,#{rsprice}
+  	 				,#{recruitPsnNum}
+  	 				,#{detailCtt}
+  	 				,#{crtroomNo}  		 				
+  	 			)  	 			
+  	</insert>	
+  	  	
+  	<!-- 수정 -->
+  	<update id="updateMatch" parameterType="MatchVO">
+  		UPDATE match
+  			SET
+  				match_no = #{matchNo}
+	  				, mem_no = #{memNo}
+	  				, match_date = #{matchDate}
+	  				, time = #{time}
+	  				, game_way = #{gameWay}
+	  				, prog_state = #{progState}
+	  				, ntrp = #{ntrp}
+	  				, lv = #{lv}
+	  				, gen = #{gen}
+	  				, crt_use_amt = #{crtUseAmt}
+	  				, recruit_psn_num = #{recruitPsnNum}
+	  				, detail_ctt = #{detailCtt}
+	  				, crtroom_no = #{crtroomNo}
+  		WHERE match_no = #{matchNo}
+  	</update>
+  	  	
+  	  	<!-- 클럽 수정 -->
+  	<update id="updateClubMatch" parameterType="MatchVO">
+  		UPDATE club_match
+  			SET
+  				match_no = #{matchNo}
+	  				, club_name = #{clubNmae}
+	  				, match_date = #{matchDate}
+	  				, time = #{time}
+	  				, game_way = #{gameWay}
+	  				, prog_state = #{progState}
+	  				, recruit_psn_num = #{recruitPsnNum}
+	  				, club_no = #{clubNo}
+	  				, ntrp = #{ntrp}
+	  				, lv = #{lv}
+	  				, crt_use_amt = #{crtUseAmt}
+	  				, detail_ctt = #{detailCtt}
+	  				, crtroom_no = #{crtroomNo}
+  		WHERE match_no = #{matchNo}
+  	</update>
+  	  	
+  	  	<!-- 대회 수정 -->
+  	<update id="updateContMatch" parameterType="MatchVO">
+  		UPDATE cont_match
+  			SET
+  				match_no = #{matchNo}
+	  				, cont_name = #{contName}
+	  				, start_date = #{startDate}
+	  				, end_date = #{endDate}
+	  				, time = #{time}
+	  				, prog_state = #{progState}
+	  				, recruit_psn_num = #{recruitPsnNum}
+	  				, ntrp = #{ntrp}
+	  				, lv = #{lv}
+	  				, cont_attend_cost = #{contAttendCost}
+	  				, detail_ctt = #{detailCtt}
+	  				, crtroom_no = #{crtroomNo}
+  		WHERE match_no = #{matchNo}
+  	</update>
+  	  	
+  	  	<!-- 스타터 수정 -->
+  	<update id="updateStarterMatch" parameterType="MatchVO">
+  		UPDATE starter_match
+  			SET
+  				match_no = #{matchNo}
+	  				, mem_no = #{memNo}
+	  				, match_date = #{matchDate}
+	  				, time = #{time}
+	  				, prog_state = #{progState}
+	  				, ntrp = #{ntrp}
+	  				, lv = #{lv}
+	  				, gen = #{gen}
+	  				, rsprice = #{rsprice}
+	  				, recruit_psn_num = #{recruitPsnNum}
+	  				, detail_ctt = #{detailCtt}
+	  				, crtroom_no = #{crtroomNo}
+  		WHERE match_no = #{matchNo}
+  	</update>
+  	  	
+  	<!-- 삭제 -->
+  	<delete id="deleteMatch" parameterType="int">
+  		DELETE FROM match
+  		WHERE match_no = #{matchNo}
+  	</delete>
+  	
+  	<!-- 클럽 삭제 -->
+  	<delete id="deleteClubMatch" parameterType="int">
+  		DELETE FROM club_match
+  		WHERE match_no = #{matchNo}
+  	</delete>
+  	
+  	<!-- 대회 삭제 -->
+  	<delete id="deleteContMatch" parameterType="int">
+  		DELETE FROM cont_match
+  		WHERE match_no = #{matchNo}
+  	</delete>
+  	
+  	<!-- 스타터 삭제 -->
+  	<delete id="deleteStarterMatch" parameterType="int">
+  		DELETE FROM starter_match
+  		WHERE match_no = #{matchNo}
+  	</delete>
+  	
+  </mapper>

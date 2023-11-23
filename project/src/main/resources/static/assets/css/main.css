@@ -40,6 +40,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /*--------------------------------------------------------------
 # SNS
 --------------------------------------------------------------*/
@@ -62,14 +69,40 @@
 # Match
 --------------------------------------------------------------*/
 
+.matchdate {
+	font-family: NanumSquareNeo-Variable;
+}
+
+.mcardbody {
+	font-family: NanumSquareNeo-Variable;
+}
+
+.msection {
+	font-family: NanumSquareNeo-Variable;
+}
+
+.mdttitle {
+	font-family: NanumSquareNeo-Variable;
+}
+
+.miconimg {
+margin-right: 6px;
+margin-bottom: 1px;
+}
+
 .matchmenu {
     justify-content: center;
 }
 
-.matchmenu a {
-    font-family: yg-jalnan;
-    font-size: 1.5rem;
-    font-style: italic;
+.matchsidevar {
+	justify-content: space-evenly;
+}
+
+.matchsidevar a {
+	font-family: NanumSquareNeo-Variable;
+	margin-top: 5px;
+    font-size: 15px;
+    margin-right: 45px;
 }
 
 .bg-green{
@@ -81,11 +114,45 @@
 }
 
 .mtitle {
-    font-family: yg-jalnan;
+    font-family: NanumSquareNeo-Variable;
 }
 
 .mtitle2 {
 	margin-bottom: -45px;
+}
+
+.matchbtn1 {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #259EFF;
+    --bs-btn-border-color: #259EFF;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #259EFF;
+    --bs-btn-hover-border-color: #259EFF;
+    --bs-btn-focus-shadow-rgb: 95, 118, 200;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #259EFF;
+    --bs-btn-active-border-color: #259EFF;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #259EFF;
+    --bs-btn-disabled-border-color: #259EFF;
+    font-size:13px;
+    border-radius: 8px;
+}
+
+.matchbtn2 {
+	font-size:13px;
+    border-radius: 8px;
+}
+
+.matchbtn3 {
+	font-size:13px;
+    border-radius: 8px;
+}
+
+.matchbtn4 {
+	font-size:13px;
+    border-radius: 8px;
 }
 
 /* matchdetail bootstrap css start */
@@ -259,7 +326,7 @@ body{margin-top:20px;}
 }
 
 .blog-single {
-  padding-top: 30px;
+  padding-top: 0px;
   padding-bottom: 30px;
 }
 

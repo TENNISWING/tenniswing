@@ -2966,8 +2966,6 @@ fieldset:disabled .btn {
     --bs-btn-disabled-color: #fff;
     --bs-btn-disabled-bg: #259EFF;
     --bs-btn-disabled-border-color: #259EFF;
-    font-size:15px;
-    border-radius: 20px;
 }
 .btn-secondary {
     --bs-btn-color: #fff;
@@ -2984,8 +2982,6 @@ fieldset:disabled .btn {
     --bs-btn-disabled-color: #fff;
     --bs-btn-disabled-bg: #C6C6C6;
     --bs-btn-disabled-border-color: #C6C6C6;
-    font-size:15px;
-    border-radius: 20px;
 }
 .btn-success {
     --bs-btn-color: #fff;
@@ -3050,8 +3046,6 @@ fieldset:disabled .btn {
     --bs-btn-disabled-color: #fff;
     --bs-btn-disabled-bg: #EA4335;
     --bs-btn-disabled-border-color: #EA4335;
-    font-size:15px;
-    border-radius: 20px;
 }
 .btn-light {
     --bs-btn-color: #000;

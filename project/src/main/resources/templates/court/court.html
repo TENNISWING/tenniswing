@@ -133,7 +133,6 @@
 				</div>
 			</section>
 			<!-- Banner Slider v2 End-->
-	
 			<!-- courtroom filter -->
             <div class="container mb-4">
                 <ul class="nav text-center">
@@ -288,11 +287,11 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- courtroom card -->
             <div class="container">
             	<div class="justify-content-around text-center">
-                    <div class="col-xl-4 col-md-6 col-sm-12"
+                    <div th:each="num : ${#numbers.sequence(1,12)}" class="col-xl-4 col-md-6 col-sm-12"
                     style="display: inline-block; width: 270px; border: 1px solid black; margin: 1%">
 	                    <a href="courtDetail">
 	                        <div class="card">
@@ -314,7 +313,7 @@
 	                        </div>
                         </a>
                     </div>
-                    <div class="col-xl-4 col-md-6 col-sm-12"
+                    <!-- <div class="col-xl-4 col-md-6 col-sm-12"
                     style="display: inline-block; width: 270px; border: 1px solid black; margin: 1%">
                         <div class="card">
                             <div class="card-content">
@@ -373,24 +372,23 @@
                                 <li class="list-group-item">Courtroom Price</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
                  </div>
-                    <div class="container">
-                    <br>
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">다음</a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="container">
+                <br>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">다음</a>
+                        </li>
+                    </ul>
                 </div>
-            <!-- </div> -->
+            </div>
             <!-- End match table -->
 
             <!-- viewed history -->

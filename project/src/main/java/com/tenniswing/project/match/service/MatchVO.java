@@ -8,9 +8,9 @@ import lombok.Data;
 public class MatchVO {
 	private int matchNo;
 	private String memNo;
-	private Date date;
-	private Date time;
-	private String gateWay;
+	private Date matchDate;
+	private Date Time;
+	private String gameWay;
 	private String progState;
 	private String ntrp;
 	private String lv;
