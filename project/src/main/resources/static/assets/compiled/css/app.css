@@ -18590,7 +18590,7 @@ body .bi:before,
     font-weight: 700;
 }
 .layout-horizontal .main-navbar {
-    background-color: #008374;
+    background-color: #ffffff;
     padding: 1rem;
 }
 .layout-horizontal .main-navbar ul {
@@ -18599,6 +18599,7 @@ body .bi:before,
     display: flex;
     gap: 2rem;
     margin-bottom: 0;
+    margin: 0;
 }
 .layout-horizontal .main-navbar ul .menu-link {
     display: flex;
@@ -18618,7 +18619,9 @@ body .bi:before,
     position: relative;
 }
 .layout-horizontal .main-navbar ul > .menu-item .menu-link {
-    color: #dee2e6;
+    color: black;
+    font-family: yg-jalnan;
+    font-size: 1.5rem;
 }
 .layout-horizontal .main-navbar ul > .menu-item.active a {
     color: #fff;
@@ -18635,7 +18638,7 @@ body .bi:before,
     display: block;
 }
 .layout-horizontal .main-navbar ul > .menu-item:hover .menu-link {
-    color: #fff;
+    color: lightgreen;
 }
 .layout-horizontal .main-navbar ul > .menu-item:hover .submenu {
     visibility: visible;
