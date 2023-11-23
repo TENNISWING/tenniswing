@@ -149,7 +149,7 @@
             <!-- match table -->
             <div class="container">
                 <div class="card-body">
-                    <h5 class="card-title mb-4">매치</h5>
+                    <h5 class="card-title mb-4 mtitle">매치</h5>
                     <!-- Default Table -->
                     <table class="table">
                         <tbody>
@@ -157,9 +157,9 @@
                                 <td class="text-center">
                                     <b>14 : 00</b>
                                 </td>
-                                <td>
+                                <td><a href="matchdetail">
                                     서남센터 테니스장 12번 코트
-                                </td>
+                                </a></td>
                                 <td class="text-end">
                                     <button type="button" class="btn btn-primary">신청 가능</button>
                                 </td>
@@ -205,82 +205,126 @@
             </div>
             <!-- End match table -->
 
-            <!-- viewed history -->
-            <div class="container">
-                <h5 class="card-title mb-4">최근 매치 조회 내역</h5>
-                <!-- Swiper -->
-                <div class="swiper mySwiper history">
+            <!-- Trending Section Start -->
+	<section class="trending__section pt-0">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section-title">
+						<h5 class="card-title mtitle mtitle2">최근 매치 조회 내역</h5>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="product__wrapper swiper__pagination">
+						<div class="swiper trending__Swiper">
+							<div class="swiper-wrapper">
+								<div th:each="num : ${#numbers.sequence(1,8)}" class="swiper-slide">
+									<div class="product-card">
+										<div class="product__image__wrapper">
+											<a href="product-single.html" class="product__image"> <img
+												src="assets/images/trending/trends-01.png" alt="icon" />
+											</a>
+											<div class="product__actions">
+												<a href="#" class="action__btn"> <svg width="16"
+														height="14" viewBox="0 0 16 14" fill="none"
+														xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+															d="M13.8931 2.07333C13.5526 1.73267 13.1483 1.46243 12.7033 1.27805C12.2584 1.09368 11.7814 0.998779 11.2998 0.998779C10.8181 0.998779 10.3412 1.09368 9.89618 1.27805C9.45121 1.46243 9.04692 1.73267 8.70642 2.07333L7.99975 2.78L7.29309 2.07333C6.60529 1.38553 5.67244 0.999136 4.69975 0.999136C3.72706 0.999136 2.79422 1.38553 2.10642 2.07333C1.41863 2.76112 1.03223 3.69397 1.03223 4.66666C1.03223 5.63935 1.41863 6.5722 2.10642 7.26L2.81309 7.96666L7.99975 13.1533L13.1864 7.96666L13.8931 7.26C14.2337 6.91949 14.504 6.51521 14.6884 6.07023C14.8727 5.62526 14.9676 5.14832 14.9676 4.66666C14.9676 4.185 14.8727 3.70807 14.6884 3.26309C14.504 2.81812 14.2337 2.41383 13.8931 2.07333V2.07333Z"
+															stroke="#252522" stroke-linecap="round"
+															stroke-linejoin="round" />
+                                                        </svg>
+												</a> <a href="#" data-bs-toggle="modal"
+													data-bs-target="#prod__preview" class="action__btn"> <svg
+														width="16" height="16" viewBox="0 0 16 16" fill="none"
+														xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+															d="M0.666992 7.99996C0.666992 7.99996 3.33366 2.66663 8.00033 2.66663C12.667 2.66663 15.3337 7.99996 15.3337 7.99996C15.3337 7.99996 12.667 13.3333 8.00033 13.3333C3.33366 13.3333 0.666992 7.99996 0.666992 7.99996Z"
+															stroke="#252522" stroke-linecap="round"
+															stroke-linejoin="round" />
+                                                            <path
+															d="M8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z"
+															stroke="#252522" stroke-linecap="round"
+															stroke-linejoin="round" />
+                                                        </svg>
+												</a> <a href="#" class="action__btn"> <svg width="16"
+														height="16" viewBox="0 0 16 16" fill="none"
+														xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+															d="M10 9.33329L13.3333 5.99996L10 2.66663"
+															stroke="#252522" stroke-linecap="round"
+															stroke-linejoin="round" />
+                                                            <path
+															d="M2.66699 13.3333V8.66667C2.66699 7.95942 2.94794 7.28115 3.44804 6.78105C3.94814 6.28095 4.62641 6 5.33366 6H13.3337"
+															stroke="#252522" stroke-linecap="round"
+															stroke-linejoin="round" />
+                                                        </svg>
+												</a>
+											</div>
+										</div>
+										<div class="product__content">
+											<div class="product__title">
+												<h5>
+													<a href="product-single.html">Tootsie Frooties- Taffy
+														Candy - Bulk Fruit Chews - Fruity Roll Fruity Roll</a>
+												</h5>
+											</div>
+											<div class="product__bottom">
+												<div class="cart__action__btn">
+													<td class="text-end">
+					                                    <button type="button" class="btn btn-primary">구장 예약</button>
+					                                </td>
+													<div class="quantity cart__quantity">
+														<button type="button" class="decressQnt">
+															<span class="bar"></span>
+														</button>
+														<input class="qnttinput" type="number" disabled value="0"
+															min="01" max="100" />
+														<button type="button" class="incressQnt">
+															<span class="bar"></span>
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+			
+							</div>
 
-                    <div class="swiper-wrapper history">
-                        <!-- <div class="swiper-slide dateslide"><span class="bg-primary p-3">slide 1</span></div>             -->
-                        <div class="swiper-slide history card">
-                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
-                            <h5 class="card-title mt-3">14 : 00</h5>
-                            <p class="card-text mt-3">서남센터 테니스장 12코트</p>
-                        </div>
-                        <div class="swiper-slide history card">
-                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
-                            <h5 class="card-title">14 : 00</h5>
-                            <p class="card-text">서남센터 테니스장 12코트</p>
-                        </div>
-                        <div class="swiper-slide history card">
-                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
-                            <h5 class="card-title">14 : 00</h5>
-                            <p class="card-text">서남센터 테니스장 12코트</p>
-                        </div>
-                        <div class="swiper-slide history card">
-                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
-                            <h5 class="card-title">14 : 00</h5>
-                            <p class="card-text">서남센터 테니스장 12코트</p>
-                        </div>
-                        <div class="swiper-slide history card">
-                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
-                            <h5 class="card-title">14 : 00</h5>
-                            <p class="card-text">서남센터 테니스장 12코트</p>
-                        </div>
-                        <div class="swiper-slide history card">
-                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
-                            <h5 class="card-title">14 : 00</h5>
-                            <p class="card-text">서남센터 테니스장 12코트</p>
-                        </div>
-                        <div class="swiper-slide history card">
-                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
-                            <h5 class="card-title">14 : 00</h5>
-                            <p class="card-text">서남센터 테니스장 12코트</p>
-                        </div>
-                    </div>
-                    <div class="swiper-pagination history"></div>
-                    <script>
-                        var swiper = new Swiper(".mySwiper.history", {
-                            slidesPerView: 5,
-                            height: 300,
-                            pagination: {
-                                el: ".swiper-pagination.history",
-                                type: "progressbar"
-                            },
-                            breakpoints: {
-                                320: {
-                                    slidesPerView: 3,
-                                    spaceBetween: 10
-                                },
-                                480: {
-                                    slidesPerView: 3,
-                                    spaceBetween: 20
-                                },
-                                640: {
-                                    slidesPerView: 4,
-                                    spaceBetween: 20
-                                },
-                                992: {
-                                    slidesPerView: 4,
-                                    spaceBetween: 20
-                                }
-                            }
-                        });
-                    </script>
-                </div>
-            </div>
-            <!-- End viewed history -->
+							<div class="swiper-button-next">
+								<svg width="35" height="16" viewBox="0 0 35 16" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+                                           <path d="M1 8L34 8"
+										stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" />
+                                           <path d="M27 1L34 8L27 15"
+										stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" />
+                                       </svg>
+							</div>
+							<div class="swiper-button-prev">
+								<svg width="23" height="16" viewBox="0 0 23 16" fill="none"
+									xmlns="http://www.w3.org/2000/svg" style="width: 85%">
+                                        <path d="M22 8H1"
+										stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" />
+                                        <path d="M8 15L1 8L8 1"
+										stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" />
+                                    </svg>
+							</div>
+							<!-- <div class="swiper-slide"></div> -->
+							<div class="swiper-pagination"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Trending Section End -->
+	
 	</th:block>
 
 </html>

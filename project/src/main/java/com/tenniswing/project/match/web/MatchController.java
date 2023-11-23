@@ -21,4 +21,9 @@ public class MatchController {
 	public String startermatchPage(Model model) { 			
 		return "match/startermatch";
 	}
+	
+	@GetMapping("matchdetail")  
+	public String matchdetailPage(Model model) { 			
+		return "match/matchdetail";
+	}
 }

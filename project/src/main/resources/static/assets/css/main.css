@@ -48,14 +48,13 @@ body {
 a {
   color: var(--color-default);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 15px;
   padding:3px;
 }
 
 a:hover {
   text-decoration: none;
 }
-
 
 .nav a {
     font-family: yg-jalnan;
