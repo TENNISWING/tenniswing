@@ -1477,8 +1477,8 @@ h4 {
 /*********************************
 /*  Button Start
 *********************************/
-/* .btn {
-  font-family: "Inter", sans-serif;
+.shop-btn {
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   line-height: 24px;
   font-weight: 500;
@@ -1498,7 +1498,7 @@ h4 {
   -webkit-transition: all 300ms ease-in-out;
   transition: all 300ms ease-in-out;
 }
-.btn i {
+.shop-btn i {
   font-size: 15px;
   margin-right: 3px;
   height: 24px;
@@ -1516,42 +1516,43 @@ h4 {
           justify-content: center;
   line-height: 24px;
 }
-.btn svg {
+.shop-btn svg {
   width: 20px;
   height: auto;
   margin-right: 10px;
 }
-.btn svg path {
+.shop-btn svg path {
   fill: currentColor;
 }
-.btn:focus {
+.shop-btn:focus {
   -webkit-box-shadow: none;
           box-shadow: none;
   outline: none;
 }
-.btn-primary {
-  background-color: #eb5e28;
-  color: #fff;
+.shop-btn-primary {
+  background-color: #fff;
+  border: 1px solid #d0d5dd;
+  color: #667085;
   -webkit-box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.0509803922);
           box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.0509803922);
 }
-.btn-primary:focus, .btn-primary:hover {
-  background: #252522;
+.shop-btn-primary:focus, .shop-btn-primary:hover {
+  background: #87e585;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
-.btn-primary:focus svg path, .btn-primary:hover svg path {
+.shop-btn-primary:focus svg path, .shop-btn-primary:hover svg path {
   fill: currentColor;
 }
-.btn-primary.-o {
+.shop-btn-primary.-o {
   background-color: #fbd5ce;
   color: #252522;
 }
-.btn-primary.-o:hover, .btn-primary.-o:focus {
+.shop-btn-primary.-o:hover, .shop-btn-primary.-o:focus {
   background-color: #667085;
   color: #fff;
 }
-.btn-outline {
+/* .btn-outline {
   background-color: transparent;
   color: #403c39;
   border: 1px solid #eaecf0;
@@ -1762,7 +1763,7 @@ h4 {
 }
 .primary__btn:hover {
   color: #6941c6;
-} */
+} */ */
 
 /* ============================ */
 /* Section Header Start */
@@ -2982,9 +2983,9 @@ h4 {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  width: 112px;
-  height: 44px;
-  background: #0fc26c;
+  width: 60px;
+  height: 45px;
+  background: #389d74;
   border-radius: 8px;
   text-transform: capitalize;
   position: relative;
@@ -4598,8 +4599,8 @@ h4 {
           justify-content: center;
 }
 .product-card .product__image__wrapper .product__image img {
-  width: 70%;
-  height: 70%;
+  width: 100%;
+  height: 100%;
   -o-object-fit: contain;
      object-fit: contain;
   -o-object-position: center;
@@ -6828,6 +6829,7 @@ h4 {
   }
 }
 .cart-order__title {
+  font-family: 'Noto Sans KR', sans-serif;
   font-weight: 700;
   margin-bottom: 30px;
   color: #475467;
@@ -7706,11 +7708,12 @@ h4 {
   padding: 6px 12px;
   background-color: #f2f4f7;
   border-radius: 6px;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .step-title {
-  font-family: "Inter", sans-serif;
+  /* font-family: "Inter", sans-serif; */
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 30px;
   font-weight: 700;
   line-height: 38px;
@@ -7720,7 +7723,7 @@ h4 {
 }
 
 .checkout__form {
-  margin-bottom: 150px;
+  margin-bottom: 165px;
 }
 .checkout__form:last-of-type {
   margin-bottom: 80px;
@@ -7731,7 +7734,7 @@ h4 {
   }
 }
 .checkout__form input[type=tel] {
-  padding-left: 73px;
+  /* padding-left: 73px; */
 }
 .checkout__form .country-code {
   position: absolute;
@@ -7754,6 +7757,7 @@ h4 {
   width: 100%;
 }
 .checkout__form .sub-title {
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 20px;
   font-weight: 600;
   line-height: 30px;
@@ -9169,8 +9173,8 @@ h4 {
   }
 }
 .review__wrapper .avatar img {
-  height: 80px;
-  width: 80px;
+  height: 135px;
+  width: 135px;
   border-radius: 50%;
 }
 .review__wrapper .review__item {
@@ -10340,9 +10344,9 @@ h4 {
   border-color: #eb5e28;
 }
 .form__wrapper label {
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
-  font-weight: 500;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
   line-height: 20px;
   color: #344054;
   display: block;
@@ -10351,8 +10355,8 @@ h4 {
   text-transform: capitalize;
 }
 .form__wrapper .form-control {
-  font-family: "Inter", sans-serif;
-  font-size: 16px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 15px;
   font-weight: 400;
   line-height: 24px !important;
   background: transparent;

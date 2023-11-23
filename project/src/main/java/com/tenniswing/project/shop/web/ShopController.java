@@ -16,4 +16,9 @@ public class ShopController {
 	public String shopDetailPage(Model model) {
 		return "shop/shopDetail";
 	}
+	
+	@GetMapping("checkout")
+	public String checkoutPage(Model model) {
+		return "shop/checkout";
+	}
 }
