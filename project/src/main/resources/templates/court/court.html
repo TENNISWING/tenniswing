@@ -6,7 +6,7 @@
 	<th:block layout:fragment="content">
 
             <!-- slide banner -->
-            <div class="container-fluid mb-2 bg-light-info">
+            <!-- <div class="container-fluid mb-2 bg-light-info">
                 <div class="container pt-3 pb-3">
                     <div class="swiper mySwiper banner" data-aos="fade-up">
                         <div class="swiper-wrapper banner">
@@ -46,103 +46,94 @@
                         },
                     });
                 </script>
-            </div>
+            </div> -->
             <!-- End slide banner -->
 
-            <!-- date slide -->
-            <div class="container mt-3 mb-5">
-                <!-- Swiper -->
-                <div class="swiper mySwiper dateslide">
-                    <div class="swiper-wrapper dateslide">
-                         <!-- <div class="swiper-slide dateslide">resizeme</div> -->
-                    </div>
-                    <div class="swiper-button-next dateslide text-green"></div>
-                    <div class="swiper-button-prev dateslide text-green"></div>
-                    <script>
-                        var swiper = new Swiper(".mySwiper.dateslide", {            
-
-                            direction : getDirection(),
-                            on: {
-                                resize: function () {
-                                swiper.changeDirection(getDirection());
-                                },
-                            },
-                            pagination: {
-                                el: ".swiper-pagination.dateslide",                         
-                            },
-                            navigation: {
-                                nextEl: ".swiper-button-next.dateslide",
-                                prevEl: ".swiper-button-prev.dateslide",
-                            },
-                            breakpoints: {
-                                320: {
-                                    slidesPerView: 5,
-                                },
-                                480: {
-                                    slidesPerView: 5,
-                                },
-                                640: {
-                                    slidesPerView: 5,
-                                },
-                                992: {
-                                    slidesPerView: 7,
-                                }
-                            }
-                        });
-
-                        function getDirection() {
-                            var windowWidth = window.innerWidth;
-                            var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
-                            return direction;
-                            }
-
-                        const days = ["일", "월", "화", "수", "목", "금", "토", "일", "월", "화", "수", "목", "금", "토"];
-                        let dateGetDay = new Date().getDay();
-                        let dateGetDate = new Date().getDate();
-                        let dateArry = [];
-
-                        for (let i = 0; i < 14; i++) {
-                            dateArry.push({
-                                "day": days[i],
-                                "date": dateGetDate + i
-                            })
-                        }
-                    
-                        $.each(dateArry, (idx, ele) => {
-                            if (idx == 0) {
-                                $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                                    <div class="text-white bg-green rounded-pill">
-                                                    ${ele.date}<br>
-                                                    ${ele.day}</div></div>`)
-                            } else {
-                                $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                                    <div class="text-dark">
-                                                    ${ele.date}<br>
-                                                    ${ele.day}</div></div>`)
-                            }
-                        })
-                        $('.swiper-wrapper.dateslide > div div').on('click', function (e) {
-                            //태그네임 가져오기                 
-                            console.log($(e.target).prop('tagName'))
-                            $('.swiper-wrapper.dateslide > div div').attr('class', 'text-dark')
-                            $(e.target).attr('class','bg-green rounded-pill text-white');
-                            // $(e.target).attr('class','bg-green rounded-pill text-white');                           
-                            // $(e.target)
-                            // if ($(e.target).prop('tagName') == 'A') {                                
-                            //     $('.swiper-wrapper.dateslide a').attr('class', 'link-dark');
-                            //     $(e.target).parent().attr('class', 'bg-green rounded-pill');
-                            //     $(e.target).attr('class', 'text-white');
-                            // }else if ($(e.target).prop('tagName') == 'DIV') {                                
-                            //     $('.swiper-wrapper.dateslide a').attr('class', 'link-dark');
-                            //     $(e.target).attr('class', 'bg-green rounded-pill');
-                            //     $(e.target).children().attr('class', 'text-white');
-                            // }else{}
-                        })
-                    </script>
-                </div>
-            </div>
-            <!-- End date slide -->
-			
+			<!-- Banner Slider v2 End-->
+			<section class="banner__slider__section__v2 pb-0" style="height: 300px">
+				<div class="container">
+					<div class="row">
+						<div class="col-xl-12 col-lg-12">
+							<div class="swiper main__mySwiper">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide">
+										<div class="single__slide__wrapper"
+											style="background-image: url('assets/img/shop/shop1.jpg')">
+											<div class="hero__wrapper text-left">
+												<!-- <h5 class="hero__subtitle">Limited offer 25% off</h5>
+												<h1 class="hero__title">
+													Organic Fruit <br /> For Your Family’s Health
+												</h1>  -->
+												<p class="hero__content"></p>
+												<div class="hero__btn">
+													<a href="product.html" class="btn btn-primary">Shop Now</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="swiper-slide">
+										<div class="single__slide__wrapper"
+											style="background-image: url('assets/img/shop/shop2.jpg')">
+											<div class="hero__wrapper text-left">
+												<!-- <h5 class="hero__subtitle">Limited offer 10% off</h5>
+												<h1 class="hero__title">
+													Shop wise <br /> with price <br /> comparisons
+												</h1> -->
+												<p class="hero__content"></p>
+												<div class="hero__btn">
+													<a href="product.html" class="btn btn-primary">Shop Now</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="swiper-slide">
+										<div class="single__slide__wrapper"
+											style="background-image: url('assets/img/shop/shop3.jpg')">
+											<div class="hero__wrapper text-left">
+												<!-- <h5 class="hero__subtitle">Limited offer 10% off</h5>
+												<h1 class="hero__title">
+													Summer <br /> Skin care <br /> Product
+												</h1>  -->
+												<p class="hero__content"></p>
+												<div class="hero__btn">
+													<a href="product.html" class="btn btn-primary">Shop Now</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="banner__navigation">
+									<div class="swiper-button-next">
+										<svg width="35" height="16" viewBox="0 0 35 16" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+		                                        <path d="M1 8L34 8"
+												stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+												stroke-linejoin="round" />
+		                                        <path d="M27 1L34 8L27 15"
+												stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+												stroke-linejoin="round" />
+		                                    </svg>
+									</div>
+									<div class="swiper-button-prev">
+										<svg width="23" height="16" viewBox="0 0 23 16" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+		                                        <path d="M22 8H1"
+												stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+												stroke-linejoin="round" />
+		                                        <path d="M8 15L1 8L8 1"
+												stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+												stroke-linejoin="round" />
+		                                    </svg>
+									</div>
+								</div>
+							</div>
+						</div>
+		
+					</div>
+				</div>
+			</section>
+			<!-- Banner Slider v2 End-->
+	
 			<!-- courtroom filter -->
             <div class="container mb-4">
                 <ul class="nav text-center">
@@ -164,7 +155,16 @@
 		            <li class="d-flex flex-column" style="margin: 0 10px;">
 		            	<div class="btn-group mb-1">
                             <div class="dropdown">
-                                <button class="btn btn-success dropdown-toggle me-1" type="button"
+                            	<div class="custom__dropdown custom__dropdown__v2">
+									<div class="selected">
+										<div class="selected_item selected_item-v2">Brand</div>
+									</div>
+									<ul class="list list__v2">
+										<li>최신순</li>
+										<li>인기순</li>
+									</ul>
+								</div>
+                                <!-- <button class="btn btn-success dropdown-toggle me-1" type="button"
                                     id="dropdownMenuButton2" data-bs-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
                                     Success
@@ -172,7 +172,7 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                                     <a class="dropdown-item" href="#">최신순</a>
                                     <a class="dropdown-item" href="#">인기순</a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 		            </li>

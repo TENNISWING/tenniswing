@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main-layout}">
+
+<th:block layout:fragment="content">
+	<!-- product detail section start  -->
+	<section class="product-main">
+		<div class="container">
+			<div class="row product-detail">
+				<div class="col-md-6">
+					<div class="product-gallery">
+						<div
+							class="product-gallery__thumb swiper productGallerySwiperThumb">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide">
+									<div class="gallery-item">
+										<img src="assets/images/products/prod-01.png"
+											alt="product iamge" />
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="gallery-item">
+										<img src="assets/images/products/prod-02.png"
+											alt="product iamge" />
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="gallery-item">
+										<img src="assets/images/products/prod-03.png"
+											alt="product iamge" />
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="gallery-item">
+										<img src="assets/images/products/prod-04.png"
+											alt="product iamge" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="product-gallery__main swiper productGallerySwiper">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide">
+									<div class="gallery-item">
+										<img src="assets/images/products/prod-01.png"
+											alt="product iamge" />
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="gallery-item">
+										<img src="assets/images/products/prod-02.png"
+											alt="product iamge" />
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="gallery-item">
+										<img src="assets/images/products/prod-03.png"
+											alt="product iamge" />
+									</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="gallery-item">
+										<img src="assets/images/products/prod-04.png"
+											alt="product iamge" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="product-detail__wrapper">
+						<h2 class="product-detail__title">EB 18 Large Cage Free White
+							A Egg</h2>
+						<div class="product-detail__meta">
+							<div class="rating">
+								<ul>
+									<li><i class="fa-solid fa-star"></i></li>
+									<li><i class="fa-solid fa-star"></i></li>
+									<li><i class="fa-solid fa-star"></i></li>
+									<li><i class="fa-regular fa-star"></i></li>
+									<li><i class="fa-regular fa-star"></i></li>
+								</ul>
+								<div class="total__rating">
+									<a href="#">(3,822 ratings)</a>
+								</div>
+							</div>
+							<ul class="right-meta">
+								<li><a href="#" class="share__btn"> <svg width="16"
+											height="16" viewBox="0 0 16 16" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+                                                <path
+												d="M2.6665 8V13.3333C2.6665 13.687 2.80698 14.0261 3.05703 14.2761C3.30708 14.5262 3.64622 14.6667 3.99984 14.6667H11.9998C12.3535 14.6667 12.6926 14.5262 12.9426 14.2761C13.1927 14.0261 13.3332 13.687 13.3332 13.3333V8"
+												stroke="#002642" stroke-linecap="round"
+												stroke-linejoin="round" />
+                                                <path
+												d="M10.6668 3.99998L8.00016 1.33331L5.3335 3.99998"
+												stroke="#002642" stroke-linecap="round"
+												stroke-linejoin="round" />
+                                                <path
+												d="M8 1.33331V9.99998" stroke="#002642"
+												stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg> Share
+								</a></li>
+								<li><a href="#" class="wishlist__btn"> <svg width="16"
+											height="16" viewBox="0 0 16 16" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+                                                <path
+												d="M13.8936 3.07333C13.5531 2.73267 13.1488 2.46243 12.7038 2.27805C12.2588 2.09368 11.7819 1.99878 11.3002 1.99878C10.8186 1.99878 10.3416 2.09368 9.89667 2.27805C9.4517 2.46243 9.04741 2.73267 8.70691 3.07333L8.00024 3.78L7.29357 3.07333C6.60578 2.38553 5.67293 1.99914 4.70024 1.99914C3.72755 1.99914 2.7947 2.38553 2.10691 3.07333C1.41911 3.76112 1.03271 4.69397 1.03271 5.66666C1.03271 6.63935 1.41911 7.5722 2.10691 8.26L2.81358 8.96666L8.00024 14.1533L13.1869 8.96666L13.8936 8.26C14.2342 7.91949 14.5045 7.51521 14.6889 7.07023C14.8732 6.62526 14.9681 6.14832 14.9681 5.66666C14.9681 5.185 14.8732 4.70807 14.6889 4.26309C14.5045 3.81812 14.2342 3.41383 13.8936 3.07333V3.07333Z"
+												stroke="black" stroke-linecap="round"
+												stroke-linejoin="round" />
+                                            </svg> Add to Wishlist
+								</a></li>
+								<li>
+									<div class="stock__item">In-stock</div>
+								</li>
+							</ul>
+						</div>
+						<h3 class="product-detail__price">$15.00</h3>
+						<p class="product-detail__short_desc">There are many
+							variations of passages of Lorem Ipsum and available,majority have
+							suffered alteration in somey form, by injected humour, or
+							randomised words which don't look even slightly believable.</p>
+						<div class="product-detail__attr">
+							<div class="product__attr">
+								<span class="product-detail--stroke">Filter By Color</span>
+								<ul class="product__attr--color">
+									<li><input type="radio" name="filterByColor"
+										id="colorGreen01" value="green" /> <label for="colorGreen01"
+										data-bg="#12B76A"></label></li>
+
+									<li><input type="radio" name="filterByColor"
+										id="colorYellow01" value="yellow" /> <label
+										for="colorYellow01" data-bg="#F1C584"></label></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="product-detail__attr">
+							<div class="product__attr">
+								<span class="product-detail--stroke">Size</span>
+								<ul class="product__attr--size">
+									<li><input type="radio" name="filterBySize"
+										id="sizeXXL-01" value="xxl" /> <label for="sizeXXL-01">XXL</label>
+									</li>
+									<li><input type="radio" name="filterBySize" id="sizeXL-01"
+										value="xl" /> <label for="sizeXL-01">XL</label></li>
+									<li><input type="radio" name="filterBySize" id="sizeL-01"
+										value="l" /> <label for="sizeL-01">L</label></li>
+									<li><input type="radio" name="filterBySize" id="sizeM-01"
+										value="m" /> <label for="sizeM-01">M</label></li>
+									<li><input type="radio" name="filterBySize" id="sizeS-01"
+										value="s" /> <label for="sizeS-01">S</label></li>
+									<li><input type="radio" name="filterBySize" id="sizeXS-01"
+										value="xs" /> <label for="sizeXS-01">XS</label></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="product-detail__qty">
+							<span class="product-detail--stroke">quantity</span>
+							<div class="quantity quantity--outline">
+								<button type="button" class="decressQnt">
+									<span class="bar"></span>
+								</button>
+								<input class="qnttinput" type="number" disabled value="0"
+									min="01" max="100" />
+								<button type="button" class="incressQnt">
+									<span class="bar"></span>
+								</button>
+							</div>
+						</div>
+
+						<div class="product-detail__action">
+							<div class="item">
+								<a href="#" class="btn btn-primary btn-outline">Add to Cart</a>
+							</div>
+							<div class="item">
+								<a href="#" class="btn btn-primary btn-filled">Buy Now</a>
+							</div>
+						</div>
+						<div class="product-detail__accordion accordion"
+							id="productDetailAccordion">
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="accordionOne">
+									<button
+										class="accordion-button product-detail--stroke collapsed"
+										type="button" data-bs-toggle="collapse"
+										data-bs-target="#accordion_one" aria-controls="accordion_one">
+										Shipping & Returns</button>
+								</h2>
+								<div id="accordion_one" class="accordion-collapse collapse"
+									aria-labelledby="accordionOne"
+									data-bs-parent="#productDetailAccordion">
+									<div class="accordion-body">
+										<p>Lorem ipsum dolor sit amet consectetur adipisicing
+											elit. Est, porro.</p>
+									</div>
+								</div>
+							</div>
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="accordionTwo">
+									<button
+										class="accordion-button product-detail--stroke collapsed"
+										type="button" data-bs-toggle="collapse"
+										data-bs-target="#accordion_two" aria-controls="accordion_two">
+										Care instructions</button>
+								</h2>
+								<div id="accordion_two" class="accordion-collapse collapse"
+									aria-labelledby="accordionTwo"
+									data-bs-parent="#productDetailAccordion">
+									<div class="accordion-body">
+										<p>Lorem ipsum dolor sit amet consectetur adipisicing
+											elit. Qui cum beataesimilique, quae vel inventore veniam
+											ducimus cupiditate dolorem consequatur explicabo magnam
+											expedita accusamus nihil quas dolorum! Accusamus, omnis
+											aliquid?</p>
+									</div>
+								</div>
+							</div>
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="accordionThree">
+									<button
+										class="accordion-button product-detail--stroke collapsed"
+										type="button" data-bs-toggle="collapse"
+										data-bs-target="#accordion_three"
+										aria-controls="accordion_three">
+										Specifications</button>
+								</h2>
+								<div id="accordion_three" class="accordion-collapse collapse"
+									aria-labelledby="accordionThree"
+									data-bs-parent="#productDetailAccordion">
+									<div class="accordion-body">
+										<p>Lorem ipsum dolor sit amet consectetur, adipisicing
+											elit. Vel nobis, ab odio ipsa suscipit maxime assumenda
+											laboriosam. Nemo, soluta ratione?</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row product-info">
+				<div class="col-12">
+					<div class="tabs__wrapper tabs__wrapper--v3">
+						<div class="tabs__filter">
+							<ul class="nav nav-tabs" id="myTab" role="tablist">
+								<li class="nav-item" role="presentation">
+									<button class="nav-link active" id="home-tab"
+										data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+										type="button" role="tab" aria-controls="home-tab-pane"
+										aria-selected="true">
+										Product Details</button>
+								</li>
+								<li class="nav-item" role="presentation">
+									<button class="nav-link" id="groceries-tab"
+										data-bs-toggle="tab" data-bs-target="#groceries-tab-pane"
+										type="button" role="tab" aria-controls="groceries-tab-pane"
+										aria-selected="false">
+										Additional Information</button>
+								</li>
+								<li class="nav-item" role="presentation">
+									<button class="nav-link" id="women-tab" data-bs-toggle="tab"
+										data-bs-target="#women-tab-pane" type="button" role="tab"
+										aria-controls="women-tab-pane" aria-selected="false">
+										Reviews</button>
+								</li>
+								<li class="nav-item" role="presentation">
+									<button class="nav-link" id="electronics-tab"
+										data-bs-toggle="tab" data-bs-target="#electronics-tab-pane"
+										type="button" role="tab" aria-controls="electronics-tab-pane"
+										aria-selected="false">
+										Questions</button>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade show active" id="home-tab-pane"
+							role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+							<div class="content__body">
+								<p>
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui
+									cursus malesuada massa vitae sed elementum volutpat
+									consectetur. Amet turpis aenean praesent arcu turpis elementum
+									vitae euismod ante. Dui diam vitae lorem faucibus non. Arcu
+									maecenas ornare sit tortor. <br /> <br /> Proin nulla elit
+									ornare enim enim. Mauris placerat mauris at consequat. Quis
+									elementum ipsum et cras sit sagittis eu, aliquet nibh. Eu nulla
+									nunc, purus phasellus facilisi risus molestie. Faucibus amet ut
+									tempor, vehicula amet. Duis aliquam tellus urna, nisl vivamus
+									sed aliquam tincidunt. Vitae mi varius egestas sed tristique
+									cras odio. Tempor aliquam eget phasellus sit lectus imperdiet.
+									Arcu adipiscing lorem eu leo orci condimentum imperdiet. Morbi
+									tellus velit nunc massa turpis tortor quis. Rutrum at faucibus
+									quam consectetur.
+								</p>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="groceries-tab-pane" role="tabpanel"
+							aria-labelledby="groceries-tab" tabindex="0">
+							<div class="content__body">
+								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+									Eligendi aliquam quod sapiente maxime necessitatibus natus
+									incidunt voluptate, ut illo asperiores. Provident error sit
+									fuga amet magnam sed reiciendis minus odio.</p>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="women-tab-pane" role="tabpanel"
+							aria-labelledby="women-tab" tabindex="0">
+							<div class="content__body">
+								<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+									Atque, non! Non quisquam repellat ullam eos, error voluptates
+									eligendi tenetur veritatis, eius cumque dolor, vero excepturi.
+									Repellendus, blanditiis. Incidunt mollitia ex ipsum minus quia
+									nesciunt repudiandae obcaecati tempore laudantium vitae, velit,
+									dolore molestiae soluta voluptate. Doloremque nemo culpa
+									voluptas sit magni.</p>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="electronics-tab-pane"
+							role="tabpanel" aria-labelledby="electronics-tab" tabindex="0">
+							<div class="content__body">
+								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+									Numquam, placeat quibusdam. Reiciendis veritatis facere,
+									perspiciatis unde nostrum hic deleniti, optio quibusdam quae
+									repellendus laboriosam aut perferendis quis dolore, deserunt
+									illo animi quod tempora adipisci consequatur enim! Aspernatur
+									corporis provident, iusto laborum vero libero similique debitis
+									inventore repellat doloribus. Neque, ipsam!</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- product detail section end -->
+
+	<!-- Trending Section Start -->
+	<section class="trending__section pt-0">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section-title">
+						<h2>Releted Product</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="product__wrapper swiper__pagination">
+						<div class="swiper trending__Swiper">
+							<div class="swiper-wrapper">
+								<div th:each="num : ${#numbers.sequence(1,8)}" class="swiper-slide">
+									<div class="product-card">
+										<div class="product__image__wrapper">
+											<a href="product-single.html" class="product__image"> <img
+												src="assets/images/trending/trends-01.png" alt="icon" />
+											</a>
+											<div class="badge">10%</div>
+											<div class="product__actions">
+												<a href="#" class="action__btn"> <svg width="16"
+														height="14" viewBox="0 0 16 14" fill="none"
+														xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+															d="M13.8931 2.07333C13.5526 1.73267 13.1483 1.46243 12.7033 1.27805C12.2584 1.09368 11.7814 0.998779 11.2998 0.998779C10.8181 0.998779 10.3412 1.09368 9.89618 1.27805C9.45121 1.46243 9.04692 1.73267 8.70642 2.07333L7.99975 2.78L7.29309 2.07333C6.60529 1.38553 5.67244 0.999136 4.69975 0.999136C3.72706 0.999136 2.79422 1.38553 2.10642 2.07333C1.41863 2.76112 1.03223 3.69397 1.03223 4.66666C1.03223 5.63935 1.41863 6.5722 2.10642 7.26L2.81309 7.96666L7.99975 13.1533L13.1864 7.96666L13.8931 7.26C14.2337 6.91949 14.504 6.51521 14.6884 6.07023C14.8727 5.62526 14.9676 5.14832 14.9676 4.66666C14.9676 4.185 14.8727 3.70807 14.6884 3.26309C14.504 2.81812 14.2337 2.41383 13.8931 2.07333V2.07333Z"
+															stroke="#252522" stroke-linecap="round"
+															stroke-linejoin="round" />
+                                                        </svg>
+												</a> <a href="#" data-bs-toggle="modal"
+													data-bs-target="#prod__preview" class="action__btn"> <svg
+														width="16" height="16" viewBox="0 0 16 16" fill="none"
+														xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+															d="M0.666992 7.99996C0.666992 7.99996 3.33366 2.66663 8.00033 2.66663C12.667 2.66663 15.3337 7.99996 15.3337 7.99996C15.3337 7.99996 12.667 13.3333 8.00033 13.3333C3.33366 13.3333 0.666992 7.99996 0.666992 7.99996Z"
+															stroke="#252522" stroke-linecap="round"
+															stroke-linejoin="round" />
+                                                            <path
+															d="M8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z"
+															stroke="#252522" stroke-linecap="round"
+															stroke-linejoin="round" />
+                                                        </svg>
+												</a> <a href="#" class="action__btn"> <svg width="16"
+														height="16" viewBox="0 0 16 16" fill="none"
+														xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+															d="M10 9.33329L13.3333 5.99996L10 2.66663"
+															stroke="#252522" stroke-linecap="round"
+															stroke-linejoin="round" />
+                                                            <path
+															d="M2.66699 13.3333V8.66667C2.66699 7.95942 2.94794 7.28115 3.44804 6.78105C3.94814 6.28095 4.62641 6 5.33366 6H13.3337"
+															stroke="#252522" stroke-linecap="round"
+															stroke-linejoin="round" />
+                                                        </svg>
+												</a>
+											</div>
+										</div>
+										<div class="product__content">
+											<div class="product__rating">
+												<ul>
+													<li><i class="fa-solid fa-star"></i></li>
+													<li><i class="fa-solid fa-star"></i></li>
+													<li><i class="fa-solid fa-star"></i></li>
+													<li><i class="fa-solid fa-star"></i></li>
+													<li><i class="fa-regular fa-star"></i></li>
+												</ul>
+												<div class="total__rating">(321)</div>
+											</div>
+											<div class="product__title">
+												<h5>
+													<a href="product-single.html">Tootsie Frooties- Taffy
+														Candy - Bulk Fruit Chews - Fruity Roll Fruity Roll</a>
+												</h5>
+											</div>
+											<div class="product__bottom">
+												<div class="product__price">
+													$22.00
+													<del>$22.00</del>
+												</div>
+												<div class="cart__action__btn">
+													<div class="cart__btn">
+														<a href="#" class="btn btn-outline">Add to cart</a>
+													</div>
+													<div class="quantity cart__quantity">
+														<button type="button" class="decressQnt">
+															<span class="bar"></span>
+														</button>
+														<input class="qnttinput" type="number" disabled value="0"
+															min="01" max="100" />
+														<button type="button" class="incressQnt">
+															<span class="bar"></span>
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+			
+							</div>
+
+							<div class="swiper-button-next">
+								<svg width="35" height="16" viewBox="0 0 35 16" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+                                           <path d="M1 8L34 8"
+										stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" />
+                                           <path d="M27 1L34 8L27 15"
+										stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" />
+                                       </svg>
+							</div>
+							<div class="swiper-button-prev">
+								<svg width="23" height="16" viewBox="0 0 23 16" fill="none"
+									xmlns="http://www.w3.org/2000/svg" style="width: 85%">
+                                        <path d="M22 8H1"
+										stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" />
+                                        <path d="M8 15L1 8L8 1"
+										stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" />
+                                    </svg>
+							</div>
+							<!-- <div class="swiper-slide"></div> -->
+							<div class="swiper-pagination"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Trending Section End -->
+</th:block>
+
+</html>
