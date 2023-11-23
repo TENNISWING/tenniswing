@@ -12,5 +12,8 @@ public class ShopController {
 		return "shop/shop";
 	}
 	
-	
+	@GetMapping("shopDetail")
+	public String shopDetailPage(Model model) {
+		return "shop/shopDetail";
+	}
 }
