@@ -98,7 +98,7 @@
 
 						<!-- Initialize Swiper -->
 						<script>
-							var swiper = new Swiper(".mySwiper.snstem", {
+							/* var swiper = new Swiper(".mySwiper.snstem", {
 								direction : "vertical",
 								autoplay :  false,
 								loop: true,
@@ -110,32 +110,23 @@
 								scrollbar:{
 									el : '.swiper-pagination.snstem',
 							        draggable: true,
-							        dragSize: 'auto'
+							        dragSize: '500px'
 								
 							    }
-							});
+							}); */
+							 var swiper = new Swiper(".mySwiper", {
+							      direction: "vertical",
+							      pagination: {
+							        el: ".swiper-pagination",
+							        clickable: true,
+							      },
+							    });
 						</script>
 
 					</div>
 				</div>
 
-				<!-- Initialize Swiper -->
-				<script>
-					var swiper = new Swiper(".mySwiper", {
-						slidesPerView: "auto",
-						spaceBetween: 30,
-						pagination: {
-							el: ".swiper-pagination main",
-							clickable: true,
-						},
-						navigation: {
-							nextEl: ".swiper-button-next main",
-							prevEl: ".swiper-button-prev main",
-						},
-						 mousewheel: false,
-					     keyboard: false,
-					});
-				</script>
+			
 			</div>
 			<div class="col-3"></div>
 		</div>
