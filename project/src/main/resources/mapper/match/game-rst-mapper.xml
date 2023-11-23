@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.tenniswing.project.match.mapper.GameRstMapper">
+  	<!-- 전체 조회  -->
+  	<select id="selectAllGameRst" resultType="GameRstVO">
+  		SELECT game_rst_no
+  				, match_no
+  				, mem_no
+  				, winpoints
+  				, game_rst
+  				, rep_ctt
+  				, match_part
+  		FROM game_rst
+  		ORDER BY game_rst_no
+   	</select>
+   	
+  	<!-- 단건조회 -->
+  	<select id="selectGameRst" resultType="GameRstVO">
+  		SELECT game_rst_no
+  				, match_no
+  				, mem_no
+  				, winpoints
+  				, game_rst
+  				, rep_ctt
+  				, match_part
+  		FROM game_rst
+  		WHERE game_rst_no = #{gameRstNo}
+  	</select>
+  	  
+  	<!-- 등록 -->
+  	<insert id="insertGameRst" parameterType="GameRstVO">
+  	 	<selectKey keyProperty="gameRstNo" 
+  	 			   resultType="int" 
+  	 			   order="BEFORE">
+  	 		<!-- primarykey가 숫자일 경우 사용 -->
+  	 		SELECT NVL(MAX(game_rst_no), 0) + 1 
+			FROM game_rst
+  	 	</selectKey>
+  	 	INSERT INTO game_rst
+  	 			(
+			  	 	game_rst_no
+	  				, match_no
+	  				, mem_no
+	  				, winpoints
+	  				, game_rst
+	  				, rep_ctt
+	  				, match_part	
+  	 			)
+  	 			VALUES
+  	 			(
+  	 				#{gameRstNo}
+  	 				,#{matchNo}
+  	 				,#{memNo}
+  	 				,#{winpoints}
+  	 				,#{gameRst}
+  	 				,#{repCtt}				
+  	 				,#{match_part}				
+  	 			)
+  	 		FROM game_rst
+  			WHERE game_rst_no = #{gameRstNo}	
+  	</insert>  	
+  
+  	<!-- 수정 -->
+  	<update id="updateGameRst" parameterType="GameRstVO">
+  		UPDATE game_rst
+  			SET
+  				game_rst_no = #{gameRstNo}
+	  				, match_no = #{matchNo}
+	  				, mem_no = #{memNo}
+	  				, winpoints = #{winpoints}
+	  				, game_rst = #{gameRst}
+	  				, rep_ctt = #{repCtt}
+	  				, match_part = #{match_part}
+  		WHERE game_rst_no = #{gameRstNo}
+  	</update>
+  	
+  	<!-- 삭제 -->
+  	<delete id="deleteGameRst" parameterType="int">
+  		DELETE FROM game_rst
+  		WHERE game_rst_no = #{gameRstNo}
+  	</delete>
+
+  </mapper>
