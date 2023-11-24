@@ -28,7 +28,7 @@ public class CommunityController {
 	
 	// sns 등록폼
 	@GetMapping("snsRegister")
-	public String snsRegPage(SnsVO snsVO, Model model) {
+	public String snsRegPage(Model model) {
 		return "community/snsRegister";
 	}
 }
