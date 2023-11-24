@@ -4,17 +4,20 @@
 	layout:decorate="~{/layouts/main-layout}">
 <head>
 <style>
-.step-title {
-	font-size: 20px;
-}
-
-.step-header {
-	margin-bottom: 20px;
-}
-
-.information {
-	padding: 0px;
-}
+	.step-title {
+		font-size: 20px;
+	}
+	
+	.step-header {
+		margin-bottom: 20px;
+	}
+	
+	.information {
+		padding: 0px;
+	}
+	/* .information li {
+		font-weight: 400 !important;
+	} */
 </style>
 </head>
 
@@ -34,15 +37,15 @@
 								<div class="form-group">
 									<label for="f_name">이름</label> <input type="text" name="f_name"
 										id="f_name" class="form-control"
-										placeholder="(필수) 이름을 입력해 주세요." />
+										placeholder="(필수) 이름을 입력해 주세요." onkeyup='printName()'/>
 								</div>
 							</div>
 							<div class="flex__form c-1">
 								<div class="form-group">
-									<label for="phone">전화번호</label>
+									<label for="f_phone">전화번호</label>
 									<div class="input-group">
-										<input type="tel" name="phone" id="phone" class="form-control"
-											placeholder="(필수) 휴대폰 번호를 입력해 주세요." />
+										<input type="tel" name="f_phone" id="f_phone" class="form-control"
+											placeholder="(필수) 휴대폰 번호를 입력해 주세요." onkeyup='printTel()'/>
 									</div>
 								</div>
 							</div>
@@ -60,19 +63,19 @@
 						</div>
 						
 						<div style="margin-bottom: 20px;">
-							<button type="button" class="shop-btn shop-btn-primary" style="font-family: 'Noto Sans KR', sans-serif;">직접 입력</button>
-							<button type="button" class="shop-btn shop-btn-primary" style="font-family: 'Noto Sans KR', sans-serif;">주문자와 동일</button>
+							<button type="button" class="shop-btn shop-btn-primary" style="font-family: 'Noto Sans KR', sans-serif;" onclick="printDel()">직접 입력</button>
+							<button type="button" class="shop-btn shop-btn-primary" style="font-family: 'Noto Sans KR', sans-serif;" onclick="printBoth()">주문자와 동일</button>
 						</div>
 							
 						<!-- <h5 class="sub-title">배송지 주소</h5> -->
 						<form action="#payment_details" class="form__wrapper">
 							<div class="form-group">
-								<label for="f_name">배송지 확인</label> <input type="text" name="f_name"
-									id="f_name" class="form-control"
+								<label for="f2_name">배송지 확인</label> <input type="text" name="f2_name"
+									id="f2_name" class="form-control"
 									placeholder="(필수) 이름을 입력해 주세요." />
 									<br>
 								
-									<input type="tel" name="phone" id="phone" class="form-control"
+									<input type="tel" name="f2_phone" id="f2_phone" class="form-control"
 										placeholder="(필수) 휴대폰 번호를 입력해 주세요." />
 
 							</div>
@@ -87,7 +90,7 @@
 							<br>
 							<input type="text" id="sample6_address" class="form-control" placeholder="주소">
 							<br>
-							<input type="text" id="sample6_detailAddress" class="form-control" placeholder="상세주소">
+							<input type="text" id="sample6_detailAddress" class="form-control" placeholder="상세주소" onkeyup="printAdd3()">
 							<br>
 							<div class="form-group">
 								<input type="text" name="requ" id="requ" class="form-control"
@@ -114,8 +117,8 @@
 								<a href="#" class="edit__btn">edit</a>
 							</div>
 							<ul class="information">
-								<li>Sadia Akter</li>
-								<li>+8801343215678</li>
+								<li id="f_name_out">이름을 입력하세요.</li>
+								<li id="f_phone_out">전화번호를 입력하세요.</li>
 								<!-- <li>xirosoft@gmail.com</li> -->
 							</ul>
 						</div>
@@ -127,10 +130,10 @@
 								</div>
 								<a href="#" class="edit__btn">edit</a>
 							</div>
-							<ul class="information">
-								<li>Kuril - NSU Rd, Dhaka 1229 Pragati Ave,<br /> Dhaka
-									1212, Bangladesh
-								</li>
+							<ul class="information" style="margin-bottom: 0">
+								<li id="addr1">우편번호</li>
+								<li id="addr2">주소</li>
+								<li id="addr3">상세주소</li>
 								<!-- <li><span>Method:</span> FedEx - $19.00</li> -->
 							</ul>
 						</div>
@@ -263,7 +266,9 @@
 
 							// 우편번호와 주소 정보를 해당 필드에 넣는다.
 							document.getElementById('sample6_postcode').value = data.zonecode;
+							document.querySelector('#addr1').innerText = data.zonecode;
 							document.getElementById("sample6_address").value = addr + extraAddr;
+							document.querySelector('#addr2').innerText = addr + extraAddr;
 							// 커서를 상세주소 필드로 이동한다.
 							document.getElementById("sample6_detailAddress")
 									.focus();
@@ -271,6 +276,35 @@
 					}).open();
 		}
 	</script>
+	<script type="text/javascript">
+		function printName() {
+			let name = document.getElementById('f_name').value;
+			document.getElementById("f_name_out").innerText = name;
+		}
+		
+		function printTel() {
+			let tel = document.querySelector('#f_phone').value;
+			document.querySelector('#f_phone_out').innerText = tel;
+		}
+		
+		function printBoth() {
+			document.querySelector('#f2_phone').value = document.querySelector('#f_phone').value;
+			document.querySelector('#f2_name').value = document.querySelector('#f_name').value;
+		}
+
+		function printDel() {
+			document.querySelector('#f2_phone').value = '';
+			document.querySelector('#f2_name').value = '';
+
+			document.querySelector('#f2_name').focus();
+		}
+
+		function printAdd3() {
+			let add3 = document.querySelector('#sample6_detailAddress').value;
+			document.querySelector('#addr3').innerText = add3;
+		}
+
+</script>
 </th:block>
 
 </html>
