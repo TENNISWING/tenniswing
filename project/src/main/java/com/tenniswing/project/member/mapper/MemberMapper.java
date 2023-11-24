@@ -10,8 +10,8 @@ public interface MemberMapper {
 	// 전체 조회 (다건조회)
 	public List<MemberVO> selectAllMemberInfo();
 
-	// 사원 조회 (단건조회)
-	public MemberVO selectMemberInfo(MemberVO memberVO);
+	// 로그인
+	public MemberVO memberLogin(MemberVO memberVO);
 
 	// 등록
 	public int insertMember(MemberVO memberVO);

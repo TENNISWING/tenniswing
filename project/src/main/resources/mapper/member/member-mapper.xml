@@ -21,21 +21,12 @@
   		 ORDER BY employee_id
   	</select>
   	
-  	<!-- 단건조회 -->
-  	<select id="selectEmpInfo" resultType="MemberVO">
-  		SELECT employee_id
-  			  , first_name
-  			  , last_name
-  			  , email
-  			  , phone_number
-  			  , hire_date
-  			  , job_id
-  			  , salary
-  			  , commission_pct
-  			  , manager_id
-  			  , department_id
-  		 FROM employees
-  		 WHERE employee_id = #{employeeId}
+  	<!-- 로그인 -->
+  	<select id="memberLogin" resultType="MemberVO">
+  		SELECT *
+  		FROM MEM
+  		WHERE MEM_ID = #{memId}
+  		AND PWD = #{pwd}
   		 <!-- LIKE '%' || #{keyword} || '%'
   		 	  LIKE '%${keyword}%'		   -->
   	</select>
@@ -58,42 +49,65 @@
   	<!-- <trim> => 문장 구성 -->
   	
   	<!-- 등록 -->
-  	<insert id="insertEmpInfo" parameterType="MemberVO">
-  	 	<selectKey keyProperty="employeeId" 
-  	 			   resultType="int" 
+  	<insert id="insertMember" parameterType="MemberVO">
+  	 	<selectKey keyProperty="memNo" 
+  	 			   resultType="String" 
   	 			   order="BEFORE">
   	 		<!-- primarykey가 숫자일 경우 사용 -->
-  	 		SELECT NVL(MAX(employee_id), 0) + 1 
-			FROM employees
+  	 		SELECT NVL(MAX(MEM_NO), 0) + 1
+			FROM MEM
   	 	</selectKey>
-  	 	INSERT INTO employees
+  	 	INSERT ALL
+  	 		INTO MEM
   	 			(
-  	 				employee_id
-  	 				,first_name
-  	 				,last_name
-  	 				,email
-  	 				,hire_date
-  	 				,job_id
-  	 				<if test="salary > 0">
-  	 				,salary
-  	 				</if>
+  	 				MEM_NO
+  	 				,MEM_ID
+  	 				,NAME
+  	 				,PWD
+  	 				,PHONE_NO
+  	 				,MEM_DIV
+  	 			
   	 			)
   	 			VALUES
   	 			(
-  	 				#{employeeId}
-  	 				,#{firstName}
-  	 				,#{lastName}
-  	 				,#{email}
-  	 				<choose>
-  	 					<when test="hireDate != null">,#{hireDate}</when>
-  	 					<otherwise>,sysdate</otherwise>
-  	 				</choose>  	 				
-  	 				,#{jobId}
-  	 				<if test="salary > 0">
-  	 				,#{salary}
-  	 				</if>
+  	 				#{memNo}
+  	 				,#{memId}
+  	 				,#{name}
+  	 				,#{pwd}
+  	 				,#{phoneNo}
+  	 				,#{memDiv}  	 			 	
   	 			)
-  	 			
+  	 		INTO PR
+  	 			(
+  	 				MEM_NO
+  	 				,NICK
+  	 				,AGE
+  	 				,LV
+  	 				,REGION
+  	 				,GEN
+  	 				,NTRP
+  	 				,PREFER_GAME_WAY
+  	 				,PREFER_AGE
+  	 				,CRTROOM_NO
+  	 				,PR_IMAGE  	 		
+  	 				,MANNER_POINT
+  	 			)
+  	 			VALUES
+  	 			(
+  	 				#{memNo}
+  	 				,#{nick}
+  	 				,#{age}
+  	 				,#{lv}
+  	 				,#{region}
+  	 				,#{gen}
+  	 				,#{ntrp}
+  	 				,#{preferGameWay}
+  	 				,#{preferAge}
+  	 				,#{crtroomNo}
+  	 				,#{prImage}
+  	 				,0
+  	 			)
+  	 			SELECT * FROM DUAL
   	</insert>
   	
   	<!-- 수정 : 전제조건, 전체 데이터 전송 -->

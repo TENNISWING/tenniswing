@@ -6,64 +6,62 @@
 
 	<!-- signup form -->
 	<div class="container text-center">
-		<div>회원가입</div>
-		<form class="form form-vertical" action="memberResister">
+		<div class="my-5"><h3>회원가입</h3></div>
+		<form class="form form-vertical" action="signup" method="POST">
 			<div class="row form-body">
-				<div class="col-2 border border-primary"></div>
-				<div class="col-3 border border-primary"></div>
-				<div class="col-5 border border-primary">
-				<div class="row p-2">
-					<div class="form-check col-6">
-						<input class="form-check-input" type="radio"
-							name="member" id="member" value="member">
-						<label class="form-check-label" for="member">일반회원 </label>
-					</div>
-					<div class="form-check col-6">
-						<input class="form-check-input" type="radio"
-							name="host" id="host" value="host">
-						<label class="form-check-label" for="host">호스트회원 </label>
+				<div class="col-3 "></div>				
+				<div class="col-6 ">
+					<div class="row p-2">
+						<div class="form-check col-3">
+							<input class="form-check-input" type="radio" name="memDiv" id="member" value="MEMBER" checked>
+							<label class="form-check-label" for="member">일반회원</label>
+						</div>
+						<div class="form-check col-3">
+							<input class="form-check-input" type="radio" name="memDiv" id="host" value="HOST">
+							<label class="form-check-label" for="host">호스트회원</label>
+						</div>
 					</div>
 				</div>
-				</div>
-				<div class="col-2 border border-primary"></div>
+				<div class="col-3"></div>
 			</div>
-			<div class="row">
-				<div class="col-2 border border-primary"></div>
-				<div class="col-3 border border-primary p-5">
-					<!-- File uploader with image preview -->
-					<input type="file" class="image-preview-filepond">
-					<h5 class=text-dark>프로필 사진</h5>
-				</div>
-				<div class="col-5 border border-primary p-5 text-start">
+			<div class="row ">
+				<div class="col-3 "></div>				
+				
+				<div class="col-6 p-5 text-start shadow bg-light mb-5">
+					<div class="container card w-50">
+						<!-- File uploader with image preview -->
+						<input type="file" class="image-preview-filepond" id="prImage" name="prImage">
+						<h5 class=text-dark>프로필 사진</h5>
+					</div>
 
-					<label for="memberId">아이디(이메일)</label><br>
+					<label for="memId">아이디(이메일)</label><br>
 					<div class="input-group mb-3">
 						<input type="text" class="form-control" placeholder="아이디입력" aria-describedby="duplicateBtn"
-							id="memberId" name="memberId" required>
+							id="memId" name="memId" required>
 						<button class="btn btn-success" type="button" id="duplicateBtn">중복확인</button>
 					</div>
 
 					<div class="row">
 						<div class="col-6">
-							<label for="memberName">이름</label><br>
+							<label for="name">이름</label><br>
 							<div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder="이름입력" id="memberName"
-									name="memberName" required>
+								<input type="text" class="form-control" placeholder="이름입력" id="name" name="name"
+									required>
 							</div>
 						</div>
 						<div class="col-6">
-							<label for="memberNickName">닉네임</label><br>
+							<label for="nick">닉네임</label><br>
 							<div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder="닉네임입력" id="memberNickName"
-									name="memberNickName" required>
+								<input type="text" class="form-control" placeholder="닉네임입력" id="nick" name="nick"
+									required>
 							</div>
 						</div>
 					</div>
 
-					<label for="memberPassword">비밀번호</label><br>
+					<label for="pwd">비밀번호</label><br>
 					<div class="input-group mb-3">
 						<input type="password" class="form-control" placeholder="비밀번호 8자리이상" aria-describedby=pwview
-							id="memberPassword" name="memberPassword" required>
+							id="pwd" name="pwd" required>
 						<button class="btn btn-success" type="button" id="pwview">
 							<i class="fa-regular fa-eye-slash"></i>
 						</button>
@@ -90,7 +88,7 @@
 															'class',
 															"fa-regular fa-eye")
 													$(
-														'#memberPassword')
+														'#pwd')
 														.attr(
 															'type',
 															"text");
@@ -101,7 +99,7 @@
 															'class',
 															"fa-regular fa-eye-slash")
 													$(
-														'#memberPassword')
+														'#pwd')
 														.attr(
 															'type',
 															"password");
@@ -110,56 +108,136 @@
 								});
 					</script>
 
-					<label for="phoneNumber">휴대폰 번호</label><br>
+					<label for="phoneNo">휴대폰 번호</label><br>
 					<div class="input-group mb-3">
-						<input type="text" class="form-control" placeholder="번호만 입력 해주세요"
-							aria-describedby="phoneNumberBtn" id="phoneNumber" name="phoneNumber">
-						<button class="btn btn-success" type="button" id="phoneNumberBtn">인증하기</button>
+						<input type="text" class="form-control" placeholder="번호만 입력 해주세요" aria-describedby="phoneNoBtn"
+							id="phoneNo" name="phoneNo" required>
+						<button class="btn btn-success" type="button" id="phoneNoBtn">인증하기</button>
 					</div>
 
 					<div class="row">
 						<div class="col-6">
-							<label for="memberLocation">지역</label><br>
+							<label for="region">지역</label><br>
 							<div class="form-group">
-								<select class="choices form-select">
+								<select class="choices form-select" name="region" id="region">
 									<optgroup label="지역">
-										<option value="seoul">서울</option>
-										<option value="incheon">인천</option>
-										<option value="gyeonggi">경기도</option>
-										<option value="gangwon">강원도</option>
-										<option value="choongchung">충청도</option>
-										<option value="junra">전라도</option>
-										<option value="gyungsang">경상도</option>
-										<option value="jeju">제주도</option>
+										<option value="b1">서울</option>
+										<option value="b2">인천</option>
+										<option value="b3">경기도</option>
+										<option value="b4">강원도</option>
+										<option value="b5">충청도</option>
+										<option value="b6">전라도</option>
+										<option value="b7">경상도</option>
+										<option value="b8">제주도</option>
 									</optgroup>
 								</select>
 							</div>
 						</div>
 						<div class="col-6">
-							<label for="memberAgeGroup">연령대</label><br>
+							<label for="age">연령대</label><br>
 							<div class="form-group">
-								<select class="choices form-select">
+								<select class="choices form-select" name="age" id="age">
 									<optgroup label="연령대">
-										<option value="ten">10대</option>
-										<option value="twenty">20대</option>
-										<option value="thirty">30대</option>
-										<option value="fourty">40대</option>
-										<option value="fifty">50대</option>
-										<option value="sixty">60대이상</option>
+										<option value="a1">10대</option>
+										<option value="a2">20대</option>
+										<option value="a3">30대</option>
+										<option value="a4">40대</option>
+										<option value="a5">50대</option>
+										<option value="a6">60대이상</option>
 									</optgroup>
 								</select>
 							</div>
 						</div>
 					</div>
-					
-					<label for="phoneNumber">ntpr</label><br>
-					<div class="input-group mb-3">
-						<div id="unli1" class="star-rating"> </div>
+
+					<div class="row">
+						<div class="col-6">
+							<label for="lv">구력</label><br>
+							<div class="form-group">
+								<select class="choices form-select" name="lv" id="lv">
+									<optgroup label="구력">
+										<option value="d1">입문</option>
+										<option value="d2">2~5년</option>
+										<option value="d3">5년이상</option>
+									</optgroup>
+								</select>
+							</div>
+						</div>
+						<div class="col-6">
+							<label for="gen">성별</label><br>
+							<div class="form-group">
+								<select class="choices form-select" name="gen" id="gen">
+									<optgroup label="성별">
+										<option value="c1">남성</option>
+										<option value="c2">여성</option>
+									</optgroup>
+								</select>
+							</div>
+						</div>
 					</div>
-			
-					
+
+					<div class="row">
+						<div class="col-6">
+							<label for="ntrp">ntrp</label><br>
+							<div class="form-group">
+								<select class="choices form-select" id="ntrp" name="ntrp">
+									<optgroup label="ntpr">
+										<option value="e1">1.0</option>
+										<option value="e2">1.5</option>
+										<option value="e3">2.0</option>
+										<option value="e4">2.5</option>
+										<option value="e5">3.0</option>
+										<option value="e6">3.5</option>
+										<option value="e7">4.0이상</option>
+									</optgroup>
+								</select>
+							</div>
+						</div>
+						<div class="col-6">
+							<h5>ntrp이란?</h5>
+						</div>
+					</div>
+
+					<label for="preferAge">선호 연령대</label><br>
+					<div class="form-group">
+						<select class="choices form-select" name="preferAge" id="preferAge">
+							<optgroup label="연령대">
+								<option value="a1">10대</option>
+								<option value="a2">20대</option>
+								<option value="a3">30대</option>
+								<option value="a4">40대</option>
+								<option value="a5">50대</option>
+								<option value="a6">60대이상</option>
+							</optgroup>
+						</select>
+					</div>
+
+					<label for="preferGameWay">선호 게임 방식</label><br>
+					<div class="form-group">
+						<select class="choices form-select" name="preferGameWay" id="preferGameWay">
+							<optgroup label="선호 게임 방식">
+								<option value="f1">단식</option>
+								<option value="f2">남복</option>
+								<option value="f3">여복</option>
+								<option value="f4">랠리</option>
+								<option value="f5">혼복</option>								
+							</optgroup>
+						</select>
+					</div>
+
+					<label for="crtroomNo">자주가는코트</label><br>
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="코트 입력" aria-describedby="crtroomBtn"
+							id="crtroomNo" name="crtroomNo">
+						<button class="btn btn-success" type="button" id="crtroomBtn">찾기</button>
+					</div>
+
+					<button class="btn btn-success" type="submit">회원 가입</button>
+					<button class="btn btn-success" type="reset">취소</button>
+					<button class="btn btn-success" type="button" onclick="location.href='@{loginform}''">돌아가기</button>
+
 				</div>
-				<div class="col-2 border border-primary"></div>
+				<div class="col-3 "></div>
 			</div>
 		</form>
 	</div>
