@@ -26,6 +26,7 @@
   		SELECT *
   		FROM MEM
   		WHERE MEM_ID = #{memId}
+  		AND PWD = #{pwd}
   		 <!-- LIKE '%' || #{keyword} || '%'
   		 	  LIKE '%${keyword}%'		   -->
   	</select>
@@ -50,10 +51,10 @@
   	<!-- 등록 -->
   	<insert id="insertMember" parameterType="MemberVO">
   	 	<selectKey keyProperty="memNo" 
-  	 			   resultType="int" 
+  	 			   resultType="String" 
   	 			   order="BEFORE">
   	 		<!-- primarykey가 숫자일 경우 사용 -->
-  	 		SELECT NVL(MAX(MEM_NO), 0) + 1 
+  	 		SELECT NVL(MAX(MEM_NO), 0) + 1
 			FROM MEM
   	 	</selectKey>
   	 	INSERT ALL
@@ -65,7 +66,7 @@
   	 				,PWD
   	 				,PHONE_NO
   	 				,MEM_DIV
-  	 				,JOIN_DATE
+  	 			
   	 			)
   	 			VALUES
   	 			(
@@ -74,29 +75,27 @@
   	 				,#{name}
   	 				,#{pwd}
   	 				,#{phoneNo}
-  	 				,#{memDiv}
-  	 				<choose>
-  	 					<when test="joinDate != null">,#{joinDate}</when>
-  	 					<otherwise>,sysdate</otherwise>
-  	 				</choose>  	 	
+  	 				,#{memDiv}  	 			 	
   	 			)
   	 		INTO PR
   	 			(
-  	 				NICK
+  	 				MEM_NO
+  	 				,NICK
   	 				,AGE
   	 				,LV
-  	 				,LEGION
+  	 				,REGION
   	 				,GEN
   	 				,NTRP
   	 				,PREFER_GAME_WAY
   	 				,PREFER_AGE
   	 				,CRTROOM_NO
-  	 				,MEM_NO
+  	 				,PR_IMAGE  	 		
   	 				,MANNER_POINT
   	 			)
   	 			VALUES
   	 			(
-  	 				#{nick}
+  	 				#{memNo}
+  	 				,#{nick}
   	 				,#{age}
   	 				,#{lv}
   	 				,#{region}
@@ -106,7 +105,7 @@
   	 				,#{preferAge}
   	 				,#{crtroomNo}
   	 				,#{prImage}
-  	 				,#{mannerPoint}	
+  	 				,0
   	 			)
   	 			SELECT * FROM DUAL
   	</insert>

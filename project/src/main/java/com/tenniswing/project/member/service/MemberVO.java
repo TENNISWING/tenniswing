@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class MemberVO {
-	private int memNo;
+	private String memNo;
 	private String memId;
 	private String name;
 	private String pwd;
@@ -16,8 +16,8 @@ public class MemberVO {
 	private String memDiv;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date joinDate;
-	
-	//profile
+
+	// profile
 	private String nick;
 	private String age;
 	private String lv;
@@ -26,9 +26,8 @@ public class MemberVO {
 	private String ntrp;
 	private String preferGameWay;
 	private String preferAge;
-	private int crtroomNo;
-	private String prImage;	
-	private int mannerPoint;	
-	
-}
+	private Integer crtroomNo;
+	private String prImage;
+	private int mannerPoint;
 
+}

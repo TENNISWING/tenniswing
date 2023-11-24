@@ -30,8 +30,8 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int insertMember(MemberVO memberVO) {
 		int result = memberMapper.insertMember(memberVO);
-
-		if (result == 1) {
+		
+		if (result > 0) {
 			return result;
 		} else {
 			return -1;
