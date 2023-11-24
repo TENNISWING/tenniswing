@@ -6,17 +6,17 @@ import com.tenniswing.project.match.mapper.MatchHistRepMapper;
 
 public interface MatchHistRepService {
 		//전체
-			public List<MatchHistRepMapper> selectAllMatchHistRep();
+			public List<MatchHistRepVO> selectAllMatchHistRep();
 			
 			//단건
-			public MatchHistVO selectMatchHistRep(MatchHistRepMapper matchHistRepVO);
+			public MatchHistRepVO selectMatchHistRep(MatchHistRepVO matchHistRepVO);
 			
 			//등록
-			public int insertMatchHistRep(MatchHistRepMapper matchHistRepVO);
+			public int insertMatchHistRep(MatchHistRepVO matchHistRepVO);
 			
 			//수정
-			public int updateMatchHistRep(MatchHistRepMapper matchHistRepVO);
+			public int updateMatchHistRep(MatchHistRepVO matchHistRepVO);
 			
 			//삭제
-			public int deleteMatchHistRep(MatchHistRepMapper matchHistRepVO);
+			public int deleteMatchHistRep(MatchHistRepVO matchHistRepVO);
 }

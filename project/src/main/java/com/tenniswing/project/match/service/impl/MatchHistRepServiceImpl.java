@@ -6,40 +6,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tenniswing.project.match.mapper.MatchHistRepMapper;
 import com.tenniswing.project.match.service.MatchHistRepService;
-import com.tenniswing.project.match.service.MatchHistVO;
+import com.tenniswing.project.match.service.MatchHistRepVO;
+
+
 
 public class MatchHistRepServiceImpl implements MatchHistRepService {
-
-	@Autowired MatchHistRepMapper matchHistRepMapper;
 	
+	@Autowired MatchHistRepMapper matchHistRepMapper;
+
 	@Override
-	public List<MatchHistRepMapper> selectAllMatchHistRep() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<MatchHistRepVO> selectAllMatchHistRep() {
+		return matchHistRepMapper.selectAllMatchHistRep();
 	}
 
 	@Override
-	public MatchHistVO selectMatchHistRep(MatchHistRepMapper matchHistRepVO) {
-		// TODO Auto-generated method stub
-		return null;
+	public MatchHistRepVO selectMatchHistRep(MatchHistRepVO matchHistRepVO) {
+		return matchHistRepMapper.selectMatchHistRep(matchHistRepVO);
 	}
 
 	@Override
-	public int insertMatchHistRep(MatchHistRepMapper matchHistRepVO) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertMatchHistRep(MatchHistRepVO matchHistRepVO) {
+		return matchHistRepMapper.insertMatchHistRep(matchHistRepVO);
 	}
 
 	@Override
-	public int updateMatchHistRep(MatchHistRepMapper matchHistRepVO) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateMatchHistRep(MatchHistRepVO matchHistRepVO) {
+		return matchHistRepMapper.updateMatchHistRep(matchHistRepVO);
 	}
 
 	@Override
-	public int deleteMatchHistRep(MatchHistRepMapper matchHistRepVO) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteMatchHistRep(MatchHistRepVO matchHistRepVO) {
+		return matchHistRepMapper.deleteMatchHistRep(matchHistRepVO);
+	}
+		
 	}
 
-}

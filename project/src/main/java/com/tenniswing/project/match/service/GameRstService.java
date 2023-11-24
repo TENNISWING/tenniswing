@@ -6,17 +6,17 @@ import com.tenniswing.project.match.mapper.GameRstMapper;
 
 public interface GameRstService {
 	//전체
-			public List<GameRstMapper> selectAllGameRst();
+			public List<GameRstVO> selectAllGameRst();
 			
 			//단건
-			public GameRstMapper selectGameRst(GameRstMapper gameRstVO);
+			public GameRstVO selectGameRst(GameRstVO gameRstVO);
 			
 			//등록
-			public int insertGameRst(GameRstMapper gameRstVO);
+			public int insertGameRst(GameRstVO gameRstVO);
 			
 			//수정
-			public int updateGameRst(GameRstMapper gameRstVO);
+			public int updateGameRst(GameRstVO gameRstVO);
 			
 			//삭제
-			public int deleteGameRst(GameRstMapper gameRstVO);
+			public int deleteGameRst(GameRstVO gameRstVO);
 }
