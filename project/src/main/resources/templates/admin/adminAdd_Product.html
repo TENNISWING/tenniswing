@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/admin/admin-layout}">
+
+<th:block layout:fragment="admincontent">
+	<!-- Main__container Start-->
+	<div class="main__container">
+		<!-- Main Inner Wrapper Start -->
+		<div class="main__inner--wrapper">
+			<!-- Product List Start -->
+			<div class="row">
+				<div class="col-12">
+					<div class="dashboard__breadcrumb">
+						<div class="breadcrumb__meta">
+							<ul style="padding: 0;">
+								<li><a onclick="history.back()" class="link"><i
+										class="fa-solid fa-arrow-left me-2"></i> Back</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="dashboard__header">
+						<div class="d__header--left">
+							<h2 class="title">Create product</h2>
+						</div>
+					</div>
+
+					<form action="#" class="dashboard__form">
+						<div class="row">
+							<div class="col-xxl-4">
+								<div class="dashboard-block">
+									<div class="dashboard-block__title">
+										<h4>Product Image</h4>
+									</div>
+									<div class="card block__card">
+										<div class="upload__drag">
+											<label for="imageUpload"> <img
+												src="assets/admin/images/upload-icon.png" class="upload-icon"
+												alt="icon" /> <span> <a href="#">Click to upload</a>
+													or drag and drop
+											</span> <span>SVG, PNG, JPG or GIF (max. 2Mb)</span>
+											</label> <input type="file" id="imageUpload"
+												accept=".png, .jpg, .jpeg, .svg, .gif" />
+										</div>
+										<div class="preview__wrapper">
+											<div class="preview__item__wrapper">
+												<div class="preview__item">
+													<img src="assets/admin/images/upload-icon.png"
+														class="upload-icon" alt="upload-icon" />
+													<button class="close-btn">
+														<i class="fa-solid fa-xmark"></i>
+													</button>
+												</div>
+											</div>
+											<div class="preview__item__wrapper">
+												<div class="preview__item">
+													<img src="assets/admin/images/upload-icon.png"
+														class="upload-icon" alt="upload-icon" />
+													<button class="close-btn">
+														<i class="fa-solid fa-xmark"></i>
+													</button>
+												</div>
+											</div>
+											<div class="preview__item__wrapper">
+												<div class="preview__item">
+													<img src="assets/admin/images/upload-icon.png"
+														class="upload-icon" alt="upload-icon" />
+													<button class="close-btn">
+														<i class="fa-solid fa-xmark"></i>
+													</button>
+												</div>
+											</div>
+											<div class="preview__item__wrapper">
+												<div class="preview__item">
+													<img src="assets/admin/images/upload-icon.png"
+														class="upload-icon" alt="upload-icon" />
+													<button class="close-btn">
+														<i class="fa-solid fa-xmark"></i>
+													</button>
+												</div>
+											</div>
+										</div>
+										<p>
+											<a href="#" class="btn btn-outline">Add more image</a>
+										</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xxl-8">
+								<div class="dashboard-block">
+									<div class="dashboard-block__title">
+										<h4>Basic info</h4>
+									</div>
+									<div class="form__wrapper form-padding">
+										<div class="flex__form c-3">
+											<div class="form-group">
+												<label for="product_name">Product name</label> <input
+													type="text" name="product_name" id="product_name"
+													class="form-control" placeholder="Enter Product Name" />
+											</div>
+											<div class="form-group">
+												<label for="category">Category</label> <select
+													name="category" id="category" class="category-select">
+													<option value="category ">all category</option>
+													<option value="Groceries">Groceries</option>
+													<option value="Electronics">Electronics</option>
+													<option value="Women">Women</option>
+													<option value="Men">Men</option>
+													<option value="Kides">Kides</option>
+													<option value="Sports">Sports</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<label for="brand">Brand</label> <select name="brand"
+													id="brand" class="brand-select">
+													<option value="select">Select Brand</option>
+													<option value="Nikon">Nikon</option>
+													<option value="Samsung">Samsung</option>
+													<option value="lg">lg</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<label for="stock">Stock</label> <input type="number"
+													name="stock" id="stock" class="form-control"
+													placeholder="Enter Stock" />
+											</div>
+											<div class="form-group">
+												<label for="slug">Slug</label> <input type="number"
+													name="slug" id="slug" class="form-control"
+													placeholder="Enter Your Slug" />
+											</div>
+											<div class="form-group">
+												<label>Status</label>
+												<div class="custom-checkbox">
+													<input type="checkbox" name="status" id="statuss" /> <label
+														for="statuss"> <span class="active">Active</span>
+														<span class="inactive">Inactive</span>
+													</label>
+												</div>
+											</div>
+										</div>
+										<div class="flex__form c-1">
+											<div class="form-group">
+												<label for="tag">Tags</label> <select name="tag" id="tag"
+													class="tags-select">
+													<option value="select">Select Tag</option>
+													<option value="select">Select Tag</option>
+													<option value="select">Select Tag</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="description">description</label>
+											<textarea name="description" class="form-control"
+												id="description" cols="30" rows="4"
+												placeholder="Write about your product description briefly"></textarea>
+										</div>
+										<div class="form-group mb-0">
+											<label for="description2">short description</label>
+											<textarea name="short_escription" class="form-control"
+												id="description2" cols="30" rows="4"
+												placeholder="Write about your product description shortly"></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="dashboard-block">
+									<div class="dashboard-block__title">
+										<h4>Pricing</h4>
+									</div>
+									<div class="form__wrapper form-padding">
+										<div class="flex__form c-3">
+											<div class="form-group">
+												<label for="old_price">Old Price</label> <input
+													type="number" name="old_price" id="old_price"
+													class="form-control" placeholder="Enter Old Price" />
+											</div>
+											<div class="form-group">
+												<label for="new_price">new Price</label> <input
+													type="number" name="new_price" id="new_price"
+													class="form-control" placeholder="Enter New Price" />
+											</div>
+											<div class="form-group">
+												<label for="discount">Discount</label> <input type="number"
+													name="discount" id="discount" class="form-control"
+													placeholder="Enter Discount" />
+											</div>
+										</div>
+										<div class="btn__group flex-wrap">
+											<button type="button" class="btn btn-primary -o me-auto">Save
+												as draft</button>
+											<button type="button" class="btn btn-outline">Cancel</button>
+											<button type="submit" class="btn btn-gray-filled">Add
+												Product</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- Product List End -->
+		</div>
+		<!-- Main Inner Wrapper End -->
+	</div>
+	<!-- Main__container End-->
+</th:block>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TenisWing</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	
+	<link rel="shortcut icon" href="assets/admin/images/favicon.png" type="image/f-icon" />
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="assets/admin/css/all.min.css" />
+    <!-- bootstraph -->
+    <link rel="stylesheet" href="assets/admin/css/bootstrap.min.css" />
+    <!-- Fancy Box -->
+    <link rel="stylesheet" href="assets/admin/css/jquery.fancybox.min.css" />
+    <!-- swiper js -->
+    <link rel="stylesheet" href="assets/admin/css/swiper-bundle.min.css" />
+    <!-- Nice Select -->
+    <link rel="stylesheet" href="assets/admin/css/nice-select.css" />
+    <!-- Progress bar -->
+    <link rel="stylesheet" href="assets/admin/css/jquery.rprogessbar.min.css" />
+    <!-- Apex Chart Js -->
+    <link rel="stylesheet" href="assets/admin/css/apexcharts.css" />
+    <!-- Countdown js -->
+    <link rel="stylesheet" href="assets/admin/css/jquery.countdown.css" />
+    <!-- User's CSS Here -->
+    <link rel="stylesheet" href="assets/admin/css/style.css" />
+
+	<style type="text/css">
+    	*{
+    		font-family: 'Noto Sans KR', sans-serif;
+    	}
+    </style>
+</head>
+<body>
+	<!-- container -->
+	<div class="dashboard__mainWrapper">
+		<!-- header -->
+		<header th:replace="/layouts/admin/admin-side :: adminside"></header>
+
+		<!-- content -->
+		<th:block layout:fragment="admincontent"></th:block>
+
+		<!-- footer -->
+		<footer th:replace="/layouts/admin/admin-footer :: adminfooter"></footer>
+	</div>
+	
+	<!-- JS -->
+    <script src="assets/admin/js/jquery-3.6.0.min.js"></script>
+    <script src="assets/admin/js/popper.min.js"></script>
+    <script src="assets/admin/js/bootstrap.min.js"></script>
+    <script src="assets/admin/js/apexcharts.min.js"></script>
+    <script src="assets/admin/js/jquery.fancybox.min.js"></script>
+    <script src="assets/admin/js/jquery.plugin.min.js"></script>
+    <script src="assets/admin/js/jquery.countdown.min.js"></script>
+    <script src="assets/admin/js/counterup.min.js"></script>
+    <script src="assets/admin/js/jquery.waypoints.js"></script>
+    <script src="assets/admin/js/jquery.nice-select.js"></script>
+    <script src="assets/admin/js/swiper-bundle.min.js"></script>
+    <script src="assets/admin/js/jQuery.rProgressbar.min.js"></script>
+    <script src="assets/admin/js/chart-option.js"></script>
+    <script src="assets/admin/js/scripts.js"></script>
+</body>
+</html>
