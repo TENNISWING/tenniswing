@@ -73,12 +73,73 @@
 # Match
 --------------------------------------------------------------*/
 
+.mctdeall {
+	font-family: NanumSquareNeo-Variable;
+}
+
+.modal-title {
+	font-size: 20px;
+    font-weight: 700;
+    color: #fc5356;
+    margin: 0;
+}
+
+.mtmodal {
+	font-size: 15px;
+}
+
+.mtfilter {
+   gap:20px;
+}
+
+.mtdrsvtitle {
+   background-color: #ffffff;
+   color: #000000;
+}
+
+.mtcrsvbtn > .form-control {
+	flex: 0.2;
+}
+
+.mtdbtn {
+  display: flex;
+  gap: 10px;
+  justify-content: space-evenly;	
+}
+
+.mtdliststyle {
+	list-style: none;
+	font-size: 15px;
+}
+
+.mtdlistctt {
+	margin-bottom: 8px;
+}
+
 .matchdate {
 	font-family: NanumSquareNeo-Variable;
 }
 
 .mcardbody {
 	font-family: NanumSquareNeo-Variable;
+}
+
+.mcfilter {
+	margin-bottom: 30px;
+}
+
+.matfilter {	
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    gap: 10px;
 }
 
 .msection {
@@ -144,6 +205,25 @@ margin-bottom: 1px;
     border-radius: 8px;
 }
 
+.matchregibtn {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #3E444B;
+    --bs-btn-border-color: #3E444B;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #3E444B;
+    --bs-btn-hover-border-color: #3E444B;
+    --bs-btn-focus-shadow-rgb: 95, 118, 200;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #3E444B;
+    --bs-btn-active-border-color: #3E444B;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #3E444B;
+    --bs-btn-disabled-border-color: #3E444B;
+    font-size:13px;
+    border-radius: 8px;
+}
+
 .matchbtn2 {
 	font-size:13px;
     border-radius: 8px;
@@ -154,9 +234,41 @@ margin-bottom: 1px;
     border-radius: 8px;
 }
 
+.mctdbtntn {
+	--bs-btn-color: #fff;
+    --bs-btn-bg: #3E444B;
+    --bs-btn-border-color: #3E444B;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #3E444B;
+    --bs-btn-hover-border-color: #3E444B;
+    --bs-btn-focus-shadow-rgb: 95, 118, 200;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #3E444B;
+    --bs-btn-active-border-color: #3E444B;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #3E444B;
+    --bs-btn-disabled-border-color: #3E444B;
+}
+
+
 .matchbtn4 {
-	font-size:13px;
-    border-radius: 8px;
+	--bs-btn-color: #fff;
+    --bs-btn-bg: #3E444B;
+    --bs-btn-border-color: #3E444B;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #3E444B;
+    --bs-btn-hover-border-color: #3E444B;
+    --bs-btn-focus-shadow-rgb: 95, 118, 200;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #3E444B;
+    --bs-btn-active-border-color: #3E444B;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #3E444B;
+    --bs-btn-disabled-border-color: #3E444B;
+    font-size:13px;
+    border-radius: 8px; 
 }
 
 /* matchdetail bootstrap css start */
@@ -170,6 +282,11 @@ body{margin-top:20px;}
 
 /* Blog 
 ---------------------*/
+
+.widget-latest-post p {
+  margin: 0rem;
+}
+
 .blog-grid {
   box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
   border-radius: 5px;
@@ -232,6 +349,7 @@ body{margin-top:20px;}
   display: inline-block;
   vertical-align: top;
 }
+
 .blog-aside .widget-body {
   padding: 15px;
 }
@@ -249,8 +367,9 @@ body{margin-top:20px;}
   margin-bottom: 15px;
 }
 .blog-aside .widget-author p {
-  font-size: 16px;
+  font-size: 15px;
   margin: 0;
+  margin-bottom: 8px;
 }
 .blog-aside .widget-author .avatar {
   width: 70px;
@@ -268,6 +387,7 @@ body{margin-top:20px;}
 .blog-aside .post-aside {
   margin-bottom: 15px;
 }
+
 .blog-aside .post-aside .post-aside-title h5 {
   margin: 0;
 }
