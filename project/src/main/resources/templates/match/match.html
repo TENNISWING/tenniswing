@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layouts/main-layout}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main-layout}">
 
-	<th:block layout:fragment="content">
-		 <!-- match sub menu -->
-            <div class="container mb-4">
-                <ul class="nav d-flex justify-content-around text-center matchmenu">
-                    <li class="d-flex flex-column"><a href="/">매치</a></li>
-                    <li class="d-flex flex-column"><a href="/">│</a></li>
-                    <li class="d-flex flex-column"><a href="clubmatch">클럽</a></li>
-                    <li class="d-flex flex-column"><a href="/">│</a></li>
-                    <li class="d-flex flex-column"><a href="contestmatch">대회</a></li>
-                    <li class="d-flex flex-column"><a href="/">│</a></li>
-                    <li class="d-flex flex-column"><a href="startermatch">스타터</a></li>
-                </ul>
-            </div>
-            <!-- End match sub menu  -->
+<th:block layout:fragment="content">
+<div class="mctdeall">
+	<!-- match sub menu -->
+	<div class="container mb-4">
+		<ul class="nav d-flex justify-content-around text-center matchsidevar">
+			<li class="d-flex flex-column"><a href="/"><img
+					src="assets/img/match/icon/icon1.png" class=" miconimg">매치</a></li>
+			<li class="d-flex flex-column"><a href="clubmatch"><img
+					src="assets/img/match/icon/icon2.png" class=" miconimg">클럽</a></li>
+			<li class="d-flex flex-column"><a href="contestmatch"><img
+					src="assets/img/match/icon/icon3.png" class=" miconimg">대회</a></li>
+			<li class="d-flex flex-column"><a href="startermatch"><img
+					src="assets/img/match/icon/icon4.png" class=" miconimg">스타터</a></li>
+		</ul>
+	</div>
+	<!-- End match sub menu  -->
 
-            <!-- slide banner -->
-            <div class="container-fluid mb-2 bg-light-info">
-                <div class="container pt-3 pb-3">
-                    <div class="swiper mySwiper banner" data-aos="fade-up">
-                        <div class="swiper-wrapper banner">
-                            <div class="swiper-slide banner text-center">
-                                <img src="/assets/img/match/slide.png" class="img-fluid" alt="">
-                            </div>
-                            <div class="swiper-slide banner text-center"><img src="/assets/img/match/slide.png"
-                                    class="img-fluid" alt=""></div>
-                        </div>
-                        <div class="swiper-pagination banner"></div>
-                    </div>
-                </div>
-                <script>
+	<!-- slide banner -->
+	<div class="container-fluid mb-2 bg-light-info">
+		<div class="container pt-3 pb-3">
+			<div class="swiper mySwiper banner" data-aos="fade-up">
+				<div class="swiper-wrapper banner">
+					<div class="swiper-slide banner text-center">
+						<img src="/assets/img/match/slide.png" class="img-fluid" alt="">
+					</div>
+					<div class="swiper-slide banner text-center">
+						<img src="/assets/img/match/slide.png" class="img-fluid" alt="">
+					</div>
+				</div>
+				<div class="swiper-pagination banner"></div>
+			</div>
+		</div>
+		<script>
                     var swiper = new Swiper(".mySwiper.banner", {
                         loop: true,
                         loopPreventsSliding: true,
@@ -49,19 +52,19 @@
                         },
                     });
                 </script>
-            </div>
-            <!-- End slide banner -->
+	</div>
+	<!-- End slide banner -->
 
-            <!-- date slide -->
-            <div class="container mt-3 mb-5">
-                <!-- Swiper -->
-                <div class="swiper mySwiper dateslide">
-                    <div class="swiper-wrapper dateslide">
-                        <!-- <div class="swiper-slide dateslide">resizeme</div>            -->
-                    </div>
-                    <div class="swiper-button-next dateslide text-green"></div>
-                    <div class="swiper-button-prev dateslide text-green"></div>
-                    <script>
+	<!-- date slide -->
+	<div class="container mt-3 mb-5">
+		<!-- Swiper -->
+		<div class="swiper mySwiper dateslide">
+			<div class="swiper-wrapper dateslide matchdate">
+				<!-- <div class="swiper-slide dateslide">resizeme</div>            -->
+			</div>
+			<div class="swiper-button-next dateslide text-green"></div>
+			<div class="swiper-button-prev dateslide text-green"></div>
+			<script>
                         var swiper = new Swiper(".mySwiper.dateslide", {            
 
                             direction : getDirection(),
@@ -142,70 +145,118 @@
                             // }else{}
                         })
                     </script>
-                </div>
-            </div>
-            <!-- End date slide -->
+		</div>
+	</div>
+	<!-- End date slide -->
 
-            <!-- match table -->
-            <div class="container">
-                <div class="card-body">
-                    <h5 class="card-title mb-4 mtitle">매치</h5>
-                    <!-- Default Table -->
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-center">
-                                    <b>14 : 00</b>
-                                </td>
-                                <td><a href="matchdetail">
-                                    서남센터 테니스장 12번 코트
-                                </a></td>
-                                <td class="text-end">
-                                    <button type="button" class="btn btn-primary">신청 가능</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">
-                                    <b>14 : 00</b>
-                                </td>
-                                <td>
-                                    서남센터 테니스장 12번 코트
-                                </td>
-                                <td class="text-end">
-                                    <button type="button" class="btn btn-secondary disabled">매칭 완료</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">
-                                    <b>14 : 00</b>
-                                </td>
-                                <td>
-                                    서남센터 테니스장 12번 코트
-                                </td>
-                                <td class="text-end">
-                                    <button type="button" class="btn btn-danger">마감 임박</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="container mt-5 mb-5">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">다음</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- End match table -->
+	<!-- match table -->
+	<div class="container">
+		<div class="card-body mcardbody">
+			<div class="row mcfilter">
+				<div class="col-lg-2 col-md-6"><h5 class="card-title mtitle text-center">매치</h5></div>
+				<div class="col-lg-8">
+				<form action="#" class="matfilter">
+								<div class="custom__dropdown custom__dropdown__v2">
+									<div class="selected">
+										<div class="selected_item selected_item-v2">지역</div>
+									</div>
+									<ul class="list list__v2">
+										<li>서울</li>
+										<li>경기</li>
+										<li>인천</li>
+										<li>강원도</li>
+										<li>전라도</li>
+										<li>경상도</li>
+										<li>충청도</li>
+										<li>제주도</li>
+									</ul>
+								</div>
+								<div class="custom__dropdown custom__dropdown__v2">
+									<div class="selected">
+										<div class="selected_item selected_item-v2">성별</div>
+									</div>
+									<ul class="list list__v2">
+										<li>남</li>
+										<li>여</li>
+										<li>모두</li>
+									</ul>
+								</div>
+								<div class="custom__dropdown custom__dropdown__v2">
+									<div class="selected">
+										<div class="selected_item selected_item-v2">레벨</div>
+									</div>
+									<ul class="list list__v2">
+										<li>1.0</li>
+										<li>1.5</li>
+										<li>2.0</li>
+										<li>2.5</li>
+										<li>3.0</li>
+										<li>3.5</li>
+										<li>4.0</li>
+									</ul>
+								</div>
+								<div class="custom__dropdown custom__dropdown__v2">
+									<div class="selected">
+										<div class="selected_item selected_item-v2">방식</div>
+									</div>
+									<ul class="list list__v2">
+										<li>단식</li>
+										<li>남복</li>
+										<li>여복</li>
+										<li>랠리</li>
+										<li>혼복</li>
+									</ul>
+								</div>
+							</form>
+				</div>
+				<div class="col-lg-2 text-end"><button type="button" style="margin-right: 9px"
+					 class="btn btn-primary matchregibtn" th:onclick="|location.href='@{matchregi}'|">매치 등록</button></div>
+			</div>
+		
+			<!-- Default Table -->
+			<table class="table">
+				<tbody>
+					<tr>
+						<td class="text-center"><b>14 : 00</b></td>
+						<td th:onclick="|location.href='@{matchdetail}'|">서남센터 테니스장 12번 코트 </a></td>
+						<td class="text-end">
+							<button type="button" class="btn btn-primary matchbtn1" th:onclick="|location.href='@{matchdetail}'|">신청
+								가능</button>
+						</td>
+					</tr>
+					<tr>
+						<td class="text-center"><b>14 : 00</b></td>
+						<td>서남센터 테니스장 12번 코트</td>
+						<td class="text-end">
+							<button type="button"
+								class="btn btn-secondary disabled matchbtn2">매칭 완료</button>
+						</td>
+					</tr>
+					<tr>
+						<td class="text-center"><b>14 : 00</b></td>
+						<td>서남센터 테니스장 12번 코트</td>
+						<td class="text-end">
+							<button type="button" class="btn btn-danger matchbtn3">마감
+								임박</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="container mt-5 mb-5">
+				<ul class="pagination justify-content-center">
+					<li class="page-item disabled"><a class="page-link" href="#"
+						tabindex="-1" aria-disabled="true">이전</a></li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#">다음</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- End match table -->
 
-            <!-- Trending Section Start -->
+	<!-- Trending Section Start -->
 	<section class="trending__section pt-0">
 		<div class="container">
 			<div class="row">
@@ -216,52 +267,16 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-12">
+				<div class="col-12 msection">
 					<div class="product__wrapper swiper__pagination">
 						<div class="swiper trending__Swiper">
 							<div class="swiper-wrapper">
-								<div th:each="num : ${#numbers.sequence(1,8)}" class="swiper-slide">
+								<div class="swiper-slide">
 									<div class="product-card">
 										<div class="product__image__wrapper">
 											<a href="product-single.html" class="product__image"> <img
-												src="assets/images/trending/trends-01.png" alt="icon" />
+												src="assets/img/match/crt/crt1.jpg" alt="icon" />
 											</a>
-											<div class="product__actions">
-												<a href="#" class="action__btn"> <svg width="16"
-														height="14" viewBox="0 0 16 14" fill="none"
-														xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-															d="M13.8931 2.07333C13.5526 1.73267 13.1483 1.46243 12.7033 1.27805C12.2584 1.09368 11.7814 0.998779 11.2998 0.998779C10.8181 0.998779 10.3412 1.09368 9.89618 1.27805C9.45121 1.46243 9.04692 1.73267 8.70642 2.07333L7.99975 2.78L7.29309 2.07333C6.60529 1.38553 5.67244 0.999136 4.69975 0.999136C3.72706 0.999136 2.79422 1.38553 2.10642 2.07333C1.41863 2.76112 1.03223 3.69397 1.03223 4.66666C1.03223 5.63935 1.41863 6.5722 2.10642 7.26L2.81309 7.96666L7.99975 13.1533L13.1864 7.96666L13.8931 7.26C14.2337 6.91949 14.504 6.51521 14.6884 6.07023C14.8727 5.62526 14.9676 5.14832 14.9676 4.66666C14.9676 4.185 14.8727 3.70807 14.6884 3.26309C14.504 2.81812 14.2337 2.41383 13.8931 2.07333V2.07333Z"
-															stroke="#252522" stroke-linecap="round"
-															stroke-linejoin="round" />
-                                                        </svg>
-												</a> <a href="#" data-bs-toggle="modal"
-													data-bs-target="#prod__preview" class="action__btn"> <svg
-														width="16" height="16" viewBox="0 0 16 16" fill="none"
-														xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-															d="M0.666992 7.99996C0.666992 7.99996 3.33366 2.66663 8.00033 2.66663C12.667 2.66663 15.3337 7.99996 15.3337 7.99996C15.3337 7.99996 12.667 13.3333 8.00033 13.3333C3.33366 13.3333 0.666992 7.99996 0.666992 7.99996Z"
-															stroke="#252522" stroke-linecap="round"
-															stroke-linejoin="round" />
-                                                            <path
-															d="M8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z"
-															stroke="#252522" stroke-linecap="round"
-															stroke-linejoin="round" />
-                                                        </svg>
-												</a> <a href="#" class="action__btn"> <svg width="16"
-														height="16" viewBox="0 0 16 16" fill="none"
-														xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-															d="M10 9.33329L13.3333 5.99996L10 2.66663"
-															stroke="#252522" stroke-linecap="round"
-															stroke-linejoin="round" />
-                                                            <path
-															d="M2.66699 13.3333V8.66667C2.66699 7.95942 2.94794 7.28115 3.44804 6.78105C3.94814 6.28095 4.62641 6 5.33366 6H13.3337"
-															stroke="#252522" stroke-linecap="round"
-															stroke-linejoin="round" />
-                                                        </svg>
-												</a>
-											</div>
 										</div>
 										<div class="product__content">
 											<div class="product__title">
@@ -273,8 +288,9 @@
 											<div class="product__bottom">
 												<div class="cart__action__btn">
 													<td class="text-end">
-					                                    <button type="button" class="btn btn-primary">구장 예약</button>
-					                                </td>
+														<button type="button" class="btn btn-primary matchbtn4">구장
+															예약</button>
+													</td>
 													<div class="quantity cart__quantity">
 														<button type="button" class="decressQnt">
 															<span class="bar"></span>
@@ -288,9 +304,10 @@
 												</div>
 											</div>
 										</div>
-									</div>
+									</div>								
+									
 								</div>
-			
+
 							</div>
 
 							<div class="swiper-button-next">
@@ -315,8 +332,7 @@
 										stroke-linejoin="round" />
                                     </svg>
 							</div>
-							<!-- <div class="swiper-slide"></div> -->
-							<div class="swiper-pagination"></div>
+							<div class="swiper-pagination sptn"></div>
 						</div>
 					</div>
 				</div>
@@ -324,7 +340,7 @@
 		</div>
 	</section>
 	<!-- Trending Section End -->
-	
-	</th:block>
+</div>
+</th:block>
 
 </html>

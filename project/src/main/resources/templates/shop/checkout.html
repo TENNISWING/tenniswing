@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main-layout}">
+<head>
+<style>
+	.step-title {
+		font-size: 20px;
+	}
+	
+	.step-header {
+		margin-bottom: 20px;
+	}
+	
+	.information {
+		padding: 0px;
+	}
+	/* .information li {
+		font-weight: 400 !important;
+	} */
+</style>
+</head>
+
+<th:block layout:fragment="content">
+	<!-- Checkout Section Start -->
+	<section class="checkout__section">
+		<div class="container">
+			<div class="row justify-content-between">
+				<div class="col-lg-6">
+					<div class="checkout__form" id="personal_info">
+						<div class="step-header mb-30">
+							<span class="step-num">1</span>
+							<h3 class="step-title">주문자 정보</h3>
+						</div>
+						<form action="#shipping_details" class="form__wrapper">
+							<div class="flex__form c-1">
+								<div class="form-group">
+									<label for="f_name">이름</label> <input type="text" name="f_name"
+										id="f_name" class="form-control"
+										placeholder="(필수) 이름을 입력해 주세요." onkeyup='printName()'/>
+								</div>
+							</div>
+							<div class="flex__form c-1">
+								<div class="form-group">
+									<label for="f_phone">전화번호</label>
+									<div class="input-group">
+										<input type="tel" name="f_phone" id="f_phone" class="form-control"
+											placeholder="(필수) 휴대폰 번호를 입력해 주세요." onkeyup='printTel()'/>
+									</div>
+								</div>
+							</div>
+							<!-- <button type="submit" class="btn btn-disable mt-10">Continue
+								to Shipping</button>
+							<button type="button" class="btn btn-transparent mt-10">Return
+								to Cart</button> -->
+						</form>
+					</div>
+
+					<div class="checkout__form" id="shipping_details" style="margin-bottom: 40px">
+						<div class="step-header mb-30">
+							<span class="step-num">2</span>
+							<h3 class="step-title">배송 정보</h3>
+						</div>
+						
+						<div style="margin-bottom: 20px;">
+							<button type="button" class="shop-btn shop-btn-primary" style="font-family: 'Noto Sans KR', sans-serif;" onclick="printDel()">직접 입력</button>
+							<button type="button" class="shop-btn shop-btn-primary" style="font-family: 'Noto Sans KR', sans-serif;" onclick="printBoth()">주문자와 동일</button>
+						</div>
+							
+						<!-- <h5 class="sub-title">배송지 주소</h5> -->
+						<form action="#payment_details" class="form__wrapper">
+							<div class="form-group">
+								<label for="f2_name">배송지 확인</label> <input type="text" name="f2_name"
+									id="f2_name" class="form-control"
+									placeholder="(필수) 이름을 입력해 주세요." />
+									<br>
+								
+									<input type="tel" name="f2_phone" id="f2_phone" class="form-control"
+										placeholder="(필수) 휴대폰 번호를 입력해 주세요." />
+
+							</div>
+							<!-- <br> -->
+							<div class="cta__form justify-content-start align-items-end mt-15" style="margin-top: 40px">
+								<div class="form-group" style="margin: 0;">
+									<label>받으실 곳</label>
+									<input type="text" id="sample6_postcode" class="form-control border" placeholder="우편번호">								
+								</div>							
+								<input type="button" onclick="sample6_execDaumPostcode()" class="btn btn-primary" style="margin-top: 0;" value="우편번호 찾기">
+							</div>
+							<br>
+							<input type="text" id="sample6_address" class="form-control" placeholder="주소">
+							<br>
+							<input type="text" id="sample6_detailAddress" class="form-control" placeholder="상세주소" onkeyup="printAdd3()">
+							<br>
+							<div class="form-group">
+								<input type="text" name="requ" id="requ" class="form-control"
+									   placeholder="요청사항을 입력해주세요." />
+							</div>
+							<br />
+							
+							<div class="cta__form justify-content align-items-end mt-15" style="margin: 0; justify-content: space-around;">							
+								<button type="submit" class="btn btn-primary mt-10">결제하기</button>
+								<a class="btn btn-transparent mt-10" onclick="history.back()" style="border: 1px solid; border-radius: 20px">취소하기</a>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="col-lg-1"></div>
+				<div class="col-lg-5">
+					<div class="confirm__details">
+						<div class="confirm__details__item">
+							<div class="s-header__flex">
+								<div class="step-header">
+									<span class="step-num">1</span>
+									<h3 class="step-title">주문자 정보</h3>
+								</div>
+								<a href="#" class="edit__btn">edit</a>
+							</div>
+							<ul class="information">
+								<li id="f_name_out">이름을 입력하세요.</li>
+								<li id="f_phone_out">전화번호를 입력하세요.</li>
+								<!-- <li>xirosoft@gmail.com</li> -->
+							</ul>
+						</div>
+						<div class="confirm__details__item">
+							<div class="s-header__flex">
+								<div class="step-header">
+									<span class="step-num">2</span>
+									<h3 class="step-title">배송 정보</h3>
+								</div>
+								<a href="#" class="edit__btn">edit</a>
+							</div>
+							<ul class="information" style="margin-bottom: 0">
+								<li id="addr1">우편번호</li>
+								<li id="addr2">주소</li>
+								<li id="addr3">상세주소</li>
+								<!-- <li><span>Method:</span> FedEx - $19.00</li> -->
+							</ul>
+						</div>
+					</div>
+					<div class="cart-order cart-order__v2">
+						<h4 class="cart-order__title">결제 상세 정보</h4>
+						<div class="cart__items">
+							<!-- Shopping Cart Item Start -->
+							<div class="shopping-card shopping-card__v2">
+								<a href="#" class="shopping-card__image"> <img
+									src="assets/images/cart/cart-01.png" alt="cart-product" />
+								</a>
+								<div class="shopping-card__content">
+									<div class="shopping-card__content-top">
+										<h5 class="product__title">
+											<a href="#">All Natural Italian Chicken Meatballs</a>
+										</h5>
+										<h5 class="product__price">$24.40</h5>
+									</div>
+									<div class="shopping-card__content-bottom">
+										<button type="button" class="action__btn qty">Qty: 2</button>
+									</div>
+								</div>
+							</div>
+							<!-- Shopping Cart Item End -->
+							<!-- Shopping Cart Item Start -->
+							<div class="shopping-card shopping-card__v2">
+								<a href="#" class="shopping-card__image"> <img
+									src="assets/images/cart/cart-01.png" alt="cart-product" />
+								</a>
+								<div class="shopping-card__content">
+									<div class="shopping-card__content-top">
+										<h5 class="product__title">
+											<a href="#">All Natural Italian Chicken Meatballs</a>
+										</h5>
+										<h5 class="product__price">$24.40</h5>
+									</div>
+									<div class="shopping-card__content-bottom">
+										<button type="button" class="action__btn qty">Qty: 2</button>
+									</div>
+								</div>
+							</div>
+							<!-- Shopping Cart Item End -->
+							<!-- Shopping Cart Item Start -->
+							<div class="shopping-card shopping-card__v2">
+								<a href="#" class="shopping-card__image"> <img
+									src="assets/images/cart/cart-01.png" alt="cart-product" />
+								</a>
+								<div class="shopping-card__content">
+									<div class="shopping-card__content-top">
+										<h5 class="product__title">
+											<a href="#">All Natural Italian Chicken Meatballs</a>
+										</h5>
+										<h5 class="product__price">$24.40</h5>
+									</div>
+									<div class="shopping-card__content-bottom">
+										<button type="button" class="action__btn qty">Qty: 2</button>
+									</div>
+								</div>
+							</div>
+							<!-- Shopping Cart Item End -->
+							<div class="bar"></div>
+						</div>
+						<ul class="cart__subtotal cart__subtotal__v2">
+							<li><span class="label">Subtotal</span> <span class="value">$45.00</span>
+							</li>
+							<li><span class="label">Shipping:</span> <span class="value">$15.22</span>
+							</li>
+							<!-- <li><span class="label">Discount Coupon:</span> <span
+								class="value">-$10.00</span></li> -->
+						</ul>
+						<div class="cart__total cart__total__v2">
+							<h3>
+								Total <span>(Incl. VAT)</span>
+							</h3>
+							<div class="total">$50.00</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Checkout Section End -->
+
+	<script>
+		function sample6_execDaumPostcode() {
+			new daum.Postcode(
+					{
+						oncomplete : function(data) {
+							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+							// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+							// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+							var addr = ''; // 주소 변수
+							var extraAddr = ''; // 참고항목 변수
+
+							//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+							if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+								addr = data.roadAddress;
+							} else { // 사용자가 지번 주소를 선택했을 경우(J)
+								addr = data.jibunAddress;
+							}
+
+							// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+							if (data.userSelectedType === 'R') {
+								// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+								// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+								if (data.bname !== ''
+										&& /[동|로|가]$/g.test(data.bname)) {
+									extraAddr += data.bname;
+								}
+								// 건물명이 있고, 공동주택일 경우 추가한다.
+								if (data.buildingName !== ''
+										&& data.apartment === 'Y') {
+									extraAddr += (extraAddr !== '' ? ', '
+											+ data.buildingName
+											: data.buildingName);
+								}
+								// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+								if (extraAddr !== '') {
+									extraAddr = ' (' + extraAddr + ')';
+								}
+								// 조합된 참고항목을 해당 필드에 넣는다.
+								//document.getElementById("sample6_extraAddress").value = extraAddr;
+
+							} 
+							/* else {
+								document.getElementById("sample6_extraAddress").value = '';
+							} */
+
+							// 우편번호와 주소 정보를 해당 필드에 넣는다.
+							document.getElementById('sample6_postcode').value = data.zonecode;
+							document.querySelector('#addr1').innerText = data.zonecode;
+							document.getElementById("sample6_address").value = addr + extraAddr;
+							document.querySelector('#addr2').innerText = addr + extraAddr;
+							// 커서를 상세주소 필드로 이동한다.
+							document.getElementById("sample6_detailAddress")
+									.focus();
+						}
+					}).open();
+		}
+	</script>
+	<script type="text/javascript">
+		function printName() {
+			let name = document.getElementById('f_name').value;
+			document.getElementById("f_name_out").innerText = name;
+		}
+		
+		function printTel() {
+			let tel = document.querySelector('#f_phone').value;
+			document.querySelector('#f_phone_out').innerText = tel;
+		}
+		
+		function printBoth() {
+			document.querySelector('#f2_phone').value = document.querySelector('#f_phone').value;
+			document.querySelector('#f2_name').value = document.querySelector('#f_name').value;
+		}
+
+		function printDel() {
+			document.querySelector('#f2_phone').value = '';
+			document.querySelector('#f2_name').value = '';
+
+			document.querySelector('#f2_name').focus();
+		}
+
+		function printAdd3() {
+			let add3 = document.querySelector('#sample6_detailAddress').value;
+			document.querySelector('#addr3').innerText = add3;
+		}
+
+</script>
+</th:block>
+
+</html>

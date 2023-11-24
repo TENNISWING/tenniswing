@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.tenniswing.project.match.mapper.MatchHistRepMapper">
+  	<!-- 전체 조회  -->
+  	<select id="selectAllMatchHistRep" resultType="MatchHistRepVO">
+  		SELECT match_rep_no
+  				, match_part
+  				, match_no
+  				, match_writer
+  				, match_proposer
+  				, manner_card
+  				, rep_ctt
+  		FROM match_hist_rep
+  		ORDER BY match_rep_no
+   	</select>   	
+   
+  	<!-- 단건조회 -->
+  	<select id="selectMatchHistRep" resultType="MatchHistRepVO">
+  		SELECT match_rep_no
+  				, match_part
+  				, match_no
+  				, match_writer
+  				, match_proposer
+  				, manner_card
+  				, rep_ctt
+  		FROM match_hist_rep
+  		WHERE match_rep_no = #{matchRepNo}
+  	</select>
+  	
+  	<!-- 등록 -->
+  	<insert id="insertMatchHistRep" parameterType="MatchHistRepVO">
+  	 	<selectKey keyProperty="matchRepNo" 
+  	 			   resultType="int" 
+  	 			   order="BEFORE">
+  	 		<!-- primarykey가 숫자일 경우 사용 -->
+  	 		SELECT NVL(MAX(match_rep_no), 0) + 1 
+			FROM match_hist_rep
+  	 	</selectKey>
+  	 	INSERT INTO match_hist_rep
+  	 			(
+		  	 		match_rep_no
+	  				, match_part
+	  				, match_no
+	  				, match_writer
+	  				, match_proposer
+	  				, manner_card
+	  				, rep_ctt
+  	 			)
+  	 			VALUES
+  	 			(
+  	 				#{matchRepNo}
+  	 				,#{matchPart}
+  	 				,#{matchNo}
+  	 				,#{matchWriter}
+  	 				,#{matchProposer}
+  	 				,#{mannerCard}
+  	 				,#{repCtt}			
+  	 			)  	 			
+  	</insert>
+  	
+  	<!-- 수정 -->
+  	<update id="updateMatchHistRep" parameterType="MatchHistRepVO">
+  		UPDATE match_hist_rep
+  			SET
+  				match_rep_no = #{matchRepNo}
+	  				, match_part = #{matchPart}
+	  				, match_no = #{matchNo}
+	  				, match_writer = #{matchWriter}
+	  				, match_proposer = #{matchProposer}
+	  				, manner_card = #{mannerCard}
+	  				, rep_ctt = #{repCtt}
+  		WHERE match_rep_no = #{matchRepNo}
+  	</update>
+  	
+  	<!-- 삭제 -->
+  	<delete id="deleteMatchHistRep" parameterType="int">
+  		DELETE FROM match_hist_rep
+  		WHERE match_rep_no = #{matchRepNo}
+  	</delete>  	
+  </mapper>

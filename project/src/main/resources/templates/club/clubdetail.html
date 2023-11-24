@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main-layout}">
+<head>
+<style>
+.match-box p{
+    border: 1px solid #dfdfdf;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 35px 0px;
+    border-radius: 10%;
+}
+.d-flex-match {
+    display: flex !important;
+    flex-direction: row;
+    align-content: stretch;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+.d-flex-right{
+display: flex !important;
+align-items: center;
+}
+</style>
+</head>
+
+<th:block layout:fragment="content">
+
+
+	<!-- club sub menu -->
+	<div class="container mb-4">
+		<ul class="nav d-flex justify-content-around text-center">
+			<li class="d-flex flex-column"><a href="javascript:void(0)"><div>
+						<i class="fa-solid fa-list fs-3 text-info"></i>
+					</div>클럽 목록</a></li>
+			<li class="d-flex flex-column"><a href="javascript:void(0)"><div>
+						<i class="fa-solid fa-pen-square fs-3 text-primary"></i>
+					</div>클럽 창설</a></li>
+			<li class="d-flex flex-column"><a href="javascript:void(0)"><div>
+						<i class="fa-solid fa-m fs-3 text-warning"></i>
+					</div>마이 클럽</a></li>
+		</ul>
+	</div>
+	<!-- End club sub menu  -->
+
+	<div class="container">
+		<form action="d-user-list.html" class="dashboard__form">
+			<div class="row">
+				<div class="col-xxl-4">
+					<!-- <div class="dashboard-block__title">
+                                                <h4>Profile Image</h4>
+                                            </div> -->
+					<div class="card card-shadow" style="border: 1px solid #e9e9e9;">
+						<div class="user__profile text-center"
+							style="padding: 20px 10px 40px 10px;">
+							<div class="user__avatar">
+								<img src="/assets/compiled/jpg/1.jpg" alt="profile-pic"
+									style="width: 350px; height: 300px; object-fit: cover;" />
+
+							</div>
+							<div class="user__content">
+								<h3 style="line-height: 80px; color: #668585;">최강 테니스 클럽</h3>
+								<h6 style="color: gray;">멤버수 : 100명</h6>
+								<h6 style="color: gray;">LV : 3.5</h6>
+								<div>
+									<a href="#" class="btn btn-outline-success"
+										style="width: 50%; margin-top: 30px;">클럽 설정</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-xxl-8">
+					<div class="dashboard-block">
+						<div class="tabs__wrapper tabs__wrapper--v3">
+							<div class="tabs__filter">
+								<ul class="nav nav-tabs" id="myTab" role="tablist">
+									<li class="nav-item" role="presentation">
+										<button class="nav-link active" id="tab-info"
+											data-bs-toggle="tab" data-bs-target="#tab-info-pane"
+											type="button" role="tab" aria-controls="tab-info-pane"
+											aria-selected="true">클럽 정보</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="tab-match" data-bs-toggle="tab"
+											data-bs-target="#tab-match-pane" type="button" role="tab"
+											aria-controls="tab-match-pane" aria-selected="false">매치
+											모집</button>
+									</li>
+
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="women-tab" data-bs-toggle="tab"
+											data-bs-target="#women-tab-pane" type="button" role="tab"
+											aria-controls="women-tab-pane" aria-selected="false">
+											매치 일정</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="electronics-tab"
+											data-bs-toggle="tab" data-bs-target="#electronics-tab-pane"
+											type="button" role="tab" aria-controls="electronics-tab-pane"
+											aria-selected="false">매치 결과</button>
+									</li>
+
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="board-tab" data-bs-toggle="tab"
+											data-bs-target="#tab-board-pane" type="button" role="tab"
+											aria-controls="tab-board-pane" aria-selected="false">자유게시판</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="member-tab" data-bs-toggle="tab"
+											data-bs-target="#tab-member-pane" type="button" role="tab"
+											aria-controls="tab-member-pane" aria-selected="false">멤버</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="electronics-tab"
+											data-bs-toggle="tab" data-bs-target="#electronics-tab-pane"
+											type="button" role="tab" aria-controls="electronics-tab-pane"
+											aria-selected="false">가입 신청</button>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+						<!-- 클럽 탭 - 클럽정보 -->
+						<div class="tab-content" id="myTabContent"
+							style="padding: 10px 0px;">
+							<div class="tab-pane fade show active" id="tab-info-pane"
+								role="tabpanel" aria-labelledby="tab-info" tabindex="0">
+								<div class="content__body">
+
+									<div class="col-md-11">
+										<div class="product-detail__wrapper">
+											<br />
+											<h2 class="product-detail__title"
+												style="width: fit-content; display: inline-block;">최강
+												테니스 클럽</h2>
+											<a href="#" class="btn icon btn-secondary"><i
+												data-feather="user"></i>멤버수</a>
+											<h5 style="font-weight: 500; color: gray; margin-top: 15px;">클럽코드wfsdsed-wefsdfwerf-efsdf</h5>
+
+											<p class="product-detail__short_desc">There are many
+												variations of passages of Lorem Ipsum and available,majority
+												have suffered alteration in somey form, by injected humour,
+												or randomised words which don't look even slightly
+												believable.</p>
+											<div class="product-detail__attr col-xxl-12">
+												<div class="product__attr col-xxl-9">
+													<p>
+														<span class="product-detail--stroke">요일</span>&nbsp; <span
+															class="product-detail--stroke" style="color: gray">월요일</span>
+													</p>
+													<p>
+														<span class="product-detail--stroke">시간</span>&nbsp; <span
+															class="product-detail--stroke" style="color: gray">오후</span>
+													</p>
+													<p>
+														<span class="product-detail--stroke">지역</span>&nbsp; <span
+															class="product-detail--stroke" style="color: gray">대구광역시
+															북구</span>
+													</p>
+												</div>
+											</div>
+											<div class="product-detail__attr col-xxl-12">
+												<div class="product__attr col-xxl-9">
+													<p>
+														<span class="product-detail--stroke">나이</span>&nbsp; <span
+															class="product-detail--stroke" style="color: gray">20대-30대</span>
+													</p>
+													<p>
+														<span class="product-detail--stroke">성별</span>&nbsp; <span
+															class="product-detail--stroke" style="color: gray">남녀모두</span>
+													</p>
+													<p>
+														<span class="product-detail--stroke">레벨</span>&nbsp; <span
+															class="product-detail--stroke" style="color: gray">?</span>
+													</p>
+													<p>
+														<span class="product-detail--stroke">경기장</span>&nbsp; <span
+															class="product-detail--stroke" style="color: gray">북구
+															테니스장</span>
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /클럽 탭 - 클럽정보 -->
+						<!-- 클럽 탭 - 매치일정 -->
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade" id="tab-match-pane" role="tabpanel"
+								aria-labelledby="tab-match" tabindex="0">
+								<div class="content__body">
+									
+									<div class="content__body">
+
+									<div class="recent-message d-flex-match px-4 py-3"
+										th:each="num : ${#numbers.sequence(1,5)}"
+										style="border-bottom: 1px solid #e1e1e1;">
+										<div class="d-flex-right">
+										<div class="match-box">
+											<p>매치1</p>
+										</div>
+										<div class="name ms-4" style="padding: 10px 0;">
+											<h5 class="mb-1">2023년 12월 24일 매치인원 모집</h5>
+											<h6 class="text-muted mb-0">모집 인원 : 5명</h6>
+											<h6 class="text-muted mb-0">참가 인원 : 3명</h6>
+											<p class="text-muted mb-0">작성일 : 2023-11-24 </p>
+										</div>
+										</div>
+										<div>
+										<a href="#" class="btn btn-primary">참여하기</a>
+										</div>
+									</div>
+
+								</div>
+								<br>
+								<ul class="pagination justify-content-center">
+									<li class="page-item disabled"><a class="page-link"
+										href="#" tabindex="-1" aria-disabled="true">이전</a></li>
+									<li class="page-item"><a class="page-link" href="#">1</a></li>
+									<li class="page-item"><a class="page-link" href="#">2</a></li>
+									<li class="page-item"><a class="page-link" href="#">3</a></li>
+									<li class="page-item"><a class="page-link" href="#">다음</a>
+									</li>
+								</ul>
+							</div>
+							
+						</div>
+						
+							
+						
+						
+						<!-- /클럽 탭 - 매치일정 -->
+						<!-- 클럽 탭 - 멤버 -->
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade" id="tab-member-pane" role="tabpanel"
+								aria-labelledby="tab-match" tabindex="0">
+								<div class="content__body">
+
+									<div class="recent-message d-flex px-4 py-3"
+										th:each="num : ${#numbers.sequence(1,10)}"
+										style="border-bottom: 1px solid #e1e1e1;">
+										<div class="avatar avatar-lg">
+											<img src="./assets/compiled/jpg/4.jpg">
+										</div>
+										<div class="name ms-4">
+											<h5 class="mb-1">Hank Schrader</h5>
+											<h6 class="text-muted mb-0">@johnducky</h6>
+										</div>
+									</div>
+
+								</div>
+								<br>
+								<ul class="pagination justify-content-center">
+									<li class="page-item disabled"><a class="page-link"
+										href="#" tabindex="-1" aria-disabled="true">이전</a></li>
+									<li class="page-item"><a class="page-link" href="#">1</a></li>
+									<li class="page-item"><a class="page-link" href="#">2</a></li>
+									<li class="page-item"><a class="page-link" href="#">3</a></li>
+									<li class="page-item"><a class="page-link" href="#">다음</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!-- /클럽 탭 - 멤버 -->
+						<!-- 클럽 탭 - 자유게시판 -->
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade" id="tab-board-pane" role="tabpanel"
+								aria-labelledby="tab-board" tabindex="0">
+								<div class="content__body">
+									<section class="archive-category">
+										<div class="col-12">
+											<div class="filter__area" style="margin: 0;">
+												<div class="email-fixed-search col-6 ">
+													<div
+														class="form-group position-relative  mb-0 has-icon-left">
+														<input type="text" class="form-control"
+															placeholder="Serch club...">
+														<div class="form-control-icon">
+															<svg class="bi" width="1.5em" height="1.5em"
+																fill="currentColor">
+                                                        <use
+																	xlink:href="assets/static/images/bootstrap-icons.svg#search" />
+                                                    </svg>
+														</div>
+													</div>
+												</div>
+												<div class="shortBy-select select__style d-lg-flex d-none">
+													<label for="sortBy2">Sort by:</label> <select name="sortBy"
+														id="sortBy2">
+														<option value="0">최신순</option>
+														<option value="0">인기순</option>
+														<option value="0">이름순</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</section>
+								</div>
+								<!-- table hover -->
+								<div class="table-responsive">
+									<table class="table table-hover mb-0">
+										<thead>
+											<tr>
+												<th>NO</th>
+												<th>제목</th>
+												<th>작성자</th>
+												<th>작성일</th>
+												<th>조회수</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="num : ${#numbers.sequence(1,10)}"
+												style="height: 70px;">
+												<td>1</td>
+												<td>이것은 자유게시판 제목</td>
+												<td>user kim</td>
+												<td>2023-11-24</td>
+												<td>6</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<br>
+								<ul class="pagination justify-content-center">
+									<li class="page-item disabled"><a class="page-link"
+										href="#" tabindex="-1" aria-disabled="true">이전</a></li>
+									<li class="page-item"><a class="page-link" href="#">1</a></li>
+									<li class="page-item"><a class="page-link" href="#">2</a></li>
+									<li class="page-item"><a class="page-link" href="#">3</a></li>
+									<li class="page-item"><a class="page-link" href="#">다음</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- /클럽 탭 - 자유게시판 -->
+				</div>
+			</div>
+		</form>
+	</div>
+</th:block>
+</html>
