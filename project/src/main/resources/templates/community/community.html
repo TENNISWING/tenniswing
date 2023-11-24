@@ -10,7 +10,19 @@
 <th:block layout:fragment="content">
 
 	<!-- community sub menu -->
+	<!-- match sub menu -->
 	<div class="container mb-4">
+		<ul class="nav d-flex justify-content-around text-center matchsidevar">
+			<li class="d-flex flex-column"><a href="sns"><img
+					src="assets/img/match/icon/icon1.png" class=" miconimg">SNS</a></li>
+			<li class="d-flex flex-column"><a href="freeboardList"><img
+					src="assets/img/match/icon/icon3.png" class=" miconimg">자유게시판</a></li>
+			<li class="d-flex flex-column"><a href="noticeList"><img
+					src="assets/img/match/icon/icon4.png" class=" miconimg">공지사항</a></li>
+		</ul>
+	</div>
+	<!-- End match sub menu  -->
+	<!-- <div class="container mb-4">
 		<ul class="nav d-flex justify-content-around text-center">
 			<li class="d-flex flex-column"><a href="sns">
 					<div>
@@ -28,7 +40,7 @@
 					</div>공지사항
 			</a></li>
 		</ul>
-	</div>
+	</div> -->
 	<!-- End community sub menu  -->
 
 	<div class="container">
@@ -36,16 +48,18 @@
 			<div class="col-3"></div>
 			<div class="col-6">
 
-	<div class="input-group">
-						<input type="text" class="form-control" placeholder="">
-						<button type="button" class="input-group-text">
-							<i class="icon dripicons dripicons-search fs-3"></i>
-						</button>
-					</div>
-					<div class ="insertBtn">
-					<a href="#" class="btn btn-secondary rounded-pill">내가 등록한 sns 보기</a>
-					<a href="#" class="btn btn-secondary rounded-pill">등록</a>
-					</div>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="">
+					<button type="button" class="input-group-text">
+						<i class="icon dripicons dripicons-search fs-3"></i>
+					</button>
+				</div>
+				<div class="insertBtn">
+					<a href="#" class="btn btn-secondary rounded-pill"
+						th:onclick="|location.href='@{snsMyList}'|">내가 등록한 sns 보기</a> <a
+						class="btn btn-secondary rounded-pill"
+						th:onclick="|location.href='@{snsRegister}'|">등록</a>
+				</div>
 
 				<!-- Basic card section start -->
 				<section id="content-types">
@@ -95,16 +109,28 @@
 
 											</div>
 
-										<div class="buttons" style="float: right">
-										<ul class="nav d-flex justify-content-around text-center" style="float: right">
-											<li class="d-flex flex-column"><div><a href="#" class="btn icon btn-white">
-											<i class="fa-solid fa-thumbs-up fs-5 text-secondary"></i></a></div>777</li>
-											<li class="d-flex flex-column"><div><a href="#" class="btn icon btn-white" data-bs-toggle="modal" data-bs-target="#large">
-											<i class="fa-solid fa-comment fs-5 text-secondary"></i></a> </div></li>
-											<li class="d-flex flex-column"><div><a href="#" class="btn icon btn-white"><i class="fa-solid fa-share-from-square fs-5 text-secondary"></i></a></div> </li>
-											<li class="d-flex flex-column"><div><a href="#" class="btn icon btn-white"><i class="fa-regular fa-bookmark fs-5 text-secondary"></i></a></div></li>
-										</ul>
-										</div>
+											<div class="buttons" style="float: right">
+												<ul class="nav d-flex justify-content-around text-center"
+													style="float: right">
+													<li class="d-flex flex-column"><div>
+															<a href="#" class="btn icon btn-white"> <i
+																class="fa-solid fa-thumbs-up fs-5 text-secondary"></i></a>
+														</div>777</li>
+													<li class="d-flex flex-column"><div>
+															<a href="#" class="btn icon btn-white"
+																data-bs-toggle="modal" data-bs-target="#large"> <i
+																class="fa-solid fa-comment fs-5 text-secondary"></i></a>
+														</div></li>
+													<li class="d-flex flex-column"><div>
+															<a href="#" class="btn icon btn-white"><i
+																class="fa-solid fa-share-from-square fs-5 text-secondary"></i></a>
+														</div></li>
+													<li class="d-flex flex-column"><div>
+															<a href="#" class="btn icon btn-white"><i
+																class="fa-regular fa-bookmark fs-5 text-secondary"></i></a>
+														</div></li>
+												</ul>
+											</div>
 										</div>
 										<!-- 		<div class="buttons" >
 
@@ -124,12 +150,6 @@
 										</div> -->
 									</div>
 								</div>
-
-
-										</div>
-									</div>
-								</div>
-								
 
 								<div class="swiper-slide snstem">
 									<div class="snsdiv col-xl-12 border border-1 rounded-4">
@@ -181,7 +201,6 @@
 												class="fa-solid fa-thumbs-up fs-5 text-secondary"></i></a> <a
 												href="#" class="btn icon btn-white" data-bs-toggle="modal"
 												data-bs-target="#large"><i
-
 												class="fa-solid fa-comment fs-5 text-secondary"></i></a> <a
 												href="#" class="btn icon btn-white"><i
 												class="fa-solid fa-share-from-square fs-5 text-secondary"></i></a>
@@ -189,63 +208,63 @@
 												class="fa-regular fa-bookmark fs-5 text-secondary"></i></a>
 										</div>
 										<div class="likeCount" style="text-align: right">
-										<a href="#" class="btn icon btn-white">777</a> 
-										<a href="#" class="btn icon btn-white"></a> 
-										<a href="#" class="btn icon btn-white"></a>
-										<a href="#" class="btn icon btn-white"></a>
+											<a href="#" class="btn icon btn-white">777</a> <a href="#"
+												class="btn icon btn-white"></a> <a href="#"
+												class="btn icon btn-white"></a> <a href="#"
+												class="btn icon btn-white"></a>
 
 										</div>
 									</div>
 								</div>
-
-
 							</div>
-							<!-- <div class="swiper-pagination snstem"></div> -->
+							<!-- 여기위에 -->
 						</div>
-
-						<!-- Swiper JS -->
-
-						<!-- Initialize Swiper -->
-						<script>							
-						
-							let swiper = new Swiper(".mySwiper.snstem", {
-								direction : "vertical",
-								autoplay : false,
-								loop : true,
-								mousewheel : true,
-								autoHeight : true,
-								breakpoints : true,
-
-								pagination : {
-
-									el : ".swiper-pagination.snstem",
-									clickable : true,
-								},
-								scrollbar : {
-									el : '.swiper-pagination.snstem',
-
-									draggable : true,
-									dragSize : '500px'
-
-								}
-							});
-							/* 		var swiper = new Swiper(".mySwiper", {
-										direction : "vertical",
-										pagination : {
-											el : ".swiper-pagination",
-											clickable : true,
-										},
-									}); */
-
-						</script>
-
 					</div>
-				</section>
 			</div>
-
-
+			<!-- <div class="swiper-pagination snstem"></div> -->
 		</div>
-		<div class="col-3"></div>
+
+		<!-- Swiper JS -->
+
+		<!-- Initialize Swiper -->
+		<script>
+			let swiper = new Swiper(".mySwiper.snstem", {
+				direction : "vertical",
+				autoplay : false,
+				loop : true,
+				mousewheel : true,
+				autoHeight : true,
+				breakpoints : true,
+
+				pagination : {
+
+					el : ".swiper-pagination.snstem",
+					clickable : true,
+				},
+				scrollbar : {
+					el : '.swiper-pagination.snstem',
+
+					draggable : true,
+					dragSize : '500px'
+
+				}
+			});
+			/* 		var swiper = new Swiper(".mySwiper", {
+						direction : "vertical",
+						pagination : {
+							el : ".swiper-pagination",
+							clickable : true,
+						},
+					}); */
+		</script>
+
+	</div>
+	</section>
+	</div>
+
+
+	</div>
+	<div class="col-3"></div>
 	</div>
 
 

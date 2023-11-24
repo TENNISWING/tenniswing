@@ -31,4 +31,10 @@ public class CommunityController {
 	public String snsRegPage(Model model) {
 		return "community/snsRegister";
 	}
+	
+	// sns 내가 등록한 게시글 보기
+	@GetMapping("snsMyList")
+	public String snsMyListPage(Model model) {
+		return "community/snsMyList";
+	}
 }
