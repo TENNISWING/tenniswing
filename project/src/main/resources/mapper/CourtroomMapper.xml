@@ -6,11 +6,11 @@
   <mapper namespace="com.tenniswing.project.court.mapper.CourtroomMapper">
   	<!-- 코트 등록 -->
   	<insert id="insertCourtroom" parameterType="crtroomVO">
-  		<selectKey keyProperty="courtroomNo"
+  		<selectKey keyProperty="crtroomNo"
   				   resultType="int"
   				   order="BEFORE">
   			SELECT NVL(MAX(crtroom_no), 0) + 1
-  			FROM courtroom		   
+  			FROM crtroom		   
   		</selectKey>
   		INSERT INTO crtroom
   			(
@@ -20,10 +20,10 @@
   				, crtroom_exp
   				, crtroom_region
   				, crtroom_location
-  				, crtroom_operate_time
+  				, crtroom_operate_start_time
+  				, crtroom_operate_end_time
   				, crtroom_caution
   				, crtroom_use_guide
-  				, crtroom_indoor_outdoor
   				, crtroom_regi_date
   			)
   			VALUES
@@ -34,10 +34,10 @@
   				, #{crtroomExp}
   				, #{crtroomRegion}
   				, #{crtroomLocation}
-  				, #{crtroomOperateTime}
+  				, #{crtroomOperateStartTime}
+  				, #{crtroomOperateEndTime}
   				, #{crtroomCaution}
   				, #{crtroomUseGuide}
-  				, #{crtroomIndoorOutdoor}
   				, SYSDATE
   			)
   	</insert>
