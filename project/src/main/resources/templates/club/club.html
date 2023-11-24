@@ -152,188 +152,176 @@
 			<section class="section content-area-wrapper" style="padding: 0;">
 				<div class="content-right" style="width: 100%;">
 					<div class="content-wrapper">
-						<div class="content-body">
-							<div class="email-app-area">
-								<!-- Email list Area -->
-								<div class="email-app-list-wrapper">
-									<div class="email-app-list">
-										<!-- email user list start -->
-										<div class="email-user-list list-group ps ps--active-y"
-											style="height: 100% !important;">
-											<ul class="users-list-wrapper media-list">
-												<li class="media" th:each="num : ${#numbers.sequence(1,10)}">
-												
-														<div class="user-action">
-															<span class="favorite text-warning"> <svg
-																	class="bi" width="1.5em" height="1.5em"
-																	fill="currentColor"></svg>
-															</span>
-														</div>
-														<div class="pr-50">
-															<div>
-																<img src="/assets/compiled/jpg/1.jpg"
-																	alt="avtar img holder"
-																	style="width: 80px; border-radius: 70%;">
-															</div>
-														</div>
-														<div class="media-body">
-															<div class="user-details">
-																<div class="mail-items">
-																	<span class="list-group-item-text text-truncate">최강
-																		테니스👍
-																		<div class="badge badge-pill bg-light-info me-1">멤버수</div>
-																		<div class="badge badge-pill bg-light-warning me-1">모집중</div>
-																	</span>
-																</div>
-															</div>
-															<div class="mail-message">
-																<p class="list-group-item-text truncate mb-0">최강 테니스
-																	클럽 소개글!!</p>
-																<div class="mail-meta-item">
-																	<span class="float-right"> <span
-																		class="bullet bullet-success bullet-sm"></span>
-																	</span>
-																</div>
-															</div>
-															<div class="mail-message">
-																<p class="list-group-item-text truncate mb-0">경기 수원시
-																	/ 수원 테니스 파크</p>
-																<div class="mail-meta-item">
-																	<span class="float-right"> <span
-																		class="bullet bullet-success bullet-sm"></span>
-																	</span>
-																</div>
-															</div>
-															<div class="mail-message">
-																<p class="list-group-item-text truncate mb-0">남녀모두 /
-																	연령대 / 요일-시간대 / 레벨</p>
-																<div class="mail-meta-item">
-																	<span class="float-right"> <span
-																		class="bullet bullet-success bullet-sm"></span>
-																	</span>
-																</div>
-															</div>
-														</div>
-											
+						<!-- Email list Area -->
+						<div class="email-app-list-wrapper">
+							<div class="email-app-list">
+								<!-- email user list start -->
+								<div class="email-user-list list-group ps ps--active-y"
+									style="height: 100% !important;">
+									<ul class="users-list-wrapper media-list">
+										<li class="media" th:each="num : ${#numbers.sequence(1,10)}"
+										    th:onclick="|location.href='@{clubdetail}'|">
+
+											<div class="user-action">
+												<span class="favorite text-warning"> <svg class="bi"
+														width="1.5em" height="1.5em" fill="currentColor"></svg>
+												</span>
+											</div>
+											<div class="pr-50">
+												<div>
+													<img src="/assets/compiled/jpg/1.jpg"
+														alt="avtar img holder"
+														style="width: 80px; border-radius: 70%;">
+												</div>
+											</div>
+											<div class="media-body">
+												<div class="user-details">
+													<div class="mail-items">
+														<span class="list-group-item-text text-truncate">최강
+															테니스👍
+															<div class="badge badge-pill bg-light-info me-1">멤버수</div>
+															<div class="badge badge-pill bg-light-warning me-1">모집중</div>
+														</span>
+													</div>
+												</div>
+												<div class="mail-message">
+													<p class="list-group-item-text truncate mb-0">최강 테니스 클럽
+														소개글!!</p>
 													<div class="mail-meta-item">
-														<div class="float-right">
-
-															<span class="mail-date"><button type="button"
-																	style="margin: 0"
-																	class="btn btn-primary btn-block my-4 compose-btn"
-																	data-bs-toggle="modal"
-																	data-bs-target="#exampleModalCenter">가입</button></span>
-														</div>
-													</div>
-												</li>
-												<!-- 클럽 가입 신청 버튼 Modal  -->
-												<div class="modal fade" id="exampleModalCenter"
-													tabindex="-1" role="dialog"
-													aria-labelledby="exampleModalCenterTitle"
-													aria-hidden="true">
-													<div
-														class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
-														role="document">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title" id="exampleModalCenterTitle">클럽
-																	가입하기</h5>
-																<button type="button" class="close"
-																	data-bs-dismiss="modal" aria-label="Close">
-																	<i data-feather="x"></i>
-																</button>
-															</div>
-															<div class="modal-body" style="text-align: center;">
-																<div>
-																	<img src="./assets/img/card.jpg" style="width: 450px;">
-																</div>
-																<br>
-																<p>여기는 클럽 소개글 쏼라쏼라Croissant jelly-o halvah chocolate
-																	sesame snaps. Brownie caramels candy canes chocolate
-																	cake marshmallow icing lollipop I love. Gummies
-																	macaroon donut caramels biscuit topping danish.</p>
-															</div>
-															<div class="modal-footer" style="text-align: center;">
-																<button type="button" class="btn btn-primary ms-1"
-																	data-bs-dismiss="modal">
-																	<i class="bx bx-check d-block d-sm-none"></i> <span
-																		class="d-none d-sm-block">가입신청서 작성</span>
-																</button>
-															</div>
-														</div>
+														<span class="float-right"> <span
+															class="bullet bullet-success bullet-sm"></span>
+														</span>
 													</div>
 												</div>
-
-
-											</ul>
-											<!-- email user list end -->
-
-											<!-- no result when nothing to show on list -->
-											<div class="no-results">
-												<i class="bi bi-error-circle font-large-2"></i>
-												<h5>No Items Found</h5>
+												<div class="mail-message">
+													<p class="list-group-item-text truncate mb-0">경기 수원시 /
+														수원 테니스 파크</p>
+													<div class="mail-meta-item">
+														<span class="float-right"> <span
+															class="bullet bullet-success bullet-sm"></span>
+														</span>
+													</div>
+												</div>
+												<div class="mail-message">
+													<p class="list-group-item-text truncate mb-0">남녀모두 /
+														연령대 / 요일-시간대 / 레벨</p>
+													<div class="mail-meta-item">
+														<span class="float-right"> <span
+															class="bullet bullet-success bullet-sm"></span>
+														</span>
+													</div>
+												</div>
 											</div>
-											<div class="ps__rail-x" style="left: 0px; bottom: 0px;">
-												<div class="ps__thumb-x" tabindex="0"
-													style="left: 0px; width: 0px;"></div>
+
+											<div class="mail-meta-item">
+												<div class="float-right">
+
+													<span class="mail-date"><button type="button"
+															style="margin: 0"
+															class="btn btn-primary btn-block my-4 compose-btn"
+															data-bs-toggle="modal"
+															data-bs-target="#exampleModalCenter">가입</button></span>
+												</div>
 											</div>
-
-										</div>
-
-										<div class="email-action">
+										</li>
+										<!-- 클럽 가입 신청 버튼 Modal  -->
+										<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+											role="dialog" aria-labelledby="exampleModalCenterTitle"
+											aria-hidden="true">
 											<div
-												class="action-right d-flex flex-grow-1 align-items-center justify-content-around">
-												<div class="sidebar-toggle d-block d-lg-none">
-													<button class="btn btn-sm btn-outline-primary">
-														<i class="bi bi-list fs-5"></i>
-													</button>
-												</div>
-												<!-- search bar  -->
-												<div class="email-fixed-search flex-grow-1">
-
-													<div
-														class="form-group position-relative  mb-0 has-icon-left">
-														<input type="text" class="form-control"
-															placeholder="Search email..">
-														<div class="form-control-icon">
-															<svg class="bi" width="1.5em" height="1.5em"
-																fill="currentColor">
-                                                        <use
-																	xlink:href="assets/static/images/bootstrap-icons.svg#search" />
-                                                    </svg>
+												class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+												role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalCenterTitle">클럽
+															가입하기</h5>
+														<button type="button" class="close"
+															data-bs-dismiss="modal" aria-label="Close">
+															<i data-feather="x"></i>
+														</button>
+													</div>
+													<div class="modal-body" style="text-align: center;">
+														<div>
+															<img src="./assets/img/card.jpg" style="width: 450px;">
 														</div>
+														<br>
+														<p>여기는 클럽 소개글 쏼라쏼라Croissant jelly-o halvah chocolate
+															sesame snaps. Brownie caramels candy canes chocolate cake
+															marshmallow icing lollipop I love. Gummies macaroon donut
+															caramels biscuit topping danish.</p>
+													</div>
+													<div class="modal-footer" style="text-align: center;">
+														<button type="button" class="btn btn-primary ms-1"
+															data-bs-dismiss="modal">
+															<i class="bx bx-check d-block d-sm-none"></i> <span
+																class="d-none d-sm-block">가입신청서 작성</span>
+														</button>
 													</div>
 												</div>
-												<!-- pagination and page count -->
-												<span class="d-none d-sm-block">1-10 of 653</span>
-												<button
-													class="btn btn-icon email-pagination-prev action-button d-none d-sm-block">
+											</div>
+
+										</div>
+								</div>
+
+								</ul>
+
+								<!-- email user list end -->
+
+								<!-- no result when nothing to show on list -->
+								<!-- <div class="no-results">
+										<i class="bi bi-error-circle font-large-2"></i>
+										<h5>No Items Found</h5>
+									</div> -->
+								<div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+									<div class="ps__thumb-x" tabindex="0"
+										style="left: 0px; width: 0px;"></div>
+								</div>
+
+								<div class="email-action">
+									<div
+										class="action-right d-flex flex-grow-1 align-items-center justify-content-around">
+										<div class="sidebar-toggle d-block d-lg-none"></div>
+										<!-- search bar  -->
+										<div class="email-fixed-search flex-grow-1">
+											<div class="form-group position-relative  mb-0 has-icon-left">
+												<input type="text" class="form-control"
+													placeholder="Serch club...">
+												<div class="form-control-icon">
 													<svg class="bi" width="1.5em" height="1.5em"
 														fill="currentColor">
-                                                <use
-															xlink:href="assets/static/images/bootstrap-icons.svg#chevron-left" />
-                                            </svg>
-												</button>
-												<button
-													class="btn btn-icon email-pagination-next action-button d-none d-sm-block">
-													<svg class="bi" width="1.5em" height="1.5em"
-														fill="currentColor">
-                                                <use
-															xlink:href="assets/static/images/bootstrap-icons.svg#chevron-right" />
-                                            </svg>
-												</button>
+                                                        <use
+															xlink:href="assets/static/images/bootstrap-icons.svg#search" />
+                                                    </svg>
+												</div>
 											</div>
 										</div>
-
+										<!-- pagination and page count -->
+										<span class="d-none d-sm-block">1-10 of 653</span>
+										<button
+											class="btn btn-icon email-pagination-prev action-button d-none d-sm-block">
+											<svg class="bi" width="1.5em" height="1.5em"
+												fill="currentColor">
+                                                <use
+													xlink:href="assets/static/images/bootstrap-icons.svg#chevron-left" />
+                                            </svg>
+										</button>
+										<button
+											class="btn btn-icon email-pagination-next action-button d-none d-sm-block">
+											<svg class="bi" width="1.5em" height="1.5em"
+												fill="currentColor">
+                                                <use
+													xlink:href="assets/static/images/bootstrap-icons.svg#chevron-right" />
+                                            </svg>
+										</button>
 									</div>
 								</div>
-								<!--/ Email list Area -->
-
-
 
 							</div>
+
+
 						</div>
 					</div>
+					<!--/ Email list Area -->
 				</div>
 			</section>
 		</div>
