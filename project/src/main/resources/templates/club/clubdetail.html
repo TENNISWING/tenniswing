@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main-layout}">
+
+
+<th:block layout:fragment="content">
+
+
+	<!-- club sub menu -->
+	<div class="container mb-4">
+		<ul class="nav d-flex justify-content-around text-center">
+			<li class="d-flex flex-column"><a href="javascript:void(0)"><div>
+						<i class="fa-solid fa-list fs-3 text-info"></i>
+					</div>클럽 목록</a></li>
+			<li class="d-flex flex-column"><a href="javascript:void(0)"><div>
+						<i class="fa-solid fa-pen-square fs-3 text-primary"></i>
+					</div>클럽 창설</a></li>
+			<li class="d-flex flex-column"><a href="javascript:void(0)"><div>
+						<i class="fa-solid fa-m fs-3 text-warning"></i>
+					</div>마이 클럽</a></li>
+		</ul>
+	</div>
+	<!-- End club sub menu  -->
+
+	<div class="container">
+		<form action="d-user-list.html" class="dashboard__form">
+			<div class="row">
+				<div class="col-xxl-3">
+					<div class="dashboard-block">
+						<!-- <div class="dashboard-block__title">
+                                                <h4>Profile Image</h4>
+                                            </div> -->
+						<div class="card card-shadow">
+							<div class="user__profile text-center">
+								<div class="user__avatar">
+									<img src="/assets/compiled/jpg/1.jpg" alt="profile-pic" />
+
+								</div>
+								<div class="user__content">
+									<h3 class="title">
+										<a href="#">Leslie Alexander</a>
+									</h3>
+									<a href="mailto:sample@gmail.com" class="user__email">sample@gmail.com</a>
+									<div class="user__status">
+										<div class="icon">
+											<svg width="15" height="20" viewBox="0 0 15 20" fill="none"
+												xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+													d="M7.5 0.833332L0 4.16667V9.16667C0 13.7958 3.19583 18.1125 7.5 19.1667C11.8042 18.1125 15 13.7958 15 9.16667V4.16667L7.5 0.833332ZM5.83333 14.1667L2.5 10.8333L3.67917 9.65417L5.83333 11.8083L11.3208 6.32083L12.5 7.5L5.83333 14.1667Z"
+													fill="#667085" />
+                                                                </svg>
+										</div>
+										Verified User
+									</div>
+									<div class="user__amount">
+										Spent-<span>$56,000</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="col-xxl-9">
+					<div class="dashboard-block">
+						<div class="tabs__wrapper tabs__wrapper--v3">
+							<div class="tabs__filter">
+								<ul class="nav nav-tabs" id="myTab" role="tablist">
+									<li class="nav-item" role="presentation">
+										<button class="nav-link active" id="home-tab"
+											data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+											type="button" role="tab" aria-controls="tab1"
+											aria-selected="true">클럽 정보</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="groceries-tab"
+											data-bs-toggle="tab" data-bs-target="#groceries-tab-pane"
+											type="button" role="tab" aria-controls="groceries-tab-pane"
+											aria-selected="false">매치 모집</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="women-tab" data-bs-toggle="tab"
+											data-bs-target="#women-tab-pane" type="button" role="tab"
+											aria-controls="women-tab-pane" aria-selected="false">
+											매치 일정</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="electronics-tab"
+											data-bs-toggle="tab" data-bs-target="#electronics-tab-pane"
+											type="button" role="tab" aria-controls="electronics-tab-pane"
+											aria-selected="false">매치 결과</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="electronics-tab"
+											data-bs-toggle="tab" data-bs-target="#electronics-tab-pane"
+											type="button" role="tab" aria-controls="electronics-tab-pane"
+											aria-selected="false">게시판</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="electronics-tab"
+											data-bs-toggle="tab" data-bs-target="#electronics-tab-pane"
+											type="button" role="tab" aria-controls="electronics-tab-pane"
+											aria-selected="false">자유게시판</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="electronics-tab"
+											data-bs-toggle="tab" data-bs-target="#electronics-tab-pane"
+											type="button" role="tab" aria-controls="electronics-tab-pane"
+											aria-selected="false">멤버</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link" id="electronics-tab"
+											data-bs-toggle="tab" data-bs-target="#electronics-tab-pane"
+											type="button" role="tab" aria-controls="electronics-tab-pane"
+											aria-selected="false">가입 신청</button>
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade show active" id="home-tab-pane"
+								role="tabpanel" aria-labelledby="tab1" tabindex="0">
+								<div class="content__body">
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui
+										cursus malesuada massa vitae sed elementum volutpat
+										consectetur. Amet turpis aenean praesent arcu turpis elementum
+										vitae euismod ante. Dui diam vitae lorem faucibus non. Arcu
+										maecenas ornare sit tortor. <br /> <br /> Proin nulla elit
+										ornare enim enim. Mauris placerat mauris at consequat. Quis
+										elementum ipsum et cras sit sagittis eu, aliquet nibh. Eu
+										nulla nunc, purus phasellus facilisi risus molestie. Faucibus
+										amet ut tempor, vehicula amet. Duis aliquam tellus urna, nisl
+										vivamus sed aliquam tincidunt. Vitae mi varius egestas sed
+										tristique cras odio. Tempor aliquam eget phasellus sit lectus
+										imperdiet. Arcu adipiscing lorem eu leo orci condimentum
+										imperdiet. Morbi tellus velit nunc massa turpis tortor quis.
+										Rutrum at faucibus quam consectetur.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+		</form>
+	</div>
+
+</th:block>
+
+</html>

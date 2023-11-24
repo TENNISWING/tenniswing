@@ -35,16 +35,18 @@
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6">
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="">
-					<button type="button" class="input-group-text">
-						<i class="icon dripicons dripicons-search fs-3"></i>
-					</button>
-				</div>
-				<div class="insertBtn">
-					<a href="#" class="btn btn-secondary rounded-pill">내가 등록한 sns
-						보기</a> <a class="btn btn-secondary rounded-pill" th:onclick="|location.href='@{snsRegister}'|">등록</a>
-				</div>
+
+	<div class="input-group">
+						<input type="text" class="form-control" placeholder="">
+						<button type="button" class="input-group-text">
+							<i class="icon dripicons dripicons-search fs-3"></i>
+						</button>
+					</div>
+					<div class ="insertBtn">
+					<a href="#" class="btn btn-secondary rounded-pill">내가 등록한 sns 보기</a>
+					<a href="#" class="btn btn-secondary rounded-pill">등록</a>
+					</div>
+
 				<!-- Basic card section start -->
 				<section id="content-types">
 					<div class="row">
@@ -105,6 +107,10 @@
 										</div>
 										</div>
 										<!-- 		<div class="buttons" >
+
+										</div>
+										<div class="buttons" >
+
 											<div><a href="#" class="btn icon btn-white">
 											<i class="fa-solid fa-thumbs-up fs-5 text-secondary"></i></a></div>
 											<div><a href="#" class="btn icon btn-white" data-bs-toggle="modal" data-bs-target="#large">
@@ -114,9 +120,16 @@
 										</div>
 										<div class="likeCount">
 										<p>777</p>
+
 										</div> -->
 									</div>
 								</div>
+
+
+										</div>
+									</div>
+								</div>
+								
 
 								<div class="swiper-slide snstem">
 									<div class="snsdiv col-xl-12 border border-1 rounded-4">
@@ -132,11 +145,13 @@
 														<div class="carousel-item active">
 															<img src="./assets/compiled/jpg/banana.jpg"
 																class="d-block w-100" alt="...">
+
 														</div>
 														<div class="carousel-item">
 															<img src="./assets/compiled/jpg/bg-mountain.jpg"
 																class="d-block w-100" alt="...">
 														</div>
+
 													</div>
 													<a class="carousel-control-prev"
 														href="#carouselExampleControls" role="button"
@@ -166,6 +181,7 @@
 												class="fa-solid fa-thumbs-up fs-5 text-secondary"></i></a> <a
 												href="#" class="btn icon btn-white" data-bs-toggle="modal"
 												data-bs-target="#large"><i
+
 												class="fa-solid fa-comment fs-5 text-secondary"></i></a> <a
 												href="#" class="btn icon btn-white"><i
 												class="fa-solid fa-share-from-square fs-5 text-secondary"></i></a>
@@ -177,6 +193,7 @@
 										<a href="#" class="btn icon btn-white"></a> 
 										<a href="#" class="btn icon btn-white"></a>
 										<a href="#" class="btn icon btn-white"></a>
+
 										</div>
 									</div>
 								</div>
@@ -189,8 +206,7 @@
 						<!-- Swiper JS -->
 
 						<!-- Initialize Swiper -->
-						<script>
-							
+						<script>							
 						
 							let swiper = new Swiper(".mySwiper.snstem", {
 								direction : "vertical",
@@ -199,6 +215,7 @@
 								mousewheel : true,
 								autoHeight : true,
 								breakpoints : true,
+
 								pagination : {
 
 									el : ".swiper-pagination.snstem",
@@ -206,6 +223,7 @@
 								},
 								scrollbar : {
 									el : '.swiper-pagination.snstem',
+
 									draggable : true,
 									dragSize : '500px'
 
@@ -218,6 +236,7 @@
 											clickable : true,
 										},
 									}); */
+
 						</script>
 
 					</div>
@@ -233,8 +252,10 @@
 	</div>
 	<div class="modal fade text-left" id="large" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+
 		<div class="modal-dialog modal-dialog-scrollable modal-lg"
 			role="document">
+
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="myModalLabel1">댓글</h5>
@@ -244,6 +265,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
+
 					<section class="section">
 						<div class="card">
 							<div class="card-header"></div>
@@ -285,6 +307,7 @@
 							aria-label="Recipient's username" aria-describedby="basic-addon2">
 						<button type="button" class="input-group-text" id="basic-addon2">등록</button>
 					</div>
+
 					<button type="button" class="btn" data-bs-dismiss="modal">
 						<i class="bx bx-x d-block d-sm-none"></i> <span
 							class="d-none d-sm-block">Close</span>
