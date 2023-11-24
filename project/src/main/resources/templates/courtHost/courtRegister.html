@@ -68,8 +68,10 @@
 												class="form-control" name="crtroomLocation"
 												th:field="*{crtroomLocation}" data-parsley-required="true"
 												style="width:80%;display:inline-block;">
+
 												<button type="button" class="btn btn-primary me-1 mb-1" style="border:1px solid black;display:inline-block;"
 												onclick="sample5_execDaumPostcode()">주소 검색</button>
+
 												<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
 											</div>
 										</div>
@@ -79,6 +81,7 @@
 												<label for="crtroomOperateStartTime" class="form-label">
 													운영 시작 시간
 												</label>
+
 												<input type="date" class="form-control flatpickr-time-picker-24h" name="crtroomOperateStartTime"
 												data-parsley-required="true" placeholder="운영 시작 시간을 입력하세요."
 												th:field="*{crtroomOperateStartTime}"
@@ -90,6 +93,7 @@
 												data-parsley-required="true" placeholder="운영 종료 시간을 입력하세요."
 												th:field="*{crtroomOperateEndTime}"
 												style="width:54%"><br>
+
 											</div>
 										</div>
 										<div>

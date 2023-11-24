@@ -8,6 +8,7 @@
 }
 </style>
 <th:block layout:fragment="content">
+
 	<!-- community sub menu -->
 	<div class="container mb-4">
 		<ul class="nav d-flex justify-content-around text-center">
@@ -34,6 +35,7 @@
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6">
+
 	<div class="input-group">
 						<input type="text" class="form-control" placeholder="">
 						<button type="button" class="input-group-text">
@@ -44,6 +46,7 @@
 					<a href="#" class="btn btn-secondary rounded-pill">내가 등록한 sns 보기</a>
 					<a href="#" class="btn btn-secondary rounded-pill">등록</a>
 					</div>
+
 				<!-- Basic card section start -->
 				<section id="content-types">
 					<div class="row">
@@ -92,8 +95,22 @@
 
 											</div>
 
+										<div class="buttons" style="float: right">
+										<ul class="nav d-flex justify-content-around text-center" style="float: right">
+											<li class="d-flex flex-column"><div><a href="#" class="btn icon btn-white">
+											<i class="fa-solid fa-thumbs-up fs-5 text-secondary"></i></a></div>777</li>
+											<li class="d-flex flex-column"><div><a href="#" class="btn icon btn-white" data-bs-toggle="modal" data-bs-target="#large">
+											<i class="fa-solid fa-comment fs-5 text-secondary"></i></a> </div></li>
+											<li class="d-flex flex-column"><div><a href="#" class="btn icon btn-white"><i class="fa-solid fa-share-from-square fs-5 text-secondary"></i></a></div> </li>
+											<li class="d-flex flex-column"><div><a href="#" class="btn icon btn-white"><i class="fa-regular fa-bookmark fs-5 text-secondary"></i></a></div></li>
+										</ul>
+										</div>
+										</div>
+										<!-- 		<div class="buttons" >
+
 										</div>
 										<div class="buttons" >
+
 											<div><a href="#" class="btn icon btn-white">
 											<i class="fa-solid fa-thumbs-up fs-5 text-secondary"></i></a></div>
 											<div><a href="#" class="btn icon btn-white" data-bs-toggle="modal" data-bs-target="#large">
@@ -103,10 +120,17 @@
 										</div>
 										<div class="likeCount">
 										<p>777</p>
+
+										</div> -->
+									</div>
+								</div>
+
+
 										</div>
 									</div>
 								</div>
 								
+
 								<div class="swiper-slide snstem">
 									<div class="snsdiv col-xl-12 border border-1 rounded-4">
 										<div class="card snsimg">
@@ -121,11 +145,13 @@
 														<div class="carousel-item active">
 															<img src="./assets/compiled/jpg/banana.jpg"
 																class="d-block w-100" alt="...">
+
 														</div>
 														<div class="carousel-item">
 															<img src="./assets/compiled/jpg/bg-mountain.jpg"
 																class="d-block w-100" alt="...">
 														</div>
+
 													</div>
 													<a class="carousel-control-prev"
 														href="#carouselExampleControls" role="button"
@@ -155,14 +181,19 @@
 												class="fa-solid fa-thumbs-up fs-5 text-secondary"></i></a> <a
 												href="#" class="btn icon btn-white" data-bs-toggle="modal"
 												data-bs-target="#large"><i
-												class="fa-solid fa-comment fs-5 text-secondary"></i></a> <a href="#"
-												class="btn icon btn-white"><i
-												class="fa-solid fa-share-from-square fs-5 text-secondary"></i></a> <a
+
+												class="fa-solid fa-comment fs-5 text-secondary"></i></a> <a
 												href="#" class="btn icon btn-white"><i
+												class="fa-solid fa-share-from-square fs-5 text-secondary"></i></a>
+											<a href="#" class="btn icon btn-white"><i
 												class="fa-regular fa-bookmark fs-5 text-secondary"></i></a>
 										</div>
-										<div class="likeCount">
-										<p>777</p>
+										<div class="likeCount" style="text-align: right">
+										<a href="#" class="btn icon btn-white">777</a> 
+										<a href="#" class="btn icon btn-white"></a> 
+										<a href="#" class="btn icon btn-white"></a>
+										<a href="#" class="btn icon btn-white"></a>
+
 										</div>
 									</div>
 								</div>
@@ -175,34 +206,37 @@
 						<!-- Swiper JS -->
 
 						<!-- Initialize Swiper -->
-						<script>
-							 let swiper = new Swiper(".mySwiper.snstem", {
+						<script>							
+						
+							let swiper = new Swiper(".mySwiper.snstem", {
 								direction : "vertical",
-								autoplay :  false,
-								loop: true,
-								mousewheel: true,
+								autoplay : false,
+								loop : true,
+								mousewheel : true,
 								autoHeight : true,
-								breakpoints: true,
+								breakpoints : true,
+
 								pagination : {
-									
+
 									el : ".swiper-pagination.snstem",
 									clickable : true,
 								},
-								scrollbar:{
+								scrollbar : {
 									el : '.swiper-pagination.snstem',
-							        draggable: true,
-							        dragSize: '500px'
-								
-							    }
-							}); 
-					/* 		var swiper = new Swiper(".mySwiper", {
-								direction : "vertical",
-								pagination : {
-									el : ".swiper-pagination",
-									clickable : true,
-								},
-							}); */
-							
+
+									draggable : true,
+									dragSize : '500px'
+
+								}
+							});
+							/* 		var swiper = new Swiper(".mySwiper", {
+										direction : "vertical",
+										pagination : {
+											el : ".swiper-pagination",
+											clickable : true,
+										},
+									}); */
+
 						</script>
 
 					</div>
@@ -218,7 +252,10 @@
 	</div>
 	<div class="modal fade text-left" id="large" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+
+		<div class="modal-dialog modal-dialog-scrollable modal-lg"
+			role="document">
+
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="myModalLabel1">댓글</h5>
@@ -228,52 +265,54 @@
 					</button>
 				</div>
 				<div class="modal-body">
-						<section class="section">
-        <div class="card">
-            <div class="card-header">
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table" id="table1">
-                        <thead>
-                            <tr>
-                                <th>작성자</th>
-                                <th>댓글 내용</th>
-                                <th>작성일자</th>
-              					<th>      </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="num : ${#numbers.sequence(1,5)}">
-                                <td>Graiden</td>
-                                <td>vehicula.aliquet@semconsequat.co.uk</td>
-                                <td>076 4820 8838</td>
-                                <td>
-                                    <span class="badge bg-success">Active</span>
-                                </td>
-                            </tr>
-                     
-                        </tbody>
-                    
-                    </table>
-          
-                </div>
-            </div>
-        </div>
 
-    </section>
+					<section class="section">
+						<div class="card">
+							<div class="card-header"></div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table" id="table1">
+										<thead>
+											<tr>
+												<th>작성자</th>
+												<th>댓글 내용</th>
+												<th>작성일자</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="num : ${#numbers.sequence(1,5)}">
+												<td>Graiden</td>
+												<td>vehicula.aliquet@semconsequat.co.uk</td>
+												<td>076 4820 8838</td>
+												<td><i type="button"
+													class="fa-regular fa-pen-to-square"></i> <i type="button"
+													class="fa-regular fa-trash-can"></i></td>
+											</tr>
+
+										</tbody>
+
+									</table>
+
+								</div>
+							</div>
+						</div>
+
+					</section>
 				</div>
 				<div class="modal-footer">
-				            <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="enter your comment"
-                                            aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                        <button type="button" class="input-group-text" id="basic-addon2">등록</button>
-                                    </div>
+					<div class="input-group mb-3">
+						<input type="text" class="form-control"
+							placeholder="enter your comment"
+							aria-label="Recipient's username" aria-describedby="basic-addon2">
+						<button type="button" class="input-group-text" id="basic-addon2">등록</button>
+					</div>
+
 					<button type="button" class="btn" data-bs-dismiss="modal">
 						<i class="bx bx-x d-block d-sm-none"></i> <span
 							class="d-none d-sm-block">Close</span>
 					</button>
-				
+
 				</div>
 			</div>
 		</div>

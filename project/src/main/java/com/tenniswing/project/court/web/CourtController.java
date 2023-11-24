@@ -57,6 +57,7 @@ public class CourtController {
 			
 			// 등록
 			@PostMapping("courtRegister")
+
 			public String insertCourtroomProcess(CrtroomVO crtroomVO, RedirectAttributes rttr) {
 				courtroomService.insertCourtroom(crtroomVO);
 				
@@ -84,5 +85,12 @@ public class CourtController {
 					rttr.addAttribute("crtroomNo", crtDetailVO.getCrtroomNo());
 					return "redirect:crtDeRegister";
 				}
+
+			public String insertCourtroomProcess(CrtroomVO crtroomVO, Model model) {
+				courtroomService.insertCourtroom(crtroomVO);
+				model.addAttribute("crtroomNo", crtroomVO.getCrtroomNo());
+				return "courtHost/crtDeRegister";
 			}
+
+	
 }

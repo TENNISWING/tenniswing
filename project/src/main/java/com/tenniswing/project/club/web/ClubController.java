@@ -21,4 +21,5 @@ public class ClubController {
 	public String clubDetailPage(Model model) { 		
 		return "club/clubdetail";
 	}
+	
 }
