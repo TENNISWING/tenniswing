@@ -86,7 +86,6 @@ public class CourtController {
 					return "redirect:crtDeRegister";
 				}
 			}
-
 			public String insertCourtroomProcess(CrtroomVO crtroomVO, Model model) {
 				courtroomService.insertCourtroom(crtroomVO);
 				model.addAttribute("crtroomNo", crtroomVO.getCrtroomNo());
