@@ -1514,7 +1514,7 @@ h4 {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  line-height: 24px;
+  /* line-height: 24px; */
 }
 .shop-btn svg {
   width: 20px;
@@ -1552,7 +1552,7 @@ h4 {
   background-color: #667085;
   color: #fff;
 }
-/* .btn-outline {
+.btn-outline {
   background-color: transparent;
   color: #403c39;
   border: 1px solid #eaecf0;
@@ -9684,7 +9684,7 @@ h4 {
 /* ============================ */
 /* Teams Start */
 /* ============================ */
-.team {
+/* .team {
   text-align: center;
 }
 .team__avater {
@@ -9734,7 +9734,7 @@ h4 {
 .team:hover .team__avater img {
   -webkit-transform: scale(1.05);
           transform: scale(1.05);
-}
+} */
 
 /* ============================ */
 /* Section styles */
@@ -11259,7 +11259,7 @@ h4 {
 /*********************************
 /* SideBar Start
 *********************************/
-/* .user__dashboard {
+.user__dashboard {
   padding: 50px 0 140px;
 }
 @media screen and (max-width: 991px) {
@@ -11415,7 +11415,7 @@ h4 {
 }
 .tracking__message .btn__group .tracking-btn {
   color: #475467;
-} */
+}
 
 /*********************************
 /* SideBar End
@@ -11423,7 +11423,7 @@ h4 {
 /*********************************
 /* Dashboard Title Start
 *********************************/
-/* .dashboard__title {
+.dashboard__title {
   margin-bottom: 30px;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -11494,7 +11494,7 @@ h4 {
         -ms-flex-direction: column;
             flex-direction: column;
   }
-} */
+}
 
 /*********************************
 /* Dashboard Title End
@@ -11502,7 +11502,7 @@ h4 {
 /*********************************
 /* Progress Bar Satrt
 *********************************/
-/* .order__percent {
+.order__percent {
   margin-bottom: 20px;
 }
 
@@ -11549,7 +11549,7 @@ h4 {
   color: #475467;
   font-weight: 500;
   margin-bottom: 0;
-} */
+}
 
 /*********************************
 /* Progress Bar End
@@ -11798,7 +11798,7 @@ h4 {
 /*********************************
 /* Dashboard SideBar Start
 *********************************/
-/* .flyOut-sidebar {
+.flyOut-sidebar {
   position: fixed;
   height: 100%;
   width: 100%;
@@ -12084,7 +12084,7 @@ h4 {
 }
 #sideBar .nav__item .nav__list.active .icon svg path, #sideBar .nav__item .nav__list:hover .icon svg path {
   stroke: #eb5e28;
-} */
+}
 
 /*********************************
 /* Dashboard SideBar End
@@ -12092,20 +12092,20 @@ h4 {
 /*********************************
 /* Dashboard MainPage Start
 *********************************/
-/* .dashboard__mainWrapper {
+.dashboard__mainWrapper {
   height: 100%;
 }
 
 .main__container {
   position: relative;
-  min-height: calc(100vh - 130px);
-  top: 0;
-  left: 280px;
-  width: calc(100% - 280px);
+  /* min-height: calc(100vh - 130px); */
+  /* top: 0;
+  left: 280px; */
+  /* width: calc(100% - 280px); */
   -webkit-transition: all 300ms ease-in-out;
   transition: all 300ms ease-in-out;
   z-index: 2;
-  padding: 0px 30px;
+  /* padding: 0px 30px; */
 }
 @media screen and (max-width: 991px) {
   .main__container {
@@ -12643,7 +12643,7 @@ h4 {
   font-weight: 400;
   line-height: 17px;
   color: #939393;
-} */
+}
 
 /*********************************
 /* Dashboard MainPage End
@@ -12905,7 +12905,7 @@ h4 {
 /*********************************
 /* Dashboard Table Start
 *********************************/
-/* .dashboard__table {
+.dashboard__table {
   margin-bottom: 0;
 }
 .dashboard__table thead {
@@ -13039,7 +13039,7 @@ h4 {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-} */
+}
 
 /*********************************
 /* Dashboard Table end
@@ -13103,7 +13103,7 @@ h4 {
 /*********************************
 /* Dashboard Product Start
 *********************************/
-/* .dashboard__product {
+.dashboard__product {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -13169,7 +13169,7 @@ h4 {
 }
 .dashboard__product .rating li {
   color: #eb5e28;
-} */
+}
 
 /*********************************
 /* Dashboard Product End
@@ -13177,7 +13177,7 @@ h4 {
 /*********************************
 /* Dashboard Breadcrumb Start
 *********************************/
-/* .dashboard__breadcrumb .breadcrumb__meta ul {
+.dashboard__breadcrumb .breadcrumb__meta ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -13220,7 +13220,7 @@ h4 {
 }
 .dashboard__breadcrumb .breadcrumb__meta ul li:last-of-type::after {
   display: none;
-} */
+}
 
 /*********************************
 /* Dashboard Breadcrumb End
@@ -13228,7 +13228,7 @@ h4 {
 /*********************************
 /* Dashboard Header Start
 *********************************/
-/* .dashboard__header {
+.dashboard__header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -13300,7 +13300,7 @@ h4 {
   .dashboard__header .add__btn {
     margin-top: 15px;
   }
-} */
+}
 
 /*********************************
 /* Dashboard Header End
@@ -13308,7 +13308,7 @@ h4 {
 /*********************************
 /* Dashboard Search Filer Start
 *********************************/
-/* .dashboard__search--filter {
+.dashboard__search--filter {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -13355,7 +13355,7 @@ h4 {
 }
 .dashboard__search--filter .filter__btn svg path {
   stroke: currentColor;
-} */
+}
 
 /*********************************
 /* Dashboard Search Filer End
@@ -13363,7 +13363,7 @@ h4 {
 /*********************************
 /* User Profile Start
 *********************************/
-/* .user__profile .user__avatar {
+.user__profile .user__avatar {
   height: 200px;
   width: 200px;
   border-radius: 50%;
@@ -13546,7 +13546,7 @@ h4 {
   line-height: 20px;
   color: #667085;
   margin-bottom: 0;
-} */
+}
 
 /*********************************
 /* User Profile End
@@ -15504,7 +15504,7 @@ h4 {
 /*********************************
 /* Dashboard Start
 *********************************/
-/* .dashboard-block__title h4 {
+.dashboard-block__title h4 {
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
@@ -15536,7 +15536,7 @@ h4 {
 
 .dashboard__form {
   margin-top: 16px;
-} */
+}
 
 /*********************************
 /*  Archive page (Categories)

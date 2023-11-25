@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="adminside">
+	<!-- Main SideBar Start -->
+	<div class="flyOut-sidebar">
+		<div id="sideBar" class="">
+			<!-- Main Logo Start -->
+			<div class="main__logo">
+				<!-- <a href="dashboard.html" class="brand__logo"> <img
+					src="assets/images/logo/logo.png" alt="brand-logo" />
+				</a> -->
+				<h3 style="font-weight: 900; font-size: xx-large;">TENNISWING</h3>
+				<div id="toggle__btn">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M22 12H3" stroke="#000000"
+							stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M22 4H13" stroke="#000000"
+							stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M22 20H13" stroke="#000000"
+							stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M7 7L2 12L7 17"
+							stroke="#000000" stroke-width="2" stroke-linecap="round"
+							stroke-linejoin="round"></path>
+                            </svg>
+				</div>
+			</div>
+			<!-- Main Logo End -->
+			<!-- NavItem Start -->
+			<ul class="nav__item">
+				<!-- ------------------------------------------- admin main tab -->
+				<!-- Navlist Start -->
+				<li class="nav__list active"><a href="dashboard.html">
+						<div class="icon">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+                                        <path
+									d="M18 20V10M12 20V4M6 20V14" stroke="#EB5E28" stroke-width="2"
+									stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+						</div> <span class="link__name">Dashboard</span>
+				</a></li>
+				
+				<li class="nav__heading">CUSTOMER</li>
+				<!-- ------------------------------------------- 회원관리 tab -->
+				<!-- Navlist Start -->
+				<li class="nav__list"><a href="d-user-list.html">
+						<div class="icon">
+							<svg width="24" height="20" viewBox="0 0 24 20" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+                                        <path
+									d="M17 19V17C17 15.9391 16.5786 14.9217 15.8284 14.1716C15.0783 13.4214 14.0609 13 13 13H5C3.93913 13 2.92172 13.4214 2.17157 14.1716C1.42143 14.9217 1 15.9391 1 17V19M23 19V17C22.9993 16.1137 22.7044 15.2528 22.1614 14.5523C21.6184 13.8519 20.8581 13.3516 20 13.13M16 1.13C16.8604 1.3503 17.623 1.8507 18.1676 2.55231C18.7122 3.25392 19.0078 4.11683 19.0078 5.005C19.0078 5.89317 18.7122 6.75608 18.1676 7.45769C17.623 8.1593 16.8604 8.6597 16 8.88M13 5C13 7.20914 11.2091 9 9 9C6.79086 9 5 7.20914 5 5C5 2.79086 6.79086 1 9 1C11.2091 1 13 2.79086 13 5Z"
+									stroke="#667085" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" />
+                                    </svg>
+						</div> <span class="link__name">Users</span>
+				</a></li>
+				
+				
+				<!-- Navlist Start -->
+				<li class="nav__list"><a href="adminProduct">
+						<div class="icon">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+                                        <path
+									d="M2 17L12 22L22 17M2 12L12 17L22 12M12 2L2 7L12 12L22 7L12 2Z"
+									stroke="#667085" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" />
+                                    </svg>
+						</div> <span class="link__name">Products</span>
+				</a></li>
+				
+				<!-- Navlist Start -->
+				<li class="nav__list"><a href="d-category-list.html">
+						<div class="icon">
+							<svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+                                        <path
+									d="M0.75 3C0.75 1.75736 1.75736 0.75 3 0.75H7C8.24264 0.75 9.25 1.75736 9.25 3V9C9.25 9.13807 9.13807 9.25 9 9.25H3C1.75736 9.25 0.75 8.24264 0.75 7V3ZM3 20.75C1.75736 20.75 0.75 19.7426 0.75 18.5L0.75 14.5C0.75 13.2574 1.75736 12.25 3 12.25H9C9.13807 12.25 9.25 12.3619 9.25 12.5V18.5C9.25 19.7426 8.24264 20.75 7 20.75H3ZM20.75 18.5C20.75 19.7426 19.7426 20.75 18.5 20.75H14.5C13.2574 20.75 12.25 19.7426 12.25 18.5V12.5C12.25 12.3619 12.3619 12.25 12.5 12.25L18.5 12.25C19.7426 12.25 20.75 13.2574 20.75 14.5V18.5ZM18.5 0.75C19.7426 0.75 20.75 1.75736 20.75 3V7C20.75 8.24264 19.7426 9.25 18.5 9.25H12.5C12.3619 9.25 12.25 9.13807 12.25 9V3C12.25 1.75736 13.2574 0.75 14.5 0.75L18.5 0.75Z"
+									stroke="#667085" stroke-width="1.5" />
+                                    </svg>
+						</div> <span class="link__name">Categories</span>
+				</a></li>
+				<!-- Navlist Start -->
+				<li class="nav__list"><a href="d-order-list.html">
+						<div class="icon">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+                                        <path
+									d="M9 11L12 14L22 4M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16"
+									stroke="#667085" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" />
+                                    </svg>
+						</div> <span class="link__name">Order</span>
+				</a></li>
+				
+				<!-- Navlist Start -->
+				<li class="nav__list"><a href="d-chat.html">
+						<div class="icon">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+                                        <path
+									d="M18.4698 16.83L18.8598 19.99C18.9598 20.82 18.0698 21.4 17.3598 20.97L13.1698 18.48C12.7098 18.48 12.2599 18.45 11.8199 18.39C12.5599 17.52 12.9998 16.42 12.9998 15.23C12.9998 12.39 10.5398 10.09 7.49985 10.09C6.33985 10.09 5.26985 10.42 4.37985 11C4.34985 10.75 4.33984 10.5 4.33984 10.24C4.33984 5.68999 8.28985 2 13.1698 2C18.0498 2 21.9998 5.68999 21.9998 10.24C21.9998 12.94 20.6098 15.33 18.4698 16.83Z"
+									stroke="#667085" stroke-width="1.5" stroke-linecap="round"
+									stroke-linejoin="round" />
+                                        <path
+									d="M13 15.23C13 16.42 12.56 17.52 11.82 18.39C10.83 19.59 9.26 20.36 7.5 20.36L4.89 21.91C4.45 22.18 3.89 21.81 3.95 21.3L4.2 19.33C2.86 18.4 2 16.91 2 15.23C2 13.47 2.94 11.92 4.38 11C5.27 10.42 6.34 10.09 7.5 10.09C10.54 10.09 13 12.39 13 15.23Z"
+									stroke="#667085" stroke-width="1.5" stroke-linecap="round"
+									stroke-linejoin="round" />
+                                    </svg>
+						</div> <span class="link__name">Chat</span>
+				</a></li>
+				<!-- Navlist Start -->
+				<li class="nav__list"><a href="d-invoice-list.html">
+						<div class="icon">
+							<svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+									clip-rule="evenodd"
+									d="M9.75826 12.88C9.75826 12.6105 9.97776 12.3914 10.2486 12.3914H17.7851C18.0559 12.3914 18.2735 12.6105 18.2735 12.88C18.2735 13.1496 18.0559 13.3685 17.7851 13.3685H10.2486C9.97776 13.3685 9.75826 13.1497 9.75826 12.88ZM9.75826 7.40887C9.75826 7.13905 9.97776 6.9204 10.2486 6.9204H17.7851C18.0559 6.9204 18.2735 7.13905 18.2735 7.40887C18.2735 7.6787 18.0559 7.89734 17.7851 7.89734H10.2486C9.97776 7.89734 9.75826 7.67869 9.75826 7.40887ZM9.75826 10.1443C9.75826 9.87452 9.97776 9.65587 10.2486 9.65587H17.7851C18.0559 9.65587 18.2735 9.87452 18.2735 10.1443C18.2735 10.4142 18.0559 10.6327 17.7851 10.6327H10.2486C9.97776 10.6327 9.75826 10.4142 9.75826 10.1443ZM9.75826 4.67354C9.75826 4.40372 9.97776 4.18493 10.2486 4.18493H17.7851C18.0559 4.18493 18.2735 4.40386 18.2735 4.67354C18.2735 4.94337 18.0559 5.16202 17.7851 5.16202H10.2486C9.97776 5.16202 9.75826 4.94322 9.75826 4.67354ZM19.9543 17.3907V1.9773H8.07938V15.3618H14.3402C14.6094 15.3618 14.8285 15.5807 14.8285 15.8503V17.3911C14.8285 18.8042 15.9787 19.9536 17.3907 19.9536C18.8043 19.9533 19.9543 18.8039 19.9543 17.3907ZM4.54045 19.9531C3.12675 19.9531 1.97654 18.8037 1.97654 17.3906V16.3382H13.8518V17.3906C13.8518 18.3977 14.2737 19.3077 14.9518 19.9531H4.54045ZM20.4429 1H7.59109C7.32211 1 7.10276 1.21865 7.10276 1.48847V15.3613H1.48833C1.21935 15.3613 1 15.5802 1 15.8497V17.3906C1 19.3421 2.58877 20.93 4.54056 20.93H17.3909C19.3426 20.93 20.9314 19.3424 20.9314 17.3906V1.48847C20.9314 1.21879 20.7122 1 20.4429 1Z"
+									fill="#667085" stroke="#667085" stroke-width="0.5" />
+                                    </svg>
+						</div> <span class="link__name">Invoice</span>
+				</a></li>
+				<!-- Navlist End -->
+				<li class="nav__heading">Other</li>
+				<!-- Navlist Start -->
+				<li class="nav__list nav__dropdown"><a href="#">
+						<div class="icon">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+                                        <path
+									d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
+									stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10"
+									stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path
+									d="M2 12.88V11.12C2 10.08 2.85 9.22 3.9 9.22C5.71 9.22 6.45 7.94 5.54 6.37C5.02 5.47 5.33 4.3 6.24 3.78L7.97 2.79C8.76 2.32 9.78 2.6 10.25 3.39L10.36 3.58C11.26 5.15 12.74 5.15 13.65 3.58L13.76 3.39C14.23 2.6 15.25 2.32 16.04 2.79L17.77 3.78C18.68 4.3 18.99 5.47 18.47 6.37C17.56 7.94 18.3 9.22 20.11 9.22C21.15 9.22 22.01 10.07 22.01 11.12V12.88C22.01 13.92 21.16 14.78 20.11 14.78C18.3 14.78 17.56 16.06 18.47 17.63C18.99 18.54 18.68 19.7 17.77 20.22L16.04 21.21C15.25 21.68 14.23 21.4 13.76 20.61L13.65 20.42C12.75 18.85 11.27 18.85 10.36 20.42L10.25 20.61C9.78 21.4 8.76 21.68 7.97 21.21L6.24 20.22C5.33 19.7 5.02 18.53 5.54 17.63C6.45 16.06 5.71 14.78 3.9 14.78C2.85 14.78 2 13.92 2 12.88Z"
+									stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10"
+									stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+						</div> <span class="link__name">Settings</span>
+				</a> <!-- Dropdown -->
+					<ul class="sub__menu">
+						<li><a href="d-general-setting.html">General Settings</a></li>
+						<li><a href="d-profile-setting.html">Profile Settings</a></li>
+						<li><a href="d-security-setting.html">Security Settings</a></li>
+						<li><a href="d-access-setting.html">Access Settings</a></li>
+					</ul> <!-- Dropdown --></li>
+			</ul>
+		</div>
+	</div>
+	<!-- Main SideBar End -->
+	<!-- Header Start -->
+	<div class="header__dashboard">
+		<div class="header__left">
+			<div class="header__search">
+				<form action="search.html" method="post"
+					class="search__form search__form--v2">
+					<input type="search" class="form-control" name="search"
+						placeholder="Search" />
+					<button type="submit">
+						<img src="assets/admin/images/search.png" alt="search" />
+					</button>
+				</form>
+			</div>
+			<div class="product__add">
+				<a href="d-product-create.html" class="product__item">
+					<div class="icon">
+						<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+							xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 1V15"
+								stroke="currentColor" stroke-width="2" stroke-linecap="round"
+								stroke-linejoin="round" />
+                                    <path d="M1 8H15"
+								stroke="currentColor" stroke-width="2" stroke-linecap="round"
+								stroke-linejoin="round" />
+                                </svg>
+					</div> Add product
+				</a>
+			</div>
+		</div>
+	</div>
+	<!-- Header End -->
+</th:block>
+</html>
