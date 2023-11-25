@@ -20,7 +20,7 @@
 					src="assets/img/match/icon/icon4.png" class=" miconimg">공지사항</a></li>
 		</ul>
 	</div>
-<!-- End community sub menu  -->
+	<!-- End community sub menu  -->
 	<!-- <div class="container mb-4">
 		<ul class="nav d-flex justify-content-around text-center">
 			<li class="d-flex flex-column"><a href="sns">
@@ -40,14 +40,14 @@
 			</a></li>
 		</ul>
 	</div> -->
-	
+
 
 	<div class="container">
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6">
 
-			<!-- 	 <div class="container pt-3 pb-3">
+				<!-- 	 <div class="container pt-3 pb-3">
                     <div class="swiper mySwiper banner" data-aos="fade-up">
                         <div class="swiper-wrapper banner">
                             <div class="swiper-slide banner text-center">
@@ -154,9 +154,26 @@
 																class="fa-solid fa-comment fs-5 text-secondary"></i></a>
 														</div></li>
 													<li class="d-flex flex-column"><div>
-															<a href="#" class="btn icon btn-white"><i
+															<a href="javascript:kakaoShare()"
+																class="btn icon btn-white" id="kakao-link-btn"
+																data-bs-toggle="collapse"
+																data-bs-target="#collapseExample" aria-expanded="false"
+																aria-controls="collapseExample"><i
 																class="fa-solid fa-share-from-square fs-5 text-secondary"></i></a>
-														</div></li>
+														</div> <!-- 콜랩스 추가 -->
+														<div class="collapse" id="collapseExample">
+															<span onclick="shareNaver()"> <script
+																	type="text/javascript"
+																	src="https://ssl.pstatic.net/share/js/naver_sharebutton.js"></script>
+																<script type="text/javascript">
+																	new ShareNaver.makeButton(
+																			{
+																				"type" : "a"
+																			});
+																</script>
+															</span>
+														</div> <!-- 콜랩스 추가 끝 --></li>
+
 													<li class="d-flex flex-column"><div>
 															<a href="#" class="btn icon btn-white"><i
 																class="fa-regular fa-bookmark fs-5 text-secondary"></i></a>
@@ -227,8 +244,31 @@
 
 											</div>
 
+											<div class="buttons" style="float: right">
+												<ul class="nav d-flex justify-content-around text-center"
+													style="float: right">
+													<li class="d-flex flex-column"><div>
+															<a href="#" class="btn icon btn-white"> <i
+																class="fa-solid fa-thumbs-up fs-5 text-secondary"></i></a>
+														</div>777</li>
+													<li class="d-flex flex-column"><div>
+															<a href="#" class="btn icon btn-white"
+																data-bs-toggle="modal" data-bs-target="#large"> <i
+																class="fa-solid fa-comment fs-5 text-secondary"></i></a>
+														</div></li>
+													<li class="d-flex flex-column"><div>
+															<a href="javascript:kakaoShare()"
+																class="btn icon btn-white" id="kakao-link-btn"><i
+																class="fa-solid fa-share-from-square fs-5 text-secondary"></i></a>
+														</div></li>
+													<li class="d-flex flex-column"><div>
+															<a href="#" class="btn icon btn-white"><i
+																class="fa-regular fa-bookmark fs-5 text-secondary"></i></a>
+														</div></li>
+												</ul>
+											</div>
 										</div>
-										<div class="buttons" style="text-align: right">
+										<!-- 							<div class="buttons" style="text-align: right">
 											<a href="#" class="btn icon btn-white"><i
 												class="fa-solid fa-thumbs-up fs-5 text-secondary"></i></a> <a
 												href="#" class="btn icon btn-white" data-bs-toggle="modal"
@@ -245,7 +285,7 @@
 												class="btn icon btn-white"></a> <a href="#"
 												class="btn icon btn-white"></a>
 
-										</div>
+										</div> -->
 									</div>
 								</div>
 							</div>
@@ -372,6 +412,60 @@
 		</div>
 	</div>
 
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+	<script type="text/javascript">
+		// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+		Kakao.init('5cb79bd417ece35ea33fa7b756305a02');
+
+		// SDK 초기화 여부를 판단합니다.
+		console.log(Kakao.isInitialized());
+
+		function kakaoShare() {
+			Kakao.Link
+					.sendDefault({
+						objectType : 'feed',
+						content : {
+							title : 'TENNISWING-SNS',
+							description : '클럽매치데이 ',
+							imageUrl : 'https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800',
+							link : {
+								mobileWebUrl : '카카오공유하기 시 클릭 후 이동 경로',
+								webUrl : '카카오공유하기 시 클릭 후 이동 경로',
+							},
+						},
+						buttons : [ {
+							title : '웹으로 보기',
+							link : {
+								mobileWebUrl : '카카오공유하기 시 클릭 후 이동 경로',
+								webUrl : '카카오공유하기 시 클릭 후 이동 경로',
+							},
+						}, ],
+						// 카카오톡 미설치 시 카카오톡 설치 경로이동
+						installTalk : true,
+					})
+		}
+		// Twitter
+		function shareTwitter() {
+			const text = "TENNISWING-SNS";
+			const url = "https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800";
+			window.open("https://twitter.com/intent/tweet?text=" + url + text);
+		}
+		// NAVER
+		function shareNaver() {
+			const title = "TENNISWING";
+			const url = "https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800";
+			window.open("https://share.naver.com/web/shareView?url=" + url
+					+ "&title=" + title);
+		}
+		// Facebook
+		function shareFacebook() {
+			const title = "TENNISWING-SNS";
+			const url = "https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800";
+			window.open("http://www.facebook.com/sharer/sharer.php?u=" + url
+					+ "&title=" + title);
+		}
+	</script>
 </th:block>
 
 </html>
