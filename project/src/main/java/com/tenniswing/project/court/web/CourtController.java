@@ -85,6 +85,7 @@ public class CourtController {
 					rttr.addAttribute("crtroomNo", crtDetailVO.getCrtroomNo());
 					return "redirect:crtDeRegister";
 				}
+			}
 
 			public String insertCourtroomProcess(CrtroomVO crtroomVO, Model model) {
 				courtroomService.insertCourtroom(crtroomVO);
