@@ -23,7 +23,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberVO getMemberInfo(MemberVO memberVO) {
+	public MemberVO loginMember(MemberVO memberVO) {
 		return memberMapper.memberLogin(memberVO);
 	}
 
@@ -64,6 +64,12 @@ public class MemberServiceImpl implements MemberService {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public boolean idCheck(String memId) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
