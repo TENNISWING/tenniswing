@@ -195,9 +195,15 @@
                         </div>
                         <div class="modal-body">
                             <p>
-                                <a href="#" class="btn btn-outline-success" style="display: block; margin: 10px;">모든 지역</a>
-                                <a href="#" class="btn btn-outline-success" style="display: block; margin: 10px;">서울</a>
-                                <a href="#" class="btn btn-outline-success" style="display: block; margin: 10px;">대구</a>
+                                <input type="radio" class="btn-check" name="options-outlined" id="success-outlined-a"
+                                autocomplete="off">
+                                <label class="btn btn-outline-success" for="success-outlined-a" style="display: block; margin: 10px;">모든지역</label>
+                                <input type="radio" class="btn-check" name="options-outlined" id="success-outlined-b"
+                                autocomplete="off">
+                                <label class="btn btn-outline-success" for="success-outlined-b" style="display: block; margin: 10px;">서울</label>
+                                <input type="radio" class="btn-check" name="options-outlined" id="success-outlined-c"
+                                autocomplete="off">
+                                <label class="btn btn-outline-success" for="success-outlined-c" style="display: block; margin: 10px;">대구</label>
                             </p>
                         </div>
                         <div class="modal-footer">
@@ -217,7 +223,7 @@
             </div>
             <!-- Vertically Centered second modal Modal -->
             <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width: 100%">
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
                 <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
                     role="document">
                     <div class="modal-content">
@@ -231,8 +237,9 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                        		<input type="date" class="form-control flatpickr-always-open" placeholder="Select date.."
-                        		style="width: 65.6%;">
+                        		<div class="justify-content-around" style="display:flex">
+	                        		<input type="date" class="form-control flatpickr-always-open" placeholder="Select date..">
+                        		</div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light-secondary"
@@ -266,10 +273,18 @@
                         </div>
                         <div class="modal-body">
                             <p>
-                                <a href="#" class="btn btn-outline-success" style="display: block; margin: 10px;">아침 (6시 ~ 10시)</a>
-                                <a href="#" class="btn btn-outline-success" style="display: block; margin: 10px;">낮 (10시 ~ 18시)</a>
-                                <a href="#" class="btn btn-outline-success" style="display: block; margin: 10px;">저녁 (18시 ~ 24시)</a>
-                                <a href="#" class="btn btn-outline-success" style="display: block; margin: 10px;">심야 (24시 ~ 6시)</a>
+                            	<input type="radio" class="btn-check" name="options-outlinedd" id="success-outlined-aa"
+                                autocomplete="off">
+                                <label class="btn btn-outline-success" for="success-outlined-aa" style="display: block; margin: 10px;">아침 (6시 ~ 10시)</label>
+                                <input type="radio" class="btn-check" name="options-outlinedd" id="success-outlined-bb"
+                                autocomplete="off">
+                                <label class="btn btn-outline-success" for="success-outlined-bb" style="display: block; margin: 10px;">낮 (10시 ~ 18시)</label>
+                                <input type="radio" class="btn-check" name="options-outlinedd" id="success-outlined-cc"
+                                autocomplete="off">
+                                <label class="btn btn-outline-success" for="success-outlined-cc" style="display: block; margin: 10px;">저녁 (18시 ~ 24시)</label>
+                                <input type="radio" class="btn-check" name="options-outlinedd" id="success-outlined-dd"
+                                autocomplete="off">
+                                <label class="btn btn-outline-success" for="success-outlined-dd" style="display: block; margin: 10px;">심야 (24시 ~ 6시)</label>
                             </p>
                         </div>
                         <div class="modal-footer">

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main-layout}">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<th:block layout:fragment="content">
+	<section class="product-main">
+		<div class="container">
+			<!-- 코트 사진 -->
+			<div style="display: flex;">
+				<div class="col-md-6 col-12">
+					<div class="card">
+						<div class="card-body">
+							<div id="carouselExampleCaptions" class="carousel slide"
+								data-bs-ride="carousel">
+								<ol class="carousel-indicators">
+									<li data-bs-target="#carouselExampleCaptions"
+										data-bs-slide-to="0" class="active"></li>
+									<li data-bs-target="#carouselExampleCaptions"
+										data-bs-slide-to="1"></li>
+									<li data-bs-target="#carouselExampleCaptions"
+										data-bs-slide-to="2"></li>
+								</ol>
+								<div class="carousel-inner">
+									<div class="carousel-item active">
+										<img src="./assets/compiled/png/1.png" class="d-block w-100"
+											alt="..." style="object-fit: cover;">
+										<div class="carousel-caption d-none d-md-block">
+											<h5>First slide label</h5>
+											<p>Nulla vitae elit libero, a pharetra augue mollis
+												interdum.</p>
+										</div>
+									</div>
+									<div class="carousel-item">
+										<img src="./assets/compiled/png/2.png" class="d-block w-100"
+											alt="..." style="object-fit: cover;">
+										<div class="carousel-caption d-none d-md-block">
+											<h5>Second slide label</h5>
+											<p>Nulla vitae elit libero, a pharetra augue mollis
+												interdum.</p>
+										</div>
+									</div>
+									<div class="carousel-item">
+										<img src="./assets/compiled/png/3.png" class="d-block w-100"
+											alt="..." style="object-fit: cover;">
+										<div class="carousel-caption d-none d-md-block">
+											<h5>Third slide label</h5>
+											<p>Nulla vitae elit libero, a pharetra augue mollis
+												interdum.</p>
+										</div>
+									</div>
+								</div>
+								<a class="carousel-control-prev" href="#carouselExampleCaptions"
+									role="button" data-bs-slide="prev"> <span
+									class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+									class="visually-hidden">Previous</span>
+								</a> <a class="carousel-control-next" href="#carouselExampleCaptions"
+									role="button" data-bs-slide="next"> <span
+									class="carousel-control-next-icon" aria-hidden="true"></span> <span
+									class="visually-hidden">Next</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- 코트정보 -->
+			<div class="col-md-6 col-12">
+				<div class="card">
+					<div class="card-content">
+						<div class="card-body">
+							<form class="form form-horizontal">
+								<div class="form-body">
+									<div class="row">
+										<div class="col-md-4">
+											<label for="first-name-horizontal">코트장 번호</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="number" id="first-name-horizontal"
+												class="form-control" name="fname" placeholder="First Name">
+										</div>
+										<div class="col-md-4">
+											<label for="first-name-horizontal">코트장 이름</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="text" id="first-name-horizontal"
+												class="form-control" name="fname" placeholder="First Name">
+										</div>
+										<div class="col-md-4">
+											<label for="email-horizontal">코트장 위치</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="text" id="email-horizontal" class="form-control"
+												name="email-id" placeholder="Email">
+										</div>
+										<div class="col-md-4">
+											<label for="contact-info-horizontal">운영 시간</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="number" id="contact-info-horizontal"
+												class="form-control" name="contact" placeholder="Mobile"
+												style="width: 165px; float: left"> <input
+												type="number" id="contact-info-horizontal"
+												class="form-control" name="contact" placeholder="Mobile"
+												style="width: 165px; float: right">
+										</div>
+										<div class="col-md-4">
+											<label for="email-horizontal">코트장 설명</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<textarea id="email-horizontal" rows="3"
+												class="form-control" name="email-id" placeholder="Email">
+											</textarea>
+										</div>
+										<div class="col-md-4">
+											<label for="password-horizontal">주의사항</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<textarea id="email-horizontal" rows="3"
+												class="form-control" name="email-id" placeholder="Email">
+											</textarea>
+										</div>
+										<div class="col-md-4">
+											<label for="password-horizontal">이용안내</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<textarea id="email-horizontal" rows="3"
+												class="form-control" name="email-id" placeholder="Email">
+											</textarea>
+										</div>
+										<div class="col-md-4">
+											<label for="password-horizontal">환불안내</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<textarea id="email-horizontal" rows="3"
+												class="form-control" name="email-id" placeholder="Email">
+											</textarea>
+										</div>
+										<div class="col-md-4">
+											<label for="password-horizontal">등록일</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="text" id="password-horizontal"
+												class="form-control" name="password" placeholder="">
+										</div>
+										<div class="col-sm-12 d-flex justify-content-end">
+											<button type="button" onclick="location.href='editCourtroom'" class="btn btn-primary me-1 mb-1">코트
+												수정하기</button>
+											<!-- <button type="reset"
+												class="btn btn-light-secondary me-1 mb-1">Reset</button> -->
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 코트 상세 내역 -->
+		<div class="row product-info">
+			<div class="col-12">
+				<div class="tabs__wrapper tabs__wrapper--v3">
+					<div class="tabs__filter">
+						<ul class="nav nav-tabs" id="myTab" role="tablist">
+							<li class="nav-item" role="presentation">
+								<button class="nav-link active" id="home-tab"
+									data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+									type="button" role="tab" aria-controls="home-tab-pane"
+									aria-selected="true">1코트</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="groceries-tab" data-bs-toggle="tab"
+									data-bs-target="#groceries-tab-pane" type="button" role="tab"
+									aria-controls="groceries-tab-pane" aria-selected="false">
+									2코트</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="women-tab" data-bs-toggle="tab"
+									data-bs-target="#women-tab-pane" type="button" role="tab"
+									aria-controls="women-tab-pane" aria-selected="false">
+									후기</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="electronics-tab"
+									data-bs-toggle="tab" data-bs-target="#electronics-tab-pane"
+									type="button" role="tab" aria-controls="electronics-tab-pane"
+									aria-selected="false">문의사항</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="home-tab-pane"
+						role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+						<div class="content__body" style="padding-top: 10px;">
+							<div class="col-md-6"
+								style="margin-left: 50px; margin-bottom: 50px; margin-right: 150px; width: 25.5%; display: inline-block; float: left">
+								<h5>날짜 선택</h5>
+								<input type="date" class="form-control flatpickr-always-open"
+									placeholder="Select date..">
+							</div>
+							<div class="col-md-6"
+								style="width: 75.5; display: inline-block; float: left">
+								<h5>예약 시간 조회</h5>
+								<div style="overflow: hidden">
+									<table>
+										<thead>
+											<tr>
+												<th th:each="num : ${#numbers.sequence(1,10)}"
+													style="background-color: green; width: 50px; height: 30px; border: 3px solid #fff">
+												</th>
+												<th th:each="num1 : ${#numbers.sequence(1,6)}"
+													style="background-color: lightgreen; width: 50px; height: 30px; border: 3px solid #fff">
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td style="width: 50px; height: 30px; font-size: 10px">9시</td>
+												<td th:each="num2 : ${#numbers.sequence(1,4)}"></td>
+												<td style="width: 50px; height: 30px; font-size: 10px">14시</td>
+												<td th:each="num2 : ${#numbers.sequence(1,4)}"></td>
+												<td style="width: 50px; height: 30px; font-size: 10px">19시</td>
+												<td th:each="num2 : ${#numbers.sequence(1,4)}"></td>
+												<td style="width: 50px; height: 30px; font-size: 10px">24시</td>
+											</tr>
+										</tbody>
+									</table>
+									<table style="float: right">
+										<tbody>
+											<tr>
+												<th
+													style="background-color: green; width: 30px; height: 10px; border: 2px solid #fff">
+												</th>
+												<td style="width: 50px; height: 10px; font-size: 10px">예약불가</td>
+												<th
+													style="background-color: lightgreen; width: 30px; height: 10px; border: 2px solid #fff">
+												</th>
+												<td style="width: 50px; height: 10px; font-size: 10px">예약가능</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<br>
+								<div class="card">
+									<div class="row">
+										<div class="col-md-4">
+											<label for="first-name-horizontal">코트 이용 단위 시간</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="number" id="first-name-horizontal"
+												class="form-control" name="fname" placeholder="First Name">
+										</div>
+										<div class="col-md-4">
+											<label for="first-name-horizontal">이용 가격</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="text" id="first-name-horizontal"
+												class="form-control" name="fname" placeholder="First Name">
+										</div>
+										<div class="col-md-4">
+											<label for="email-horizontal">실내외</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="text" id="email-horizontal" class="form-control"
+												name="email-id" placeholder="Email">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="groceries-tab-pane" role="tabpanel"
+						aria-labelledby="groceries-tab" tabindex="0">
+						<div class="content__body" style="padding-top: 10px;">
+							<div class="col-md-6"
+								style="margin-left: 50px; margin-bottom: 50px; margin-right: 150px; width: 25.5%; display: inline-block; float: left">
+								<h5>날짜 선택</h5>
+								<input type="date" class="form-control flatpickr-always-open"
+									placeholder="Select date..">
+							</div>
+							<div class="col-md-6"
+								style="width: 75.5; display: inline-block; float: left">
+								<h5>예약 시간 조회</h5>
+								<div style="overflow: hidden">
+									<table>
+										<thead>
+											<tr>
+												<th th:each="num : ${#numbers.sequence(1,10)}"
+													style="background-color: green; width: 50px; height: 30px; border: 3px solid #fff">
+												</th>
+												<th th:each="num1 : ${#numbers.sequence(1,6)}"
+													style="background-color: lightgreen; width: 50px; height: 30px; border: 3px solid #fff">
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td style="width: 50px; height: 30px; font-size: 10px">9시</td>
+												<td th:each="num2 : ${#numbers.sequence(1,4)}"></td>
+												<td style="width: 50px; height: 30px; font-size: 10px">14시</td>
+												<td th:each="num2 : ${#numbers.sequence(1,4)}"></td>
+												<td style="width: 50px; height: 30px; font-size: 10px">19시</td>
+												<td th:each="num2 : ${#numbers.sequence(1,4)}"></td>
+												<td style="width: 50px; height: 30px; font-size: 10px">24시</td>
+											</tr>
+										</tbody>
+									</table>
+									<table style="float: right">
+										<tbody>
+											<tr>
+												<th
+													style="background-color: green; width: 30px; height: 10px; border: 2px solid #fff">
+												</th>
+												<td style="width: 50px; height: 10px; font-size: 10px">예약불가</td>
+												<th
+													style="background-color: lightgreen; width: 30px; height: 10px; border: 2px solid #fff">
+												</th>
+												<td style="width: 50px; height: 10px; font-size: 10px">예약가능</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<br>
+								<div class="card">
+									<div class="row">
+										<div class="col-md-4">
+											<label for="first-name-horizontal">코트 이용 단위 시간</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="number" id="first-name-horizontal"
+												class="form-control" name="fname" placeholder="First Name">
+										</div>
+										<div class="col-md-4">
+											<label for="first-name-horizontal">이용 가격</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="text" id="first-name-horizontal"
+												class="form-control" name="fname" placeholder="First Name">
+										</div>
+										<div class="col-md-4">
+											<label for="email-horizontal">실내외</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="text" id="email-horizontal" class="form-control"
+												name="email-id" placeholder="Email">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 후기 -->
+					<div class="tab-pane fade" id="women-tab-pane" role="tabpanel"
+						aria-labelledby="women-tab" tabindex="0">
+						<div class="client__review"
+							style="padding: 10px; margin-bottom: 50px;">
+							<div class="outline"
+								style="margin: 30px 0 30px 0; overflow: hidden;">
+								<h3 class="sec__title" style="margin: 0; float: left">Comments
+									(2)</h3>
+							</div>
+							<div class="review__wrapper">
+								<div class="review__item">
+									<div class="avatar">
+										<img src="assets/img/shop/teni.jpg" alt="avatar" />
+									</div>
+									<div class="review__content">
+										<div class="review__desc">
+											<div class="review__wrap">
+												<h5>
+													<a href="#">Hena Sinha</a>
+												</h5>
+												<div class="rating">
+													<ul>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul>
+												</div>
+											</div>
+											<div class="date">18 Jun 2022</div>
+										</div>
+										<div class="review__para">
+											<p>There are many variations of passages of Lorem Ipsum
+												available, but the majority have thank you suffered
+												alteration in some form, by injected humour, or randomised
+												words which don't look.</p>
+										</div>
+									</div>
+								</div>
+								<div class="review__item">
+									<div class="avatar">
+										<img src="assets/img/shop/teni.jpg" alt="avatar" />
+									</div>
+									<div class="review__content">
+										<div class="review__desc">
+											<div class="review__wrap">
+												<h5>
+													<a href="#">Brenna Das</a>
+												</h5>
+												<div class="rating">
+													<ul>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul>
+												</div>
+											</div>
+											<div class="date">18 Jun 2022</div>
+										</div>
+										<div class="review__para">
+											<p>There are many variations of passages of Lorem Ipsum
+												available, but the majority have thank you suffered
+												alteration in some form, by injected humour, or randomised
+												words which don't look.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="electronics-tab-pane"
+						role="tabpanel" aria-labelledby="electronics-tab" tabindex="0">
+						<div class="content__body">
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+								Numquam, placeat quibusdam. Reiciendis veritatis facere,
+								perspiciatis unde nostrum hic deleniti, optio quibusdam quae
+								repellendus laboriosam aut perferendis quis dolore, deserunt
+								illo animi quod tempora adipisci consequatur enim! Aspernatur
+								corporis provident, iusto laborum vero libero similique debitis
+								inventore repellat doloribus. Neque, ipsam!</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+</th:block>
+
+</html>

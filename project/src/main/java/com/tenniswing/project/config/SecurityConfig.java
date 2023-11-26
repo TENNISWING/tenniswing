@@ -18,8 +18,8 @@ public class SecurityConfig{
 		http
 			
 			.authorizeRequests((requests) -> requests
-				.antMatchers("/admin/**").hasRole("ADMIN")
-				.antMatchers("/host/**").hasRole("HOST")
+				//.antMatchers("/admin/**").hasRole("ADMIN")
+				//.antMatchers("/host/**").hasRole("HOST")
 				.antMatchers("/mypage").hasRole("MEMBER")
 				.antMatchers("/", "/**").permitAll()
 //				.anyRequest().authenticated()
