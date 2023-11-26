@@ -16,9 +16,37 @@
   				, cr.crtroom_operate_end_time
   				, cr.crtroom_caution
   				, cr.crtroom_use_guide
+  				, cr.crtroom_regi_date
+  				, count(*) crtCount
   		FROM crtroom cr JOIN crt_detail_inf cdi
   						ON cr.crtroom_no = cdi.crtroom_no
+  		GROUP BY cr.crtroom_no
+  				, cr.crtroom_name
+  				, cr.crtroom_exp
+  				, cr.crtroom_region
+  				, cr.crtroom_location
+  				, cr.crtroom_operate_start_time
+  				, cr.crtroom_operate_end_time
+  				, cr.crtroom_caution
+  				, cr.crtroom_use_guide
+  				, cr.crtroom_regi_date
   		ORDER BY crtroom_no
+  	</select>
+  	
+  	<!-- 코트 상세 조회 -->
+  	<select id="selectCourtroom" resultType="crtroomVO">
+  		SELECT cr.crtroom_no
+  				, cr.crtroom_name
+  				, cr.crtroom_exp
+  				, cr.crtroom_region
+  				, cr.crtroom_location
+  				, cr.crtroom_operate_start_time
+  				, cr.crtroom_operate_end_time
+  				, cr.crtroom_caution
+  				, cr.crtroom_use_guide
+  				, cr.crtroom_regi_date
+  		FROM crtroom cr
+  		WHERE cr.crtroom_no = #{crtroomNo}
   	</select>
   	
   	<!-- 코트장 등록 -->

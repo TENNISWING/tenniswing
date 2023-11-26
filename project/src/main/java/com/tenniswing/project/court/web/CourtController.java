@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.court.service.CrtDetailService;
-import com.tenniswing.project.court.service.CrtDetailVO;
 import com.tenniswing.project.court.service.CrtroomVO;
 
 @Controller
@@ -53,7 +52,8 @@ public class CourtController {
 			
 			// 상세보기
 			@GetMapping("hostCourtDetail")
-			public String hostCourtDetailPage(Model model) {
+			public String hostCourtDetailPage(CrtroomVO crtroomVO, Model model) {
+				model.addAttribute("courtDetail", courtroomService.selectCourtroom(crtroomVO));
 				return "courtHost/hostCourtDetail";
 			}
 				
@@ -91,20 +91,20 @@ public class CourtController {
 			// 등록 - 페이지
 			@GetMapping("registerCourtDetail")
 			public String insertCourtDetailForm(Model model) {
-				model.addAttribute("crtDetailVO", new CrtDetailVO());
+				model.addAttribute("crtDetailVO", new CrtroomVO());
 				return "courtHost/registerCourtDetail";
 			}
 			
 			// 등록
 			@PostMapping("registerCourtDetail")
-			public String insertCourtDetailProcess(CrtDetailVO crtDetailVO, @RequestParam String action, RedirectAttributes rttr) {
-				crtDetailService.insertCrtDetail(crtDetailVO);
+			public String insertCourtDetailProcess(CrtroomVO crtroomVO, @RequestParam String action, RedirectAttributes rttr) {
+				crtDetailService.insertCrtDetail(crtroomVO);
 				
 				if(action.equals("complete")) {
 					return "redirect:hostCourtList";
 				}
 				else {
-					rttr.addAttribute("crtroomNo", crtDetailVO.getCrtroomNo());
+					rttr.addAttribute("crtroomNo", crtroomVO.getCrtroomNo());
 					return "redirect:registerCourtDetail";
 				}
 			}
@@ -112,7 +112,7 @@ public class CourtController {
 			// 수정 - 페이지
 			@GetMapping("editCourtDetail")
 			public String editCourtDetailForm(Model model) {
-				model.addAttribute("crtDetailVO", new CrtDetailVO());
+				model.addAttribute("crtDetailVO", new CrtroomVO());
 				return "courtHost/editCourtDetail";
 			}		
 }

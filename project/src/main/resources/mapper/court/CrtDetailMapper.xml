@@ -5,7 +5,7 @@
  
 <mapper namespace="com.tenniswing.project.court.mapper.CrtDetailMapper">
 	<!-- 코트 등록 -->
-	<insert id="insertCrtDetail" parameterType="crtDetailVO">
+	<insert id="insertCrtDetail" parameterType="crtroomVO">
 		<selectKey keyProperty="crtDetailNo"
 				   resultType="int"
 				   order="BEFORE">

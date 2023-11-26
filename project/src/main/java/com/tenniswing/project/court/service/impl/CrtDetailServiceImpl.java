@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.tenniswing.project.court.mapper.CrtDetailMapper;
 import com.tenniswing.project.court.service.CrtDetailService;
 import com.tenniswing.project.court.service.CrtDetailVO;
+import com.tenniswing.project.court.service.CrtroomVO;
 
 @Service
 public class CrtDetailServiceImpl implements CrtDetailService {
@@ -14,11 +15,11 @@ public class CrtDetailServiceImpl implements CrtDetailService {
 	CrtDetailMapper crtDetailMapper;
 	
 	@Override
-	public int insertCrtDetail(CrtDetailVO crtDetailVO) {
-		int result = crtDetailMapper.insertCrtDetail(crtDetailVO);
+	public int insertCrtDetail(CrtroomVO crtroomVO) {
+		int result = crtDetailMapper.insertCrtDetail(crtroomVO);
 		
 		if(result == 1) {
-			return crtDetailVO.getCrtDetailNo();
+			return crtroomVO.getCrtDetailNo();
 		}else {
 			return -1;
 		}

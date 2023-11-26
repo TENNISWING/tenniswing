@@ -77,56 +77,65 @@
 											<label for="first-name-horizontal">코트장 번호</label>
 										</div>
 										<div class="col-md-8 form-group">
-											<input type="number" id="first-name-horizontal"
-												class="form-control" name="fname" placeholder="First Name">
+											<input type="number" id="crtroomNo"
+												class="form-control" th:value="${courtDetail.crtroomNo}"
+												readonly>
 										</div>
 										<div class="col-md-4">
 											<label for="first-name-horizontal">코트장 이름</label>
 										</div>
 										<div class="col-md-8 form-group">
-											<input type="text" id="first-name-horizontal"
-												class="form-control" name="fname" placeholder="First Name">
+											<input type="text" id="crtroomName"
+												class="form-control" th:value="${courtDetail.crtroomName}"
+												readonly>
 										</div>
 										<div class="col-md-4">
 											<label for="email-horizontal">코트장 위치</label>
 										</div>
 										<div class="col-md-8 form-group">
-											<input type="text" id="email-horizontal" class="form-control"
-												name="email-id" placeholder="Email">
+											<input type="text" id="crtroomLocation" class="form-control"
+												th:value="${courtDetail.crtroomLocation}"
+												readonly>
 										</div>
 										<div class="col-md-4">
 											<label for="contact-info-horizontal">운영 시간</label>
 										</div>
 										<div class="col-md-8 form-group">
-											<input type="number" id="contact-info-horizontal"
-												class="form-control" name="contact" placeholder="Mobile"
-												style="width: 165px; float: left"> <input
-												type="number" id="contact-info-horizontal"
-												class="form-control" name="contact" placeholder="Mobile"
-												style="width: 165px; float: right">
+											<input type="text" id="crtroomOperateStartTime"
+												class="form-control" th:value="${courtDetail.crtroomOperateStartTime}"
+												style="width: 165px; float: left"
+												readonly>
+											<input
+												type="text" id="crtroomOperateEndTime"
+												class="form-control" th:value="${courtDetail.crtroomOperateEndTime}"
+												style="width: 165px; float: right"
+												readonly>
 										</div>
 										<div class="col-md-4">
 											<label for="email-horizontal">코트장 설명</label>
 										</div>
 										<div class="col-md-8 form-group">
-											<textarea id="email-horizontal" rows="3"
-												class="form-control" name="email-id" placeholder="Email">
+											<textarea id="crtroomExp" rows="3"
+												class="form-control" readonly>
+												[[ ${courtDetail.crtroomExp} ]]
 											</textarea>
 										</div>
 										<div class="col-md-4">
 											<label for="password-horizontal">주의사항</label>
 										</div>
 										<div class="col-md-8 form-group">
-											<textarea id="email-horizontal" rows="3"
-												class="form-control" name="email-id" placeholder="Email">
+											<textarea id="crtroomCaution" rows="3"
+												class="form-control" readonly>
+												[[ ${courtDetail.crtroomCaution} ]]
 											</textarea>
 										</div>
 										<div class="col-md-4">
 											<label for="password-horizontal">이용안내</label>
 										</div>
 										<div class="col-md-8 form-group">
-											<textarea id="email-horizontal" rows="3"
-												class="form-control" name="email-id" placeholder="Email">
+											<textarea id="crtroomUseGuide" rows="3"
+												class="form-control" readonly>
+												[[ ${courtDetail.crtroomUseGuide} ]]
 											</textarea>
 										</div>
 										<div class="col-md-4">
@@ -134,19 +143,19 @@
 										</div>
 										<div class="col-md-8 form-group">
 											<textarea id="email-horizontal" rows="3"
-												class="form-control" name="email-id" placeholder="Email">
+												class="form-control" >
 											</textarea>
 										</div>
 										<div class="col-md-4">
 											<label for="password-horizontal">등록일</label>
 										</div>
 										<div class="col-md-8 form-group">
-											<input type="text" id="password-horizontal"
-												class="form-control" name="password" placeholder="">
+											<input type="text" id="crtroomRegiDate"
+												class="form-control" th:value="${#dates.format(courtDetail.crtroomRegiDate, 'yyyy년MM월dd일')}" readonly>
 										</div>
 										<div class="col-sm-12 d-flex justify-content-end">
-											<button type="button" onclick="location.href='editCourtroom'" class="btn btn-primary me-1 mb-1">코트
-												수정하기</button>
+											<button type="button" th:onclick="|location.href='@{editCourtroom(crtroomVO=courtDetail)}'|" 
+											class="btn btn-primary me-1 mb-1">코트 수정하기</button>
 											<!-- <button type="reset"
 												class="btn btn-light-secondary me-1 mb-1">Reset</button> -->
 										</div>

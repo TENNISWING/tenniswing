@@ -7,6 +7,9 @@ public interface CourtroomService {
 	// 전체조회
 	public List<CrtroomVO> selectAllCourtroom();
 	
+	// 상세조회
+	public CrtroomVO selectCourtroom(CrtroomVO crtroomVO);
+	
 	// 등록
 	public int insertCourtroom(CrtroomVO crtroomVO);
 	
