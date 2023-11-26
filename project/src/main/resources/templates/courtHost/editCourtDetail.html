@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main-layout}">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<th:block layout:fragment="content">
+
+	<div class="container">
+		<!-- // Basic multiple Column Form section start -->
+		<section id="multiple-column-form">
+			<div class="row match-height">
+				<div class="col-12">
+					<div class="card">
+							<h4>코트 등록</h4>
+						<div class="card-content">
+							<div class="card-body">
+								<!-- 등록 폼 -->
+								<form th:action="@{/editCourtDetail}" method="POST" th:object="${crtDetailVO}" class="form" data-parsley-validate>
+									<div class="row">
+										<!-- 코트 세부 등록 -->
+											<!-- <label for="courtNo" class="form-label">
+												코트장 번호
+											</label> -->
+										<div class="col-md-4">
+											<label for="contact-info-horizontal">실내 외 선택</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input class="form-check-input" type="radio" name="crtIndoorOutdoor" id="Success"
+							                value="1" style="display: inline-block;">
+							                <label class="form-check-label" for="indoor" style="display: inline-block;">
+							                실내
+							                </label>&nbsp;
+							                <input class="form-check-input" type="radio" name="crtIndoorOutdoor" id="Success"
+							                value="2" style="display: inline-block;">
+							                <label class="form-check-label" for="outdoor" style="display: inline-block;">
+							                실외
+							                </label>
+										</div>
+										<div class="col-md-4">
+											<label for="contact-info-horizontal">코트 이용 가격</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="number" 
+												class="form-control" name="crtUsePrice" placeholder="코트 이용 가격을 입력하세요."
+												data-parsley-required="true">
+										</div>
+										<div class="col-md-4">
+											<label for="contact-info-horizontal">코트 이용 단위 시간</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="number" 
+												class="form-control" name="useUnitTime" placeholder="코트 이용 단위 시간을 입력하세요."
+												data-parsley-required="true">
+										</div>
+										<div class="col-md-4">
+											<label for="contact-info-horizontal">코트 이미지</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="file" class="multiple-files-filepond" multiple>
+										</div>
+										<input type="hidden"
+												class="form-control" name="crtroomNo" th:value="${param.crtroomNo}"
+												readonly/>
+										<div class="col-12 d-flex justify-content-end">
+											<button type="submit" name="action" value="complete" class="btn btn-primary me-1 mb-1">
+												수정 완료</button>
+											<button type="submit" name="action" value="add" class="btn btn-primary me-1 mb-1">
+												코트 추가 수정</button>
+											<button type="reset"
+												class="btn btn-light-secondary me-1 mb-1">
+												취소</button>
+										</div>
+									</div>
+								</form>
+								<!-- // Basic multiple Column Form section end -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</section>
+	</div>
+<!-- 	<script>
+
+		function setCourtNo(){
+			$('.courtNo').last().val(getMaxNo());
+		}
+		function getMaxNo(){
+			if(!no){
+				no = 1;
+			}else{
+				no += 1;
+			}
+			return no;
+		}
+	</script>
+
+ -->
+ </th:block>
+
+</html>

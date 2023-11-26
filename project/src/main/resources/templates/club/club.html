@@ -159,8 +159,7 @@
 								<div class="email-user-list list-group ps ps--active-y"
 									style="height: 100% !important;">
 									<ul class="users-list-wrapper media-list">
-										<li class="media" th:each="num : ${#numbers.sequence(1,10)}"
-										    th:onclick="|location.href='@{clubdetail}'|">
+										<li class="media" th:each="num : ${#numbers.sequence(1,10)}">
 
 											<div class="user-action">
 												<span class="favorite text-warning"> <svg class="bi"
@@ -174,7 +173,7 @@
 														style="width: 80px; border-radius: 70%;">
 												</div>
 											</div>
-											<div class="media-body">
+											<div class="media-body" th:onclick="|location.href='@{clubdetail}'|">
 												<div class="user-details">
 													<div class="mail-items">
 														<span class="list-group-item-text text-truncate">최강

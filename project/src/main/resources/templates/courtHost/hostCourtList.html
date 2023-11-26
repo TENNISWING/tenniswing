@@ -27,31 +27,37 @@
                                 <th>image</th>
                                 <th>Name</th>
                                 <th>Location</th>
-                                <th>Price</th>
+                                <th>Operate Time</th>
+                                <th>Court Count</th>
+                                <th>Register Date</th>
                                 <th>Button</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="num : ${#numbers.sequence(1,10)}">
-                            	<td>01</td>
-                                <td>Graiden</td>
-                                <td>vehicula.aliquet@semconsequat.co.uk</td>
-                                <td>076 4820 8838</td>
-                                <td>Offenburg</td>
-                                <td>
-                           			<a href="#" class="btn icon btn-success"><i class="icon dripicons dripicons-pencil"></i></a>
-									<a href="#" class="btn icon btn-danger"><i class="icon dripicons dripicons-trash"></i></a>
-                                <!-- <button class="btn btn-success dropdown-toggle me-1" type="button"
-                                    id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    Success
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                    <a class="dropdown-item" href="#">최신순</a>
-                                    <a class="dropdown-item" href="#">인기순</a>
-                                </div> -->
-                                </td>
-                            </tr>
+                        	<th:block th:each="courtList, stat : ${courtList}">
+	                            <tr>
+	                            	<td>[[ ${courtList.crtroomNo} ]]</td>
+	                                <td></td>
+	                                <td>[[ ${courtList.crtroomName} ]]</td>
+	                                <td>[[ ${courtList.crtroomLocation} ]]</td>
+	                                <td>[[ ${courtList.crtroomOperateStartTime} ]] ~ [[ ${courtList.crtroomOperateEndTime} ]]</td>
+	                                <!-- <td>[[ ${courtList.crtCount} ]]</td> -->
+	                                <td>[[ ${#dates.format(courtList.crtroomRegiDate, 'yyyy년MM월dd일')} ]]
+	                                <td>
+	                           			<a href="#" class="btn icon btn-success"><i class="icon dripicons dripicons-pencil"></i></a>
+										<a href="#" class="btn icon btn-danger"><i class="icon dripicons dripicons-trash"></i></a>
+	                                <!-- <button class="btn btn-success dropdown-toggle me-1" type="button"
+	                                    id="dropdownMenuButton2" data-bs-toggle="dropdown"
+	                                    aria-haspopup="true" aria-expanded="false">
+	                                    Success
+	                                </button>
+	                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+	                                    <a class="dropdown-item" href="#">최신순</a>
+	                                    <a class="dropdown-item" href="#">인기순</a>
+	                                </div> -->
+	                                </td>
+	                            </tr>
+                            </th:block>
                             <!-- <tr>
                                 <td>Dale</td>
                                 <td>fringilla.euismod.enim@quam.ca</td>
