@@ -37,4 +37,9 @@ public class CommunityController {
 	public String snsMyListPage(Model model) {
 		return "community/snsMyList";
 	}
+	// 자유게시판 글 등록폼
+	@GetMapping("freeBrdForm")
+	public String freeBrdFormPage(Model model) {
+		return "community/freeBrdForm";
+	}
 }
