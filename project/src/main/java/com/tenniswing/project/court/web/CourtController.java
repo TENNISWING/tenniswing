@@ -1,12 +1,16 @@
 package com.tenniswing.project.court.web;
 
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenniswing.project.court.service.CourtroomService;
@@ -39,42 +43,62 @@ public class CourtController {
 		public String reserveCourtPage(Model model) { 			
 			return "court/reserveCourt";
 		}
-	
+		
 	// 호스트
 		// 코트장
 			// 목록
 			@GetMapping("hostCourtList")
 			public String hostCourtListPage(Model model) {
+				model.addAttribute("courtList", courtroomService.selectAllCourtroom());
 				return "courtHost/hostCourtList";
+			}
+			
+			// 상세보기
+			@GetMapping("hostCourtDetail")
+			public String hostCourtDetailPage(Model model) {
+				return "courtHost/hostCourtDetail";
 			}
 				
 			// 등록 - 페이지
-			@GetMapping("courtRegister")
+			@GetMapping("registerCourtroom")
 			public String insertCourtroomForm(Model model) {
 				model.addAttribute("crtroomVO", new CrtroomVO());
-				return "courtHost/courtRegister";
+				return "courtHost/registerCourtroom";
 			}
 			
 			// 등록
-			@PostMapping("courtRegister")
-
+			@PostMapping("registerCourtroom")
 			public String insertCourtroomProcess(CrtroomVO crtroomVO, RedirectAttributes rttr) {
 				courtroomService.insertCourtroom(crtroomVO);
 				
 				rttr.addAttribute("crtroomNo", crtroomVO.getCrtroomNo());
-				return "redirect:crtDeRegister";
+				return "redirect:registerCourtDetail";
+			}
+			
+			// 수정 - 페이지
+			@GetMapping("editCourtroom")
+			public String editCourtroomForm(Model model) {
+				model.addAttribute("crtroomVO", new CrtroomVO());
+				return "courtHost/editCourtroom";
+			}
+			
+			// 수정 - 처리
+			@PostMapping("editCourtroom")
+			@ResponseBody
+			public Map<String, Object> editCourtroomProccess(@RequestBody CrtroomVO crtroomVO){
+				return courtroomService.updateCourtroom(crtroomVO);
 			}
 			
 		// 코트 상세
 			// 등록 - 페이지
-			@GetMapping("crtDeRegister")
+			@GetMapping("registerCourtDetail")
 			public String insertCourtDetailForm(Model model) {
 				model.addAttribute("crtDetailVO", new CrtDetailVO());
-				return "courtHost/crtDeRegister";
+				return "courtHost/registerCourtDetail";
 			}
 			
 			// 등록
-			@PostMapping("crtDeRegister")
+			@PostMapping("registerCourtDetail")
 			public String insertCourtDetailProcess(CrtDetailVO crtDetailVO, @RequestParam String action, RedirectAttributes rttr) {
 				crtDetailService.insertCrtDetail(crtDetailVO);
 				
@@ -83,15 +107,15 @@ public class CourtController {
 				}
 				else {
 					rttr.addAttribute("crtroomNo", crtDetailVO.getCrtroomNo());
-					return "redirect:crtDeRegister";
+					return "redirect:registerCourtDetail";
 				}
 			}
-
-			public String insertCourtroomProcess(CrtroomVO crtroomVO, Model model) {
-				courtroomService.insertCourtroom(crtroomVO);
-				model.addAttribute("crtroomNo", crtroomVO.getCrtroomNo());
-				return "courtHost/crtDeRegister";
+			
+			// 수정 - 페이지
+			@GetMapping("editCourtDetail")
+			public String editCourtDetailForm(Model model) {
+				model.addAttribute("crtDetailVO", new CrtDetailVO());
+				return "courtHost/editCourtDetail";
 			}
-
-	
+			
 }

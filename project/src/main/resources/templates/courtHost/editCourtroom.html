@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main-layout}">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<th:block layout:fragment="content">
+
+	<div class="container">
+		<div class="col-md-12 col-12">
+				<div class="card">
+					<div class="card-header">
+                        <h4 class="card-title">코트장 정보 수정</h4>
+                    </div>
+					<div class="card-content">
+						<div class="card-body">
+							<form class="form form-horizontal" th:action="@{/editCourtroom}" method="POST"
+							th:object="${crtroomVO}" enctype="multipart/form-data">
+								<div class="form-body">
+									<div class="row">
+										<div class="col-md-4">
+											<label for="first-name-horizontal">코트장 번호</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="number" id="first-name-horizontal"
+												class="form-control" name="crtroomNo" th:value="${param.crtroomVO.crtroomNo}" disabled>
+										</div>
+										<div class="col-md-4">
+											<label for="first-name-horizontal">코트장 이름</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="text" id="first-name-horizontal"
+												class="form-control" name="crtroomName" th:value="${param.crtroomVO.crtroomName}">
+										</div>
+										<div class="col-md-4">
+											<label for="email-horizontal">코트장 지역</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<select class="form-control"
+												name="crtroomRegion" th:value="${param.crtroomVO.crtroomRegion}">
+												<option value="b1">서울</option>
+	                                            <option value="b2">경기</option>
+	                                            <option value="b3">인천</option>
+	                                            <option value="b4">강원도</option>
+	                                            <option value="b5">전라도</option>
+	                                            <option value="b6">경상도</option>
+	                                            <option value="b7">충청도</option>
+	                                            <option value="b8">제주도</option>
+											</select>
+										</div>
+										<div class="col-md-4">
+											<label for="email-horizontal">코트장 위치</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="text" class="form-control" id="sample5_address"
+												name="crtroomLocation" th:value="${param.crtroomVO.crtroomLocation}"
+												style="width:80%;display:inline-block;">
+											<button type="button" class="btn btn-primary me-1 mb-1" style="border:1px solid black;display:inline-block;"
+												onclick="sample5_execDaumPostcode()">주소 검색</button>
+										</div>
+										<div class="col-md-4">
+											<label for="contact-info-horizontal">운영 시작 시간</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="date" class="form-control flatpickr-time-picker-24h" name="crtroomOperateStartTime"
+												th:value="${param.crtroomVO.crtroomOperateStartTime}"
+												>
+										</div>
+										<div class="col-md-4">
+											<label for="contact-info-horizontal">운영 종료 시간</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="date" class="form-control flatpickr-time-picker-24h" name="crtroomOperateEndTime"
+												th:value="${param.crtroomVO.crtroomOperateEndTime}"
+												>
+										</div>
+										<div class="col-md-4">
+											<label for="email-horizontal">코트장 설명</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<textarea class="form-control" name="crtroomExp" rows="3"
+						                            th:value="${param.crtroomVO.crtroomExp}"></textarea>
+										</div>
+										<div class="col-md-4">
+											<label for="password-horizontal">주의사항</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<textarea class="form-control" name="crtroomCaution" rows="3"
+						                            th:value="${param.crtroomVO.crtroomCaution}"></textarea>
+										</div>
+										<div class="col-md-4">
+											<label for="password-horizontal">이용안내</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<textarea class="form-control" name="crtroomUseGuide" rows="3"
+						                            th:value="${param.crtroomVO.crtroomUseGuide}"></textarea>
+										</div>
+										<div class="col-md-4">
+											<label for="password-horizontal">등록일</label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="text" id="password-horizontal"
+												class="form-control" th:value="${param.crtroomVO.crtroomRegiDate}" disabled>
+										</div>
+										<div class="col-sm-12 d-flex justify-content-end">
+											<button type="submit" class="btn btn-primary me-1 mb-1">코트
+												수정하기</button>
+											<button type="reset"
+												class="btn btn-light-secondary me-1 mb-1">Reset</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- File Upload -->
+	<!-- 주소 검색 -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 API KEY를 사용하세요&libraries=services"></script>
+	<script>
+	    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+	        mapOption = {
+	            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+	            level: 5 // 지도의 확대 레벨
+	        };
+	
+	    //지도를 미리 생성
+	    var map = new daum.maps.Map(mapContainer, mapOption);
+	    //주소-좌표 변환 객체를 생성
+	    var geocoder = new daum.maps.services.Geocoder();
+	    //마커를 미리 생성
+	    var marker = new daum.maps.Marker({
+	        position: new daum.maps.LatLng(37.537187, 127.005476),
+	        map: map
+	    });
+	
+	
+	    function sample5_execDaumPostcode() {
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	                var addr = data.address; // 최종 주소 변수
+	
+	                // 주소 정보를 해당 필드에 넣는다.
+	                document.getElementById("sample5_address").value = addr;
+	                // 주소로 상세 정보를 검색
+	                geocoder.addressSearch(data.address, function(results, status) {
+	                    // 정상적으로 검색이 완료됐으면
+	                    if (status === daum.maps.services.Status.OK) {
+	
+	                        var result = results[0]; //첫번째 결과의 값을 활용
+	
+	                        // 해당 주소에 대한 좌표를 받아서
+	                        var coords = new daum.maps.LatLng(result.y, result.x);
+	                        // 지도를 보여준다.
+	                        mapContainer.style.display = "block";
+	                        map.relayout();
+	                        // 지도 중심을 변경한다.
+	                        map.setCenter(coords);
+	                        // 마커를 결과값으로 받은 위치로 옮긴다.
+	                        marker.setPosition(coords)
+	                    }
+	                });
+	            }
+	        }).open();
+	    }
+	</script>
+</th:block>
+</html>
