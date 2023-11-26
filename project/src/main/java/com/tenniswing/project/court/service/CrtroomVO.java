@@ -23,6 +23,8 @@ public class CrtroomVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date crtroomRegiDate;
 	
+	private int crtCount;
+	
 	// 첨부파일
 	
 }

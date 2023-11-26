@@ -18,51 +18,12 @@
 	<!-- <link rel="stylesheet" href="/assets/css/jquery.countdown.css" /> -->
 	<!-- User's CSS Here -->
 	<!-- <link rel="stylesheet" href="/assets/css/style.css" /> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <th:block layout:fragment="content">
 
 	<!-- courtroom card -->
 	<div class="container">
-		<!-- <div class="card-body">
-                    <h5 class="card-title">매치</h5> -->
-		<!-- Default Table -->
-		<!-- <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-center">
-                                    <b>14 : 00</b>
-                                </td>
-                                <td>
-                                    서남센터 테니스장 12번 코트
-                                </td>
-                                <td class="text-end">
-                                    <button type="button" class="btn btn-primary">신청 가능</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">
-                                    <b>14 : 00</b>
-                                </td>
-                                <td>
-                                    서남센터 테니스장 12번 코트
-                                </td>
-                                <td class="text-end">
-                                    <button type="button" class="btn btn-secondary disabled">매칭 완료</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">
-                                    <b>14 : 00</b>
-                                </td>
-                                <td>
-                                    서남센터 테니스장 12번 코트
-                                </td>
-                                <td class="text-end">
-                                    <button type="button" class="btn btn-danger">마감 임박</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table> -->
 		<section class="product-main">
 			<div class="container">
 				<div class="row product-detail">
@@ -241,9 +202,9 @@
 										<div>
 											<br>
 											<p class='my-2'>
-												<b style="display: block;  font-size: 20px">1코트<br>
-												</b>
-													<span class="badge bg-light-success" style="font-size: 15px">실내</span>&nbsp;
+												<b style="display: block; font-size: 20px;">1코트
+												</b><br>
+													&nbsp;<span class="badge bg-light-success" style="font-size: 15px">실내</span>&nbsp;
 													<span class="badge bg-light-warning" style="font-size: 15px">이용가격 : 11000원 (2시간당)</span>
 												<!-- <span class="badge bg-success"> </span>
 												<span class="badge bg-success"> </span>
@@ -262,6 +223,18 @@
 												<br>
 												<span style="font-size: 10px;">9시</span> -->
 											</p>
+											<div style="overflow: hidden; height: 30px;">
+												<table style="float: right;">
+													<tbody>
+														<tr>
+															<th style="background-color: green; width: 30px; height: 10px; border: 2px solid #fff"> </th>
+															<td style="width: 50px; height: 10px; font-size: 10px">예약불가</td>
+															<th style="background-color: lightgreen; width: 30px; height: 10px; border: 2px solid #fff"> </th>
+															<td style="width: 50px; height: 10px; font-size: 10px">예약가능</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
 											<table>
 												<thead>
 													<tr>
@@ -281,6 +254,7 @@
 													</tr>
 												</tbody>
 											</table>
+											<br>
 											<div>
 												<p>
 													<button class="btn btn-primary" type="button" data-bs-toggle="collapse"
@@ -325,7 +299,8 @@
 										<div>
 											<p class='my-2'>
 												<b style="display: block; font-size: 20px">2코트<br></b>
-												<span class="badge bg-light-success" style="font-size: 15px">실내</span>&nbsp;
+												<br>
+													&nbsp;<span class="badge bg-light-success" style="font-size: 15px">실내</span>&nbsp;
 													<span class="badge bg-light-warning" style="font-size: 15px">이용가격 : 11000원 (2시간당)</span>
 												<!-- <span class="badge bg-success"> </span>
 												<span class="badge bg-success"> </span>
@@ -335,6 +310,7 @@
 												<span class="badge bg-light-success"> </span>
 												<span class="badge bg-success"> </span> -->
 											</p>
+											<br>
 											<table>
 												<thead>
 													<tr>
@@ -354,6 +330,7 @@
 													</tr>
 												</tbody>
 											</table>
+											<br>
 											<div>
 												<p>
 												<button class="btn btn-primary" type="button" data-bs-toggle="collapse"
@@ -403,15 +380,6 @@
 											<span class="badge bg-success"> </span> 예약 가능
 											<span class="badge bg-light-success"> </span> 예약 불가
 										</p> -->
-									<table style="float: right">
-											<tr>
-												<th style="background-color: green; width: 30px; height: 10px; border: 2px solid #fff"> </th>
-												<td style="width: 50px; height: 10px; font-size: 10px">예약불가</td>
-												<th style="background-color: lightgreen; width: 30px; height: 10px; border: 2px solid #fff"> </th>
-												<td style="width: 50px; height: 10px; font-size: 10px">예약가능</td>
-											</tr>
-										</tbody>
-									</table>
 									</div>
 									<div class="modal fade" id="galleryModal" tabindex="-1" role="dialog"
 										aria-labelledby="galleryModalTitle" aria-hidden="true">
