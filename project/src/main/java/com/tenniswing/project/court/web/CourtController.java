@@ -90,3 +90,4 @@ public class CourtController {
 		model.addAttribute("crtroomNo", crtroomVO.getCrtroomNo());
 		return "courtHost/crtDeRegister";
 	}
+}
