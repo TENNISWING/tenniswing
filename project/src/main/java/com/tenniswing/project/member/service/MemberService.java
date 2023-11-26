@@ -7,10 +7,13 @@ public interface MemberService {
 	// 전체조회
 	public List<MemberVO> getMemberAll();
 
-	// 단건조회
-	public MemberVO getMemberInfo(MemberVO empVO);
+	// 로그인
+	public MemberVO loginMember(MemberVO empVO);
+	
+	// 아이디 중복 체크
+	public boolean idCheck(String memId);
 
-	// 등록
+	// 회원가입
 	public int insertMember(MemberVO empVO);
 
 	// 수정
