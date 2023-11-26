@@ -1,8 +1,6 @@
 package com.tenniswing.project.court.web;
 
-
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,17 +16,17 @@ import com.tenniswing.project.court.service.CrtDetailService;
 import com.tenniswing.project.court.service.CrtDetailVO;
 import com.tenniswing.project.court.service.CrtroomVO;
 
-
 @Controller
 public class CourtController {
-	
+
 	@Autowired
 	CourtroomService courtroomService;
-	
+
 	@Autowired
 	CrtDetailService crtDetailService;
-	
+
 	// 메인
+
 		@GetMapping("court")  
 		public String courtPage(Model model) { 			
 			return "court/court";
@@ -116,6 +114,5 @@ public class CourtController {
 			public String editCourtDetailForm(Model model) {
 				model.addAttribute("crtDetailVO", new CrtDetailVO());
 				return "courtHost/editCourtDetail";
-			}
-			
+			}		
 }
