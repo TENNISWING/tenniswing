@@ -25,8 +25,7 @@
   	<select id="memberLogin" resultType="MemberVO">
   		SELECT *
   		FROM MEM
-  		WHERE MEM_ID = #{memId}
-  		AND PWD = #{pwd}
+  		WHERE MEM_ID = #{memId}  				
   		 <!-- LIKE '%' || #{keyword} || '%'
   		 	  LIKE '%${keyword}%'		   -->
   	</select>
