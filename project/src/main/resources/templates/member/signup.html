@@ -5,14 +5,14 @@
 <th:block layout:fragment="content">
 
 	<!-- signup form -->
-	<div class="d-flex justify-content-center" id="signupForm">
-		
+	<div class="container" id="signupForm">
+
 		<form class="form form-vertical" action="signup" method="POST">
 			<div class="form-body">
-			<div class="text-center">
-			<h3 class="my-4">회원가입</h3>
-			</div>
-			<!-- 	<div class="col-3 "></div> -->
+				<div class="text-center">
+					<h3 class="my-4">회원가입</h3>
+				</div>
+				<input type="text" id="message" hidden="true" th:value="${message}">
 				<div class="container my-3 p-2">
 					<div class="d-flex justify-content-center">
 						<div class="form-check mx-4">
@@ -20,37 +20,38 @@
 							<label class="form-check-label" for="member">일반회원</label>
 						</div>
 						<div class="form-check mx-4">
-							<input class="form-check-input" type="radio" name="memDiv" id="host" value="h3">
-							<label class="form-check-label" for="host">호스트회원</label>
+							<input class="form-check-input" type="radio" name="memDiv" id="host" value="h3"> <label
+								class="form-check-label" for="host">호스트회원</label>
 						</div>
 					</div>
 				</div>
 				<!-- <div class="col-3"></div> -->
 			</div>
-			<div class="row ">
+			<div class="row justify-content-center">
 				<!-- <div class="col-3 "></div> -->
 
-				<div class="col-12 p-5 text-start shadow mb-5">
+				<div class="col-lg-7 p-5 text-start shadow mb-5">
 					<div class="container card text-center w-50">
 						<!-- File uploader with image preview -->
-						<input type="file" class="image-preview-filepond" id="prImage" name="prImage">
+						<input type="file" class="image-preview-filepond" id="prImage" name="prImage" multiple>
 						<h5 class=text-dark>프로필 사진</h5>
 					</div>
 
 					<label for="memId">아이디(이메일)</label><br>
 					<div class="input-group mb-3">
-						<input type="text" class="form-control is-invalid" placeholder="아이디입력(이메일)"
+						<input type="text" class="form-control is-invalid" placeholder="영문 | 숫자만 입력 가능"
 							aria-describedby="duplicateBtn" id="memId" name="memId" maxlength="40" autofocus required>
 						<button class="btn btn-success" type="button" id="duplicateBtn">중복확인</button>
 						<div class="invalid-feedback" id="memIdFeedback"></div>
+						<input type="checkbox" id="idck" hidden="true">
 					</div>
 
 					<div class="row">
 						<div class="col-6">
 							<label for="name">이름</label><br>
 							<div class="input-group mb-3">
-								<input type="text" class="form-control is-invalid" placeholder="이름입력" id="name"
-									name="name" maxlength="20" required>
+								<input type="text" class="form-control is-invalid" placeholder="한글만 입력 가능" id="name"
+									name="name" maxlength="10" required>
 							</div>
 						</div>
 						<div class="col-6">
@@ -206,28 +207,34 @@
 			</div>
 		</form>
 	</div>
+
 	<!-- End signup form -->
-	<script>		
+	<script>
+
+
 		//정규식 모음
 		let email = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 		let korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+		let phoneNum = /^[0-9]{3}[0-9]{3,4}[0-9]{4}/;
 		//특수문자 필터
 		let specialChar = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
 		//공백 피터
 		let blank = /[\s]/g;
 		//한글만 필터
-		let onlyKorean =  /[\s]|[A-Za-z0-9]|[ \[\]{}()<>?_-]|[`~!@#$%^&*|\\\'\";+=,.:\/?]/g;
+		let onlyKorean = /[\s]|[A-Za-z0-9]|[ \[\]{}()<>?_-]|[`~!@#$%^&*|\\\'\";+=,.:\/?]/g;
 		// 영문 or 숫자만 필터
-		let onlyEngNum =   /[\s]|[A-Z]|[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]|[\{\}\[\]\/?,;:|\)*~`!^\-_+<>\#$%&\\\=\(\'\"]/;
+		let onlyEngNum = /[\s]|[A-Z]|[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]|[\{\}\[\]\/?,;:|\)*~`!^\-_+<>\#$%&\\\=\(\'\"]/;
 		// 숫자만 필터
-		let onlyNum =   /[\s]|[a-zA-Z]|[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]|[\{\}\[\]\/?,;:|\)*~`!^\-_+<>\#$%&\\\=\(\'\"]/;
+		let onlyNum = /[\s]|[a-zA-Z]|[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]|[\{\}\[\]\/?,;:|\)*~`!^\-_+<>\#$%&\\\=\(\'\"]/;
 
+		//아이디 체크 여부 확인 (true면 했음)
+		let idchapply = $('#idck').is(':checked');
 		//아이디 이메일형식 체크, 소문자,숫자만 입력
-		$('#memId').on('keyup',function (e) {
-			$(e.target).val( $(e.target).val().replace( onlyEngNum, '' ) );
+		$('#memId').on('propertychange change keyup paste input', function (e) {
+			$(e.target).val($(e.target).val().replace(onlyEngNum, ''));
 			let intext = $(e.target).val();
 
-			if (email.test(intext)) {			
+			if (email.test(intext)) {
 				$(e.target).prop("class", "form-control is-valid");
 			} else if (intext.length == 0) {
 				$(e.target).prop("class", "form-control is-invalid");
@@ -239,74 +246,103 @@
 		})
 
 		//중복확인
-		$('#duplicateBtn').on('click',function(e){
-			$.ajax
+		$('#duplicateBtn').on('click', function (e) {
+			let memId = $('#memId').val();
+			if (memId.length < 1) {
+				Swal2.fire({
+					icon: "error",
+					title: "아이디를 입력해주세요",
+				})
+				return;
+			}
+			$.ajax({
+				type: 'POST',
+				url: 'idcheck',
+				data: { memId: memId },
+				dataType: 'json',
+				success: function (result) {
+					if (result) {
+						$('#idck').prop('checked', true);
+						Swal2.fire({
+							icon: "success",
+							title: "가입 가능한 아이디입니다",
+						})
+					} else {
+						$('#idck').prop('checked', false);
+						Swal2.fire({
+							icon: "error",
+							title: "아이디가 중복 됩니다",
+						})
+					}
+				},
+				error: () => console.log(error)
+			})
 		})
 
 		//이름 한글만 입력되도록
-		$('#name').keyup(function(e){			
+		$('#name').on('propertychange change keyup paste input', function (e) {
 
-			$(e.target).val( $(e.target).val().replace( onlyKorean, '' ) );	
-			
+			$(e.target).val($(e.target).val().replace(onlyKorean, ''));
+
 			let intext = $(e.target).val();
 
 			if (intext.length == 0) {
 				$(e.target).prop("class", "form-control is-invalid")
-			}else if(intext.length > 1){
+			} else if (intext.length > 1) {
 				$(e.target).prop("class", "form-control is-valid");
-			}else{
+			} else {
 				$(e.target).prop("class", "form-control is-invalid")
-			}		
+			}
 		})
 
 		//닉네임 특수문자만 막음
-		$('#nick').keyup(function(e){			
+		$('#nick').on('propertychange change keyup paste input', function (e) {
 
-			$(e.target).val( $(e.target).val().replace( specialChar, '' ) );	
-			
+			$(e.target).val($(e.target).val().replace(specialChar, ''));
+
 			let intext = $(e.target).val();
-			
+
 			if (intext.length == 0) {
 				$(e.target).prop("class", "form-control is-invalid")
-			}else if(intext.length > 1){
+			} else if (intext.length > 1) {
 				$(e.target).prop("class", "form-control is-valid");
-			}else{
+			} else {
 				$(e.target).prop("class", "form-control is-invalid")
-			}		
+			}
 		})
 
 		//비밀번호 8자리이상, 공백막음
-		$('#pwd').keyup(function(e){			
+		$('#pwd').on('propertychange change keyup paste input', function (e) {
 
-			$(e.target).val( $(e.target).val().replace( blank, '') );	
-			
+			$(e.target).val($(e.target).val().replace(blank, ''));
+
 			let intext = $(e.target).val();
 
 			if (intext.length == 0) {
 				$(e.target).prop("class", "form-control is-invalid")
-			}else if(intext.length >= 8){
+			} else if (intext.length >= 8) {
 				$(e.target).prop("class", "form-control is-valid");
-			}else{
-				$(e.target).prop("class", "form-control is-invalid")
-			}		
-		})
-		
-		//폰넘버 숫자만 입력, 공백 막음
-		$('#phoneNo').on('change keyup',function (e) {			
-
-			$(e.target).val( $(e.target).val().replace( onlyNum, '' ));		
-
-			let intext = $(e.target).val();
-			
-			if (intext.length >= 10) {			
-				$(e.target).prop("class", "form-control is-valid");
-			} else if (intext.length == 0) {
-				$(e.target).prop("class", "form-control is-invalid");	
 			} else {
-				$(e.target).prop("class", "form-control is-invalid");		
+				$(e.target).prop("class", "form-control is-invalid")
 			}
 		})
-		//비밀번호창 타입 변경
+
+		//폰넘버 숫자만 입력, 공백 막음
+		$('#phoneNo').on('propertychange change keyup paste input', function (e) {
+
+			$(e.target).val($(e.target).val().replace(onlyNum, ''));
+
+			let intext = $(e.target).val();
+
+			if (phoneNum.test(intext)) {
+				$(e.target).prop("class", "form-control is-valid");
+			} else if (intext.length == 0) {
+				$(e.target).prop("class", "form-control is-invalid");
+			} else {
+				$(e.target).prop("class", "form-control is-invalid");
+			}
+		})
+		//비밀번호 보기
 		$(document).ready(function () {
 			$("#pwview").on("click", function (e) {
 				$("#pwview").toggleClass("active");
@@ -319,9 +355,22 @@
 					$("#pwd").attr("type", "password");
 				}
 			});
+			if($('#message').val() != '' ){
+				Toast.fire({
+					icon: "error",
+					title: $('#message').val(),
+				})
+			}			
 		});
 
 	</script>
+
+	<script th:inline="javascript">
+
+	
+	</script>
+
+
 </th:block>
 
 </html>

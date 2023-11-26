@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.tenniswing.project.member.mapper.MemberMapper;
@@ -16,6 +17,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	MemberMapper memberMapper;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	@Override
 	public List<MemberVO> getMemberAll() {
@@ -29,6 +33,17 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int insertMember(MemberVO memberVO) {
+		
+		String role = memberVO.getMemDiv();		
+		
+		if(role.equals("h1")) {
+			memberVO.setMemDiv("ROLE_MEMBER");
+		}else {
+			memberVO.setMemDiv("ROLE_HOST");
+		}
+		
+		memberVO.setPwd(passwordEncoder.encode(memberVO.getPwd()));	
+		
 		int result = memberMapper.insertMember(memberVO);
 		
 		if (result > 0) {
@@ -67,8 +82,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean idCheck(String memId) {
-		// TODO Auto-generated method stub
+	public boolean idCheck(String memId) {		
+		int result = memberMapper.memberIdCheck(memId);
+		
+		if(result == 0) {
+			return true;
+		}
+		
 		return false;
 	}
 

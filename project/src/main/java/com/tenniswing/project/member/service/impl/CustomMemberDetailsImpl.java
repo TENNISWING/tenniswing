@@ -24,8 +24,6 @@ public class CustomMemberDetailsImpl implements UserDetailsService{
 		memberVO = memberService.loginMember(memberVO);
 		
 		if (memberVO != null) {
-			System.out.println(memberVO.getMemDiv());
-			System.out.println("=============");
 			return new MemberDetails(memberVO);
 		}
 		
