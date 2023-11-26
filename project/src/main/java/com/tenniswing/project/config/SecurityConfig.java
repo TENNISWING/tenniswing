@@ -15,6 +15,7 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
 		http.csrf().disable().authorizeRequests()
 
 				.antMatchers("/mypage/**").authenticated()
@@ -29,7 +30,7 @@ public class SecurityConfig {
 				.usernameParameter("memId")
 				.passwordParameter("pwd")
 				.defaultSuccessUrl("/").permitAll()
-				
+			
 				.and()
 				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.logoutSuccessUrl("/");

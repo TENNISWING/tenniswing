@@ -54,7 +54,7 @@
   		ORDER BY match_hist_no
    	</select>
    	
-  	<!-- 단건조회
+  	<!-- 단건조회 -->
   	<select id="selectMatchHist" resultType="MatchHistVO">
   		SELECT match_hist_no
   				, match_no
@@ -66,7 +66,7 @@
   		WHERE match_hist_no = #{matchHistNo}
   	</select>
   	
-  	클럽매치이력 단건조회
+  	<!-- 클럽매치이력 단건조회 -->
   	<select id="selectClubMatchHist" resultType="MatchHistVO">
   		SELECT match_hist_no
   				, match_no
@@ -79,7 +79,7 @@
   		WHERE match_hist_no = #{matchHistNo}
   	</select>
   	
-  	대회매치이력 단건조회
+  	<!-- 대회매치이력 단건조회 -->
   	<select id="selectContMatchHist" resultType="MatchHistVO">
   		SELECT match_hist_no
   				, match_no
@@ -92,8 +92,8 @@
   		WHERE match_hist_no = #{matchHistNo}
   	</select>
   
-  스타터매치이력 단건조회
-  	<select id="selectContMatchHist" resultType="MatchHistVO">
+  <!-- 스타터매치이력 단건조회 -->
+  	<select id="selectStarterMatchHist" resultType="MatchHistVO">
   		SELECT match_hist_no
   				, match_no
   				, match_apply_mem_no
@@ -104,16 +104,15 @@
   		WHERE match_hist_no = #{matchHistNo}
   	</select>
   
-  	등록
+  	<!-- 등록 -->
   	<insert id="insertMatchHist" parameterType="MatchHistVO">
   	 	<selectKey keyProperty="matchHistNo" 
   	 			   resultType="int" 
   	 			   order="BEFORE">
-  	 		primarykey가 숫자일 경우 사용
   	 		SELECT NVL(MAX(match_hist_no), 0) + 1 
 			FROM match_hist
   	 	</selectKey>
-  	 	INSERT INTO match
+  	 	INSERT INTO match_hist
   	 			(
 		  	 		match_hist_no
 	  				, match_no
@@ -135,16 +134,15 @@
   			WHERE match_hist_no = #{matchHistNo}	
   	</insert>  	
   
-  클럽매치이력 등록
+  <!-- 클럽매치이력 등록 -->
   	<insert id="insertClubMatchHist" parameterType="MatchHistVO">
   	 	<selectKey keyProperty="matchHistNo" 
   	 			   resultType="int" 
   	 			   order="BEFORE">
-  	 		primarykey가 숫자일 경우 사용
   	 		SELECT NVL(MAX(match_hist_no), 0) + 1 
 			FROM club_match_hist
   	 	</selectKey>
-  	 	INSERT INTO match
+  	 	INSERT INTO club_match_hist
   	 			(
 		  	 		match_hist_no
 	  				, match_no
@@ -166,16 +164,15 @@
   			WHERE match_hist_no = #{matchHistNo}
   	</insert> 
   	
-  	 대회매치이력 등록
+  	 <!-- 대회매치이력 등록 -->
   	<insert id="insertContMatchHist" parameterType="MatchHistVO">
   	 	<selectKey keyProperty="matchHistNo" 
   	 			   resultType="int" 
   	 			   order="BEFORE">
-  	 		primarykey가 숫자일 경우 사용
   	 		SELECT NVL(MAX(match_hist_no), 0) + 1 
 			FROM cont_match_hist
   	 	</selectKey>
-  	 	INSERT INTO match
+  	 	INSERT INTO cont_match_hist
   	 			(
 			  	 	match_hist_no
 	  				, match_no
@@ -199,16 +196,15 @@
   			WHERE match_hist_no = #{matchHistNo}
   	</insert> 
   	
-  	 스타터매치이력 등록
+  	 <!-- 스타터매치이력 등록 -->
   	<insert id="insertStarterMatchHist" parameterType="MatchHistVO">
   	 	<selectKey keyProperty="matchHistNo" 
   	 			   resultType="int" 
   	 			   order="BEFORE">
-  	 		primarykey가 숫자일 경우 사용
   	 		SELECT NVL(MAX(match_hist_no), 0) + 1 
 			FROM starter_match_hist
   	 	</selectKey>
-  	 	INSERT INTO match
+  	 	INSERT INTO starter_match_hist
   	 			(
 				  	match_hist_no
 	  				, match_no
@@ -230,7 +226,7 @@
   			WHERE match_hist_no = #{matchHistNo}
   	</insert> 
   
-  	수정
+  	<!-- 수정 -->
   	<update id="updateMatchHist" parameterType="MatchHistVO">
   		UPDATE match_hist
   			SET
@@ -243,7 +239,7 @@
   		WHERE match_hist_no = #{matchHistNo}
   	</update>
   	
-  	클럽매치이력 수정
+  	<!-- 클럽매치이력 수정 -->
   	<update id="updateClubMatchHist" parameterType="MatchHistVO">
   		UPDATE club_match_hist
   			SET
@@ -257,7 +253,7 @@
   		WHERE match_hist_no = #{matchHistNo}
   	</update>
   	
-  		대회매치이력 수정
+  		<!-- 대회매치이력 수정 -->
   	<update id="updateContMatchHist" parameterType="MatchHistVO">
   		UPDATE cont_match_hist
   			SET
@@ -271,7 +267,7 @@
   		WHERE match_hist_no = #{matchHistNo}
   	</update>
   	
-  		스타터매치이력 수정
+  		<!-- 스타터매치이력 수정 -->
   	<update id="updateStarterMatchHist" parameterType="MatchHistVO">
   		UPDATE starter_match_hist
   			SET
@@ -284,28 +280,27 @@
   		WHERE match_hist_no = #{matchHistNo}
   	</update>
   	  	
-  	삭제
+  	<!-- 삭제 -->
   	<delete id="deleteMatchHist" parameterType="int">
   		DELETE FROM match_hist
   		WHERE match_hist_no = #{matchHistNo}
   	</delete>
   	
-  	클럽매치이력 삭제
+  	<!-- 클럽매치이력 삭제 -->
   	<delete id="deleteClubMatchHist" parameterType="int">
   		DELETE FROM club_match_hist
   		WHERE match_hist_no = #{matchHistNo}
   	</delete>
   	
-  	대회매치이력 삭제
+  	<!-- 대회매치이력 삭제 -->
   	<delete id="deleteContMatchHist" parameterType="int">
   		DELETE FROM cont_match_hist
   		WHERE match_hist_no = #{matchHistNo}
   	</delete>
   	
-  	스타터매치이력 삭제
+  	<!-- 스타터매치이력 삭제 -->
   	<delete id="deleteStarterMatchHist" parameterType="int">
   		DELETE FROM starter_match_hist
   		WHERE match_hist_no = #{matchHistNo}
   	</delete>
- -->
   </mapper>
