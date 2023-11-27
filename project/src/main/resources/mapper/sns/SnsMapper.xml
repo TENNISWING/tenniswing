@@ -6,40 +6,39 @@
   <mapper namespace="com.tenniswing.project.community.mapper.SnsMapper">
   	<!-- 전체 조회  -->
   	<select id="selectAllSnsInfo" resultType="SnsVO">
-  		select sns_wrt_no
-  			   , sns_ctt
-  			   , sns_write_date
-  			   , sns_edit_date
-  			   , sns_tag
-  			   , sns_hit
-  			   , mem_no
-  			   , s.sns_grp_no
-  			   , s.like_no
+		select s.sns_wrt_no
+			   , s.sns_title
+  			   , s.sns_ctt
+  			   , s.sns_write_date
+  			   , s.sns_tag
+  			   , s.sns_hit
+  			   , s.mem_no
+  			   , g.sns_grp_no
+  			   , l.like_no
   			   , s.sns_grp_no
   		from sns s join sns_like l
-        on s.like_no = l.like_no
+        on s.sns_wrt_no = l.sns_wrt_no
         join sns_grp g
         on s.sns_grp_no = g.sns_grp_no
         join attach a
         on a.attach_table_pk = s.sns_wrt_no
-        order by sns_wrt_no;
+        order by s.sns_wrt_no
         
   	</select>
   	
   	<!-- 단건조회 -->
   	<select id="selectSnsInfo" resultType="SnsVO">
-		select sns_wrt_no
-  			   , sns_ctt
-  			   , sns_write_date
-  			   , sns_edit_date
-  			   , sns_tag
-  			   , sns_hit
-  			   , mem_no
-  			   , s.sns_grp_no
-  			   , s.like_no
+		select s.sns_wrt_no
+  			   , s.sns_ctt
+  			   , s.sns_write_date
+  			   , s.sns_tag
+  			   , s.sns_hit
+  			   , s.mem_no
+  			   , g.sns_grp_no
+  			   , l.like_no
   			   , s.sns_grp_no
   		from sns s join sns_like l
-        on s.like_no = l.like_no
+        on s.sns_wrt_no = l.sns_wrt_no
         join sns_grp g
         on s.sns_grp_no = g.sns_grp_no
         join attach a
@@ -49,22 +48,6 @@
   		 	  LIKE '%${keyword}%'		   -->
   	</select>
   	
-  	<!-- <if> => 조건이 true인 경우 -->
-  	<!-- <foreach> => 반복문 : 배열로 넘어온 데이터 처리 --> 
-	<!--
-	<select id="selectPostIn" resultType="domain.blog.Post">
-		SELECT *
-		FROM POST P
-		<where>
-			<foreach item="item"(임시변수) index="index" collection="list" (배열)
-				(처음 시작 값)open="ID in (" separator="," close=")" nullable="true">
-				#{item}
-			</foreach>
-		</where>
-	</select> 
-	-->
-  	<!-- <choose> => 다중 if문 -->
-  	<!-- <trim> => 문장 구성 -->
   	
   	<!-- 등록 -->
   	<insert id="insertSns" parameterType="SnsVO">
@@ -75,7 +58,8 @@
   	 		SELECT NVL(MAX(sns_wrt_no), 0) + 1 
 			FROM sns
   	 	</selectKey>
-  	 	INSERT INTO sns
+  	 	INSERT ALL
+  	 			INTO sns
   	 			(
   	 				sns_wrt_no
   	 				,sns_title
@@ -93,14 +77,27 @@
   	 				,#{snsTag}
   	 				,#{memNo}
   	 				,#{snsHit}
-  	 				,#{snsWriteDate}
+  	 				,
   	 				<choose>
   	 					<when test="snsWriteDate != null">,#{snsWriteDate}</when>
   	 					<otherwise>,sysdate</otherwise>
   	 				</choose>  	 				
   	 				
   	 			)
-  	 			
+  	 			INTO sns_grp
+  	 			(
+  	 			sns_grp_no
+  	 			,grp_create_date
+  	 			,post_num
+  	 			,grp_name
+  	 			)
+  	 			VALUES
+  	 			(
+  	 			#{snsGrpNo}
+  	 			,#{grpCreateDate}
+  	 			,#{postNum}
+  	 			,#{grpName}
+  	 			)
   	</insert>
   	<!-- sns 그룹 등록 -->
   	<insert id="insertSnsGrp" parameterType="SnsVO">

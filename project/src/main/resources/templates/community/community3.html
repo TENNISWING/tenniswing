@@ -51,17 +51,17 @@
 					  <!-- Additional required wrapper -->
 					  <div class="swiper-wrapper">
 					    <!-- Slides -->
-					    <div class="swiper-slide" th:each="swSns: ${#numbers.sequence(1,5)}">
+					    <div class="swiper-slide" th:each="s : ${snsList}">
 					    <section id="content-types" style="height:900px">
 								<div class="row">
 									<div class="snsdiv col-xl-12 border border-1 rounded-4">
 										<div class="card snsimg">
 											<div class="card-content">
 												<div class="card-body">
-													<h4 class="card-title">클럽매치데이</h4>
+													<h4 class="card-title">[[${s.snsTitle}]]</h4>
 													<h6 class="card-subtitle">Support card subtitle</h6>
 												</div>
-												<div id="myCarousel" th:attrappend="id=${swSnsStat.count}" class="carousel slide"	data-ride="carousel">
+												<div id="myCarousel" th:attrappend="id=${sStat.count}" class="carousel slide"	data-ride="carousel">
 													<div class="carousel-inner">
 														<div class="carousel-item active">
 															<img src="./assets/compiled/jpg/jump.jpg"
@@ -73,20 +73,20 @@
 														</div>
 													</div>
 													<a class="carousel-control-prev"
-														href="#myCarousel" th:attrappend="href=${swSnsStat.count}" role="button"
+														href="#myCarousel" th:attrappend="href=${sStat.count}" role="button"
 														data-bs-slide="prev"> <span
 														class="carousel-control-prev-icon" aria-hidden="true"></span>
 														<span class="visually-hidden">Previous</span>
 													</a> <a class="carousel-control-next"
-														href="#myCarousel" th:attrappend="href=${swSnsStat.count}" role="button"
+														href="#myCarousel" th:attrappend="href=${sStat.count}" role="button"
 														data-bs-slide="next"> <span
 														class="carousel-control-next-icon" aria-hidden="true"></span>
 														<span class="visually-hidden">Next</span>
 													</a>
 												</div>
 												<div class="card-body">
-													<h6 class="card-subtitle">작성자</h6>
-													<p class="card-text">재은이와 아이들 클럽이랑 매치 한 날ㅋㅋㅋㅋㅋ</p>
+													<h6 class="card-subtitle">[[${s.memNo}]]</h6>
+													<p class="card-text">[[${s.snsCtt}]]</p>
 													<p class="card-text"></p>
 												</div>
 
@@ -107,10 +107,10 @@
 													<li class="d-flex flex-column"><div>
 															<a class="btn icon btn-white snsBtns"
 																data-bs-toggle="collapse"
-																data-bs-target="#collapseExample" th:attrappend="aria-controls=${swSnsStat.count}" aria-expanded="false"
-																aria-controls="collapseExample"><i class="fa-solid fa-share-from-square fs-5 text-secondary"  th:id="${swSnsStat.count}"></i></a>
+																data-bs-target="#collapseExample" th:attrappend="aria-controls=${sStat.count}" aria-expanded="false"
+																aria-controls="collapseExample"><i class="fa-solid fa-share-from-square fs-5 text-secondary"  th:id="${sStat.count}"></i></a>
 														</div> <!-- 콜랩스 추가 -->
-														<div class="collapse snsBtnsCol" id="collapseExample" th:attrappend="id=${swSnsStat.count}">
+														<div class="collapse snsBtnsCol" id="collapseExample" th:attrappend="id=${sStat.count}">
 															<span onclick="shareNaver()"> <script
 																	type="text/javascript"
 																	src="https://ssl.pstatic.net/share/js/naver_sharebutton.js"></script>
