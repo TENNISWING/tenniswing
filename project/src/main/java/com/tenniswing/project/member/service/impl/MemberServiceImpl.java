@@ -39,6 +39,7 @@ public class MemberServiceImpl implements MemberService {
 		if(role.equals("h1")) {
 			memberVO.setMemDiv("ROLE_MEMBER");
 		}else {
+			memberVO.setNick("호스트회원");
 			memberVO.setMemDiv("ROLE_HOST");
 		}
 		

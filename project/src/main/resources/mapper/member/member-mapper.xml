@@ -111,6 +111,25 @@
   	 				,#{prImage}
   	 				,0
   	 			)
+  	 		<if test="memDiv.equals('ROLE_HOST')">
+  	 		INTO CRTROOM_HOST
+  	 			(
+  	 				MEM_ID
+  	 				,HOST_BANK
+  	 				,HOST_ACT_NO
+  	 				,HOST_DEPOSITOR
+  	 				,HOST_BUSINESS_REGI_NO  	 			
+  	 			)
+  	 			VALUES
+  	 			(
+  	 				#{memId}
+  	 				,#{hostBank}  	 			 	
+  	 				,#{hostActNo}  	 				  	 			 	
+  	 				,#{hostDepositor}  	 			 	
+  	 				,#{hostBusinessRegiNo}  	 			 	
+  	 			)
+  	 		
+  	 		</if>
   	 			SELECT * FROM DUAL
   	</insert>
   	
