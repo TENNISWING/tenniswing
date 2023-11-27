@@ -7,6 +7,12 @@
 	<!-- signup form -->
 	<div class="container text-center">
 		마이페이지
+		
+		id : [[${id}]]
+		role : [[${role}]]
+		
+		<button class="btn btn-success" type="button"
+							th:onclick="|location.href='@{/logout}'|">로그아웃</button>
 	</div>
 </th:block>
 
