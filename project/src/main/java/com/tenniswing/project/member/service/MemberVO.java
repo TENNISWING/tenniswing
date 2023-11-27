@@ -29,5 +29,10 @@ public class MemberVO {
 	private Integer crtroomNo;
 	private String prImage;
 	private int mannerPoint;
-
+		
+	// host
+	private String hostBank;
+	private String hostActNo;
+	private String hostDepositor;
+	private String hostBusinessRegiNo;
 }

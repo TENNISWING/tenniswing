@@ -14,7 +14,7 @@ public interface MemberMapper {
 	public MemberVO memberLogin(MemberVO memberVO);
 	
 	// 아이디 중복 체크
-	public MemberVO memberIdCheckk(String memId);
+	public int memberIdCheck(String memId);
 
 	// 등록
 	public int insertMember(MemberVO memberVO);

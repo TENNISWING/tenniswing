@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
- 	layout:decorate="~{layouts/main-layout}"
-	>
+	layout:decorate="~{layouts/main-layout}">
 
 <th:block layout:fragment="content">
 
 	<!-- Login form -->
 	<div class="d-inline-flex justify-content-center">
 		<div class="text-center mb-5 p-3">
-			<div class="row align-items-center">				
+			<div class="row align-items-center">
 				<div class="card-header">
 					<a href="/">
 						<h3 class="text-center mt-5 mb-4">
@@ -18,7 +17,8 @@
 					</a>
 				</div>
 				<div class="p-5 border border-success-subtle mb-5">
-				<div th:if="${param.error}" class="text-danger mb-2">로그인을 실패하였습니다. 다시 입력해 주세요.</div>
+					<div th:if="${param.error}" class="text-danger mb-2">로그인을
+						실패하였습니다. 다시 입력해 주세요.</div>
 					<form action="/loginProc" method="post">
 						<div class="form-group position-relative has-icon-left mb-4">
 							<input type="text" class="form-control form-control-xl"
@@ -28,35 +28,41 @@
 							</div>
 						</div>
 						<div class="form-group position-relative has-icon-left mb-4">
-							<div class="input-group mb-3">
-								<input type="password" class="form-control form-control-xl"
-									aria-describedby=pwview placeholder="비밀번호" id="pwd" name="pwd">
-								<div class="form-control-icon">
-									<i class="bi bi-shield-lock"></i>
-								</div>
-								<button class="btn btn-light" type="button" id="pwview">
-									<i class="fa-regular fa-eye-slash"></i>
-								</button>
+
+							<input type="password" class="form-control form-control-xl"
+								aria-describedby=pwview placeholder="비밀번호" id="pwd" name="pwd">
+							<div class="form-control-icon">
+								<i class="bi bi-shield-lock"></i>
 							</div>
+
 						</div>
-						
+
 						<button type="submit" class="btn btn-primary btn-block btn-lg">로그인</button>
 					</form>
 					<p class="nav-link mt-4 fw-bold text-center">
-						<a href="signup" class="fs-4 inline-block">회원가입</a></p> 
-					<p class="nav-link mt-4 fw-bold text-center">	<a href="forgotid">아이디찾기</a> | <a href="forgotpw">패스워드찾기</a></p>					
+						<a href="signup" class="fs-4 inline-block">회원가입</a>
+					</p>
+					<p class="nav-link mt-4 fw-bold text-center">
+						<a href="forgotid">아이디찾기</a> | <a href="forgotpw">패스워드찾기</a>
+					</p>
 					<div class="text-center mt-2 text-lg fs-4">
-						<button class="btn btn-warning btn-block btn-lg mt-5">카카오 로그인</button>
-						<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js" integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4" crossorigin="anonymous"></script>
+						<button class="btn btn-warning btn-block btn-lg mt-5">카카오
+							로그인</button>
+						<script
+							src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
+							integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4"
+							crossorigin="anonymous"></script>
 						<script>
 						  Kakao.init('2933672f56be60c29872cf8bf2d50a30'); // 사용하려는 앱의 JavaScript 키 입력
 						</script>
-						<a id="kakao-login-btn" href="javascript:loginWithKakao()">
-  						<img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222" alt="카카오 로그인 버튼" /></a>
-  						<p id="token-result"></p>
-						<button class="api-btn" onclick="requestUserInfo()">사용자 정보 가져오기</button>
+						<a id="kakao-login-btn" href="javascript:loginWithKakao()"> <img
+							src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
+							width="222" alt="카카오 로그인 버튼" /></a>
+						<p id="token-result"></p>
+						<button class="api-btn" onclick="requestUserInfo()">사용자
+							정보 가져오기</button>
 
-					<script>
+						<script>
 					  function loginWithKakao() {
 					    Kakao.Auth.authorize({
 					      redirectUri: 'http://localhost:8099/loginform'
@@ -99,28 +105,12 @@
 					</script>
 					</div>
 				</div>
-				
+
 				<div th:if="${param.logout}">로그아웃 완료</div>
 			</div>
 		</div>
 	</div>
-	<script>
-	//비밀번호창 타입 변경
-	
-		$(document).ready(function() {
-			$("#pwview").on("click", function(e) {
-				$("#pwview").toggleClass("active");
 
-				if ($("#pwview").hasClass("active")) {
-					$("#pwview > i").attr("class", "fa-regular fa-eye");
-					$("#pwd").attr("type", "text");
-				} else {
-					$("#pwview > i").attr("class", "fa-regular fa-eye-slash");
-					$("#pwd").attr("type", "password");
-				}
-			});
-		});
-	</script>
 	<!-- End Login form -->
 </th:block>
 

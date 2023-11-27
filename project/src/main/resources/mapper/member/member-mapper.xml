@@ -30,6 +30,11 @@
   		 	  LIKE '%${keyword}%'		   -->
   	</select>
   	
+  	<!-- 아이디 중복 체크 -->
+  	<select id="memberIdCheck" parameterType="String" resultType="int">
+  		SELECT COUNT(MEM_ID) FROM MEM WHERE MEM_ID = #{memId}
+  	</select>
+  	
   	<!-- <if> => 조건이 true인 경우 -->
   	<!-- <foreach> => 반복문 : 배열로 넘어온 데이터 처리 --> 
 	<!--
@@ -106,6 +111,25 @@
   	 				,#{prImage}
   	 				,0
   	 			)
+  	 		<if test="memDiv.equals('ROLE_HOST')">
+  	 		INTO CRTROOM_HOST
+  	 			(
+  	 				MEM_ID
+  	 				,HOST_BANK
+  	 				,HOST_ACT_NO
+  	 				,HOST_DEPOSITOR
+  	 				,HOST_BUSINESS_REGI_NO  	 			
+  	 			)
+  	 			VALUES
+  	 			(
+  	 				#{memId}
+  	 				,#{hostBank}  	 			 	
+  	 				,#{hostActNo}  	 				  	 			 	
+  	 				,#{hostDepositor}  	 			 	
+  	 				,#{hostBusinessRegiNo}  	 			 	
+  	 			)
+  	 		
+  	 		</if>
   	 			SELECT * FROM DUAL
   	</insert>
   	

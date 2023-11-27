@@ -3807,7 +3807,7 @@
         labelThousandsSeparator: [getThousandsSeparator(), Type.STRING], // Default is locale separator
 
         labelIdle: [
-            '드래그 & 드랍<br>사진파일 <br>또는<br> <span class="filepond--label-action">파일선택</span>',
+            '드래그 & 드랍<br>사진파일 <br><br><span class="filepond--label-action">파일선택</span>',
             Type.STRING,
         ],
 
