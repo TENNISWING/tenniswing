@@ -18,4 +18,14 @@ public class AdminController {
 		return "admin/adminAdd_Product";
 	}
 	
+	@GetMapping("adminEdit_Product")
+	public String adminEditProductPage(Model model) {
+		return "admin/adminEdit_Product";
+	}
+	
+	@GetMapping("adminDetail_Product")
+	public String adminDetailProductPage(Model model) {
+		return "admin/adminDetail_Product";
+	}
+	
 }
