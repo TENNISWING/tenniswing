@@ -175,12 +175,31 @@ object-fit: cover;
 		</div>
 	</div>
 	<script>
-		$('button[data-bs-toggle="tab"]').on("shown.bs.tab", function(e) {
+	    
+		 $('button[data-bs-toggle="tab"]').on("shown.bs.tab", function(e) {
 			let url = $(event.target).data("url")
 			let target = $(event.target).data('bs-target')
 			//if(url)
+				console.log(event.target)
+				console.log($(event.target))
 			$(target).load(url)
-		});
+		}); 
+	    /* 	function tap(event){
+			let url = $(event.target).data("url")
+			
+			let target = $('#info-tab').data('bs-target')
+			$(target).load(url)
+			
+		} */
+		
+		$(document).ready(function(){
+			$('#info-tab').data("url")
+			let url = $('#info-tab').data("url")
+			let target = $('#info-tab').data('bs-target')
+			$(target).load(url)
+		}) 
+		
+	    
 	</script>
 </th:block>
 </html>

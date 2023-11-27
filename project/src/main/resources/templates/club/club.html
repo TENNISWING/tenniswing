@@ -159,7 +159,7 @@
 								<div class="email-user-list list-group ps ps--active-y"
 									style="height: 100% !important;">
 									<ul class="users-list-wrapper media-list">
-										<li class="media" th:each="num : ${#numbers.sequence(1,10)}">
+										<li class="media">
 
 											<div class="user-action">
 												<span class="favorite text-warning"> <svg class="bi"
@@ -173,19 +173,18 @@
 														style="width: 80px; border-radius: 70%;">
 												</div>
 											</div>
-											<div class="media-body" th:onclick="|location.href='@{clubdetail}'|">
+											<div class="media-body" th:each="clubList, stat:${clubList}" th:onclick="|location.href='@{clubdetail}'|">
 												<div class="user-details">
 													<div class="mail-items">
-														<span class="list-group-item-text text-truncate">최강
-															테니스👍
-															<div class="badge badge-pill bg-light-info me-1">멤버수</div>
-															<div class="badge badge-pill bg-light-warning me-1">모집중</div>
+														<span class="list-group-item-text text-truncate">[[${clubList.clubName}]]
+															<div class="badge badge-pill bg-light-info me-1">[[${clubList.clubMemNum}]]</div>
+															<div class="badge badge-pill bg-light-warning me-1">[[${clubList.clubRecruitment}]]</div>
 														</span>
 													</div>
 												</div>
 												<div class="mail-message">
-													<p class="list-group-item-text truncate mb-0">최강 테니스 클럽
-														소개글!!</p>
+													<p class="list-group-item-text truncate mb-0">[[${clubList.clubIntro}]]
+														</p>
 													<div class="mail-meta-item">
 														<span class="float-right"> <span
 															class="bullet bullet-success bullet-sm"></span>
@@ -193,8 +192,7 @@
 													</div>
 												</div>
 												<div class="mail-message">
-													<p class="list-group-item-text truncate mb-0">경기 수원시 /
-														수원 테니스 파크</p>
+													<p class="list-group-item-text truncate mb-0">[[${clubList.clubRegion}]]</p>
 													<div class="mail-meta-item">
 														<span class="float-right"> <span
 															class="bullet bullet-success bullet-sm"></span>
@@ -202,8 +200,8 @@
 													</div>
 												</div>
 												<div class="mail-message">
-													<p class="list-group-item-text truncate mb-0">남녀모두 /
-														연령대 / 요일-시간대 / 레벨</p>
+													<p class="list-group-item-text truncate mb-0">[[${clubList.clubRegion}]] /
+														[[${clubList.clubGen}]] / [[${clubList.clubDay}]]-[[${clubList.clubTime}]]</p>
 													<div class="mail-meta-item">
 														<span class="float-right"> <span
 															class="bullet bullet-success bullet-sm"></span>
@@ -326,10 +324,9 @@
 		</div>
 	</div>
 	<script>
-
-    document.querySelector('.email-compose-new-close-btn').addEventListener('click', () => {
+    /* document.querySelector('.email-compose-new-close-btn').addEventListener('click', () => {
         document.querySelector('.compose-new-mail-sidebar').classList.remove('show')
-    })
+    }) */
 </script>
 
 

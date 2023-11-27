@@ -18,7 +18,8 @@ public class ClubController {
 
 // --------------------------------------- 메인	
 	@GetMapping("club")  
-	public String clubPage(Model model) { 		
+	public String clubPage(Model model) { 
+		model.addAttribute("clubList", clubService.selectAllClub());
 		return "club/club";
 	}
 	

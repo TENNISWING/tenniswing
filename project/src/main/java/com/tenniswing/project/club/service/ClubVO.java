@@ -2,6 +2,8 @@ package com.tenniswing.project.club.service;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -18,5 +20,6 @@ public class ClubVO {
 	private int clubMemNum;
 	private String clubRecruitment;
 	private String memNo;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date clubCreateDate;
 }
