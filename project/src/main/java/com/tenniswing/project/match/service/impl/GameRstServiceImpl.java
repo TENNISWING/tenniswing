@@ -3,11 +3,13 @@ package com.tenniswing.project.match.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.tenniswing.project.match.mapper.GameRstMapper;
 import com.tenniswing.project.match.service.GameRstService;
 import com.tenniswing.project.match.service.GameRstVO;
 
+@Service
 public class GameRstServiceImpl implements GameRstService {
 	
 	@Autowired GameRstMapper gameRstMapper;

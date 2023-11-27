@@ -3,11 +3,13 @@ package com.tenniswing.project.match.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.tenniswing.project.match.mapper.MatchMapper;
 import com.tenniswing.project.match.service.MatchService;
 import com.tenniswing.project.match.service.MatchVO;
 
+@Service
 public class MatchServiceImpl implements MatchService {
 
 	@Autowired MatchMapper matchMapper;

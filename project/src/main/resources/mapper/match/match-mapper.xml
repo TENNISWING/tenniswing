@@ -10,7 +10,7 @@
   				, mem_no
   				, match_date
   				, time
-  				, gate_way
+  				, game_way
   				, prog_state
   				, ntrp
   				, lv
@@ -80,21 +80,24 @@
 
   	<!-- 단건조회 -->
   	<select id="selectMatch" resultType="MatchVO">
-  		SELECT match_no
-  				, mem_no
-  				, match_date
-  				, time
-  				, game_way
-  				, prog_state
-  				, ntrp
-  				, lv
-  				, gen
-  				, crt_use_amt
-  				, recruit_psn_num
-  				, detail_ctt
-  				, crtroom_no
-  		FROM match
-  		WHERE match_no = #{matchNo}
+  		SELECT m.match_no
+  				, m.mem_no
+  				, m.match_date
+  				, m.time
+  				, m.game_way
+  				, m.prog_state
+  				, m.ntrp
+  				, m.lv
+  				, m.gen
+  				, m.crt_use_amt
+  				, m.recruit_psn_num
+  				, m.detail_ctt
+  				, m.crtroom_no
+                , c.crtroom_name
+                , c.crtroom_location
+  		FROM match m, crtroom c
+  		WHERE m.crtroom_no = c.crtroom_no
+  		and m.match_no = #{matchNo}
   	</select>
   	
   	<!-- 클럽 단건조회 -->
