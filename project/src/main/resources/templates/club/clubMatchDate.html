@@ -3,8 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+</style>
 </head>
 <body>
-<h2>매치일정</h2>
+	<div class="content__body">
+		<div>
+			<div class="recent-message d-flex-match px-4 py-3"
+				style="border-bottom: 1px solid #e1e1e1;">
+				<div class="d-flex-right clubMatchTitle" >
+					<div class="match-box">
+						<p>매치1</p>
+					</div>
+					<div class="name ms-4" style="padding: 10px 0;">
+						<h5 class="mb-1 club-match-title">2023년 12월 24일 매치</h5>
+						<h6 class="text-muted mb-0">참가 인원 : 6명</h6>
+					</div>
+				</div>
+			</div>
+			<div id="collapseOne" style="display:none;">
+				<p>나와라얍</p>
+			</div>
+		</div>
+		<br>
+		<ul class="pagination justify-content-center">
+			<li class="page-item disabled"><a class="page-link" href="#"
+				tabindex="-1" aria-disabled="true">이전</a></li>
+			<li class="page-item"><a class="page-link" href="#">1</a></li>
+			<li class="page-item"><a class="page-link" href="#">2</a></li>
+			<li class="page-item"><a class="page-link" href="#">3</a></li>
+			<li class="page-item"><a class="page-link" href="#">다음</a></li>
+		</ul>
+	</div>
+	<script>
+	$('.clubMatchTitle').on('click',function(e) {
+		$('#collapseOne').slideToggle();
+		
+	})
+	</script>
 </body>
+
+
 </html>

@@ -177,14 +177,9 @@ object-fit: cover;
 	<script>
 		$('button[data-bs-toggle="tab"]').on("shown.bs.tab", function(e) {
 			let url = $(event.target).data("url")
+			let target = $(event.target).data('bs-target')
 			//if(url)
-			$("#tab-board-pane").load(url)
-			$("#tab-member-pane").load(url)
-			$("#tab-info-pane").load(url)
-			$("#tab-matchJoin-pane").load(url)
-			$("#tab-matchDate-pane").load(url)
-			$("#tab-matchEnd-pane").load(url)
-			$("#tab-clubApply-pane").load(url)
+			$(target).load(url)
 		});
 	</script>
 </th:block>
