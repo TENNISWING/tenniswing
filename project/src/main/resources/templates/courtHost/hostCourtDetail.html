@@ -2,9 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/main-layout}">
-
+<head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
 <th:block layout:fragment="content">
 	<section class="product-main">
 		<div class="container">
@@ -100,11 +101,12 @@
 										<div class="col-md-4">
 											<label for="contact-info-horizontal">운영 시간</label>
 										</div>
-										<div class="col-md-8 form-group">
+										<div class="col-md-8 form-group" style="text-align: center;">
 											<input type="text" id="crtroomOperateStartTime"
 												class="form-control" th:value="${courtDetail.crtroomOperateStartTime}"
 												style="width: 165px; float: left"
 												readonly>
+											<div style="display: inline-block">~</div>
 											<input
 												type="text" id="crtroomOperateEndTime"
 												class="form-control" th:value="${courtDetail.crtroomOperateEndTime}"
@@ -143,8 +145,7 @@
 										</div>
 										<div class="col-md-8 form-group">
 											<textarea id="email-horizontal" rows="3"
-												class="form-control" >
-											</textarea>
+												class="form-control"  readonly></textarea>
 										</div>
 										<div class="col-md-4">
 											<label for="password-horizontal">등록일</label>
@@ -190,7 +191,7 @@
 									2코트</button>
 							</li> -->
 							<li class="nav-item" role="presentation">
-								<button class="nav-link active" id="women-tab" data-bs-toggle="tab"
+								<button class="nav-link" id="women-tab" data-bs-toggle="tab"
 									data-bs-target="#women-tab-pane" type="button" role="tab"
 									aria-controls="women-tab-pane" aria-selected="false">
 									후기</button>
@@ -206,7 +207,7 @@
 				</div>
 				<div class="tab-content" id="myTabContent">
 				<th:block th:each="courtDetail, stat : ${courtDetail.crtDetailList}">
-					<div class="tab-pane fade" id="home-tab-pane" th:attrappend="id=${stat.index}"
+					<div class="tab-pane fade firstload" id="home-tab-pane" th:attrappend="id=${stat.index}"
 						role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 						<div class="content__body" style="padding-top: 10px;">
 							<div class="col-md-6"
@@ -260,10 +261,6 @@
 								<br>
 								<div class="card">
 									<div class="row">
-										<div class="col-md-8 form-group">
-											<input type="hidden" id="first-name-horizontal"
-												class="form-control" name="fname" th:value="${courtDetail.crtDetailNo}">
-										</div>
 										<div class="col-md-4">
 											<label for="first-name-horizontal">코트 이용 단위 시간</label>
 										</div>
@@ -283,12 +280,16 @@
 										</div>
 										<div class="col-md-8 form-group">
 											<input type="text" id="email-horizontal" class="form-control"
-												name="email-id" th:value="${courtDetail.crtIndoorOutdoor}">
+												name="email-id" th:attr="value=${courtDetail.crtIndoorOutdoor == 1 ? '실내' : '실외'}">
 										</div>
-										<button type="button" th:onclick="|location.href='@{/editCourtDetail(crtDetailNo=${courtDetail.crtDetailNo})}'|" 
-											class="btn btn-primary me-1 mb-1">[[${stat.index}+1]]코트 세부 수정하기</button>
-										<button type="button" th:onclick="|location.href='@{/deleteCourtDetail(crtDetailNo=${courtDetail.crtDetailNo})}'|"
-											class="btn btn-primary me-1 mb-1">[[${stat.index}+1]]코트 세부 삭제하기</button>
+										<input type="hidden" id="first-name-horizontal"
+												class="form-control" name="fname" th:value="${courtDetail.crtDetailNo}">
+										<div style="text-align: right;">
+											<button type="button" th:onclick="|location.href='@{/editCourtDetail(crtDetailNo=${courtDetail.crtDetailNo})}'|" 
+												class="btn btn-primary me-1 mb-1" style="width: 30%; display: inline-block;">[[${stat.index}+1]]코트 세부 수정하기</button>
+											<button type="button" th:onclick="|location.href='@{/deleteCourtDetail(crtDetailNo=${courtDetail.crtDetailNo})}'|"
+												class="btn btn-primary me-1 mb-1" style="width: 30%; display: inline-block;">[[${stat.index}+1]]코트 세부 삭제하기</button>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -376,7 +377,7 @@
 						</div>
 					</div> -->
 					<!-- 후기 -->
-					<div class="tab-pane fade show active" id="women-tab-pane" role="tabpanel"
+					<div class="tab-pane fade" id="women-tab-pane" role="tabpanel"
 						aria-labelledby="women-tab" tabindex="0">
 						<div class="client__review"
 							style="padding: 10px; margin-bottom: 50px;">
@@ -464,8 +465,21 @@
 				</div>
 			</div>
 		</div>
+		<div style="text-align: center;">
+			<button type="button" th:onclick="|location.href='@{/registerCourtDetail(crtroomNo=${param.crtroomNo})}'|" 
+			class="btn btn-primary me-1 mb-1">코트장 내의 코트 추가하기</button>
+			<button type="button" th:onclick="|location.href='@{/hostCourtList}'|"
+			class="btn btn-primary me-1 mb-1">목록보기</button>
 		</div>
-	</section>
+	</div>
+</section>
+<script>
+	$(function(){
+		$('.nav-link').eq(0).addClass('active');
+		$('.firstload').eq(0).addClass('show active');
+		console.log('window');
+	})
+</script>
 </th:block>
 
 </html>

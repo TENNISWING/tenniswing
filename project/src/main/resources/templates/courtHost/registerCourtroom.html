@@ -2,7 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/main-layout}">
-
+	
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <th:block layout:fragment="content">
 
@@ -13,23 +15,25 @@
 				<div class="col-12">
 					<div class="card">
 							<h4>코트 등록</h4>
+							<p style="color: red; font-size: 13px;">모든 사항은 필수 입력 사항입니다.</p>
 						<div class="card-content">
 							<div class="card-body">
 								<!-- 등록 폼 -->
-								<form th:action="@{/registerCourtroom}" method="POST" 
+								<form th:action="@{/registerCourtroom}" method="POST" name="insertForm"
 								th:object="${crtroomVO}" class="form" enctype="multipart/form-data"
 								data-parsley-validate>
 									<div class="row">
 									<!-- 코트장 등록 -->
 										<div class="col-md-4">
-											<label for="first-name-horizontal">코트장 이름</label>
+											<label for="first-name-horizontal">코트장 이름<span style="color: red"> *</span></label>
 										</div>
-										<div class="col-md-8 form-group">
+										<div class="col-md-8 form-group mandatory">
 											<input type="text" id="first-name-horizontal"
-												class="form-control" name="crtroomName" th:value="${crtroomName}">
+												class="form-control" name="crtroomName" th:value="${crtroomName}"
+												 data-parsley-required="true">
 										</div>
 										<div class="col-md-4">
-											<label for="email-horizontal">코트장 지역</label>
+											<label for="email-horizontal">코트장 지역<span style="color: red"> *</span></label>
 										</div>
 										<div class="col-md-8 form-group">
 											<select class="form-control"
@@ -46,7 +50,7 @@
 											</select>
 										</div>
 										<div class="col-md-4">
-											<label for="email-horizontal">코트장 위치</label>
+											<label for="email-horizontal">코트장 위치<span style="color: red"> *</span></label>
 										</div>
 										<div class="col-md-8 form-group">
 											<input type="text" class="form-control" id="sample5_address"
@@ -56,7 +60,7 @@
 												onclick="sample5_execDaumPostcode()">주소 검색</button>
 										</div>
 										<div class="col-md-4">
-											<label for="contact-info-horizontal">운영 시작 시간</label>
+											<label for="contact-info-horizontal">운영 시작 시간<span style="color: red"> *</span></label>
 										</div>
 										<div class="col-md-8 form-group">
 											<input type="date" class="form-control flatpickr-time-picker-24h" name="crtroomOperateStartTime"
@@ -65,7 +69,7 @@
 												>
 										</div>
 										<div class="col-md-4">
-											<label for="contact-info-horizontal">운영 종료 시간</label>
+											<label for="contact-info-horizontal">운영 종료 시간<span style="color: red"> *</span></label>
 										</div>
 										<div class="col-md-8 form-group">
 											<input type="date" class="form-control flatpickr-time-picker-24h" name="crtroomOperateEndTime"
@@ -74,7 +78,7 @@
 												>
 										</div>
 										<div class="col-md-4">
-											<label for="email-horizontal">코트장 설명</label>
+											<label for="email-horizontal">코트장 설명<span style="color: red"> *</span></label>
 										</div>
 										<div class="col-md-8 form-group">
 											<textarea class="form-control" name="crtroomExp" rows="3"
@@ -83,7 +87,7 @@
 						                            th:field="*{crtroomExp}"></textarea>
 										</div>
 										<div class="col-md-4">
-											<label for="password-horizontal">주의사항</label>
+											<label for="password-horizontal">주의사항<span style="color: red"> *</span></label>
 										</div>
 										<div class="col-md-8 form-group">
 											<textarea class="form-control" name="crtroomCaution" rows="3"
@@ -91,7 +95,7 @@
 													th:field="*{crtroomCaution}"></textarea>
 										</div>
 										<div class="col-md-4">
-											<label for="password-horizontal">이용안내</label>
+											<label for="password-horizontal">이용안내<span style="color: red"> *</span></label>
 										</div>
 										<div class="col-md-8 form-group">
 											<textarea class="form-control" name="crtroomUseGuide" rows="3"
@@ -100,7 +104,7 @@
 										</div>
 										<!-- 운영 허가증 시작 -->
 										<div class="col-md-4">
-											<label for="crtOperatePermit" class="form-label">운영 허가증</label>
+											<label for="crtOperatePermit" class="form-label">운영 허가증<span style="color: red"> *</span></label>
 										</div>
 										<div class="col-md-8 form-group">
 											<input type="file" class="image-preview-filepond" name="uploadFiles"
@@ -127,6 +131,39 @@
 		</section>
 		<!-- // Basic multiple Column Form section end -->
 	</div>
+	<!-- 입력 체크 -->
+	<script>
+		document.querySelector('form[name="insertForm"]')
+				.addEventListener('submit', crtroomInsertHandler);
+		function crtroomInsertHandler(e){
+			e.preventDefault();
+			let crtroomName = document.getElementsByName('crtroomName')[0];
+			let crtroomRegion = document.getElementsByName('crtroomRegion')[0];
+			let crtroomLocation = document.getElementsByName('crtroomLocation')[0];
+			let crtroomOperateStartTime = document.getElementsByName('crtroomOperateStartTime')[0];
+			let crtroomOperateEndTime = document.getElementsByName('crtroomOperateEndTime')[0];
+			let crtroomExp = document.getElementsByName('crtroomExp')[0];
+			let crtroomCaution = document.getElementsByName('crtroomCaution')[0];
+			let crtroomUseGuide = document.getElementsByName('crtroomUseGuide')[0];
+			
+			let list = [crtroomName,crtroomRegion,crtroomLocation,crtroomOperateStartTime,
+						crtroomOperateEndTime,crtroomExp,crtroomCaution,crtroomUseGuide];
+			let listExp = ['이름','지역','위치','운영 시작 시간','운영 종료 시간','설명','주의사항','이용안내'];
+			for(let i=0; i < list.length; i++){
+				if(list[i].value == ''){
+					Swal.fire({
+						  icon: "error",
+						  title: "",
+						  text: "코트장 "+listExp[i]+"이(가) 입력되지 않았습니다.",
+						});
+					list[i].focus();
+					return;
+				}
+			}
+			
+			insertForm.submit();
+		}
+	</script>
 	<!-- File Upload -->
 	<script>
 	document.querySelector('.uploadBtn')
