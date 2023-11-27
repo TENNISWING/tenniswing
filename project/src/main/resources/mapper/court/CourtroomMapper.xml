@@ -34,7 +34,10 @@
   	</select>
   	
   	<!-- 코트 상세 조회 -->
-  	<select id="selectCourtroom" resultType="crtroomVO">
+  	<resultMap id="courtResult" type="crtroomVO">
+  		<collection property="crtDetailList" javaType="ArrayList" column="crtroom_no" ofType="CrtDetailVO" select="selectCourtDetail" />
+  	</resultMap>
+  	<select id="selectCourtroom" resultMap="courtResult">
   		SELECT cr.crtroom_no
   				, cr.crtroom_name
   				, cr.crtroom_exp
@@ -47,6 +50,15 @@
   				, cr.crtroom_regi_date
   		FROM crtroom cr
   		WHERE cr.crtroom_no = #{crtroomNo}
+  	</select>
+  	<select id="selectCourtDetail" resultType="crtDetailVO">
+  		SELECT CRT_DETAIL_NO
+				, CRT_USE_PRICE
+				, CRTROOM_NO
+				, USE_UNIT_TIME
+				, CRT_INDOOR_OUTDOOR
+		FROM CRT_DETAIL_INF
+		WHERE crtroom_no = #{crtroomNo}
   	</select>
   	
   	<!-- 코트장 등록 -->
@@ -101,4 +113,10 @@
 				, crtroom_use_guide = #{crtroomUseGuide}
 			WHERE crtroom_no = #{crtroomNo}
 	</update>
+	
+	<!-- 코트장 삭제 -->
+	<delete id="deleteCourtroom" parameterType="int">
+		DELETE FROM crtroom
+		WHERE crtroom_no = #{crtroomNo}
+	</delete>
   </mapper>

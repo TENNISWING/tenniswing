@@ -23,7 +23,7 @@
 										</div>
 										<div class="col-md-8 form-group">
 											<input type="number" id="first-name-horizontal"
-												class="form-control" name="crtroomNo" th:value="${crtroomVO.crtroomNo}" disabled>
+												class="form-control" name="crtroomNo" th:value="${param.crtroomNo}" readonly>
 										</div>
 										<div class="col-md-4">
 											<label for="first-name-horizontal">코트장 이름</label>
@@ -62,7 +62,7 @@
 											<label for="contact-info-horizontal">운영 시작 시간</label>
 										</div>
 										<div class="col-md-8 form-group">
-											<input type="date" class="form-control flatpickr-time-picker-24h" name="crtroomOperateStartTime"
+											<input type="text" class="form-control flatpickr-time-picker-24h" name="crtroomOperateStartTime"
 												th:value="${crtroomVO.crtroomOperateStartTime}"
 												>
 										</div>
@@ -70,7 +70,7 @@
 											<label for="contact-info-horizontal">운영 종료 시간</label>
 										</div>
 										<div class="col-md-8 form-group">
-											<input type="date" class="form-control flatpickr-time-picker-24h" name="crtroomOperateEndTime"
+											<input type="text" class="form-control flatpickr-time-picker-24h" name="crtroomOperateEndTime"
 												th:value="${crtroomVO.crtroomOperateEndTime}"
 												>
 										</div>
@@ -78,29 +78,26 @@
 											<label for="email-horizontal">코트장 설명</label>
 										</div>
 										<div class="col-md-8 form-group">
-											<textarea class="form-control" name="crtroomExp" rows="3"
-						                            th:value="${crtroomVO.crtroomExp}"></textarea>
+											<textarea class="form-control" name="crtroomExp" rows="3">[[ ${crtroomVO.crtroomExp} ]]</textarea>
 										</div>
 										<div class="col-md-4">
 											<label for="password-horizontal">주의사항</label>
 										</div>
 										<div class="col-md-8 form-group">
-											<textarea class="form-control" name="crtroomCaution" rows="3"
-						                            th:value="${crtroomVO.crtroomCaution}"></textarea>
+											<textarea class="form-control" name="crtroomCaution" rows="3">[[ ${crtroomVO.crtroomCaution} ]]</textarea>
 										</div>
 										<div class="col-md-4">
 											<label for="password-horizontal">이용안내</label>
 										</div>
 										<div class="col-md-8 form-group">
-											<textarea class="form-control" name="crtroomUseGuide" rows="3"
-						                            th:value="${crtroomVO.crtroomUseGuide}"></textarea>
+											<textarea class="form-control" name="crtroomUseGuide" rows="3">[[ ${crtroomVO.crtroomUseGuide} ]]</textarea>
 										</div>
 										<div class="col-md-4">
 											<label for="password-horizontal">등록일</label>
 										</div>
 										<div class="col-md-8 form-group">
 											<input type="text" id="password-horizontal"
-												class="form-control" th:value="${crtroomVO.crtroomRegiDate}" disabled>
+												class="form-control" th:value="${#dates.format(crtroomVO.crtroomRegiDate,'yyyy년MM월dd일')}" disabled>
 										</div>
 										<div class="col-sm-12 d-flex justify-content-end">
 											<button type="submit" class="btn btn-primary me-1 mb-1">코트

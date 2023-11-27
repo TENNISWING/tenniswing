@@ -46,7 +46,7 @@
 	                                <td>
 	                                	<div th:onclick="|location.href='@{/hostCourtDetail(crtroomNo=${courtList.crtroomNo})}'|" class="btn icon btn-primary"><i class="icon dripicons dripicons-enter"></i></div>
 	                           			<div class="btn icon btn-success"><i class="icon dripicons dripicons-pencil"></i></div>
-										<div class="btn icon btn-danger"><i class="icon dripicons dripicons-trash"></i></div>
+										<div th:onclick="|location.href='@{/deleteCourtroom(crtroomNo=${courtList.crtroomNo})}'|" class="btn icon btn-danger"><i class="icon dripicons dripicons-trash"></i></div>
 	                                </td>
 	                            </tr>
                             </th:block>
@@ -58,7 +58,10 @@
     </section>
     <!-- Basic Tables end -->
 	</div>
-	
+	<script th:inline="javascript">
+		let msg = [[${result}]]
+		if(msg != null) alert(msg);
+	</script>
 	<script src="assets/extensions/jquery/jquery.min.js"></script>
 	<script src="assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
 	<script src="assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>

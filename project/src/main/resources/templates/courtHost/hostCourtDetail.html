@@ -70,7 +70,7 @@
 				<div class="card">
 					<div class="card-content">
 						<div class="card-body">
-							<form class="form form-horizontal">
+							<!-- <form class="form form-horizontal"> -->
 								<div class="form-body">
 									<div class="row">
 										<div class="col-md-4">
@@ -78,8 +78,8 @@
 										</div>
 										<div class="col-md-8 form-group">
 											<input type="number" id="crtroomNo"
-												class="form-control" th:value="${courtDetail.crtroomNo}"
-												readonly>
+												class="form-control" th:value="${param.crtroomNo}"
+												>
 										</div>
 										<div class="col-md-4">
 											<label for="first-name-horizontal">코트장 이름</label>
@@ -154,14 +154,16 @@
 												class="form-control" th:value="${#dates.format(courtDetail.crtroomRegiDate, 'yyyy년MM월dd일')}" readonly>
 										</div>
 										<div class="col-sm-12 d-flex justify-content-end">
-											<button type="button" th:onclick="|location.href='@{editCourtroom(crtroomVO=courtDetail)}'|" 
-											class="btn btn-primary me-1 mb-1">코트 수정하기</button>
+											<button type="button" th:onclick="|location.href='@{/editCourtroom(crtroomNo=${param.crtroomNo})}'|" 
+											class="btn btn-primary me-1 mb-1">코트장 수정하기</button>
+											<button type="button" th:onclick="|location.href='@{/deleteCourtroom(crtroomNo=${param.crtroomNo})}'|"
+											class="btn btn-primary me-1 mb-1">코트장 삭제하기</button>
 											<!-- <button type="reset"
 												class="btn btn-light-secondary me-1 mb-1">Reset</button> -->
 										</div>
 									</div>
 								</div>
-							</form>
+							<!-- </form> -->
 						</div>
 					</div>
 				</div>
@@ -173,20 +175,22 @@
 				<div class="tabs__wrapper tabs__wrapper--v3">
 					<div class="tabs__filter">
 						<ul class="nav nav-tabs" id="myTab" role="tablist">
+							<th:block th:each="courtDetail, stat : ${courtDetail.crtDetailList}">
 							<li class="nav-item" role="presentation">
-								<button class="nav-link active" id="home-tab"
-									data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+								<button class="nav-link" id="home-tab"
+									data-bs-toggle="tab" data-bs-target="#home-tab-pane" th:attrappend="data-bs-target=${stat.index}"
 									type="button" role="tab" aria-controls="home-tab-pane"
-									aria-selected="true">1코트</button>
+									aria-selected="true">[[${stat.index}+1]]코트</button>
 							</li>
-							<li class="nav-item" role="presentation">
+							</th:block>
+							<!-- <li class="nav-item" role="presentation">
 								<button class="nav-link" id="groceries-tab" data-bs-toggle="tab"
 									data-bs-target="#groceries-tab-pane" type="button" role="tab"
 									aria-controls="groceries-tab-pane" aria-selected="false">
 									2코트</button>
-							</li>
+							</li> -->
 							<li class="nav-item" role="presentation">
-								<button class="nav-link" id="women-tab" data-bs-toggle="tab"
+								<button class="nav-link active" id="women-tab" data-bs-toggle="tab"
 									data-bs-target="#women-tab-pane" type="button" role="tab"
 									aria-controls="women-tab-pane" aria-selected="false">
 									후기</button>
@@ -201,7 +205,8 @@
 					</div>
 				</div>
 				<div class="tab-content" id="myTabContent">
-					<div class="tab-pane fade show active" id="home-tab-pane"
+				<th:block th:each="courtDetail, stat : ${courtDetail.crtDetailList}">
+					<div class="tab-pane fade" id="home-tab-pane" th:attrappend="id=${stat.index}"
 						role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 						<div class="content__body" style="padding-top: 10px;">
 							<div class="col-md-6"
@@ -255,33 +260,42 @@
 								<br>
 								<div class="card">
 									<div class="row">
+										<div class="col-md-8 form-group">
+											<input type="hidden" id="first-name-horizontal"
+												class="form-control" name="fname" th:value="${courtDetail.crtDetailNo}">
+										</div>
 										<div class="col-md-4">
 											<label for="first-name-horizontal">코트 이용 단위 시간</label>
 										</div>
 										<div class="col-md-8 form-group">
 											<input type="number" id="first-name-horizontal"
-												class="form-control" name="fname" placeholder="First Name">
+												class="form-control" name="fname" th:value="${courtDetail.useUnitTime}">
 										</div>
 										<div class="col-md-4">
 											<label for="first-name-horizontal">이용 가격</label>
 										</div>
 										<div class="col-md-8 form-group">
 											<input type="text" id="first-name-horizontal"
-												class="form-control" name="fname" placeholder="First Name">
+												class="form-control" name="fname" th:value="${courtDetail.crtUsePrice}">
 										</div>
 										<div class="col-md-4">
 											<label for="email-horizontal">실내외</label>
 										</div>
 										<div class="col-md-8 form-group">
 											<input type="text" id="email-horizontal" class="form-control"
-												name="email-id" placeholder="Email">
+												name="email-id" th:value="${courtDetail.crtIndoorOutdoor}">
 										</div>
+										<button type="button" th:onclick="|location.href='@{/editCourtDetail(crtDetailNo=${courtDetail.crtDetailNo})}'|" 
+											class="btn btn-primary me-1 mb-1">[[${stat.index}+1]]코트 세부 수정하기</button>
+										<button type="button" th:onclick="|location.href='@{/deleteCourtDetail(crtDetailNo=${courtDetail.crtDetailNo})}'|"
+											class="btn btn-primary me-1 mb-1">[[${stat.index}+1]]코트 세부 삭제하기</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="tab-pane fade" id="groceries-tab-pane" role="tabpanel"
+					</th:block>
+					<!-- <div class="tab-pane fade" id="groceries-tab-pane" role="tabpanel"
 						aria-labelledby="groceries-tab" tabindex="0">
 						<div class="content__body" style="padding-top: 10px;">
 							<div class="col-md-6"
@@ -340,29 +354,29 @@
 										</div>
 										<div class="col-md-8 form-group">
 											<input type="number" id="first-name-horizontal"
-												class="form-control" name="fname" placeholder="First Name">
+												class="form-control" name="fname">
 										</div>
 										<div class="col-md-4">
 											<label for="first-name-horizontal">이용 가격</label>
 										</div>
 										<div class="col-md-8 form-group">
 											<input type="text" id="first-name-horizontal"
-												class="form-control" name="fname" placeholder="First Name">
+												class="form-control" name="fname">
 										</div>
 										<div class="col-md-4">
 											<label for="email-horizontal">실내외</label>
 										</div>
 										<div class="col-md-8 form-group">
 											<input type="text" id="email-horizontal" class="form-control"
-												name="email-id" placeholder="Email">
+												name="email-id">
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 					<!-- 후기 -->
-					<div class="tab-pane fade" id="women-tab-pane" role="tabpanel"
+					<div class="tab-pane fade show active" id="women-tab-pane" role="tabpanel"
 						aria-labelledby="women-tab" tabindex="0">
 						<div class="client__review"
 							style="padding: 10px; margin-bottom: 50px;">

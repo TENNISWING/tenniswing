@@ -15,4 +15,7 @@ public interface CourtroomService {
 	
 	// 수정
 	public Map<String, Object> updateCourtroom(CrtroomVO crtroomVO);
+	
+	// 삭제
+	public boolean deleteCourtroom(int crtroomNo);
 }

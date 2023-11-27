@@ -4,6 +4,15 @@ import com.tenniswing.project.court.service.CrtDetailVO;
 import com.tenniswing.project.court.service.CrtroomVO;
 
 public interface CrtDetailMapper {
+	// 조회
+	public CrtDetailVO selectCrtDetail(CrtDetailVO crtDetailVO);
+	
 	// 등록
-	public int insertCrtDetail(CrtroomVO crtroomVO);
+	public int insertCrtDetail(CrtDetailVO crtDetailVO);
+	
+	// 수정
+	public int updateCrtDetail(CrtDetailVO crtDetailVO);
+	
+	// 삭제
+	public int deleteCrtDetail(int crtDetailNo);
 }

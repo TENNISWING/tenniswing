@@ -1,6 +1,7 @@
 package com.tenniswing.project.court.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,12 +27,7 @@ public class CrtroomVO {
 	private int crtCount;
 	
 	// 코트 상세 테이블
-	private int crtDetailNo;
-	private int crtUsePrice;
-	private String useUnitTime;
-	private int crtIndoorOutdoor;
-	// 추가 등록 or 완료
-	private String action;
+	private List<CrtDetailVO> crtDetailList;
 	
 	// 첨부파일
 	
