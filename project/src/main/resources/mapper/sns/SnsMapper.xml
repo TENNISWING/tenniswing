@@ -22,6 +22,7 @@
         on s.sns_grp_no = g.sns_grp_no
         join attach a
         on a.attach_table_pk = s.sns_wrt_no
+        order by sns_wrt_no;
         
   	</select>
   	

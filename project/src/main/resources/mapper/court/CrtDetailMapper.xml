@@ -4,6 +4,17 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="com.tenniswing.project.court.mapper.CrtDetailMapper">
+	<!-- 코트 조회 -->
+	<select id="selectCrtDetail" resultType="crtDetailVO">
+		SELECT crt_detail_no
+				, crt_use_price
+				, use_unit_time
+				, crt_indoor_outdoor
+				, crtroom_no
+		FROM crt_detail_inf
+		WHERE crt_detail_no = #{crtDetailNo}
+	</select>
+	
 	<!-- 코트 등록 -->
 	<insert id="insertCrtDetail" parameterType="crtDetailVO">
 		<selectKey keyProperty="crtDetailNo"
@@ -29,4 +40,20 @@
 				, #{crtroomNo}
 			)
 	</insert>
+	
+	<!-- 코트 수정 -->
+	<update id="updateCrtDetail" parameterType="crtDetailVO">
+		UPDATE crt_detail_inf
+			SET
+					crt_use_price = #{crtUsePrice}
+					, use_unit_time = #{useUnitTime}
+					, crt_indoor_outdoor = #{crtIndoorOutdoor}
+			WHERE crt_detail_no = #{crtDetailNo}
+	</update>
+	
+	<!-- 코트 삭제 -->
+	<delete id="deleteCrtDetail" parameterType="int">
+		DELETE FROM crt_detail_inf
+		WHERE crt_detail_no = #{crtDetailNo}
+	</delete>
 </mapper>

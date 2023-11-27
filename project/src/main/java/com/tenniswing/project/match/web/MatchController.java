@@ -1,14 +1,28 @@
 package com.tenniswing.project.match.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.tenniswing.project.match.service.MatchService;
+import com.tenniswing.project.match.service.MatchVO;
+
 @Controller
 public class MatchController {
 	
+	@Autowired
+	MatchService matchService;
+	
+	@GetMapping(value = {"/", "/home"})
+	public String matchPage(Model model) { 	
+		model.addAttribute("matchList", matchService.selectAllMatch());
+		return "match/match";
+	}
+	
 	@GetMapping("clubmatch")  
-	public String clubmatchPage(Model model) { 			
+	public String clubmatchPage(Model model) {
+		model.addAttribute("clubMatchList", matchService.selectAllClubMatch());
 		return "match/clubmatch";
 	}
 	
@@ -23,8 +37,17 @@ public class MatchController {
 	}
 	
 	@GetMapping("matchdetail")  
-	public String matchdetailPage(Model model) { 			
+	public String matchdetailPage(Model model, MatchVO matchVO) { 	
+		//System.out.println(matchVO.getMatchNo());
+		model.addAttribute("matchInfo", matchService.selectMatch(matchVO));		
 		return "match/matchdetail";
+	}
+	
+	@GetMapping("clubmatchdetail")  
+	public String clubmatchdetailPage(Model model, MatchVO matchVO) { 	
+		//System.out.println(matchVO.getMatchNo());
+		model.addAttribute("clubMatchInfo", matchService.selectClubMatch(matchVO));		
+		return "match/clubmatchdetail";
 	}
 	
 	@GetMapping("matchregi")  

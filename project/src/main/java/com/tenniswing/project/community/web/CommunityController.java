@@ -11,7 +11,7 @@ public class CommunityController {
 	// SNS 메인
 	@GetMapping("sns")
 	public String snsListPage(Model model) {
-		return "community/community";
+		return "community/community3";
 	}
 	
 	// 자유게시판 메인(리스트 페이지)
@@ -36,5 +36,10 @@ public class CommunityController {
 	@GetMapping("snsMyList")
 	public String snsMyListPage(Model model) {
 		return "community/snsMyList";
+	}
+	// 자유게시판 글 등록폼
+	@GetMapping("freeBrdForm")
+	public String freeBrdFormPage(Model model) {
+		return "community/freeBrdForm";
 	}
 }

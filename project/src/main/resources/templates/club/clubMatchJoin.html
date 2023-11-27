@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="content__body">
+		<div class="recent-message d-flex-match px-4 py-3"
+			th:each="num : ${#numbers.sequence(1,5)}"
+			style="border-bottom: 1px solid #e1e1e1;">
+			<div class="d-flex-right">
+				<div class="match-box">
+					<p>매치1</p>
+				</div>
+				<div class="name ms-4" style="padding: 10px 0;">
+					<h5 class="mb-1">2023년 12월 24일 매치인원 모집</h5>
+					<h6 class="text-muted mb-0">모집 인원 : 5명</h6>
+					<h6 class="text-muted mb-0">참가 인원 : 3명</h6>
+					<p class="text-muted mb-0">작성일 : 2023-11-24</p>
+				</div>
+			</div>
+
+			<!-- 모달 -->
+			<div class="modal-success me-1 mb-1 d-inline-block">
+
+				<button type="button" class="btn btn-outline-success"
+					data-bs-toggle="modal" data-bs-target="#joinModal">참여하기</button>
+
+				<!-- 참여완료 모달창 -->
+				<div class="modal fade text-left" id="joinModal" tabindex="-1"
+					role="dialog" aria-labelledby="myModalLabel110" aria-hidden="true">
+					<div
+						class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+						role="document">
+						<div class="modal-content">
+							<div class="modal-header bg-success">
+								<h5 class="modal-title white" id="myModalLabel110">Success
+									Modal</h5>
+								<button type="button" class="close" data-bs-dismiss="modal"
+									aria-label="Close">
+									<i data-feather="x"></i>
+								</button>
+							</div>
+							<div class="modal-body">Tart lemon drops macaroon oat cake
+								chocolate toffee chocolate bar icing. Pudding jelly beans carrot
+								cake pastry gummies cheesecake lollipop. I love cookie lollipop
+								cake I love sweet gummi bears cupcake dessert.</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-light-secondary"
+									data-bs-dismiss="modal">
+									<i class="bx bx-x d-block d-sm-none"></i> <span
+										class="d-none d-sm-block">Close</span>
+								</button>
+
+								<button type="button" class="btn btn-success ms-1"
+									data-bs-dismiss="modal">
+									<i class="bx bx-check d-block d-sm-none"></i> <span
+										class="d-none d-sm-block">Accept</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /모달 -->
+		</div>
+		<br>
+		<ul class="pagination justify-content-center">
+			<li class="page-item disabled"><a class="page-link" href="#"
+				tabindex="-1" aria-disabled="true">이전</a></li>
+			<li class="page-item"><a class="page-link" href="#">1</a></li>
+			<li class="page-item"><a class="page-link" href="#">2</a></li>
+			<li class="page-item"><a class="page-link" href="#">3</a></li>
+			<li class="page-item"><a class="page-link" href="#">다음</a></li>
+		</ul>
+	</div>
+</body>
+</html>

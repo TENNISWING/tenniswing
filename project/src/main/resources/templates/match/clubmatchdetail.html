@@ -35,10 +35,10 @@
                             </div>
                         </div>                        
                         <div class="article-content">
-                        	<p>경기 방식 [[${matchInfo.gameWay}]]</p>
-                        	<p>인원 수 [[${matchInfo.recruitPsnNum}]]</p>
-                        	<p>모집 성별 [[${matchInfo.gen}]]</p>
-                        	<p>레벨 [[${matchInfo.lv}]]</p>
+                        	<p>경기 방식 [[${clubMatchInfo.gameWay}]]</p>
+                        	<p>인원 수 [[${clubMatchInfo.recruitPsnNum}]]</p>
+                        	<p>모집 성별 [[${clubMatchInfo.gen}]]</p>
+                        	<p>레벨 [[${clubMatchInfo.lv}]]</p>
                         </div>                        
                     </article>
                 </div>
@@ -52,15 +52,15 @@
                         </div>
                         <div class="widget-body">
                             <div class="latest-post-aside media">
-                            	<p>[[${#dates.format(matchInfo.Time, 'yyyy년 MM월 dd일 HH : mm')}]]</p>
+                            	<p>[[${#dates.format(clubMatchInfo.Time, 'yyyy년 MM월 dd일 HH : mm')}]]</p>
                             </div>
                             <div class="latest-post-aside media">
-                                <p>코트장 이름 [[${matchInfo.crtroomName}]]</p>
+                                <p>코트장 이름 [[${clubMatchInfo.crtroomName}]]</p>
                             <div class="lpa-right">
                                 </div>
                             </div>
                             <div class="latest-post-aside media">
-                            	<p>코트장 위치 [[${matchInfo.crtroomLocation}]]</p>
+                            	<p>코트장 위치 [[${clubMatchInfo.crtroomLocation}]]</p>
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                             <h3 class="mdttitle">인당 요금</h3>
                         </div>
                         <div class="widget-body">
-							<p>코트 사용 요금 [[${matchInfo.crtUseAmt}]]</p>     
+							<p>코트 사용 요금 [[${clubMatchInfo.crtUseAmt}]]</p>     
                     </div>
                     <!-- End Author -->                              
                 </div>
