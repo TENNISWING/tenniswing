@@ -28,5 +28,8 @@ public class MatchVO {
 	private Date endDate;
 	private int contAttendCost;
 	
-	private int rsPrice;	
+	private int rsPrice;
+	
+	private String crtroomName;
+	private String crtroomLocation;
 }
