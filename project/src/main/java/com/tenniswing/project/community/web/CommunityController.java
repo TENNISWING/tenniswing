@@ -11,7 +11,7 @@ public class CommunityController {
 	// SNS 메인
 	@GetMapping("sns")
 	public String snsListPage(Model model) {
-		return "community/community";
+		return "community/community3";
 	}
 	
 	// 자유게시판 메인(리스트 페이지)

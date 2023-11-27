@@ -67,10 +67,13 @@
 }
 
 .carousel-item img {
-	height : 700px;
+	height : 600px;
 }
 
-
+.snsimg{
+	width: 400px;
+	margin-left : 90px;
+}
 
 /*--------------------------------------------------------------
 # Match

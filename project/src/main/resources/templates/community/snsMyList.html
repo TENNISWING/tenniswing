@@ -61,72 +61,7 @@
 
 											</div>
 										</div>
-										<!-- <div class="swiper-slide banner">
-											<div class="card">
-												<div class="card-content">
-
-													<img class="img-fluid w-100"
-														src="/assets/compiled/jpg/banana.jpg" alt="Card image cap">
-												</div>
-												<div class="card-footer d-flex justify-content-between">
-													<span>그룹이름</span>
-													<button class="btn btn-light-primary"
-														data-bs-toggle="collapse"
-														data-bs-target="#collapseExample2" aria-expanded="false"
-														aria-controls="collapseExample2">그룹 목록보기</button>
-												</div>
-											</div>
-										</div>
-										<div class="swiper-slide banner">
-											<div class="card">
-												<div class="card-content">
-													<div class="card-body">
-														<h4 class="card-title">Card With Header And Footer</h4>
-														<p class="card-text">Gummies bonbon apple pie
-															fruitcake icing biscuit apple pie jelly-o sweet roll.
-															Toffee sugar plum sugar plum jelly-o jujubes bonbon
-															dessert carrot cake.</p>
-													</div>
-													<img class="img-fluid w-100"
-														src="/assets/compiled/jpg/banana.jpg" alt="Card image cap">
-												</div>
-												<div class="card-footer d-flex justify-content-between">
-													<span>그룹이름</span>
-													<button class="btn btn-light-primary"
-														data-bs-toggle="collapse"
-														data-bs-target="#collapseExample3" aria-expanded="false"
-														aria-controls="collapseExample3">그룹 목록보기</button>
-												</div>
-											</div>
-										</div>
-										<div class="swiper-slide banner">
-											<div class="card">
-												<div class="card-content">
-													<img class="img-fluid w-100"
-														src="/assets/compiled/jpg/banana.jpg" alt="Card image cap">
-												</div>
-												<div class="card-footer d-flex justify-content-between">
-													<span>그룹이름</span>
-													<button class="btn btn-light-primary"
-														data-bs-toggle="collapse"
-														data-bs-target="#collapseExample4" aria-expanded="false"
-														aria-controls="collapseExample4">그룹 목록보기</button>
-												</div>
-											</div>
-										</div>
-										<div class="swiper-slide banner">
-											<div class="card">
-												<div class="card-content">
-
-													<img class="img-fluid w-100"
-														src="/assets/compiled/jpg/banana.jpg" alt="Card image cap">
-												</div>
-												<div class="card-footer d-flex justify-content-between">
-													<span>그룹이름</span>
-													<button class="btn btn-light-primary">그룹 목록보기</button>
-												</div>
-											</div>
-										</div> -->
+								
 									</div>
 									<div class="swiper-pagination banner"></div>
 								</div>
@@ -401,7 +336,7 @@
 			}
 		} */
 		for(let i=1; i<= $('.btn.btn-light-primary').length; i++){
-			if ($(e.target).hasClass('active')&&$(e.target).attr('id')==i) {
+			if ($(e.target).hasClass('active')&& $(e.target).attr('id')==i) {
 				$('#collapseExample'+i).attr('class',
 						'card-body shadow collapse show')
 						
