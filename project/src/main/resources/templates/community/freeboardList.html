@@ -18,11 +18,7 @@
             <!-- match table -->
             <div class="container">
               <div class="row">
-			<div class="col-3"></div>
-			<div class="col-6">
-					
-							
-								<div class="content__body">
+				<div class="content__body">
 									<section class="archive-category">
 										<div class="col-12">
 											<div class="filter__area" style="margin: 0;">
@@ -30,7 +26,11 @@
 													<div
 														class="form-group position-relative  mb-0 has-icon-left">
 														<input type="text" class="form-control"
-															placeholder="Serch club...">
+															placeholder="Search...">
+															<div class="fbrdInsertBtn">
+															<a class="btn btn-secondary rounded-pill" th:onclick="|location.href='@{freeBrdForm}'|">글 등록</a>
+															</div>
+															
 														<div class="form-control-icon">
 															<svg class="bi" width="1.5em" height="1.5em"
 																fill="currentColor">
@@ -88,8 +88,6 @@
 								</ul>
 							
 						</div>
-			</div>
-			<div class="col-3"></div>
               
             </div>
             </div>
