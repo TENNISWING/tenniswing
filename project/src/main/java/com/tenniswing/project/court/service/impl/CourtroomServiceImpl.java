@@ -1,5 +1,9 @@
 package com.tenniswing.project.court.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +26,25 @@ public class CourtroomServiceImpl implements CourtroomService {
 		else {
 			return -1;
 		}
+	}
+
+	@Override
+	public Map<String, Object> updateCourtroom(CrtroomVO crtroomVO) {
+		Map<String, Object> map = new HashMap<>();
+		boolean isSuccessed = false;
+		
+		int result = courtroomMapper.updateCourtroom(crtroomVO);
+		if(result == 1) {
+			isSuccessed = true;
+		}
+		map.put("result", isSuccessed);
+		map.put("info", crtroomVO);
+		
+		return map;
+	}
+
+	@Override
+	public List<CrtroomVO> selectAllCourtroom() {
+		return courtroomMapper.selectAllCourtroom();
 	}
 }

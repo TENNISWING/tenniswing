@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenniswing.project.member.service.MemberService;
 import com.tenniswing.project.member.service.MemberVO;
@@ -23,31 +24,37 @@ public class MemberController {
 	@GetMapping("loginform")
 	public String loginPage(Model model) {
 		return "member/login";
+	}	
+
+	//회원가입 이동
+	@GetMapping("signup")
+	public String signupPage(Model model) {
+		return "member/signup";
 	}
 	
-	//로그인 처리
-	@PostMapping("loginProc")
-	public String loginProc(Model model, MemberVO memberVO) {
-		String rawPwd = memberVO.getPwd();
-		String encPwd = passwordEncoder.encode(rawPwd);
+	//아이디 중복 체크
+	@PostMapping("idcheck")
+	@ResponseBody
+	public String idCheck(Model model,MemberVO memberVO) {
+		memberVO = memberService.loginMember(memberVO);
 		
-		String role = "";
-		memberVO = memberService.getMemberInfo(memberVO);
-		if (memberVO != null) {
-			role = memberVO.getMemDiv();			
-		}else {
-			model.addAttribute("message", "로그인에 실패하였습니다.");
-			return "member/login";
+		return "있음";
+	}
+	
+	//회원가입 처리
+	@PostMapping("signup")
+	public String signupProc(MemberVO memberVO, Model model) {		
+	
+		memberVO.setPwd(passwordEncoder.encode(memberVO.getPwd()));		
+		int result = memberService.insertMember(memberVO);
+	
+		if(result > 0) {
+			return "redirect:/loginform";
 		}
-		
-		if (role.equals("h1")) {
-			return "match/match";
-		} else if (role.equals("h2")) {
-			return "host/dashboard";
-		} else {
-			model.addAttribute("message", "로그인에 실패하였습니다.");
-			return "member/login";
-		}
+		else {
+			model.addAttribute("message", "회원가입에 실패하였습니다.");
+			return "member/signup";
+		}		
 	}
 	
 	//마이페이지 이동
@@ -56,28 +63,4 @@ public class MemberController {
 		return "member/mypage";
 	}
 	
-	//회원가입 이동
-	@GetMapping("signup")
-	public String signupPage(Model model) {
-		return "member/signup";
-	}
-	
-	//회원가입 처리
-	@PostMapping("signup")
-	public String signupProc(MemberVO memverVO, Model model) {
-		String rawPwd = memverVO.getPwd();
-		String encPwd = passwordEncoder.encode(rawPwd);
-		
-		memverVO.setPwd(encPwd);
-		
-		int result = memberService.insertMember(memverVO);
-		System.out.println(result);
-		if(result > 0) {
-			return "/";
-		}
-		else {
-			model.addAttribute("message", "회원가입에 실패하였습니다.");
-			return "member/signup";
-		}		
-	}
 }

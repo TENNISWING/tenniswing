@@ -41,7 +41,7 @@
 								<!-- Swiper -->
 								<div class="swiper mySwiper banner" data-aos="fade-up">
 									<div class="swiper-wrapper banner">
-										<div class="swiper-slide banner"><!-- 여기서 반복문 th:each="" -->
+										<div class="swiper-slide banner" th:each="num : ${#numbers.sequence(1,5)}" ><!-- 여기서 반복문 th:each="" -->
 											<div class="card">
 												<div class="card-content">
 
@@ -50,13 +50,18 @@
 												</div>
 												<div class="card-footer d-flex justify-content-between">
 													<span>그룹이름</span>
-													<button class="btn btn-light-primary" id="gbtn">그룹
+													<button class="btn btn-light-primary" th:id="${numStat.count}" data-bs-toggle="collapse"
+														data-bs-target="#collapseExample" aria-expanded="false"
+														
+														aria-controls="collapseExample"
+														th:attrappend="aria-controls=${numStat.count}"
+														>그룹
 														목록보기</button>
 												</div>
 
 											</div>
 										</div>
-										<div class="swiper-slide banner">
+										<!-- <div class="swiper-slide banner">
 											<div class="card">
 												<div class="card-content">
 
@@ -75,13 +80,13 @@
 										<div class="swiper-slide banner">
 											<div class="card">
 												<div class="card-content">
-													<!-- <div class="card-body">
+													<div class="card-body">
 														<h4 class="card-title">Card With Header And Footer</h4>
 														<p class="card-text">Gummies bonbon apple pie
 															fruitcake icing biscuit apple pie jelly-o sweet roll.
 															Toffee sugar plum sugar plum jelly-o jujubes bonbon
 															dessert carrot cake.</p>
-													</div> -->
+													</div>
 													<img class="img-fluid w-100"
 														src="/assets/compiled/jpg/banana.jpg" alt="Card image cap">
 												</div>
@@ -121,7 +126,7 @@
 													<button class="btn btn-light-primary">그룹 목록보기</button>
 												</div>
 											</div>
-										</div>
+										</div> -->
 									</div>
 									<div class="swiper-pagination banner"></div>
 								</div>
@@ -154,7 +159,7 @@
 					</script>
 				</section>
 				<!-- Trending Section End -->
-				<div class="card-body shadow collapse" id="collapseExample1"><!-- 반복문 -->
+				<div class="card-body shadow collapse Listbrd"  th:each="totalbrd : ${#numbers.sequence(1,5)}" id="collapseExample" th:attrappend="id=${totalbrdStat.count}"><!-- 반복문 -->
 					<div class="table-responsive">
 						<table class="table dashboard__table order-list">
 							<thead>
@@ -228,7 +233,7 @@
 					<!-- pagination end -->
 				</div>
 			</div>
-			<div class="card-body shadow collapse" id="collapseExample2">
+		<!-- 	<div class="card-body shadow collapse" id="collapseExample2">
 				<div class="table-responsive">
 					<table class="table dashboard__table order-list">
 						<thead>
@@ -273,7 +278,7 @@
 						</tbody>
 					</table>
 				</div>
-				<!-- pagination start  -->
+				pagination start 
 				<nav class="pagination__wrapper mt-0 py-10">
 					<ul class="pagination">
 						<li class="pagination__item"><a class="page-link" href="#"><i
@@ -299,9 +304,9 @@
 						</button>
 					</div>
 				</nav>
-				<!-- pagination end -->
-			</div>
-			<div class="card-body shadow collapse" id="collapseExample3">
+				pagination end
+			</div> -->
+		<!-- 	<div class="card-body shadow collapse" id="collapseExample3">
 				<div class="table-responsive">
 					<table class="table dashboard__table order-list">
 						<thead>
@@ -346,7 +351,7 @@
 						</tbody>
 					</table>
 				</div>
-				<!-- pagination start  -->
+				pagination start 
 				<nav class="pagination__wrapper mt-0 py-10">
 					<ul class="pagination">
 						<li class="pagination__item"><a class="page-link" href="#"><i
@@ -372,8 +377,8 @@
 						</button>
 					</div>
 				</nav>
-				<!-- pagination end -->
-			</div>
+				pagination end
+			</div> -->
 	</div>
 	</div>
 	</section>
@@ -384,16 +389,56 @@
 				'click',
 				function(e) {
 					$(e.target).toggleClass('active');
+					//console.log($(e.target).prop('id'));
+				
+	/* 	for(let i=1; i< $('.btn.btn-light-primary').length; i++){
+			if ($(e.target).hasClass('active')) {
+				$('#collapseExample'+i).attr('class',
+						'card-body shadow collapse show')
+			} else {
+				$('#collapseExample'+i).attr('class',
+						'card-body shadow collapse')
+			}
+		} */
+		for(let i=1; i<= $('.btn.btn-light-primary').length; i++){
+			if ($(e.target).hasClass('active')&&$(e.target).attr('id')==i) {
+				$('#collapseExample'+i).attr('class',
+						'card-body shadow collapse show')
+						
+						console.log($('#collapseExample'+i));
+						
+			} else {
+				$('#collapseExample'+i).attr('class',
+						'card-body shadow collapse')
+			}
+		}
+				
+
+});
+				/* 	
+					if ($(e.target).hasClass('active')) {
+						$('collapseExample').attr('class',
+								'card-body shadow collapse show')
+					} else {
+						$('collapseExample').attr('class',
+								'card-body shadow collapse')
+					}
+				}) */
+				
+				/* $('.btn.btn-light-primary').on(
+				'click',
+				function(e) {
+					$(e.target).toggleClass('active');
 					console.log($(e.target).prop('id'))
 
 					if ($(e.target).hasClass('active')) {
-						$('#collapseExample1')[i].attr('class',
+						$('collapseExample[i]').attr('class',
 								'card-body shadow collapse show')
 					} else {
-						$('#collapseExample1').attr('class',
+						$('collapseExample[i]').attr('class',
 								'card-body shadow collapse')
 					}
-				})
+				}) */
 	</script>
 	<script src="assets/extensions/jquery/jquery.min.js"></script>
 	<script
