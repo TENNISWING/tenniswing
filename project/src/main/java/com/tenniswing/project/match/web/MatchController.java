@@ -21,7 +21,8 @@ public class MatchController {
 	}
 	
 	@GetMapping("clubmatch")  
-	public String clubmatchPage(Model model) { 			
+	public String clubmatchPage(Model model) {
+		model.addAttribute("clubMatchList", matchService.selectAllClubMatch());
 		return "match/clubmatch";
 	}
 	
@@ -37,10 +38,16 @@ public class MatchController {
 	
 	@GetMapping("matchdetail")  
 	public String matchdetailPage(Model model, MatchVO matchVO) { 	
-		System.out.println(matchVO.getMatchNo());
-		model.addAttribute("matchInfo", matchService.selectMatch(matchVO));
-		
+		//System.out.println(matchVO.getMatchNo());
+		model.addAttribute("matchInfo", matchService.selectMatch(matchVO));		
 		return "match/matchdetail";
+	}
+	
+	@GetMapping("clubmatchdetail")  
+	public String clubmatchdetailPage(Model model, MatchVO matchVO) { 	
+		//System.out.println(matchVO.getMatchNo());
+		model.addAttribute("clubMatchInfo", matchService.selectClubMatch(matchVO));		
+		return "match/clubmatchdetail";
 	}
 	
 	@GetMapping("matchregi")  

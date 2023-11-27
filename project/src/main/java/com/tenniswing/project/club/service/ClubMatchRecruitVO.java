@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ClubMatchRecruitVO {
 	private int clubMatchRecruitNo;
-	private int clubMatchRecruitPsnNo;
+	private int clubMatchRecruitPsnNum;
 	private int clubNo;
 	private Date matchRecruitWriteDate;
 	private String recruitState;

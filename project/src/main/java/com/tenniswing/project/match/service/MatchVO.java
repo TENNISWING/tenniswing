@@ -29,7 +29,11 @@ public class MatchVO {
 	private int contAttendCost;
 	
 	private int rsPrice;
-	
+		
 	private String crtroomName;
 	private String crtroomLocation;
+	
+	private int clubMatchRecruitPsnNum;
+	private Date matchRecruitWriteDate;
+	
 }
