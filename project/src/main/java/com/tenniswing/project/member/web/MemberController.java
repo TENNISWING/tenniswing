@@ -35,6 +35,18 @@ public class MemberController {
 	public String hostSignupPage(Model model) {
 		return "member/hostsignup";
 	}
+	
+	// 아이디찾기 폼 이동
+	@GetMapping("forgotid")
+	public String forgotIdPage(Model model) {
+		return "member/forgotid";
+	}
+	
+	// 패스워드찾기 폼 이동
+	@GetMapping("forgotpw")
+	public String fortgotPwPage(Model model) {
+		return "member/forgotpw";
+	}
 
 	// 아이디 중복 체크
 	@PostMapping("idcheck")
