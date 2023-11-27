@@ -13,8 +13,6 @@ import com.tenniswing.project.match.service.MatchVO;
 
 @Controller
 public class HomeController {
-
-	
 	
 	@GetMapping("/admin")
 	public String adminPage(Model model) { 			

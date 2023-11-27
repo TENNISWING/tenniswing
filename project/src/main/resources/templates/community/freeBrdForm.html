@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main-layout}">
+<head>
+<link rel="stylesheet"
+	href="assets/extensions/summernote/summernote-lite.css">
+
+<link rel="stylesheet"
+	href="./assets/compiled/css/form-editor-summernote.css">
+</head>
+<th:block layout:fragment="content">
+	<!-- community sub menu -->
+	<div class="container mb-4">
+		<ul class="nav d-flex justify-content-around text-center">
+			<li class="d-flex flex-column"><a href="sns"><div>
+						<i class="fa-solid fa-photo-film fs-3 text-info"></i>
+					</div>SNS</a></li>
+			<li class="d-flex flex-column"><a href="freeboardList"><div>
+						<i class="fa-solid fa-chalkboard-teacher fs-3 text-primary"></i>
+					</div>자유게시판</a></li>
+			<li class="d-flex flex-column"><a href="noticeList"><div>
+						<i class="fa-solid fa-clipboard-list fs-3 text-warning"></i>
+					</div>공지사항</a></li>
+		</ul>
+	</div>
+	<!-- End community sub menu  -->
+
+
+	<!-- freeBrd insert Form -->
+	<div class="container">
+		<div class="page-heading email-application overflow-hidden">
+			<div class="page-title">
+				<div class="row">
+					<div class="col-12 col-md-6 order-md-1 order-last">
+						<h3 style="color: green">자유게시판 글 등록</h3>
+						<br>
+					</div>
+					<div class="col-12 col-md-6 order-md-2 order-first">
+						<nav aria-label="breadcrumb"
+							class="breadcrumb-header float-start float-lg-end">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="index.html">자유게시판</a></li>
+								<li class="breadcrumb-item active" aria-current="page">글 등록</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+				<hr>
+
+			</div>
+			<!-- Basic Vertical form layout section start -->
+			<section id="basic-vertical-layouts">
+				<div class="row match-height">
+					<div class="col-md-12 col-12">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<form class="form form-vertical">
+										<div class="form-body">
+											<div class="row">
+												<!-- 	<div class="col-12">
+													<div class="form-group mandatory">
+														<label for="password-vertical"
+															data-parsley-required="true" class="form-label">제목</label>
+														<input type="text" id="password-vertical"
+															class="form-control" name="contact" placeholder="">
+													</div>
+												</div> -->
+												<section class="section">
+													<div class="row">
+														<div class="col-12">
+															<div class="card">
+																<div class="card-header">
+																	<div class="form-group mandatory">
+																		<label for="password-vertical"
+																			data-parsley-required="true" class="">제목</label> <input
+																			type="text" id="password-vertical"
+																			class="form-control" name="contact" placeholder="">
+																	</div>
+																</div>
+																<div class="card-body smNote">
+																	<textarea class="summernote" name ="editordata"></textarea>
+																</div>
+															</div>
+															
+														</div>
+													</div>
+												</section>
+
+												<div class="col-12">
+													<div class="form-group mandatory">
+														<label for="contact-info-vertical">사진 / 동영상 첨부하기</label> <input
+															type="file" class="image-preview-filepond">
+													</div>
+												</div>
+
+												<div class="col-12 d-flex justify-content-end">
+													<button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+													<button type="reset"
+														class="btn btn-light-secondary me-1 mb-1">Reset</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</section>
+			<!-- // Basic Vertical form layout section end -->
+
+
+		</div>
+	</div>
+
+	<!-- End freeBrd insert Form -->
+
+	
+	<script src="assets/extensions/summernote/summernote-lite.min.js"></script>
+	<script src="assets/static/js/pages/summernote.js"></script>
+	
+	<script>
+		
+			//여기 아래 부분
+			$('.summernote').summernote({
+				height : 500, // 에디터 높이
+				minHeight : null, // 최소 높이
+				maxHeight : null, // 최대 높이
+				focus : true, // 에디터 로딩후 포커스를 맞출지 여부
+				lang : "ko-KR", // 한글 설정
+				placeholder : '최대 2048자까지 쓸 수 있습니다' //placeholder 설정
+
+			});
+	
+/* 		// 서머노트에 text 쓰기
+		$('#summernote').summernote('insertText', '써머노트에 쓸 텍스트');
+
+
+		// 서머노트 쓰기 비활성화
+		$('#summernote').summernote('disable');
+
+		// 서머노트 쓰기 활성화
+		$('#summernote').summernote('enable');
+
+
+		// 서머노트 리셋
+		$('#summernote').summernote('reset');
+
+
+		// 마지막으로 한 행동 취소 ( 뒤로가기 )
+		$('#summernote').summernote('undo');
+		// 앞으로가기
+		$('#summernote').summernote('redo'); */
+		
+	</script>
+	
+	
+</th:block>
+
+</html>

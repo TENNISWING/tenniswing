@@ -56,6 +56,9 @@
     margin-top: 20px;
 }
 
+.fbrdInsertBtn{
+	margin-top : 17px;
+}
 
 
 .likeCount{
@@ -64,10 +67,13 @@
 }
 
 .carousel-item img {
-	height : 700px;
+	height : 600px;
 }
 
-
+.snsimg{
+	width: 400px;
+	margin-left : 90px;
+}
 
 /*--------------------------------------------------------------
 # Match
