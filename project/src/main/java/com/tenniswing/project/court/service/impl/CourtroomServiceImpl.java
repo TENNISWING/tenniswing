@@ -47,4 +47,20 @@ public class CourtroomServiceImpl implements CourtroomService {
 	public List<CrtroomVO> selectAllCourtroom() {
 		return courtroomMapper.selectAllCourtroom();
 	}
+
+	@Override
+	public CrtroomVO selectCourtroom(CrtroomVO crtroomVO) {
+		return courtroomMapper.selectCourtroom(crtroomVO);
+	}
+
+	@Override
+	public boolean deleteCourtroom(int crtroomNo) {
+		int result = courtroomMapper.deleteCourtroom(crtroomNo);
+		
+		if(result == 1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

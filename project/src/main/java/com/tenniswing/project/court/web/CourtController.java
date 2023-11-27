@@ -1,6 +1,7 @@
 package com.tenniswing.project.court.web;
 
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,7 +54,9 @@ public class CourtController {
 			
 			// 상세보기
 			@GetMapping("hostCourtDetail")
-			public String hostCourtDetailPage(Model model) {
+			public String hostCourtDetailPage(CrtroomVO crtroomVO, Model model) {
+				System.out.println(courtroomService.selectCourtroom(crtroomVO));
+				model.addAttribute("courtDetail", courtroomService.selectCourtroom(crtroomVO));
 				return "courtHost/hostCourtDetail";
 			}
 				
@@ -75,16 +78,32 @@ public class CourtController {
 			
 			// 수정 - 페이지
 			@GetMapping("editCourtroom")
-			public String editCourtroomForm(Model model) {
-				model.addAttribute("crtroomVO", new CrtroomVO());
+			public String editCourtroomForm(CrtroomVO crtroomVO, Model model) {
+				model.addAttribute("crtroomVO", courtroomService.selectCourtroom(crtroomVO));
 				return "courtHost/editCourtroom";
 			}
 			
 			// 수정 - 처리
 			@PostMapping("editCourtroom")
-			@ResponseBody
-			public Map<String, Object> editCourtroomProccess(@RequestBody CrtroomVO crtroomVO){
-				return courtroomService.updateCourtroom(crtroomVO);
+			public String editCourtroomProccess(CrtroomVO crtroomVO){
+				courtroomService.updateCourtroom(crtroomVO);
+				
+				return "redirect:hostCourtList";
+			}
+			
+			// 삭제
+			@GetMapping("deleteCourtroom")
+			public String deleteCourtroomProccess(@RequestParam Integer crtroomNo,
+												  RedirectAttributes rttr) {
+				boolean result = courtroomService.deleteCourtroom(crtroomNo);
+				String msg = null;
+				if(result) {
+					msg = "정상적으로 삭제되었습니다. \n삭제대상 : "+crtroomNo;
+				}else {
+					msg = "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다. \n삭제요청 : "+crtroomNo;
+				}
+				rttr.addFlashAttribute("result", msg);
+				return "redirect:hostCourtList";
 			}
 			
 		// 코트 상세
@@ -111,8 +130,30 @@ public class CourtController {
 			
 			// 수정 - 페이지
 			@GetMapping("editCourtDetail")
-			public String editCourtDetailForm(Model model) {
-				model.addAttribute("crtDetailVO", new CrtDetailVO());
+			public String editCourtDetailForm(CrtDetailVO crtDetailVO, Model model) {
+				model.addAttribute("crtDetailVO", crtDetailService.selectCrtDetail(crtDetailVO));
 				return "courtHost/editCourtDetail";
-			}		
+			}
+			
+			// 수정 - 처리
+			@PostMapping("editCourtDetail")
+			public String editCourtDetailProccess(CrtDetailVO crtDetailVO) {
+				crtDetailService.updateCrtDetail(crtDetailVO);
+				return "redirect:hostCourtList";
+			}
+			
+			// 삭제
+			@GetMapping("deleteCourtDetail")
+			public String deleteCourtDetailProccess(@RequestParam Integer crtDetailNo,
+												  RedirectAttributes rttr) {
+				boolean result = crtDetailService.deleteCrtDetail(crtDetailNo);
+				String msg = null;
+				if(result) {
+					msg = "정상적으로 삭제되었습니다. \n삭제대상 : "+crtDetailNo;
+				}else {
+					msg = "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다. \n삭제요청 : "+crtDetailNo;
+				}
+				rttr.addFlashAttribute("result", msg);
+				return "redirect:hostCourtList";
+			}
 }
