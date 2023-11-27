@@ -19,8 +19,8 @@ public class SecurityConfig {
 		http.csrf().disable().authorizeRequests()
 
 				.antMatchers("/mypage/**").authenticated()
-				.antMatchers("/admin/**").hasRole("ADMIN")
-				.antMatchers("/host/**").hasRole("HOST")
+				//.antMatchers("/admin/**").hasRole("ADMIN")
+				//.antMatchers("/host/**").hasRole("HOST")
 				.anyRequest().permitAll()
 				
 				.and()
