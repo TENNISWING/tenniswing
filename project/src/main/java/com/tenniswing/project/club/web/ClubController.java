@@ -24,11 +24,11 @@ public class ClubController {
 	
 	@GetMapping("clubform")  //등록 페이지
 	public String clubFormPage(Model model) { 	
-		model.addAttribute("clubVO",new ClubVO());
+		//model.addAttribute("clubVO",new ClubVO());
 		return "club/clubform";
 	}
 	
-	@PostMapping("clubform")
+	@PostMapping("clubform") //등록 프로세스
 	public String insertClubProcess(ClubVO clubVO) {
 		clubService.isnertClub(clubVO);
 		return "redirect:Club";
