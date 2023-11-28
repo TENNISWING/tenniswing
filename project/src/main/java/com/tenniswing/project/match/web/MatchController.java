@@ -22,7 +22,7 @@ public class MatchController {
 
 	public String matchPage(Model model, Principal principal) { 
 		System.out.println(principal.getName());		
-		model.addAttribute("matchList", matchService.selectAllMatch());
+		model.addAttribute("matchList", matchService.selectAllMatch(null));
 
 		return "match/match";
 	}
