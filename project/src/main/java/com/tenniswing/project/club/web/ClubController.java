@@ -37,7 +37,7 @@ public class ClubController {
 		
 		clubVO.setMemId(id);
 		clubService.insertClub(clubVO);
-		return "redirect:Club";
+		return "redirect:club";
 	}
 	
 // ---------------------------------------상세페이지

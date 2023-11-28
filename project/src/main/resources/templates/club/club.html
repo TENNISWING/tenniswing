@@ -146,217 +146,170 @@
 						</div>
 					</div>
 				</div>
-
 			</section>
 
+			<!-- 클럽 리스트  -->
 			<section class="section content-area-wrapper" style="padding: 0;">
 				<div class="content-right" style="width: 100%;">
-					<div class="content-wrapper">
-						<!-- Email list Area -->
-						<div class="email-app-list-wrapper">
-							<div class="email-app-list">
-								<!-- email user list start -->
-								<div class="email-user-list list-group ps ps--active-y"
-									style="height: 100% !important;">
-									<ul class="users-list-wrapper media-list">
-										<li class="media">
+					<!-- Email list Area -->
+					<div class="email-app-list-wrapper">
+						<div class="email-app-list">
+							<!-- email user list start -->
+							<div class="email-user-list list-group ps ps--active-y"
+								style="height: 100% !important;">
+								<ul class="users-list-wrapper media-list">
+									<li class="media" th:each="clubList, stat:${clubList}">
+										<div>
+											<img src="/assets/compiled/jpg/1.jpg" alt="avtar img holder"
+												style="width: 80px; border-radius: 70%;">
+										</div>
+										<div class="media-body"
+											th:onclick="|location.href='@{clubdetail}'|">
+											<div class="mail-items">
+												[[${clubList.clubName}]]
+												<div class="badge badge-pill bg-light-success me-1">[[${clubList.clubMemNum}]]</div>
+												<div class="badge badge-pill bg-light-warning me-1">
+													<span
+														th:text="${clubList.clubRecruitment == 'l1' ? '모집중' : '모집완료'}"></span>
+												</div>
+											</div>
+											<div class="mail-message">
+												<p class="list-group-item-text truncate mb-0">
+													[[${clubList.clubIntro}]]</p>
 
-											<div class="user-action">
-												<span class="favorite text-warning"> <svg class="bi"
-														width="1.5em" height="1.5em" fill="currentColor"></svg>
-												</span>
 											</div>
-											<div class="pr-50">
-												<div>
-													<img src="/assets/compiled/jpg/1.jpg"
-														alt="avtar img holder"
-														style="width: 80px; border-radius: 70%;">
-												</div>
+											<div class="mail-message">
+												<p class="list-group-item-text truncate mb-0"
+													th:text="${clubList.clubRegion == 'b1' ? '서울' : '부산'}"></p>
 											</div>
-											<div class="media-body" th:each="clubList, stat:${clubList}"
-												th:onclick="|location.href='@{clubdetail}'|">
-												<div class="user-details">
-													<div class="mail-items">
-														<span class="list-group-item-text text-truncate">[[${clubList.clubName}]]
-															<div class="badge badge-pill bg-light-info me-1">[[${clubList.clubMemNum}]]</div>
-															<div class="badge badge-pill bg-light-warning me-1">
-																<span
-																	th:text="${clubList.clubRecruitment == 'l1' ? '모집중' : '모집완료'}"></span>
-															</div>
-														</span>
-													</div>
-												</div>
-												<div class="mail-message">
-													<p class="list-group-item-text truncate mb-0">[[${clubList.clubIntro}]]
-													</p>
-													<div class="mail-meta-item">
-														<span class="float-right"> <span
-															class="bullet bullet-success bullet-sm"></span>
-														</span>
-													</div>
-												</div>
-												<div class="mail-message">
-													<p class="list-group-item-text truncate mb-0"
-														th:text="${clubList.clubRegion == 'b1' ? '서울' : '부산'}"></p>
-													<div class="mail-meta-item">
-														<span class="float-right"> <span
-															class="bullet bullet-success bullet-sm"></span>
-														</span>
-													</div>
-												</div>
-												<div class="mail-message">
-													<p class="list-group-item-text truncate mb-0">[[${clubList.clubRegion}]]
-														/ [[${clubList.clubGen}]] /
-														[[${clubList.clubDay}]]-[[${clubList.clubTime}]]</p>
-													<div class="mail-meta-item">
-														<span class="float-right"> <span
-															class="bullet bullet-success bullet-sm"></span>
-														</span>
-													</div>
-												</div>
-											</div>
-
-											<div class="mail-meta-item">
-												<div class="float-right">
-
-													<span class="mail-date"><button type="button"
-															style="margin: 0"
-															class="btn btn-primary btn-block my-4 compose-btn"
-															data-bs-toggle="modal"
-															data-bs-target="#exampleModalCenter">가입</button></span>
-												</div>
-											</div>
-										</li>
-											</ul>
-										<!-- 클럽 가입 신청 버튼 Modal  -->
-										<div class="modal fade" id="exampleModalCenter" tabindex="-1"
-											role="dialog" aria-labelledby="exampleModalCenterTitle"
-											aria-hidden="true">
-											<div
-												class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
-												role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalCenterTitle">클럽
-															가입하기</h5>
-														<button type="button" class="close"
-															data-bs-dismiss="modal" aria-label="Close">
-															<i data-feather="x"></i>
-														</button>
-													</div>
-													
-													<div class="modal-body" style="text-align: center;">
-														<div>
-															<img src="./assets/img/card.jpg" style="width: 450px;">
-														</div>
-														<br>
-														<p>여기는 클럽 소개글 쏼라쏼라Croissant jelly-o halvah chocolate
-															sesame snaps. Brownie caramels candy canes chocolate cake
-															marshmallow icing lollipop I love. Gummies macaroon donut
-															caramels biscuit topping danish.</p>
-													</div>
-													<div class="modal-footer" style="text-align: center;">
-														<button type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal"
-														        data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">가입신청서 작성</button>
-													</div>
-												</div>
+											<div class="mail-message">
+												<p class="list-group-item-text truncate mb-0">[[${clubList.clubRegion}]]
+													/ [[${clubList.clubGen}]] / [[${clubList.clubDay}]] -
+													[[${clubList.clubTime}]]</p>
 											</div>
 										</div>
-										<!-- 클럽 가입 신청 작성 Modal  -->
-										<div class="modal fade" id="exampleModalToggle2" tabindex="-1"
-											role="dialog" aria-labelledby="exampleModalCenterTitle"
-											aria-hidden="true">
-											<div
-												class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
-												role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalCenterTitle">가입신청</h5>
-														<button type="button" class="close"
-															data-bs-dismiss="modal" aria-label="Close">
-															<i data-feather="x"></i>
-														</button>
-													</div>
-													<div class="modal-body" style="text-align: center;">
-													<textarea name="area" cols="30" rows="5" id="area"
-														class="form-control form-area" placeholder="클럽 가입 신청합니다."></textarea>
-														<p style="text-align: left;  color: gray; margin-top: 20px;">
-														<b>이런 내용을 추가로 작성하면 좋아요</b><br>1. 살고있는 지역<br>2. 포지션<br>3. 선호하는 플레이<br>4. 실력 및 경력<br>5. 나이
-														</p>
-													</div>
-													<div class="modal-footer" style="text-align: center;">
-														<button type="button" class="btn btn-primary ms-1"
-															data-bs-dismiss="modal">취소
-														</button>
-														<button type="button" class="btn btn-primary ms-1"
-															data-bs-dismiss="modal">신청
-														</button>
-													</div>
-												</div>
+
+										<div class="mail-meta-item">
+											<div class="float-right">
+												<button type="button" style="margin: 0"
+													class="btn btn-primary btn-block my-4 compose-btn"
+													data-bs-toggle="modal" data-bs-target="#exampleModalCenter">가입</button>
 											</div>
 										</div>
-								</div>
-
-
-								<!-- email user list end -->
-
-								<!-- no result when nothing to show on list -->
-								<!-- <div class="no-results">
-										<i class="bi bi-error-circle font-large-2"></i>
-										<h5>No Items Found</h5>
-									</div> -->
-								<div class="ps__rail-x" style="left: 0px; bottom: 0px;">
-									<div class="ps__thumb-x" tabindex="0"
-										style="left: 0px; width: 0px;"></div>
-								</div>
-
-								<div class="email-action">
-									<div
-										class="action-right d-flex flex-grow-1 align-items-center justify-content-around">
-										<div class="sidebar-toggle d-block d-lg-none"></div>
-										<!-- search bar  -->
-										<div class="email-fixed-search flex-grow-1">
-											<div class="form-group position-relative  mb-0 has-icon-left">
-												<input type="text" class="form-control"
-													placeholder="Serch club...">
-												<div class="form-control-icon">
-													<svg class="bi" width="1.5em" height="1.5em"
-														fill="currentColor">
-                                                        <use
-															xlink:href="assets/static/images/bootstrap-icons.svg#search" />
-                                                    </svg>
-												</div>
-											</div>
-										</div>
-										<!-- pagination and page count -->
-										<span class="d-none d-sm-block">1-10 of 653</span>
-										<button
-											class="btn btn-icon email-pagination-prev action-button d-none d-sm-block">
-											<svg class="bi" width="1.5em" height="1.5em"
-												fill="currentColor">
-                                                <use
-													xlink:href="assets/static/images/bootstrap-icons.svg#chevron-left" />
-                                            </svg>
-										</button>
-										<button
-											class="btn btn-icon email-pagination-next action-button d-none d-sm-block">
-											<svg class="bi" width="1.5em" height="1.5em"
-												fill="currentColor">
-                                                <use
-													xlink:href="assets/static/images/bootstrap-icons.svg#chevron-right" />
-                                            </svg>
-										</button>
-									</div>
-								</div>
+									</li>
+								</ul>
 
 							</div>
-
-
+							<div class="email-action">
+								<div
+									class="action-right d-flex flex-grow-1 align-items-center justify-content-around">
+									<div class="sidebar-toggle d-block d-lg-none"></div>
+									<!-- search bar  -->
+									<div class="email-fixed-search flex-grow-1">
+										<div class="form-group position-relative  mb-0 has-icon-left">
+											<input type="text" class="form-control"
+												placeholder="Serch club...">
+											<div class="form-control-icon">
+												<svg class="bi" width="1.5em" height="1.5em"
+													fill="currentColor">
+                                                        <use
+														xlink:href="assets/static/images/bootstrap-icons.svg#search" />
+                                                    </svg>
+											</div>
+										</div>
+									</div>
+									<!-- pagination and page count -->
+									<span class="d-none d-sm-block">1-10 of 653</span>
+									<button
+										class="btn btn-icon email-pagination-prev action-button d-none d-sm-block">
+										<svg class="bi" width="1.5em" height="1.5em"
+											fill="currentColor">
+                                                <use
+												xlink:href="assets/static/images/bootstrap-icons.svg#chevron-left" />
+                                            </svg>
+									</button>
+									<button
+										class="btn btn-icon email-pagination-next action-button d-none d-sm-block">
+										<svg class="bi" width="1.5em" height="1.5em"
+											fill="currentColor">
+                                                <use
+												xlink:href="assets/static/images/bootstrap-icons.svg#chevron-right" />
+                                            </svg>
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
-					<!--/ Email list Area -->
 				</div>
 			</section>
+
+			<!-- 클럽 가입 신청 버튼 Modal  -->
+			<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+				role="dialog" aria-labelledby="exampleModalCenterTitle"
+				aria-hidden="true">
+				<div
+					class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+					role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalCenterTitle">클럽 가입하기</h5>
+							<button type="button" class="close" data-bs-dismiss="modal"
+								aria-label="Close">
+								<i data-feather="x"></i>
+							</button>
+						</div>
+
+						<div class="modal-body" style="text-align: center;">
+							<div>
+								<img src="./assets/img/card.jpg" style="width: 450px;">
+							</div>
+							<br>
+							<p style="text-align: left;">여기는 클럽 소개글 쏼라쏼라Croissant jelly-o
+								halvah chocolate sesame snaps. Brownie caramels candy canes
+								chocolate cake marshmallow icing lollipop I love. Gummies
+								macaroon donut caramels biscuit topping danish.</p>
+						</div>
+						<div class="modal-footer" style="text-align: center;">
+							<button type="button" class="btn btn-primary ms-1"
+								data-bs-dismiss="modal" data-bs-target="#exampleModalToggle2"
+								data-bs-toggle="modal">가입신청서 작성</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 클럽 가입 신청 작성 Modal  -->
+			<div class="modal fade" id="exampleModalToggle2" tabindex="-1"
+				role="dialog" aria-labelledby="exampleModalCenterTitle"
+				aria-hidden="true">
+				<div
+					class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+					role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalCenterTitle">가입신청</h5>
+							<button type="button" class="close" data-bs-dismiss="modal"
+								aria-label="Close">
+								<i data-feather="x"></i>
+							</button>
+						</div>
+						<div class="modal-body" style="text-align: center;">
+							<textarea name="area" cols="30" rows="5" id="area"
+								class="form-control form-area" placeholder="클럽 가입 신청합니다."></textarea>
+							<p style="text-align: left; color: gray; margin-top: 20px;">
+								<b>이런 내용을 추가로 작성하면 좋아요</b><br>1. 살고있는 지역<br>2. 포지션<br>3.
+								선호하는 플레이<br>4. 실력 및 경력<br>5. 나이
+							</p>
+						</div>
+						<div class="modal-footer" style="text-align: center;">
+							<button type="button" class="btn btn-primary ms-1"
+								data-bs-dismiss="modal">취소</button>
+							<button type="button" class="btn btn-primary ms-1"
+								data-bs-dismiss="modal">신청</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
