@@ -36,20 +36,13 @@ public class SnsVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date grpEditDate;
 	
-	//sns 댓글
-	private int snsRepNo;
-	private String snsRepCtt;
-	private Date snsRepWriteDate;
-	private Date snsRepEditDate;
-	
-	// sns 대댓글
-	private int snsRRepNo;
-	private String snsRRepCtt;
-	private String snsRRepEditDate;
-	private String snsRRepWriteDate;
-	
+
 	//sns 이미지 리스트
 	private List<AttachVO> attachList;
+	
+	// sns 댓글 리스트
+	private List<SnsRepVO> snsRepList;
+	
 
 
 }

@@ -6,7 +6,7 @@
   <mapper namespace="com.tenniswing.project.community.mapper.SnsMapper">
   	<!-- 전체 조회  -->
   	<resultMap type="SnsVO" id="snsResult">
-  		<collection property="attachList" javaType="ArrayList" column="sns_wrt_no" ofType="SnsVO" select="selectSnsAttach"></collection>
+  		<collection property="attachList" javaType="ArrayList" column="sns_wrt_no" ofType="AttachVO" select="selectSnsAttach"></collection>
   	</resultMap>
   	<select id="selectAllSnsInfo" resultMap="snsResult">
 	select s.sns_wrt_no
@@ -28,7 +28,8 @@
 	on s.mem_no = m.mem_no
 	order by s.sns_wrt_no
   	</select>
-  	<select id="selectSnsAttach" resultType="SnsVO">
+ 
+  	<select id="selectSnsAttach" resultType="AttachVO">
   		select attach_no
   			   , attach_ext
   			   , attach_origin_name
@@ -40,6 +41,7 @@
   		from attach
   		where attach_table_pk = #{snsWrtNo}
   	</select>
+  	
   	
   	<!-- 단건조회 -->
   	<select id="selectSnsInfo" resultType="SnsVO">
