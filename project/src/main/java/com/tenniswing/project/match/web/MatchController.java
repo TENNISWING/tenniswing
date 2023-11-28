@@ -1,7 +1,6 @@
 package com.tenniswing.project.match.web;
 
 
-import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +19,11 @@ public class MatchController {
 
 	@GetMapping(value = {"/", "/home"})
 
+
 	public String matchPage(Model model, Principal principal) { 
 		System.out.println(principal.getName());		
 		model.addAttribute("matchList", matchService.selectAllMatch(null));
+
 
 		return "match/match";
 	}
