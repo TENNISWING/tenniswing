@@ -59,7 +59,7 @@
 											<div class="card-content">
 												<div class="card-body">
 													<h4 class="card-title">[[${s.snsTitle}]]</h4>
-													<h6 class="card-subtitle">Support card subtitle</h6>
+													<h6 class="card-subtitle" style="font-weight: 300;">[[${s.grpName}]]</h6>
 												</div>
 												<div id="myCarousel" th:attrappend="id=${sStat.count}" class="carousel slide"	data-ride="carousel">
 													<div class="carousel-inner">
@@ -85,7 +85,7 @@
 													</a>
 												</div>
 												<div class="card-body">
-													<h6 class="card-subtitle">[[${s.memNo}]]</h6>
+													<h6 class="card-subtitle">[[${s.name}]]</h6>
 													<p class="card-text">[[${s.snsCtt}]]</p>
 													<p class="card-text"></p>
 												</div>
@@ -98,7 +98,7 @@
 													<li class="d-flex flex-column"><div>
 															<a class="btn icon btn-white"> <i
 																class="fa-solid fa-thumbs-up fs-5 text-secondary"></i></a>
-														</div>777</li>
+														</div>[[${s.likeCnt}]]</li>
 													<li class="d-flex flex-column"><div>
 															<a class="btn icon btn-white"
 																data-bs-toggle="modal" data-bs-target="#large"> <i
