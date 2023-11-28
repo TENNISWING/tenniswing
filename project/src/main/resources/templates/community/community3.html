@@ -373,6 +373,34 @@
 
 			})
 		}); */
+		$('.myRepList').on('show.bs.modal', function(e){
+			event.preventDefault();
+			//let btnId = $(e.target).prop('id');
+			let myRep = $(e.relatedTarget).data();
+			console.log(btnId)
+			//repList = $(e.relatedTarget).data('');
+			$.ajax({
+				type: 'GET',
+				url:'snsRep',
+				data:{ snsWrtNo: btnId },
+				   success: function(data) {
+			            for(let matchInfo of data){
+			               let b = `<tr class="navbar-brand" onclick="|location.href='/matchdetail?matchNo=${matchInfo.matchNo})}'">
+			               <td class="text-center"><b>${matchInfo.time}</b></td>
+			               <td>${matchInfo.gameWayName}</td>
+			               <td>${matchInfo.genName}</td>
+			               <td>${matchInfo.lvName}</td>
+			               <td>${matchInfo.crtroomLocationName}</td>
+			               <td class="text-end">
+			                  <button type="button" class="btn btn-primary matchbtn1" onclick="location.href='/matchdetail?'">${matchInfo.matchNo}</button>
+			               </td>
+			            </tr>`
+			               $('.myRepList').append(b)
+			            }
+			         }
+
+			})
+		});
 		
 	</script>
 </th:block>
