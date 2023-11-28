@@ -198,14 +198,15 @@
 			success: function(result) {
 				$('#matchList').empty();
 				for(let matchInfo of result){
-					let b = `<tr class="navbar-brand" onclick="|location.href='/matchdetail?matchNo=${matchInfo.matchNo})}'">
+					let b = `<tr class="navbar-brand">
+					
 					<td class="text-center"><b>${matchInfo.time}</b></td>
 					<td>${matchInfo.gameWayName}</td>
 					<td>${matchInfo.genName}</td>
 					<td>${matchInfo.lvName}</td>
 					<td>${matchInfo.crtroomLocationName}</td>
 					<td class="text-end">
-						<button type="button" class="btn btn-primary matchbtn1" onclick="location.href='/matchdetail?'">${matchInfo.matchNo}</button>
+						<a class="btn btn-primary matchbtn1" href="matchdetail?matchNo=${matchInfo.matchNo}">ff</a>
 					</td>
 				</tr>`
 					$('#matchList').append(b)

@@ -2,10 +2,12 @@ package com.tenniswing.project.match.web;
 
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenniswing.project.match.service.MatchService;
@@ -53,7 +55,9 @@ public class MatchController {
 	}
 	
 	@GetMapping("matchdetail")  
-	public String matchdetailPage(Model model, MatchVO matchVO) { 	
+	public String matchdetailPage(Model model, @RequestParam Integer matchNo) {
+		MatchVO matchVO = new MatchVO();
+		matchVO.setMatchNo(matchNo);
 		//System.out.println(matchVO.getMatchNo());
 		model.addAttribute("matchInfo", matchService.selectMatch(matchVO));		
 		return "match/matchdetail";
