@@ -15,6 +15,17 @@
 		WHERE crt_detail_no = #{crtDetailNo}
 	</select>
 	
+	<!-- 코트 번호로 조회 -->
+	<select id="selectCrtDetailNo" resultType="crtDetailVO">
+		SELECT crt_detail_no
+				, crt_use_price
+				, use_unit_time
+				, crt_indoor_outdoor
+				, crtroom_no
+		FROM crt_detail_inf
+		WHERE crt_detail_no = #{crtDetailNo}
+	</select>
+	
 	<!-- 코트 등록 -->
 	<insert id="insertCrtDetail" parameterType="crtDetailVO">
 		<selectKey keyProperty="crtDetailNo"
