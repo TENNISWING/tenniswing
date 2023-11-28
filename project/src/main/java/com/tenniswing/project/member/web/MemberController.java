@@ -1,8 +1,9 @@
 package com.tenniswing.project.member.web;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.util.Collection;
 import java.util.Iterator;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,6 +24,9 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	HttpSession httpSession;
 
 	// 로그인 폼 이동
 	@GetMapping("loginform")
@@ -92,6 +96,8 @@ public class MemberController {
 		Iterator<? extends GrantedAuthority> iter = authorities.iterator();
 		GrantedAuthority auth = iter.next();
 		String role = auth.getAuthority();
+		
+		httpSession.setAttribute("member", id);		
 		
 		model.addAttribute("id", id);
 		model.addAttribute("role", role);
