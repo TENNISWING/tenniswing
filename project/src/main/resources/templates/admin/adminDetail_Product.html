@@ -33,11 +33,20 @@
 					</div>
 					<div class="dashboard__header">
 						<div class="d__header--left">
-							<h2 class="title">Category details</h2>
+							<h2 class="title">Poduct Details</h2>
 						</div>
-						<div class="edit__btn">
-							<a href="d-category-edit.html" class="btn btn-primary">Add Product Detail</a>
+						<div style="display: flex;">
+							<div class="edit__btn" style="margin-right: 1.5rem">
+								<a href="adminEdit_Product" class="shop-btn shop-btn-primary">Edit Product</a>
+							</div>
+							<div class="add__btn" style="padding-right: 1.5rem">
+								<!-- <a href="d-category-edit.html" class="btn btn-primary">Add Product Detail</a> -->
+								<button type="button" class="btn btn-outline-success"
+									data-bs-toggle="modal" data-bs-target="#inlineForm">
+									Add Product Detail</button>
+							</div>
 						</div>
+						
 					</div>
 
 					<form action="#" class="dashboard__form">
@@ -45,7 +54,7 @@
 							<div class="col-xxl-4">
 								<div class="dashboard-block">
 									<div class="dashboard-block__title">
-										<h4>Upload Categoris Image</h4>
+										<h4>Poduct Image</h4>
 									</div>
 									<div class="card block__card">
 										<div class="upload__drag p-0">
@@ -64,25 +73,49 @@
 									<div class="form__wrapper form-padding">
 										<div class="flex__form c-3">
 											<div class="form-group">
-												<label for="product_name">Category name</label> <input
-													type="text" name="product_name" id="product_name"
-													class="form-control" placeholder="Enter Category Name"
-													value="MacBook Air" />
+												<label for="product_no">상품 번호</label> <input type="text"
+													name="product_no" id="product_no" class="form-control"
+													placeholder="상품 번호 불러오기" value="상품 번호" disabled="disabled" />
 											</div>
 											<div class="form-group">
-												<label for="product_name">Category name</label> <input
-													type="text" name="product_name" id="product_name"
-													class="form-control" placeholder="Enter Category Name"
-													value="MacBook Air" />
+												<label for="product_name">상품 이름</label> <input type="text"
+													name="product_name" id="product_name" class="form-control"
+													placeholder="상품 이름 불러오기" value="상품 이름" disabled="disabled" />
 											</div>
 											<div class="form-group">
-												<label for="product_name">Category name</label> <input
-													type="text" name="product_name" id="product_name"
-													class="form-control" placeholder="Enter Category Name"
-													value="MacBook Air" />
+												<label for="product_brand">상품 브랜드</label> <input type="text"
+													name="product_brand" id="product_brand"
+													class="form-control" placeholder="상품 브랜드" value="상품 브랜드"
+													disabled="disabled" />
+											</div>
+										</div>
+										<div class="flex__form c-3">
+											<div class="form-group">
+												<label for="product_total">상품 총 재고</label> <input
+													type="text" name="product_total" id="product_total"
+													class="form-control" placeholder="상품 재고 불러오기"
+													value="상품 총 재고" disabled="disabled" />
+											</div>
+											<div class="form-group">
+												<label for="product_category">상품 카테고리</label> <input
+													type="text" name="product_category" id="product_category"
+													class="form-control" placeholder="상품 카테고리 불러오기"
+													value="상품 카테고리" disabled="disabled" />
+											</div>
+											<div class="form-group">
+												<label for="product_gender">상품 성별</label> <input type="text"
+													name="product_gender" id="product_gender"
+													class="form-control" placeholder="상품 성별" value="상품 성별"
+													disabled="disabled" />
 											</div>
 										</div>
 										<div class="form-group mb-0">
+											<div class="form-group">
+												<label for="description">상품 설명</label>
+												<textarea name="description" class="form-control"
+													id="description" cols="30" rows="4"
+													placeholder="Write about your product description briefly"></textarea>
+											</div>
 											<label>Status</label>
 											<div class="custom-checkbox">
 												<input type="checkbox" name="status" checked id="statuss" />
@@ -104,6 +137,103 @@
 	</div>
 	<!-- Main__container End-->
 
+	<!-- 상품 상세 등록 모달 -->
+	<div class="modal fade text-left" id="inlineForm" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+			role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel33">상품 상세 등록</h4>
+					<button type="button" class="close" data-bs-dismiss="modal"
+						aria-label="Close">
+						<i data-feather="x"></i>
+					</button>
+				</div>
+				<form action="#" class="form__wrapper">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="product_no">상품 번호</label> <input
+								type="text" name="product_no" id="product_no"
+								class="form-control" placeholder="상품 번호" />
+						</div>
+						<div class="flex__form c-2">
+							<div class="form-group">
+								<label for="product_detail_no">상품 상세 번호</label> <input type="text"
+									name="product_detail_no" id="product_detail_no" class="form-control"
+									placeholder="상품 상세 번호" />
+							</div>
+							
+							<div class="form-group">
+								<label for="product_detail_no">상품 상세 재고</label> <input type="text"
+									name="product_detail_sto" id="product_detail_sto" class="form-control"
+									placeholder="상품 상세 재고" />
+							</div>
+	
+							<div class="input-group mb-3">
+								<label class="input-group-text" for="inputGroupSelect01"
+									style="margin: 0; padding-left: 26px; padding-right: 26px">
+									색상</label> <select class="form-select" id="inputGroupSelect01">
+									<option selected>Choose...</option>
+									<option value="1">검은색</option>
+									<option value="2">흰색</option>
+									<option value="3">파란색</option>
+									<option value="4">초록색</option>
+									<option value="5">노란색</option>
+									<option value="5">빨간색</option>
+								</select>
+							</div>
+							
+							<div class="input-group mb-3">
+								<label class="input-group-text" for="inputGroupSelect02"
+									style="margin: 0; padding-left: 20px; padding-right: 20px">
+									사이즈</label> <select class="form-select" id="inputGroupSelect02">
+									<option selected>Choose...</option>
+									<option value="1">xs</option>
+									<option value="2">s</option>
+									<option value="3">m</option>
+									<option value="4">l</option>
+									<option value="5">xl</option>
+									<option value="5">free</option>
+									<option value="5">220</option>
+									<option value="5">230</option>
+									<option value="5">240</option>
+									<option value="5">250</option>
+									<option value="5">260</option>
+									<option value="5">270</option>
+									<option value="5">280</option>
+									<option value="5">290</option>
+								</select>
+							</div>
+							<label>Status</label>
+							<div class="custom-checkbox">
+								<input type="checkbox" name="detail_status" checked id="detail_status" /> <label
+									for="detail_status"> <span class="active">Active</span> <span
+									class="inactive">Inactive</span>
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-light-secondary"
+							data-bs-dismiss="modal">
+							<i class="bx bx-x d-block d-sm-none"></i> <span
+								class="d-none d-sm-block">취소</span>
+						</button>
+						<button type="button" class="btn btn-primary ms-1"
+							data-bs-dismiss="modal">
+							<i class="bx bx-check d-block d-sm-none"></i> <span
+								class="d-none d-sm-block">등록</span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- 상품 상세 등록 모달 끝 -->
+
+
 	<!-- Basic Tables start -->
 	<section class="section">
 		<div class="card">
@@ -112,46 +242,36 @@
 					<table class="table" id="table1">
 						<thead>
 							<tr>
-								<th>Name</th>
-								<th>Email</th>
-								<th>Phone</th>
-								<th>City</th>
-								<th>Status</th>
-								<th>Action</th>
+								<th style="width: 150px;">상세 번호</th>
+								<th style="width: 150px;">상세 재고</th>
+								<th style="width: 150px;">색상</th>
+								<th style="width: 150px;">사이즈</th>
+								<th style="width: 150px;">판매 유무</th>
+								<th style="width: 150px;">Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="num : ${#numbers.sequence(1,20)}">
-								<td>Graiden</td>
-								<td>vehicula.aliquet@semconsequat.co.uk</td>
-								<td>076 4820 8838</td>
-								<td>Offenburg</td>
+								<td>1001_10</td>
+								<td>200</td>
+								<td>검은색</td>
+								<td>Free</td>
 								<td><span class="badge bg-success">Active</span></td>
 								<td>
 									<div class="card__action">
-										<!-- <a href="#" class="action__btn ml-10"> <svg width="20"
-												height="20" viewBox="0 0 20 20" fill="none"
-												xmlns="http://www.w3.org/2000/svg">
-                                                                <g
-													clip-path="url(#)">
-                                                                    <path
-													d="M0.833984 10C0.833984 10 4.16732 3.33334 10.0007 3.33334C15.834 3.33334 19.1673 10 19.1673 10C19.1673 10 15.834 16.6667 10.0007 16.6667C4.16732 16.6667 0.833984 10 0.833984 10Z"
-													stroke="#667085" stroke-width="2" stroke-linecap="round"
-													stroke-linejoin="round" />
-                                                                    <path
-													d="M10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5Z"
-													stroke="#667085" stroke-width="2" stroke-linecap="round"
-													stroke-linejoin="round" />
-                                                                </g>
-                                                                <defs>
-                                                                    <clipPath>
-                                                                        <rect
-													width="20" height="20" fill="white" />
-                                                                    </clipPath>
-                                                                </defs>
-                                                            </svg>
-										</a>  -->
-										<a href="adminEdit_Product" class="action__btn ml-10"> <svg
+										<button type="button" class="btn btn-outline-success"
+											data-bs-toggle="modal" data-bs-target="#editDetailForm"
+											style="border: 0px;">
+											<svg
+												width="20" height="20" viewBox="0 0 20 20" fill="none"
+												xmlns="http://www.w3.org/2000/svg" style="vertical-align: baseline;">
+                                                <path
+													d="M14.166 2.49999C14.3849 2.28112 14.6447 2.1075 14.9307 1.98905C15.2167 1.8706 15.5232 1.80963 15.8327 1.80963C16.1422 1.80963 16.4487 1.8706 16.7347 1.98905C17.0206 2.1075 17.2805 2.28112 17.4993 2.49999C17.7182 2.71886 17.8918 2.97869 18.0103 3.26466C18.1287 3.55063 18.1897 3.85713 18.1897 4.16665C18.1897 4.47618 18.1287 4.78268 18.0103 5.06865C17.8918 5.35461 17.7182 5.61445 17.4993 5.83332L6.24935 17.0833L1.66602 18.3333L2.91602 13.75L14.166 2.49999Z"
+													stroke="#667085" stroke-width="1.66667"
+													stroke-linecap="round" stroke-linejoin="round" />
+                                           </svg>
+                                        </button>
+										<!-- <a href="adminEdit_Product" class="action__btn ml-10"> <svg
 												width="20" height="20" viewBox="0 0 20 20" fill="none"
 												xmlns="http://www.w3.org/2000/svg">
                                                                 <path
@@ -159,7 +279,7 @@
 													stroke="#667085" stroke-width="1.66667"
 													stroke-linecap="round" stroke-linejoin="round" />
                                                             </svg>
-										</a>
+										</a> -->
 										<button type="button" class="action__btn ml-10">
 											<svg width="18" height="20" viewBox="0 0 18 20" fill="none"
 												xmlns="http://www.w3.org/2000/svg">
@@ -178,6 +298,101 @@
 			</div>
 		</div>
 
+		<!-- 상품 상세 등록 모달 -->
+		<div class="modal fade text-left" id="editDetailForm" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+			<div
+				class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+				role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel33">상품 상세 수정</h4>
+						<button type="button" class="close" data-bs-dismiss="modal"
+							aria-label="Close">
+							<i data-feather="x"></i>
+						</button>
+					</div>
+					<form action="#" class="form__wrapper">
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="product_no">상품 번호</label> <input type="text"
+									name="product_no" id="product_no" class="form-control"
+									placeholder="상품 번호" />
+							</div>
+							<div class="flex__form c-2">
+								<div class="form-group">
+									<label for="product_detail_no">상품 상세 번호</label> <input
+										type="text" name="product_detail_no" id="product_detail_no"
+										class="form-control" placeholder="상품 상세 번호" />
+								</div>
+
+								<div class="form-group">
+									<label for="product_detail_no">상품 상세 재고</label> <input
+										type="text" name="product_detail_sto" id="product_detail_sto"
+										class="form-control" placeholder="상품 상세 재고" />
+								</div>
+
+								<div class="input-group mb-3">
+									<label class="input-group-text" for="inputGroupSelect01"
+										style="margin: 0; padding-left: 26px; padding-right: 26px">
+										색상</label> <select class="form-select" id="inputGroupSelect01">
+										<option selected>Choose...</option>
+										<option value="1">검은색</option>
+										<option value="2">흰색</option>
+										<option value="3">파란색</option>
+										<option value="4">초록색</option>
+										<option value="5">노란색</option>
+										<option value="5">빨간색</option>
+									</select>
+								</div>
+
+								<div class="input-group mb-3">
+									<label class="input-group-text" for="inputGroupSelect02"
+										style="margin: 0; padding-left: 20px; padding-right: 20px">
+										사이즈</label> <select class="form-select" id="inputGroupSelect02">
+										<option selected>Choose...</option>
+										<option value="1">xs</option>
+										<option value="2">s</option>
+										<option value="3">m</option>
+										<option value="4">l</option>
+										<option value="5">xl</option>
+										<option value="5">free</option>
+										<option value="5">220</option>
+										<option value="5">230</option>
+										<option value="5">240</option>
+										<option value="5">250</option>
+										<option value="5">260</option>
+										<option value="5">270</option>
+										<option value="5">280</option>
+										<option value="5">290</option>
+									</select>
+								</div>
+								<label>Status</label>
+								<div class="custom-checkbox">
+									<input type="checkbox" name="detail_edit_status" checked
+										id="detail_edit_status" /> <label for="detail_edit_status"> <span
+										class="active">Active</span> <span class="inactive">Inactive</span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-light-secondary"
+								data-bs-dismiss="modal">
+								<i class="bx bx-x d-block d-sm-none"></i> <span
+									class="d-none d-sm-block">취소</span>
+							</button>
+							<button type="button" class="btn btn-primary ms-1"
+								data-bs-dismiss="modal">
+								<i class="bx bx-check d-block d-sm-none"></i> <span
+									class="d-none d-sm-block">등록</span>
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- 상품 상세 등록 모달 끝 -->
 	</section>
 	<!-- Basic Tables end -->
 
