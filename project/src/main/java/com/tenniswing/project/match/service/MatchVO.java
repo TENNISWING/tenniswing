@@ -9,12 +9,15 @@ public class MatchVO {
 	private int matchNo;
 	private String memNo;
 	private Date matchDate;
-	private Date Time;
+	private int Time;
 	private String gameWay;
+	private String gameWayName;
 	private String progState;
 	private String ntrp;
 	private String lv;
+	private String lvName;
 	private String gen;
+	private String genName;
 	private int crtUseAmt;
 	private int recruitPsnNum;
 	private String detailCtt;
@@ -29,9 +32,12 @@ public class MatchVO {
 	private int contAttendCost;
 	
 	private int rsPrice;
-		
+	
+	private int page;
+	
 	private String crtroomName;
 	private String crtroomLocation;
+	private String crtroomLocationName;
 	
 	private int clubMatchRecruitPsnNum;
 	private Date matchRecruitWriteDate;
