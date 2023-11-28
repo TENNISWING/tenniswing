@@ -1,7 +1,14 @@
 package com.tenniswing.project.member.web;
 
+import java.util.Collection;
+import java.util.Iterator;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +24,9 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	HttpSession httpSession;
 
 	// 로그인 폼 이동
 	@GetMapping("loginform")
@@ -34,6 +44,18 @@ public class MemberController {
 	@GetMapping("hostsignup")
 	public String hostSignupPage(Model model) {
 		return "member/hostsignup";
+	}
+	
+	// 아이디찾기 폼 이동
+	@GetMapping("forgotid")
+	public String forgotIdPage(Model model) {
+		return "member/forgotid";
+	}
+	
+	// 패스워드찾기 폼 이동
+	@GetMapping("forgotpw")
+	public String fortgotPwPage(Model model) {
+		return "member/forgotpw";
 	}
 
 	// 아이디 중복 체크
@@ -67,6 +89,25 @@ public class MemberController {
 	// 마이페이지 이동
 	@GetMapping("mypage")
 	public String mypagePage(Model model) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		Iterator<? extends GrantedAuthority> iter = authorities.iterator();
+		GrantedAuthority auth = iter.next();
+		String role = auth.getAuthority();
+		
+		httpSession.setAttribute("member", id);		
+		
+		model.addAttribute("id", id);
+		model.addAttribute("role", role);
+		
+		if(role.equals("ROLE_ADMIN")) {
+			return "redirect:admin";
+		}else if(role.equals("ROLE_HOST")) {
+			return "redirect:host";
+		}
+		
 		return "member/mypage";
 	}
 

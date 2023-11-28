@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main-layout}">
+
+<th:block layout:fragment="content">
+
+	<!-- forgotpw form -->
+	<div class="d-inline-flex justify-content-center">
+		<div class="text-center mb-5 p-3">
+			<div class="row">
+				<div class="card-header">
+					<a href="/">
+						<h3 class="text-center mt-2 mb-4">비밀번호 찾기</h3>
+					</a>
+				</div>
+				<div class="p-5 border border-success-subtle mb-5">
+					<div th:if="${param.error}" class="text-danger mb-2">로그인을
+						실패하였습니다. 다시 입력해 주세요.</div>
+					<div class="col-12 text-start">
+						<label for="memId">아이디(이메일)</label><br>
+						<div class="input-group mb-3">
+							<input type="text" class="form-control is-invalid"
+								placeholder="숫자만 입력 해주세요" aria-describedby="phoneNoBtn"
+								id="memId" name="memId" maxlength="11" required>
+							<button class="btn btn-success" type="button" id="memIdBtn">아이디입력</button>
+						</div>
+					</div>
+					<div class="col-12 text-start">
+						<label for="phoneNo">휴대폰 번호</label><br>
+						<div class="input-group mb-3">
+							<input type="text" class="form-control is-invalid"
+								placeholder="숫자만 입력 해주세요" aria-describedby="phoneNoBtn"
+								id="phoneNo" name="phoneNo" maxlength="11" required>
+							<button class="btn btn-success" type="button" id="phoneNoBtn">인증하기</button>
+						</div>
+					</div>
+					<div class="col-12 text-start">
+						<label for="certNo">인증 번호</label><br>
+						<div class="input-group mb-3">
+							<input type="text" class="form-control is-invalid" placeholder="숫자만 입력 해주세요"
+								id="certNo" name="certNo" maxlength="11" required>
+							<button class="btn btn-success" type="button" id="certNoBtn">확인</button>
+						</div>
+					</div>
+					
+					<div>
+						<div class="col-12" hidden="true">
+							<label for="pwd">수정 비밀번호</label><br>
+							<div class="input-group mb-3">
+								<input type="password" class="form-control is-invalid"
+									placeholder="비밀번호 8자리이상" aria-describedby=pwview id="pwd"
+									name="pwd" pattern=".{8,50}" title="최소8자리입력해주세요" required>
+								<button class="btn btn-success" type="button" id="pwview">
+									<i class="fa-regular fa-eye-slash"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button class="btn btn-success" type="button"
+							th:onclick="|location.href='@{/loginform}'|">돌아가기</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- End forgotpw form -->
+</th:block>
+
+</html>

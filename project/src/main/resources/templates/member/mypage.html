@@ -1,13 +1,129 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/main-layout}">
 
 <th:block layout:fragment="content">
 
-	<!-- signup form -->
-	<div class="container text-center">
-		마이페이지
+	<div class="user__dashboard">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div th:replace="/member/mypage-sidemenu :: sidemenu"></div>
+				</div>
+				<div class="col-lg-9">
+					<div class="main__wrapper">
+						<!-- Profile Table Start -->
+						<div class="cart__form">
+							<table>
+								<thead>
+									<tr>
+										<th class="cart-pd__thumb">Product</th>
+										<th class="cart-pd__qty">Quantity</th>
+										<th class="cart-pd__price">Price</th>
+										<th class="cart-pd__status">Status</th>
+										<th class="cart-pd__date text-start">Date</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="cart-pd__thumb">
+											<div class="product-card--inline">
+												<a href="product-single.html" class="product__image"> <img
+													src="assets/images/cart/cart-01.png" alt="product" />
+												</a>
+												<div class="product__content">
+													<h5 class="product__title">
+														<a href="#">Italian Chicken Meatballs</a>
+													</h5>
+													<ul class="product__info">
+														<li class="info-item">Color: <span>Red</span></li>
+														<li class="info-item">Size: <span>M</span></li>
+													</ul>
+												</div>
+											</div>
+										</td>
+										<td class="cart-pd__qty" data-title="Quantity">2</td>
+										<td class="cart-pd__Price" data-title="Price">$12.22</td>
+										<td class="cart-pd__status" data-title="Status">
+											<div class="status">Processing</div>
+										</td>
+										<td class="cart-pd__date text-start" data-title="Date">
+											Order on <br /> 25 April 2022
+										</td>
+									</tr>
+									<tr>
+										<td class="cart-pd__thumb">
+											<div class="product-card--inline">
+												<a href="product-single.html" class="product__image"> <img
+													src="assets/images/cart/cart-05.png" alt="product" />
+												</a>
+												<div class="product__content">
+													<h5 class="product__title">
+														<a href="#">Strawberry Fresh Ice-Cream</a>
+													</h5>
+													<ul class="product__info">
+														<li class="info-item">Flavor: <span>Berry</span></li>
+													</ul>
+												</div>
+											</div>
+										</td>
+										<td class="cart-pd__qty" data-title="Quantity">2</td>
+										<td class="cart-pd__Price" data-title="Price">$12.22</td>
+										<td class="cart-pd__status" data-title="Status">
+											<div class="status">Processing</div>
+										</td>
+										<td class="cart-pd__date text-start" data-title="Date">
+											Order on <br /> 25 April 2022
+										</td>
+									</tr>
+									<tr>
+										<td class="cart-pd__thumb">
+											<div class="product-card--inline">
+												<a href="product-single.html" class="product__image"> <img
+													src="assets/images/cart/cart-03.png" alt="product" />
+												</a>
+												<div class="product__content">
+													<h5 class="product__title">
+														<a href="#">All Natural Blueberries </a>
+													</h5>
+													<ul class="product__info">
+														<li class="info-item">Weight: <span>5kg</span></li>
+													</ul>
+												</div>
+											</div>
+										</td>
+										<td class="cart-pd__qty" data-title="Quantity">2</td>
+										<td class="cart-pd__Price" data-title="Price">$12.22</td>
+										<td class="cart-pd__status" data-title="Status">
+											<div class="status">To Ship</div>
+										</td>
+										<td class="cart-pd__date text-start" data-title="Date">
+											Order on <br /> 25 April 2022
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- Profile Card End -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+id : [[${id}]] role : [[${role}]]
+
+			<button class="btn btn-success" type="button"
+		th:onclick="|location.href='@{/logout}'|">로그아웃</button>
+
 	</div>
+
+
+			
+
+
+
+
 </th:block>
 
 </html>

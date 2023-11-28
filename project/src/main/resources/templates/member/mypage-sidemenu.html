@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="sidemenu">
+
+	<!-- SideBar start -->
+	<div class="d-flex align-items-center mb-3">
+		<div class="avatar avatar-xl">
+			<img src="/assets/compiled/jpg/1.jpg" alt="Face 1">
+		</div>
+		<div class="ms-3 name">
+			<h5 class="font-bold">John Duck</h5>
+			<h6 class="text-muted mb-0">@johnducky</h6>
+		</div>		
+	</div>
+	<div class="container text-center mb-5">
+		<button type="button" class="btn btn-success">프로필 보기</button>
+		<div class="row">
+			<div class="col-6">매너</div>
+			<div class="col-6">rtp</div>
+		</div>
+	</div>
+	
+	<div class="sideBar">
+
+		<!-- NavItem Start -->
+		<ul class="nav__item">
+			<!-- Navlist Start -->
+			<li class="nav__list"><a href="profile.html"> <span
+					class="nav-item">매치이력</span>
+			</a></li>
+		</ul>
+		<ul class="nav__item">
+			<!-- Navlist Start -->
+			<li class="nav__list"><a href="#"> <span class="nav-item">Support</span>
+			</a></li>
+		</ul>
+	</div>
+	<!-- SideBar end -->
+</th:block>
+
+</html>
