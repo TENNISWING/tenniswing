@@ -15,6 +15,7 @@ public class CrtroomVO {
 	private String crtroomName;
 	private String crtroomExp;
 	private String crtroomRegion;
+	private String crtroomRegionName;
 	private String crtroomLocation;
 	private String crtroomOperateStartTime;
 	private String crtroomOperateEndTime;
@@ -25,7 +26,7 @@ public class CrtroomVO {
 	private Date crtroomRegiDate;
 	
 	private int crtCount;
-	
+	private int minPrice;
 	// 코트 상세 테이블
 	private List<CrtDetailVO> crtDetailList;
 	

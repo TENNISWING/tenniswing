@@ -29,11 +29,13 @@ public class CourtController {
 
 		@GetMapping("court")  
 		public String courtPage(Model model) { 			
+			model.addAttribute("courtList", courtroomService.selectAllCourtroomMain());
 			return "court/court";
 		}
 		
 		@GetMapping("courtDetail")  
-		public String courtDetailPage(Model model) { 			
+		public String courtDetailPage(CrtroomVO crtroomVO, Model model) { 
+			model.addAttribute("courtDetail", courtroomService.selectCourtroom(crtroomVO));
 			return "court/courtDetail";
 		}
 		

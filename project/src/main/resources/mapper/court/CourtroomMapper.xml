@@ -4,7 +4,39 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
   <mapper namespace="com.tenniswing.project.court.mapper.CourtroomMapper">
+  	<!-- 사용자 -->
+  	<!-- 전체조회 -->
+  	<select id="selectAllCourtroomMain" resultType="crtroomVO">
+  		SELECT c.crtroom_no
+  				, c.host_id
+  				, c.crtroom_name
+  				, c.crtroom_exp
+  				, c.crtroom_region
+  				, c.crtroom_location
+  				, c.crtroom_operate_start_time
+  				, c.crtroom_operate_end_time
+  				, c.crtroom_caution
+  				, c.crtroom_use_guide
+  				, c.crtroom_regi_date
+  				, FIND_CATEGORY_NAME(c.crtroom_region) crtroom_region_name
+                , MIN(d.crt_use_price) min_price
+  		FROM crtroom c JOIN crt_detail_inf d
+                       ON c.crtroom_no = d.crtroom_no
+        GROUP BY c.crtroom_no
+                , c.host_id
+  				, c.crtroom_name
+  				, c.crtroom_exp
+  				, c.crtroom_region
+  				, c.crtroom_location
+  				, c.crtroom_operate_start_time
+  				, c.crtroom_operate_end_time
+  				, c.crtroom_caution
+  				, c.crtroom_use_guide
+  				, c.crtroom_regi_date
+  		ORDER BY 1
+  	</select>
   	
+  	<!-- 호스트 -->
   	<!--  전체조회 -->
   	<select id="selectAllCourtroom" resultType="crtroomVO">
   		SELECT cr.crtroom_no
@@ -18,7 +50,7 @@
   				, cr.crtroom_caution
   				, cr.crtroom_use_guide
   				, cr.crtroom_regi_date
-                , count(cdi.crt_detail_no) crtCount
+                , count(cdi.crt_detail_no) crt_count
   		FROM crtroom cr LEFT OUTER JOIN crt_detail_inf cdi
   						ON cr.crtroom_no = cdi.crtroom_no
   		GROUP BY cr.crtroom_no
@@ -51,8 +83,20 @@
   				, cr.crtroom_caution
   				, cr.crtroom_use_guide
   				, cr.crtroom_regi_date
-  		FROM crtroom cr
-  		WHERE cr.crtroom_no = #{crtroomNo}
+  				, MIN(cdi.crt_use_price) min_price
+  		FROM crtroom cr JOIN crt_detail_inf cdi
+  						ON cr.crtroom_no = cdi.crtroom_no
+  		GROUP BY cr.crtroom_no
+  				, cr.crtroom_name
+  				, cr.crtroom_exp
+  				, cr.crtroom_region
+  				, cr.crtroom_location
+  				, cr.crtroom_operate_start_time
+  				, cr.crtroom_operate_end_time
+  				, cr.crtroom_caution
+  				, cr.crtroom_use_guide
+  				, cr.crtroom_regi_date
+  		HAVING cr.crtroom_no = #{crtroomNo}
   	</select>
   	<select id="selectCourtDetail" resultType="crtDetailVO">
   		SELECT CRT_DETAIL_NO
