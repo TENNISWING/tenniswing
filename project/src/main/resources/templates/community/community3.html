@@ -51,7 +51,8 @@
 					  <!-- Additional required wrapper -->
 					  <div class="swiper-wrapper">
 					    <!-- Slides -->
-					    <div class="swiper-slide" th:each="s : ${snsList}">
+					    <th:block th:each="s : ${snsList}">
+					    <div class="swiper-slide">
 					    <section id="content-types" style="height:900px">
 								<div class="row">
 									<div class="snsdiv col-xl-12 border border-1 rounded-4">
@@ -101,7 +102,7 @@
 														</div>[[${s.likeCnt}]]</li>
 													<li class="d-flex flex-column ss"><div>
 															<a class="btn icon btn-white"
-																data-bs-toggle="modal" data-bs-target="#large"> <i
+																data-bs-toggle="modal" data-bs-target="#large" th:data-snsid="${s.snsWrtNo}"> <i
 																class="fa-solid fa-comment fs-5 text-secondary" th:id="${sStat.count}"></i></a>
 														</div></li>
 													<li class="d-flex flex-column"><div>
@@ -137,6 +138,7 @@
 								</div><!-- 슬라이더 안 row End -->
 							</section>
 					    </div>
+					    </th:block>
 
 
 					  </div>
@@ -229,15 +231,15 @@
 												<th></th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr th:each="num : ${#numbers.sequence(1,5)}">
+										<tbody id = "replyList">
+										<!-- 	<tr th:each="num : ${#numbers.sequence(1,5)}">
 												<td>Graiden</td>
 												<td>vehicula.aliquet@semconsequat.co.uk</td>
 												<td>076 4820 8838</td>
 												<td><i type="button"
 													class="fa-regular fa-pen-to-square"></i> <i type="button"
 													class="fa-regular fa-trash-can"></i></td>
-											</tr>
+											</tr> -->
 
 										</tbody>
 
@@ -373,35 +375,35 @@
 
 			})
 		}); */
-		$('.myRepList').on('show.bs.modal', function(e){
-			event.preventDefault();
-			//let btnId = $(e.target).prop('id');
-			let myRep = $(e.relatedTarget).data();
-			console.log(btnId)
-			//repList = $(e.relatedTarget).data('');
+	 $('.myRepList').on('show.bs.modal', function(e){
+		 
+		 console.log(e.relatedTarget); // 이번호를 아작스 통신의 데이터로 넘겨준다.
+		 let snsWrtNo = $(e.relatedTarget).attr('data-snsid');
+		 
 			$.ajax({
 				type: 'GET',
 				url:'snsRep',
-				data:{ snsWrtNo: btnId },
+				data: {snsWrtNo},
 				   success: function(data) {
-			            for(let matchInfo of data){
-			               let b = `<tr class="navbar-brand" onclick="|location.href='/matchdetail?matchNo=${matchInfo.matchNo})}'">
-			               <td class="text-center"><b>${matchInfo.time}</b></td>
-			               <td>${matchInfo.gameWayName}</td>
-			               <td>${matchInfo.genName}</td>
-			               <td>${matchInfo.lvName}</td>
-			               <td>${matchInfo.crtroomLocationName}</td>
-			               <td class="text-end">
-			                  <button type="button" class="btn btn-primary matchbtn1" onclick="location.href='/matchdetail?'">${matchInfo.matchNo}</button>
-			               </td>
-			            </tr>`
-			               $('.myRepList').append(b)
+					   console.log(data);
+					   
+			            for(let repList of data){
+			               let b = `<tr>
+								<td>${repList.name}</td>
+								<td>${repList.snsRepCtt}</td>
+								<td>${new Date(repList.snsRepWriteDate).toLocaleDateString()}</td>
+								<td><i type="button"
+									class="fa-regular fa-pen-to-square"></i> <i type="button"
+									class="fa-regular fa-trash-can"></i></td>
+							</tr>`
+			               $('#replyList').append(b)
 			            }
+						
 			         }
 
 			})
 		});
-		
+	
 	</script>
 </th:block>
 

@@ -9,7 +9,7 @@
   		<collection property="attachList" javaType="ArrayList" column="sns_wrt_no" ofType="AttachVO" select="selectSnsAttach"></collection>
   	</resultMap>
   	<select id="selectAllSnsInfo" resultMap="snsResult">
-	select s.sns_wrt_no
+	select s.sns_wrt_no as snsWrtNo
 			   , s.sns_title
   			   , s.sns_ctt
   			   , s.sns_write_date

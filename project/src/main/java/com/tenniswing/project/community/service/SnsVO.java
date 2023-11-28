@@ -23,6 +23,7 @@ public class SnsVO {
 	private String memNo;
 	private String name;
 	private int snsGrpNo;
+	private int test;
 	
 	//sns 좋아요
 	private int likeNo;

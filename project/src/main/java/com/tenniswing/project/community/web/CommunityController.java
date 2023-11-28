@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tenniswing.project.community.service.SnsRepService;
 import com.tenniswing.project.community.service.SnsRepVO;
 import com.tenniswing.project.community.service.SnsService;
+import com.tenniswing.project.community.service.SnsVO;
 
 @Controller
 public class CommunityController {
@@ -25,6 +26,8 @@ public class CommunityController {
 		// SNS 메인
 		@GetMapping("sns")
 		public String snsListPage(Model model) {
+			List<SnsVO> list = snsService.selectAllSnsInfo();
+			System.out.println("list 찍어봄 ::: " + list);
 			model.addAttribute("snsList", snsService.selectAllSnsInfo());
 			return "community/community3";
 		}
