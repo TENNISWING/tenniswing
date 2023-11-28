@@ -70,61 +70,67 @@
 									<div class="dashboard-block__title">
 										<h4>Basic info</h4>
 									</div>
-									<div class="form__wrapper form-padding">
-										<div class="flex__form c-3">
-											<div class="form-group">
-												<label for="product_no">상품 번호</label> <input type="text"
-													name="product_no" id="product_no" class="form-control"
-													placeholder="상품 번호 불러오기" value="상품 번호" disabled="disabled" />
+										<div class="form__wrapper form-padding">
+											<div class="flex__form c-3">
+												<div class="form-group">
+													<label for="product_no">상품 번호</label> <input type="text"
+														name="product_no" id="product_no" class="form-control"
+														placeholder="상품 번호 불러오기" th:value="${prod.prodNo}" readonly="readonly"/>
+												</div>
+												<div class="form-group">
+													<label for="product_name">상품 이름</label> <input type="text"
+														name="product_name" id="product_name" class="form-control"
+														placeholder="상품 이름 불러오기" th:value="${prod.prodName}" readonly="readonly"/>
+												</div>
+												<div class="form-group">
+													<label for="product_brand">상품 브랜드</label> <input type="text"
+														name="product_brand" id="product_brand"
+														class="form-control" placeholder="상품 브랜드" th:value="${prod.prodBrand}"
+														readonly="readonly" />
+												</div>
 											</div>
-											<div class="form-group">
-												<label for="product_name">상품 이름</label> <input type="text"
-													name="product_name" id="product_name" class="form-control"
-													placeholder="상품 이름 불러오기" value="상품 이름" disabled="disabled" />
+											<div class="flex__form c-3">
+												<div class="form-group">
+													<label for="product_total">상품 총 재고</label> <input
+														type="text" name="product_total" id="product_total"
+														class="form-control" placeholder="상품 재고 불러오기"
+														th:value="${prod.prodTSto}" readonly="readonly" />
+												</div>
+												<div class="form-group">
+													<label for="product_category">상품 카테고리</label> <input
+														type="text" name="product_category" id="product_category"
+														class="form-control" placeholder="상품 카테고리 불러오기"
+														th:value="${prod.cateProd}" readonly="readonly" />
+												</div>
+												<div class="form-group">
+													<label for="product_gender">상품 성별</label> <input type="text"
+														name="product_gender" id="product_gender"
+														class="form-control" placeholder="상품 성별" th:value="${prod.cateGen}"
+														readonly="readonly" />
+												</div>
 											</div>
-											<div class="form-group">
-												<label for="product_brand">상품 브랜드</label> <input type="text"
-													name="product_brand" id="product_brand"
-													class="form-control" placeholder="상품 브랜드" value="상품 브랜드"
-													disabled="disabled" />
+											<div class="form-group mb-0">
+												<div class="form-group">
+													<label for="description">상품 설명</label>
+													<textarea name="description" class="form-control"
+														id="description" cols="30" rows="4"
+														readonly>[[ ${prod.prodExp} ]]</textarea>
+												</div>
+												<label>Status</label>
+												<div class="custom-checkbox">
+													<th:block th:if="${prod.prodExp} == 'p1'">													
+														<input type="checkbox" name="status" id="statuss" checked="checked"/>
+													</th:block>
+													<th:block th:unless="${prod.prodExp} == 'p1'">
+														<input type="checkbox" name="status" id="statuss" />
+													</th:block>
+													<label for="statuss"> 
+														<span class="active">Active</span>
+														<span class="inactive">Inactive</span>
+													</label>
+												</div>
 											</div>
 										</div>
-										<div class="flex__form c-3">
-											<div class="form-group">
-												<label for="product_total">상품 총 재고</label> <input
-													type="text" name="product_total" id="product_total"
-													class="form-control" placeholder="상품 재고 불러오기"
-													value="상품 총 재고" disabled="disabled" />
-											</div>
-											<div class="form-group">
-												<label for="product_category">상품 카테고리</label> <input
-													type="text" name="product_category" id="product_category"
-													class="form-control" placeholder="상품 카테고리 불러오기"
-													value="상품 카테고리" disabled="disabled" />
-											</div>
-											<div class="form-group">
-												<label for="product_gender">상품 성별</label> <input type="text"
-													name="product_gender" id="product_gender"
-													class="form-control" placeholder="상품 성별" value="상품 성별"
-													disabled="disabled" />
-											</div>
-										</div>
-										<div class="form-group mb-0">
-											<div class="form-group">
-												<label for="description">상품 설명</label>
-												<textarea name="description" class="form-control"
-													id="description" cols="30" rows="4"
-													placeholder="Write about your product description briefly"></textarea>
-											</div>
-											<label>Status</label>
-											<div class="custom-checkbox">
-												<input type="checkbox" name="status" checked id="statuss" />
-												<label for="statuss"> <span class="active">Active</span>
-													<span class="inactive">Inactive</span>
-												</label>
-											</div>
-										</div>
-									</div>
 								</div>
 							</div>
 						</div>

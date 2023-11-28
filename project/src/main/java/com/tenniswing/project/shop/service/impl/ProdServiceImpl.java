@@ -16,14 +16,16 @@ public class ProdServiceImpl implements ProdService{
 	@Autowired
 	ProdMapper prodMapper;
 	
+//	전체 조회
 	@Override
 	public List<ProdVO> selectAllProd() {
-		return null;
+		return prodMapper.selectAllProd();
 	}
 
+//	단건 조회
 	@Override
 	public ProdVO selectProd(ProdVO prodVO) {
-		return null;
+		return prodMapper.selectProd(prodVO);
 	}
 
 //	등록
@@ -35,7 +37,6 @@ public class ProdServiceImpl implements ProdService{
 		}
 		
 		int result = prodMapper.insertProd(prodVO);
-		
 		if(result == 1) {
 			return prodVO.getProdNo(); 
 		}

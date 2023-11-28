@@ -14,12 +14,21 @@ import com.tenniswing.project.shop.service.ProdVO;
 public class AdminController {
 	@Autowired
 	ProdService prodService;
-
+	
+	// 상품 목록
 	@GetMapping("admin_Product")
 	public String adminProductPage(Model model) {
+		model.addAttribute("prodList", prodService.selectAllProd());
 		return "admin/admin_Product";
 	}
 
+	// 한건 조회
+	@GetMapping("adminDetail_Product")
+	public String adminDetailProductPage(Model model, ProdVO prodVO) {
+		model.addAttribute("prod", prodService.selectProd(prodVO));
+		return "admin/adminDetail_Product";
+	}
+	
 	// 등록
 	@GetMapping("adminAdd_Product")
 	public String adminAddProductPage(Model model) {
@@ -31,20 +40,23 @@ public class AdminController {
 	@PostMapping("adminAdd_Product")
 	public String adminAddProductProcess(ProdVO prodVO, RedirectAttributes rttr) {
 		prodService.insertProd(prodVO);
+		rttr.addAttribute("prodNo", prodVO.getProdNo());
 		
-		
-		return "admin/adminAdd_Product";
+		return "redirect:adminDetail_Order";
 	}
-
+	
+	// 수정
 	@GetMapping("adminEdit_Product")
-	public String adminEditProductPage(Model model) {
+	public String adminEditProductPage(Model model, ProdVO prodVO) {
+		model.addAttribute("prod", prodService.selectProd(prodVO));
 		return "admin/adminEdit_Product";
 	}
 
-	@GetMapping("adminDetail_Product")
-	public String adminDetailProductPage(Model model) {
-		return "admin/adminDetail_Product";
-	}
+	//
+	/*
+	 * @GetMapping("adminDetail_Product") public String adminDetailProductPage(Model
+	 * model) { return "admin/adminDetail_Product"; }
+	 */
 
 	@GetMapping("admin_Order")
 	public String adminOrderPage(Model model) {
