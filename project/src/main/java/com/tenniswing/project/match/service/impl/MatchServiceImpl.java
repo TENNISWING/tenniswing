@@ -15,8 +15,8 @@ public class MatchServiceImpl implements MatchService {
 	@Autowired MatchMapper matchMapper;
 
 	@Override
-	public List<MatchVO> selectAllMatch() {
-		return matchMapper.selectAllMatch();
+	public List<MatchVO> selectAllMatch(MatchVO matchVO) {
+		return matchMapper.selectAllMatch(matchVO);
 	}
 
 	@Override
@@ -26,12 +26,12 @@ public class MatchServiceImpl implements MatchService {
 
 	@Override
 	public List<MatchVO> selectAllContMatch() {
-		return null;
+		return matchMapper.selectAllContMatch();
 	}
 
 	@Override
 	public List<MatchVO> selectAllStarterMatch() {
-		return null;
+		return matchMapper.selectAllStarterMatch();
 	}
 
 	@Override
@@ -46,12 +46,12 @@ public class MatchServiceImpl implements MatchService {
 
 	@Override
 	public MatchVO selectContMatch(MatchVO matchVO) {
-		return null;
+		return matchMapper.selectContMatch(matchVO);
 	}
 
 	@Override
 	public MatchVO selectStarterMatch(MatchVO matchVO) {
-		return null;
+		return matchMapper.selectStarterMatch(matchVO);
 	}
 
 	@Override
@@ -61,17 +61,17 @@ public class MatchServiceImpl implements MatchService {
 
 	@Override
 	public int insertClubMatch(MatchVO matchVO) {
-		return 0;
+		return matchMapper.insertClubMatch(matchVO);
 	}
 
 	@Override
 	public int insertContMatch(MatchVO matchVO) {
-		return 0;
+		return matchMapper.insertContMatch(matchVO);
 	}
 
 	@Override
 	public int insertStarterMatch(MatchVO matchVO) {
-		return 0;
+		return matchMapper.insertStarterMatch(matchVO);
 	}
 
 	@Override
@@ -81,17 +81,17 @@ public class MatchServiceImpl implements MatchService {
 
 	@Override
 	public int updateClubMatch(MatchVO matchVO) {
-		return 0;
+		return matchMapper.updateClubMatch(matchVO);
 	}
 
 	@Override
 	public int updateContMatch(MatchVO matchVO) {
-		return 0;
+		return matchMapper.updateContMatch(matchVO);
 	}
 
 	@Override
 	public int updateStarterMatch(MatchVO matchVO) {
-		return 0;
+		return matchMapper.updateStarterMatch(matchVO);
 	}
 
 	@Override
@@ -101,17 +101,17 @@ public class MatchServiceImpl implements MatchService {
 
 	@Override
 	public int deleteClubMatch(MatchVO matchVO) {
-		return 0;
+		return matchMapper.deleteClubMatch(matchVO);
 	}
 
 	@Override
 	public int deleteContMatch(MatchVO matchVO) {
-		return 0;
+		return matchMapper.deleteContMatch(matchVO);
 	}
 
 	@Override
 	public int deleteStarterMatch(MatchVO matchVO) {
-		return 0;
+		return matchMapper.deleteStarterMatch(matchVO);
 	}
 	
 	

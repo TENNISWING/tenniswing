@@ -237,11 +237,11 @@
 			<!-- Default Table -->
 			<table class="table">
 				<tbody>
-					<tr class="navbar-brand" th:each="matchInfo, stat:${matchList}" th:onclick="|location.href='@{/matchdetail(matchNo=${matchInfo.matchNo})}'|">
-						<td class="text-center"><b>[[${#dates.format(matchInfo.Time, 'HH : mm')}]]</b></td>
-						<td >[[${matchInfo.gameWay}]]</td>
+					<tr class="navbar-brand" th:each="starterMatchInfo, stat:${starterMatchList}" th:onclick="|location.href='@{/startermatchdetail(matchNo=${starterMatchInfo.matchNo})}'|">
+						<td class="text-center"><b>[[${#dates.format(starterMatchInfo.Time, 'HH : mm')}]]</b></td>
+						<td >구장명 ?</td>
 						<td class="text-end">
-							<button type="button" class="btn btn-primary matchbtn1" th:onclick="|location.href='@{matchdetail}'|">[[${matchInfo.matchNo}]]</button>
+							<button type="button" class="btn btn-primary matchbtn1" th:onclick="|location.href='@{startermatchdetail}'|">[[${starterMatchInfo.matchNo}]]</button>
 						</td>
 					</tr>
 				</tbody>
@@ -251,11 +251,12 @@
 					<li class="page-item disabled"><a class="page-link" href="#"
 						tabindex="-1" aria-disabled="true">이전</a></li>
 					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
 					<li class="page-item"><a class="page-link" href="#">다음</a></li>
 				</ul>
 			</div>
+			<script>
+			
+			</script>
 		</div>
 	</div>
 	<!-- End match table -->

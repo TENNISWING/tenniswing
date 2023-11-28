@@ -6,7 +6,7 @@ import com.tenniswing.project.match.service.MatchVO;
 
 public interface MatchMapper {
 	//전체조회
-	public List<MatchVO> selectAllMatch();
+	public List<MatchVO> selectAllMatch(MatchVO matchVO);
 	public List<MatchVO> selectAllClubMatch();
 	public List<MatchVO> selectAllContMatch();
 	public List<MatchVO> selectAllStarterMatch();	

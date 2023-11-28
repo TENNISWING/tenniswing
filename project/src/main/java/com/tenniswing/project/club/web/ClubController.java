@@ -18,17 +18,19 @@ public class ClubController {
 
 // --------------------------------------- 메인	
 	@GetMapping("club")  
-	public String clubPage(Model model) { 		
+	public String clubPage(Model model) { 
+		model.addAttribute("clubList", clubService.selectAllClub());
 		return "club/club";
 	}
 	
 	@GetMapping("clubform")  //등록 페이지
 	public String clubFormPage(Model model) { 	
+	    //처음 입력 폼은 모두 비어져야해서 빈 객체(new new ClubVO()) 전달
 		model.addAttribute("clubVO",new ClubVO());
 		return "club/clubform";
 	}
 	
-	@PostMapping("clubform")
+	@PostMapping("clubform") //등록 프로세스
 	public String insertClubProcess(ClubVO clubVO) {
 		clubService.isnertClub(clubVO);
 		return "redirect:Club";

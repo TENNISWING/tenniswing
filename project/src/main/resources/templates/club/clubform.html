@@ -21,247 +21,243 @@
 	<!-- End club sub menu  -->
 
 	<div class="container">
-		<div class="page-heading email-application overflow-hidden">
-			<div class="page-title">
-				<div class="row">
-					<div class="col-12 col-md-6 order-md-1 order-last">
-						<h3 style="color: black">클럽을 직접 개설하세요</h3>
-						<p class="text-subtitle text-muted">클럽 만들고 함께 테니스를 치세요오오</p>
-						<br>
-					</div>
-					<div class="col-12 col-md-6 order-md-2 order-first">
-						<nav aria-label="breadcrumb"
-							class="breadcrumb-header float-start float-lg-end">
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="index.html">클럽</a></li>
-								<li class="breadcrumb-item active" aria-current="page">클럽 창설</li>
-							</ol>
-						</nav>
+
+		<div class="page-title">
+			<div class="row">
+				<div class="col-12 col-md-6 order-md-1 order-last">
+					<h3 style="color: black">클럽을 직접 개설하세요</h3>
+					<p class="text-subtitle text-muted">클럽 만들고 함께 테니스를 치세요오오</p>
+					<br>
+				</div>
+				<div class="col-12 col-md-6 order-md-2 order-first">
+					<nav aria-label="breadcrumb"
+						class="breadcrumb-header float-start float-lg-end">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="index.html">클럽</a></li>
+							<li class="breadcrumb-item active" aria-current="page">클럽 창설</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			<hr>
+		</div>
+
+		<div class="col-md-12 col-12">
+			<div class="card">
+				<div class="card-content">
+					<div class="card-body">
+						<!-- 클럽 등록 폼 -->
+						<form class="form form-vertical" th:action="@{/clubform}"
+							method="POST" th:object="${clubVO}" enctype="multipart/form-data"
+							data-parsley-validate>
+							<div class="form-body">
+								<div class="row">
+									<div class="form-group mandatory col-10">
+										<label for="formClubName" data-parsley-required="true" class="form-label">클럽명</label>
+										 <input type="text" id="formClubName" class="form-control is-valid"
+											name="formClubName" th:value="${clubName}" placeholder="클럽 이름을 정해주세요">
+									</div>
+									<div class="form-group mandatory col-2">
+										<label for="first-name-vertical" data-parsley-required="true"
+											class="form-label" style="opacity: 0"></label> <a href="#"
+											class="btn btn-outline-secondary" style="display: block;">중복체크</a>
+									</div>
+
+									<div class="form-group mandatory col-10">
+										<label for="formClubCode" data-parsley-required="true"
+											class="form-label">클럽코드</label> <input type="text"
+											id="formClubCode" class="form-control is-valid"
+											name="formClubCode" th:value="${clubCode}"
+											placeholder="클럽 코드예시">
+									</div>
+									<div class="form-group mandatory col-2">
+										<label for="first-name-vertical" data-parsley-required="true"
+											class="form-label" style="opacity: 0"> </label> <a href="#"
+											class="btn btn-outline-secondary" style="display: block;">중복체크</a>
+									</div>
+
+									<div class="col-12">
+										<div class="form-group mandatory">
+											<label for="contact-info-vertical">프로필사진</label> <input
+												type="file" class="image-preview-filepond">
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group mandatory">
+											<label data-parsley-required="true" class="form-label">요일</label>
+											<ul class="list-unstyled mb-0" data-parsley-required="true" th:field="*{clubDay}">
+												<li class="d-inline-block me-2 mb-1" >
+														<div class="checkbox">
+															<input type="checkbox" id="checkbox1"
+																class="form-check-input" value="j1"> <label for="checkbox1">일요일</label>
+														</div>
+												</li>
+												<li class="d-inline-block me-2 mb-1" >
+														<div class="checkbox">
+															<input type="checkbox" id="checkbox2"
+																class="form-check-input" value="j2"> <label for="checkbox2">월요일</label>
+														</div>
+												</li>
+												<li class="d-inline-block me-2 mb-1" >
+														<div class="checkbox">
+															<input type="checkbox" id="checkbox3"
+																class="form-check-input" value="j3"> <label for="checkbox3">화요일</label>
+														</div>
+												</li>
+												<li class="d-inline-block me-2 mb-1" >
+														<div class="checkbox">
+															<input type="checkbox" id="checkbox4"
+																class="form-check-input" value="j4"> <label for="checkbox4">수요일</label>
+														</div>
+												</li>
+												<li class="d-inline-block me-2 mb-1" >
+														<div class="checkbox">
+															<input type="checkbox" id="checkbox5"
+																class="form-check-input" value="j5"> <label for="checkbox5">목요일</label>
+														</div>
+												</li>
+												<li class="d-inline-block me-2 mb-1" >
+														<div class="checkbox">
+															<input type="checkbox" id="checkbox6"
+																class="form-check-input" value="j6"> <label for="checkbox6">금요일</label>
+														</div>
+												</li>
+												<li class="d-inline-block me-2 mb-1" >
+														<div class="checkbox">
+															<input type="checkbox" id="checkbox7"
+																class="form-check-input" value="j7"> <label for="checkbox7">토요일</label>
+														</div>
+												</li>
+												
+											</ul>
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group mandatory">
+											<label data-parsley-required="true" class="form-label">시간</label>
+											<ul class="list-unstyled mb-0" data-parsley-required="true" th:field="*{clubTime}">
+												<li class="d-inline-block me-2 mb-1" >
+														<div class="checkbox">
+															<input type="checkbox" id="checkbox8"
+																class="form-check-input" value="k1"> <label for="checkbox8">오전</label>
+														</div>
+												</li>
+												<li class="d-inline-block me-2 mb-1" >
+														<div class="checkbox">
+															<input type="checkbox" id="checkbox9"
+																class="form-check-input" value="k2"> <label for="checkbox9">오후</label>
+														</div>
+												</li>
+												<li class="d-inline-block me-2 mb-1" >
+														<div class="checkbox">
+															<input type="checkbox" id="checkbox10"
+																class="form-check-input" value="k3"> <label for="checkbox10">저녁</label>
+														</div>
+												</li>
+												<li class="d-inline-block me-2 mb-1" >
+														<div class="checkbox">
+															<input type="checkbox" id="checkbox11"
+																class="form-check-input" value="k4"> <label for="checkbox11">심야</label>
+														</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group ">
+											<label for="exampleFormControlTextarea1" class="form-label">지역</label>
+											<select class="form-control"
+												name="formClubRegion" data-parsley-required="true"
+		                                        th:field="*{clubRegion}">
+												<option value="b1">서울</option>
+	                                            <option value="b2">경기</option>
+	                                            <option value="b3">인천</option>
+	                                            <option value="b4">강원도</option>
+	                                            <option value="b5">전라도</option>
+	                                            <option value="b6">경상도</option>
+	                                            <option value="b7">충청도</option>
+	                                            <option value="b8">제주도</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group ">
+											<label for="exampleFormControlTextarea1" class="form-label">주 코트장</label>
+											 <input type="text" id="formClubName" class="form-control"
+											name="formClubName" th:value="${clubCrt}" placeholder="주로 이용하는 코트장을 입력하세요.">
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group ">
+											<label for="exampleFormControlTextarea1" class="form-label">연령대</label>
+											<select class="form-control" name="formClubAge" 
+											        data-parsley-required="true" th:field="*{clubAge}">
+												<option value="a1">10대</option>
+	                                            <option value="a2">20대</option>
+	                                            <option value="a3">30대</option>
+	                                            <option value="a4">40대</option>
+	                                            <option value="a5">50대</option>
+	                                            <option value="a6">60대 이상</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group ">
+											<label for="exampleFormControlTextarea1" class="form-label">성별</label>
+											<select class="form-control" name="formClubGen" 
+											        data-parsley-required="true" th:field="*{clubGen}">
+												<option value="c1">남성</option>
+	                                            <option value="c2">여성</option>
+	                                            <option value="c3">남녀모두</option>
+											</select>
+										</div>
+									</div>
+									
+									<div class="col-12">
+										<div class="form-group mandatory">
+											<label for="password-vertical">소개글</label>
+											<textarea class="form-control"
+												id="exampleFormControlTextarea1" rows="3"></textarea>
+										</div>
+									</div>
+
+									<div class="col-12 d-flex justify-content-end">
+										<button type="submit" class="btn btn-primary me-1 mb-1">개설</button>
+										<button type="reset" class="btn btn-light-secondary me-1 mb-1">취소</button>
+									</div>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
-				<hr>
-							
 			</div>
-			<!-- Basic Vertical form layout section start -->
-    <section id="basic-vertical-layouts">
-        <div class="row match-height">
-            <div class="col-md-12 col-12">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <form class="form form-vertical">
-                                <div class="form-body">
-                                    <div class="row">
-                                       
-                                            <div class="form-group mandatory col-10">
-                                                <label for="first-name-vertical" data-parsley-required="true" class="form-label" >클럽명</label>
-                                                <input type="text" id="first-name-vertical" class="form-control is-valid" name="fname" placeholder="First Name">
-                                            </div>
-                                            <div class="form-group mandatory col-2">
-                                                <label for="first-name-vertical" data-parsley-required="true" class="form-label" style="opacity: 0"> </label>
-                                                <a href="#" class="btn btn-outline-secondary" style="display: block;">중복체크</a>
-                                            </div>
-                                           
-                                           <div class="form-group mandatory col-10">
-                                                <label for="first-name-vertical" data-parsley-required="true" class="form-label" >클럽코드</label>
-                                                <input type="text" id="first-name-vertical" class="form-control is-valid" name="fname" placeholder="First Name">
-                                            </div>
-                                            <div class="form-group mandatory col-2">
-                                                <label for="first-name-vertical" data-parsley-required="true" class="form-label" style="opacity: 0"> </label>
-                                                <a href="#" class="btn btn-outline-secondary" style="display: block;">중복체크</a>
-                                            </div>
-                                        
-                                        <div class="col-12">
-                                            <div class="form-group mandatory">
-                                                <label for="contact-info-vertical">프로필사진</label>
-                                               <input type="file" class="image-preview-filepond">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group mandatory">
-                                                <label for="password-vertical" data-parsley-required="true" class="form-label" >요일</label>
-                                                 <ul class="list-unstyled mb-0">
-                                <li class="d-inline-block me-2 mb-1">
-                                    <div class="form-check">
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="checkbox1" class="form-check-input">
-                                            <label for="checkbox1" >월요일</label>
-                                        </div>
-                                    </div>
-                                </li>   
-                                <li class="d-inline-block me-2 mb-1">
-                                    <div class="form-check">
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="checkbox1" class="form-check-input">
-                                            <label for="checkbox1">화요일</label>
-                                        </div>
-                                    </div>
-                                </li>  
-                                <li class="d-inline-block me-2 mb-1">
-                                    <div class="form-check">
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="checkbox1" class="form-check-input">
-                                            <label for="checkbox1">수요일</label>
-                                        </div>
-                                    </div>
-                                </li>  
-                                <li class="d-inline-block me-2 mb-1">
-                                    <div class="form-check">
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="checkbox1" class="form-check-input">
-                                            <label for="checkbox1">목요일</label>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="d-inline-block me-2 mb-1">
-                                    <div class="form-check">
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="checkbox1" class="form-check-input">
-                                            <label for="checkbox1">금요일</label>
-                                        </div>
-                                    </div>
-                                </li> 
-                                <li class="d-inline-block me-2 mb-1">
-                                    <div class="form-check">
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="checkbox1" class="form-check-input">
-                                            <label for="checkbox1">토요일</label>
-                                        </div>
-                                    </div>
-                                </li> 
-                                <li class="d-inline-block me-2 mb-1">
-                                    <div class="form-check">
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="checkbox1" class="form-check-input">
-                                            <label for="checkbox1">일요일</label>
-                                        </div>
-                                    </div>
-                                </li>                               
-                            </ul>
-                                            </div>
-                                        </div>
-                                         <div class="col-12">
-                                            <div class="form-group mandatory">
-                                                <label for="password-vertical" data-parsley-required="true" class="form-label" >시간</label>
-                                                 <ul class="list-unstyled mb-0">
-                                <li class="d-inline-block me-2 mb-1">
-                                    <div class="form-check">
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="checkbox1" class="form-check-input">
-                                            <label for="checkbox1">오전</label>
-                                        </div>
-                                    </div>
-                                </li>   
-                                <li class="d-inline-block me-2 mb-1">
-                                    <div class="form-check">
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="checkbox1" class="form-check-input">
-                                            <label for="checkbox1">오후</label>
-                                        </div>
-                                    </div>
-                                </li>  
-                                <li class="d-inline-block me-2 mb-1">
-                                    <div class="form-check">
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="checkbox1" class="form-check-input">
-                                            <label for="checkbox1">져녁</label>
-                                        </div>
-                                    </div>
-                                </li>  
-                                <li class="d-inline-block me-2 mb-1">
-                                    <div class="form-check">
-                                        <div class="checkbox">
-                                            <input type="checkbox" id="checkbox1" class="form-check-input">
-                                            <label for="checkbox1">심야</label>
-                                        </div>
-                                    </div>
-                                </li>                              
-                            </ul>
-                                            </div>
-                                        </div>
-                                         <div class="col-6">
-                                             <div class="form-group ">
-					                            <label for="exampleFormControlTextarea1" class="form-label">지역</label>
-		                                        <select class="choices form-select">
-		                                            <option value="square">Square</option>
-		                                            <option value="rectangle">Rectangle</option>
-		                                            <option value="rombo">Rombo</option>
-		                                            <option value="romboid">Romboid</option>
-		                                            <option value="trapeze">Trapeze</option>
-		                                            <option value="traible">Triangle</option>
-		                                            <option value="polygon">Polygon</option>
-		                                        </select>
-		                                    </div>
-                                        </div>
-                                        <div class="col-6">
-                                             <div class="form-group ">
-					                            <label for="exampleFormControlTextarea1" class="form-label">경기장</label>
-		                                        <select class="choices form-select">
-		                                            <option value="square">Square</option>
-		                                            <option value="rectangle">Rectangle</option>
-		                                            <option value="rombo">Rombo</option>
-		                                            <option value="romboid">Romboid</option>
-		                                            <option value="trapeze">Trapeze</option>
-		                                            <option value="traible">Triangle</option>
-		                                            <option value="polygon">Polygon</option>
-		                                        </select>
-		                                    </div>
-                                        </div>
-                                       
-                                         <div class="col-12">
-                                            <div class="form-group mandatory">
-                                                <label for="password-vertical" data-parsley-required="true" class="form-label" >연령대</label>
-                                                <input type="password" id="password-vertical" class="form-control"
-                                                    name="contact" placeholder="Password">
-                                            </div>
-                                        </div>
-                                         <div class="col-12">
-                                            <div class="form-group mandatory">
-                                                <label for="password-vertical" data-parsley-required="true" class="form-label" >성별</label>
-                                                <input type="password" id="password-vertical" class="form-control"
-                                                    name="contact" placeholder="Password">
-                                            </div>
-                                        </div>
-                                         <div class="col-12">
-                                            <div class="form-group mandatory">
-                                                <label for="password-vertical" data-parsley-required="true" class="form-label" >레벨</label>
-                                                <input type="password" id="password-vertical" class="form-control"
-                                                    name="contact" placeholder="Password">
-                                            </div>
-                                        </div>
-                                         <div class="col-12">
-                                            <div class="form-group mandatory">
-                                                <label for="password-vertical">소개글</label>
-                                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
-                                            <button type="reset"
-                                                class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-    <!-- // Basic Vertical form layout section end -->
-
-			
 		</div>
+
 	</div>
 	<script>
-
-    document.querySelector('.email-compose-new-close-btn').addEventListener('click', () => {
-        document.querySelector('.compose-new-mail-sidebar').classList.remove('show')
-    })
-</script>
+	 $('button[type="submit"]').on("click", function(e) {
+			let url = $(event.target).data("url")
+			let target = $(event.target).data('bs-target')
+			//if(url)
+				console.log(event.target)
+				console.log($(event.target))
+			$(target).load(url)
+		}); 
+	    /* 	function tap(event){
+			let url = $(event.target).data("url")
+			
+			let target = $('#info-tab').data('bs-target')
+			$(target).load(url)
+			
+		} */
+		
+		$(document).ready(function(){
+			$('#info-tab').data("url")
+			let url = $('#info-tab').data("url")
+			let target = $('#info-tab').data('bs-target')
+			$(target).load(url)
+		}) 
+	</script>
 
 
 </th:block>

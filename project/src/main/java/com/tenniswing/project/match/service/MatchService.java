@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface MatchService {
 	//전체조회
-		public List<MatchVO> selectAllMatch();
+		public List<MatchVO> selectAllMatch(MatchVO matchVO);
 		public List<MatchVO> selectAllClubMatch();
 		public List<MatchVO> selectAllContMatch();
 		public List<MatchVO> selectAllStarterMatch();	

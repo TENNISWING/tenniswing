@@ -1,16 +1,23 @@
 package com.tenniswing.project.community.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.tenniswing.project.community.service.SnsService;
 import com.tenniswing.project.community.service.SnsVO;
 
 @Controller
 public class CommunityController {
+	
+	@Autowired
+	SnsService snsService;
+	
 	// SNS 메인
 	@GetMapping("sns")
 	public String snsListPage(Model model) {
+		model.addAttribute("snsList", snsService.selectAllSnsInfo());
 		return "community/community3";
 	}
 	
