@@ -50,21 +50,25 @@
 									<table class="table" id="table1">
 										<thead>
 											<tr>
-												<th>Name</th>
-												<th>Email</th>
-												<th>Phone</th>
-												<th>City</th>
-												<th>Status</th>
+												<th>상품 번호</th>
+												<th>상품명</th>
+												<th>브랜드</th>
+												<th>총 재고</th>
+												<th>카테고리</th>
+												<th>성별</th>
+												<th>판매 유무</th>												
 												<th>Action</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr th:each="num : ${#numbers.sequence(1,20)}">
-												<td>Graiden</td>
-												<td>vehicula.aliquet@semconsequat.co.uk</td>
-												<td>076 4820 8838</td>
-												<td>Offenburg</td>
-												<td><span class="badge bg-success">Active</span></td>
+												<td>10011</td>
+												<td>테니스 라켓</td>
+												<td>브랜드</td>
+												<td>50</td>
+												<td>테니스 라켓</td>
+												<td>여성</td>
+												<td><span class="badge bg-success">state</span></td>
 												<td>
 													<div class="card__action">
 														<a href="adminDetail_Product" class="action__btn ml-10"> <svg width="20"

@@ -7,5 +7,5 @@ public interface ClubService {
 	public List<ClubVO> selectAllClub();
 	
 	//등록
-	public int isnertClub(ClubVO clubVO);
+	public int insertClub(ClubVO clubVO);
 }

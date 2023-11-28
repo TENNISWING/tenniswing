@@ -20,8 +20,8 @@ public class ClubServiceImpl implements ClubService {
 	}
 
 	@Override
-	public int isnertClub(ClubVO clubVO) {
-		int result = clubMapper.isnertClub(clubVO);
+	public int insertClub(ClubVO clubVO) {
+		int result = clubMapper.insertClub(clubVO);
 		
 		if(result == 1) {
 			return clubVO.getClubNo();
