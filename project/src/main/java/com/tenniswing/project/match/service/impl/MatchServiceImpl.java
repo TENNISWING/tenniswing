@@ -13,10 +13,25 @@ import com.tenniswing.project.match.service.MatchVO;
 public class MatchServiceImpl implements MatchService {
 
 	@Autowired MatchMapper matchMapper;
-	
+
 	@Override
-	public List<MatchVO> selectAllMatch() {
-		return matchMapper.selectAllMatch();
+	public List<MatchVO> selectAllMatch(MatchVO matchVO) {
+		return matchMapper.selectAllMatch(matchVO);
+	}
+
+	@Override
+	public List<MatchVO> selectAllClubMatch() {
+		return matchMapper.selectAllClubMatch();
+	}
+
+	@Override
+	public List<MatchVO> selectAllContMatch() {
+		return matchMapper.selectAllContMatch();
+	}
+
+	@Override
+	public List<MatchVO> selectAllStarterMatch() {
+		return matchMapper.selectAllStarterMatch();
 	}
 
 	@Override
@@ -25,8 +40,38 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
+	public MatchVO selectClubMatch(MatchVO matchVO) {
+		return matchMapper.selectClubMatch(matchVO);
+	}
+
+	@Override
+	public MatchVO selectContMatch(MatchVO matchVO) {
+		return matchMapper.selectContMatch(matchVO);
+	}
+
+	@Override
+	public MatchVO selectStarterMatch(MatchVO matchVO) {
+		return matchMapper.selectStarterMatch(matchVO);
+	}
+
+	@Override
 	public int insertMatch(MatchVO matchVO) {
 		return matchMapper.insertMatch(matchVO);
+	}
+
+	@Override
+	public int insertClubMatch(MatchVO matchVO) {
+		return matchMapper.insertClubMatch(matchVO);
+	}
+
+	@Override
+	public int insertContMatch(MatchVO matchVO) {
+		return matchMapper.insertContMatch(matchVO);
+	}
+
+	@Override
+	public int insertStarterMatch(MatchVO matchVO) {
+		return matchMapper.insertStarterMatch(matchVO);
 	}
 
 	@Override
@@ -35,8 +80,39 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
+	public int updateClubMatch(MatchVO matchVO) {
+		return matchMapper.updateClubMatch(matchVO);
+	}
+
+	@Override
+	public int updateContMatch(MatchVO matchVO) {
+		return matchMapper.updateContMatch(matchVO);
+	}
+
+	@Override
+	public int updateStarterMatch(MatchVO matchVO) {
+		return matchMapper.updateStarterMatch(matchVO);
+	}
+
+	@Override
 	public int deleteMatch(MatchVO matchVO) {
 		return matchMapper.deleteMatch(matchVO);
 	}
 
+	@Override
+	public int deleteClubMatch(MatchVO matchVO) {
+		return matchMapper.deleteClubMatch(matchVO);
+	}
+
+	@Override
+	public int deleteContMatch(MatchVO matchVO) {
+		return matchMapper.deleteContMatch(matchVO);
+	}
+
+	@Override
+	public int deleteStarterMatch(MatchVO matchVO) {
+		return matchMapper.deleteStarterMatch(matchVO);
+	}
+	
+	
 }

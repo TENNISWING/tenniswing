@@ -139,7 +139,7 @@
                                          ${ele.day}</div></div>`)
                         	} else {
                         		$('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                        <div class="btn btn-outline-dark">
+                                        <div class="btn btn-outline-success">
                                         ${ele.date}<br>
                                         ${ele.day}</div></div>`)
                         	}
@@ -237,28 +237,11 @@
 			<!-- Default Table -->
 			<table class="table">
 				<tbody>
-					<tr>
-						<td class="text-center"><b>14 : 00</b></td>
-						<td th:onclick="|location.href='@{matchdetail}'|">서남센터 테니스장 12번 코트 </a></td>
+					<tr class="navbar-brand" th:each="starterMatchInfo, stat:${starterMatchList}" th:onclick="|location.href='@{/startermatchdetail(matchNo=${starterMatchInfo.matchNo})}'|">
+						<td class="text-center"><b>[[${#dates.format(starterMatchInfo.Time, 'HH : mm')}]]</b></td>
+						<td >구장명 ?</td>
 						<td class="text-end">
-							<button type="button" class="btn btn-primary matchbtn1" th:onclick="|location.href='@{matchdetail}'|">신청
-								가능</button>
-						</td>
-					</tr>
-					<tr>
-						<td class="text-center"><b>14 : 00</b></td>
-						<td>서남센터 테니스장 12번 코트</td>
-						<td class="text-end">
-							<button type="button"
-								class="btn btn-secondary disabled matchbtn2">매칭 완료</button>
-						</td>
-					</tr>
-					<tr>
-						<td class="text-center"><b>14 : 00</b></td>
-						<td>서남센터 테니스장 12번 코트</td>
-						<td class="text-end">
-							<button type="button" class="btn btn-danger matchbtn3">마감
-								임박</button>
+							<button type="button" class="btn btn-primary matchbtn1" th:onclick="|location.href='@{startermatchdetail}'|">[[${starterMatchInfo.matchNo}]]</button>
 						</td>
 					</tr>
 				</tbody>
@@ -268,11 +251,12 @@
 					<li class="page-item disabled"><a class="page-link" href="#"
 						tabindex="-1" aria-disabled="true">이전</a></li>
 					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
 					<li class="page-item"><a class="page-link" href="#">다음</a></li>
 				</ul>
 			</div>
+			<script>
+			
+			</script>
 		</div>
 	</div>
 	<!-- End match table -->

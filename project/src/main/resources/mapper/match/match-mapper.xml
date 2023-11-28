@@ -6,21 +6,37 @@
   <mapper namespace="com.tenniswing.project.match.mapper.MatchMapper">
   	<!-- 전체 조회  -->
   	<select id="selectAllMatch" resultType="MatchVO">
-  		SELECT match_no
-  				, mem_no
-  				, match_date
-  				, time
-  				, game_way
-  				, prog_state
-  				, ntrp
-  				, lv
-  				, gen
-  				, crt_use_amt
-  				, recruit_psn_num
-  				, detail_ctt
-  				, crtroom_no
-  		FROM match
-  		ORDER BY match_no
+  		select * from (    select A.* , rownum rn from (
+  		
+  		SELECT                     m.match_no,
+                    m.mem_no,
+                    m.match_date,
+                    m.time,
+                    m.game_way,
+                    FIND_CATEGORY_NAME (m.game_way)   game_way_name,
+                    m.prog_state,
+                    m.ntrp,
+                    m.lv,
+                    FIND_CATEGORY_NAME (m.lv)  lv_name,
+                    m.gen,
+                    FIND_CATEGORY_NAME (m.gen)  gen_name,
+                    m.crt_use_amt,
+                    m.recruit_psn_num,
+                    m.detail_ctt,
+                    c.crtroom_no,
+                    c.crtroom_location,
+                    FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
+  		FROM match m, crtroom c
+  		WHERE m.crtroom_no = c.crtroom_no
+  		AND TRUNC (match_date) = TRUNC(#{matchDate})
+ 		 <if test="gameWay">and game_way = #{gameWay}</if>
+ 		 <if test="gen">and gen = #{gen}</if>
+ 		 <if test="lv">and lv = #{lv}</if>
+ 		 <if test="crtroomLocation">and crtroom_location = #{crtroomLocation}</if>
+  		ORDER BY time
+  		
+  		) A) b where rn between (#{page}-1)*10 + 1 and #{page} * 10                    
+                
    	</select>
    	
    	<!-- 클럽 전체 조회  -->
@@ -102,59 +118,67 @@
   	
   	<!-- 클럽 단건조회 -->
   	<select id="selectClubMatch" resultType="MatchVO">
-  		SELECT match_no
-  				, mem_no
-  				, match_date
-  				, time
-  				, game_way
-  				, prog_state
-  				, ntrp
-  				, lv
-  				, gen
-  				, crt_use_amt
-  				, recruit_psn_num
-  				, detail_ctt
-  				, crtroom_no
-  		FROM club_match
-  		WHERE match_no = #{matchNo}
+  		SELECT m.match_no
+  				, m.match_date
+  				, m.time
+  				, m.game_way
+  				, m.prog_state
+  				, m.ntrp
+  				, m.lv
+  				, m.crt_use_amt
+  				, m.recruit_psn_num
+  				, m.detail_ctt
+  				, m.crtroom_no
+                , c.crtroom_name
+                , c.crtroom_location
+                , r.club_match_recruit_psn_num
+                , r.match_recruit_write_date
+  		FROM club_match m, crtroom c, club_match_recruit r
+  		WHERE m.crtroom_no = c.crtroom_no
+  		and m.match_no = r.match_no
+        and m.match_no = #{matchNo}
   	</select>
   	
   	<!-- 대회 단건조회 -->
   	<select id="selectContMatch" resultType="MatchVO">
-  		SELECT match_no
-  				, cont_name
-  				, start_date
-  				, end_date
-  				, time
-  				, game_way
-  				, prog_state
-  				, recruit_psn_num
-  				, ntrp
-  				, lv
-  				, cont_attend_cost
-  				, detail_ctt
-  				, crtroom_no
-  		FROM cont_match
-  		WHERE match_no = #{matchNo}
+  		SELECT c.match_no
+  				, c.cont_name
+  				, c.start_date
+  				, c.end_date
+  				, c.time
+  				, c.prog_state
+  				, c.recruit_psn_num
+  				, c.ntrp
+  				, c.lv
+  				, c.cont_attend_cost
+  				, c.detail_ctt
+  				, b.crtroom_no
+                , b.crtroom_name
+                , b.crtroom_location
+  		FROM cont_match c, crtroom b
+  		WHERE c.crtroom_no = b.crtroom_no
+        AND c.match_no = #{matchNo}
   	</select>
   	
   	<!-- 스타터 단건조회 -->
   	<select id="selectStarterMatch" resultType="MatchVO">
-  		SELECT match_no
-  				, mem_no
-  				, match_date
-  				, time
-  				, game_way
-  				, prog_state
-  				, ntrp
-  				, lv
-  				, gen
-  				, crt_use_amt
-  				, recruit_psn_num
-  				, detail_ctt
-  				, crtroom_no
-  		FROM starter_match
-  		WHERE match_no = #{matchNo}
+  		SELECT s.match_no
+  				, s.mem_no
+  				, s.match_date
+  				, s.time
+  				, s.prog_state
+  				, s.ntrp
+  				, s.lv
+  				, s.gen
+  				, s.rsprice
+  				, s.recruit_psn_num
+  				, s.detail_ctt
+  				, s.crtroom_no
+  				, c.crtroom_name
+  				, c.crtroom_location
+  		FROM starter_match s, crtroom c
+  		WHERE s.crtroom_no = c.crtroom_no
+  		AND match_no = #{matchNo}
   	</select>
   	
   	<!-- 등록 -->
