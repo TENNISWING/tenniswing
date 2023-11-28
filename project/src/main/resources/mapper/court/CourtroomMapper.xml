@@ -60,6 +60,7 @@
 				, CRTROOM_NO
 				, USE_UNIT_TIME
 				, CRT_INDOOR_OUTDOOR
+				, FIND_CATEGORY_NAME(crt_indoor_outdoor) crt_indoor_outdoor_name
 		FROM CRT_DETAIL_INF
 		WHERE crtroom_no = #{crtroomNo}
   	</select>

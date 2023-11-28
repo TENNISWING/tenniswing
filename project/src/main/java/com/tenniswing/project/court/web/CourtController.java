@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -54,6 +55,14 @@ public class CourtController {
 				System.out.println(hostId);
 				model.addAttribute("courtList", courtroomService.selectAllCourtroom(hostId));
 				return "courtHost/hostCourtList";
+			}
+			
+			// 코트들 불러오기
+			@PostMapping("courtDetails")
+			@ResponseBody
+			public CrtroomVO selectCourtDetails(CrtroomVO crtroomVO) {
+				CrtroomVO courtDetails = courtroomService.selectCourtroom(crtroomVO);
+				return courtDetails;
 			}
 			
 			// 상세보기
