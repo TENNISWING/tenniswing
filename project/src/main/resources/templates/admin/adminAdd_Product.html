@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/admin/admin-layout}">
 
 <th:block layout:fragment="admincontent">
@@ -14,8 +13,8 @@
 					<div class="dashboard__breadcrumb">
 						<div class="breadcrumb__meta">
 							<ul style="padding: 0;">
-								<li><a onclick="history.back()" class="link"><i
-										class="fa-solid fa-arrow-left me-2"></i> Back</a></li>
+								<li><a onclick="history.back()" class="link"><i class="fa-solid fa-arrow-left me-2"></i>
+										Back</a></li>
 							</ul>
 						</div>
 					</div>
@@ -25,7 +24,8 @@
 						</div>
 					</div>
 
-					<form action="#" class="dashboard__form">
+					<!-- start form -->
+					<form th:action="@{/adminAdd_Product}" th:object="${prodVO}" method="post" class="dashboard__form" enctype="multipart/form-data">
 						<div class="row">
 							<div class="col-xxl-4">
 								<div class="dashboard-block">
@@ -34,16 +34,16 @@
 									</div>
 									<div class="card block__card" style="padding: 20px">
 										<div class="upload__drag">
-											<label for="imageUpload"> 
+											<label for="imageUpload">
 												<img src="assets/admin/images/upload-icon.png" class="upload-icon"
 													alt="icon" /> <span> <a href="#">Click to upload</a>
-														or drag and drop
+													or drag and drop
 												</span> <span>SVG, PNG, JPG or GIF (max. 2Mb)</span>
-											</label> 
-											<input type="file" id="imageUpload"
-												accept=".png, .jpg, .jpeg, .svg, .gif" multiple="multiple" onchange="setThumbnail(event)"/>
+											</label>
+											<input type="file" id="imageUpload" accept=".png, .jpg, .jpeg, .svg, .gif"
+												multiple="multiple" onchange="setThumbnail(event)" />
 										</div>
-										
+
 										<div class="preview__wrapper">
 											<!--
 											<div class="preview__item__wrapper">
@@ -73,15 +73,20 @@
 									</div>
 									<div class="form__wrapper form-padding">
 										<div class="flex__form c-3">
+											<!-- 이름 -->
 											<div class="form-group">
-												<label for="product_name">상품 이름</label> <input
-													type="text" name="product_name" id="product_name"
-													class="form-control" placeholder="상품 이름을 입력해주세요." />
+												<label for="product_name">상품 이름</label> 
+												<input type="text" th:field="*{prodName}" class="form-control"
+													placeholder="상품 이름을 입력해주세요." />
+												<!-- name="product_name" id="product_name" -->
 											</div>
+											
+											<!-- 카테고리 -->
 											<div class="form-group">
-												<label for="category">카테고리</label> <select
-													name="category" id="category" class="category-select">
-													<option value="category ">all category</option>
+												<label for="category">카테고리</label> 
+												<select class="category-select" th:field="*{cateProd}">
+												<!-- name="category" id="category" -->
+													<option value="category">all category</option>
 													<option value="clothes">의류</option>
 													<option value="shoes">신발</option>
 													<option value="racket">테니스 라켓</option>
@@ -90,29 +95,40 @@
 													<option value="etc">기타</option>
 												</select>
 											</div>
+											
+											<!-- 성별 -->
 											<div class="form-group">
-												<label for="brand">성별</label> <select name="gender"
-													id="gender" class="gender-select">
+												<label for="gender">성별</label>
+												<select class="gender-select" th:field="*{cateGen}">
+												<!-- name="gender" id="gender" -->
 													<option value="genderAll">성별 무관</option>
 													<option value="male">남성</option>
 													<option value="female">여성</option>
 												</select>
 											</div>
+											
+											<!-- 브랜드 -->
 											<div class="form-group">
-												<label for="brand">브랜드</label> <input type="text"
-													name="brand" id="brand" class="form-control"
-													placeholder="브랜드를 입력해주세요." />
+												<label for="brand">브랜드</label>
+												<input type="text" class="form-control" placeholder="브랜드를 입력해주세요." th:field="*{prodBrand}"/>
+												<!-- name="brand" id="brand" -->
 											</div>
+											
+											<!-- 가격 -->
 											<div class="form-group">
-												<label for="price">가격</label> <input type="number"
-													name="price" id="price" class="form-control"
-													placeholder="가격을 입력해주세요." />
+												<label for="price">가격</label>
+												<input type="number" class="form-control" placeholder="가격을 입력해주세요." th:field="*{prodPrice}"/>
+												<!-- name="price" id="price" -->
 											</div>
+											
+											<!-- 판매유무 -->
 											<div class="form-group">
 												<label>판매 유무</label>
 												<div class="custom-checkbox">
-													<input type="checkbox" name="status" id="statuss" disabled="disabled"/> <label
-														for="statuss"> <span class="active">Active</span>
+													<input name="status" id="status" type="checkbox" disabled="disabled"/>
+													<!--  name="status" id="statuss" -->
+													<label for="status"> 
+														<span class="active">Active</span>
 														<span class="inactive">Inactive</span>
 													</label>
 												</div>
@@ -128,12 +144,15 @@
 												</select>
 											</div>
 										</div> -->
+										
+										<!-- 상품 설명 -->
 										<div class="form-group">
 											<label for="description">상품 설명</label>
-											<textarea name="description" class="form-control"
-												id="description" cols="30" rows="7"
+											<textarea name="description" class="form-control" id="description" cols="30"
+												rows="7"
 												placeholder="Write about your product description briefly"></textarea>
 										</div>
+										
 										<div class="btn__group flex-wrap">
 											<button type="button" class="btn btn-outline">Cancel</button>
 											<button type="submit" class="btn btn-gray-filled">Add
@@ -144,6 +163,8 @@
 							</div>
 						</div>
 					</form>
+					<!-- end form -->
+					
 				</div>
 			</div>
 			<!-- Product List End -->
@@ -153,29 +174,98 @@
 	<!-- Main__container End-->
 	<script type="text/javascript">
 		function setThumbnail(event) {
+			// 이미지 비워주기
+			$('#imageUpload').empty();
 			console.log(event.target.files);
-			for(let image of event.target.files) {
+
+			let files = event.target.files;
+			let arr = Array.prototype.slice.call(files);
+
+			// 업로드 가능 파일인지 체크
+			for (let i = 0; i < files.length; i++) {
+				if (!checkExtension(files[i].name, files[i].size)) {
+					return false;
+				}
+			}
+			preview(arr);
+		}
+
+
+		function checkExtension(fileName, fileSize) {
+			var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+			var maxSize = 20971520;  //20MB
+
+			if (fileSize >= maxSize) {
+				alert('파일 사이즈 초과');
+				$("input[type='file']").val("");  //파일 초기화
+				return false;
+			}
+
+			if (regex.test(fileName)) {
+				alert('업로드 불가능한 파일이 있습니다.');
+				$("input[type='file']").val("");  //파일 초기화
+				return false;
+			}
+			return true;
+		}
+
+		function preview(arr) {
+			var reader = new FileReader();
+			arr.forEach(function (f) {
+				//파일명이 길면 파일명...으로 처리
+				let fileName = f.name;
+				if (fileName.length > 10) {
+					fileName = fileName.substring(0, 7) + "...";
+				}
+
 				let divT1 = $('<div>').attr('class', 'preview__item__wrapper');
 				let divT2 = $('<div>').attr('class', 'preview__item');
-				let btnT = $('<button>').attr('class', 'close-btn').on('click', function(event){
+				let btnT = $('<button>').attr('class', 'close-btn');
+				let iT = $('<i>').addClass('fa-solid').addClass('fa-xmark').on('click', function (event) {
 					console.log(event.target.parentElement.parentElement);
 					event.target.parentElement.parentElement.parentElement.remove();
 				});
-				let iT = $('<i>').addClass('fa-solid').addClass('fa-xmark');
-
-				let reader = new FileReader();
-
-				reader.onload = function(e) {
-					let img = $('<img>').attr('src', e.target.result);
-					btnT.append(iT);
-					divT2.append(img);
-					divT2.append(btnT);
-					divT1.append(divT2);
-					$('.preview__wrapper').append(divT1);
-				};
-				reader.readAsDataURL(image);
-			}
+				
+				//이미지 파일 미리보기
+				if (f.type.match('image.*')) {
+					reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
+					reader.onload = function (e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
+						//console.log(e.target.result);
+						let img = $('<img>').attr('src', e.target.result);
+						btnT.append(iT);
+						divT2.append(img);
+						divT2.append(btnT);
+						divT1.append(divT2);
+						$('.preview__wrapper').append(divT1);
+					}
+					reader.readAsDataURL(f);
+				}
+			});
 		}
+
+
+		// for (let image of event.target.files) {
+		// 	let divT1 = $('<div>').attr('class', 'preview__item__wrapper');
+		// 	let divT2 = $('<div>').attr('class', 'preview__item');
+		// 	let btnT = $('<button>').attr('class', 'close-btn').on('click', function (event) {
+		// 		console.log(event.target.parentElement.parentElement);
+		// 		event.target.parentElement.parentElement.parentElement.remove();
+		// 	});
+		// 	let iT = $('<i>').addClass('fa-solid').addClass('fa-xmark');
+
+		// 	let reader = new FileReader();
+
+		// 	reader.onload = function (e) {
+		// 		let img = $('<img>').attr('src', e.target.result);
+		// 		btnT.append(iT);
+		// 		divT2.append(img);
+		// 		divT2.append(btnT);
+		// 		divT1.append(divT2);
+		// 		$('.preview__wrapper').append(divT1);
+		// 	};
+		// 	reader.readAsDataURL(image);
+		// }
+		
 	</script>
 </th:block>
 

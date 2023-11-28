@@ -71,6 +71,7 @@ public class MemberController {
 	public String signupProc(MemberVO memberVO, Model model) {
 
 		boolean check = memberService.idCheck(memberVO.getMemId());
+		
 		if (!check) {
 			model.addAttribute("message", "아이디 중복 체크하지 않았습니다");
 			return "member/signup";
@@ -99,8 +100,12 @@ public class MemberController {
 		
 		httpSession.setAttribute("member", id);		
 		
-		model.addAttribute("id", id);
-		model.addAttribute("role", role);
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemId(id);
+		
+		memberVO = memberService.memberInfo(memberVO);
+		
+		model.addAttribute("member", memberVO);
 		
 		if(role.equals("ROLE_ADMIN")) {
 			return "redirect:admin";

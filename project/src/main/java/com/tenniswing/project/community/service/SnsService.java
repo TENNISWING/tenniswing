@@ -20,10 +20,7 @@ public interface SnsService {
 		public int insertSnsLike(SnsVO snsVO);
 		// 스크랩 등록
 		public int insertSnsScrap(SnsVO snsVO);
-		// 댓글 등록
-		public int insertSnsRep(SnsVO snsVO);
-		// 대댓글 등록
-		public int insertSnsRrep(SnsVO snsVO);
+		
 		
 	// 수정
 	public Map<String, Object> updateSns(SnsVO snsVO);
