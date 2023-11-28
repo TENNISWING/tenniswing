@@ -20,9 +20,9 @@ public class MatchController {
 
 	@GetMapping(value = {"/", "/home"})
 
-	public String matchPage(Model model, Principal principal) { 
-		System.out.println(principal.getName());		
-		model.addAttribute("matchList", matchService.selectAllMatch());
+	public String matchPage(Model model) { 
+		//System.out.println(principal.getName());		
+		//model.addAttribute("matchList", matchService.selectAllMatch(null));
 
 		return "match/match";
 	}

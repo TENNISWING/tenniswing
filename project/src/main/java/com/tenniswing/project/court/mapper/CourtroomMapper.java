@@ -6,7 +6,7 @@ import com.tenniswing.project.court.service.CrtroomVO;
 
 public interface CourtroomMapper {
 	// 전체조회
-	public List<CrtroomVO> selectAllCourtroom();
+	public List<CrtroomVO> selectAllCourtroom(String hostId);
 	
 	// 단건조회
 	public CrtroomVO selectCourtroom(CrtroomVO crtroomVO);

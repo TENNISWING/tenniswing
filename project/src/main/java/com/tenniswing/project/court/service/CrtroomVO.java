@@ -11,7 +11,7 @@ import lombok.Data;
 public class CrtroomVO {
 	// 코트장 테이블
 	private int crtroomNo;
-	private String hostNo;
+	private String hostId;
 	private String crtroomName;
 	private String crtroomExp;
 	private String crtroomRegion;
