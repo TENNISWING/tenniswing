@@ -255,8 +255,8 @@
 					<div class="input-group mb-3">
 						<input type="text" class="form-control"
 							placeholder="enter your comment"
-							aria-label="Recipient's username" aria-describedby="basic-addon2">
-						<button type="button" class="input-group-text" id="basic-addon2">등록</button>
+							aria-label="Recipient's username" aria-describedby="basic-addon2" id="replyContents">
+						<button type="button" class="input-group-text" data-memNo="1" id="repSubmit">등록</button>
 					</div>
 
 					<button type="button" class="btn" data-bs-dismiss="modal">
@@ -375,10 +375,15 @@
 
 			})
 		}); */
+		
+		
+		
+		
+	let snsWrtNo = 0;
 	 $('.myRepList').on('show.bs.modal', function(e){
 		 
 		 console.log(e.relatedTarget); // 이번호를 아작스 통신의 데이터로 넘겨준다.
-		 let snsWrtNo = $(e.relatedTarget).attr('data-snsid');
+		 snsWrtNo = $(e.relatedTarget).attr('data-snsid');
 		 
 			$.ajax({
 				type: 'GET',
@@ -386,9 +391,11 @@
 				data: {snsWrtNo},
 				   success: function(data) {
 					   console.log(data);
-					   
+						$('#replyList').empty();
 			            for(let repList of data){
-			               let b = `<tr>
+			            
+			               let b = `
+			               <tr>
 								<td>${repList.name}</td>
 								<td>${repList.snsRepCtt}</td>
 								<td>${new Date(repList.snsRepWriteDate).toLocaleDateString()}</td>
@@ -396,13 +403,47 @@
 									class="fa-regular fa-pen-to-square"></i> <i type="button"
 									class="fa-regular fa-trash-can"></i></td>
 							</tr>`
-			               $('#replyList').append(b)
+			               $('#replyList').append(b);
 			            }
 						
 			         }
 
 			})
+			
+	
+			
 		});
+		 
+		
+	 
+	 
+	 			// 댓글 등록
+				$('#repSubmit').on("click", function(e) {
+					let snsRepCtt = $("#replyContents").val();
+					let memNo = $(e.target).attr('data-memNo');
+					console.log("들어오나요"+snsRepCtt);
+					$.ajax({
+					url : 'snsReplyInsert',
+					data : {snsWrtNo, snsRepCtt, memNo},
+					type : 'post',
+					datatype : 'text',
+					success : function(result) {
+						
+						if (result == "success") {
+							alert("등록성공")
+						}
+						$('#replyContents').val('') //댓글 등록시 댓글 등록창 초기화
+						//등록후 댓글 목록 불러오기 함수 실행
+						//DOM 조작 함수호츨 등 가능
+					},
+					error : function() {
+						alert("등록 실패")
+
+					}
+				}) 
+			}) 
+				
+
 	
 	</script>
 </th:block>

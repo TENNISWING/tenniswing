@@ -55,10 +55,7 @@
   	 			(
   	 				#{snsRepNo}
   	 				,#{snsRepCtt}
- 					,<choose>
-	 					<when test="snsRepWriteDate != null">,#{snsRepWriteDate}</when>
-	 					<otherwise>,sysdate</otherwise>
- 					 </choose>  	 
+ 					,sysdate  	 
   	 				,#{snsWrtNo}
   	 				,#{memNo}
   	 			)

@@ -3,9 +3,11 @@ package com.tenniswing.project.community.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenniswing.project.community.service.SnsRepService;
@@ -37,6 +39,19 @@ public class CommunityController {
 		@ResponseBody
 		public List<SnsRepVO> snsRepPageAjax(SnsRepVO snsRepVO) {
 			return snsRepService.selectAllSnsRep(snsRepVO);
+		}
+		
+		// sns댓글 등록
+		@PostMapping("snsReplyInsert")
+		@ResponseBody
+		public int insertSnsRepAjax(SnsRepVO snsRepVO, Model model) {
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			snsRepVO.setMemId(id);
+			System.out.println(snsRepVO);
+			int result =  snsRepService.insertSnsRep(snsRepVO);
+			
+			return result;
+			
 		}
 		
 		// 자유게시판 메인(리스트 페이지)

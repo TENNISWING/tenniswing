@@ -18,6 +18,7 @@ public class SnsRepVO {
 	private int snsWrtNo;
 	private String memNo;
 	private String name;
+	private String memId;
 	// + 글번호, 멤버no
 	
 	private List<SnsRepVO> snsRRepList;
