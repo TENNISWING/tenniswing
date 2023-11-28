@@ -13,6 +13,9 @@ public interface MemberMapper {
 	// 로그인
 	public MemberVO memberLogin(MemberVO memberVO);
 	
+	// 마이페이지 회원정보 조회
+	public MemberVO memberInfo(MemberVO memberVO);
+	
 	// 아이디 중복 체크
 	public int memberIdCheck(String memId);
 
