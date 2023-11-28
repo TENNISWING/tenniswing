@@ -32,9 +32,9 @@ public class ProdVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date prodEditDate;
 	// 상품 카테고리
-	private Date cateProd;
+	private String cateProd;
 	// 상품 성별
-	private Date cateGen;
+	private String cateGen;
 	
 	// 첨부파일
 	private List<AttachVO> attachList;

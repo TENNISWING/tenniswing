@@ -86,13 +86,12 @@
 												<label for="category">카테고리</label> 
 												<select class="category-select" th:field="*{cateProd}">
 												<!-- name="category" id="category" -->
-													<option value="category">all category</option>
-													<option value="clothes">의류</option>
-													<option value="shoes">신발</option>
-													<option value="racket">테니스 라켓</option>
-													<option value="bag">테니스 가방</option>
-													<option value="supplies">테니스 용품</option>
-													<option value="etc">기타</option>
+													<option value="q6">기타</option>
+													<option value="q1">의류</option>
+													<option value="q2">신발</option>
+													<option value="q3">테니스 라켓</option>
+													<option value="q4">테니스 가방</option>
+													<option value="q5">테니스 용품</option>
 												</select>
 											</div>
 											
@@ -101,9 +100,9 @@
 												<label for="gender">성별</label>
 												<select class="gender-select" th:field="*{cateGen}">
 												<!-- name="gender" id="gender" -->
-													<option value="genderAll">성별 무관</option>
-													<option value="male">남성</option>
-													<option value="female">여성</option>
+													<option value="c3">성별 무관</option>
+													<option value="c1">남성</option>
+													<option value="c2">여성</option>
 												</select>
 											</div>
 											
@@ -125,7 +124,7 @@
 											<div class="form-group">
 												<label>판매 유무</label>
 												<div class="custom-checkbox">
-													<input name="prodSaleSts" id="prodSaleSts" type="checkbox" disabled="disabled"/>
+													<input name="prodSaleSts" id="prodSaleSts" type="checkbox" value="p1"/>
 													<!--  name="status" id="statuss" -->
 													<label for="prodSaleSts"> 
 														<span class="active">Active</span>
@@ -148,9 +147,10 @@
 										<!-- 상품 설명 -->
 										<div class="form-group">
 											<label for="description">상품 설명</label>
-											<textarea name="description" class="form-control" id="description" cols="30"
-												rows="7"
-												placeholder="Write about your product description briefly"></textarea>
+											<!-- name="description" id="description" -->
+											<textarea class="form-control" cols="30" rows="7"
+												placeholder="Write about your product description briefly"
+												th:field="*{prodExp}"></textarea>
 										</div>
 										
 										<div class="btn__group flex-wrap">

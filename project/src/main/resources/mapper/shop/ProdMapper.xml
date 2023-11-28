@@ -5,5 +5,34 @@
   
   <mapper namespace="com.tenniswing.project.shop.mapper.ProdMapper">
   	<!-- 상품 등록 -->
-  	
+  	<insert id="insertProd" parameterType="ProdVO">
+  		<selectKey keyProperty="prodNo"
+  				   resultType="int"
+  				   order="BEFORE">
+  			SELECT NVL(MAX(prod_no), 0) + 1
+  			FROM prod		   
+  		</selectKey>
+  		INSERT INTO prod(
+  			 prod_no,
+  			 prod_name,
+  			 prod_brand,
+  			 prod_t_sto,
+  			 prod_exp,
+  			 prod_sale_sts,
+  			 prod_regi_date,
+  			 cate_prod,
+  			 cate_gen  
+  		)
+  		VALUES(
+  			 #{prodNo},
+  			 #{prodName},
+  			 #{prodBrand},
+  			 0,
+  			 #{prodExp},
+  			 #{prodSaleSts},
+  			 SYSDATE,
+  			 #{cateProd},
+  			 #{cateGen}
+  		)
+  	</insert>
   </mapper>

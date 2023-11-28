@@ -29,6 +29,11 @@ public class ProdServiceImpl implements ProdService{
 //	등록
 	@Override
 	public int insertProd(ProdVO prodVO) {
+		System.out.println(prodVO.getProdSaleSts());
+		if(prodVO.getProdSaleSts() == null) {
+			prodVO.setProdSaleSts("p2");
+		}
+		
 		int result = prodMapper.insertProd(prodVO);
 		
 		if(result == 1) {
