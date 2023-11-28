@@ -3,168 +3,180 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-  <mapper namespace="com.tenniswing.project.member.mapper.MemberMapper">
-  	<!-- 전체 조회  -->
-  	<select id="selectAllEmpInfo" resultType="MemberVO">
-  		SELECT employee_id
-  			  , first_name
-  			  , last_name
-  			  , email
-  			  , phone_number
-  			  , hire_date
-  			  , job_id
-  			  , salary
-  			  , commission_pct
-  			  , manager_id
-  			  , department_id
-  		 FROM employees
-  		 ORDER BY employee_id
-  	</select>
-  	
-  	<!-- 로그인 -->
-  	<select id="memberLogin" resultType="MemberVO">
-  		SELECT *
-  		FROM MEM
-  		WHERE MEM_ID = #{memId}  				
-  		 <!-- LIKE '%' || #{keyword} || '%'
-  		 	  LIKE '%${keyword}%'		   -->
-  	</select>
-  	
-  	<!-- 아이디 중복 체크 -->
-  	<select id="memberIdCheck" parameterType="String" resultType="int">
-  		SELECT COUNT(MEM_ID) FROM MEM WHERE MEM_ID = #{memId}
-  	</select>
-  	
-  	<!-- <if> => 조건이 true인 경우 -->
-  	<!-- <foreach> => 반복문 : 배열로 넘어온 데이터 처리 --> 
-	<!--
-	<select id="selectPostIn" resultType="domain.blog.Post">
+<mapper
+	namespace="com.tenniswing.project.member.mapper.MemberMapper">
+	<!-- 전체 조회 -->
+	<select id="selectAllEmpInfo" resultType="MemberVO">
+		SELECT employee_id
+		, first_name
+		, last_name
+		, email
+		, phone_number
+		, hire_date
+		, job_id
+		, salary
+		, commission_pct
+		, manager_id
+		, department_id
+		FROM employees
+		ORDER BY employee_id
+	</select>
+
+	<!-- 로그인 -->
+	<select id="memberLogin" resultType="MemberVO">
 		SELECT *
-		FROM POST P
-		<where>
-			<foreach item="item"(임시변수) index="index" collection="list" (배열)
-				(처음 시작 값)open="ID in (" separator="," close=")" nullable="true">
-				#{item}
-			</foreach>
-		</where>
-	</select> 
-	-->
-  	<!-- <choose> => 다중 if문 -->
-  	<!-- <trim> => 문장 구성 -->
-  	
-  	<!-- 등록 -->
-  	<insert id="insertMember" parameterType="MemberVO">
-  	 	<selectKey keyProperty="memNo" 
-  	 			   resultType="String" 
-  	 			   order="BEFORE">
-  	 		<!-- primarykey가 숫자일 경우 사용 -->
-  	 		SELECT NVL(MAX(MEM_NO), 0) + 1
+		FROM MEM
+		WHERE MEM_ID = #{memId}
+		<!-- LIKE '%' || #{keyword} || '%' LIKE '%${keyword}%' -->
+	</select>
+
+	<!-- 멤버정보 조회 -->
+	<select id="memberInfo" resultType="MemberVO">
+		SELECT m.MEM_NO
+		,m.MEM_ID
+		,m.NAME
+		,m.PHONE_NO
+		,p.NICK
+		,FIND_CATEGORY_NAME (p.AGE) AGE
+		,FIND_CATEGORY_NAME (p.LV) LV
+		,FIND_CATEGORY_NAME (p.REGION) REGION
+		,FIND_CATEGORY_NAME (p.GEN) GEN
+		,FIND_CATEGORY_NAME (p.NTRP) NTRP
+		,FIND_CATEGORY_NAME (p.PREFER_GAME_WAY) PREFER_GAME_WAY
+		,FIND_CATEGORY_NAME (p.PREFER_AGE) PREFER_AGE
+		,p.CRTROOM_NO
+		,p.PR_IMAGE
+		,p.MANNER_POINT
+		FROM MEM m JOIN PR p
+		ON m.mem_id = p.mem_id
+		WHERE m.mem_id = #{memId}
+		<!-- LIKE '%' || #{keyword} || '%' LIKE '%${keyword}%' -->
+	</select>
+
+	<!-- 아이디 중복 체크 -->
+	<select id="memberIdCheck" parameterType="String"
+		resultType="int">
+		SELECT COUNT(MEM_ID) FROM MEM WHERE MEM_ID = #{memId}
+	</select>
+
+	<!-- <if> => 조건이 true인 경우 -->
+	<!-- <foreach> => 반복문 : 배열로 넘어온 데이터 처리 -->
+	<!-- <select id="selectPostIn" resultType="domain.blog.Post"> SELECT * FROM 
+		POST P <where> <foreach item="item"(임시변수) index="index" collection="list" 
+		(배열) (처음 시작 값)open="ID in (" separator="," close=")" nullable="true"> #{item} 
+		</foreach> </where> </select> -->
+	<!-- <choose> => 다중 if문 -->
+	<!-- <trim> => 문장 구성 -->
+
+	<!-- 등록 -->
+	<insert id="insertMember" parameterType="MemberVO">
+		<selectKey keyProperty="memNo" resultType="String"
+			order="BEFORE">
+			<!-- primarykey가 숫자일 경우 사용 -->
+			SELECT NVL(MAX(MEM_NO), 0) + 1
 			FROM MEM
-  	 	</selectKey>
-  	 	INSERT ALL
-  	 		INTO MEM
-  	 			(
-  	 				MEM_NO
-  	 				,MEM_ID
-  	 				,NAME
-  	 				,PWD
-  	 				,PHONE_NO
-  	 				,MEM_DIV
-  	 			
-  	 			)
-  	 			VALUES
-  	 			(
-  	 				#{memNo}
-  	 				,#{memId}
-  	 				,#{name}
-  	 				,#{pwd}
-  	 				,#{phoneNo}
-  	 				,#{memDiv}  	 			 	
-  	 			)
-  	 		INTO PR
-  	 			(
-  	 				MEM_NO
-  	 				,NICK
-  	 				,AGE
-  	 				,LV
-  	 				,REGION
-  	 				,GEN
-  	 				,NTRP
-  	 				,PREFER_GAME_WAY
-  	 				,PREFER_AGE
-  	 				,CRTROOM_NO
-  	 				,PR_IMAGE  	 		
-  	 				,MANNER_POINT
-  	 			)
-  	 			VALUES
-  	 			(
-  	 				#{memNo}
-  	 				,#{nick}
-  	 				,#{age}
-  	 				,#{lv}
-  	 				,#{region}
-  	 				,#{gen}
-  	 				,#{ntrp}
-  	 				,#{preferGameWay}
-  	 				,#{preferAge}
-  	 				,#{crtroomNo}
-  	 				,#{prImage}
-  	 				,0
-  	 			)
-  	 		<if test="memDiv.equals('ROLE_HOST')">
-  	 		INTO CRTROOM_HOST
-  	 			(
-  	 				MEM_ID
-  	 				,HOST_BANK
-  	 				,HOST_ACT_NO
-  	 				,HOST_DEPOSITOR
-  	 				,HOST_BUSINESS_REGI_NO  	 			
-  	 			)
-  	 			VALUES
-  	 			(
-  	 				#{memId}
-  	 				,#{hostBank}  	 			 	
-  	 				,#{hostActNo}  	 				  	 			 	
-  	 				,#{hostDepositor}  	 			 	
-  	 				,#{hostBusinessRegiNo}  	 			 	
-  	 			)
-  	 		
-  	 		</if>
-  	 			SELECT * FROM DUAL
-  	</insert>
-  	
-  	<!-- 수정 : 전제조건, 전체 데이터 전송 -->
-  	<update id="updateEmpInfo" parameterType="MemberVO">
-  		UPDATE employees
-  			SET
-  				first_name = #{firstName}
-  			  , email = #{email}
-  			  , salary = #{salary}
-  		WHERE employee_id = #{employeeId}
-  	</update>
-  	
-  	<!-- 수정 : 전제조건, 변경된 데이터만 올 경우 Dynamic Sql -->
-  	<update id="updateEmpInfoDynamic" parameterType="MemberVO">
-  		UPDATE employees	  <!--  prefixOverrides="AND |OR "  앞 부분에 대해 처리-->
-  			<trim prefix="set" suffixOverrides="," > <!-- 뒷부분에 대해 처리 -->
-  				<if test="firstName != null and !firstName.equals('')">first_name = #{firstName},</if>
-  				<if test="email != null and !email.equals('')">email = #{email},</if>
-  				<if test="salary > 0">salary = #{salary},</if>
-  			</trim>
-  		WHERE employee_id = #{employeeId}
-  		
-<!--   		UPDATE employees
-  			<set>
-  				<if test="firstName != null and !firstName.equals('')">first_name = #{firstName},</if>
-  				<if test="email != null and !email.equals('')">email = #{email},</if>
-  				<if test="salary > 0">salary = #{salary},</if>
-  			</set>  				
-  		WHERE employee_id = #{employeeId} -->
-  	</update>
-  	
-  	<!-- 삭제 -->
-  	<delete id="deleteEmpInfo" parameterType="int">
-  		DELETE FROM employees
-  		WHERE employee_id = #{empid} <!-- 기본타입으로 한건만 넘어올 경우 #에 다 집어넣어서 일치하지 않아도 됨 -->
-  	</delete>
-  </mapper>
+		</selectKey>
+		INSERT ALL
+		INTO MEM
+		(
+		MEM_NO
+		,MEM_ID
+		,NAME
+		,PWD
+		,PHONE_NO
+		,MEM_DIV
+
+		)
+		VALUES
+		(
+		#{memNo}
+		,#{memId}
+		,#{name}
+		,#{pwd}
+		,#{phoneNo}
+		,#{memDiv}
+		)
+		INTO PR
+		(
+		MEM_NO
+		,NICK
+		,AGE
+		,LV
+		,REGION
+		,GEN
+		,NTRP
+		,PREFER_GAME_WAY
+		,PREFER_AGE
+		,CRTROOM_NO
+		,PR_IMAGE
+		,MANNER_POINT
+		)
+		VALUES
+		(
+		#{memNo}
+		,#{nick}
+		,#{age}
+		,#{lv}
+		,#{region}
+		,#{gen}
+		,#{ntrp}
+		,#{preferGameWay}
+		,#{preferAge}
+		,#{crtroomNo}
+		,#{prImage}
+		,0
+		)
+		<if test="memDiv.equals('ROLE_HOST')">
+			INTO CRTROOM_HOST
+			(
+			MEM_ID
+			,HOST_BANK
+			,HOST_ACT_NO
+			,HOST_DEPOSITOR
+			,HOST_BUSINESS_REGI_NO
+			)
+			VALUES
+			(
+			#{memId}
+			,#{hostBank}
+			,#{hostActNo}
+			,#{hostDepositor}
+			,#{hostBusinessRegiNo}
+			)
+
+		</if>
+		SELECT * FROM DUAL
+	</insert>
+
+	<!-- 수정 : 전제조건, 전체 데이터 전송 -->
+	<update id="updateEmpInfo" parameterType="MemberVO">
+		UPDATE employees
+		SET
+		first_name = #{firstName}
+		, email = #{email}
+		, salary = #{salary}
+		WHERE employee_id = #{employeeId}
+	</update>
+
+	<!-- 수정 : 전제조건, 변경된 데이터만 올 경우 Dynamic Sql -->
+	<update id="updateEmpInfoDynamic" parameterType="MemberVO">
+		UPDATE employees	  <!-- prefixOverrides="AND |OR " 앞 부분에 대해 처리 -->
+		<trim prefix="set" suffixOverrides=","> <!-- 뒷부분에 대해 처리 -->
+			<if test="firstName != null and !firstName.equals('')">first_name = #{firstName},</if>
+			<if test="email != null and !email.equals('')">email = #{email},</if>
+			<if test="salary > 0">salary = #{salary},</if>
+		</trim>
+		WHERE employee_id = #{employeeId}
+
+		<!-- UPDATE employees <set> <if test="firstName != null and !firstName.equals('')">first_name 
+			= #{firstName},</if> <if test="email != null and !email.equals('')">email 
+			= #{email},</if> <if test="salary > 0">salary = #{salary},</if> </set> WHERE 
+			employee_id = #{employeeId} -->
+	</update>
+
+	<!-- 삭제 -->
+	<delete id="deleteEmpInfo" parameterType="int">
+		DELETE FROM employees
+		WHERE employee_id = #{empid} <!-- 기본타입으로 한건만 넘어올 경우 #에 다 집어넣어서 일치하지 않아도 됨 -->
+	</delete>
+</mapper>
