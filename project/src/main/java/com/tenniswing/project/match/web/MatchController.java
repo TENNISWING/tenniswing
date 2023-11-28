@@ -18,17 +18,11 @@ public class MatchController {
 	MatchService matchService;	
 
 	@GetMapping(value = {"/", "/home"})
-
-
-	public String matchPage(MatchVO matchVO, Model model, Principal principal) { 
-//		System.out.println(principal.getName());		
-//		model.addAttribute("matchList", matchService.selectAllMatch(matchVO));
-
-
+	public String matchPage(Model model) {
 		return "match/match";
 	}
 	
-	@GetMapping("match")
+	@GetMapping("matchList")
 	@ResponseBody
 	public List<MatchVO> matchPageAjax(MatchVO matchVO) {		
 		return matchService.selectAllMatch(matchVO);
@@ -36,9 +30,15 @@ public class MatchController {
 	
 	@GetMapping("clubmatch")  
 	public String clubmatchPage(Model model) {
-		model.addAttribute("clubMatchList", matchService.selectAllClubMatch());
 		return "match/clubmatch";
 	}
+	
+	@GetMapping("clubMatchDataList")
+	@ResponseBody
+	public List<MatchVO> clubMatchPageAjax(MatchVO matchVO) {		
+		return matchService.selectAllClubMatch();
+	}
+	
 	
 	@GetMapping("contestmatch")  
 	public String contestmatchPage(Model model) {
