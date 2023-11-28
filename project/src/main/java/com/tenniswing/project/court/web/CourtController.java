@@ -92,18 +92,16 @@ public class CourtController {
 			}
 			
 			// 삭제
-			@GetMapping("deleteCourtroom")
-			public String deleteCourtroomProccess(@RequestParam Integer crtroomNo,
-												  RedirectAttributes rttr) {
+			@PostMapping("deleteCourtroom")
+			@ResponseBody
+			public boolean deleteCourtroomProccess(@RequestParam("crtNo") Integer crtroomNo) {
 				boolean result = courtroomService.deleteCourtroom(crtroomNo);
-				String msg = null;
-				if(result) {
-					msg = "정상적으로 삭제되었습니다. \n삭제대상 : "+crtroomNo;
-				}else {
-					msg = "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다. \n삭제요청 : "+crtroomNo;
-				}
-				rttr.addFlashAttribute("result", msg);
-				return "redirect:hostCourtList";
+				/*
+				 * String msg = null; if(result) { msg = "정상적으로 삭제되었습니다. \n삭제대상 : "+crtroomNo;
+				 * }else { msg = "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다. \n삭제요청 : "+crtroomNo; }
+				 * rttr.addFlashAttribute("result", msg);
+				 */
+				return result;
 			}
 			
 		// 코트 상세
@@ -119,11 +117,13 @@ public class CourtController {
 			public String insertCourtDetailProcess(CrtDetailVO crtDetailVO, @RequestParam String action, RedirectAttributes rttr) {
 				crtDetailService.insertCrtDetail(crtDetailVO);
 				
+				int crtroomNo = crtDetailVO.getCrtroomNo();
+				
 				if(action.equals("complete")) {
-					return "redirect:hostCourtList";
+					return "redirect:hostCourtDetail?crtroomNo="+crtroomNo;
 				}
 				else {
-					rttr.addAttribute("crtroomNo", crtDetailVO.getCrtroomNo());
+					rttr.addAttribute("crtroomNo", crtroomNo);
 					return "redirect:registerCourtDetail";
 				}
 			}
@@ -143,17 +143,21 @@ public class CourtController {
 			}
 			
 			// 삭제
-			@GetMapping("deleteCourtDetail")
-			public String deleteCourtDetailProccess(@RequestParam Integer crtDetailNo,
-												  RedirectAttributes rttr) {
+			@PostMapping("deleteCourtDetail")
+			@ResponseBody
+			public boolean deleteCourtDetailProccess(@RequestParam("crtDeNo") Integer crtDetailNo) {
+				/*
+				 * int crtroomNo =
+				 * crtDetailService.selectCrtDetailNo(crtDetailNo).getCrtroomNo();
+				 */
 				boolean result = crtDetailService.deleteCrtDetail(crtDetailNo);
-				String msg = null;
-				if(result) {
-					msg = "정상적으로 삭제되었습니다. \n삭제대상 : "+crtDetailNo;
-				}else {
-					msg = "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다. \n삭제요청 : "+crtDetailNo;
-				}
-				rttr.addFlashAttribute("result", msg);
-				return "redirect:hostCourtList";
+				/*
+				 * String msg = null; if(result) { msg = "정상적으로 삭제되었습니다. \n삭제대상 : "+crtDetailNo;
+				 * }else { msg = "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다. \n삭제요청 : "+crtDetailNo; }
+				 */
+				
+				/* rttr.addFlashAttribute("result", msg); */
+				/* return "redirect:hostCourtDetail?crtroomNo="+crtroomNo; */
+				return result;
 			}
 }

@@ -17,8 +17,8 @@
   				, cr.crtroom_caution
   				, cr.crtroom_use_guide
   				, cr.crtroom_regi_date
-  				, count(*) crtCount
-  		FROM crtroom cr JOIN crt_detail_inf cdi
+                , count(cdi.crt_detail_no) crtCount
+  		FROM crtroom cr LEFT OUTER JOIN crt_detail_inf cdi
   						ON cr.crtroom_no = cdi.crtroom_no
   		GROUP BY cr.crtroom_no
   				, cr.crtroom_name
