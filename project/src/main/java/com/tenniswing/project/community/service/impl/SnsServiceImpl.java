@@ -59,17 +59,6 @@ public class SnsServiceImpl implements SnsService {
 		return 0;
 	}
 
-	// 댓글 등록
-	@Override
-	public int insertSnsRep(SnsVO snsVO) {
-		return 0;
-	}
-
-	// 대댓글 등록
-	@Override
-	public int insertSnsRrep(SnsVO snsVO) {
-		return 0;
-	}
 
 	// 수정
 	@Override

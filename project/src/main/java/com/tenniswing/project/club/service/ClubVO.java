@@ -19,7 +19,7 @@ public class ClubVO {
 	private String clubCrt;
 	private int clubMemNum;
 	private String clubRecruitment;
-	private String memNo;
+	private String memId;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date clubCreateDate;
 }

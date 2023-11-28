@@ -18,7 +18,9 @@ public class SecurityConfig {
 
 		http.csrf().disable().authorizeRequests()
 
-				.antMatchers("/mypage/**").authenticated()
+
+		//여기에 로그인 필요한 페이지 적어주세요.
+				.antMatchers("/mypage/**","/clubform").authenticated()
 				//.antMatchers("/admin/**").hasRole("ADMIN")
 				//.antMatchers("/host/**").hasRole("HOST")
 				.anyRequest().permitAll()
@@ -33,16 +35,16 @@ public class SecurityConfig {
 			
 				.and()
 				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/")
+				.logoutSuccessUrl("/");
 				
-				.and()
-				.sessionManagement((auth) -> auth
-						//하나의 아이디에 대한 다중 로그인 허용 개수
-						.maximumSessions(5)
-						//다중 로그인 개수를 초과하였을 경우 처리 방법
-						.maxSessionsPreventsLogin(true))				
-				.sessionManagement((auth) -> auth
-						.sessionFixation().changeSessionId());
+//				.and()
+//				.sessionManagement((auth) -> auth
+//						//하나의 아이디에 대한 다중 로그인 허용 개수
+//						.maximumSessions(5)
+//						//다중 로그인 개수를 초과하였을 경우 처리 방법
+//						.maxSessionsPreventsLogin(true))				
+//				.sessionManagement((auth) -> auth
+//						.sessionFixation().changeSessionId());
 		return http.build();
 	}
 

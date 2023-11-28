@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.tenniswing.project.community.mapper.SnsRepMapper">
+  	<!-- 게시글당 댓글 전체 조회  -->
+ 	<select id="selectAllSnsRep" resultType="SnsRepVO">
+  				select sns_rep_no
+ 			   , sns_rep_ctt
+ 			   , sns_rep_write_date
+ 			   , sns_rep_edit_date
+ 			   , sr.sns_wrt_no
+ 			   , m.mem_no
+ 			   , m.name
+ 		from sns_rep sr, mem m
+ 		where sr.mem_no = m.mem_no
+        and sr.sns_wrt_no = #{snsWrtNo}
+ 		order by sns_rep_no
+  	</select>
+  	
+  	
+  	<!-- 단건조회 필요한가..마이페이지 내가쓴댓글보기할때 list로 바꿔야할듯-->
+  	<select id="selectSnsRep" resultType="SnsVO">
+			select sns_rep_no
+ 			   , sns_rep_ctt
+ 			   , sns_rep_write_date
+ 			   , sns_rep_edit_date
+ 			   , sns_wrt_no
+ 			   , mem_no
+ 		from sns_rep
+        where mem_no = #{memNo}
+  
+  	</select>
+  	
+  	
+  	<!-- 댓글 등록 -->
+  	<insert id="insertSnsRep" parameterType="SnsRepVO">
+  	 	<selectKey keyProperty="snsRepNo" 
+  	 			   resultType="int" 
+  	 			   order="BEFORE">
+  	 		<!-- primarykey가 숫자일 경우 사용 -->
+  	 		SELECT NVL(MAX(sns_rep_no), 0) + 1 
+			FROM sns_rep
+  	 	</selectKey>
+  	 	INSERT INTO sns_rep
+  	 			(
+  	 				sns_rep_no
+	 			   , sns_rep_ctt
+	 			   , sns_rep_write_date
+	 			   , sns_wrt_no
+	 			   , mem_no
+  	 			)
+  	 			VALUES
+  	 			(
+  	 				#{snsRepNo}
+  	 				,#{snsRepCtt}
+ 					,<choose>
+	 					<when test="snsRepWriteDate != null">,#{snsRepWriteDate}</when>
+	 					<otherwise>,sysdate</otherwise>
+ 					 </choose>  	 
+  	 				,#{snsWrtNo}
+  	 				,#{memNo}
+  	 			)
+
+  	</insert>
+  
+  	
+  	<!-- 수정 : 전제조건, 전체 데이터 전송 -->
+  	<update id="updateSnsRep" parameterType="SnsRepVO">
+  		UPDATE sns_rep
+  			SET
+  				sns_rep_ctt = #{snsRepCtt}
+  			  , sns_rep_edit_date = sysdate
+  		WHERE sns_rep_no = #{snsRepNo}
+  	</update>
+  	
+  	
+  	<!-- 삭제 -->
+  	<delete id="deleteSnsRep" parameterType="int">
+  		DELETE FROM sns_rep
+  		WHERE sns_rep_no = #{snsRepNo} <!-- 기본타입으로 한건만 넘어올 경우 #에 다 집어넣어서 일치하지 않아도 됨 -->
+  	</delete>
+  </mapper>

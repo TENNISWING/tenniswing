@@ -10,6 +10,9 @@ public interface MemberService {
 	// 로그인
 	public MemberVO loginMember(MemberVO empVO);
 	
+	// 마이페이지 회원정보 조회
+	public MemberVO memberInfo(MemberVO empVO);
+	
 	// 아이디 중복 체크
 	public boolean idCheck(String memId);
 

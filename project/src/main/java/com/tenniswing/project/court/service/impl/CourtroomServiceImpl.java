@@ -44,8 +44,8 @@ public class CourtroomServiceImpl implements CourtroomService {
 	}
 
 	@Override
-	public List<CrtroomVO> selectAllCourtroom() {
-		return courtroomMapper.selectAllCourtroom();
+	public List<CrtroomVO> selectAllCourtroom(String hostId) {
+		return courtroomMapper.selectAllCourtroom(hostId);
 	}
 
 	@Override
