@@ -13992,7 +13992,7 @@ h4 {
 /*********************************
 /* Address card Start
 *********************************/
-/* .address__wrapper {
+.address__wrapper {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
@@ -14077,7 +14077,7 @@ h4 {
   .address__cards .address__list li {
     font-size: 15px;
   }
-} */
+}
 
 /*********************************
 /* Address card End

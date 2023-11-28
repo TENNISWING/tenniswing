@@ -173,8 +173,8 @@
     if ($(".category-select").length > 0) {
         $(".category-select").niceSelect();
     }
-    if ($(".brand-select").length > 0) {
-        $(".brand-select").niceSelect();
+    if ($(".gender-select").length > 0) {
+        $(".gender-select").niceSelect();
     }
     if ($(".tags-select").length > 0) {
         $(".tags-select").niceSelect();

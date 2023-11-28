@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/admin/admin-layout}">
+<head>
+<link rel="shortcut icon" href="./assets/compiled/svg/favicon.svg"
+	type="image/x-icon">
+<link rel="shortcut icon"
+	href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAiCAYAAADRcLDBAAAEs2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS41LjAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgeG1sbnM6ZXhpZj0iaHR0cDovL25zLmFkb2JlLmNvbS9leGlmLzEuMC8iCiAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyIKICAgIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIKICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIKICAgIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIgogICAgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIKICAgZXhpZjpQaXhlbFhEaW1lbnNpb249IjMzIgogICBleGlmOlBpeGVsWURpbWVuc2lvbj0iMzQiCiAgIGV4aWY6Q29sb3JTcGFjZT0iMSIKICAgdGlmZjpJbWFnZVdpZHRoPSIzMyIKICAgdGlmZjpJbWFnZUxlbmd0aD0iMzQiCiAgIHRpZmY6UmVzb2x1dGlvblVuaXQ9IjIiCiAgIHRpZmY6WFJlc29sdXRpb249Ijk2LjAiCiAgIHRpZmY6WVJlc29sdXRpb249Ijk2LjAiCiAgIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiCiAgIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIKICAgeG1wOk1vZGlmeURhdGU9IjIwMjItMDMtMzFUMTA6NTA6MjMrMDI6MDAiCiAgIHhtcDpNZXRhZGF0YURhdGU9IjIwMjItMDMtMzFUMTA6NTA6MjMrMDI6MDAiPgogICA8eG1wTU06SGlzdG9yeT4KICAgIDxyZGY6U2VxPgogICAgIDxyZGY6bGkKICAgICAgc3RFdnQ6YWN0aW9uPSJwcm9kdWNlZCIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWZmaW5pdHkgRGVzaWduZXIgMS4xMC4xIgogICAgICBzdEV2dDp3aGVuPSIyMDIyLTAzLTMxVDEwOjUwOjIzKzAyOjAwIi8+CiAgICA8L3JkZjpTZXE+CiAgIDwveG1wTU06SGlzdG9yeT4KICA8L3JkZjpEZXNjcmlwdGlvbj4KIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+Cjw/eHBhY2tldCBlbmQ9InIiPz5V57uAAAABgmlDQ1BzUkdCIElFQzYxOTY2LTIuMQAAKJF1kc8rRFEUxz9maORHo1hYKC9hISNGTWwsRn4VFmOUX5uZZ36oeTOv954kW2WrKLHxa8FfwFZZK0WkZClrYoOe87ypmWTO7dzzud97z+nec8ETzaiaWd4NWtYyIiNhZWZ2TvE946WZSjqoj6mmPjE1HKWkfdxR5sSbgFOr9Ll/rXoxYapQVik8oOqGJTwqPL5i6Q5vCzeo6dii8KlwpyEXFL519LjLLw6nXP5y2IhGBsFTJ6ykijhexGra0ITl5bRqmWU1fx/nJTWJ7PSUxBbxJkwijBBGYYwhBgnRQ7/MIQIE6ZIVJfK7f/MnyUmuKrPOKgZLpEhj0SnqslRPSEyKnpCRYdXp/9++msneoFu9JgwVT7b91ga+LfjetO3PQ9v+PgLvI1xkC/m5A+h7F32zoLXug38dzi4LWnwHzjeg8UGPGbFfySvuSSbh9QRqZ6H+Gqrm3Z7l9zm+h+iafNUV7O5Bu5z3L/wAdthn7QIme0YAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAJTSURBVFiF7Zi9axRBGIefEw2IdxFBRQsLWUTBaywSK4ubdSGVIY1Y6HZql8ZKCGIqwX/AYLmCgVQKfiDn7jZeEQMWfsSAHAiKqPiB5mIgELWYOW5vzc3O7niHhT/YZvY37/swM/vOzJbIqVq9uQ04CYwCI8AhYAlYAB4Dc7HnrOSJWcoJcBS4ARzQ2F4BZ2LPmTeNuykHwEWgkQGAet9QfiMZjUSt3hwD7psGTWgs9pwH1hC1enMYeA7sKwDxBqjGnvNdZzKZjqmCAKh+U1kmEwi3IEBbIsugnY5avTkEtIAtFhBrQCX2nLVehqyRqFoCAAwBh3WGLAhbgCRIYYinwLolwLqKUwwi9pxV4KUlxKKKUwxC6ZElRCPLYAJxGfhSEOCz6m8HEXvOB2CyIMSk6m8HoXQTmMkJcA2YNTHm3congOvATo3tE3A29pxbpnFzQSiQPcB55IFmFNgFfEQeahaAGZMpsIJIAZWAHcDX2HN+2cT6r39GxmvC9aPNwH5gO1BOPFuBVWAZue0vA9+A12EgjPadnhCuH1WAE8ivYAQ4ohKaagV4gvxi5oG7YSA2vApsCOH60WngKrA3R9IsvQUuhIGY00K4flQG7gHH/mLytB4C42EgfrQb0mV7us8AAMeBS8mGNMR4nwHamtBB7B4QRNdaS0M8GxDEog7iyoAguvJ0QYSBuAOcAt71Kfl7wA8DcTvZ2KtOlJEr+ByyQtqqhTyHTIeB+ONeqi3brh+VgIN0fohUgWGggizZFTplu12yW8iy/YLOGWMpDMTPXnl+Az9vj2HERYqPAAAAAElFTkSuQmCC"
+	type="image/png">
+
+<link rel="stylesheet"
+	href="assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet"
+	href="./assets/compiled/css/table-datatable-jquery.css">
+
+</head>
+<th:block layout:fragment="admincontent">
+	<!-- Main__container Start-->
+	<div class="main__container">
+		<!-- Main Inner Wrapper Start -->
+		<div class="main__inner--wrapper" style="padding: 40px 0;">
+			<!-- Product List Start -->
+			<div class="row">
+				<div class="col-12">
+					<div class="dashboard__breadcrumb">
+						<div class="breadcrumb__meta">
+							<ul>
+								<li><a href="d-category-list.html" class="link"><i
+										class="fa-solid fa-arrow-left me-2"></i> Back</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="dashboard__header">
+						<div class="d__header--left">
+							<h2 class="title">Poduct Details</h2>
+						</div>
+						<div style="display: flex;">
+							<div class="edit__btn" style="margin-right: 1.5rem">
+								<a href="adminEdit_Product" class="shop-btn shop-btn-primary">Edit Product</a>
+							</div>
+							<div class="add__btn" style="padding-right: 1.5rem">
+								<!-- <a href="d-category-edit.html" class="btn btn-primary">Add Product Detail</a> -->
+								<button type="button" class="btn btn-outline-success"
+									data-bs-toggle="modal" data-bs-target="#inlineForm">
+									Add Product Detail</button>
+							</div>
+						</div>
+						
+					</div>
+
+					<form action="#" class="dashboard__form">
+						<div class="row">
+							<div class="col-xxl-4">
+								<div class="dashboard-block">
+									<div class="dashboard-block__title">
+										<h4>Poduct Image</h4>
+									</div>
+									<div class="card block__card">
+										<div class="upload__drag p-0">
+											<img src="assets/images/dashboard/category-detail.jpg"
+												id="img" alt="category-image" />
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xxl-8">
+								<div class="dashboard-block">
+									<div class="dashboard-block__title">
+										<h4>Basic info</h4>
+									</div>
+									<div class="form__wrapper form-padding">
+										<div class="flex__form c-3">
+											<div class="form-group">
+												<label for="product_no">상품 번호</label> <input type="text"
+													name="product_no" id="product_no" class="form-control"
+													placeholder="상품 번호 불러오기" value="상품 번호" disabled="disabled" />
+											</div>
+											<div class="form-group">
+												<label for="product_name">상품 이름</label> <input type="text"
+													name="product_name" id="product_name" class="form-control"
+													placeholder="상품 이름 불러오기" value="상품 이름" disabled="disabled" />
+											</div>
+											<div class="form-group">
+												<label for="product_brand">상품 브랜드</label> <input type="text"
+													name="product_brand" id="product_brand"
+													class="form-control" placeholder="상품 브랜드" value="상품 브랜드"
+													disabled="disabled" />
+											</div>
+										</div>
+										<div class="flex__form c-3">
+											<div class="form-group">
+												<label for="product_total">상품 총 재고</label> <input
+													type="text" name="product_total" id="product_total"
+													class="form-control" placeholder="상품 재고 불러오기"
+													value="상품 총 재고" disabled="disabled" />
+											</div>
+											<div class="form-group">
+												<label for="product_category">상품 카테고리</label> <input
+													type="text" name="product_category" id="product_category"
+													class="form-control" placeholder="상품 카테고리 불러오기"
+													value="상품 카테고리" disabled="disabled" />
+											</div>
+											<div class="form-group">
+												<label for="product_gender">상품 성별</label> <input type="text"
+													name="product_gender" id="product_gender"
+													class="form-control" placeholder="상품 성별" value="상품 성별"
+													disabled="disabled" />
+											</div>
+										</div>
+										<div class="form-group mb-0">
+											<div class="form-group">
+												<label for="description">상품 설명</label>
+												<textarea name="description" class="form-control"
+													id="description" cols="30" rows="4"
+													placeholder="Write about your product description briefly"></textarea>
+											</div>
+											<label>Status</label>
+											<div class="custom-checkbox">
+												<input type="checkbox" name="status" checked id="statuss" />
+												<label for="statuss"> <span class="active">Active</span>
+													<span class="inactive">Inactive</span>
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- Product List End -->
+		</div>
+		<!-- Main Inner Wrapper End -->
+	</div>
+	<!-- Main__container End-->
+
+	<!-- 상품 상세 등록 모달 -->
+	<div class="modal fade text-left" id="inlineForm" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+			role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel33">상품 상세 등록</h4>
+					<button type="button" class="close" data-bs-dismiss="modal"
+						aria-label="Close">
+						<i data-feather="x"></i>
+					</button>
+				</div>
+				<form action="#" class="form__wrapper">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="product_no">상품 번호</label> <input
+								type="text" name="product_no" id="product_no"
+								class="form-control" placeholder="상품 번호" />
+						</div>
+						<div class="flex__form c-2">
+							<div class="form-group">
+								<label for="product_detail_no">상품 상세 번호</label> <input type="text"
+									name="product_detail_no" id="product_detail_no" class="form-control"
+									placeholder="상품 상세 번호" />
+							</div>
+							
+							<div class="form-group">
+								<label for="product_detail_no">상품 상세 재고</label> <input type="text"
+									name="product_detail_sto" id="product_detail_sto" class="form-control"
+									placeholder="상품 상세 재고" />
+							</div>
+	
+							<div class="input-group mb-3">
+								<label class="input-group-text" for="inputGroupSelect01"
+									style="margin: 0; padding-left: 26px; padding-right: 26px">
+									색상</label> <select class="form-select" id="inputGroupSelect01">
+									<option selected>Choose...</option>
+									<option value="1">검은색</option>
+									<option value="2">흰색</option>
+									<option value="3">파란색</option>
+									<option value="4">초록색</option>
+									<option value="5">노란색</option>
+									<option value="5">빨간색</option>
+								</select>
+							</div>
+							
+							<div class="input-group mb-3">
+								<label class="input-group-text" for="inputGroupSelect02"
+									style="margin: 0; padding-left: 20px; padding-right: 20px">
+									사이즈</label> <select class="form-select" id="inputGroupSelect02">
+									<option selected>Choose...</option>
+									<option value="1">xs</option>
+									<option value="2">s</option>
+									<option value="3">m</option>
+									<option value="4">l</option>
+									<option value="5">xl</option>
+									<option value="5">free</option>
+									<option value="5">220</option>
+									<option value="5">230</option>
+									<option value="5">240</option>
+									<option value="5">250</option>
+									<option value="5">260</option>
+									<option value="5">270</option>
+									<option value="5">280</option>
+									<option value="5">290</option>
+								</select>
+							</div>
+							<label>Status</label>
+							<div class="custom-checkbox">
+								<input type="checkbox" name="detail_status" checked id="detail_status" /> <label
+									for="detail_status"> <span class="active">Active</span> <span
+									class="inactive">Inactive</span>
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-light-secondary"
+							data-bs-dismiss="modal">
+							<i class="bx bx-x d-block d-sm-none"></i> <span
+								class="d-none d-sm-block">취소</span>
+						</button>
+						<button type="button" class="btn btn-primary ms-1"
+							data-bs-dismiss="modal">
+							<i class="bx bx-check d-block d-sm-none"></i> <span
+								class="d-none d-sm-block">등록</span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- 상품 상세 등록 모달 끝 -->
+
+
+	<!-- Basic Tables start -->
+	<section class="section">
+		<div class="card">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table" id="table1">
+						<thead>
+							<tr>
+								<th style="width: 150px;">상세 번호</th>
+								<th style="width: 150px;">상세 재고</th>
+								<th style="width: 150px;">색상</th>
+								<th style="width: 150px;">사이즈</th>
+								<th style="width: 150px;">판매 유무</th>
+								<th style="width: 150px;">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="num : ${#numbers.sequence(1,20)}">
+								<td>1001_10</td>
+								<td>200</td>
+								<td>검은색</td>
+								<td>Free</td>
+								<td><span class="badge bg-success">Active</span></td>
+								<td>
+									<div class="card__action">
+										<button type="button" class="btn btn-outline-success"
+											data-bs-toggle="modal" data-bs-target="#editDetailForm"
+											style="border: 0px;">
+											<svg
+												width="20" height="20" viewBox="0 0 20 20" fill="none"
+												xmlns="http://www.w3.org/2000/svg" style="vertical-align: baseline;">
+                                                <path
+													d="M14.166 2.49999C14.3849 2.28112 14.6447 2.1075 14.9307 1.98905C15.2167 1.8706 15.5232 1.80963 15.8327 1.80963C16.1422 1.80963 16.4487 1.8706 16.7347 1.98905C17.0206 2.1075 17.2805 2.28112 17.4993 2.49999C17.7182 2.71886 17.8918 2.97869 18.0103 3.26466C18.1287 3.55063 18.1897 3.85713 18.1897 4.16665C18.1897 4.47618 18.1287 4.78268 18.0103 5.06865C17.8918 5.35461 17.7182 5.61445 17.4993 5.83332L6.24935 17.0833L1.66602 18.3333L2.91602 13.75L14.166 2.49999Z"
+													stroke="#667085" stroke-width="1.66667"
+													stroke-linecap="round" stroke-linejoin="round" />
+                                           </svg>
+                                        </button>
+										<!-- <a href="adminEdit_Product" class="action__btn ml-10"> <svg
+												width="20" height="20" viewBox="0 0 20 20" fill="none"
+												xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+													d="M14.166 2.49999C14.3849 2.28112 14.6447 2.1075 14.9307 1.98905C15.2167 1.8706 15.5232 1.80963 15.8327 1.80963C16.1422 1.80963 16.4487 1.8706 16.7347 1.98905C17.0206 2.1075 17.2805 2.28112 17.4993 2.49999C17.7182 2.71886 17.8918 2.97869 18.0103 3.26466C18.1287 3.55063 18.1897 3.85713 18.1897 4.16665C18.1897 4.47618 18.1287 4.78268 18.0103 5.06865C17.8918 5.35461 17.7182 5.61445 17.4993 5.83332L6.24935 17.0833L1.66602 18.3333L2.91602 13.75L14.166 2.49999Z"
+													stroke="#667085" stroke-width="1.66667"
+													stroke-linecap="round" stroke-linejoin="round" />
+                                                            </svg>
+										</a> -->
+										<button type="button" class="action__btn ml-10">
+											<svg width="18" height="20" viewBox="0 0 18 20" fill="none"
+												xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+													d="M1.5 5.00001H3.16667M3.16667 5.00001H16.5M3.16667 5.00001V16.6667C3.16667 17.1087 3.34226 17.5326 3.65482 17.8452C3.96738 18.1577 4.39131 18.3333 4.83333 18.3333H13.1667C13.6087 18.3333 14.0326 18.1577 14.3452 17.8452C14.6577 17.5326 14.8333 17.1087 14.8333 16.6667V5.00001H3.16667ZM5.66667 5.00001V3.33334C5.66667 2.89131 5.84226 2.46739 6.15482 2.15483C6.46738 1.84227 6.89131 1.66667 7.33333 1.66667H10.6667C11.1087 1.66667 11.5326 1.84227 11.8452 2.15483C12.1577 2.46739 12.3333 2.89131 12.3333 3.33334V5.00001M7.33333 9.16667V14.1667M10.6667 9.16667V14.1667"
+													stroke="#667085" stroke-width="1.66667"
+													stroke-linecap="round" stroke-linejoin="round" />
+                                                            </svg>
+										</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- 상품 상세 등록 모달 -->
+		<div class="modal fade text-left" id="editDetailForm" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+			<div
+				class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+				role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel33">상품 상세 수정</h4>
+						<button type="button" class="close" data-bs-dismiss="modal"
+							aria-label="Close">
+							<i data-feather="x"></i>
+						</button>
+					</div>
+					<form action="#" class="form__wrapper">
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="product_no">상품 번호</label> <input type="text"
+									name="product_no" id="product_no" class="form-control"
+									placeholder="상품 번호" />
+							</div>
+							<div class="flex__form c-2">
+								<div class="form-group">
+									<label for="product_detail_no">상품 상세 번호</label> <input
+										type="text" name="product_detail_no" id="product_detail_no"
+										class="form-control" placeholder="상품 상세 번호" />
+								</div>
+
+								<div class="form-group">
+									<label for="product_detail_no">상품 상세 재고</label> <input
+										type="text" name="product_detail_sto" id="product_detail_sto"
+										class="form-control" placeholder="상품 상세 재고" />
+								</div>
+
+								<div class="input-group mb-3">
+									<label class="input-group-text" for="inputGroupSelect01"
+										style="margin: 0; padding-left: 26px; padding-right: 26px">
+										색상</label> <select class="form-select" id="inputGroupSelect01">
+										<option selected>Choose...</option>
+										<option value="1">검은색</option>
+										<option value="2">흰색</option>
+										<option value="3">파란색</option>
+										<option value="4">초록색</option>
+										<option value="5">노란색</option>
+										<option value="5">빨간색</option>
+									</select>
+								</div>
+
+								<div class="input-group mb-3">
+									<label class="input-group-text" for="inputGroupSelect02"
+										style="margin: 0; padding-left: 20px; padding-right: 20px">
+										사이즈</label> <select class="form-select" id="inputGroupSelect02">
+										<option selected>Choose...</option>
+										<option value="1">xs</option>
+										<option value="2">s</option>
+										<option value="3">m</option>
+										<option value="4">l</option>
+										<option value="5">xl</option>
+										<option value="5">free</option>
+										<option value="5">220</option>
+										<option value="5">230</option>
+										<option value="5">240</option>
+										<option value="5">250</option>
+										<option value="5">260</option>
+										<option value="5">270</option>
+										<option value="5">280</option>
+										<option value="5">290</option>
+									</select>
+								</div>
+								<label>Status</label>
+								<div class="custom-checkbox">
+									<input type="checkbox" name="detail_edit_status" checked
+										id="detail_edit_status" /> <label for="detail_edit_status"> <span
+										class="active">Active</span> <span class="inactive">Inactive</span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-light-secondary"
+								data-bs-dismiss="modal">
+								<i class="bx bx-x d-block d-sm-none"></i> <span
+									class="d-none d-sm-block">취소</span>
+							</button>
+							<button type="button" class="btn btn-primary ms-1"
+								data-bs-dismiss="modal">
+								<i class="bx bx-check d-block d-sm-none"></i> <span
+									class="d-none d-sm-block">등록</span>
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- 상품 상세 등록 모달 끝 -->
+	</section>
+	<!-- Basic Tables end -->
+
+
+	<script src="assets/extensions/jquery/jquery.min.js"></script>
+	<script
+		src="assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script src="assets/static/js/pages/datatables.js"></script>
+</th:block>
+
+</html>
