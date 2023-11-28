@@ -193,9 +193,10 @@
 	function matchAjax(matchDate,page) {
 		$.ajax({
 			type: 'GET',
-			url: 'match',
+			url: 'matchList',
 			data: {matchDate, page},
 			success: function(result) {
+				$('#matchList').empty();
 				for(let matchInfo of result){
 					let b = `<tr class="navbar-brand" onclick="|location.href='/matchdetail?matchNo=${matchInfo.matchNo})}'">
 					<td class="text-center"><b>${matchInfo.time}</b></td>
@@ -212,6 +213,16 @@
 			}
 		})
 	}
+	
+	
+	/* // 페이징
+	function getList() {
+		var bno;
+		var page;
+		\
+	
+	} */
+	
 	
 
                         var swiper = new Swiper(".mySwiper.dateslide", {            
@@ -263,10 +274,12 @@
                         
                         for (let i = 0; i < 14; i++) {
                         	let weekName = (dateGetDay+i)%7;
+                        	let day = new Date(year,month,dateGetDate + i)
                             dateArry.push({
                             	"dayNo": weekName,
                                 "day": days[weekName],
-                                "date": new Date(year,month,dateGetDate + i).getDate()
+                                "date": day.getDate(),
+                                "allDate": day.getFullYear()+"/"+(day.getMonth()+1)+"/"+day.getDate()
                             })
  
                         }
@@ -275,22 +288,22 @@
                         	console.log(ele.dayNo);
                         	if (idx == 0) {
                                 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                                    <div class="btn btn-outline-success active">
+                                                    <div class="btn btn-outline-success active" data-day="${ele.allDate}">
                                                     ${ele.date}<br>
                                                     ${ele.day}</div></div>`)
                             } else if (ele.dayNo == 0) {
                         		 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                         <div class="btn btn-outline-danger">
+                                         <div class="btn btn-outline-danger" data-day="${ele.allDate}">
                                          ${ele.date}<br>
                                          ${ele.day}</div></div>`)
                         	} else if (ele.dayNo == 6) {
                         		 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                         <div class="btn btn-outline-primary">
+                                         <div class="btn btn-outline-primary" data-day="${ele.allDate}">
                                          ${ele.date}<br>
                                          ${ele.day}</div></div>`)
                         	} else {
                         		$('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                        <div class="btn btn-outline-success">
+                                        <div class="btn btn-outline-success" data-day="${ele.allDate}">
                                         ${ele.date}<br>
                                         ${ele.day}</div></div>`)
                         	}
@@ -299,6 +312,8 @@
                         $('.swiper-wrapper.dateslide > div div').on('click', function (e) {
                         	$('.swiper-wrapper.dateslide > div div').removeClass('active');
                         	$(e.target).toggleClass('active');
+                        	let matchDate = $(e.target).data('day');
+                        	matchAjax(matchDate,1);
                         	
                             //태그네임 가져오기                 
                             //console.log($(e.target).prop('tagName'))

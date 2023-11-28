@@ -35,23 +35,7 @@
 				<div class="swiper-pagination banner"></div>
 			</div>
 		</div>
-		<script>
-                    var swiper = new Swiper(".mySwiper.banner", {
-                        loop: true,
-                        loopPreventsSliding: true,
-                        grabCursor: true,
-                        autoplay: {
-                            delay: 2000,
-                            pauseOnMouseEnter: true,
-                            disableOnInteraction: false
-                        },
-                        pagination: {
-                            el: ".swiper-pagination.banner",
-                            dynamicBullets: true,
-                            clickable: true,
-                        },
-                    });
-                </script>
+		
 	</div>
 	<!-- End slide banner -->
 
@@ -64,108 +48,7 @@
 			</div>
 			<div class="swiper-button-next dateslide text-green"></div>
 			<div class="swiper-button-prev dateslide text-green"></div>
-			<script>
-                        var swiper = new Swiper(".mySwiper.dateslide", {            
-
-                            direction : getDirection(),
-                            on: {
-                                resize: function () {
-                                swiper.changeDirection(getDirection());
-                                },
-                            },
-                            pagination: {
-                                el: ".swiper-pagination.dateslide",                         
-                            },
-                            navigation: {
-                                nextEl: ".swiper-button-next.dateslide",
-                                prevEl: ".swiper-button-prev.dateslide",
-                            },
-                            breakpoints: {
-                                320: {
-                                    slidesPerView: 5,
-                                },
-                                480: {
-                                    slidesPerView: 5,
-                                },
-                                640: {
-                                    slidesPerView: 5,
-                                },
-                                992: {
-                                    slidesPerView: 7,
-                                }
-                            }
-                        });
-
-                        function getDirection() {
-                            var windowWidth = window.innerWidth;
-                            var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
-                            return direction;
-                            }
-
-                        const days = ["일", "월", "화", "수", "목", "금", "토"];
-                        let today = new Date();
-                        let dateGetDay = today.getDay();
-                        let year = today.getFullYear();
-                        let month = today.getMonth();
-                        let dateGetDate = today.getDate();
-                        let dateArry = [];
-
-                        for (let i = 0; i < 14; i++) {
-                        	let weekName = (dateGetDay+i)%7;
-                            dateArry.push({
-                            	"dayNo": weekName,
-                                "day": days[weekName],
-                                "date": new Date(year,month,dateGetDate + i).getDate()
-                            })
- 
-                        }
-                    
-                        $.each(dateArry, (idx, ele) => {
-                        	console.log(ele.dayNo);
-                        	if (idx == 0) {
-                                $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                                    <div class="btn btn-outline-success active">
-                                                    ${ele.date}<br>
-                                                    ${ele.day}</div></div>`)
-                            } else if (ele.dayNo == 0) {
-                        		 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                         <div class="btn btn-outline-danger">
-                                         ${ele.date}<br>
-                                         ${ele.day}</div></div>`)
-                        	} else if (ele.dayNo == 6) {
-                        		 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                         <div class="btn btn-outline-primary">
-                                         ${ele.date}<br>
-                                         ${ele.day}</div></div>`)
-                        	} else {
-                        		$('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                        <div class="btn btn-outline-success">
-                                        ${ele.date}<br>
-                                        ${ele.day}</div></div>`)
-                        	}
-                        	
-                        })
-                        $('.swiper-wrapper.dateslide > div div').on('click', function (e) {
-                        	$('.swiper-wrapper.dateslide > div div').removeClass('active');
-                        	$(e.target).toggleClass('active');
-                        	
-                            //태그네임 가져오기                 
-                            //console.log($(e.target).prop('tagName'))
-                            //$('.swiper-wrapper.dateslide > div div').attr('class', 'text-dark')
-                            //$(e.target).attr('class','bg-green rounded-pill text-white');
-                            // $(e.target).attr('class','bg-green rounded-pill text-white');                           
-                            // $(e.target)
-                            // if ($(e.target).prop('tagName') == 'A') {                                
-                            //     $('.swiper-wrapper.dateslide a').attr('class', 'link-dark');
-                            //     $(e.target).parent().attr('class', 'bg-green rounded-pill');
-                            //     $(e.target).attr('class', 'text-white');
-                            // }else if ($(e.target).prop('tagName') == 'DIV') {                                
-                            //     $('.swiper-wrapper.dateslide a').attr('class', 'link-dark');
-                            //     $(e.target).attr('class', 'bg-green rounded-pill');
-                            //     $(e.target).children().attr('class', 'text-white');
-                            // }else{}
-                        })
-                    </script>
+			
 		</div>
 	</div>
 	<!-- End date slide -->
@@ -236,14 +119,8 @@
 		
 			<!-- Default Table -->
 			<table class="table">
-				<tbody>
-					<tr class="navbar-brand" th:each="clubMatchInfo, stat:${clubMatchList}" th:onclick="|location.href='@{/clubmatchdetail(matchNo=${clubMatchInfo.matchNo})}'|">
-						<td class="text-center"><b>[[${#dates.format(clubMatchInfo.Time, 'HH : mm')}]]</b></td>
-						<td>[[${clubMatchInfo.gameWay}]]</td>
-						<td class="text-end">
-							<button type="button" class="btn btn-primary matchbtn1" th:onclick="|location.href='@{clubmatchdetail}'|">[[${clubMatchInfo.matchNo}]]</button>
-						</td>
-					</tr>
+				<tbody id="matchDataList">
+					
 				</tbody>
 			</table>
 			<div class="container mt-5 mb-5">
@@ -254,9 +131,6 @@
 					<li class="page-item"><a class="page-link" href="#">다음</a></li>
 				</ul>
 			</div>
-			<script>
-			
-			</script>
 		</div>
 	</div>
 	<!-- End match table -->
@@ -311,8 +185,151 @@
 					<script
 						src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 					<!-- Initialize Swiper -->
-					<script>
-						var swiper = new Swiper(".mySwiper.mtbanner", {
+				</section>
+				<!-- Trending Section End -->
+	
+</div>
+<script>
+	function matchAjax(matchDate,page) {
+		$.ajax({
+			type: 'GET',
+			url: 'matchDataList',
+			data: {matchDate, page},
+			success: function(result) {
+				for(let matchInfo of result){
+					let b = `<tr class="navbar-brand" onclick="|location.href='/matchdetail?matchNo=${matchInfo.matchNo})}'">
+					<td class="text-center"><b>${matchInfo.time}</b></td>
+					<td>${matchInfo.gameWayName}</td>
+					<td>${matchInfo.genName}</td>
+					<td>${matchInfo.lvName}</td>
+					<td>${matchInfo.crtroomLocationName}</td>
+					<td class="text-end">
+						<button type="button" class="btn btn-primary matchbtn1" onclick="location.href='/matchdetail?'">${matchInfo.matchNo}</button>
+					</td>
+				</tr>`
+					$('#matchList').append(b)
+				}
+			}
+		})
+	}
+	
+	
+	/* // 페이징
+	function getList() {
+		var bno;
+		var page;
+		\
+	
+	} */
+	
+	
+
+                        var swiper = new Swiper(".mySwiper.dateslide", {            
+
+                            direction : getDirection(),
+                            on: {
+                                resize: function () {
+                                swiper.changeDirection(getDirection());
+                                },
+                            },
+                            pagination: {
+                                el: ".swiper-pagination.dateslide",                         
+                            },
+                            navigation: {
+                                nextEl: ".swiper-button-next.dateslide",
+                                prevEl: ".swiper-button-prev.dateslide",
+                            },
+                            breakpoints: {
+                                320: {
+                                    slidesPerView: 5,
+                                },
+                                480: {
+                                    slidesPerView: 5,
+                                },
+                                640: {
+                                    slidesPerView: 5,
+                                },
+                                992: {
+                                    slidesPerView: 7,
+                                }
+                            }
+                        });
+
+                        function getDirection() {
+                            var windowWidth = window.innerWidth;
+                            var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
+                            return direction;
+                            }
+
+                        const days = ["일", "월", "화", "수", "목", "금", "토"];
+                        let today = new Date();
+                        let dateGetDay = today.getDay();
+                        let year = today.getFullYear();
+                        let month = today.getMonth();
+                        let dateGetDate = today.getDate();
+                        let dateArry = [];
+						let matchDate = year+"/"+(month+1)+"/"+dateGetDate
+                        matchAjax(matchDate,1)
+                        
+                        for (let i = 0; i < 14; i++) {
+                        	let weekName = (dateGetDay+i)%7;
+                            dateArry.push({
+                            	"dayNo": weekName,
+                                "day": days[weekName],
+                                "date": new Date(year,month,dateGetDate + i).getDate()
+                            })
+ 
+                        }
+                    
+                        $.each(dateArry, (idx, ele) => {
+                        	console.log(ele.dayNo);
+                        	if (idx == 0) {
+                                $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
+                                                    <div class="btn btn-outline-success active">
+                                                    ${ele.date}<br>
+                                                    ${ele.day}</div></div>`)
+                            } else if (ele.dayNo == 0) {
+                        		 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
+                                         <div class="btn btn-outline-danger">
+                                         ${ele.date}<br>
+                                         ${ele.day}</div></div>`)
+                        	} else if (ele.dayNo == 6) {
+                        		 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
+                                         <div class="btn btn-outline-primary">
+                                         ${ele.date}<br>
+                                         ${ele.day}</div></div>`)
+                        	} else {
+                        		$('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
+                                        <div class="btn btn-outline-success">
+                                        ${ele.date}<br>
+                                        ${ele.day}</div></div>`)
+                        	}
+                        	
+                        })
+                        $('.swiper-wrapper.dateslide > div div').on('click', function (e) {
+                        	$('.swiper-wrapper.dateslide > div div').removeClass('active');
+                        	$(e.target).toggleClass('active');
+                        	
+                            //태그네임 가져오기                 
+                            //console.log($(e.target).prop('tagName'))
+                            //$('.swiper-wrapper.dateslide > div div').attr('class', 'text-dark')
+                            //$(e.target).attr('class','bg-green rounded-pill text-white');
+                            // $(e.target).attr('class','bg-green rounded-pill text-white');                           
+                            // $(e.target)
+                            // if ($(e.target).prop('tagName') == 'A') {                                
+                            //     $('.swiper-wrapper.dateslide a').attr('class', 'link-dark');
+                            //     $(e.target).parent().attr('class', 'bg-green rounded-pill');
+                            //     $(e.target).attr('class', 'text-white');
+                            // }else if ($(e.target).prop('tagName') == 'DIV') {                                
+                            //     $('.swiper-wrapper.dateslide a').attr('class', 'link-dark');
+                            //     $(e.target).attr('class', 'bg-green rounded-pill');
+                            //     $(e.target).children().attr('class', 'text-white');
+                            // }else{}
+                        })
+                        
+                        
+                        
+                        new Swiper(".mySwiper.mtbanner", {
 							/* loop : true, */
 							loopPreventsSliding : true,
 							grabCursor : true,
@@ -330,11 +347,25 @@
 								clickable : true,
 							},
 						});
-					</script>
-				</section>
-				<!-- Trending Section End -->
-	
-</div>
+                        
+                                                
+                        
+                        new Swiper(".mySwiper.banner", {
+                            loop: true,
+                            loopPreventsSliding: true,
+                            grabCursor: true,
+                            autoplay: {
+                                delay: 2000,
+                                pauseOnMouseEnter: true,
+                                disableOnInteraction: false
+                            },
+                            pagination: {
+                                el: ".swiper-pagination.banner",
+                                dynamicBullets: true,
+                                clickable: true,
+                            },
+                        });
+                    </script>
 </th:block>
 
 </html>

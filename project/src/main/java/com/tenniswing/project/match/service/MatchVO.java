@@ -9,7 +9,7 @@ public class MatchVO {
 	private int matchNo;
 	private String memNo;
 	private Date matchDate;
-	private int Time;
+	private int time;
 	private String gameWay;
 	private String gameWayName;
 	private String progState;
