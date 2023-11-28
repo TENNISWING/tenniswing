@@ -55,27 +55,14 @@
 									<div class="form-group mandatory col-10">
 										<label for="formClubName" data-parsley-required="true" class="form-label">클럽명</label>
 										 <input type="text" id="formClubName" class="form-control is-valid"
-											name="formClubName" th:value="${clubName}" placeholder="클럽 이름을 정해주세요">
+											name="clubName" th:value="${clubName}" placeholder="클럽 이름을 정해주세요">
 									</div>
-									<div class="form-group mandatory col-2">
+								<!-- 	<div class="form-group mandatory col-2">
 										<label for="first-name-vertical" data-parsley-required="true"
 											class="form-label" style="opacity: 0"></label> <a href="#"
 											class="btn btn-outline-secondary" style="display: block;">중복체크</a>
 									</div>
-
-									<div class="form-group mandatory col-10">
-										<label for="formClubCode" data-parsley-required="true"
-											class="form-label">클럽코드</label> <input type="text"
-											id="formClubCode" class="form-control is-valid"
-											name="formClubCode" th:value="${clubCode}"
-											placeholder="클럽 코드예시">
-									</div>
-									<div class="form-group mandatory col-2">
-										<label for="first-name-vertical" data-parsley-required="true"
-											class="form-label" style="opacity: 0"> </label> <a href="#"
-											class="btn btn-outline-secondary" style="display: block;">중복체크</a>
-									</div>
-
+ -->
 									<div class="col-12">
 										<div class="form-group mandatory">
 											<label for="contact-info-vertical">프로필사진</label> <input
@@ -85,7 +72,44 @@
 									<div class="col-12">
 										<div class="form-group mandatory">
 											<label data-parsley-required="true" class="form-label">요일</label>
-											<ul class="list-unstyled mb-0" data-parsley-required="true" th:field="*{clubDay}">
+											<div>
+												<input class="form-check-input" type="checkbox"
+													name="clubDay" id="checkbox1" value="j1"
+													style="display: inline-block;"> <label
+													class="form-check-label" for="checkbox1"
+													style="display: inline-block;">일요일</label>&nbsp; <input
+													class="form-check-input" type="checkbox" name="clubDay"
+													id="checkbox2" value="j2" style="display: inline-block;">
+												<label class="form-check-label" for="checkbox2"
+													style="display: inline-block;">월요일</label>&nbsp; <input
+													class="form-check-input" type="checkbox" name="clubDay"
+													id="checkbox3" value="j3" style="display: inline-block;">
+												<label class="form-check-label" for="checkbox3"
+													style="display: inline-block;">화요일</label>&nbsp; <input
+													class="form-check-input" type="checkbox" name="clubDay"
+													id="checkbox4" value="j4" style="display: inline-block;">
+												<label class="form-check-label" for="checkbox4"
+													style="display: inline-block;">수요일</label>&nbsp; <input
+													class="form-check-input" type="checkbox" name="clubDay"
+													id="checkbox5" value="j5" style="display: inline-block;">
+												<label class="form-check-label" for="checkbox5"
+													style="display: inline-block;">목요일</label>&nbsp; <input
+													class="form-check-input" type="checkbox" name="clubDay"
+													id="checkbox5" value="j6" style="display: inline-block;">
+												<label class="form-check-label" for="checkbox5"
+													style="display: inline-block;">금요일</label>&nbsp; <input
+													class="form-check-input" type="checkbox" name="clubDay"
+													id="checkbox7" value="j7" style="display: inline-block;">
+												<label class="form-check-label" for="checkbox7"
+													style="display: inline-block;">토요일</label>&nbsp;
+											</div>
+										</div>
+
+									</div>
+									<!-- <div class="col-12">
+										<div class="form-group mandatory">
+											<label data-parsley-required="true" class="form-label">요일</label>
+											<ul class="list-unstyled mb-0" name="clubDay" data-parsley-required="true" th:field="*{clubDay}">
 												<li class="d-inline-block me-2 mb-1" >
 														<div class="checkbox">
 															<input type="checkbox" id="checkbox1"
@@ -131,8 +155,8 @@
 												
 											</ul>
 										</div>
-									</div>
-									<div class="col-12">
+									</div> -->
+									<!-- <div class="col-12">
 										<div class="form-group mandatory">
 											<label data-parsley-required="true" class="form-label">시간</label>
 											<ul class="list-unstyled mb-0" data-parsley-required="true" th:field="*{clubTime}">
@@ -162,12 +186,37 @@
 												</li>
 											</ul>
 										</div>
+									</div> -->
+									
+									<div class="col-12">
+										<div class="form-group mandatory">
+											<label data-parsley-required="true" class="form-label">시간</label>
+											<div>
+												<input class="form-check-input" type="checkbox"name="clubTime" id="checkbox8" value="k1"
+													style="display: inline-block;"> 
+												<label class="form-check-label" for="checkbox8" style="display: inline-block;">오전</label>&nbsp;
+												 
+												<input class="form-check-input" type="checkbox" name="clubTime" id="checkbox9" value="k2" 
+													style="display: inline-block;">
+												<label class="form-check-label" for="checkbox9" style="display: inline-block;">오후</label>&nbsp; 
+												
+												<input class="form-check-input" type="checkbox" name="clubTime" id="checkbox10" value="k3" 
+													style="display: inline-block;">
+												<label class="form-check-label" for="checkbox10" style="display: inline-block;">저녁</label>&nbsp; 
+												
+												<input class="form-check-input" type="checkbox" name="clubTime" id="checkbox11" value="k4" 
+													style="display: inline-block;">
+												<label class="form-check-label" for="checkbox11" style="display: inline-block;">심야</label>&nbsp;
+											</div>
+										</div>
+
 									</div>
+									
 									<div class="col-6">
 										<div class="form-group ">
 											<label for="exampleFormControlTextarea1" class="form-label">지역</label>
 											<select class="form-control"
-												name="formClubRegion" data-parsley-required="true"
+												name="clubRegion" data-parsley-required="true"
 		                                        th:field="*{clubRegion}">
 												<option value="b1">서울</option>
 	                                            <option value="b2">경기</option>
@@ -184,13 +233,13 @@
 										<div class="form-group ">
 											<label for="exampleFormControlTextarea1" class="form-label">주 코트장</label>
 											 <input type="text" id="formClubName" class="form-control"
-											name="formClubName" th:value="${clubCrt}" placeholder="주로 이용하는 코트장을 입력하세요.">
+											name="clubCrt" th:value="${clubCrt}" placeholder="주로 이용하는 코트장을 입력하세요.">
 										</div>
 									</div>
 									<div class="col-6">
 										<div class="form-group ">
 											<label for="exampleFormControlTextarea1" class="form-label">연령대</label>
-											<select class="form-control" name="formClubAge" 
+											<select class="form-control" name="clubAge" 
 											        data-parsley-required="true" th:field="*{clubAge}">
 												<option value="a1">10대</option>
 	                                            <option value="a2">20대</option>
@@ -204,7 +253,7 @@
 									<div class="col-6">
 										<div class="form-group ">
 											<label for="exampleFormControlTextarea1" class="form-label">성별</label>
-											<select class="form-control" name="formClubGen" 
+											<select class="form-control" name="clubGen" 
 											        data-parsley-required="true" th:field="*{clubGen}">
 												<option value="c1">남성</option>
 	                                            <option value="c2">여성</option>
@@ -212,12 +261,26 @@
 											</select>
 										</div>
 									</div>
-									
 									<div class="col-12">
 										<div class="form-group mandatory">
 											<label for="password-vertical">소개글</label>
-											<textarea class="form-control"
+											<textarea class="form-control" name="clubIntro"
 												id="exampleFormControlTextarea1" rows="3"></textarea>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group ">
+										<div>
+											<label for="exampleFormControlTextarea1" class="form-label">모집여부</label> 
+										</div>	
+											  <input class="form-check-input" type="radio"
+												name="clubRecruitment" value="l1" style="display: inline-block;">
+												<label class="form-check-label" for="indoor"
+												style="display: inline-block;">비활성화</label>&nbsp;
+											  <input class="form-check-input" type="radio" 
+											    name="clubRecruitment" value="l2" style="display: inline-block;">
+											    <label class="form-check-label" for="outdoor"
+												style="display: inline-block;">활성화</label>
 										</div>
 									</div>
 
@@ -235,28 +298,7 @@
 
 	</div>
 	<script>
-	 $('button[type="submit"]').on("click", function(e) {
-			let url = $(event.target).data("url")
-			let target = $(event.target).data('bs-target')
-			//if(url)
-				console.log(event.target)
-				console.log($(event.target))
-			$(target).load(url)
-		}); 
-	    /* 	function tap(event){
-			let url = $(event.target).data("url")
-			
-			let target = $('#info-tab').data('bs-target')
-			$(target).load(url)
-			
-		} */
-		
-		$(document).ready(function(){
-			$('#info-tab').data("url")
-			let url = $('#info-tab').data("url")
-			let target = $('#info-tab').data('bs-target')
-			$(target).load(url)
-		}) 
+	
 	</script>
 
 

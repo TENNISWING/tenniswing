@@ -12,7 +12,7 @@ public interface ClubMapper {
 	public ClubVO selectClub(ClubVO clubVO);
 	
 	//등록
-	public int isnertClub(ClubVO clubVO);
+	public int insertClub(ClubVO clubVO);
 	
 	//수정
 	public int updateClub(ClubVO clubVO);
