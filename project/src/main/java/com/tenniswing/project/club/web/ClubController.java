@@ -25,7 +25,8 @@ public class ClubController {
 	
 	@GetMapping("clubform")  //등록 페이지
 	public String clubFormPage(Model model) { 	
-		//model.addAttribute("clubVO",new ClubVO());
+	    //처음 입력 폼은 모두 비어져야해서 빈 객체(new new ClubVO()) 전달
+		model.addAttribute("clubVO",new ClubVO());
 		return "club/clubform";
 	}
 	

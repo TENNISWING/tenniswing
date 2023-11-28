@@ -173,18 +173,22 @@
 														style="width: 80px; border-radius: 70%;">
 												</div>
 											</div>
-											<div class="media-body" th:each="clubList, stat:${clubList}" th:onclick="|location.href='@{clubdetail}'|">
+											<div class="media-body" th:each="clubList, stat:${clubList}"
+												th:onclick="|location.href='@{clubdetail}'|">
 												<div class="user-details">
 													<div class="mail-items">
 														<span class="list-group-item-text text-truncate">[[${clubList.clubName}]]
 															<div class="badge badge-pill bg-light-info me-1">[[${clubList.clubMemNum}]]</div>
-															<div class="badge badge-pill bg-light-warning me-1">[[${clubList.clubRecruitment}]]</div>
+															<div class="badge badge-pill bg-light-warning me-1">
+																<span
+																	th:text="${clubList.clubRecruitment == 'l1' ? '모집중' : '모집완료'}"></span>
+															</div>
 														</span>
 													</div>
 												</div>
 												<div class="mail-message">
 													<p class="list-group-item-text truncate mb-0">[[${clubList.clubIntro}]]
-														</p>
+													</p>
 													<div class="mail-meta-item">
 														<span class="float-right"> <span
 															class="bullet bullet-success bullet-sm"></span>
@@ -192,7 +196,8 @@
 													</div>
 												</div>
 												<div class="mail-message">
-													<p class="list-group-item-text truncate mb-0">[[${clubList.clubRegion}]]</p>
+													<p class="list-group-item-text truncate mb-0"
+														th:text="${clubList.clubRegion == 'b1' ? '서울' : '부산'}"></p>
 													<div class="mail-meta-item">
 														<span class="float-right"> <span
 															class="bullet bullet-success bullet-sm"></span>
@@ -200,8 +205,9 @@
 													</div>
 												</div>
 												<div class="mail-message">
-													<p class="list-group-item-text truncate mb-0">[[${clubList.clubRegion}]] /
-														[[${clubList.clubGen}]] / [[${clubList.clubDay}]]-[[${clubList.clubTime}]]</p>
+													<p class="list-group-item-text truncate mb-0">[[${clubList.clubRegion}]]
+														/ [[${clubList.clubGen}]] /
+														[[${clubList.clubDay}]]-[[${clubList.clubTime}]]</p>
 													<div class="mail-meta-item">
 														<span class="float-right"> <span
 															class="bullet bullet-success bullet-sm"></span>
@@ -221,6 +227,7 @@
 												</div>
 											</div>
 										</li>
+											</ul>
 										<!-- 클럽 가입 신청 버튼 Modal  -->
 										<div class="modal fade" id="exampleModalCenter" tabindex="-1"
 											role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -236,7 +243,12 @@
 															data-bs-dismiss="modal" aria-label="Close">
 															<i data-feather="x"></i>
 														</button>
+														<button type="button" class="close"
+															data-bs-dismiss="modal" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+														</button>
+														
 													</div>
+													
 													<div class="modal-body" style="text-align: center;">
 														<div>
 															<img src="./assets/img/card.jpg" style="width: 450px;">
@@ -256,11 +268,53 @@
 													</div>
 												</div>
 											</div>
-
 										</div>
+										<!-- 클럽 가입 신청 작성 Modal  -->
+										<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+											role="dialog" aria-labelledby="exampleModalCenterTitle"
+											aria-hidden="true">
+											<div
+												class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+												role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalCenterTitle">클럽
+															가입하기</h5>
+														<button type="button" class="close"
+															data-bs-dismiss="modal" aria-label="Close">
+															<i data-feather="x"></i>
+														</button>
+														<button type="button" class="close"
+															data-bs-dismiss="modal" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+														</button>
+														
+													</div>
+													
+													<div class="modal-body" style="text-align: center;">
+														<div>
+															<img src="./assets/img/card.jpg" style="width: 450px;">
+														</div>
+														<br>
+														<p>여기는 클럽 소개글 쏼라쏼라Croissant jelly-o halvah chocolate
+															sesame snaps. Brownie caramels candy canes chocolate cake
+															marshmallow icing lollipop I love. Gummies macaroon donut
+															caramels biscuit topping danish.</p>
+													</div>
+													<div class="modal-footer" style="text-align: center;">
+														<button type="button" class="btn btn-primary ms-1"
+															data-bs-dismiss="modal">
+															<i class="bx bx-check d-block d-sm-none"></i> <span
+																class="d-none d-sm-block">가입신청서 작성</span>
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+
+							
+								
 								</div>
 
-								</ul>
 
 								<!-- email user list end -->
 
@@ -323,11 +377,6 @@
 			</section>
 		</div>
 	</div>
-	<script>
-    /* document.querySelector('.email-compose-new-close-btn').addEventListener('click', () => {
-        document.querySelector('.compose-new-mail-sidebar').classList.remove('show')
-    }) */
-</script>
 
 
 </th:block>

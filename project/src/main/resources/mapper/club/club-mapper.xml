@@ -22,5 +22,47 @@
     ORDER BY club_no
   </select>
   
+  <!-- 클럽 등록 -->
+  <insert id="insertClub" parameterType="clubVO">
+  	<selectKey keyProperty="clubVO" resultType="int" order="BEFORE">
+  		SELECT NVL(MAX(club_no),0)+1
+  		FROM clubVO
+  	</selectKey>
+  	INSERT INTO club
+  		(
+  			club_no
+  			, club_name
+  		   , club_region
+  		   , club_gen
+  		   , club_age
+  		   , club_day
+  		   , club_time
+  		   , club_intro
+  		   , club_crt
+  		   , club_mem_num
+  		   , club_recruitment
+  		   , mem_no
+  		   , club_create_date
+  		)
+  		VALUES
+  		(
+  			#{clubNo}
+  			, #{clubName}
+  			, #{clubRegion}
+  			, #{clubGen}
+  			, #{clubAge}
+  			, #{clubDay}
+  			, #{clubTime}
+  			, #{clubIntro}
+  			, #{clubCrt}
+  			, #{clubMemNum}
+  			, #{clubRecruitment}
+  			, #{memNo}
+  			, #SYSDATE
+  		)
+  
+  </insert>
+  
+  
   
   </mapper>
