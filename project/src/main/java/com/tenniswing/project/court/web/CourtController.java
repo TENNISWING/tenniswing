@@ -1,13 +1,11 @@
 package com.tenniswing.project.court.web;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -48,7 +46,13 @@ public class CourtController {
 			// 목록
 			@GetMapping("hostCourtList")
 			public String hostCourtListPage(Model model) {
-				model.addAttribute("courtList", courtroomService.selectAllCourtroom());
+				String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
+				
+				if(hostId.equals("anonymousUser")) {
+					return "redirect:loginform";
+				}
+				System.out.println(hostId);
+				model.addAttribute("courtList", courtroomService.selectAllCourtroom(hostId));
 				return "courtHost/hostCourtList";
 			}
 			
@@ -70,6 +74,9 @@ public class CourtController {
 			// 등록
 			@PostMapping("registerCourtroom")
 			public String insertCourtroomProcess(CrtroomVO crtroomVO, RedirectAttributes rttr) {
+				String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
+				
+				crtroomVO.setHostId(hostId);
 				courtroomService.insertCourtroom(crtroomVO);
 				
 				rttr.addAttribute("crtroomNo", crtroomVO.getCrtroomNo());
@@ -87,8 +94,8 @@ public class CourtController {
 			@PostMapping("editCourtroom")
 			public String editCourtroomProccess(CrtroomVO crtroomVO){
 				courtroomService.updateCourtroom(crtroomVO);
-				
-				return "redirect:hostCourtList";
+				int crtroomNo = crtroomVO.getCrtroomNo();
+				return "redirect:hostCourtDetail?crtroomNo="+crtroomNo;
 			}
 			
 			// 삭제
@@ -139,7 +146,8 @@ public class CourtController {
 			@PostMapping("editCourtDetail")
 			public String editCourtDetailProccess(CrtDetailVO crtDetailVO) {
 				crtDetailService.updateCrtDetail(crtDetailVO);
-				return "redirect:hostCourtList";
+				int crtroomNo = crtDetailService.selectCrtDetail(crtDetailVO).getCrtroomNo();
+				return "redirect:hostCourtDetail?crtroomNo="+crtroomNo;
 			}
 			
 			// 삭제

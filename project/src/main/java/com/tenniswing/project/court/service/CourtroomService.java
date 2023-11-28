@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface CourtroomService {
 	// 전체조회
-	public List<CrtroomVO> selectAllCourtroom();
+	public List<CrtroomVO> selectAllCourtroom(String hostId);
 	
 	// 상세조회
 	public CrtroomVO selectCourtroom(CrtroomVO crtroomVO);

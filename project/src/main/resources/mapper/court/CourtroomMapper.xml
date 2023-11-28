@@ -8,6 +8,7 @@
   	<!--  전체조회 -->
   	<select id="selectAllCourtroom" resultType="crtroomVO">
   		SELECT cr.crtroom_no
+  				, cr.host_id
   				, cr.crtroom_name
   				, cr.crtroom_exp
   				, cr.crtroom_region
@@ -21,6 +22,7 @@
   		FROM crtroom cr LEFT OUTER JOIN crt_detail_inf cdi
   						ON cr.crtroom_no = cdi.crtroom_no
   		GROUP BY cr.crtroom_no
+  				, cr.host_id
   				, cr.crtroom_name
   				, cr.crtroom_exp
   				, cr.crtroom_region
@@ -30,6 +32,7 @@
   				, cr.crtroom_caution
   				, cr.crtroom_use_guide
   				, cr.crtroom_regi_date
+  		HAVING cr.host_id = #{hostId}
   		ORDER BY crtroom_no
   	</select>
   	
@@ -72,7 +75,7 @@
   		INSERT INTO crtroom
   			(
   				crtroom_no
-  				, host_no
+  				, host_id
   				, crtroom_name
   				, crtroom_exp
   				, crtroom_region
@@ -86,7 +89,7 @@
   			VALUES
   			(
   				#{crtroomNo}
-  				, #{hostNo}
+  				, #{hostId}
   				, #{crtroomName}
   				, #{crtroomExp}
   				, #{crtroomRegion}
