@@ -1,5 +1,6 @@
 package com.tenniswing.project.attach.service;
 
+import groovy.transform.builder.Builder;
 import lombok.Data;
 
 @Data
@@ -11,7 +12,10 @@ public class AttachVO {
 	private String attachExt;
 	
 	// 첨부파일 이름
-	private String attachName;
+	private String attachOriginName;
+	
+	// 첨부파일 이름
+	private String attachSaveName;
 	
 	// 첨부파일 경로
 	private String attachPath;
@@ -24,4 +28,19 @@ public class AttachVO {
 	
 	// 첨부파일 테이블 PK
 	private int attacTablePk;
+	
+	//파일크기
+	private long size;
+	
+	@Builder
+	public void FileRequest(String originalName, String saveName, long size){
+		this.attachOriginName = originalName;
+        this.attachSaveName = saveName;
+        this.size = size;
+	}
+	
+	 public void setPostId(int postId) {
+	        this.attacTablePk = postId;
+	    }
+	
 }
