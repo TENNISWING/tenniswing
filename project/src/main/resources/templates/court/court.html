@@ -4,6 +4,7 @@
       layout:decorate="~{/layouts/main-layout}">
 
 	<th:block layout:fragment="content">
+	
 
             <!-- slide banner -->
             <!-- <div class="container-fluid mb-2 bg-light-info">
@@ -218,7 +219,7 @@
                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
                 <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
                     role="document">
-                    <div class="modal-content">
+                    <div class="modal-content" style="width: 340px;">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalCenterTitle">Vertically
                                 Centered
@@ -229,7 +230,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                        		<div class="justify-content-around" style="display:flex">
+                        		<div class="justify-content-around">
 	                        		<input type="date" class="form-control flatpickr-always-open" placeholder="Select date..">
                         		</div>
                         </div>
@@ -306,15 +307,9 @@
                      	style="margin: 0">
                             <img src="/assets/img/card.jpg" class="card-img-top img-fluid"
                                 alt="singleminded">
-                            <div class="card-body">
-                                <h5 class="card-title">[[ ${courtList.crtroomName} ]]</h5>
-                                <p class="card-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                    [[ ${courtList.crtroomExp} ]]
-                                </p>
-                            </div>
                          <ul class="list-group list-group-flush">
-                         	 <li class="list-group-item rating" style="border: 0; justify-content: right">
-                         	 	<ul>
+                         	 <li class="list-group-item rating" style="border: 0;">
+                         	 	<ul style="padding: 0">
 									<li><i class="fa-solid fa-star"></i></li>
 									<li><i class="fa-solid fa-star"></i></li>
 									<li><i class="fa-solid fa-star"></i></li>
@@ -322,8 +317,9 @@
 									<li><i class="fa-regular fa-star"></i></li>
 								</ul>
                          	 </li>
-                             <li class="list-group-item" style="border: 0">[[ ${courtList.crtroomLocation} ]]</li>
-                             <li class="list-group-item" style="border: 0"><span style="float:left">[[ ${courtList.minPrice} ]]원 ~</span></li>
+                         	 <li class="list-group-item" style="border: 0;"><span style="float: left;"><h5 class="card-title">[[ ${courtList.crtroomName} ]]</h5></span></li>
+                             <li class="list-group-item"><span style="float: left;">[[ ${courtList.minPrice} ]]원 ~</span></li>
+                             <li class="list-group-item" style="border: 0;"><span style="float: left;">[[ ${courtList.crtroomLocation} ]]</span></li>
                          </ul>
                         </div>
                     </div>

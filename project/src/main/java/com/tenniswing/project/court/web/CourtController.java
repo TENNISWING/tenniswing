@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -14,6 +13,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.court.service.CrtDetailService;
 import com.tenniswing.project.court.service.CrtDetailVO;
+import com.tenniswing.project.court.service.CrtReserveService;
+import com.tenniswing.project.court.service.CrtReserveVO;
 import com.tenniswing.project.court.service.CrtroomVO;
 
 @Controller
@@ -24,6 +25,9 @@ public class CourtController {
 
 	@Autowired
 	CrtDetailService crtDetailService;
+	
+	@Autowired
+	CrtReserveService crtReserveService;
 
 	// 메인
 
@@ -36,11 +40,24 @@ public class CourtController {
 		@GetMapping("courtDetail")  
 		public String courtDetailPage(CrtroomVO crtroomVO, Model model) { 
 			model.addAttribute("courtDetail", courtroomService.selectCourtroom(crtroomVO));
+			model.addAttribute("reserveInfo", new CrtReserveVO());
 			return "court/courtDetail";
 		}
 		
-		@GetMapping("reserveCourt")  
-		public String reserveCourtPage(Model model) { 			
+		@PostMapping("courtDetail")
+		public String courtDetailReserve(CrtReserveVO crtReserveVO, RedirectAttributes rttr) {
+			String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+			
+			crtReserveVO.setMemId(memId);
+			crtReserveService.insertCrtReserve(crtReserveVO);
+			
+			rttr.addAttribute("reserveNo", crtReserveVO.getReserveNo());
+			return "redirect:reserveCourt";
+		}
+		
+		@GetMapping("reserveCourt")
+		public String reserveCourtPage(CrtReserveVO crtReserveVO, Model model) {
+			crtReserveService.insertCrtReserve(crtReserveVO);
 			return "court/reserveCourt";
 		}
 		

@@ -14,4 +14,5 @@ public class CrtDetailVO {
 	
 	// 추가 등록 or 완료
 	private String action;
+	
 }
