@@ -11,25 +11,25 @@
  			   , sns_rep_write_date
  			   , sns_rep_edit_date
  			   , sr.sns_wrt_no
- 			   , m.mem_no
+ 			   , m.mem_id
  			   , m.name
  		from sns_rep sr, mem m
- 		where sr.mem_no = m.mem_no
+ 		where sr.mem_id = m.mem_id
         and sr.sns_wrt_no = #{snsWrtNo}
  		order by sns_rep_no
   	</select>
   	
   	
-  	<!-- 단건조회 필요한가..마이페이지 내가쓴댓글보기할때 list로 바꿔야할듯-->
+  	<!-- 단건조회 필요한가..-->
   	<select id="selectSnsRep" resultType="SnsVO">
-			select sns_rep_no
+<!-- 			select sns_rep_no
  			   , sns_rep_ctt
  			   , sns_rep_write_date
  			   , sns_rep_edit_date
  			   , sns_wrt_no
  			   , mem_no
  		from sns_rep
-        where mem_no = #{memNo}
+        where mem_no = #{memNo} -->
   
   	</select>
   	
@@ -49,18 +49,15 @@
 	 			   , sns_rep_ctt
 	 			   , sns_rep_write_date
 	 			   , sns_wrt_no
-	 			   , mem_no
+	 			   , mem_id
   	 			)
   	 			VALUES
   	 			(
   	 				#{snsRepNo}
   	 				,#{snsRepCtt}
- 					,<choose>
-	 					<when test="snsRepWriteDate != null">,#{snsRepWriteDate}</when>
-	 					<otherwise>,sysdate</otherwise>
- 					 </choose>  	 
+ 					,sysdate  	 
   	 				,#{snsWrtNo}
-  	 				,#{memNo}
+  	 				,#{memId}
   	 			)
 
   	</insert>

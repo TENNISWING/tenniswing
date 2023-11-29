@@ -51,6 +51,8 @@ public class SnsRepServiceImpl implements SnsRepService {
 		return map;
 	}
 
+	//result.snsRepVO.변수명
+	
 	@Override
 	public boolean deleteSnsRep(int repNo) {
 		int result = snsRepMapper.deleteSnsRep(repNo);

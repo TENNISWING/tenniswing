@@ -15,6 +15,7 @@ public interface SnsRepService {
 	
 	// 댓글 수정
 	public Map<String, Object> updateSnsRep(SnsRepVO snsRepVO);
+	
 	// 댓글 삭제
 	public boolean deleteSnsRep(int repNo);
 }
