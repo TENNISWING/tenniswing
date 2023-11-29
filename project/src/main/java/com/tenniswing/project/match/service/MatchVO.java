@@ -19,7 +19,9 @@ public class MatchVO {
 	private String gen;
 	private String genName;
 	private int crtUseAmt;
+	private int crtUseAmtName;
 	private int recruitPsnNum;
+	private int recruitPsnNumName;
 	private String detailCtt;
 	private int crtroomNo;
 	

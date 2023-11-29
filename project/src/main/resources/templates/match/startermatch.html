@@ -119,7 +119,7 @@
 		
 			<!-- Default Table -->
 			<table class="table">
-				<tbody id="matchDataList">
+				<tbody id="matchList">
 					
 				</tbody>
 			</table>
@@ -190,21 +190,21 @@
 	
 </div>
 <script>
-	function matchAjax(matchDate,page) {
+	function starterMatchAjax(matchDate,page) {
 		$.ajax({
 			type: 'GET',
-			url: 'matchDataList',
+			url: 'starterMatchList',
 			data: {matchDate, page},
 			success: function(result) {
+				$('#matchList').empty();
 				for(let matchInfo of result){
-					let b = `<tr class="navbar-brand" onclick="|location.href='/matchdetail?matchNo=${matchInfo.matchNo})}'">
+					let b = `<tr class="navbar-brand">					
 					<td class="text-center"><b>${matchInfo.time}</b></td>
-					<td>${matchInfo.gameWayName}</td>
 					<td>${matchInfo.genName}</td>
 					<td>${matchInfo.lvName}</td>
 					<td>${matchInfo.crtroomLocationName}</td>
 					<td class="text-end">
-						<button type="button" class="btn btn-primary matchbtn1" onclick="location.href='/matchdetail?'">${matchInfo.matchNo}</button>
+						<a class="btn btn-primary matchbtn1" href="startermatchdetail?matchNo=${matchInfo.matchNo}">ff</a>
 					</td>
 				</tr>`
 					$('#matchList').append(b)
@@ -269,14 +269,16 @@
                         let dateGetDate = today.getDate();
                         let dateArry = [];
 						let matchDate = year+"/"+(month+1)+"/"+dateGetDate
-                        matchAjax(matchDate,1)
+						starterMatchAjax(matchDate,1)
                         
                         for (let i = 0; i < 14; i++) {
                         	let weekName = (dateGetDay+i)%7;
+                        	let day = new Date(year,month,dateGetDate + i)
                             dateArry.push({
                             	"dayNo": weekName,
                                 "day": days[weekName],
-                                "date": new Date(year,month,dateGetDate + i).getDate()
+                                "date": day.getDate(),
+                                "allDate": day.getFullYear()+"/"+(day.getMonth()+1)+"/"+day.getDate()
                             })
  
                         }
@@ -285,22 +287,22 @@
                         	console.log(ele.dayNo);
                         	if (idx == 0) {
                                 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                                    <div class="btn btn-outline-success active">
+                                                    <div class="btn btn-outline-success active" data-day="${ele.allDate}">
                                                     ${ele.date}<br>
                                                     ${ele.day}</div></div>`)
                             } else if (ele.dayNo == 0) {
                         		 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                         <div class="btn btn-outline-danger">
+                                         <div class="btn btn-outline-danger" data-day="${ele.allDate}">
                                          ${ele.date}<br>
                                          ${ele.day}</div></div>`)
                         	} else if (ele.dayNo == 6) {
                         		 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                         <div class="btn btn-outline-primary">
+                                         <div class="btn btn-outline-primary" data-day="${ele.allDate}">
                                          ${ele.date}<br>
                                          ${ele.day}</div></div>`)
                         	} else {
                         		$('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                        <div class="btn btn-outline-success">
+                                        <div class="btn btn-outline-success" data-day="${ele.allDate}">
                                         ${ele.date}<br>
                                         ${ele.day}</div></div>`)
                         	}
@@ -309,6 +311,8 @@
                         $('.swiper-wrapper.dateslide > div div').on('click', function (e) {
                         	$('.swiper-wrapper.dateslide > div div').removeClass('active');
                         	$(e.target).toggleClass('active');
+                        	let matchDate = $(e.target).data('day');
+                        	starterMatchAjax(matchDate,1);
                         	
                             //태그네임 가져오기                 
                             //console.log($(e.target).prop('tagName'))

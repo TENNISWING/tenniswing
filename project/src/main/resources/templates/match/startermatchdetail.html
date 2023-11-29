@@ -36,8 +36,8 @@
                         </div>                        
                         <div class="article-content">
                         	<p>인원 수 [[${starterMatchInfo.recruitPsnNum}]]</p>
-                        	<p>모집 성별 [[${starterMatchInfo.gen}]]</p>
-                        	<p>레벨 [[${starterMatchInfo.lv}]]</p>
+                        	<p>모집 성별 [[${starterMatchInfo.genName}]]</p>
+                        	<p>레벨 [[${starterMatchInfo.lvName}]]</p>
                         </div>                        
                     </article>
                 </div>
@@ -51,7 +51,7 @@
                         </div>
                         <div class="widget-body">
                             <div class="latest-post-aside media">
-                            	<p>[[${#dates.format(starterMatchInfo.Time, 'yyyy년 MM월 dd일 HH : mm')}]]</p>
+                            	<p>경기 시간</p>
                             </div>
                             <div class="latest-post-aside media">
                                 <p>코트장 이름 [[${starterMatchInfo.crtroomName}]]</p>
@@ -59,7 +59,7 @@
                                 </div>
                             </div>
                             <div class="latest-post-aside media">
-                            	<p>코트장 위치 [[${starterMatchInfo.crtroomLocation}]]</p>
+                            	<p>코트장 위치 [[${starterMatchInfo.crtroomLocationName}]]</p>
                             </div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                             <h3 class="mdttitle">인당 요금</h3>
                         </div>
                         <div class="widget-body">
-							<p>코트 사용 요금 [[${starterMatchInfo.rsPrice}]]</p>     
+							<p>레슨비 [[${starterMatchInfo.rsPrice}]]</p>     
                     </div>
                     <!-- End Author -->                              
                 </div>

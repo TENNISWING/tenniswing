@@ -35,9 +35,8 @@
                             </div>
                         </div>                        
                         <div class="article-content">
-                        	<p>모집 인원 수 [[${contestMatchInfo.recruitPsnNum}]]</p>
-                        	<p>모집 성별 [[${contestMatchInfo.ntrp}]]</p>
-                        	<p>레벨 [[${contestMatchInfo.lv}]]</p>
+                        	<p>인원 수 [[${contMatchInfo.recruitPsnNum}]]</p>
+                        	<p>레벨 [[${contMatchInfo.lvName}]]</p>
                         </div>                        
                     </article>
                 </div>
@@ -51,15 +50,15 @@
                         </div>
                         <div class="widget-body">
                             <div class="latest-post-aside media">
-                            	<p>[[${#dates.format(contestMatchInfo.Time, 'yyyy년 MM월 dd일 HH : mm')}]]</p>
+                            	<p>경기 시간</p>
                             </div>
                             <div class="latest-post-aside media">
-                                <p>코트장 이름 [[${contestMatchInfo.crtroomName}]]</p>
+                                <p>코트장 이름 [[${contMatchInfo.crtroomName}]]</p>
                             <div class="lpa-right">
                                 </div>
                             </div>
                             <div class="latest-post-aside media">
-                            	<p>코트장 위치 [[${contestMatchInfo.crtroomLocation}]]</p>
+                            	<p>코트장 위치 [[${contMatchInfo.crtroomLocationName}]]</p>
                             </div>
                         </div>
                     </div>
@@ -71,7 +70,7 @@
                             <h3 class="mdttitle">인당 요금</h3>
                         </div>
                         <div class="widget-body">
-							<p>대회 참여 비용 [[${contestMatchInfo.contAttendCost}]]</p>     
+							<p>코트 사용 요금 [[${contMatchInfo.contAttendCost}]]</p>     
                     </div>
                     <!-- End Author -->                              
                 </div>

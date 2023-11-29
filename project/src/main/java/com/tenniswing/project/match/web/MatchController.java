@@ -2,10 +2,12 @@ package com.tenniswing.project.match.web;
 
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenniswing.project.match.service.MatchService;
@@ -24,7 +26,7 @@ public class MatchController {
 	
 	@GetMapping("matchList")
 	@ResponseBody
-	public List<MatchVO> matchPageAjax(MatchVO matchVO) {		
+	public List<MatchVO> matchAjax(MatchVO matchVO) {		
 		return matchService.selectAllMatch(matchVO);
 	}
 	
@@ -32,50 +34,63 @@ public class MatchController {
 	public String clubmatchPage(Model model) {
 		return "match/clubmatch";
 	}
-	
-	@GetMapping("clubMatchDataList")
+
+	@GetMapping("clubMatchList")
 	@ResponseBody
-	public List<MatchVO> clubMatchPageAjax(MatchVO matchVO) {		
-		return matchService.selectAllClubMatch();
-	}
-	
-	
+	public List<MatchVO> clubMatchAjax(MatchVO matchVO) {		
+		return matchService.selectAllClubMatch(matchVO);
+	}	
+		
 	@GetMapping("contestmatch")  
 	public String contestmatchPage(Model model) {
-		model.addAttribute("contestMatchList", matchService.selectAllContMatch());
 		return "match/contestmatch";
 	}
 	
+	@GetMapping("contMatchList")
+	@ResponseBody
+	public List<MatchVO> contMatchAjax(MatchVO matchVO) {		
+		return matchService.selectAllContMatch(matchVO);
+	}
+	
 	@GetMapping("startermatch")  
-	public String startermatchPage(Model model) {
-		model.addAttribute("starterMatchList", matchService.selectAllStarterMatch());
+	public String startermatchPage(Model model, MatchVO matchVO) {
 		return "match/startermatch";
 	}
 	
+	@GetMapping("starterMatchList")
+	@ResponseBody
+	public List<MatchVO> starterMatchAjax(MatchVO matchVO) {		
+		return matchService.selectAllStarterMatch(matchVO);
+	}
+	
 	@GetMapping("matchdetail")  
-	public String matchdetailPage(Model model, MatchVO matchVO) { 	
-		//System.out.println(matchVO.getMatchNo());
+	public String matchdetailPage(Model model, @RequestParam Integer matchNo) {
+		MatchVO matchVO = new MatchVO();
+		matchVO.setMatchNo(matchNo);
 		model.addAttribute("matchInfo", matchService.selectMatch(matchVO));		
 		return "match/matchdetail";
 	}
 	
 	@GetMapping("clubmatchdetail")  
-	public String clubmatchdetailPage(Model model, MatchVO matchVO) { 	
-		//System.out.println(matchVO.getMatchNo());
+	public String clubmatchdetailPage(Model model, @RequestParam Integer matchNo) {
+		MatchVO matchVO = new MatchVO();
+		matchVO.setMatchNo(matchNo);
 		model.addAttribute("clubMatchInfo", matchService.selectClubMatch(matchVO));		
 		return "match/clubmatchdetail";
 	}
 	
 	@GetMapping("contestmatchdetail")  
-	public String contestmatchdetailPage(Model model, MatchVO matchVO) { 	
-		//System.out.println(matchVO.getMatchNo());
-		model.addAttribute("contestMatchInfo", matchService.selectContMatch(matchVO));		
+	public String contestmatchdetailPage(Model model, @RequestParam Integer matchNo) { 	
+		MatchVO matchVO = new MatchVO();
+		matchVO.setMatchNo(matchNo);
+		model.addAttribute("contMatchInfo", matchService.selectContMatch(matchVO));		
 		return "match/contestmatchdetail";
 	}
 	
 	@GetMapping("startermatchdetail")  
-	public String startermatchdetailPage(Model model, MatchVO matchVO) { 	
-		//System.out.println(matchVO.getMatchNo());
+	public String startermatchdetailPage(Model model, @RequestParam Integer matchNo) {
+		MatchVO matchVO = new MatchVO();
+		matchVO.setMatchNo(matchNo);
 		model.addAttribute("starterMatchInfo", matchService.selectStarterMatch(matchVO));		
 		return "match/startermatchdetail";
 	}

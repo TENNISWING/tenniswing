@@ -8,7 +8,7 @@
   	<select id="selectAllMatch" resultType="MatchVO">
   		select * from (    select A.* , rownum rn from (
   		
-  		SELECT                     m.match_no,
+  		SELECT      m.match_no,
                     m.mem_no,
                     m.match_date,
                     m.time,
@@ -35,13 +35,8 @@
  		 <if test="crtroomLocation">and crtroom_location = #{crtroomLocation}</if>
   		ORDER BY time
   		
-  		) A) b where rn between (#{page}-1)*10 + 1 and #{page} * 10
-  		
-   	</select>
-   	
-   	<select id="">
-   		
-   	</select>
+  		) A) b where rn between (#{page}-1)*10 + 1 and #{page} * 10  		
+   	</select>   	
    	
    	<!-- 클럽 전체 조회  -->
   	<select id="selectAllClubMatch" resultType="MatchVO">
@@ -79,20 +74,27 @@
   	<select id="selectAllContMatch" resultType="MatchVO">
   	select * from (    select A.* , rownum rn from (
   	
-  		SELECT match_no
-  				, cont_name
-  				, start_date
-  				, end_date
-  				, time
-  				, prog_state
-  				, recruit_psn_num
-  				, ntrp
-  				, lv
-  				, cont_attend_cost
-  				, detail_ctt
-  				, crtroom_no
-  		FROM cont_match
-  		ORDER BY match_no
+  		SELECT m.match_no
+  				, m.cont_name
+  				, m.start_date
+  				, m.end_date
+  				, m.time
+  				, m.prog_state
+  				, m.recruit_psn_num
+  				, m.ntrp
+  				, m.lv
+  				, FIND_CATEGORY_NAME (m.lv)  lv_name
+  				, m.cont_attend_cost
+  				, m.detail_ctt
+  				, m.crtroom_no
+  				, c.crtroom_location
+                , FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
+  		FROM cont_match m, crtroom c
+  		WHERE m.crtroom_no = c.crtroom_no
+  		AND TRUNC(start_date) = TRUNC(#{matchDate})
+ 		 <if test="lv">and lv = #{lv}</if>
+ 		 <if test="crtroomLocation">and crtroom_location = #{crtroomLocation}</if>
+  		ORDER BY time
   		
   		) A) b where rn between (#{page}-1)*10 + 1 and #{page} * 10
    	</select>
@@ -101,20 +103,29 @@
   	<select id="selectAllStarterMatch" resultType="MatchVO">
   	select * from (    select A.* , rownum rn from (
   	
-  		SELECT match_no
-  				, mem_no
-  				, match_date
-  				, time
-  				, prog_state
-  				, ntrp
-  				, lv
-  				, gen
-  				, rsprice
-  				, recruit_psn_num
-  				, detail_ctt
-  				, crtroom_no
-  		FROM starter_match
-  		ORDER BY match_no
+  		SELECT m.match_no
+  				, m.mem_no
+  				, m.match_date
+  				, m.time
+  				, m.prog_state
+  				, m.ntrp
+  				, m.lv
+  				, FIND_CATEGORY_NAME (m.lv)  lv_name
+  				, m.gen
+  				, FIND_CATEGORY_NAME (m.gen)  gen_name
+  				, m.rsprice
+  				, m.recruit_psn_num
+  				, m.detail_ctt
+  				, m.crtroom_no
+  				, c.crtroom_location
+                , FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
+  		FROM starter_match m, crtroom c
+  		WHERE m.crtroom_no = c.crtroom_no
+  		AND TRUNC (match_date) = TRUNC(#{matchDate})
+ 		 <if test="gen">and gen = #{gen}</if>
+ 		 <if test="lv">and lv = #{lv}</if>
+ 		 <if test="crtroomLocation">and crtroom_location = #{crtroomLocation}</if>
+  		ORDER BY time
   		
   		) A) b where rn between (#{page}-1)*10 + 1 and #{page} * 10
    	</select>
@@ -126,10 +137,13 @@
   				, m.match_date
   				, m.time
   				, m.game_way
+  				, FIND_CATEGORY_NAME (m.game_way)   game_way_name
   				, m.prog_state
   				, m.ntrp
   				, m.lv
+  				, FIND_CATEGORY_NAME (m.lv)   lv_name
   				, m.gen
+  				, FIND_CATEGORY_NAME (m.gen)   gen_name
   				, m.crt_use_amt
   				, m.recruit_psn_num
   				, m.detail_ctt
@@ -144,12 +158,15 @@
   	<!-- 클럽 단건조회 -->
   	<select id="selectClubMatch" resultType="MatchVO">
   		SELECT m.match_no
+  				, m.club_name
   				, m.match_date
   				, m.time
   				, m.game_way
+  				, FIND_CATEGORY_NAME (m.game_way)   game_way_name
   				, m.prog_state
   				, m.ntrp
   				, m.lv
+  				, FIND_CATEGORY_NAME (m.lv)   lv_name
   				, m.crt_use_amt
   				, m.recruit_psn_num
   				, m.detail_ctt
@@ -175,9 +192,10 @@
   				, c.recruit_psn_num
   				, c.ntrp
   				, c.lv
+  				, FIND_CATEGORY_NAME (c.lv)   lv_name
   				, c.cont_attend_cost
   				, c.detail_ctt
-  				, b.crtroom_no
+  				, c.crtroom_no
                 , b.crtroom_name
                 , b.crtroom_location
   		FROM cont_match c, crtroom b
@@ -194,13 +212,16 @@
   				, s.prog_state
   				, s.ntrp
   				, s.lv
+  				, FIND_CATEGORY_NAME (s.lv)  lv_name
   				, s.gen
+  				, FIND_CATEGORY_NAME (s.gen)  gen_name
   				, s.rsprice
   				, s.recruit_psn_num
   				, s.detail_ctt
   				, s.crtroom_no
   				, c.crtroom_name
   				, c.crtroom_location
+  				, FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
   		FROM starter_match s, crtroom c
   		WHERE s.crtroom_no = c.crtroom_no
   		AND match_no = #{matchNo}
