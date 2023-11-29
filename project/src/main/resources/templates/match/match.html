@@ -198,8 +198,7 @@
 			success: function(result) {
 				$('#matchList').empty();
 				for(let matchInfo of result){
-					let b = `<tr class="navbar-brand">
-					
+					let b = `<tr class="navbar-brand">					
 					<td class="text-center"><b>${matchInfo.time}</b></td>
 					<td>${matchInfo.gameWayName}</td>
 					<td>${matchInfo.genName}</td>
@@ -271,7 +270,7 @@
                         let dateGetDate = today.getDate();
                         let dateArry = [];
 						let matchDate = year+"/"+(month+1)+"/"+dateGetDate
-                        matchAjax(matchDate,1)
+						matchAjax(matchDate,1)
                         
                         for (let i = 0; i < 14; i++) {
                         	let weekName = (dateGetDay+i)%7;

@@ -9,6 +9,7 @@ import com.tenniswing.project.match.mapper.MatchMapper;
 import com.tenniswing.project.match.service.MatchService;
 import com.tenniswing.project.match.service.MatchVO;
 
+
 @Service
 public class MatchServiceImpl implements MatchService {
 
@@ -20,18 +21,18 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public List<MatchVO> selectAllClubMatch() {
-		return matchMapper.selectAllClubMatch();
+	public List<MatchVO> selectAllClubMatch(MatchVO matchVO) {
+		return matchMapper.selectAllClubMatch(matchVO);
 	}
 
 	@Override
-	public List<MatchVO> selectAllContMatch() {
-		return matchMapper.selectAllContMatch();
+	public List<MatchVO> selectAllContMatch(MatchVO matchVO) {
+		return matchMapper.selectAllContMatch(matchVO);
 	}
 
 	@Override
-	public List<MatchVO> selectAllStarterMatch() {
-		return matchMapper.selectAllStarterMatch();
+	public List<MatchVO> selectAllStarterMatch(MatchVO matchVO) {
+		return matchMapper.selectAllStarterMatch(matchVO);
 	}
 
 	@Override
