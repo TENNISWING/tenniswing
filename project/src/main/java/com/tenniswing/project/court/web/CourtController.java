@@ -13,6 +13,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.court.service.CrtDetailService;
 import com.tenniswing.project.court.service.CrtDetailVO;
+import com.tenniswing.project.court.service.CrtReserveService;
+import com.tenniswing.project.court.service.CrtReserveVO;
 import com.tenniswing.project.court.service.CrtroomVO;
 
 @Controller
@@ -23,21 +25,39 @@ public class CourtController {
 
 	@Autowired
 	CrtDetailService crtDetailService;
+	
+	@Autowired
+	CrtReserveService crtReserveService;
 
 	// 메인
 
 		@GetMapping("court")  
 		public String courtPage(Model model) { 			
+			model.addAttribute("courtList", courtroomService.selectAllCourtroomMain());
 			return "court/court";
 		}
 		
 		@GetMapping("courtDetail")  
-		public String courtDetailPage(Model model) { 			
+		public String courtDetailPage(CrtroomVO crtroomVO, Model model) { 
+			model.addAttribute("courtDetail", courtroomService.selectCourtroom(crtroomVO));
+			model.addAttribute("reserveInfo", new CrtReserveVO());
 			return "court/courtDetail";
 		}
 		
-		@GetMapping("reserveCourt")  
-		public String reserveCourtPage(Model model) { 			
+		@PostMapping("courtDetail")
+		public String courtDetailReserve(CrtReserveVO crtReserveVO, RedirectAttributes rttr) {
+			String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+			
+			crtReserveVO.setMemId(memId);
+			crtReserveService.insertCrtReserve(crtReserveVO);
+			
+			rttr.addAttribute("reserveNo", crtReserveVO.getReserveNo());
+			return "redirect:reserveCourt";
+		}
+		
+		@GetMapping("reserveCourt")
+		public String reserveCourtPage(CrtReserveVO crtReserveVO, Model model) {
+			crtReserveService.insertCrtReserve(crtReserveVO);
 			return "court/reserveCourt";
 		}
 		
@@ -54,6 +74,14 @@ public class CourtController {
 				System.out.println(hostId);
 				model.addAttribute("courtList", courtroomService.selectAllCourtroom(hostId));
 				return "courtHost/hostCourtList";
+			}
+			
+			// 코트들 불러오기
+			@PostMapping("courtDetails")
+			@ResponseBody
+			public CrtroomVO selectCourtDetails(CrtroomVO crtroomVO) {
+				CrtroomVO courtDetails = courtroomService.selectCourtroom(crtroomVO);
+				return courtDetails;
 			}
 			
 			// 상세보기

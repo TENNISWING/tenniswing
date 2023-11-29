@@ -4,6 +4,7 @@
       layout:decorate="~{/layouts/main-layout}">
 
 	<th:block layout:fragment="content">
+	
 
             <!-- slide banner -->
             <!-- <div class="container-fluid mb-2 bg-light-info">
@@ -112,7 +113,7 @@
 		                                        <path d="M27 1L34 8L27 15"
 												stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
 												stroke-linejoin="round" />
-		                                    </svg>
+	                                    </svg>
 									</div>
 									<div class="swiper-button-prev">
 										<svg width="23" height="16" viewBox="0 0 23 16" fill="none"
@@ -123,7 +124,7 @@
 		                                        <path d="M8 15L1 8L8 1"
 												stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
 												stroke-linejoin="round" />
-		                                    </svg>
+	                                    </svg>
 									</div>
 								</div>
 							</div>
@@ -153,25 +154,17 @@
 		            <li class="d-flex flex-column" style="margin: 0 10px;">
 		            	<div class="btn-group mb-1">
                             <div class="dropdown">
-                            	<div class="custom__dropdown custom__dropdown__v2">
-									<div class="selected">
-										<div class="selected_item selected_item-v2">Brand</div>
-									</div>
-									<ul class="list list__v2">
-										<li>최신순</li>
-										<li>인기순</li>
-									</ul>
-								</div>
-                                <!-- <button class="btn btn-success dropdown-toggle me-1" type="button"
-                                    id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    Success
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                    <a class="dropdown-item" href="#">최신순</a>
-                                    <a class="dropdown-item" href="#">인기순</a>
-                                </div> -->
-                            </div>
+                                 <button class="btn btn-primary dropdown-toggle me-1" type="button"
+                                     id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"
+                                     aria-expanded="false">
+                                     filter
+                                 </button>
+                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                     <a class="dropdown-item" href="#">최신순</a>
+                                     <a class="dropdown-item" href="#">인기순</a>
+                                     <a class="dropdown-item" href="#">별점순</a>
+                                 </div>
+                             </div>
                         </div>
 		            </li>
                 </ul>
@@ -226,7 +219,7 @@
                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
                 <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
                     role="document">
-                    <div class="modal-content">
+                    <div class="modal-content" style="width: 340px;">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalCenterTitle">Vertically
                                 Centered
@@ -237,7 +230,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                        		<div class="justify-content-around" style="display:flex">
+                        		<div class="justify-content-around">
 	                        		<input type="date" class="form-control flatpickr-always-open" placeholder="Select date..">
                         		</div>
                         </div>
@@ -306,27 +299,31 @@
             <!-- courtroom card -->
             <div class="container">
             	<div class="justify-content-around text-center">
-                    <div th:each="num : ${#numbers.sequence(1,12)}" class="col-xl-4 col-md-6 col-sm-12"
-                    style="display: inline-block; width: 270px; border: 1px solid black; margin: 1%;">
-	                        <div class="card" th:id="num">
-			                    <a href="courtDetail">
-	                                <img src="/assets/img/card.jpg" class="card-img-top img-fluid"
-	                                    alt="singleminded">
-	                                <div class="card-body">
-	                                    <h5 class="card-title">Courtroom Name</h5>
-	                                    <p class="card-text">
-	                                        Chocolate sesame snaps apple pie danish cupcake sweet roll jujubes
-	                                        tiramisu.Gummies
-	                                    </p>
-	                                </div>
-		                            <ul class="list-group list-group-flush">
-		                                <li class="list-group-item">Courtroom Location</li>
-		                                <li class="list-group-item">Courtroom Price</li>
-		                            </ul>
-	                        	</a>	
-                            </div>
+                    <th:block th:each="courtList, stat: ${courtList}">
+                    <div class="col-xl-4 col-md-6 col-sm-12"
+                    style="display: inline-block; width: 270px; margin: 1.2%;
+                    		border-radius: 10px; margin-bottom: 2.5%; cursor:pointer">
+                     <div class="card" th:onclick="|location.href='@{/courtDetail(crtroomNo=${courtList.crtroomNo})}'|"
+                     	style="margin: 0">
+                            <img src="/assets/img/card.jpg" class="card-img-top img-fluid"
+                                alt="singleminded">
+                         <ul class="list-group list-group-flush">
+                         	 <li class="list-group-item rating" style="border: 0;">
+                         	 	<ul style="padding: 0">
+									<li><i class="fa-solid fa-star"></i></li>
+									<li><i class="fa-solid fa-star"></i></li>
+									<li><i class="fa-solid fa-star"></i></li>
+									<li><i class="fa-regular fa-star"></i></li>
+									<li><i class="fa-regular fa-star"></i></li>
+								</ul>
+                         	 </li>
+                         	 <li class="list-group-item" style="border: 0;"><span style="float: left;"><h5 class="card-title">[[ ${courtList.crtroomName} ]]</h5></span></li>
+                             <li class="list-group-item"><span style="float: left;">[[ ${courtList.minPrice} ]]원 ~</span></li>
+                             <li class="list-group-item" style="border: 0;"><span style="float: left;">[[ ${courtList.crtroomLocation} ]]</span></li>
+                         </ul>
                         </div>
                     </div>
+                
                     <!-- <div class="col-xl-4 col-md-6 col-sm-12"
                     style="display: inline-block; width: 270px; border: 1px solid black; margin: 1%">
                         <div class="card">
@@ -387,7 +384,10 @@
                             </ul>
                         </div>
                     </div> -->
-                 </div>
+                 
+                 	</th:block>
+             	</div>
+            </div>
                 <div class="container">
                 <br>
                     <ul class="pagination justify-content-center">
@@ -402,7 +402,6 @@
                         </li>
                     </ul>
                 </div>
-            </div>
             <!-- End match table -->
 
             <!-- viewed history -->

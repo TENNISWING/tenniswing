@@ -48,8 +48,8 @@
 	                                <td>[[ ${#dates.format(courtList.crtroomRegiDate,'yyyy년MM월dd일')} ]]</td>
 	                                <td>
 	                                	<div th:onclick="|location.href='@{/hostCourtDetail(crtroomNo=${courtList.crtroomNo})}'|" class="btn icon btn-primary"><i class="icon dripicons dripicons-enter"></i></div>
-	                           			<div class="btn icon btn-success" data-bs-toggle="modal"
-                                data-bs-target="#exampleModalCenter"><i class="icon dripicons dripicons-pencil"></i></div>
+	                           			<div class="btn icon btn-success edit" data-bs-toggle="modal" id="courtroomEdit" th:attrappend="id=${stat.index}"
+                                			data-bs-target="#exampleModalCenter"><i class="icon dripicons dripicons-pencil"></i></div>
 										<div class="btn icon btn-danger courtroom" id="courtroomDelete" th:attrappend="id=${stat.index}"><i class="icon dripicons dripicons-trash"></i></div>
 	                                </td>
 	                            </tr>
@@ -133,7 +133,7 @@
 								  icon: "error",
 								  title: "",
 								  text: "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다.",
-								})
+							})
 						}
 					}
 				})

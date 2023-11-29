@@ -11,6 +11,8 @@ public class CrtDetailVO {
 	private String crtIndoorOutdoor;
 	private String crtIndoorOutdoorName;
 	private int crtroomNo;
+	
 	// 추가 등록 or 완료
 	private String action;
+	
 }

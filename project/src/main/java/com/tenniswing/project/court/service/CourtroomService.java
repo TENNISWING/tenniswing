@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 public interface CourtroomService {
+	// 사용자
+	public List<CrtroomVO> selectAllCourtroomMain();
+	
+	// 호스트
 	// 전체조회
 	public List<CrtroomVO> selectAllCourtroom(String hostId);
 	
