@@ -33,8 +33,9 @@
 } */
 .boardBody.active {
   display: block;
-  /* 높이를 정해줘야지만 transition이 적용됨 */
-  height: fit-content;
+  /* 높이를 정해줘야지만 transition이 적용됨 fit-content */
+  height: 800px ;
+  
 }
 
 </style>
@@ -102,7 +103,7 @@
 			</tbody>
 		</table> -->
 		
-		<table class="table table-hover mb-0">
+		<table class="table mb-0">
 			<thead>
 				<tr>
 					<th>NO</th>
@@ -113,25 +114,33 @@
 				</tr>
 			</thead>
 			<tbody>
-			<div>
 				 <tr class="toggleBoard" style="height: 70px;">
 				 	
 					<td>1</td>
 					<td>
 						<div class="boardContainer">
 							<p class="toggleBoardTitle">이것은 자유게시판 제목1</p>
-							<!-- 게시글 상세 조회 토글  -->
-							<div class="boardBody">
-								<p>이것은 자유게시판 내용1</p>
-								<p>사진</p>
-							</div>
 						</div>
 					</td>
 					<td>user kim</td>
 					<td>2023-11-24</td>
 					<td>6</td>
-					</div>
-				</tr> 
+				</tr>
+				<!-- 게시글 상세보기 토글  -->
+				<tr class="toggleBoard">
+					<td colspan='5' style="padding: 0;">
+						<div class="boardBody" style="text-align: center;">
+							<div>
+								<img src="./assets/img/card.jpg" style="width: 90%;">
+							</div>
+							<textarea class="form-control"
+									  id="exampleFormControlTextarea1" rows="3"></textarea>
+									  
+							 <input type="text" id="" class="form-control is-valid" placeholder="댓글작성폼">
+							<p>여기는 댓글</p>
+						</div>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 

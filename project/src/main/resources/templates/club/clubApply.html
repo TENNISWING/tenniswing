@@ -1,10 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+.apply-d-flexx{
+display:flex !important;
+justify-content:space-between;
+}
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<h2>클럽가입신청</h2>
+<div class="content__body">
+		<div class="recent-message d-flex px-4 py-3"
+			th:each="num : ${#numbers.sequence(1,10)}"
+			style="border-bottom: 1px solid #e1e1e1; display: flex; justify-content: space-between;">
+			<div class="d-flex-right">
+				<div class="avatar avatar-lg">
+					<img src="./assets/compiled/jpg/4.jpg">
+				</div>
+				<div class="name ms-4">
+					<h5 class="mb-1">Hank Schrader</h5>
+					<h6 class="text-muted mb-0">@johnducky</h6>
+				</div>
+			</div>
+			<div>
+				<button class="btn btn-outline-success">승인</button>
+				<button class="btn btn-outline-success">거절</button>
+			</div>
+		</div>
+
+	</div>
+	<br>
+	<ul class="pagination justify-content-center">
+		<li class="page-item disabled"><a class="page-link" href="#"
+			tabindex="-1" aria-disabled="true">이전</a></li>
+		<li class="page-item"><a class="page-link" href="#">1</a></li>
+		<li class="page-item"><a class="page-link" href="#">2</a></li>
+		<li class="page-item"><a class="page-link" href="#">3</a></li>
+		<li class="page-item"><a class="page-link" href="#">다음</a></li>
+	</ul>
 </body>
 </html>

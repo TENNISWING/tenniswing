@@ -7,15 +7,21 @@
 	<!-- club sub menu -->
 	<div class="container mb-4">
 		<ul class="nav d-flex justify-content-around text-center">
-			<li class="d-flex flex-column"><a href="javascript:void(0)"><div>
+			<li class="d-flex flex-column"><a href="javascript:void(0)">
+					<div>
 						<i class="fa-solid fa-list fs-3 text-info"></i>
-					</div>클럽 목록</a></li>
-			<li class="d-flex flex-column"><a href="javascript:void(0)"><div>
+					</div>클럽 목록
+			</a></li>
+			<li class="d-flex flex-column"><a href="javascript:void(0)">
+					<div>
 						<i class="fa-solid fa-pen-square fs-3 text-primary"></i>
-					</div>클럽 창설</a></li>
-			<li class="d-flex flex-column"><a href="javascript:void(0)"><div>
+					</div>클럽 창설
+			</a></li>
+			<li class="d-flex flex-column"><a href="javascript:void(0)">
+					<div>
 						<i class="fa-solid fa-m fs-3 text-warning"></i>
-					</div>마이 클럽</a></li>
+					</div>마이 클럽
+			</a></li>
 		</ul>
 	</div>
 	<!-- End club sub menu  -->
@@ -157,48 +163,10 @@
 							<!-- email user list start -->
 							<div class="email-user-list list-group ps ps--active-y"
 								style="height: 100% !important;">
-								<ul class="users-list-wrapper media-list">
-									<li class="media" th:each="clubList, stat:${clubList}">
-										<div>
-											<img src="/assets/compiled/jpg/1.jpg" alt="avtar img holder"
-												style="width: 80px; border-radius: 70%;">
-										</div>
-										<div class="media-body"
-											th:onclick="|location.href='@{clubdetail}'|">
-											<div class="mail-items">
-												[[${clubList.clubName}]]
-												<div class="badge badge-pill bg-light-success me-1">[[${clubList.clubMemNum}]]</div>
-												<div class="badge badge-pill bg-light-warning me-1">
-													<span
-														th:text="${clubList.clubRecruitment == 'l1' ? '모집중' : '모집완료'}"></span>
-												</div>
-											</div>
-											<div class="mail-message">
-												<p class="list-group-item-text truncate mb-0">
-													[[${clubList.clubIntro}]]</p>
-
-											</div>
-											<div class="mail-message">
-												<p class="list-group-item-text truncate mb-0"
-													th:text="${clubList.clubRegion == 'b1' ? '서울' : '부산'}"></p>
-											</div>
-											<div class="mail-message">
-												<p class="list-group-item-text truncate mb-0">[[${clubList.clubRegion}]]
-													/ [[${clubList.clubGen}]] / [[${clubList.clubDay}]] -
-													[[${clubList.clubTime}]]</p>
-											</div>
-										</div>
-
-										<div class="mail-meta-item">
-											<div class="float-right">
-												<button type="button" style="margin: 0"
-													class="btn btn-primary btn-block my-4 compose-btn"
-													data-bs-toggle="modal" data-bs-target="#exampleModalCenter">가입</button>
-											</div>
-										</div>
-									</li>
-								</ul>
-
+								
+								<!-- 여기에 클럽 리스트 어펜드 -->
+								<ul class="users-list-wrapper media-list" id="clubList"></ul>
+								<!-- 여기에 클럽 리스트 어펜드 -->
 							</div>
 							<div class="email-action">
 								<div
@@ -212,9 +180,9 @@
 											<div class="form-control-icon">
 												<svg class="bi" width="1.5em" height="1.5em"
 													fill="currentColor">
-                                                        <use
+													<use
 														xlink:href="assets/static/images/bootstrap-icons.svg#search" />
-                                                    </svg>
+												</svg>
 											</div>
 										</div>
 									</div>
@@ -224,17 +192,17 @@
 										class="btn btn-icon email-pagination-prev action-button d-none d-sm-block">
 										<svg class="bi" width="1.5em" height="1.5em"
 											fill="currentColor">
-                                                <use
+											<use
 												xlink:href="assets/static/images/bootstrap-icons.svg#chevron-left" />
-                                            </svg>
+										</svg>
 									</button>
 									<button
 										class="btn btn-icon email-pagination-next action-button d-none d-sm-block">
 										<svg class="bi" width="1.5em" height="1.5em"
 											fill="currentColor">
-                                                <use
+											<use
 												xlink:href="assets/static/images/bootstrap-icons.svg#chevron-right" />
-                                            </svg>
+										</svg>
 									</button>
 								</div>
 							</div>
@@ -264,10 +232,7 @@
 								<img src="./assets/img/card.jpg" style="width: 450px;">
 							</div>
 							<br>
-							<p style="text-align: left;">여기는 클럽 소개글 쏼라쏼라Croissant jelly-o
-								halvah chocolate sesame snaps. Brownie caramels candy canes
-								chocolate cake marshmallow icing lollipop I love. Gummies
-								macaroon donut caramels biscuit topping danish.</p>
+							<p style="text-align: left;"></p>
 						</div>
 						<div class="modal-footer" style="text-align: center;">
 							<button type="button" class="btn btn-primary ms-1"
@@ -310,8 +275,71 @@
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
+
+
+	<script>
+	
+		let clubListNo = 0;
+	
+		function clubListAjax(){
+		 
+			 $.ajax({
+				type: 'GET',
+				url: 'clubList',
+				data: {clubListNo},
+				success: function (result) {
+					console.log(result)
+					$('#clubList').empty();
+					
+					for (let clubList of result) {
+						let List = `
+						<li class="media">
+						<div>
+							<img src="/assets/compiled/jpg/1.jpg" alt="avtar img holder"
+								style="width: 80px; border-radius: 70%;">
+						</div>
+						<div class="media-body" onclick="location.href='/clubdetail?clubNo=${clubList.clubNo}'">
+							<div class="mail-items">
+								${clubList.clubName}
+								<div class="badge badge-pill bg-light-success me-1">${clubList.clubMemNum}</div>
+								<div class="badge badge-pill bg-light-warning me-1">${clubList.clubRecruitmentName}
+								</div>
+							</div>
+							
+							<div class="mail-message">
+								<p class="list-group-item-text truncate mb-0">지역 : ${clubList.clubRegionName} / 성별 : ${clubList.clubGenName}</p>
+							</div>
+							<div class="mail-message">
+								<p class="list-group-item-text truncate mb-0">요일 : ${clubList.clubDayName}요일 / 시간 : ${clubList.clubTimeName}</p>
+							</div>
+						</div>
+
+						<div class="mail-meta-item">
+							<div class="float-right">
+								<button type="button" style="margin: 0"
+									class="btn btn-primary btn-block my-4 compose-btn"
+									data-bs-toggle="modal" data-bs-target="#exampleModalCenter">가입</button>
+							</div>
+						</div>
+						</li>
+					`
+						$('#clubList').append(List)
+					}
+				
+				}
+			})
+			}
+			
+			
+			$(document).ready(function(){
+				clubListAjax()
+			})
+				
+			
+	</script>
 
 
 </th:block>
