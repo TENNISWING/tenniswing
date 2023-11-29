@@ -21,6 +21,7 @@ public class SnsVO {
 	private String snsTag;
 	private int snsHit;
 	private String memNo;
+	private String memId;
 	private String name;
 	private int snsGrpNo;
 	private int test;

@@ -15,8 +15,8 @@
   			   , s.sns_write_date
   			   , s.sns_tag
   			   , s.sns_hit
-  			   , s.mem_no
   			   , m.name
+  			   , s.mem_id
   			   , g.grp_name
   			   ,(   SELECT COUNT(*)
                     FROM sns_like l
@@ -25,7 +25,7 @@
 	join sns_grp g
 	on s.sns_grp_no = g.sns_grp_no
 	join mem m
-	on s.mem_no = m.mem_no
+	on s.mem_id = m.mem_id
 	order by s.sns_wrt_no
   	</select>
  
@@ -50,7 +50,7 @@
   			   , s.sns_write_date
   			   , s.sns_tag
   			   , s.sns_hit
-  			   , s.mem_no
+  			   , s.mem_id
   			   , g.sns_grp_no
   			   , l.like_no
   			   , s.sns_grp_no
@@ -60,7 +60,7 @@
         on s.sns_grp_no = g.sns_grp_no
         join attach a
         on a.attach_table_pk = s.sns_wrt_no
-        where mem_no = #{memNo};
+        where mem_id = #{memId};
   		 <!-- LIKE '%' || #{keyword} || '%'
   		 	  LIKE '%${keyword}%'		   -->
   	</select>
@@ -82,7 +82,7 @@
   	 				,sns_title
   	 				,sns_ctt
   	 				,sns_tag
-  	 				,mem_no
+  	 				,mem_id
   	 				,snsHit
   	 				,sns_write_date
   	 			)
@@ -92,7 +92,7 @@
   	 				,#{snsTitle}
   	 				,#{snsCtt}
   	 				,#{snsTag}
-  	 				,#{memNo}
+  	 				,#{memId}
   	 				,#{snsHit}
   	 				,
   	 				<choose>

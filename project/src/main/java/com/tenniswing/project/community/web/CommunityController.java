@@ -1,6 +1,7 @@
 package com.tenniswing.project.community.web;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,7 +28,9 @@ public class CommunityController {
 	// SNS
 		// SNS 메인
 		@GetMapping("sns")
-		public String snsListPage(Model model) {
+		public String snsListPage(SnsVO snsVO, Model model) {
+			//String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			//snsVO.setMemId(id);
 			List<SnsVO> list = snsService.selectAllSnsInfo();
 			System.out.println("list 찍어봄 ::: " + list);
 			model.addAttribute("snsList", snsService.selectAllSnsInfo());
@@ -41,17 +44,43 @@ public class CommunityController {
 			return snsRepService.selectAllSnsRep(snsRepVO);
 		}
 		
+		// sns 댓글 등록 페이지
+//		@GetMapping("snsReplyInsertPage")
+//		public String snsReplyInsertPage(Model model) {
+//			return  "community/community3";
+//		}
+		
+		
 		// sns댓글 등록
 		@PostMapping("snsReplyInsert")
 		@ResponseBody
 		public int insertSnsRepAjax(SnsRepVO snsRepVO, Model model) {
 			String id = SecurityContextHolder.getContext().getAuthentication().getName();
 			snsRepVO.setMemId(id);
-			System.out.println(snsRepVO);
+			System.out.println("repVO찍어봄"+snsRepVO);
 			int result =  snsRepService.insertSnsRep(snsRepVO);
+			
+//			if(result>0) {
+//				return "redirect:/sns";
+//			}else {
+//				return "member/singup";
+//			}
 			
 			return result;
 			
+			
+		}
+		
+		// sns 댓글 수정
+		@PostMapping("snsReplyEdit")
+		@ResponseBody
+		public Map<String, Object> EditSnsRepAjax(SnsRepVO snsRepVO) {
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			snsRepVO.setMemId(id);
+			System.out.println("수정아작스컨트롤러 repVO찍어봄"+snsRepVO);
+			Map<String, Object> result = snsRepService.updateSnsRep(snsRepVO);
+			
+			return result;
 		}
 		
 		// 자유게시판 메인(리스트 페이지)
