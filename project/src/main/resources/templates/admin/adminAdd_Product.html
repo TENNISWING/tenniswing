@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/admin/admin-layout}">
-
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
 <th:block layout:fragment="admincontent">
 	<!-- Main__container Start-->
 	<div class="main__container">
@@ -25,7 +27,7 @@
 					</div>
 
 					<!-- start form -->
-					<form th:action="@{/adminAdd_Product}" th:object="${prodVO}" method="post" class="dashboard__form" enctype="multipart/form-data">
+					<form th:object="${prodVO}" id="addProdForm" class="dashboard__form" enctype="multipart/form-data">
 						<div class="row">
 							<div class="col-xxl-4">
 								<div class="dashboard-block">
@@ -115,7 +117,7 @@
 											
 											<!-- 가격 -->
 											<div class="form-group">
-												<label for="price">가격</label>
+												<label for="prodPrice">가격</label>
 												<input type="number" class="form-control" placeholder="가격을 입력해주세요." th:field="*{prodPrice}"/>
 												<!-- name="price" id="price" -->
 											</div>
@@ -155,8 +157,7 @@
 										
 										<div class="btn__group flex-wrap">
 											<button type="button" class="btn btn-outline">Cancel</button>
-											<button type="submit" class="btn btn-gray-filled">Add
-												Product</button>
+											<button type="button" id="addBnt" class="btn btn-gray-filled">Add Product</button>
 										</div>
 									</div>
 								</div>
@@ -172,6 +173,59 @@
 		<!-- Main Inner Wrapper End -->
 	</div>
 	<!-- Main__container End-->
+	
+	<script type="text/javascript">
+	
+		$('#addBnt').on('click', insertProd);
+	
+		function insertProd(e) {
+			let prodInfo = getProdInfo();
+
+			// Ajax -> JSON
+			$.ajax('adminAdd_Product', {
+				type : 'post',
+				contentType : 'application/json',
+				data : JSON.stringify(prodInfo)
+			})
+			.done(result => {
+				//console.log('JSON', result);
+				if(result != -1){
+					Swal.fire({
+						  icon: "success",
+						  title: "등록 완료",
+						  text: "상품 정보가 등록되었습니다.",
+						}).then(function(){
+							location.href = "/adminDetail_Product?prodNo="+result;
+					})
+				} else {
+					Swal.fire({
+						  icon: "error",
+						  title: "등록 실패",
+						  text: "등록 중 문제 발생",
+					}).then(function(){
+						location.reload();
+					})
+				}
+				
+			})
+			.fail(err => console.log(err));
+		}
+		
+
+		function getProdInfo() {
+			let formData = $('#addProdForm').serializeArray();
+			let prodSaleSts = $('#prodSaleSts').is(':checked') ? 'p1' : 'p2';
+			formData.push({name: 'prodSaleSts', value: prodSaleSts});
+
+			let objData = {};
+
+			$.each(formData, (idx, obj) => {
+				objData[obj.name] = obj.value;
+			});
+			return objData;
+		}
+	</script>
+	
 	<script type="text/javascript">
 		function setThumbnail(event) {
 			// 이미지 비워주기
@@ -266,6 +320,10 @@
 		// 	reader.readAsDataURL(image);
 		// }
 		
+	</script>
+	<script type="text/javascript">
+		$('#prodPrice').val(null);
+		//console.log([[ ${prodVO} ]]);
 	</script>
 </th:block>
 

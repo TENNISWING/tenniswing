@@ -1,10 +1,15 @@
 package com.tenniswing.project.admin.web;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenniswing.project.shop.service.ProdService;
@@ -14,7 +19,7 @@ import com.tenniswing.project.shop.service.ProdVO;
 public class AdminController {
 	@Autowired
 	ProdService prodService;
-	
+
 	// 상품 목록
 	@GetMapping("admin_Product")
 	public String adminProductPage(Model model) {
@@ -28,7 +33,7 @@ public class AdminController {
 		model.addAttribute("prod", prodService.selectProd(prodVO));
 		return "admin/adminDetail_Product";
 	}
-	
+
 	// 등록
 	@GetMapping("adminAdd_Product")
 	public String adminAddProductPage(Model model) {
@@ -37,19 +42,26 @@ public class AdminController {
 	}
 
 	// 등록 - 처리
+	// adminAddProductProcess(ProdVO prodVO, RedirectAttributes rttr)
 	@PostMapping("adminAdd_Product")
-	public String adminAddProductProcess(ProdVO prodVO, RedirectAttributes rttr) {
-		prodService.insertProd(prodVO);
-		rttr.addAttribute("prodNo", prodVO.getProdNo());
-		
-		return "redirect:adminDetail_Order";
+	@ResponseBody
+	public int adminAddProductProcess(@RequestBody ProdVO prodVO) {
+		return prodService.insertProd(prodVO);
 	}
-	
+
 	// 수정
 	@GetMapping("adminEdit_Product")
 	public String adminEditProductPage(Model model, ProdVO prodVO) {
 		model.addAttribute("prod", prodService.selectProd(prodVO));
 		return "admin/adminEdit_Product";
+	}
+
+	// 수정 - 처리		Ajax : @ResposeBody / 
+	@PostMapping("adminEdit_Product")
+	@ResponseBody				
+	public Map<String, Object> adminEditProductProcess(@RequestBody ProdVO prodVO) {
+								// JSON => @RequestBody
+		return prodService.updateProd(prodVO);
 	}
 
 	//
@@ -58,6 +70,13 @@ public class AdminController {
 	 * model) { return "admin/adminDetail_Product"; }
 	 */
 
+	// 삭제
+	@GetMapping("adminDelete_Product")
+	@ResponseBody
+	public Map<String, Object> adminDeleteProductProcess(@RequestParam Integer prodNo) {
+		return prodService.deleteProd(prodNo);
+	}
+	
 	@GetMapping("admin_Order")
 	public String adminOrderPage(Model model) {
 		return "admin/admin_Order";

@@ -20,7 +20,7 @@ public class ProdVO {
 	// 상품 설명
 	private String prodExp;
 	// 상품 가격
-	private String prodPrice;
+	private int prodPrice;
 	// 상품 총 재고
 	private int prodTSto;
 	// 상품 판매 유무

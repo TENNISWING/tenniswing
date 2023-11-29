@@ -1,5 +1,6 @@
 package com.tenniswing.project.shop.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,14 +45,34 @@ public class ProdServiceImpl implements ProdService{
 			return -1;
 	}
 
+//	수정
 	@Override
 	public Map<String, Object> updateProd(ProdVO prodVO) {
-		return null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		boolean isSuccess = false;
+		
+		int result = prodMapper.updateProd(prodVO);
+		if(result == 1) {
+			isSuccess = true;
+		}
+		map.put("result", isSuccess);
+		map.put("target", prodVO);
+		return map;
 	}
 
+//	삭제
 	@Override
-	public boolean deleteProd(int prodNo) {
-		return false;
+	public Map<String, Object> deleteProd(int prodNo) {	
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean isSuccess = false;
+		
+		int result = prodMapper.deleteProd(prodNo);
+		if(result == 1) {
+			isSuccess = true;
+		}
+		map.put("msg", isSuccess);
+		map.put("target", prodNo);
+		return map;		
 	}
-
 }

@@ -14,6 +14,13 @@
 <link rel="stylesheet"
 	href="./assets/compiled/css/table-datatable-jquery.css">
 
+<style type="text/css">
+	.modal-header svg,
+	.modal-header i{
+		width: 24px !important;
+		height: 24px !important;
+	}
+</style>
 </head>
 <th:block layout:fragment="admincontent">
 	<!-- Main__container Start-->
@@ -26,7 +33,7 @@
 					<div class="dashboard__breadcrumb">
 						<div class="breadcrumb__meta">
 							<ul>
-								<li><a href="d-category-list.html" class="link"><i
+								<li><a href="admin_Product" class="link"><i
 										class="fa-solid fa-arrow-left me-2"></i> Back</a></li>
 							</ul>
 						</div>
@@ -37,7 +44,7 @@
 						</div>
 						<div style="display: flex;">
 							<div class="edit__btn" style="margin-right: 1.5rem">
-								<a href="adminEdit_Product" class="shop-btn shop-btn-primary">Edit Product</a>
+								<a th:onclick="|location.href='@{/adminEdit_Product(prodNo=${prod.prodNo})}'|" class="shop-btn shop-btn-primary">Edit Product</a>
 							</div>
 							<div class="add__btn" style="padding-right: 1.5rem">
 								<!-- <a href="d-category-edit.html" class="btn btn-primary">Add Product Detail</a> -->
@@ -109,25 +116,41 @@
 														readonly="readonly" />
 												</div>
 											</div>
+											<div class="flex__form c-3">
+												<div class="form-group">
+													<label for="product_price">상품 가격</label> <input type="text"
+														name="product_price" id="product_price"
+														class="form-control" placeholder="상품 가격" th:value="${prod.prodPrice}"
+														readonly="readonly" />
+												</div>
+												<div class="form-group">
+													<label for="prodRegiDate">상품 등록일</label> <input type="text"
+														name="prodRegiDate" id="prodRegiDate"
+														class="form-control" placeholder="상품 등록일" th:value="${#dates.format(prod.prodRegiDate, 'yyyy-MM-dd')}"
+														readonly="readonly" />
+												</div>
+												<div class="form-group">
+												<label>Status</label>
+													<div class="custom-checkbox">
+														<th:block th:if="${prod.prodSaleSts} == '판매중'">													
+															<input type="checkbox" name="prodSaleSts" id="prodSaleSts" checked="checked"/>
+														</th:block>
+														<th:block th:unless="${prod.prodSaleSts} == '판매중'">
+															<input type="checkbox" name="prodSaleSts" id="prodSaleSts" readonly="readonly"/>
+														</th:block>
+														<label for="prodSaleSts"> 
+															<span class="active">Active</span>
+															<span class="inactive">Inactive</span>
+														</label>
+													</div>
+												</div>
+											</div>
 											<div class="form-group mb-0">
 												<div class="form-group">
 													<label for="description">상품 설명</label>
 													<textarea name="description" class="form-control"
 														id="description" cols="30" rows="4"
 														readonly>[[ ${prod.prodExp} ]]</textarea>
-												</div>
-												<label>Status</label>
-												<div class="custom-checkbox">
-													<th:block th:if="${prod.prodExp} == 'p1'">													
-														<input type="checkbox" name="status" id="statuss" checked="checked"/>
-													</th:block>
-													<th:block th:unless="${prod.prodExp} == 'p1'">
-														<input type="checkbox" name="status" id="statuss" />
-													</th:block>
-													<label for="statuss"> 
-														<span class="active">Active</span>
-														<span class="inactive">Inactive</span>
-													</label>
 												</div>
 											</div>
 										</div>
@@ -265,9 +288,8 @@
 								<td><span class="badge bg-success">Active</span></td>
 								<td>
 									<div class="card__action">
-										<button type="button" class="btn btn-outline-success"
-											data-bs-toggle="modal" data-bs-target="#editDetailForm"
-											style="border: 0px;">
+										<button type="button" class="action__btn ml-10"
+											data-bs-toggle="modal" data-bs-target="#editDetailForm">
 											<svg
 												width="20" height="20" viewBox="0 0 20 20" fill="none"
 												xmlns="http://www.w3.org/2000/svg" style="vertical-align: baseline;">
@@ -402,7 +424,19 @@
 	</section>
 	<!-- Basic Tables end -->
 
-
+	<script type="text/javascript">
+		let price = $('#product_price').val();
+		//console.log(price);
+		
+		price = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		//console.log(price);
+		
+		price = price + '원';
+		//console.log(price);
+		
+		$('#product_price').val(price);
+		
+	</script>
 	<script src="assets/extensions/jquery/jquery.min.js"></script>
 	<script
 		src="assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
