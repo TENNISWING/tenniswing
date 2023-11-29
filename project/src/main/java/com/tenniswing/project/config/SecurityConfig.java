@@ -19,7 +19,7 @@ public class SecurityConfig {
 		http.csrf().disable().authorizeRequests()
 
 
-		//여기에 로그인 필요한 페이지 적어주세요.
+				//여기에 로그인 필요한 페이지 적어주세요.
 				.antMatchers("/mypage/**","/clubform").authenticated()
 				//.antMatchers("/admin/**").hasRole("ADMIN")
 				//.antMatchers("/host/**").hasRole("HOST")
@@ -31,7 +31,7 @@ public class SecurityConfig {
 				.loginPage("/loginform").loginProcessingUrl("/loginProc")
 				.usernameParameter("memId")
 				.passwordParameter("pwd")
-				.defaultSuccessUrl("/").permitAll()
+				.defaultSuccessUrl("/")
 			
 				.and()
 				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

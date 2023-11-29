@@ -3,6 +3,7 @@ package com.tenniswing.project.member.web;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,10 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.common.FileUtils;
 import com.tenniswing.project.member.service.MemberService;
@@ -35,6 +35,9 @@ public class MemberController {
 	
 	@Autowired
 	FileUtils fileUtils;
+	
+	@Autowired
+	AttachService attachService;
 
 	// 로그인 폼 이동
 	@GetMapping("loginform")
@@ -76,32 +79,45 @@ public class MemberController {
 
 	// 회원가입 처리
 	@PostMapping("signup")
-	public String signupProc(MemberVO memberVO, Model model, @RequestPart(value = "files", required = false) MultipartFile files) throws IOException {
+	public String signupProc(MemberVO memberVO, Model model) throws IOException {
 		
-		AttachVO file = fileUtils.uploadFile(files);
 		
-		System.out.println(file.getAttachOriginName());
-		System.out.println(file.getAttachSaveName());
-		System.out.println(file.getSize());
-		System.out.println(file.getAttachPath());
-//		boolean check = memberService.idCheck(memberVO.getMemId());
-//		
-//		if (!check) {
-//			model.addAttribute("message", "아이디 중복 체크하지 않았습니다");
-//			return "member/signup";
-//		}
-//
-//		int result = memberService.insertMember(memberVO);
-//
-//		if (result > 0) {
-//			return "redirect:/loginform";
-//		} else {
-//			model.addAttribute("message", "회원가입에 실패하였습니다.");
-//			return "member/signup";
-//		}
-		System.out.println("일루옴");
-		return "redirect:/loginform";
+						
+		boolean check = memberService.idCheck(memberVO.getMemId());
 		
+		if (!check) {
+			model.addAttribute("message", "아이디 중복 체크하지 않았습니다");
+			return "member/signup";
+		}
+
+		int result = memberService.insertMember(memberVO);
+
+		if (result > 0) {
+			
+			List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());
+			
+			
+			//테이블 구분, 게시글 번호, 파일목록
+			int n = attachService.saveAttach("m1", 1, files);
+			
+			if(n > 0) {
+				System.out.println(files.get(0).getAttachOriginName());
+				System.out.println(files.get(0).getAttachSaveName());
+				System.out.println(files.get(0).getSize());
+				System.out.println(files.get(0).getAttachPath());
+			
+				return "redirect:/loginform";
+			}else {
+				model.addAttribute("message", "파일등록에 실패하였습니다.");
+				return "member/signup";
+			}
+			
+		} else {
+			model.addAttribute("message", "회원가입에 실패하였습니다.");
+			return "member/signup";
+		}	
+		
+	
 	}
 
 	// 마이페이지 이동
