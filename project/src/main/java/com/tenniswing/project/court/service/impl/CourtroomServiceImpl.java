@@ -16,6 +16,7 @@ public class CourtroomServiceImpl implements CourtroomService {
 
 	@Autowired CourtroomMapper courtroomMapper;
 	
+	// 호스트
 	@Override
 	public int insertCourtroom(CrtroomVO crtroomVO) {
 		int result = courtroomMapper.insertCourtroom(crtroomVO);
@@ -44,8 +45,8 @@ public class CourtroomServiceImpl implements CourtroomService {
 	}
 
 	@Override
-	public List<CrtroomVO> selectAllCourtroom() {
-		return courtroomMapper.selectAllCourtroom();
+	public List<CrtroomVO> selectAllCourtroom(String hostId) {
+		return courtroomMapper.selectAllCourtroom(hostId);
 	}
 
 	@Override
@@ -62,5 +63,11 @@ public class CourtroomServiceImpl implements CourtroomService {
 		}else {
 			return false;
 		}
+	}
+
+	//사용자
+	@Override
+	public List<CrtroomVO> selectAllCourtroomMain() {
+		return courtroomMapper.selectAllCourtroomMain();
 	}
 }

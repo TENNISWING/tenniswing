@@ -8,8 +8,11 @@ public class CrtDetailVO {
 	private int crtDetailNo;
 	private int crtUsePrice;
 	private String useUnitTime;
-	private int crtIndoorOutdoor;
+	private String crtIndoorOutdoor;
+	private String crtIndoorOutdoorName;
 	private int crtroomNo;
+	
 	// 추가 등록 or 완료
 	private String action;
+	
 }

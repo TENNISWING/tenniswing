@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/admin/admin-layout}">
-
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
 <th:block layout:fragment="admincontent">
 	<!-- Main__container Start-->
 	<div class="main__container">
@@ -25,7 +27,7 @@
 					</div>
 
 					<!-- start form -->
-					<form th:action="@{/adminAdd_Product}" th:object="${prodVO}" method="post" class="dashboard__form" enctype="multipart/form-data">
+					<form th:object="${prodVO}" id="addProdForm" class="dashboard__form" enctype="multipart/form-data">
 						<div class="row">
 							<div class="col-xxl-4">
 								<div class="dashboard-block">
@@ -75,7 +77,7 @@
 										<div class="flex__form c-3">
 											<!-- 이름 -->
 											<div class="form-group">
-												<label for="product_name">상품 이름</label> 
+												<label for="prodName">상품 이름</label> 
 												<input type="text" th:field="*{prodName}" class="form-control"
 													placeholder="상품 이름을 입력해주세요." />
 												<!-- name="product_name" id="product_name" -->
@@ -86,13 +88,12 @@
 												<label for="category">카테고리</label> 
 												<select class="category-select" th:field="*{cateProd}">
 												<!-- name="category" id="category" -->
-													<option value="category">all category</option>
-													<option value="clothes">의류</option>
-													<option value="shoes">신발</option>
-													<option value="racket">테니스 라켓</option>
-													<option value="bag">테니스 가방</option>
-													<option value="supplies">테니스 용품</option>
-													<option value="etc">기타</option>
+													<option value="q6">기타</option>
+													<option value="q1">의류</option>
+													<option value="q2">신발</option>
+													<option value="q3">테니스 라켓</option>
+													<option value="q4">테니스 가방</option>
+													<option value="q5">테니스 용품</option>
 												</select>
 											</div>
 											
@@ -101,9 +102,9 @@
 												<label for="gender">성별</label>
 												<select class="gender-select" th:field="*{cateGen}">
 												<!-- name="gender" id="gender" -->
-													<option value="genderAll">성별 무관</option>
-													<option value="male">남성</option>
-													<option value="female">여성</option>
+													<option value="c3">성별 무관</option>
+													<option value="c1">남성</option>
+													<option value="c2">여성</option>
 												</select>
 											</div>
 											
@@ -116,7 +117,7 @@
 											
 											<!-- 가격 -->
 											<div class="form-group">
-												<label for="price">가격</label>
+												<label for="prodPrice">가격</label>
 												<input type="number" class="form-control" placeholder="가격을 입력해주세요." th:field="*{prodPrice}"/>
 												<!-- name="price" id="price" -->
 											</div>
@@ -125,9 +126,9 @@
 											<div class="form-group">
 												<label>판매 유무</label>
 												<div class="custom-checkbox">
-													<input name="status" id="status" type="checkbox" disabled="disabled"/>
+													<input name="prodSaleSts" id="prodSaleSts" type="checkbox" value="p1"/>
 													<!--  name="status" id="statuss" -->
-													<label for="status"> 
+													<label for="prodSaleSts"> 
 														<span class="active">Active</span>
 														<span class="inactive">Inactive</span>
 													</label>
@@ -148,15 +149,15 @@
 										<!-- 상품 설명 -->
 										<div class="form-group">
 											<label for="description">상품 설명</label>
-											<textarea name="description" class="form-control" id="description" cols="30"
-												rows="7"
-												placeholder="Write about your product description briefly"></textarea>
+											<!-- name="description" id="description" -->
+											<textarea class="form-control" cols="30" rows="7"
+												placeholder="Write about your product description briefly"
+												th:field="*{prodExp}"></textarea>
 										</div>
 										
 										<div class="btn__group flex-wrap">
 											<button type="button" class="btn btn-outline">Cancel</button>
-											<button type="submit" class="btn btn-gray-filled">Add
-												Product</button>
+											<button type="button" id="addBnt" class="btn btn-gray-filled">Add Product</button>
 										</div>
 									</div>
 								</div>
@@ -172,6 +173,59 @@
 		<!-- Main Inner Wrapper End -->
 	</div>
 	<!-- Main__container End-->
+	
+	<script type="text/javascript">
+	
+		$('#addBnt').on('click', insertProd);
+	
+		function insertProd(e) {
+			let prodInfo = getProdInfo();
+
+			// Ajax -> JSON
+			$.ajax('adminAdd_Product', {
+				type : 'post',
+				contentType : 'application/json',
+				data : JSON.stringify(prodInfo)
+			})
+			.done(result => {
+				//console.log('JSON', result);
+				if(result != -1){
+					Swal.fire({
+						  icon: "success",
+						  title: "등록 완료",
+						  text: "상품 정보가 등록되었습니다.",
+						}).then(function(){
+							location.href = "/adminDetail_Product?prodNo="+result;
+					})
+				} else {
+					Swal.fire({
+						  icon: "error",
+						  title: "등록 실패",
+						  text: "등록 중 문제 발생",
+					}).then(function(){
+						location.reload();
+					})
+				}
+				
+			})
+			.fail(err => console.log(err));
+		}
+		
+
+		function getProdInfo() {
+			let formData = $('#addProdForm').serializeArray();
+			let prodSaleSts = $('#prodSaleSts').is(':checked') ? 'p1' : 'p2';
+			formData.push({name: 'prodSaleSts', value: prodSaleSts});
+
+			let objData = {};
+
+			$.each(formData, (idx, obj) => {
+				objData[obj.name] = obj.value;
+			});
+			return objData;
+		}
+	</script>
+	
 	<script type="text/javascript">
 		function setThumbnail(event) {
 			// 이미지 비워주기
@@ -266,6 +320,10 @@
 		// 	reader.readAsDataURL(image);
 		// }
 		
+	</script>
+	<script type="text/javascript">
+		$('#prodPrice').val(null);
+		//console.log([[ ${prodVO} ]]);
 	</script>
 </th:block>
 

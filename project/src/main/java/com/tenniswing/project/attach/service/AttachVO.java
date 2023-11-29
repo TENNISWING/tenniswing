@@ -1,27 +1,39 @@
 package com.tenniswing.project.attach.service;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
 public class AttachVO {
 	// 첨부파일번호
-	private int attachNo;
-	
+	private int attachNo;	
 	// 첨부파일 확장자
-	private String attachExt;
-	
+	private String attachExt;	
 	// 첨부파일 이름
-	private String attachName;
-	
+	private String attachOriginName;	
+	// 첨부파일 이름
+	private String attachSaveName;	
 	// 첨부파일 경로
-	private String attachPath;
-	
+	private String attachPath;	
 	// 첨부파일 순서
-	private int attachTurn;
-	
+	private int attachTurn;	
 	// 첨부파일 테이블 구분 코드
-	private String attachTableDiv;
-	
+	private String attachTableDiv;	
 	// 첨부파일 테이블 PK
-	private int attacTablePk;
+	private int attacTablePk;	
+	//파일크기
+	private long size;
+	
+	@Builder
+	public AttachVO(String originalName, String saveName, long size, String path){
+		this.attachOriginName = originalName;
+        this.attachSaveName = saveName;
+        this.size = size;
+        this.attachPath = path;
+	}
+	
+	 public void setPostId(int postId) {
+	        this.attacTablePk = postId;
+	    }
+	
 }

@@ -280,8 +280,10 @@
 											<label for="email-horizontal">실내외</label>
 										</div>
 										<div class="col-md-8 form-group">
-											<input type="text" id="email-horizontal" class="form-control"
-												name="email-id" th:attr="value=${courtDetail.crtIndoorOutdoor == 1 ? '실내' : '실외'}">
+											<!-- <input type="text" id="email-horizontal" class="form-control"
+												name="email-id" th:attr="value=${courtDetail.crtIndoorOutdoor == 1 ? '실내' : '실외'}"> -->
+												<input type="text" id="email-horizontal" class="form-control"
+												name="email-id" th:value="${courtDetail.crtIndoorOutdoorName}">
 										</div>
 										<input type="hidden" id="crtDetailNo" th:attrappend="id=${stat.index}" 
 												class="form-control" name="fname" th:value="${courtDetail.crtDetailNo}">

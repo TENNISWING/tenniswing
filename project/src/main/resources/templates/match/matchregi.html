@@ -4,187 +4,243 @@
 	layout:decorate="~{/layouts/main-layout}">
 
 <th:block layout:fragment="content">
-	<!-- match sub menu -->
-	<div class="mctdeall">
-		<div class="container mb-4">
-			<ul
-				class="nav d-flex justify-content-around text-center matchsidevar">
-				<li class="d-flex flex-column"><a href="/"><img
-						src="assets/img/match/icon/icon1.png" class=" miconimg">매치</a></li>
-				<li class="d-flex flex-column"><a href="clubmatch"><img
-						src="assets/img/match/icon/icon2.png" class=" miconimg">클럽</a></li>
-				<li class="d-flex flex-column"><a href="contestmatch"><img
-						src="assets/img/match/icon/icon3.png" class=" miconimg">대회</a></li>
-				<li class="d-flex flex-column"><a href="startermatch"><img
-						src="assets/img/match/icon/icon4.png" class=" miconimg">스타터</a></li>
-			</ul>
-		</div>
+	
+	<!-- signup form -->
+	<div class="container justify-content-center" id="signupForm">
 
-		<div class="container-fluid mb-2 bg-light-info mtdrsvtitle">
-			<div class="container pt-3 pb-3">
-				<h5 class="card-title mb-4 mtitle">코트</h5>
-				<div class="input-group mb-3 mtcrsvbtn">
-					<input type="text" class="form-control" placeholder="코트명 입력"
-						aria-describedby="duplicateBtn" id="memberId" name="memberId"
-						required>
-					<button class="btn btn-success matchregibtn" type="button"
-						id="duplicateBtn">중복확인</button>
+		<form class="form form-vertical" action="signup" method="POST">
+			<div class="form-body">
+				<div class="text-center">
+					<h3 class="my-4">매치 등록</h3>
 				</div>
+				<!-- <div class="col-3"></div> -->
 			</div>
 
-			<!-- calendar start  -->
-			<div class="container pt-3 pb-3">
-				<div class="col-md-6">
-					<h5 class="card-title mb-4 mtitle">매치 일자</h5>
-					<div class="modal-body mtcrsvbtn2">
-						<input type="date" class="form-control flatpickr-always-open"
-							placeholder="예약 일자를 선택">
-					</div>
-				</div>
-			</div>
-			<!-- calendar close  -->
-			<div class="container">
-				<div>
-					<div class="card">
-						<div class="card-header">
-							<h5 class="card-title mtitle mb-4">예약 시간 선택</h5>
+			<div class="justify-content-center">
+				<div class="row justify-content-center" id="memberForm">
+					<!-- <div class="col-3 "></div> -->
 
-							<div class="product-detail__wrapper">
-								<div class="product-detail__attr">
-									<div class="product__attr">
-										<ul class="product__attr--size">
-											<li style="width: 100%; height: 50px;"><input
-												type="radio" name="filterBySize" id="sizeXXL-01" value="xxl" />
-												<label for="sizeXXL-01" style="height: 35px;">9:00 ~
-													11:00</label></li>
-											<li style="width: 100%; height: 50px;"><input
-												type="radio" name="filterBySize" id="sizeXL-01" value="xl" />
-												<label for="sizeXL-01" style="height: 35px;">11:00 ~
-													13:00</label></li>
-											<li style="width: 100%; height: 50px;"><input
-												type="radio" name="filterBySize" id="sizeL-01" value="l" />
-												<label for="sizeL-01" style="height: 35px;">13:00 ~
-													15:00</label></li>
-											<li style="width: 100%; height: 50px;"><input
-												type="radio" name="filterBySize" id="sizeM-01" value="m" />
-												<label for="sizeM-01" style="height: 35px;">15:00 ~
-													17:00</label></li>
-											<li style="width: 100%; height: 50px;"><input
-												type="radio" name="filterBySize" id="sizeS-01" value="s" />
-												<label for="sizeS-01" style="height: 35px;">17:00 ~
-													19:00</label></li>
-											<li style="width: 98%; height: 50px;"><input
-												type="radio" name="filterBySize" id="sizeX-01" value="x" />
-												<label for="sizeX-01" style="height: 35px;">19:00 ~
-													21:00</label></li>
-										</ul>
+					<div class="col-lg-7 p-5 text-start shadow mb-5 ">
+						<div class="container card text-center w-50">
+							<!-- File uploader with image preview -->
+						</div>
+
+						<div class="row">
+							<div class="col-8">
+								<label for="crtroomNo">자주가는 코트</label><br>
+								<div class="input-group mb-3">
+									<input type="text" class="form-control" placeholder="코트 입력"
+										aria-describedby="crtroomBtn" id="crtroomNo" name="crtroomNo">
+									<button class="btn btn-success" type="button" id="crtroomBtn">찾기</button>
+								</div>
+							</div>
+						</div>
+							
+							<div class="row">
+								<div class="col-6">
+									<label for="region">매치 일자</label><br>
+										<input type="date" class="form-control flatpickr-always-open" placeholder="예약 일자 선택">
+								</div>				
+							</div>
+						
+						<div class="row">
+							<div class="col-8">
+								<label for="region">예약 시간 선택</label><br>
+								<p>지원이가 아직 완성 안함</p>
+							</div>
+							</div>
+							
+							<div class="row">
+							<div class="col-6">
+								<label for="age">연령대</label><br>
+								<div class="form-group">
+									<select class="choices form-select" name="age" id="age">
+										<optgroup label="연령대">
+											<option value="a1">10대</option>
+											<option value="a2">20대</option>
+											<option value="a3">30대</option>
+											<option value="a4">40대</option>
+											<option value="a5">50대</option>
+											<option value="a6">60대이상</option>
+										</optgroup>
+									</select>
+								</div>
+							</div>
+							
+							<div class="col-6">
+								<label for="lv">구력</label><br>
+								<div class="form-group">
+									<select class="choices form-select" name="lv" id="lv">
+										<optgroup label="구력">
+											<option value="d1">입문</option>
+											<option value="d2">2~5년</option>
+											<option value="d3">5년이상</option>
+										</optgroup>
+									</select>
+								</div>
+							</div>
+							</div>
+							
+							<div class="row">
+							<div class="col-6">
+								<label for="gen">모집 성별</label><br>
+								<div class="form-group">
+									<select class="choices form-select" name="gen" id="gen">
+										<optgroup label="성별">
+											<option value="c1">남성</option>
+											<option value="c2">여성</option>
+										</optgroup>
+									</select>
+								</div>
+							</div>
+						
+							<div class="col-6">
+								<label for="ntrp">ntrp</label><br>
+								<div class="form-group">
+									<select class="choices form-select" id="ntrp" name="ntrp">
+										<optgroup label="ntpr">
+											<option value="e1">1.0</option>
+											<option value="e2">1.5</option>
+											<option value="e3">2.0</option>
+											<option value="e4">2.5</option>
+											<option value="e5">3.0</option>
+											<option value="e6">3.5</option>
+											<option value="e7">4.0이상</option>
+										</optgroup>
+									</select>
+								</div>
+							</div>
+							</div>
+							
+							<div class="row">
+							<div class="col-6">
+							<label for="ntrp">경기 방식</label><br>
+							<div class="form-group">
+								<select class="choices form-select">
+									<option value="f1">단식</option>
+									<option value="f2">남복</option>
+									<option value="f3">여복</option>
+									<option value="f4">랠리</option>
+									<option value="f5">혼복</option>
+								</select>
+							</div>
+						</div>
+						</div>
+						
+						<div class="row">
+						<div class="col-5">
+								<label for="name">코트비</label><br>
+								<div class="input-group mb-3">
+									<input type="text" class="form-control is-invalid"
+										placeholder="코트비 입력" id="name" name="name" maxlength="10"
+										required>
+								</div>
+							</div>
+							</div>
+							
+							<div class="col-4">
+								<br>
+								<h5>
+									<button type="button" class="btn btn-success" id="ntrpQ"
+										href="javascript:void(0)" data-bs-toggle="modal"
+										data-bs-target="#ntrpModal">NTRP이란?</button>
+								</h5>
+							</div>
+							<div class="modal fade" id="ntrpModal" tabindex="-1"
+								role="dialog" aria-labelledby="exampleModalCenterTitle"
+								aria-hidden="true">
+								<div
+									class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable modal-lg"
+									role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalCenterTitle">ntrp이란?
+											</h5>
+											<button type="button" class="close" data-bs-dismiss="modal"
+												aria-label="Close">
+												<i data-feather="x"></i>
+											</button>
+										</div>
+										<div class="modal-body">
+											<p>
+												NTRP란 National Tennis Rating Program의 약자입니다.<br> 이는 미국
+												테니스 협회(USTA)에서 개인의 테니스 실력을 평가하기 위해 만든 기준으로,<br> 세계에서 가장
+												널리 통용되는 테니스 실력의 기준입니다.
+											</p>
+											<table class="table">
+												<thead>
+													<tr>
+														<th>ntrp rating</th>
+														<th>설명</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>1.0</td>
+														<td>테니스 라켓을 이제 막 들어 시작한 상태</td>
+													</tr>
+													<tr>
+														<td>1.5</td>
+														<td>테니스 경험이 있으나 게임을 하기엔 아직 미숙한 상태</td>
+													</tr>
+													<tr>
+														<td>2.0</td>
+														<td>랠리는 어느정도 가능하나 플레이를 지속하기엔 어려운 상태</td>
+													</tr>
+													<tr>
+														<td>2.5</td>
+														<td>일관성이 있는 랠리가 가능한 상태</td>
+													</tr>
+													<tr>
+														<td>3.0</td>
+														<td>코트 인식이 좋고, 스핀 및 고급 기술 사용가능한 상태</td>
+													</tr>
+													<tr>
+														<td>3.5</td>
+														<td>일관된 방향으로 공을 칠수 있는 레벨</td>
+													</tr>
+													<tr>
+														<td>4.0</td>
+														<td>정밀하고 지속적인 샷 랠리 가능한 레벨</td>
+													</tr>
+													<tr>
+														<td>4.5이상</td>
+														<td>대회 참가 가능 레벨</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-light-secondary"
+												data-bs-dismiss="modal">
+												<i class="bx bx-x d-block d-sm-none"></i> <span
+													class="d-none d-sm-block">닫기</span>
+											</button>
+											<button type="button" class="btn btn-primary ms-1"
+												data-bs-dismiss="modal">
+												<i class="bx bx-check d-block d-sm-none"></i> <span
+													class="d-none d-sm-block">확인</span>
+											</button>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-
-						<div class="col-6">
-							<h5 class="card-title mtitle mb-4">매치 타입</h5>
-							<div class="form-group">
-								<select class="choices form-select">
-									<option value="seoul">1:1</option>
-									<option value="incheon">2:2</option>
-									<option value="gyeonggi">그룹</option>
-									<option value="gangwon">대회</option>
-									<option value="choongchung">스타터</option>
-								</select>
-							</div>
-						</div>
-
-						<div class="col-6">
-							<h5 class="card-title mtitle mb-4">경기 방식</h5>
-							<div class="form-group">
-								<select class="choices form-select">
-									<option value="seoul">단식</option>
-									<option value="incheon">남복</option>
-									<option value="gyeonggi">여복</option>
-									<option value="gangwon">랠리</option>
-									<option value="choongchung">혼복</option>
-								</select>
-							</div>
-						</div>
-
-						<div class="col-6">
-							<h5 class="card-title mtitle mb-4">모집 성별</h5>
-							<div class="form-group">
-								<select class="choices form-select">
-									<option value="seoul">남</option>
-									<option value="incheon">여</option>
-									<option value="gyeonggi">무관</option>
-								</select>
-							</div>
-						</div>
-
-						<div class="col-6">
-							<h5 class="card-title mtitle mb-4">레벨</h5>
-							<div class="form-group">
-								<select class="choices form-select">
-									<option value="seoul">1.0</option>
-									<option value="incheon">1.5</option>
-									<option value="gyeonggi">2.0</option>
-									<option value="gangwon">2.5</option>
-									<option value="choongchung">3.0</option>
-									<option value="junra">3.5</option>
-									<option value="gyungsang">4.0</option>
-								</select>
-							</div>
-						</div>
-
-						<div class="col-6">
-							<h5 class="card-title mtitle mb-4">코트비</h5>
-							<div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder=""
-									id="memberName" name="memberName" required>
-							</div>
-						</div>
+						<button class="btn btn-success" type="submit">매치 등록</button>
+						<button class="btn btn-success" type="reset">취소</button>
+						<button class="btn btn-success" type="button"
+							th:onclick="|location.href='@{/loginform}'|">돌아가기</button>
 
 					</div>
+					<!-- <div class="col-3 "></div> -->
 				</div>
+
 			</div>
 
 
-			<!-- button -->
-			<div class="product__bottom mtdbtn">
-				<div class="cart__action__btn">
-					<td class="text-end">
-						<button type="button" class="btn btn-primary matchbtn4"
-							data-bs-toggle="modal" data-bs-target="#backdrop">등록하기</button>
-					</td>
-					<div class="quantity cart__quantity">
-						<button type="button" class="decressQnt">
-							<span class="bar"></span>
-						</button>
-						<input class="qnttinput" type="number" disabled value="0" min="01"
-							max="100" />
-						<button type="button" class="incressQnt">
-							<span class="bar"></span>
-						</button>
-					</div>
-				</div>
-				<div class="cart__action__btn">
-					<td class="text-end">
-						<button type="button" class="btn btn-primary matchbtn4">취소하기</button>
-					</td>
-					<div class="quantity cart__quantity">
-						<button type="button" class="decressQnt">
-							<span class="bar"></span>
-						</button>
-						<input class="qnttinput" type="number" disabled value="0" min="01"
-							max="100" />
-						<button type="button" class="incressQnt">
-							<span class="bar"></span>
-						</button>
-					</div>
-				</div>
-			</div>
-			<!-- button close -->
-
-		</div>
-</th:block>
+		</form>
+	</div>
+	
+	</th:block>
 
 </html>

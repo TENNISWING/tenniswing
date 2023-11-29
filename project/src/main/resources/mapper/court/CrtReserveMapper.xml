@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tenniswing.project.court.mapper.CrtReserveMapper">
+<!-- 예약등록 -->
+<insert id="insertCrtReserve" parameterType="CrtReserveVO">
+	<selectKey keyProperty="reserveNo,reserveDetailNo"
+			   resultType="CrtReserveVO"
+			   order="BEFORE">
+		SELECT (SELECT NVL(MAX(reserve_no),0)+1
+				FROM reserve) reserve_no,
+				(SELECT NVL(MAX(reserve_detail_no),0)+1
+				FROM reserve_detail_inf) reserve_detail_no
+		FROM dual
+	</selectKey>
+	 INSERT ALL INTO reserve
+	(
+		RESERVE_NO
+		, RESERVE_PRICE
+		, CRTROOM_NO
+		, CRT_DETAIL_NO
+		, MEM_ID
+	)
+	VALUES
+	(
+		#{reserveNo}
+		, #{reservePrice}
+		, #{crtroomNo}
+		, #{crtDetailNo}
+		, #{memId}
+	)
+	INTO reserve_detail_inf
+	(
+		RESERVE_DETAIL_NO
+		, RESERVE_DATE
+		, RESERVE_TIME
+		, RESERVE_NO
+		, T_RESERVE_TIME
+	)
+	VALUES
+	(
+		#{reserveDetailNo}
+		, #{reserveDate}
+		, #{reserveTime}
+		, #{reserveNo}
+		, #{tReserveTime}
+	)
+	SELECT * FROM dual
+</insert>
+</mapper>

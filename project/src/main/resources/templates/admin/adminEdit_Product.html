@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/admin/admin-layout}">
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
 
 <th:block layout:fragment="admincontent">
 	<!-- Main__container Start-->
@@ -25,7 +28,7 @@
 						</div>
 					</div>
 
-					<form action="#" class="dashboard__form">
+					<form th:object="${prod}" class="dashboard__form" id="editProdForm">
 						<div class="row">
 							<div class="col-xxl-4">
 								<div class="dashboard-block">
@@ -74,45 +77,55 @@
 									<div class="form__wrapper form-padding">
 										<div class="flex__form c-3">
 											<div class="form-group">
-												<label for="product_name">상품 이름</label> <input
-													type="text" name="product_name" id="product_name"
-													class="form-control" placeholder="상품 이름을 입력해주세요." />
+												<label for="prodName">상품 이름</label> <input
+													type="text" th:field="*{prodName}"
+													class="form-control" th:value="${prod.prodName}" />
 											</div>
 											<div class="form-group">
-												<label for="category">카테고리</label> <select
-													name="category" id="category" class="category-select">
-													<option value="category ">all category</option>
-													<option value="clothes">의류</option>
-													<option value="shoes">신발</option>
-													<option value="racket">테니스 라켓</option>
-													<option value="bag">테니스 가방</option>
-													<option value="supplies">테니스 용품</option>
-													<option value="etc">기타</option>
+												<label for="cateProd">카테고리</label> 
+												<select
+													th:field="*{cateProd}" th:value="${prod.cateProd}" class="category-select">
+													<option th:selected="${prod.cateProd}=='기타'" value="q6">기타</option>
+													<option th:selected="${prod.cateProd}=='의류'" value="q1">의류</option>
+													<option th:selected="${prod.cateProd}=='신발'" value="q2">신발</option>
+													<option th:selected="${prod.cateProd}=='테니스라켓'" value="q3">테니스 라켓</option>
+													<option th:selected="${prod.cateProd}=='테이스가방'" value="q4">테니스 가방</option>
+													<option th:selected="${prod.cateProd}=='테니스용품'" value="q5">테니스 용품</option>
 												</select>
 											</div>
+											<!-- 성별 -->
 											<div class="form-group">
-												<label for="brand">성별</label> <select name="gender"
-													id="gender" class="gender-select">
-													<option value="genderAll">성별 무관</option>
-													<option value="male">남성</option>
-													<option value="female">여성</option>
+												<label for="cateGen">성별</label>
+												<select th:field="*{cateGen}" th:value="${prod.cateGen}" class="gender-select">
+													<option th:selected="${prod.cateGen}=='모두'" value="c3">성별 무관</option>
+													<option th:selected="${prod.cateGen}=='남성'" value="c1">남성</option>
+													<option th:selected="${prod.cateGen}=='여성'" value="c2">여성</option>
 												</select>
 											</div>
+											<!-- 브랜드 -->
 											<div class="form-group">
-												<label for="brand">브랜드</label> <input type="text"
-													name="brand" id="brand" class="form-control"
+												<label for="prodBrand">브랜드</label> <input type="text"
+													th:field="*{prodBrand}" th:value="${prod.prodBrand}" class="form-control"
 													placeholder="브랜드를 입력해주세요." />
 											</div>
+											<!-- 가격 -->
 											<div class="form-group">
 												<label for="price">가격</label> <input type="number"
-													name="price" id="price" class="form-control"
+													th:field="*{prodPrice}" th:value="${prod.prodPrice}" class="form-control"
 													placeholder="가격을 입력해주세요." />
 											</div>
+											<!-- 판매유무 -->
 											<div class="form-group">
 												<label>판매 유무</label>
 												<div class="custom-checkbox">
-													<input type="checkbox" name="status" id="statuss" disabled="disabled"/> <label
-														for="statuss"> <span class="active">Active</span>
+													<th:block th:if="${prod.prodSaleSts} == 'p1'">													
+														<input type="checkbox" name="prodSaleSts" id="prodSaleSts" value="p1" checked="checked"/>
+													</th:block>
+													<th:block th:unless="${prod.prodSaleSts} == 'p1'">
+														<input type="checkbox" name="prodSaleSts" id="prodSaleSts" value='p2'/>
+													</th:block>
+													<label for="prodSaleSts"> 
+														<span class="active">Active</span>
 														<span class="inactive">Inactive</span>
 													</label>
 												</div>
@@ -128,22 +141,23 @@
 												</select>
 											</div>
 										</div> -->
+										<!-- 상품 설명 -->
 										<div class="form-group">
 											<label for="description">상품 설명</label>
-											<textarea name="description" class="form-control"
-												id="description" cols="30" rows="7"
-												placeholder="Write about your product description briefly"></textarea>
+											<textarea class="form-control" cols="30" rows="7"
+												th:field="*{prodExp}"
+												placeholder="Write about your product description briefly">[[ ${prod.prodExp} ]]</textarea>
 										</div>
 										<div class="btn__group flex-wrap">
-											<button type="button" class="btn btn-outline">Cancel</button>
-											<button type="submit" class="btn btn-gray-filled">Edit
-												Product</button>
+											<button type="button" th:onclick="|location.href='@{/adminDetail_Product(prodNo=${prod.prodNo})}'|" class="btn btn-outline">Cancel</button>
+											<button type="button" id="editBnt" class="btn btn-gray-filled">EditProduct</button>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</form>
+					
 				</div>
 			</div>
 			<!-- Product List End -->
@@ -177,6 +191,61 @@
 				reader.readAsDataURL(image);
 			}
 		}
+	</script>
+	<script type="text/javascript">
+		$('#editBnt').on('click', updateProd);
+		
+		function updateProd(e) {
+			let prodInfo = getProdInfo();
+			
+			//Ajax -> JSON
+			$.ajax('adminEdit_Product', {
+				type : 'post',
+				contentType : 'application/json',
+				data : JSON.stringify(prodInfo)
+			})
+			.done(result => {
+				console.log('JSON', result);
+				if(result.result){
+					Swal.fire({
+						  icon: "success",
+						  title: "수정 완료",
+						  text: "상품 정보가 수정되었습니다.",
+						}).then(function(){
+							//$.ajax('adminDetail_Product');
+							location.href = "/adminDetail_Product?prodNo="+[[ ${prod.prodNo} ]];
+					})
+				} else {
+					Swal.fire({
+						  icon: "error",
+						  title: "수정 실패",
+						  text: "수정 중 문제 발생",
+					}).then(function(){
+						location.reload();
+					})
+				}
+			})
+			.fail(err => console.log(err));
+		}
+
+
+		function getProdInfo() {
+			let formData = $('#editProdForm').serializeArray();
+			let prodSaleSts = $('#prodSaleSts').is(':checked') ? 'p1' : 'p2';
+			formData.push({name: 'prodSaleSts', value:prodSaleSts});
+			formData.push({name: 'prodNo', value:[[${prod.prodNo}]]})
+			console.log(formData);
+			//console.log([[${prod.prodNo}]]);
+			
+			let objData = {};
+			
+			// 배열을 객체로 변환
+			$.each(formData, (idx, obj) => {
+				objData[obj.name] = obj.value;
+			});
+			return objData;
+		}
+		
 	</script>
 </th:block>
 

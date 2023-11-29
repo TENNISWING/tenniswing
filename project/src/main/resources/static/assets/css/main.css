@@ -105,6 +105,7 @@
 
 .mtcrsvbtn > .form-control {
 	flex: 0.2;
+	justify-content: center;
 }
 
 .mtdbtn {
@@ -186,6 +187,7 @@ margin-bottom: 1px;
 
 .mtitle {
     font-family: NanumSquareNeo-Variable;
+    text-align: center;
 }
 
 .mtitle2 {
