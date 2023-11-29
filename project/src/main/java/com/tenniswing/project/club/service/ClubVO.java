@@ -22,4 +22,12 @@ public class ClubVO {
 	private String memId;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date clubCreateDate;
+	
+	private String clubGenName;
+	private String clubRegionName;
+	private String clubDayName;
+	private String clubAgeName;
+	private String clubTimeName;
+	private String clubRecruitmentName;
+	
 }

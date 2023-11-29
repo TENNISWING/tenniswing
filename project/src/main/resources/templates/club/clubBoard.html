@@ -1,6 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+.boardContainer {
+	margin-bottom: -16px;
+}
+
+.toggleBoardTitle {
+	cursor: pointer;
+}
+
+.boardBody {
+	height: 0;
+	overflow: hidden;
+	transition: all 1s;
+}
+
+/* #btn-all-close {
+	margin-bottom: 10px;
+	background-color: #726996;
+	border: none;
+	color: #fff;
+	cursor: pointer;
+	padding: 10px 25px;
+	float: right;
+}
+
+#btn-all-close:hover {
+	background-color: yellow;
+	color: #000;
+	transition: all 0.35s;
+} */
+.boardBody.active {
+  display: block;
+  /* 높이를 정해줘야지만 transition이 적용됨 fit-content */
+  height: 800px ;
+  
+}
+
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -35,7 +73,7 @@
 	</div>
 	<!-- table hover -->
 	<div class="table-responsive">
-		<table class="table table-hover mb-0">
+		<!-- <table class="table table-hover mb-0">
 			<thead>
 				<tr>
 					<th>NO</th>
@@ -46,54 +84,122 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="toggleBoard" style="height: 70px;">
+				 <tr class="toggleBoard" style="height: 70px;">
 					<td>1</td>
 					<td>
-					<div class="boardContainer">
-						<p style="margin: 0;">이것은 자유게시판 제목1</p>
-						<!-- 게시글 상세 조회 토글  -->
-						<div class="boardBody" style="display:none;">
-						<p>이것은 자유게시판 내용1</p>
-					</div>
-					</div>
+						<div class="boardContainer">
+							<p class="toggleBoardTitle">이것은 자유게시판 제목1</p>
+							게시글 상세 조회 토글 
+							<div class="boardBody">
+								<p>이것은 자유게시판 내용1</p>
+								<p>사진</p>
+							</div>
+						</div>
+					</td>
+					<td>user kim</td>
+					<td>2023-11-24</td>
+					<td>6</td>
+				</tr> 
+			</tbody>
+		</table> -->
+		
+		<table class="table mb-0">
+			<thead>
+				<tr>
+					<th>NO</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>작성일</th>
+					<th>조회수</th>
+				</tr>
+			</thead>
+			<tbody>
+				 <tr class="toggleBoard" style="height: 70px;">
+				 	
+					<td>1</td>
+					<td>
+						<div class="boardContainer">
+							<p class="toggleBoardTitle">이것은 자유게시판 제목1</p>
+						</div>
 					</td>
 					<td>user kim</td>
 					<td>2023-11-24</td>
 					<td>6</td>
 				</tr>
-				<tr class="toggleBoard" style="height: 70px;">
-					<td>1</td>
-					<td>
-					<div class="boardContainer">
-						<p style="margin: 0;">이것은 자유게시판 제목2</p>
-						<!-- 게시글 상세 조회 토글  -->
-						<div class="boardBody" style="display:none;">
-						<p>이것은 자유게시판 내용2</p>
-					</div>
-					</div>
+				<!-- 게시글 상세보기 토글  -->
+				<tr class="toggleBoard">
+					<td colspan='5' style="padding: 0;">
+						<div class="boardBody" style="text-align: center;">
+							<div>
+								<img src="./assets/img/card.jpg" style="width: 90%;">
+							</div>
+							<textarea class="form-control"
+									  id="exampleFormControlTextarea1" rows="3"></textarea>
+									  
+							 <input type="text" id="" class="form-control is-valid" placeholder="댓글작성폼">
+							<p>여기는 댓글</p>
+						</div>
 					</td>
-					<td>user jung</td>
-					<td>2023-11-24</td>
-					<td>6</td>
 				</tr>
 			</tbody>
 		</table>
-		
+
 		<br>
-	<ul class="pagination justify-content-center">
-		<li class="page-item disabled"><a class="page-link" href="#"
-			tabindex="-1" aria-disabled="true">이전</a></li>
-		<li class="page-item"><a class="page-link" href="#">1</a></li>
-		<li class="page-item"><a class="page-link" href="#">2</a></li>
-		<li class="page-item"><a class="page-link" href="#">3</a></li>
-		<li class="page-item"><a class="page-link" href="#">다음</a></li>
-	</ul>
+		<ul class="pagination justify-content-center">
+			<li class="page-item disabled"><a class="page-link" href="#"
+				tabindex="-1" aria-disabled="true">이전</a></li>
+			<li class="page-item"><a class="page-link" href="#">1</a></li>
+			<li class="page-item"><a class="page-link" href="#">2</a></li>
+			<li class="page-item"><a class="page-link" href="#">3</a></li>
+			<li class="page-item"><a class="page-link" href="#">다음</a></li>
+		</ul>
 	</div>
 	<script>
-	$('.boardContainer').on('click',function(e) {
-		$('.boardBody').slideToggle();
+	/* window.onload = () => {
+		  // panel-faq-container
+		  const toggleContainer = document.querySelectorAll(".boardContainer"); // NodeList 객체
+		  // panel-faq-answer
+		  let toggleAnswer = document.querySelectorAll(".boardBody");
+
+		  toggleContainer.addEventListener('click', function() {
+			  console.log('====');
+			  toggleAnswer.classList.toggle('active');
+		  })
+	}*/
+		  
+	
+		  // panel-faq-answer
+		  
+          //let toggleAnswer = document.querySelectorAll(".boardBody");
+		  document.querySelector(".boardContainer").addEventListener('click', function() {
+			  
+			  console.log("====");
+			  const toggleAnswer = document.querySelector(".boardBody")
+			  console.log(toggleAnswer);
+			  toggleAnswer.classList.toggle('active');
+		  })	  
+		  
+		  
+
+		  // btn-all-close
+		  // const btnAllClose = document.querySelector("#btn-all-close");
+		  
+		  // 반복문 순회하면서 해당 FAQ제목 클릭시 콜백 처리
+		  
+		  /* for( let i=0; i < toggleContainer.length; i++ ) {
+			  toggleContainer[i].addEventListener('click', function() { // 클릭시 처리할 일
+		      // FAQ 제목 클릭시 -> 본문이 보이게끔 -> active 클래스 추가
+		      toggleAnswer[i].classList.toggle('active');
+		    });
+		  }; */
+		  
+		 /*  btnAllClose.addEventListener('click', function() {
+		    // 버튼 클릭시 처리할 일  
+		    for(let i=0; i < panelFaqAnswer.length; i++) {
+		        panelFaqAnswer[i].classList.remove('active');
+		    };
+		  }); */
 		
-	})
 	</script>
 
 

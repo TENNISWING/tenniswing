@@ -14,11 +14,19 @@ public class ClubServiceImpl implements ClubService {
 
 	@Autowired ClubMapper clubMapper;
 
+	//전체조회
 	@Override
-	public List<ClubVO> selectAllClub() {
+	public List<ClubVO> selectAllClub(ClubVO clubVO) {
 		return clubMapper.selectAllClub();
 	}
 
+	//단건조회
+	@Override
+	public ClubVO selectClub(ClubVO clubVO) {
+		return clubMapper.selectClub(clubVO);
+	}
+	
+	//등록
 	@Override
 	public int insertClub(ClubVO clubVO) {
 		int result = clubMapper.insertClub(clubVO);
@@ -29,4 +37,6 @@ public class ClubServiceImpl implements ClubService {
 			return -1;
 		}
 	}
+
+	
 }

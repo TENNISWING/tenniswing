@@ -69,9 +69,8 @@ object-fit: cover;
 
 						</div>
 						<div class="user__content">
-							<h3 style="line-height: 80px; color: #668585;">최강 테니스 클럽</h3>
-							<h6 style="color: gray;">멤버수 : 100명</h6>
-							<h6 style="color: gray;">LV : 3.5</h6>
+							<h3 style="line-height: 80px; color: #668585;" th:text="${club.clubName}"></h3>
+							<h6 style="color: gray;">멤버수 : [[ ${club.clubMemNum} ]]명</h6>
 							<div>
 								<a href="#" class="btn btn-outline-success"
 									style="width: 50%; margin-top: 30px;">클럽 설정</a>
@@ -175,23 +174,15 @@ object-fit: cover;
 		</div>
 	</div>
 	<script>
-	    
+	    //탭 페이지 이동
 		 $('button[data-bs-toggle="tab"]').on("shown.bs.tab", function(e) {
 			let url = $(event.target).data("url")
 			let target = $(event.target).data('bs-target')
-			//if(url)
 				console.log(event.target)
 				console.log($(event.target))
 			$(target).load(url)
 		}); 
-	    /* 	function tap(event){
-			let url = $(event.target).data("url")
-			
-			let target = $('#info-tab').data('bs-target')
-			$(target).load(url)
-			
-		} */
-		
+		//들어왔을때 정보 바로 불러오기
 		$(document).ready(function(){
 			$('#info-tab').data("url")
 			let url = $('#info-tab').data("url")

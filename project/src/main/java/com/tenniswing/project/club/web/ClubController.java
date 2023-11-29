@@ -1,12 +1,15 @@
 package com.tenniswing.project.club.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenniswing.project.club.service.ClubService;
 import com.tenniswing.project.club.service.ClubVO;
@@ -20,9 +23,19 @@ public class ClubController {
 // --------------------------------------- 메인	
 	@GetMapping("club")  
 	public String clubPage(Model model) { 
-		model.addAttribute("clubList", clubService.selectAllClub());
+		//model.addAttribute("clubList", clubService.selectAllClub());
 		return "club/club";
 	}
+	
+	
+	 @GetMapping("clubList")
+	 @ResponseBody 
+	 public List<ClubVO> clubPageAjax(ClubVO clubVO) { 
+		 return clubService.selectAllClub(clubVO);
+		 }
+	 
+	
+	 
 	
 	@GetMapping("clubform")  //등록 페이지
 	public String clubFormPage(Model model) { 	
@@ -37,12 +50,18 @@ public class ClubController {
 		
 		clubVO.setMemId(id);
 		clubService.insertClub(clubVO);
-		return "redirect:Club";
+		return "redirect:club";
 	}
 	
 // ---------------------------------------상세페이지
+	
+	//단건조회
 	@GetMapping("clubdetail") 
-	public String clubDetailPage(Model model) { 		
+	public String clubDetailPage(Model model, ClubVO clubVO) { 
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		clubVO.setMemId(id);
+		model.addAttribute("club",clubService.selectClub(clubVO));
 		return "club/clubdetail";
 	}
 	
