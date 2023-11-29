@@ -84,7 +84,7 @@
 											<div class="form-group">
 												<label for="cateProd">카테고리</label> 
 												<select
-													th:field="*{cateProd}" th:value="${prod.cateProd}" class="category-select">
+													id="cateProd" name="cateProd" th:value="${prod.cateProd}" class="category-select">
 													<option th:selected="${prod.cateProd}=='기타'" value="q6">기타</option>
 													<option th:selected="${prod.cateProd}=='의류'" value="q1">의류</option>
 													<option th:selected="${prod.cateProd}=='신발'" value="q2">신발</option>
@@ -96,7 +96,7 @@
 											<!-- 성별 -->
 											<div class="form-group">
 												<label for="cateGen">성별</label>
-												<select th:field="*{cateGen}" th:value="${prod.cateGen}" class="gender-select">
+												<select id="cateGen" name="cateGen" th:value="${prod.cateGen}" class="gender-select">
 													<option th:selected="${prod.cateGen}=='모두'" value="c3">성별 무관</option>
 													<option th:selected="${prod.cateGen}=='남성'" value="c1">남성</option>
 													<option th:selected="${prod.cateGen}=='여성'" value="c2">여성</option>
@@ -118,10 +118,10 @@
 											<div class="form-group">
 												<label>판매 유무</label>
 												<div class="custom-checkbox">
-													<th:block th:if="${prod.prodSaleSts} == 'p1'">													
+													<th:block th:if="${prod.prodSaleSts} == '판매중'">													
 														<input type="checkbox" name="prodSaleSts" id="prodSaleSts" value="p1" checked="checked"/>
 													</th:block>
-													<th:block th:unless="${prod.prodSaleSts} == 'p1'">
+													<th:block th:unless="${prod.prodSaleSts} == '판매중'">
 														<input type="checkbox" name="prodSaleSts" id="prodSaleSts" value='p2'/>
 													</th:block>
 													<label for="prodSaleSts"> 

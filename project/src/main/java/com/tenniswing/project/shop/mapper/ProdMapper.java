@@ -1,7 +1,6 @@
 package com.tenniswing.project.shop.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import com.tenniswing.project.shop.service.ProdVO;
 

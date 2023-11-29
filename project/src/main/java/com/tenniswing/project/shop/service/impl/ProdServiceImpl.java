@@ -71,7 +71,7 @@ public class ProdServiceImpl implements ProdService{
 		if(result == 1) {
 			isSuccess = true;
 		}
-		map.put("msg", isSuccess);
+		map.put("result", isSuccess);
 		map.put("target", prodNo);
 		return map;		
 	}

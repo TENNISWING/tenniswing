@@ -32,7 +32,7 @@
 				<div class="col-12">
 					<div class="dashboard__breadcrumb">
 						<div class="breadcrumb__meta">
-							<ul>
+							<ul style="padding: 0">
 								<li><a href="admin_Product" class="link"><i
 										class="fa-solid fa-arrow-left me-2"></i> Back</a></li>
 							</ul>
@@ -180,26 +180,37 @@
 						<i data-feather="x"></i>
 					</button>
 				</div>
-				<form action="#" class="form__wrapper">
+				<form th:object="${prod}" class="form__wrapper" id="addDetailProdForm">
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="product_no">상품 번호</label> <input
-								type="text" name="product_no" id="product_no"
-								class="form-control" placeholder="상품 번호" />
+								type="text" th:field="*{prodNo}" readonly="readonly"
+								class="form-control" placeholder="상품 번호" th:value="${prod.prodNo}"/>
+								<!-- name="product_no" id="product_no" -->
 						</div>
 						<div class="flex__form c-2">
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<label for="product_detail_no">상품 상세 번호</label> <input type="text"
 									name="product_detail_no" id="product_detail_no" class="form-control"
 									placeholder="상품 상세 번호" />
-							</div>
+							</div> -->
 							
 							<div class="form-group">
 								<label for="product_detail_no">상품 상세 재고</label> <input type="text"
 									name="product_detail_sto" id="product_detail_sto" class="form-control"
 									placeholder="상품 상세 재고" />
 							</div>
-	
+							
+							<div class="form-group">
+								<label style="text-align: center;">상품 상세 판매 유무</label>
+								<div class="custom-checkbox" style="justify-content: center;">
+									<input type="checkbox" name="detail_status" checked id="detail_status" /> <label
+										for="detail_status"> <span class="active">Active</span> <span
+										class="inactive">Inactive</span>
+									</label>
+								</div>
+							</div>
+							
 							<div class="input-group mb-3">
 								<label class="input-group-text" for="inputGroupSelect01"
 									style="margin: 0; padding-left: 26px; padding-right: 26px">
@@ -210,6 +221,7 @@
 									<option value="3">파란색</option>
 									<option value="4">초록색</option>
 									<option value="5">노란색</option>
+									<option value="5">주황색</option>
 									<option value="5">빨간색</option>
 								</select>
 							</div>
@@ -234,13 +246,6 @@
 									<option value="5">280</option>
 									<option value="5">290</option>
 								</select>
-							</div>
-							<label>Status</label>
-							<div class="custom-checkbox">
-								<input type="checkbox" name="detail_status" checked id="detail_status" /> <label
-									for="detail_status"> <span class="active">Active</span> <span
-									class="inactive">Inactive</span>
-								</label>
 							</div>
 						</div>
 					</div>
