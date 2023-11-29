@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenniswing.project.community.service.SnsRepService;
@@ -80,6 +81,14 @@ public class CommunityController {
 			System.out.println("수정아작스컨트롤러 repVO찍어봄"+snsRepVO);
 			Map<String, Object> result = snsRepService.updateSnsRep(snsRepVO);
 			
+			return result;
+		}
+		
+		// sns 댓글 삭제
+		@PostMapping("snsReplyDel")
+		@ResponseBody
+		public boolean deleteRepAjax(@RequestParam("repNo") Integer snsRepNo) {
+			boolean result = snsRepService.deleteSnsRep(snsRepNo);
 			return result;
 		}
 		
