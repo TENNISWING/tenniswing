@@ -8,7 +8,7 @@
 	<!-- signup form -->
 	<div class="container justify-content-center" id="signupForm">
 
-		<form class="form form-vertical" action="signup" method="POST">
+		<form class="form form-vertical" action="signup" method="POST" enctype="multipart/form-data">
 			<div class="form-body">
 				<div class="text-center">
 					<h3 class="my-4">회원가입</h3>
@@ -38,8 +38,8 @@
 					<div class="col-lg-7 p-5 text-start shadow mb-5">
 						<div class="container card text-center w-50">
 							<!-- File uploader with image preview -->
-							<input type="file" class="image-preview-filepond" id="prImage"
-								name="prImage" multiple>
+							<input type="file" class="image-preview-filepond" id="files"
+								name="files" multiple>
 							<h5 class=text-dark>프로필 사진</h5>
 						</div>
 
