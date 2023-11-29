@@ -72,8 +72,8 @@ object-fit: cover;
 							<h3 style="line-height: 80px; color: #668585;" th:text="${club.clubName}"></h3>
 							<h6 style="color: gray;">멤버수 : [[ ${club.clubMemNum} ]]명</h6>
 							<div>
-								<a href="#" class="btn btn-outline-success"
-									style="width: 50%; margin-top: 30px;">클럽 설정</a>
+								<button class="btn btn-outline-success" id="clubEdit"
+									style="width: 50%; margin-top: 30px;">클럽 설정</button>
 							</div>
 
 						</div>
@@ -92,7 +92,7 @@ object-fit: cover;
 									<button class="nav-link active" id="info-tab"
 										data-bs-toggle="tab" data-bs-target="#tab-info-pane"
 										type="button" role="tab" aria-controls="tab-info-pane"
-										aria-selected="true" data-url="clubInfo">클럽 정보</button>
+										aria-selected="true" data-url="clubInfo" th:data-club-no="${club.clubNo}">클럽 정보</button>
 								</li>
 								<li class="nav-item" role="presentation">
 									<button class="nav-link" id="matchJoin-tab"
@@ -177,18 +177,45 @@ object-fit: cover;
 	    //탭 페이지 이동
 		 $('button[data-bs-toggle="tab"]').on("shown.bs.tab", function(e) {
 			let url = $(event.target).data("url")
+			let clubNo = $(event.target).data('club-no')
 			let target = $(event.target).data('bs-target')
-				console.log(event.target)
-				console.log($(event.target))
+				//console.log(clubNo)
+				//console.log($(event.target))
+			url=url+'?clubNo='+clubNo;
 			$(target).load(url)
 		}); 
 		//들어왔을때 정보 바로 불러오기
 		$(document).ready(function(){
 			$('#info-tab').data("url")
 			let url = $('#info-tab').data("url")
+			let clubNo = $('#info-tab').data('club-no')
 			let target = $('#info-tab').data('bs-target')
+			
+			url=url+'?clubNo='+clubNo;
 			$(target).load(url)
 		}) 
+		
+		
+		$('#clubEdit').on('click',function(e){
+			//console.log("삭제클릭되나요");
+			let clubNo = $('#info-tab').data('club-no')
+			$.ajax({
+				type:'POST',
+				url:'clubdelete',
+				data:{paramclubNo:clubNo},
+				dataType:'JSON',
+				success:function(result){
+					if(result){
+						alert("삭제완료");
+						location.href = "/club";
+					}
+			},
+			error:function(){
+				alert("삭제실패");
+			}
+			})
+		});
+		
 		
 	    
 	</script>

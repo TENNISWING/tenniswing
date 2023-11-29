@@ -80,7 +80,10 @@
   			, SYSDATE
   		)
   </insert>
-  
+  <delete id="deleteClub" parameterType="int">
+  	DELETE FROM club
+  	WHERE club_no = #{clubNo}
+  </delete>
   
   
   </mapper>

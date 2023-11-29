@@ -62,7 +62,7 @@
 					<div class="shortBy-select select__style d-lg-flex d-none">
 						<label for="sortBy2">Sort by:</label> <select name="sortBy"
 							id="sortBy2">
-							<option value="0">최신순</option>
+							<option value="0">조회순</option>
 							<option value="0">인기순</option>
 							<option value="0">이름순</option>
 						</select>
@@ -131,12 +131,43 @@
 					<td colspan='5' style="padding: 0;">
 						<div class="boardBody" style="text-align: center;">
 							<div>
-								<img src="./assets/img/card.jpg" style="width: 90%;">
+								<img src="./assets/img/card.jpg" style="width: 90%; padding:25px 0px">
 							</div>
-							<textarea class="form-control"
-									  id="exampleFormControlTextarea1" rows="3"></textarea>
-									  
-							 <input type="text" id="" class="form-control is-valid" placeholder="댓글작성폼">
+							<p class="form-control"
+									  id="exampleFormControlTextarea1" >게시글 상세내용 들어가는 곳이라구요</p>
+
+							<div class="input-group mb-3">
+								<input type="text" class="form-control"
+									placeholder="enter your comment"
+									aria-label="Recipient's username"
+									aria-describedby="basic-addon2" id="replyContents">
+								<button type="button" class="input-group-text" id="repSubmit">등록</button>
+							</div>
+							<div class="table-responsive">
+									<table class="table" id="table1">
+										<thead>
+											<tr>
+												<th>작성자</th>
+												<th>댓글 내용</th>
+												<th>작성일자</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody id="replyList">
+											<!-- 	<tr th:each="num : ${#numbers.sequence(1,5)}">
+												<td>Graiden</td>
+												<td>vehicula.aliquet@semconsequat.co.uk</td>
+												<td>076 4820 8838</td>
+												<td><i type="button"
+													class="fa-regular fa-pen-to-square"></i> <i type="button"
+													class="fa-regular fa-trash-can"></i></td>
+											</tr> -->
+
+										</tbody>
+
+									</table>
+
+								</div>
 							<p>여기는 댓글</p>
 						</div>
 					</td>

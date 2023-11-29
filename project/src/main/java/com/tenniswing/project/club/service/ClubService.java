@@ -11,4 +11,7 @@ public interface ClubService {
 	
 	//등록
 	public int insertClub(ClubVO clubVO);
+	
+	//삭제
+	public boolean deleteClub(int ClubNo);
 }

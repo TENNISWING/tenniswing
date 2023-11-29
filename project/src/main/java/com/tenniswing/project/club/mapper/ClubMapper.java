@@ -18,5 +18,5 @@ public interface ClubMapper {
 	public int updateClub(ClubVO clubVO);
 	
 	//삭제
-	public int deleteClub(int Club);
+	public int deleteClub(int ClubNo);
 }
