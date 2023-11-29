@@ -16,8 +16,8 @@ public interface ProdMapper {
 	public int insertProd(ProdVO prodVO);
 	
 	// 수정
-	public Map<String, Object> updateProd(ProdVO prodVO);
+	public int updateProd(ProdVO prodVO);
 	
 	// 삭제
-	public boolean deleteProd(int prodNo);
+	public int deleteProd(int prodNo);
 }

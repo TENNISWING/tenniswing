@@ -1,5 +1,6 @@
 package com.tenniswing.project.shop.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,21 +17,27 @@ public class ProdServiceImpl implements ProdService{
 	@Autowired
 	ProdMapper prodMapper;
 	
+//	전체 조회
 	@Override
 	public List<ProdVO> selectAllProd() {
-		return null;
+		return prodMapper.selectAllProd();
 	}
 
+//	단건 조회
 	@Override
 	public ProdVO selectProd(ProdVO prodVO) {
-		return null;
+		return prodMapper.selectProd(prodVO);
 	}
 
 //	등록
 	@Override
 	public int insertProd(ProdVO prodVO) {
-		int result = prodMapper.insertProd(prodVO);
+		System.out.println(prodVO.getProdSaleSts());
+		if(prodVO.getProdSaleSts() == null) {
+			prodVO.setProdSaleSts("p2");
+		}
 		
+		int result = prodMapper.insertProd(prodVO);
 		if(result == 1) {
 			return prodVO.getProdNo(); 
 		}
@@ -38,14 +45,34 @@ public class ProdServiceImpl implements ProdService{
 			return -1;
 	}
 
+//	수정
 	@Override
 	public Map<String, Object> updateProd(ProdVO prodVO) {
-		return null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		boolean isSuccess = false;
+		
+		int result = prodMapper.updateProd(prodVO);
+		if(result == 1) {
+			isSuccess = true;
+		}
+		map.put("result", isSuccess);
+		map.put("target", prodVO);
+		return map;
 	}
 
+//	삭제
 	@Override
-	public boolean deleteProd(int prodNo) {
-		return false;
+	public Map<String, Object> deleteProd(int prodNo) {	
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean isSuccess = false;
+		
+		int result = prodMapper.deleteProd(prodNo);
+		if(result == 1) {
+			isSuccess = true;
+		}
+		map.put("msg", isSuccess);
+		map.put("target", prodNo);
+		return map;		
 	}
-
 }

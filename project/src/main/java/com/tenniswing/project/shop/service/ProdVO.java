@@ -20,7 +20,7 @@ public class ProdVO {
 	// 상품 설명
 	private String prodExp;
 	// 상품 가격
-	private String prodPrice;
+	private int prodPrice;
 	// 상품 총 재고
 	private int prodTSto;
 	// 상품 판매 유무
@@ -32,9 +32,9 @@ public class ProdVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date prodEditDate;
 	// 상품 카테고리
-	private Date cateProd;
+	private String cateProd;
 	// 상품 성별
-	private Date cateGen;
+	private String cateGen;
 	
 	// 첨부파일
 	private List<AttachVO> attachList;

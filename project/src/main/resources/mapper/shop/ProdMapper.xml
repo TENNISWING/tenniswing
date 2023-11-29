@@ -4,6 +4,93 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.tenniswing.project.shop.mapper.ProdMapper">
-  	<!-- 상품 등록 -->
+  
+  	<!-- 전체 조회 -->
+  	<select id="selectAllProd" resultType="ProdVO">
+  		SELECT 	prod_no, prod_name, prod_brand, prod_t_sto, 
+       			prod_regi_date, FIND_CATEGORY_NAME(prod_sale_sts) AS prod_sale_sts,
+       			FIND_CATEGORY_NAME(cate_prod) AS cate_prod, FIND_CATEGORY_NAME(cate_gen) AS cate_gen       
+		FROM 	prod
+  		ORDER BY prod_no
+  	</select>
   	
+  	<!-- 단건 조회 -->
+  	<select id="selectProd" resultType="ProdVO">
+  		SELECT 	prod_no, prod_name, prod_brand, prod_t_sto, 
+       			prod_exp, prod_regi_date, prod_price, FIND_CATEGORY_NAME(prod_sale_sts) AS prod_sale_sts,
+       			FIND_CATEGORY_NAME(cate_prod) AS cate_prod, FIND_CATEGORY_NAME(cate_gen) AS cate_gen       
+		FROM 	prod
+		WHERE 	prod_no = #{prodNo}
+  	</select>
+  	
+  	<!-- 상품 등록 -->
+  	<insert id="insertProd" parameterType="ProdVO">
+  		<selectKey keyProperty="prodNo"
+  				   resultType="int"
+  				   order="BEFORE">
+  			SELECT NVL(MAX(prod_no), 0) + 1
+  			FROM prod		   
+  		</selectKey>
+  		INSERT INTO prod(
+  			 prod_no,
+  			 prod_name,
+  			 prod_brand,
+  			 prod_t_sto,
+  			 prod_exp,
+  			 prod_sale_sts,
+  			 prod_regi_date,
+  			 cate_prod,
+  			 cate_gen  
+  		)
+  		VALUES(
+  			 #{prodNo},
+  			 #{prodName},
+  			 #{prodBrand},
+  			 0,
+  			 #{prodExp},
+  			 #{prodSaleSts},
+  			 SYSDATE,
+  			 #{cateProd},
+  			 #{cateGen}
+  		)
+  	</insert>
+  	
+  	<!-- 상품 수정 -->
+  	<update id="updateProd" parameterType="ProdVO">
+  		UPDATE prod
+  			<set>
+  				<if test="prodName != null and !prodName.equals('')">
+  					prod_name = #{prodName},
+  				</if>
+  				<if test="prodBrand != null and !prodBrand.equals('')">
+  					prod_brand = #{prodBrand},
+  				</if>
+  				<if test="cateProd != null and !cateProd.equals('')">
+  					cate_prod = #{cateProd},
+  				</if>
+  				<if test="cateGen != null and !cateGen.equals('')">
+  					cate_gen = #{cateGen},
+  				</if>
+  				<if test="prodPrice != null and !prodPrice.equals('')">
+  					prod_price = #{prodPrice},
+  				</if>
+  				<if test="prodSaleSts != null and !prodSaleSts.equals('')">
+  					prod_sale_sts = #{prodSaleSts},
+  				</if>
+  				<if test="prodExp != null and !prodExp.equals('')">
+  					prod_exp = #{prodExp},
+  				</if>
+  				<if test="prodTSto != null and !prodTSto.equals('')">
+  					prod_t_sto = #{prodTSto},
+  				</if>
+  				prod_edit_date = SYSDATE	
+  			</set>
+ 		WHERE prod_no = #{prodNo} 				
+  	</update>
+  	
+  	<!-- 상품 삭제 -->
+  	<delete id="deleteProd" parameterType="int">
+  		DELETE FROM prod
+  		WHERE prod_no = #{prodNo}
+  	</delete>
   </mapper>

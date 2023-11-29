@@ -17,5 +17,5 @@ public interface ProdService {
 	public Map<String, Object> updateProd(ProdVO prodVO);
 	
 	// 삭제
-	public boolean deleteProd(int prodNo);
+	public Map<String, Object> deleteProd(int prodNo);
 }
