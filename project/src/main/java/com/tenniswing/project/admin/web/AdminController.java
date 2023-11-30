@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.tenniswing.project.shop.service.ProdDetailService;
+import com.tenniswing.project.shop.service.ProdDetailVO;
 import com.tenniswing.project.shop.service.ProdService;
 import com.tenniswing.project.shop.service.ProdVO;
 
@@ -19,6 +21,9 @@ import com.tenniswing.project.shop.service.ProdVO;
 public class AdminController {
 	@Autowired
 	ProdService prodService;
+	
+	@Autowired
+	ProdDetailService prodDetailService;
 
 	// 상품 목록
 	@GetMapping("admin_Product")
@@ -31,9 +36,17 @@ public class AdminController {
 	@GetMapping("adminDetail_Product")
 	public String adminDetailProductPage(Model model, ProdVO prodVO) {
 		model.addAttribute("prod", prodService.selectProd(prodVO));
+		model.addAttribute("prodDetail", new ProdDetailVO());
 		return "admin/adminDetail_Product";
 	}
-
+	
+//	상세 상품 등록 - 처리
+	@PostMapping("adminAddDetail_Product")
+	@ResponseBody
+	public int adminAddDetailProdcutProcess(@RequestBody ProdDetailVO prodDetailVO) {
+		return prodDetailService.insertProdDetail(prodDetailVO);
+	}
+	
 	// 등록
 	@GetMapping("adminAdd_Product")
 	public String adminAddProductPage(Model model) {

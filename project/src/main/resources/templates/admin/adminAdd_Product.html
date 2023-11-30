@@ -110,7 +110,7 @@
 											
 											<!-- 브랜드 -->
 											<div class="form-group">
-												<label for="brand">브랜드</label>
+												<label for="prodBrand">브랜드</label>
 												<input type="text" class="form-control" placeholder="브랜드를 입력해주세요." th:field="*{prodBrand}"/>
 												<!-- name="brand" id="brand" -->
 											</div>
@@ -156,7 +156,7 @@
 										</div>
 										
 										<div class="btn__group flex-wrap">
-											<button type="button" class="btn btn-outline">Cancel</button>
+											<button type="button" class="btn btn-outline" th:onclick="|location.href='@{/admin_Product}'|">Cancel</button>
 											<button type="button" id="addBnt" class="btn btn-gray-filled">Add Product</button>
 										</div>
 									</div>
@@ -180,6 +180,54 @@
 	
 		function insertProd(e) {
 			let prodInfo = getProdInfo();
+			console.log(prodInfo);
+			//console.log(prodInfo.prodName);
+			
+			let str = prodInfo.prodPrice;
+			let regex = /[0-9]/g;
+			let result = str.replace(regex, '');
+			
+			if(prodInfo.prodName == '') {
+				Swal.fire({
+					title: "상품 이름",
+					text: "상품 이름을 입력하세요.",
+					icon: "info",
+					didClose: () =>{
+						$('#prodName').focus();
+					}
+				})				
+				return;	
+			} else if(prodInfo.prodBrand == '') {
+				Swal.fire({
+					title: "상품 브랜드",
+					text: "상품 브랜드를 입력하세요.",
+					icon: "info",
+					didClose: () =>{
+						$('#prodBrand').focus();
+					}
+				})				
+				return;	
+			} else if(prodInfo.prodExp == '') {
+				Swal.fire({
+					title: "상품 설명",
+					text: "상품 설명을 입력하세요.",
+					icon: "info",
+					didClose: () =>{
+						$('#prodExp').focus();
+					}
+				})				
+				return;	
+			} else if(prodInfo.prodPrice == '' || result != '') {
+				Swal.fire({
+					title: "상품 가격",
+					text: "상품 가격을 입력하세요.",
+					icon: "info",
+					didClose: () =>{
+						$('#prodPrice').focus();
+					}
+				})				
+				return;	
+			}
 
 			// Ajax -> JSON
 			$.ajax('adminAdd_Product', {
@@ -189,7 +237,7 @@
 			})
 			.done(result => {
 				//console.log('JSON', result);
-				if(result != -1){
+				if(result > -1){
 					Swal.fire({
 						  icon: "success",
 						  title: "등록 완료",
