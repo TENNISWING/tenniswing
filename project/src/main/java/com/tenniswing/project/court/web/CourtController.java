@@ -44,20 +44,23 @@ public class CourtController {
 			return "court/courtDetail";
 		}
 		
-		@PostMapping("courtDetail")
-		public String courtDetailReserve(CrtReserveVO crtReserveVO, RedirectAttributes rttr) {
-			String memId = SecurityContextHolder.getContext().getAuthentication().getName();
-			
-			crtReserveVO.setMemId(memId);
-			crtReserveService.insertCrtReserve(crtReserveVO);
-			
-			rttr.addAttribute("reserveNo", crtReserveVO.getReserveNo());
-			return "redirect:reserveCourt";
-		}
+		/*
+		 * @PostMapping("courtDetail") public String courtDetailReserve(CrtReserveVO
+		 * crtReserveVO, RedirectAttributes rttr) { String memId =
+		 * SecurityContextHolder.getContext().getAuthentication().getName();
+		 * 
+		 * crtReserveVO.setMemId(memId);
+		 * crtReserveService.insertCrtReserve(crtReserveVO);
+		 * 
+		 * rttr.addAttribute("reserveNo", crtReserveVO.getReserveNo()); return
+		 * "redirect:reserveCourt"; }
+		 */
 		
 		@GetMapping("reserveCourt")
-		public String reserveCourtPage(CrtReserveVO crtReserveVO, Model model) {
-			crtReserveService.insertCrtReserve(crtReserveVO);
+		public String reserveCourtForm(CrtReserveVO crtReserveVO, Model model) {
+			//crtReserveService.insertCrtReserve(crtReserveVO);
+			model.addAttribute("reserveInfo",crtReserveVO);
+			System.out.println(crtReserveVO);
 			return "court/reserveCourt";
 		}
 		
