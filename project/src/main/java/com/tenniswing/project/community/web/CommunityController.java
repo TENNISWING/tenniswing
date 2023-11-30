@@ -35,6 +35,7 @@ public class CommunityController {
 			List<SnsVO> list = snsService.selectAllSnsInfo();
 			System.out.println("list 찍어봄 ::: " + list);
 			model.addAttribute("snsList", snsService.selectAllSnsInfo());
+			model.addAttribute("memLikeNo", snsService.selectLikeNo(snsVO));
 			return "community/community3";
 		}
 		
@@ -99,6 +100,14 @@ public class CommunityController {
 			System.out.println(snsVO);
 			int result = snsService.insertLike(snsVO);
 			
+			return result;
+		}
+		
+		// sns 좋아요 삭제
+		@PostMapping("snsLikeDel")
+		@ResponseBody
+		public boolean deleteLikeAjax(@RequestParam("snsLikeNo") Integer likeNo) {
+			boolean result = snsService.deleteLike(likeNo);
 			return result;
 		}
 		

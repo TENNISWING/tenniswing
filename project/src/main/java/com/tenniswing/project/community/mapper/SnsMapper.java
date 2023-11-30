@@ -31,4 +31,10 @@ public interface SnsMapper {
 	
 	// 삭제
 	public int deleteSns(@Param("snsWrtNo")int snsWrtNo );
+	
+	// 좋아요 삭제
+	public int deleteLike(int likeNo);
+	
+	// 회원별 게시글당 좋아요 번호 조회
+	public SnsVO selectLikeNo(SnsVO snsVO);
 }

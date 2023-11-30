@@ -81,5 +81,22 @@ public class SnsServiceImpl implements SnsService {
 	public int deleteSns(int snsWrtNo) {
 		return 0;
 	}
+	
+	// 좋아요 삭제
+	@Override
+	public boolean deleteLike(int likeNo) {
+		int result = snsMapper.deleteLike(likeNo);
+		if(result == 1) {
+			return true;
+		}else {
+			return false;
+			
+		}
+	}
+
+	@Override
+	public SnsVO selectLikeNo(SnsVO snsVO) {
+		return snsMapper.selectLikeNo(snsVO);
+	}
 
 }
