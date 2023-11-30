@@ -8,10 +8,10 @@
 	<div class="user__dashboard">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-3">
+				<div class="col-xl-4 col-sm-12">
 					<div th:replace="/member/mypage-sidemenu :: sidemenu"></div>
 				</div>
-				<div class="col-lg-9">
+				<div class="col-xl-8 col-sm-12">
 					<div class="main__wrapper">
 						<!-- Profile Table Start -->
 						<div class="cart__form">
@@ -105,26 +105,12 @@
 								</tbody>
 							</table>
 						</div>
-						<!-- Profile Card End -->
-							<button class="btn btn-success" type="button"
-		th:onclick="|location.href='@{/logout}'|">로그아웃</button>
+						
 					</div>
 				</div>
 			</div>
 		</div>
-
-id : [[${id}]] role : [[${role}]]
-
-		
-
 	</div>
-
-
-			
-
-
-
-
 </th:block>
 
 </html>

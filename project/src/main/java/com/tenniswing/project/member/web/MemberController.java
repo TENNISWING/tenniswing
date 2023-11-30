@@ -85,6 +85,8 @@ public class MemberController {
 		}
 
 		int result = memberService.insertMember(memberVO);
+		
+		
 
 		if (result > 0) {			
 			
@@ -93,9 +95,9 @@ public class MemberController {
 			}
 			
 			List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());
-			
+			System.out.println(memberVO.getMemNo());
 			//테이블 구분, 게시글 번호, 파일목록
-			int n = attachService.saveAttach("m1", 1, files);
+			int n = attachService.saveAttach("m", memberVO.getMemNo(), files);
 			
 			if(n > 0) {			
 				return "redirect:/loginform";
@@ -126,10 +128,12 @@ public class MemberController {
 		String role = memberVO.getMemDiv();	
 		
 		//첨부파일 불러오기
-		List<AttachVO> attachList =  attachService.attachList("m1", 1);
+		List<AttachVO> attachList =  attachService.attachList("m", memberVO.getMemNo());
 		
 		//회원정보 dom에 전달		
 		model.addAttribute("member", memberVO);
+		
+		
 		//첨부파일 dom에 전달		
 		model.addAttribute("attachList", attachList.get(0));
 		
