@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <style>
 .boardContainer {
@@ -49,14 +49,8 @@
 				<div class="filter__area" style="margin: 0;">
 					<div class="email-fixed-search col-6 ">
 						<div class="form-group position-relative  mb-0 has-icon-left">
-							<input type="text" class="form-control"
-								placeholder="Serch club...">
-							<div class="form-control-icon">
-								<svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use
-										xlink:href="assets/static/images/bootstrap-icons.svg#search" />
-                                                    </svg>
-							</div>
+							<button class="btn btn-outline-success" id="clubPostWrite" th:data-club-no="${club.clubNo}"
+									data-bs-toggle="modal" data-bs-target="#WriteModal">글쓰기</button>
 						</div>
 					</div>
 					<div class="shortBy-select select__style d-lg-flex d-none">
@@ -73,36 +67,6 @@
 	</div>
 	<!-- table hover -->
 	<div class="table-responsive">
-		<!-- <table class="table table-hover mb-0">
-			<thead>
-				<tr>
-					<th>NO</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>작성일</th>
-					<th>조회수</th>
-				</tr>
-			</thead>
-			<tbody>
-				 <tr class="toggleBoard" style="height: 70px;">
-					<td>1</td>
-					<td>
-						<div class="boardContainer">
-							<p class="toggleBoardTitle">이것은 자유게시판 제목1</p>
-							게시글 상세 조회 토글 
-							<div class="boardBody">
-								<p>이것은 자유게시판 내용1</p>
-								<p>사진</p>
-							</div>
-						</div>
-					</td>
-					<td>user kim</td>
-					<td>2023-11-24</td>
-					<td>6</td>
-				</tr> 
-			</tbody>
-		</table> -->
-		
 		<table class="table mb-0">
 			<thead>
 				<tr>
@@ -185,52 +149,64 @@
 			<li class="page-item"><a class="page-link" href="#">다음</a></li>
 		</ul>
 	</div>
-	<script>
-	/* window.onload = () => {
-		  // panel-faq-container
-		  const toggleContainer = document.querySelectorAll(".boardContainer"); // NodeList 객체
-		  // panel-faq-answer
-		  let toggleAnswer = document.querySelectorAll(".boardBody");
-
-		  toggleContainer.addEventListener('click', function() {
-			  console.log('====');
-			  toggleAnswer.classList.toggle('active');
-		  })
-	}*/
-		  
 	
-		  // panel-faq-answer
-		  
-          //let toggleAnswer = document.querySelectorAll(".boardBody");
-		  document.querySelector(".boardContainer").addEventListener('click', function() {
-			  
-			  console.log("====");
-			  const toggleAnswer = document.querySelector(".boardBody")
-			  console.log(toggleAnswer);
-			  toggleAnswer.classList.toggle('active');
-		  })	  
-		  
-		  
+	<!-- 글작성 모달  -->
+	<div class="modal fade text-left" id="WriteModal" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+			role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel33">Login Form</h4>
+					<button type="button" class="close" data-bs-dismiss="modal"
+						aria-label="Close">
+						<i data-feather="x"></i>
+					</button>
+				</div>
+				<form action="#" class="form__wrapper">
+					<div class="modal-body">
 
-		  // btn-all-close
-		  // const btnAllClose = document.querySelector("#btn-all-close");
-		  
-		  // 반복문 순회하면서 해당 FAQ제목 클릭시 콜백 처리
-		  
-		  /* for( let i=0; i < toggleContainer.length; i++ ) {
-			  toggleContainer[i].addEventListener('click', function() { // 클릭시 처리할 일
-		      // FAQ 제목 클릭시 -> 본문이 보이게끔 -> active 클래스 추가
-		      toggleAnswer[i].classList.toggle('active');
-		    });
-		  }; */
-		  
-		 /*  btnAllClose.addEventListener('click', function() {
-		    // 버튼 클릭시 처리할 일  
-		    for(let i=0; i < panelFaqAnswer.length; i++) {
-		        panelFaqAnswer[i].classList.remove('active');
-		    };
-		  }); */
-		
+						<div class="input-group mb-3">
+							<input type="file" class="form-control" id="inputGroupFile01"
+								style="padding: 0.375rem 0.75rem">
+						</div>
+
+						<div class="form-group">
+							<label for="area">글쓰기</label>
+							<textarea name="area" cols="30" rows="5" id="area"
+								class="form-control form-area" placeholder="Type a comment"></textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-light-secondary"
+							data-bs-dismiss="modal">
+							<i class="bx bx-x d-block d-sm-none"></i> <span
+								class="d-none d-sm-block">취소</span>
+						</button>
+						<button type="button" class="btn btn-primary ms-1"
+							data-bs-dismiss="modal">
+							<i class="bx bx-check d-block d-sm-none"></i> <span
+								class="d-none d-sm-block">등록</span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- /글작성 모달  -->
+	<script>
+		document.querySelector(".boardContainer").addEventListener('click',
+				function() {
+					const toggleAnswer = document.querySelector(".boardBody")
+					console.log(toggleAnswer);
+					toggleAnswer.classList.toggle('active');
+				})
+				
+		$('#WriteModal').on('show.bs.modal', function (e) {
+			console.log('모달 열리라구요');
+			let clubNo = $(e.relatedTarget).attr('data-club-no');
+		});		
 	</script>
 
 
