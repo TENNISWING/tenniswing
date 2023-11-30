@@ -37,7 +37,7 @@
  		 <if test="progStateName">and prog_state_name = #{progStateName}</if>
   		ORDER BY time
   		
-  		) A) b where rn between (#{page}-1)*10 + 1 and #{page} * 10  		
+  		) A) b where rn between (#{page}-1)*5 + 1 and #{page} * 5
    	</select>   	
    	
    	<!-- 클럽 전체 조회  -->

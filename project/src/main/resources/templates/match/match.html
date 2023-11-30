@@ -132,8 +132,8 @@
 				</table>
 				<div class="container mt-5 mb-5">
 					<ul class="pagination justify-content-center">
-						<li class="page-item disabled"><a class="page-link" href="#"
-							tabindex="-1" aria-disabled="true">이전</a></li>
+						<li class="page-item disabled">
+						<a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a></li>
 						<li class="page-item"><a class="page-link" href="#">1</a></li>
 						<li class="page-item"><a class="page-link" href="#">다음</a></li>
 					</ul>
@@ -216,6 +216,7 @@
 					</td>
 				</tr>`
 					$('#matchList').append(b)
+					console.log(result.length);
 				}
 			}
 		})
@@ -320,7 +321,7 @@
                         	$('.swiper-wrapper.dateslide > div div').removeClass('active');
                         	$(e.target).toggleClass('active');
                         	let matchDate = $(e.target).data('day');
-                        	matchAjax(matchDate,1);
+                        	matchAjax(matchDate,2);
                         	
                             //태그네임 가져오기                 
                             //console.log($(e.target).prop('tagName'))
