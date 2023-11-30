@@ -1,6 +1,7 @@
 package com.tenniswing.project.match.web;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +29,12 @@ public class MatchController {
 	
 	@GetMapping("matchList")
 	@ResponseBody
-	public List<MatchVO> matchAjax(MatchVO matchVO) {
+	public HashMap<String,Object> matchAjax(MatchVO matchVO) {
 		List<MatchVO> list = matchService.selectAllMatch(matchVO);
-		
-		System.out.println(list.get(0).getRn());
-		return matchService.selectAllMatch(matchVO);
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("selectCount", matchService.selectCount(matchVO));
+		map.put("matchList", matchService.selectAllMatch(matchVO));
+		return map;
 	}
 	
 	@GetMapping("clubmatch")  
@@ -42,7 +44,10 @@ public class MatchController {
 
 	@GetMapping("clubMatchList")
 	@ResponseBody
-	public List<MatchVO> clubMatchAjax(MatchVO matchVO) {		
+	public List<MatchVO> clubMatchAjax(MatchVO matchVO) {
+		List<MatchVO> list = matchService.selectAllMatch(matchVO);
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("selectClubCount", matchService.selectCount(matchVO));
 		return matchService.selectAllClubMatch(matchVO);
 	}	
 		

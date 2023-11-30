@@ -114,6 +114,11 @@ public class MatchServiceImpl implements MatchService {
 	public int deleteStarterMatch(MatchVO matchVO) {
 		return matchMapper.deleteStarterMatch(matchVO);
 	}
+
+	@Override
+	public int selectCount(MatchVO matchVO) {
+		return matchMapper.selectCount(matchVO);
+	}
 	
 	
 }
