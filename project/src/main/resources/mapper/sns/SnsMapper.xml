@@ -60,7 +60,7 @@
         on s.sns_grp_no = g.sns_grp_no
         join attach a
         on a.attach_table_pk = s.sns_wrt_no
-        where mem_id = #{memId};
+        where mem_id = #{memId}
   		 <!-- LIKE '%' || #{keyword} || '%'
   		 	  LIKE '%${keyword}%'		   -->
   	</select>
@@ -68,14 +68,31 @@
   	
   	<!-- 등록 -->
   	<insert id="insertSns" parameterType="SnsVO">
-  	 	<selectKey keyProperty="snsWrtNo" 
-  	 			   resultType="int" 
+  	 	<selectKey keyProperty="snsWrtNo,snsGrpNo" 
+  	 			   resultType="SnsVO" 
   	 			   order="BEFORE">
   	 		<!-- primarykey가 숫자일 경우 사용 -->
-  	 		SELECT NVL(MAX(sns_wrt_no), 0) + 1 
-			FROM sns
+  	 		SELECT(SELECT NVL(MAX(sns_wrt_no), 0) + 1 
+					FROM sns) sns_wrt_no,
+					(SELECT NVL(MAX(sns_grp_no),0)+1
+					FROM sns_grp) sns_grp_no
+			FROM dual
   	 	</selectKey>
   	 	INSERT ALL
+  	 			INTO sns_grp
+  	 			(
+	  	 			sns_grp_no
+	  	 			,grp_create_date
+	  	 			,post_num
+	  	 			,grp_name
+  	 			)
+  	 			VALUES
+  	 			(
+	  	 			#{snsGrpNo}
+	  	 			,sysdate
+	  	 			,#{postNum}
+	  	 			,#{grpName}
+  	 			)
   	 			INTO sns
   	 			(
   	 				sns_wrt_no
@@ -83,8 +100,9 @@
   	 				,sns_ctt
   	 				,sns_tag
   	 				,mem_id
-  	 				,snsHit
+  	 				,sns_hit
   	 				,sns_write_date
+  	 				,sns_grp_no
   	 			)
   	 			VALUES
   	 			(
@@ -94,28 +112,12 @@
   	 				,#{snsTag}
   	 				,#{memId}
   	 				,#{snsHit}
-  	 				,
-  	 				<choose>
-  	 					<when test="snsWriteDate != null">,#{snsWriteDate}</when>
-  	 					<otherwise>,sysdate</otherwise>
-  	 				</choose>  	 				
-  	 				
+  	 				,sysdate	
+  	 				,#{snsGrpNo}
   	 			)
-  	 			INTO sns_grp
-  	 			(
-  	 			sns_grp_no
-  	 			,grp_create_date
-  	 			,post_num
-  	 			,grp_name
-  	 			)
-  	 			VALUES
-  	 			(
-  	 			#{snsGrpNo}
-  	 			,#{grpCreateDate}
-  	 			,#{postNum}
-  	 			,#{grpName}
-  	 			)
+  	 			SELECT * FROM dual
   	</insert>
+  	
   	<!-- 회원이 누른 좋아요 select -->
   	<select id="selectLikeNo" resultType="SnsVO">
   		select like_no
@@ -123,6 +125,7 @@
 	    where sns_wrt_no = #{snsWrtNo}
 	    and mem_id = #{memId}
   	</select>
+  	
   	<!-- sns 좋아요 등록 -->
   	<insert id="insertLike" parameterType="SnsVO">
 	  	<selectKey keyProperty="likeNo" 

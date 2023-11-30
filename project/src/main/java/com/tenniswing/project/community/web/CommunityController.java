@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenniswing.project.community.service.SnsRepService;
 import com.tenniswing.project.community.service.SnsRepVO;
@@ -85,10 +86,27 @@ public class CommunityController {
 			return result;
 		}
 		
-		// sns 등록폼
+		// sns 등록폼 페이지
 		@GetMapping("snsRegister")
 		public String snsRegPage(Model model) {
+			model.addAttribute("snsVO", new SnsVO());
 			return "community/snsRegister";
+		}
+		
+		// sns 등록 처리
+		@PostMapping("snsRegister")
+		public String insertSnsForm(SnsVO snsVO, RedirectAttributes rttr) {
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			snsVO.setMemId(id);
+
+			if(id.equals("anonymousUser")) {
+				//return "redirect:loginform";
+			}
+			snsService.insertSns(snsVO);
+			
+			rttr.addAttribute("snsWrtNo", snsVO.getSnsWrtNo());
+			return "redirect:sns";
+			
 		}
 		
 		// sns 좋아요 등록
