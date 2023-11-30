@@ -51,6 +51,7 @@ public class MemberServiceImpl implements MemberService {
 		memberVO.setPwd(passwordEncoder.encode(memberVO.getPwd()));	
 		
 		int result = memberMapper.insertMember(memberVO);
+		System.out.println(memberVO.getMemNo());
 		
 		if (result > 0) {
 			return result;

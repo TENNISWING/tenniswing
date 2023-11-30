@@ -3,39 +3,44 @@
 <th:block th:fragment="sidemenu">
 
 	<!-- SideBar start -->
-	<div class="d-flex align-items-center mb-3">
-		<div class="avatar avatar-xl">
-			<img th:src="${attachList.attachPath}" >
-		</div>
-		<div class="ms-3 name">
-			<h5 class="font-bold">[[${member.nick}]]</h5>
-			<h6 class="text-muted mb-0">[[${member.memId}]]</h6>
-		</div>		
-	</div>
-	<div class="container text-center mb-5">
-		<button type="button" class="btn btn-success">프로필 보기</button>
+	<div class="container">
 		<div class="row">
-			<div class="col-6">[[${member.mannerPoint}]]</div>
-			<div class="col-6">[[${member.ntrp}]]</div>
+			<div class="avatar avatar-xl col-lg-3 col-md-auto">
+				<img th:src="${attachList.attachPath}">
+			</div>
+			<div class="name col-lg-9 col-md-auto">
+				<h5 class="font-bold">[[${member.nick}]]</h5>
+				<h6 class="text-muted mb-0">[[${member.memId}]]</h6>
+			</div>
+			<div class="row my-3">
+				<div class="col-7 text-center col-md-auto">
+					<button type="button" class="btn btn-success">프로필 보기</button>
+				</div>
+				<div class="col-5 text-center col-md-auto">
+					<!-- Profile Card End -->
+					<button class="btn btn-success" type="button"
+						th:onclick="|location.href='@{/logout}'|">로그아웃</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6 col-md-auto">[[${member.mannerPoint}]]</div>
+				<div class="col-6 col-md-auto">[[${member.ntrp}]]</div>
+			</div>
+
+			<div class="container">
+
+				<ul class="nav">
+					<!-- Navlist Start -->
+					<li class="nav__list"><a href="profile.html"> <span
+							class="nav-item">매치이력</span>
+					</a></li>
+				</ul>
+
+			</div>
 		</div>
 	</div>
-	
-	<div class="sideBar">
 
-		<!-- NavItem Start -->
-		<ul class="nav__item">
-			<!-- Navlist Start -->
-			<li class="nav__list"><a href="profile.html"> <span
-					class="nav-item">매치이력</span>
-			</a></li>
-		</ul>
-		<ul class="nav__item">
-			<!-- Navlist Start -->
-			<li class="nav__list"><a href="#"> <span class="nav-item">Support</span>
-			</a></li>
-		</ul>
-	</div>
-	<!-- SideBar end -->
+
 </th:block>
 
 </html>
