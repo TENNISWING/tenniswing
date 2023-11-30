@@ -61,6 +61,7 @@ public class ClubController {
 		
 		clubVO.setMemId(id);
 		model.addAttribute("club",clubService.selectClub(clubVO));
+		System.out.println(clubService.selectClub(clubVO));
 		return "club/clubdetail";
 	}
 	
@@ -82,12 +83,12 @@ public class ClubController {
 	}
 	
 	//클럽 수정
-	@GetMapping("clubUpdate")
+	@PostMapping("clubUpdate")
 	@ResponseBody
 	public Map<String, Object> clubUpdateFormAjax(ClubVO clubVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		clubVO.setMemId(id);
-		System.out.println("-----수정아작스컨트롤러 "+clubVO);
+		//System.out.println("-----수정아작스컨트롤러 "+clubVO);
 		return clubService.updateClub(clubVO);
 	}
 	
