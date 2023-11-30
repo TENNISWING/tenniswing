@@ -35,6 +35,7 @@
 		SELECT m.MEM_NO
 		,m.MEM_ID
 		,m.NAME
+		,m.MEM_DIV
 		,m.PHONE_NO
 		,p.NICK
 		,FIND_CATEGORY_NAME (p.AGE) AGE

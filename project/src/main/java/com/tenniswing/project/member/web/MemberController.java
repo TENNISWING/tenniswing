@@ -1,15 +1,11 @@
 package com.tenniswing.project.member.web;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -123,22 +119,22 @@ public class MemberController {
 	// 마이페이지 이동
 	@GetMapping("mypage")
 	public String mypagePage(Model model) {
-		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		//로그인 회원 아이디 불러오기
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();		
 		
-		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-		Iterator<? extends GrantedAuthority> iter = authorities.iterator();
-		GrantedAuthority auth = iter.next();
-		String role = auth.getAuthority();
-		
-		httpSession.setAttribute("member", id);		
-		
+		//아이디 셋 후 회원 정보 불러오기
 		MemberVO memberVO = new MemberVO();
-		memberVO.setMemId(id);
-		
+		memberVO.setMemId(id);		
 		memberVO = memberService.memberInfo(memberVO);
+		String role = memberVO.getMemDiv();	
 		
+		//첨부파일 불러오기
+		List<AttachVO> attachList =  attachService.attachList("m1", 1);
+		
+		//회원정보 dom에 전달		
 		model.addAttribute("member", memberVO);
+		//첨부파일 dom에 전달		
+		model.addAttribute("attachList", attachList.get(0));
 		
 		if(role.equals("ROLE_ADMIN")) {
 			return "redirect:admin";

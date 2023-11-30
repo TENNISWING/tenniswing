@@ -17,8 +17,8 @@ public class AttachServiceImpl implements AttachService {
 	AttachMapper attachMapper;
 
 	@Override
-	public List<AttachVO> attachList(AttachVO attachVO) {		
-		return attachMapper.attachListAll(attachVO);
+	public List<AttachVO> attachList(String tableDiv, int attacTablePk ) {		
+		return attachMapper.attachListAll(tableDiv,attacTablePk);
 	}
 
 	@Override
