@@ -11,6 +11,8 @@ public interface SnsService {
 	
 	// 단건조회
 	public SnsVO selectSnsInfo(SnsVO snsVO);
+	// 좋아요번호 단건조회 (회원별 게시글 당)
+	public SnsVO selectLikeNo(SnsVO snsVO);
 	
 	// 등록
 		public int insertSns(SnsVO snsVO);
@@ -27,5 +29,8 @@ public interface SnsService {
 		
 	// 삭제
 	public int deleteSns(@Param("snsWrtNo")int snsWrtNo );
+	
+	// 좋아요 삭제
+	public boolean deleteLike(int likeNo);
 
 }

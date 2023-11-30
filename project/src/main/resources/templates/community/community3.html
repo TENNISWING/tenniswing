@@ -99,15 +99,30 @@
 													<ul class="nav d-flex justify-content-around text-center"
 														style="float: right">
 														
-														<!-- 좋아요 버튼 -->
+														<!-- 좋아요 버튼 --> 
 														<li class="d-flex flex-column">
 															<div>
-																<a class="btn icon btn-white" th:data-snslike="${s.snsWrtNo}">
+											<!-- 					<a th:if="${#strings.isEmpty(s.likeNo)}" class="btn icon btn-white" th:data-snslike="${s.snsWrtNo}">
 																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC" id="likeBtn"
 																		th:attrappend="id=${sStat.count}">
 																	</i>
 																</a>
-															</div>[[${s.likeCnt}]]
+																<a th:if="${not #strings.isEmpty(s.likeNo)}" class="btn icon btn-white" th:data-snslike="${s.snsWrtNo}">
+																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC active"  th:data-likeno="${s.likeNo}" id="likeBtn"
+																		th:attrappend="id=${sStat.count}">
+																	</i>
+																</a> -->
+																	<a th:if="${#strings.isEmpty(s.likeNo)}" class="btn icon btn-white" th:data-snslike="${s.snsWrtNo}">
+																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC" id="likeBtn"
+																		th:attrappend="id=${sStat.count}">
+																	</i>
+																</a>
+																<a th:if="${not #strings.isEmpty(s.likeNo)}" class="btn icon btn-white" th:data-snslike="${s.snsWrtNo}">
+																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC active"  th:data-likeno="${s.likeNo}" id="likeBtn"
+																		th:attrappend="id=${sStat.count}">
+																	</i>
+																</a>
+															</div><span>[[${s.likeCnt}]]</span>
 														</li>
 
 														<!-- 댓글 버튼 -->
@@ -363,7 +378,7 @@
 					+ "&title=" + title);
 		}
 
-		
+		// 스크랩버튼 클릭마다 모양바뀌게
 		$('.bmark').on('click', function(e) {
 			event.stopPropagation();
 			console.log(e.target);
@@ -374,27 +389,53 @@
 			}
 		});
 		
+		
+		// 좋아요 버튼 누르면 인서트!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		$('.likeBtnC').on('click', function(e){
-			console.log("좋아요버튼 찍힘");
+			
+			if($(e.target).hasClass('active')){ //likeNo가 Null이 아니면 Class에 active => Delete
+				let snsLikeNo = $(e.target).attr('data-likeno');
+				console.log('삭제할 좋아요번호'+snsLikeNo);
+		/* 		$.ajax({
+					url : 'snsLikeDel',
+					data : {snsLikeNo},
+					type : 'post',
+					datatype : 'text',
+					success : function(result) {
+
+							alert("좋아요성공")
+							location.href="/sns";
+					},
+					error : function() {
+						alert("좋아요 실패")
+
+					}
+
+		}) */
+			}else{ //인서트
+				$.ajax({
+					url : 'snsLikeInsert',
+					data : {snsWrtNo},
+					type : 'post',
+					datatype : 'text',
+					success : function(result) {
+
+							alert("좋아요성공")
+							location.href="/sns";
+					},
+					error : function() {
+						alert("좋아요 실패")
+
+					}
+
+		})
+			}
+			/* console.log("좋아요버튼 찍힘");
 			let cnt = $(e.target).prop("id").replace("likeBtn","");
 			let snsWrtNo = $(e.target).closest('a').attr('data-snslike');
-			console.log("좋아요버튼 글번호"+snsWrtNo);
+			console.log("좋아요버튼 글번호"+snsWrtNo); */
 			
-			$.ajax({
-				url : 'snsLikeInsert',
-				data : {snsWrtNo},
-				type : 'post',
-				datatype : 'text',
-				success : function(result) {
-
-						alert("좋아요성공")
-				},
-				error : function() {
-					alert("좋아요 실패")
-
-				}
-
-	})
+		
 			
 		});
 		
@@ -441,34 +482,6 @@
 		 getRepList(snsWrtNo);
 
 	});
-
-	// 댓글 리스트 뿌리는 함수
-/* 	function getRepList(snsWrtNo){
-		$.ajax({
-			type: 'GET',
-			url:'snsRep',
-			data: {snsWrtNo},
-			   success: function(data) {
-				   console.log(data);
-					$('#replyList').empty();
-		            for(let repList of data){
-
-		               let b = `
-		               <tr>
-							<td>${repList.name}</td>
-							<td class = "editCtt">${repList.snsRepCtt}</td>
-							<td>${new Date(repList.snsRepWriteDate).toLocaleDateString()}</td>
-							<td><i type="button"
-								class="fa-regular fa-pen-to-square repEditBtn" id="editBtn"></i> <i type="button"
-								class="fa-regular fa-trash-can"></i></td>
-						</tr>`
-		               $('#replyList').append(b);
-		            }
-
-		         }
-
-		})
-	} */
 
 
 	//댓글 리스트 

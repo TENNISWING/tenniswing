@@ -26,6 +26,9 @@ public class ProdDetailServiceImpl implements ProdDetailService{
 	@Override
 	public Map<String, Object> insertProdDetail(ProdDetailVO prodDetailVO) {
 		Map<String, Object> map = new HashMap<>();
+		ProdVO tempVO = new ProdVO();
+		tempVO.setProdNo(prodDetailVO.getProdNo());
+		
 		if(prodDetailVO.getProdDetailSaleSts() == null) {
 			prodDetailVO.setProdDetailSaleSts("p2");
 		}
@@ -35,8 +38,9 @@ public class ProdDetailServiceImpl implements ProdDetailService{
 		if(result == 1) {
 			isSucess = true;
 		}
-		map.put("result", isSucess);
+		map.put("result", isSucess);	
 		map.put("targetVO", prodDetailVO);
+		map.put("listDetailVO", prodDetailMapper.selectAllProdDetail(tempVO));
 		return map;
 	}
 	//수정

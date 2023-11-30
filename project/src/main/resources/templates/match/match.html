@@ -64,16 +64,24 @@
 					<div class="col-lg-8">
 						<form action="#" class="matfilter">
 							<div class="custom__dropdown custom__dropdown__v2">
-								<div class="selected">
+							<!-- 	<div class="selected">
 									<div class="selected_item selected_item-v2">방식</div>
 								</div>
 								<ul class="list list__v2">
-									<li>단식</li>
-									<li>남복</li>
-									<li>여복</li>
-									<li>랠리</li>
-									<li>혼복</li>
-								</ul>
+									<li data-value="f1">단식</li>
+									<li data-value="f2">남복</li>
+									<li data-value="f3">여복</li>
+									<li data-value="f4">랠리</li>
+									<li data-value="f5">혼복</li>
+								</ul> -->
+								<select id="gameWay" name="gameWay">
+									<option value="">선택</option>
+									<option value="f1">단식</option>
+									<option value="f2">남복</option>
+									<option value="f3">여복</option>
+									<option value="f4">랠리</option>
+									<option value="f5">혼복</option>
+								</select>
 							</div>
 							<div class="custom__dropdown custom__dropdown__v2">
 								<div class="selected">
@@ -117,6 +125,7 @@
 
 						</form>
 					</div>
+					<button type="button" id="btnsearch">검색</button>
 					<div class="col-lg-2 text-end">
 						<button type="button" style="margin-right: 9px"
 							class="btn btn-primary matchregibtn"
@@ -132,10 +141,6 @@
 				</table>
 				<div class="container mt-5 mb-5">
 					<ul class="pagination justify-content-center">
-						<li class="page-item disabled">
-						<a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">다음</a></li>
 					</ul>
 				</div>
 			</div>
@@ -198,14 +203,23 @@
 
 				</div>
 				<script>
+				$('#btnsearch').on("click", function(e) {
+					let matchDate = $('.matchdate .active').data('day');
+					matchAjax(matchDate,1) 
+				})
+				
 	function matchAjax(matchDate,page) {
+		let gameWay = $('#gameWay').val();
+		
+		
 		$.ajax({
 			type: 'GET',
 			url: 'matchList',
-			data: {matchDate, page},
+			data: {matchDate, page, gameWay},
 			success: function(result) {
+				//리스트
 				$('#matchList').empty();
-				for(let matchInfo of result){
+				for(let matchInfo of result.matchList){
 					let b = `<tr class="navbar-brand">					
 					<td class="text-center">${matchInfo.gameWayName}</td>
 					<td>${matchInfo.genName}</td>
@@ -216,20 +230,68 @@
 					</td>
 				</tr>`
 					$('#matchList').append(b)
-					console.log(result.length);
 				}
+				
+				showPage(result.selectCount);
 			}
 		})
 	}
 	
+	$('.pagination').on("click","li a", function(e) {
+		e.preventDefault();
+		console.log("page click");
+		
+		var targetPageNum = $(this).attr("href");
+		
+		console.log("targetPageNum: " + targetPageNum);
+		
+		pageNum = targetPageNum;
+		
+		matchAjax(matchDate,targetPageNum);
 	
-	/* // 페이징
-	function getList() {
-		var bno;
-		var page;
-		\
+	});
 	
-	} */
+	pageNum = 1;
+	pageSize = 10.0; //페이지 번호 수
+	pageUnit = 5;  //한페이지에 출력할 행의 수
+	// 페이징
+	function showPage(replyCnt) {
+		
+		var endNum = Math.ceil(pageNum / pageSize) * pageSize;
+		var startNum = endNum > pageSize? endNum - pageSize : 1;
+		
+		var prev = startNum != 1;
+		var next = false;
+		
+		if(endNum * 10 >= replyCnt) {
+			endNum = Math.ceil(replyCnt/pageUnit);
+		}
+		
+		if(endNum * 10 < replyCnt) {
+			next = true;
+		}
+		
+		var str= "";
+		
+		if(prev) {
+			str+= "<li class='page-item'><a class='page-link' href='"+(startNum -1)+"'>Previous</a></li>";
+		}
+		
+		for(var i = startNum ; i <= endNum; i++) {
+			var active = pageNum == i? "active":"";
+			str+= "<li class='page-item "+active+"'> <a class='page-link' href='"+i+"'>"+i+"</a></li>";		
+		}
+		
+		if(next) {
+			str+= "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>Next</a><li>";
+		}
+		
+		str += "";
+		
+		console.log(str);
+		
+		$('.pagination').html(str);
+	}
 	
 	
 

@@ -34,4 +34,7 @@ public interface MatchMapper {
 	public int deleteClubMatch(MatchVO matchVO);
 	public int deleteContMatch(MatchVO matchVO);
 	public int deleteStarterMatch(MatchVO matchVO);
+	
+	//페이징
+	public int selectCount(MatchVO matchVO);
 }
