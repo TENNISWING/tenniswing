@@ -213,7 +213,7 @@ margin-bottom: 1px;
     border-radius: 8px;
 }
 
-.matchregibtn {
+.matchregibtn, #btnsearch {
     --bs-btn-color: #fff;
     --bs-btn-bg: #3E444B;
     --bs-btn-border-color: #3E444B;

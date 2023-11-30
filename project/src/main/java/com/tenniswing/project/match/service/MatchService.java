@@ -35,4 +35,5 @@ public interface MatchService {
 		
 		//페이징
 		public int selectCount(MatchVO matchVO);
+		public int selectClubCount(MatchVO matchVO);
 }

@@ -44,11 +44,12 @@ public class MatchController {
 
 	@GetMapping("clubMatchList")
 	@ResponseBody
-	public List<MatchVO> clubMatchAjax(MatchVO matchVO) {
-		List<MatchVO> list = matchService.selectAllMatch(matchVO);
+	public HashMap<String,Object> clubMatchAjax(MatchVO matchVO) {
+		List<MatchVO> list = matchService.selectAllClubMatch(matchVO);
 		HashMap<String,Object> map = new HashMap<>();
-		map.put("selectClubCount", matchService.selectCount(matchVO));
-		return matchService.selectAllClubMatch(matchVO);
+		map.put("selectClubCount", matchService.selectClubCount(matchVO));
+		map.put("clubMatchList", matchService.selectAllClubMatch(matchVO));
+		return map;
 	}	
 		
 	@GetMapping("contestmatch")  

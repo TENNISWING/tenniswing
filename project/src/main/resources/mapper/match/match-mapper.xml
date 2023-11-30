@@ -77,13 +77,13 @@
   		FROM club_match m, crtroom c
   		WHERE m.crtroom_no = c.crtroom_no
   		AND TRUNC (match_date) = TRUNC(#{matchDate})
- 		 <if test="gameWay">and game_way = #{gameWay}</if>
- 		 <if test="lv">and lv = #{lv}</if>
- 		 <if test="crtroomLocation">and crtroom_location = #{crtroomLocation}</if>
- 		 <if test="progStateName">and prog_state_name = #{progStateName}</if>
+ 		 <if test="gameWay != null and gameWay != ''">and game_way = #{gameWay}</if>
+ 		 <if test="lv != null and gameWay != ''">and lv = #{lv}</if>
+ 		 <if test="crtroomLocation != null and gameWay != ''">and crtroom_location = #{crtroomLocation}</if>
+ 		 <if test="progStateName != null and gameWay != ''">and prog_state_name = #{progStateName}</if>
   		ORDER BY time
   		
-  		) A) b where rn between (#{page}-1)*10 + 1 and #{page} * 10
+  		) A) b where rn between (#{page}-1)*#{pageUnit} + 1 and #{page} * #{pageUnit}
    	</select>
    	
    	<select id="selectClubCount" resultType="int">

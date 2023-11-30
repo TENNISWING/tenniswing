@@ -64,18 +64,8 @@
 					<div class="col-lg-8">
 						<form action="#" class="matfilter">
 							<div class="custom__dropdown custom__dropdown__v2">
-							<!-- 	<div class="selected">
-									<div class="selected_item selected_item-v2">방식</div>
-								</div>
-								<ul class="list list__v2">
-									<li data-value="f1">단식</li>
-									<li data-value="f2">남복</li>
-									<li data-value="f3">여복</li>
-									<li data-value="f4">랠리</li>
-									<li data-value="f5">혼복</li>
-								</ul> -->
 								<select id="gameWay" name="gameWay">
-									<option value="">선택</option>
+									<option value="">게임방식</option>
 									<option value="f1">단식</option>
 									<option value="f2">남복</option>
 									<option value="f3">여복</option>
@@ -84,48 +74,43 @@
 								</select>
 							</div>
 							<div class="custom__dropdown custom__dropdown__v2">
-								<div class="selected">
-									<div class="selected_item selected_item-v2">성별</div>
-								</div>
-								<ul class="list list__v2">
-									<li>남</li>
-									<li>여</li>
-									<li>모두</li>
-								</ul>
+								<select id="gen" name="gen">
+									<option value="">성별</option>
+									<option value="c1">남자</option>
+									<option value="c2">여자</option>
+									<option value="c3">모두</option>
+								</select>
 							</div>
 							<div class="custom__dropdown custom__dropdown__v2">
-								<div class="selected">
-									<div class="selected_item selected_item-v2">지역</div>
-								</div>
-								<ul class="list list__v2">
-									<li>서울</li>
-									<li>경기</li>
-									<li>인천</li>
-									<li>강원도</li>
-									<li>전라도</li>
-									<li>경상도</li>
-									<li>충청도</li>
-									<li>제주도</li>
-								</ul>
-							</div>							
-							<div class="custom__dropdown custom__dropdown__v2">
-								<div class="selected">
-									<div class="selected_item selected_item-v2">레벨</div>
-								</div>
-								<ul class="list list__v2">
-									<li>1.0</li>
-									<li>1.5</li>
-									<li>2.0</li>
-									<li>2.5</li>
-									<li>3.0</li>
-									<li>3.5</li>
-									<li>4.0</li>
-								</ul>
+								<select id="location" name="location">
+									<option value="">지역</option>
+									<option value="b1">서울</option>
+									<option value="b2">경기</option>
+									<option value="b3">인천</option>
+									<option value="b4">강원도</option>
+									<option value="b5">전라도</option>
+									<option value="b6">경상도</option>
+									<option value="b7">충청도</option>
+									<option value="b8">제주도</option>
+								</select>
 							</div>
-
+							<div class="custom__dropdown custom__dropdown__v2">
+								<select id="level" name="level">
+									<option value="">레벨</option>
+									<option value="e1">1.0</option>
+									<option value="e2">1.5</option>
+									<option value="e3">2.0</option>
+									<option value="e4">2.5</option>
+									<option value="e5">3.0</option>
+									<option value="e6">3.5</option>
+									<option value="e7">4.0</option>
+								</select>
+							</div>
 						</form>
 					</div>
-					<button type="button" id="btnsearch">검색</button>
+					<div class="matchregibtn">
+						<button type="button" id="btnsearch">검색</button>
+					</div>
 					<div class="col-lg-2 text-end">
 						<button type="button" style="margin-right: 9px"
 							class="btn btn-primary matchregibtn"
@@ -202,20 +187,22 @@
 					<!-- Trending Section End -->
 
 				</div>
-				<script>
+		<script>
 				$('#btnsearch').on("click", function(e) {
 					let matchDate = $('.matchdate .active').data('day');
 					matchAjax(matchDate,1) 
 				})
 				
 	function matchAjax(matchDate,page) {
-		let gameWay = $('#gameWay').val();
+		let gameWay = $('#gameWay').val();		
+		let gen = $('#gen').val();
+		let location = $('#location').val();
 		
 		
 		$.ajax({
 			type: 'GET',
 			url: 'matchList',
-			data: {matchDate, page, gameWay},
+			data: {matchDate, page, gameWay, gen, location},
 			success: function(result) {
 				//리스트
 				$('#matchList').empty();

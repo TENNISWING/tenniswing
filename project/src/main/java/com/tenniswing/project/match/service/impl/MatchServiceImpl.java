@@ -119,6 +119,11 @@ public class MatchServiceImpl implements MatchService {
 	public int selectCount(MatchVO matchVO) {
 		return matchMapper.selectCount(matchVO);
 	}
+
+	@Override
+	public int selectClubCount(MatchVO matchVO) {
+		return matchMapper.selectClubCount(matchVO);
+	}
 	
 	
 }
