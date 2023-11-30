@@ -25,4 +25,8 @@ public class CrtReserveVO {
 	private Date reserveDate;
 	private String reserveTime;
 	private String tReserveTime;
+	
+	//
+	private String crtroomName;
+	private String crtroomLocation;
 }

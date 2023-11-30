@@ -76,6 +76,7 @@
 							<div class="product-detail__wrapper">
 								<h2 class="product-detail__title">[[
 									${courtDetail.crtroomName} ]]</h2>
+								<input type="hidden" name="crtroomName" th:value="${courtDetail.crtroomName}">
 								<div class="product-detail__meta">
 									<div class="rating">
 										<ul>
@@ -156,6 +157,8 @@
 									<div>
 										<input type="text" style="border: 0; text-align: center"
 											th:value="${courtDetail.crtroomLocation}" disabled />
+										<input type="hidden" style="border: 0; text-align: center" name="crtroomLocation"
+											th:value="${courtDetail.crtroomLocation}">
 									</div>
 								</div>
 							</div>
@@ -173,7 +176,7 @@
 								<div class="swiper-button-next dateslide text-green"></div>
 								<div class="swiper-button-prev dateslide text-green"></div>
 							</div>
-							<div class="hiddenDate"></div>
+							<div id="hiddenDate"></div>
 						</div>
 						<!-- End date slide -->
 						<!-- =============== 코트 선택 =============== -->
@@ -197,14 +200,21 @@
 									<tr class="navbar-brand">
 										<td class="text-center" style="width: 10%"><b>실내</b></td>
 										<td style="width: 50%; text-align: center;">
-										<input type="hidden" name="reserveTime" value="be" th:attrappend="value=${num}">[[${num+8}]]:00  ~  [[${num+9}]]:00</td>
+										<input type="hidden" id="reserveTime" value="be" th:attrappend="value=${num}">[[${num+8}]]:00  ~  [[${num+9}]]:00</td>
 										<td style="width: 10%"><input type="hidden" name="tReserveTime" value="1">1시간</td>
 										<td style="width: 10%"><input type="hidden" name="reservePrice" value="10000">10,000원</td>
-										<td class="text-end" style="width: 20%"><button class="btn btn-primary matchbtn1">결제하기</button></td>
+										<td class="text-end" style="width: 20%"><button class="btn btn-primary matchbtn1">예약하기</button></td>
 									</tr>
 								</th:block>
 							</tbody>
 						</table>
+						<input type="hidden" id="reserveTime" name="reserveTime">
+						<script>
+							$('.matchbtn1').on('click',function(e){
+								let reserveTime = $(e.target).closest('tr').find('input').val();
+								$('input[name="reserveTime"]').val(reserveTime);
+							})
+						</script>
 						<!-- ============== 상세 안내 ============== -->
 						<div class="col-md-6" style="width: 100%">
 							<div class="row product-info">
@@ -642,9 +652,9 @@
                         }
                     
                         $.each(dateArry, (idx, ele) => {
-                        	console.log(ele.dayNo);
+                        	
                         	if (idx == 0) {
-                                $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
+                               $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
                                                     <div class="btn btn-outline-success active" data-day="${ele.allDate}">
                                                     ${ele.date}<br>
                                                     ${ele.day}</div></div>`)
@@ -663,57 +673,20 @@
                                         <div class="btn btn-outline-success" data-day="${ele.allDate}">
                                         ${ele.date}<br>
                                         ${ele.day}</div></div>`)
-                        	}
+                        	}                        	
                         	
                         })
+                        
                         $('.swiper-wrapper.dateslide > div div').on('click', function (e) {
                         	$('.swiper-wrapper.dateslide > div div').removeClass('active');
                         	$(e.target).toggleClass('active');
-                        	let matchDate = $(e.target).data('day');
-                        	matchAjax(matchDate,1);
-                        	$('.hiddenDate').append(`<input type="text" name="reserveDate"
-                        			value="2023/11/12"`)
+                        	let clickDate = $(e.target).data('day');
+                        	$('#hiddenDate').append('<input type="hidden" name="reserveDate" value="">');
+                        	$('input[name="reserveDate"]').val(clickDate);
                         	
+                        	//matchAjax(matchDate,1);
                         })
                         
-                        
-                        
-                        new Swiper(".mySwiper.mtbanner", {
-							/* loop : true, */
-							loopPreventsSliding : true,
-							grabCursor : true,
-							slidesPerView : 3,
-							spaceBetween : 20,
-
-							/* autoplay : {
-								delay : 2000,
-								pauseOnMouseEnter : true,
-								disableOnInteraction : false
-							}, */
-							pagination : {
-								el : ".swiper-pagination.mtbanner",
-								dynamicBullets : true,
-								clickable : true,
-							},
-						});
-                        
-                                                
-                        
-                        new Swiper(".mySwiper.banner", {
-                            loop: true,
-                            loopPreventsSliding: true,
-                            grabCursor: true,
-                            autoplay: {
-                                delay: 2000,
-                                pauseOnMouseEnter: true,
-                                disableOnInteraction: false
-                            },
-                            pagination: {
-                                el: ".swiper-pagination.banner",
-                                dynamicBullets: true,
-                                clickable: true,
-                            },
-                        });
                     </script>
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 

@@ -12,8 +12,8 @@
 	                <div class="card">
 	                    <div class="card-body">
 	                    	<hr>
-	                        <p><b>코트장 이름</b> <span style="float: right">L sit amet consectetur adipisicing elit.</span><code></code><code></code></p>
-	                        <p><b>코트장 위치</b> <span style="float: right">Provident nostrum numquam reprehenderit facilis.</span><code></code><code></code></p>
+	                        <p><b>코트장 이름</b> <span style="float: right">[[ ${reserveInfo.crtroomName} ]]</span><code></code><code></code></p>
+	                        <p><b>코트장 위치</b> <span style="float: right">[[ ${reserveInfo.crtroomLocation} ]]</span><code></code><code></code></p>
 	                        <p><b>코트번호</b> <span style="float: right">2번</span><code></code><code></code></p>
 	                        <p><b>이용 날짜</b> <span style="float: right">[[${#dates.format(reserveInfo.reserveDate,'yyyy년MM월dd일')}]]</span><code></code><code></code></p>
 	                        <p><b>이용 시간</b> <span style="float: right">[[${reserveInfo.reserveTime}]]</span><code></code><code></code></p>
