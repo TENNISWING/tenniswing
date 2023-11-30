@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.tenniswing.project.shop.mapper.ProdDetailMapper">
+  	<!-- 등록 -->
+  	<insert id="insertProdDetail" parameterType="ProdDetailVO">
+  		<selectKey keyProperty="prodDetailNo" resultType="int" order="BEFORE">
+  			SELECT NVL(MAX(prod_detail_no), 0) + 1
+  			FROP prod_detail
+  		</selectKey>
+  		INSERT INTO prod_detail(
+  			prod_detail_no,
+  			prod_detail_sto,
+  			prod_detail_sale_sts,
+  			cate_color,
+  			cate_size,
+  			prod_no
+  		)
+  		VALUES(
+  			#{prodDetailNo},
+  			#{prodDetailSto},
+  			#{prodDetailSaleSts},
+  			#{cateColor},
+  			#{cateSize},
+  			#{prodNo}
+  		)
+  	</insert>
+  </mapper>

@@ -180,7 +180,7 @@
 						<i data-feather="x"></i>
 					</button>
 				</div>
-				<form th:object="${prod}" class="form__wrapper" id="addDetailProdForm">
+				<form th:object="${prodDetail}" class="form__wrapper" id="addDetailProdForm">
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="product_no">상품 번호</label> <input
@@ -196,55 +196,63 @@
 							</div> -->
 							
 							<div class="form-group">
-								<label for="product_detail_no">상품 상세 재고</label> <input type="text"
-									name="product_detail_sto" id="product_detail_sto" class="form-control"
+								<label for="prodDetailSto">상품 상세 재고</label> <input type="number"
+									th:field="*{prodDetailSto}" class="form-control"
 									placeholder="상품 상세 재고" />
 							</div>
 							
 							<div class="form-group">
 								<label style="text-align: center;">상품 상세 판매 유무</label>
 								<div class="custom-checkbox" style="justify-content: center;">
-									<input type="checkbox" name="detail_status" checked id="detail_status" /> <label
-										for="detail_status"> <span class="active">Active</span> <span
-										class="inactive">Inactive</span>
+									<input type="checkbox" name="prodDetailSaleSts" id="prodDetailSaleSts" value="p1"/> 
+									<label for="prodDetailSaleSts"> 
+										<span class="active">Active</span>
+										<span class="inactive">Inactive</span>
 									</label>
 								</div>
 							</div>
 							
 							<div class="input-group mb-3">
-								<label class="input-group-text" for="inputGroupSelect01"
-									style="margin: 0; padding-left: 26px; padding-right: 26px">
-									색상</label> <select class="form-select" id="inputGroupSelect01">
-									<option selected>Choose...</option>
-									<option value="1">검은색</option>
-									<option value="2">흰색</option>
-									<option value="3">파란색</option>
-									<option value="4">초록색</option>
-									<option value="5">노란색</option>
-									<option value="5">주황색</option>
-									<option value="5">빨간색</option>
+								<label class="input-group-text" for="cateColor"
+									style="margin: 0; padding-left: 26px; padding-right: 26px">색상</label> 
+								<select class="form-select" th:field="*{cateColor}">
+									<!-- <option selected>Choose...</option> -->
+									<option value="be2">흰색</option>
+									<option value="be1">검은색</option>
+									<option value="be3">파란색</option>
+									<option value="be4">초록색</option>
+									<option value="be5">노란색</option>
+									<option value="be5">주황색</option>
+									<option value="be5">빨간색</option>
 								</select>
 							</div>
 							
 							<div class="input-group mb-3">
-								<label class="input-group-text" for="inputGroupSelect02"
-									style="margin: 0; padding-left: 20px; padding-right: 20px">
-									사이즈</label> <select class="form-select" id="inputGroupSelect02">
-									<option selected>Choose...</option>
-									<option value="1">xs</option>
-									<option value="2">s</option>
-									<option value="3">m</option>
-									<option value="4">l</option>
-									<option value="5">xl</option>
-									<option value="5">free</option>
-									<option value="5">220</option>
-									<option value="5">230</option>
-									<option value="5">240</option>
-									<option value="5">250</option>
-									<option value="5">260</option>
-									<option value="5">270</option>
-									<option value="5">280</option>
-									<option value="5">290</option>
+								<label class="input-group-text" for="cateSize"
+									style="margin: 0; padding-left: 20px; padding-right: 20px">사이즈</label> 
+								<select class="form-select" th:field="*{cateSize}" th:switch="${prod.cateProd}">
+									<th:block th:case="의류">										
+										<!-- <option selected>Choose...</option> -->
+										<option value="o1">XS</option>
+										<option value="o2">S</option>
+										<option value="o3">M</option>
+										<option value="o4">L</option>
+										<option value="o5">XL</option>
+									</th:block>
+									<th:block th:case="신발">
+										<!-- <option selected>Choose...</option> -->
+										<option value="o7">220</option>
+										<option value="o8">230</option>
+										<option value="o9">240</option>
+										<option value="o10">250</option>
+										<option value="o11">260</option>
+										<option value="o12">270</option>
+										<option value="o13">280</option>
+										<option value="o14">290</option>
+									</th:block>
+									<th:block th:case="*">										
+										<option value="o6">FREE</option>
+									</th:block>
 								</select>
 							</div>
 						</div>
@@ -331,7 +339,7 @@
 			</div>
 		</div>
 
-		<!-- 상품 상세 등록 모달 -->
+		<!-- 상품 상세 수정 모달 -->
 		<div class="modal fade text-left" id="editDetailForm" tabindex="-1"
 			role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
 			<div
@@ -382,7 +390,8 @@
 								<div class="input-group mb-3">
 									<label class="input-group-text" for="inputGroupSelect02"
 										style="margin: 0; padding-left: 20px; padding-right: 20px">
-										사이즈</label> <select class="form-select" id="inputGroupSelect02">
+										사이즈</label> 
+									<select class="form-select" id="inputGroupSelect02">
 										<option selected>Choose...</option>
 										<option value="1">xs</option>
 										<option value="2">s</option>
@@ -400,6 +409,7 @@
 										<option value="5">290</option>
 									</select>
 								</div>
+								
 								<label>Status</label>
 								<div class="custom-checkbox">
 									<input type="checkbox" name="detail_edit_status" checked
@@ -429,6 +439,7 @@
 	</section>
 	<!-- Basic Tables end -->
 
+	<!--/* 가격부분 , 추가하는 기능 */-->
 	<script type="text/javascript">
 		let price = $('#product_price').val();
 		//console.log(price);
@@ -439,8 +450,12 @@
 		price = price + '원';
 		//console.log(price);
 		
-		$('#product_price').val(price);
-		
+		$('#product_price').val(price);	
+	</script>
+	
+	<!-- 재고 부분 초깃값 null 설정 -->
+	<script type="text/javascript">
+		$('#prodDetailSto').val(null);
 	</script>
 	<script src="assets/extensions/jquery/jquery.min.js"></script>
 	<script
