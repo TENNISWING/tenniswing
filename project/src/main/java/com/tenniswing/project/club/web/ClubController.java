@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenniswing.project.club.service.ClubService;
@@ -66,9 +66,22 @@ public class ClubController {
 	}
 	
 	@GetMapping("clubInfo")  //상세페이지 > 탭 > 클럽정보
-	public String infoTapPage(Model model) { 		
+	public String infoTapPage(Model model, ClubVO clubVO) { 
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		clubVO.setMemId(id);
+		model.addAttribute("club",clubService.selectClub(clubVO));
+		
+		System.out.println("==================="+ clubVO);
 		return "club/clubInfo";
 	}
+	
+	@PostMapping("clubdelete") // 클럽 삭제
+	@ResponseBody
+	public boolean deleteClubAjax(@RequestParam("paramclubNo") Integer clubNo) {
+		boolean result = clubService.deleteClub(clubNo);
+		return result;
+	}
+	
 	
 	@GetMapping("clubMatchJoin")  //상세페이지 > 탭 > 매치모집
 	public String joinTapPage(Model model) { 		

@@ -82,5 +82,28 @@
   </insert>
   
   
+  <!-- 클럽 수정 -->
+  <update id="updateClub" parameterType="clubVO">
+		UPDATE club
+			SET
+		      club_name = #{clubName}
+  		  	  , club_region = #{clubRegion}
+  		  	  , club_gen = #{clubGen}
+  		  	  , club_age = #{clubAge}
+  		  	  , club_day =  #{clubDay}
+  		  	  , club_time = #{clubTime}
+  		  	  , club_intro = #{clubIntro}
+  		  	  , club_crt = #{clubCrt}
+  		  	  , club_recruitment = #{clubRecruitment}
+			WHERE club_no = #{clubNo}
+	</update>
+  
+  
+  <!-- 클럽 삭제 -->
+  <delete id="deleteClub" parameterType="int">
+  	DELETE FROM club
+  	WHERE club_no = #{clubNo}
+  </delete>
+  
   
   </mapper>

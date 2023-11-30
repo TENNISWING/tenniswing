@@ -72,8 +72,10 @@ object-fit: cover;
 							<h3 style="line-height: 80px; color: #668585;" th:text="${club.clubName}"></h3>
 							<h6 style="color: gray;">멤버수 : [[ ${club.clubMemNum} ]]명</h6>
 							<div>
-								<a href="#" class="btn btn-outline-success"
-									style="width: 50%; margin-top: 30px;">클럽 설정</a>
+								<button class="btn btn-outline-success" id="clubEdit"  data-bs-toggle="modal"
+									data-bs-target="#EditModal" style="width: 50%; margin-top: 30px; ">클럽 수정</button>
+								<button class="btn btn-outline-success" id="clubDel"
+									style="width: 50%; margin-top: 30px;">클럽 삭제</button>
 							</div>
 
 						</div>
@@ -92,7 +94,7 @@ object-fit: cover;
 									<button class="nav-link active" id="info-tab"
 										data-bs-toggle="tab" data-bs-target="#tab-info-pane"
 										type="button" role="tab" aria-controls="tab-info-pane"
-										aria-selected="true" data-url="clubInfo">클럽 정보</button>
+										aria-selected="true" data-url="clubInfo" th:data-club-no="${club.clubNo}">클럽 정보</button>
 								</li>
 								<li class="nav-item" role="presentation">
 									<button class="nav-link" id="matchJoin-tab"
@@ -171,24 +173,285 @@ object-fit: cover;
 					<!-- /클럽 탭 페이지  -->
 				</div>
 			</div>
+			
+			<!-- 수정 모달  -->
+			<div class="modal fade text-left clubEditModal" id="EditModal" tabindex="-1"
+				role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+
+				<div class="modal-dialog modal-dialog-scrollable modal-lg"
+					role="document">
+
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel1">클럽 수정</h5>
+							<button type="button" class="close rounded-pill"
+								data-bs-dismiss="modal" aria-label="Close">
+								<i data-feather="x"></i>
+							</button>
+						</div>
+						<div class="modal-body">
+
+							<form class="form form-vertical" th:action="@{/clubform}"
+							method="POST" th:object="${clubVO}" enctype="multipart/form-data"
+							data-parsley-validate>
+							<div class="form-body">
+								<div class="row">
+									<div class="form-group mandatory col-10">
+										<label for="formClubName" data-parsley-required="true" class="form-label">클럽명</label>
+										 <input type="text" id="formClubName" class="form-control is-valid"
+											name="clubName" th:value="${clubName}" placeholder="클럽 이름을 정해주세요">
+									</div>
+									<div class="col-12">
+										<div class="form-group mandatory">
+											<label for="contact-info-vertical">프로필사진</label> <input
+												type="file" class="image-preview-filepond">
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group mandatory">
+											<label data-parsley-required="true" class="form-label">요일</label>
+											<div>
+												<input class="form-check-input" type="checkbox"
+													name="clubDay" id="checkbox1" value="j1"
+													style="display: inline-block;"> <label
+													class="form-check-label" for="checkbox1"
+													style="display: inline-block;">일요일</label>&nbsp; <input
+													class="form-check-input" type="checkbox" name="clubDay"
+													id="checkbox2" value="j2" style="display: inline-block;">
+												<label class="form-check-label" for="checkbox2"
+													style="display: inline-block;">월요일</label>&nbsp; <input
+													class="form-check-input" type="checkbox" name="clubDay"
+													id="checkbox3" value="j3" style="display: inline-block;">
+												<label class="form-check-label" for="checkbox3"
+													style="display: inline-block;">화요일</label>&nbsp; <input
+													class="form-check-input" type="checkbox" name="clubDay"
+													id="checkbox4" value="j4" style="display: inline-block;">
+												<label class="form-check-label" for="checkbox4"
+													style="display: inline-block;">수요일</label>&nbsp; <input
+													class="form-check-input" type="checkbox" name="clubDay"
+													id="checkbox5" value="j5" style="display: inline-block;">
+												<label class="form-check-label" for="checkbox5"
+													style="display: inline-block;">목요일</label>&nbsp; <input
+													class="form-check-input" type="checkbox" name="clubDay"
+													id="checkbox5" value="j6" style="display: inline-block;">
+												<label class="form-check-label" for="checkbox5"
+													style="display: inline-block;">금요일</label>&nbsp; <input
+													class="form-check-input" type="checkbox" name="clubDay"
+													id="checkbox7" value="j7" style="display: inline-block;">
+												<label class="form-check-label" for="checkbox7"
+													style="display: inline-block;">토요일</label>&nbsp;
+											</div>
+										</div>
+
+									</div>
+									
+									<div class="col-12">
+										<div class="form-group mandatory">
+											<label data-parsley-required="true" class="form-label">시간</label>
+											<div>
+												<input class="form-check-input" type="checkbox" name="clubTime" id="checkbox8" value="k1"
+													style="display: inline-block;"> 
+												<label class="form-check-label" for="checkbox8" style="display: inline-block;">오전</label>&nbsp;
+												 
+												<input class="form-check-input" type="checkbox" name="clubTime" id="checkbox9" value="k2" 
+													style="display: inline-block;">
+												<label class="form-check-label" for="checkbox9" style="display: inline-block;">오후</label>&nbsp; 
+												
+												<input class="form-check-input" type="checkbox" name="clubTime" id="checkbox10" value="k3" 
+													style="display: inline-block;">
+												<label class="form-check-label" for="checkbox10" style="display: inline-block;">저녁</label>&nbsp; 
+												
+												<input class="form-check-input" type="checkbox" name="clubTime" id="checkbox11" value="k4" 
+													style="display: inline-block;">
+												<label class="form-check-label" for="checkbox11" style="display: inline-block;">심야</label>&nbsp;
+											</div>
+										</div>
+
+									</div>
+									
+									<div class="col-6">
+										<div class="form-group ">
+											<label for="exampleFormControlTextarea1" class="form-label">지역</label>
+											<select class="form-control"
+												name="clubRegion" data-parsley-required="true"
+		                                        th:field="*{clubRegion}">
+												<option value="b1">서울</option>
+	                                            <option value="b2">경기</option>
+	                                            <option value="b3">인천</option>
+	                                            <option value="b4">강원도</option>
+	                                            <option value="b5">전라도</option>
+	                                            <option value="b6">경상도</option>
+	                                            <option value="b7">충청도</option>
+	                                            <option value="b8">제주도</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group ">
+											<label for="exampleFormControlTextarea1" class="form-label">주 코트장</label>
+											 <input type="text" id="formClubName" class="form-control"
+											name="clubCrt" th:value="${clubCrt}" placeholder="주로 이용하는 코트장을 입력하세요.">
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group ">
+											<label for="exampleFormControlTextarea1" class="form-label">연령대</label>
+											<select class="form-control" name="clubAge" 
+											        data-parsley-required="true" th:field="*{clubAge}">
+												<option value="a1">10대</option>
+	                                            <option value="a2">20대</option>
+	                                            <option value="a3">30대</option>
+	                                            <option value="a4">40대</option>
+	                                            <option value="a5">50대</option>
+	                                            <option value="a6">60대 이상</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group ">
+											<label for="exampleFormControlTextarea1" class="form-label">성별</label>
+											<select class="form-control" name="clubGen" 
+											        data-parsley-required="true" th:field="*{clubGen}">
+												<option value="c1">남성</option>
+	                                            <option value="c2">여성</option>
+	                                            <option value="c3">남녀모두</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group mandatory">
+											<label for="password-vertical">소개글</label>
+											<textarea class="form-control" name="clubIntro"
+												id="exampleFormControlTextarea1" rows="3"></textarea>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group ">
+										<div>
+											<label for="exampleFormControlTextarea1" class="form-label">모집여부</label> 
+										</div>	
+											  <input class="form-check-input" type="radio"
+												name="clubRecruitment" value="l1" style="display: inline-block;">
+												<label class="form-check-label" for="indoor"
+												style="display: inline-block;">비활성화</label>&nbsp;
+											  <input class="form-check-input" type="radio" 
+											    name="clubRecruitment" value="l2" style="display: inline-block;">
+											    <label class="form-check-label" for="outdoor"
+												style="display: inline-block;">활성화</label>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</form>
+						</div>
+						<div class="modal-footer">
+							<div class="col-12 d-flex justify-content-end">
+								<button type="submit" class="btn btn-primary me-1 mb-1">수정</button>
+								<button type="reset" class="btn btn-light-secondary me-1 mb-1">취소</button>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /수정 모달  -->
+
 		</div>
 	</div>
 	<script>
 	    //탭 페이지 이동
 		 $('button[data-bs-toggle="tab"]').on("shown.bs.tab", function(e) {
 			let url = $(event.target).data("url")
+			let clubNo = $(event.target).data('club-no')
 			let target = $(event.target).data('bs-target')
-				console.log(event.target)
-				console.log($(event.target))
+				//console.log(clubNo)
+				//console.log($(event.target))
+			url=url+'?clubNo='+clubNo;
 			$(target).load(url)
 		}); 
 		//들어왔을때 정보 바로 불러오기
 		$(document).ready(function(){
 			$('#info-tab').data("url")
 			let url = $('#info-tab').data("url")
+			let clubNo = $('#info-tab').data('club-no')
 			let target = $('#info-tab').data('bs-target')
+			
+			url=url+'?clubNo='+clubNo;
 			$(target).load(url)
 		}) 
+		
+		
+		//클럽 수정 아작스
+		/* $('#clubEdit').on('click',function(e){
+			let clubNo = $('#info-tab').data('club-no')
+			
+		} */
+		
+		
+		//클럽 삭제 하기
+		$('#clubDel').on('click',function(e){
+			//console.log("삭제클릭되나요");
+			//alert
+			Swal.fire({
+				  title: "클럽을 정말로 삭제하시겠습니까?",
+				  text: "삭제된 내용은 복구할 수 없습니다.",
+				  icon: "warning",
+				  showCancelButton: true,
+				  confirmButtonColor: "#3085d6",
+				  cancelButtonColor: "#d33",
+				  cancelButtonText: '취소',
+				  confirmButtonText: "삭제"
+				}).then((result) => {
+				  if (result.isConfirmed) {
+					  deleteAjax();
+				  }
+				});
+			
+		});
+		// 클럽 삭제 아작스
+		function deleteAjax() {
+		let clubNo = $('#info-tab').data('club-no')
+		
+		$.ajax({
+			type:'POST',
+			url:'clubdelete',
+			data:{paramclubNo:clubNo},
+			dataType:'JSON',
+			success:function(result){
+				if(result){
+					alert("클럽이 삭제되었습니다.");
+					location.href = "/club";
+				}
+		},
+		error:function(){
+			alert("삭제실패");
+		}
+		})
+		};
+		
+		
+		/* $('#clubEdit').on('click',function(e){
+			//console.log("삭제클릭되나요");
+			//alert
+			let clubNo = $('#info-tab').data('club-no')
+			$.ajax({
+				type:'POST',
+				url:'clubdelete',
+				data:{paramclubNo:clubNo},
+				dataType:'JSON',
+				success:function(result){
+					if(result){
+						alert("클럽이 삭제되었습니다.");
+						location.href = "/club";
+					}
+			},
+			error:function(){
+				alert("삭제실패");
+			}
+			})
+		}); */
+		
 		
 	    
 	</script>
