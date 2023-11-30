@@ -15,6 +15,7 @@ public class SnsRepServiceImpl implements SnsRepService {
 	@Autowired
 	SnsRepMapper snsRepMapper;
 	
+	// 댓글전체조회
 	@Override
 	public List<SnsRepVO> selectAllSnsRep(SnsRepVO snsRepVO) {
 		return snsRepMapper.selectAllSnsRep(snsRepVO);
@@ -24,18 +25,21 @@ public class SnsRepServiceImpl implements SnsRepService {
 	public SnsRepVO selectSnsRep(SnsRepVO snsRepVO) {
 		return snsRepMapper.selectSnsRep(snsRepVO);
 	}
-
+	
+	// 댓글 등록
 	@Override
 	public int insertSnsRep(SnsRepVO snsRepVO) {
 		return snsRepMapper.insertSnsRep(snsRepVO);
 	}
-
+	
+	// 대댓글 등록
 	@Override
 	public int insertSnsRrep(SnsRepVO snsRepVO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	// 댓글 수정
 	@Override
 	public Map<String, Object> updateSnsRep(SnsRepVO snsRepVO) {
 		
@@ -53,9 +57,10 @@ public class SnsRepServiceImpl implements SnsRepService {
 
 	//result.snsRepVO.변수명
 	
+	//댓글 삭제
 	@Override
-	public boolean deleteSnsRep(int repNo) {
-		int result = snsRepMapper.deleteSnsRep(repNo);
+	public boolean deleteSnsRep(int snsRepNo) {
+		int result = snsRepMapper.deleteSnsRep(snsRepNo);
 		
 		if(result == 1) {
 			return true;

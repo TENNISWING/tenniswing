@@ -450,14 +450,12 @@
 							<td class = "editCtt">${repList.snsRepCtt}</td>
 							<td>${new Date(repList.snsRepWriteDate).toLocaleDateString()}</td>
 							<td><i type="button"
-								class="fa-regular fa-pen-to-square repEditBtn" id="editBtn`+index+`"
-								
-								></i> <i type="button"
-								class="fa-regular fa-trash-can"></i></td>
+								class="fa-regular fa-pen-to-square repEditBtn" id="editBtn`+index+`"></i> 
+								<i type="button" class="fa-regular fa-trash-can repDelBtn" id="delBtn`+index+`"></i></td>
 						</tr>`
 		               $('#replyList').append(b);
 		            }
-		            
+		            //수정 아이콘 눌렀을때 누른행 제외하고 사라지고 등록 버튼 수정버튼으로 변경 
 		            $('.repEditBtn').on('click', function(e){
 		            	$('#replyList').empty();
 		            	console.log($(e.target).prop('id').replace('editBtn',''));
@@ -497,6 +495,30 @@
 		            		$('#replyList tr')[i].remove();
 		            	} */
 		            })
+		            $('.repDelBtn').on('click',function(e){
+		            	console.log("삭제클릭되나요");
+		            	console.log(e.target);
+		            	let cnt = $(e.target).prop("id").replace("delBtn","");
+		            	console.log(cnt);
+		            	
+		            	snsRepNo = $(e.target).closest('tr').prop('id');
+		            	 $.ajax({
+		            		type:'POST',
+		            		url: 'snsReplyDel',
+		            		data:{repNo: snsRepNo},
+		            		dataType:'json',
+		            		success:function(result){
+		            			if(result){
+		            				alert("정상삭제");
+		            				getRepList(snsWrtNo)
+		            			}
+		            		},
+		            		error : function() {
+								alert("삭제 실패");
+
+							}
+		            	}) 
+		            });
 		            
 		        	// 댓글 수정
 		        	/* for(let[index, editList]of data.entries()){
@@ -521,7 +543,7 @@
 		$('#repSubmit').on("click", function(e) {
 			let snsRepCtt = $("#replyContents").val();		
 			
-		
+			//댓글 수정
 			if($(e.target).text() == '수정'){
 				$.ajax({
 					url : 'snsReplyEdit',

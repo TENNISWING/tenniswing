@@ -21,5 +21,5 @@ public interface SnsRepMapper {
 		public int updateSnsRep(SnsRepVO snsRepVO);
 		
 		// 댓글 삭제
-		public int deleteSnsRep(int repNo);
+		public int deleteSnsRep(int snsRepNo);
 }
