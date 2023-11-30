@@ -49,8 +49,8 @@ public class SnsServiceImpl implements SnsService {
 
 	// 좋아요 등록
 	@Override
-	public int insertSnsLike(SnsVO snsVO) {
-		return 0;
+	public int insertLike(SnsVO snsVO) {
+		return snsMapper.insertLike(snsVO);
 	}
 
 	// 스크랩 등록

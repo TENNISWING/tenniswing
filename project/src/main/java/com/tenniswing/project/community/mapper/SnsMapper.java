@@ -18,7 +18,7 @@ public interface SnsMapper {
 	// 그룹등록
 	public int insertSnsGrp(SnsVO snsVO);
 	// 좋아요 등록
-	public int insertSnsLike(SnsVO snsVO);
+	public int insertLike(SnsVO snsVO);
 	// 스크랩 등록
 	public int insertSnsScrap(SnsVO snsVO);
 	// 댓글 등록

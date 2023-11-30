@@ -44,13 +44,7 @@ public class CommunityController {
 		public List<SnsRepVO> snsRepPageAjax(SnsRepVO snsRepVO) {
 			return snsRepService.selectAllSnsRep(snsRepVO);
 		}
-		
-		// sns 댓글 등록 페이지
-//		@GetMapping("snsReplyInsertPage")
-//		public String snsReplyInsertPage(Model model) {
-//			return  "community/community3";
-//		}
-		
+
 		
 		// sns댓글 등록
 		@PostMapping("snsReplyInsert")
@@ -68,8 +62,6 @@ public class CommunityController {
 //			}
 			
 			return result;
-			
-			
 		}
 		
 		// sns 댓글 수정
@@ -92,6 +84,27 @@ public class CommunityController {
 			return result;
 		}
 		
+		// sns 등록폼
+		@GetMapping("snsRegister")
+		public String snsRegPage(Model model) {
+			return "community/snsRegister";
+		}
+		
+		// sns 좋아요 등록
+		@PostMapping("snsLikeInsert")
+		@ResponseBody
+		public int insertLikeAjax() {
+			
+			return 0;
+		}
+		
+		// sns 내가 등록한 게시글 보기
+		@GetMapping("snsMyList")
+		public String snsMyListPage(Model model) {
+			return "community/snsMyList";
+		}
+		
+
 		// 자유게시판 메인(리스트 페이지)
 		@GetMapping("freeboardList")
 		public String freeboardListPage(Model model) {
@@ -104,17 +117,7 @@ public class CommunityController {
 			return "community/noticeList";
 		}
 		
-		// sns 등록폼
-		@GetMapping("snsRegister")
-		public String snsRegPage(Model model) {
-			return "community/snsRegister";
-		}
 		
-		// sns 내가 등록한 게시글 보기
-		@GetMapping("snsMyList")
-		public String snsMyListPage(Model model) {
-			return "community/snsMyList";
-		}
 		// 자유게시판 글 등록폼
 		@GetMapping("freeBrdForm")
 		public String freeBrdFormPage(Model model) {

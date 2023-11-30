@@ -116,6 +116,29 @@
   	 			,#{grpName}
   	 			)
   	</insert>
+  	
+  	<!-- sns 좋아요 등록 -->
+  	<insert id="insertLike" parameterType="SnsVO">
+	  	<selectKey keyProperty="likeNo" 
+	  	 			   resultType="int" 
+	  	 			   order="BEFORE">
+	  	</selectKey>
+	  	INSERT INTO sns_like
+  	 			(
+  	 				like_no
+  	 				,mem_id
+  	 				,sns_wrt_no
+  	 			)
+  	 			VALUES
+  	 			(
+  	 				#{likeNo}
+  	 				,#{memId}
+  	 				,#{snsWrtNo}
+  	 			)
+  	 				 				
+  	</insert>
+  	
+  	
   	<!-- sns 그룹 등록 -->
   	<insert id="insertSnsGrp" parameterType="SnsVO">
   			<selectKey keyProperty="snsGrpNo" 

@@ -29,6 +29,7 @@ public class SnsVO {
 	//sns 좋아요
 	private int likeNo;
 	private int likeCnt; //좋아요 수 count
+	//memId
 	
 	//sns 그룹
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
