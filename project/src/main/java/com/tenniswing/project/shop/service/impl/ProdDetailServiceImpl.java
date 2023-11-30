@@ -1,5 +1,6 @@
 package com.tenniswing.project.shop.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.tenniswing.project.shop.mapper.ProdDetailMapper;
 import com.tenniswing.project.shop.service.ProdDetailService;
 import com.tenniswing.project.shop.service.ProdDetailVO;
+import com.tenniswing.project.shop.service.ProdVO;
 
 @Service
 public class ProdDetailServiceImpl implements ProdDetailService{
@@ -17,20 +19,25 @@ public class ProdDetailServiceImpl implements ProdDetailService{
 	
 	//전체
 	@Override
-	public List<ProdDetailVO> selectAllProdDetail() {
-		return prodDetailMapper.selectAllProdDetail();
+	public List<ProdDetailVO> selectAllProdDetail(ProdVO prodVO) {
+		return prodDetailMapper.selectAllProdDetail(prodVO);
 	}
 	//등록
 	@Override
-	public int insertProdDetail(ProdDetailVO prodDetailVO) {
+	public Map<String, Object> insertProdDetail(ProdDetailVO prodDetailVO) {
+		Map<String, Object> map = new HashMap<>();
 		if(prodDetailVO.getProdDetailSaleSts() == null) {
 			prodDetailVO.setProdDetailSaleSts("p2");
 		}
+		boolean isSucess = false;
+		
 		int result = prodDetailMapper.insertProdDetail(prodDetailVO);
 		if(result == 1) {
-			return prodDetailVO.getProdDetailNo();
-		} else
-			return -1;
+			isSucess = true;
+		}
+		map.put("result", isSucess);
+		map.put("targetVO", prodDetailVO);
+		return map;
 	}
 	//수정
 	@Override

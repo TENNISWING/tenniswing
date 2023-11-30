@@ -5,9 +5,9 @@ import java.util.Map;
 
 public interface ProdDetailService {
 //	전체조회
-	public List<ProdDetailVO> selectAllProdDetail();
+	public List<ProdDetailVO> selectAllProdDetail(ProdVO prodVO);
 //	등록
-	public int insertProdDetail(ProdDetailVO prodDetailVO);
+	public Map<String, Object> insertProdDetail(ProdDetailVO prodDetailVO);
 //	수정
 	public Map<String, Object> updateProdDetail(ProdDetailVO prodDetailVO);
 //	삭제

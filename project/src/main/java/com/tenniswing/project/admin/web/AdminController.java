@@ -36,6 +36,7 @@ public class AdminController {
 	@GetMapping("adminDetail_Product")
 	public String adminDetailProductPage(Model model, ProdVO prodVO) {
 		model.addAttribute("prod", prodService.selectProd(prodVO));
+		model.addAttribute("prodDetailList", prodDetailService.selectAllProdDetail(prodVO));
 		model.addAttribute("prodDetail", new ProdDetailVO());
 		return "admin/adminDetail_Product";
 	}
@@ -43,7 +44,7 @@ public class AdminController {
 //	상세 상품 등록 - 처리
 	@PostMapping("adminAddDetail_Product")
 	@ResponseBody
-	public int adminAddDetailProdcutProcess(@RequestBody ProdDetailVO prodDetailVO) {
+	public Map<String, Object> adminAddDetailProdcutProcess(@RequestBody ProdDetailVO prodDetailVO) {
 		return prodDetailService.insertProdDetail(prodDetailVO);
 	}
 	
