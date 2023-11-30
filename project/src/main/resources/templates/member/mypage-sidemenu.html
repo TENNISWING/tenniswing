@@ -1,45 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="sidemenu">
-
-	<!-- SideBar start -->
-	<div class="container">
-		<div class="row">
-			<div class="avatar avatar-xl col-lg-3 col-md-auto">
-				<img th:src="${attachList.attachPath}">
+	<ul class="list-group mb-3">
+		<li class="list-group-item d-flex justify-content-between p-4">
+			<div class="avatar avatar-xl col-lg-3 col-md-auto"
+				data-bs-toggle="modal" data-bs-target="#galleryModal">
+				<img th:src="${attachList.attachPath}" style="cursor: pointer;">
 			</div>
 			<div class="name col-lg-9 col-md-auto">
 				<h5 class="font-bold">[[${member.nick}]]</h5>
 				<h6 class="text-muted mb-0">[[${member.memId}]]</h6>
 			</div>
-			<div class="row my-3">
-				<div class="col-7 text-center col-md-auto">
-					<button type="button" class="btn btn-success">프로필 보기</button>
-				</div>
-				<div class="col-5 text-center col-md-auto">
-					<!-- Profile Card End -->
-					<button class="btn btn-success" type="button"
-						th:onclick="|location.href='@{/logout}'|">로그아웃</button>
-				</div>
+
+		</li>
+		<li class="list-group-item d-flex justify-content-evenly p-3">
+			<div class="text-center">
+				<i class="fa-regular fa-face-grin-beam fs-4 text-warning">매너
+					[[${member.mannerPoint}]]</i>
 			</div>
-			<div class="row">
-				<div class="col-6 col-md-auto">[[${member.mannerPoint}]]</div>
-				<div class="col-6 col-md-auto">[[${member.ntrp}]]</div>
+			<div class="text-center">
+				<i class="fa-solid fa-trophy fs-4 text-primary">LV
+					[[${member.ntrp}]]</i>
 			</div>
 
-			<div class="container">
-
-				<ul class="nav">
-					<!-- Navlist Start -->
-					<li class="nav__list"><a href="profile.html"> <span
-							class="nav-item">매치이력</span>
-					</a></li>
-				</ul>
-
+		</li>
+	</ul>
+	<ul class="list-group mb-3">
+		<li class="list-group-item d-flex justify-content-evenly p-3">
+			<div class="text-center cotainer">
+				<button type="button" class="btn btn-success">프로필 보기</button>
 			</div>
-		</div>
-	</div>
+			<div class="text-center ">
+				<!-- Profile Card End -->
+				<button class="btn btn-success" type="button"
+					th:onclick="|location.href='@{/logout}'|">로그아웃</button>
+			</div>
+		</li>
 
+	</ul>
+
+	<ul class="list-group mb-5">
+		<li class="list-group-item btn btn-outline-success p-3 active">매치 이력</li>
+		<li class="list-group-item btn btn-outline-success p-3">나의 클럽목록</li>
+		<li class="list-group-item btn btn-outline-success p-3">나의 친구</li>
+		<li class="list-group-item btn btn-outline-success p-3">코트 예약</li>
+		<li class="list-group-item btn btn-outline-success p-3">나의 작성글</li>
+		<li class="list-group-item btn btn-outline-success p-3 mb-5">쇼핑</li>
+	</ul>
+	
+	<script>
+		$('.list-group-item.btn').on('click', function(e){
+			$('.list-group-item.btn').removeClass('active');
+			$(e.target).toggleClass('active');
+		})
+	</script>
 
 </th:block>
 

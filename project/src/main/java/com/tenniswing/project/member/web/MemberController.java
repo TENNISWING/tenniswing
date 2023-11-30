@@ -84,9 +84,7 @@ public class MemberController {
 			return "member/signup";
 		}
 
-		int result = memberService.insertMember(memberVO);
-		
-		
+		int result = memberService.insertMember(memberVO);	
 
 		if (result > 0) {			
 			
@@ -127,15 +125,16 @@ public class MemberController {
 		memberVO = memberService.memberInfo(memberVO);
 		String role = memberVO.getMemDiv();	
 		
-		//첨부파일 불러오기
-		List<AttachVO> attachList =  attachService.attachList("m", memberVO.getMemNo());
-		
 		//회원정보 dom에 전달		
 		model.addAttribute("member", memberVO);
 		
+		//첨부파일 불러오기
+		List<AttachVO> attachList =  attachService.attachList("m", memberVO.getMemNo());
 		
-		//첨부파일 dom에 전달		
-		model.addAttribute("attachList", attachList.get(0));
+		if(attachList != null) {
+			//첨부파일 dom에 전달		
+			model.addAttribute("attachList", attachList.get(0));
+		}		
 		
 		if(role.equals("ROLE_ADMIN")) {
 			return "redirect:admin";
