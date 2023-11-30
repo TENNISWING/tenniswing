@@ -28,7 +28,10 @@ public class MatchController {
 	
 	@GetMapping("matchList")
 	@ResponseBody
-	public List<MatchVO> matchAjax(MatchVO matchVO) {		
+	public List<MatchVO> matchAjax(MatchVO matchVO) {
+		List<MatchVO> list = matchService.selectAllMatch(matchVO);
+		
+		System.out.println(list.get(0).getRn());
 		return matchService.selectAllMatch(matchVO);
 	}
 	

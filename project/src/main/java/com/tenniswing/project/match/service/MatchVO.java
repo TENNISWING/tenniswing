@@ -38,6 +38,7 @@ public class MatchVO {
 	private int rsPrice;
 	
 	private int page;
+	private int rn;
 	
 	private String crtroomName;
 	private String crtroomLocation;
