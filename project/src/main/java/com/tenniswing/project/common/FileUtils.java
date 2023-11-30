@@ -61,7 +61,7 @@ public class FileUtils {
         return AttachVO.builder()
                 .originalName(multipartFile.getOriginalFilename())
                 .saveName(saveName)
-                .size(multipartFile.getSize())
+                //.size(multipartFile.getSize())
                 .path(mapperPath)
                 .ext(saveName.substring(saveName.lastIndexOf(".")))
                 .build();
