@@ -4,192 +4,200 @@
 	layout:decorate="~{/layouts/main-layout}">
 
 <th:block layout:fragment="content">
-<div class="mctdeall">
-	<!-- match sub menu -->
-	<div class="container mb-4">
-		<ul class="nav d-flex justify-content-around text-center matchsidevar">
-			<li class="d-flex flex-column"><a href="/"><img
-					src="assets/img/match/icon/icon1.png" class=" miconimg">매치</a></li>
-			<li class="d-flex flex-column"><a href="clubmatch"><img
-					src="assets/img/match/icon/icon2.png" class=" miconimg">클럽</a></li>
-			<li class="d-flex flex-column"><a href="contestmatch"><img
-					src="assets/img/match/icon/icon3.png" class=" miconimg">대회</a></li>
-			<li class="d-flex flex-column"><a href="startermatch"><img
-					src="assets/img/match/icon/icon4.png" class=" miconimg">스타터</a></li>
-		</ul>
-	</div>
-	<!-- End match sub menu  -->
+	<div class="mctdeall">
+		<!-- match sub menu -->
+		<div class="container mb-4">
+			<ul
+				class="nav d-flex justify-content-around text-center matchsidevar">
+				<li class="d-flex flex-column"><a href="/"><img
+						src="assets/img/match/icon/icon1.png" class=" miconimg">매치</a></li>
+				<li class="d-flex flex-column"><a href="clubmatch"><img
+						src="assets/img/match/icon/icon2.png" class=" miconimg">클럽</a></li>
+				<li class="d-flex flex-column"><a href="contestmatch"><img
+						src="assets/img/match/icon/icon3.png" class=" miconimg">대회</a></li>
+				<li class="d-flex flex-column"><a href="startermatch"><img
+						src="assets/img/match/icon/icon4.png" class=" miconimg">스타터</a></li>
+			</ul>
+		</div>
+		<!-- End match sub menu  -->
 
-	<!-- slide banner -->
-	<div class="container-fluid mb-2 bg-light-info">
-		<div class="container pt-3 pb-3">
-			<div class="swiper mySwiper banner" data-aos="fade-up">
-				<div class="swiper-wrapper banner">
-					<div class="swiper-slide banner text-center">
-						<img src="/assets/img/match/slide.png" class="img-fluid" alt="">
+		<!-- slide banner -->
+		<div class="container-fluid mb-2 bg-light-info">
+			<div class="container pt-3 pb-3">
+				<div class="swiper mySwiper banner" data-aos="fade-up">
+					<div class="swiper-wrapper banner">
+						<div class="swiper-slide banner text-center">
+							<img src="/assets/img/match/slide.png" class="img-fluid" alt="">
+						</div>
+						<div class="swiper-slide banner text-center">
+							<img src="/assets/img/match/slide.png" class="img-fluid" alt="">
+						</div>
 					</div>
-					<div class="swiper-slide banner text-center">
-						<img src="/assets/img/match/slide.png" class="img-fluid" alt="">
+					<div class="swiper-pagination banner"></div>
+				</div>
+			</div>
+
+		</div>
+		<!-- End slide banner -->
+
+		<!-- date slide -->
+		<div class="container mt-3 mb-5">
+			<!-- Swiper -->
+			<div class="swiper mySwiper dateslide">
+				<div class="swiper-wrapper dateslide matchdate">
+					<!-- <div class="swiper-slide dateslide">resizeme</div>            -->
+				</div>
+				<div class="swiper-button-next dateslide text-green"></div>
+				<div class="swiper-button-prev dateslide text-green"></div>
+
+			</div>
+		</div>
+		<!-- End date slide -->
+
+		<!-- match table -->
+		<div class="container">
+			<div class="card-body mcardbody">
+				<div class="row mcfilter">
+					<div class="col-lg-2 col-md-6">
+						<h5 class="card-title mtitle text-center">매치</h5>
+					</div>
+					<div class="col-lg-8">
+						<form action="#" class="matfilter">
+							<div class="custom__dropdown custom__dropdown__v2">
+								<div class="selected">
+									<div class="selected_item selected_item-v2">방식</div>
+								</div>
+								<ul class="list list__v2">
+									<li>단식</li>
+									<li>남복</li>
+									<li>여복</li>
+									<li>랠리</li>
+									<li>혼복</li>
+								</ul>
+							</div>
+							<div class="custom__dropdown custom__dropdown__v2">
+								<div class="selected">
+									<div class="selected_item selected_item-v2">성별</div>
+								</div>
+								<ul class="list list__v2">
+									<li>남</li>
+									<li>여</li>
+									<li>모두</li>
+								</ul>
+							</div>
+							<div class="custom__dropdown custom__dropdown__v2">
+								<div class="selected">
+									<div class="selected_item selected_item-v2">지역</div>
+								</div>
+								<ul class="list list__v2">
+									<li>서울</li>
+									<li>경기</li>
+									<li>인천</li>
+									<li>강원도</li>
+									<li>전라도</li>
+									<li>경상도</li>
+									<li>충청도</li>
+									<li>제주도</li>
+								</ul>
+							</div>							
+							<div class="custom__dropdown custom__dropdown__v2">
+								<div class="selected">
+									<div class="selected_item selected_item-v2">레벨</div>
+								</div>
+								<ul class="list list__v2">
+									<li>1.0</li>
+									<li>1.5</li>
+									<li>2.0</li>
+									<li>2.5</li>
+									<li>3.0</li>
+									<li>3.5</li>
+									<li>4.0</li>
+								</ul>
+							</div>
+
+						</form>
+					</div>
+					<div class="col-lg-2 text-end">
+						<button type="button" style="margin-right: 9px"
+							class="btn btn-primary matchregibtn"
+							th:onclick="|location.href='@{matchregi}'|">매치 등록</button>
 					</div>
 				</div>
-				<div class="swiper-pagination banner"></div>
-			</div>
-		</div>
-		
-	</div>
-	<!-- End slide banner -->
 
-	<!-- date slide -->
-	<div class="container mt-3 mb-5">
-		<!-- Swiper -->
-		<div class="swiper mySwiper dateslide">
-			<div class="swiper-wrapper dateslide matchdate">
-				<!-- <div class="swiper-slide dateslide">resizeme</div>            -->
-			</div>
-			<div class="swiper-button-next dateslide text-green"></div>
-			<div class="swiper-button-prev dateslide text-green"></div>
-			
-		</div>
-	</div>
-	<!-- End date slide -->
+				<!-- Default Table -->
+				<table class="table">
+					<tbody id="matchList">
 
-	<!-- match table -->
-	<div class="container">
-		<div class="card-body mcardbody">
-			<div class="row mcfilter">
-				<div class="col-lg-2 col-md-6"><h5 class="card-title mtitle text-center">매치</h5></div>
-				<div class="col-lg-8">
-				<form action="#" class="matfilter">
-								<div class="custom__dropdown custom__dropdown__v2">
-									<div class="selected">
-										<div class="selected_item selected_item-v2">지역</div>
-									</div>
-									<ul class="list list__v2">
-										<li>서울</li>
-										<li>경기</li>
-										<li>인천</li>
-										<li>강원도</li>
-										<li>전라도</li>
-										<li>경상도</li>
-										<li>충청도</li>
-										<li>제주도</li>
-									</ul>
-								</div>
-								<div class="custom__dropdown custom__dropdown__v2">
-									<div class="selected">
-										<div class="selected_item selected_item-v2">성별</div>
-									</div>
-									<ul class="list list__v2">
-										<li>남</li>
-										<li>여</li>
-										<li>모두</li>
-									</ul>
-								</div>
-								<div class="custom__dropdown custom__dropdown__v2">
-									<div class="selected">
-										<div class="selected_item selected_item-v2">레벨</div>
-									</div>
-									<ul class="list list__v2">
-										<li>1.0</li>
-										<li>1.5</li>
-										<li>2.0</li>
-										<li>2.5</li>
-										<li>3.0</li>
-										<li>3.5</li>
-										<li>4.0</li>
-									</ul>
-								</div>
-								<div class="custom__dropdown custom__dropdown__v2">
-									<div class="selected">
-										<div class="selected_item selected_item-v2">방식</div>
-									</div>
-									<ul class="list list__v2">
-										<li>단식</li>
-										<li>남복</li>
-										<li>여복</li>
-										<li>랠리</li>
-										<li>혼복</li>
-									</ul>
-								</div>
-							</form>
+					</tbody>
+				</table>
+				<div class="container mt-5 mb-5">
+					<ul class="pagination justify-content-center">
+						<li class="page-item disabled"><a class="page-link" href="#"
+							tabindex="-1" aria-disabled="true">이전</a></li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">다음</a></li>
+					</ul>
 				</div>
-				<div class="col-lg-2 text-end"><button type="button" style="margin-right: 9px"
-					 class="btn btn-primary matchregibtn" th:onclick="|location.href='@{matchregi}'|">매치 등록</button></div>
-			</div>
-		
-			<!-- Default Table -->
-			<table class="table">
-				<tbody id="matchList">
-					
-				</tbody>
-			</table>
-			<div class="container mt-5 mb-5">
-				<ul class="pagination justify-content-center">
-					<li class="page-item disabled"><a class="page-link" href="#"
-						tabindex="-1" aria-disabled="true">이전</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">다음</a></li>
-				</ul>
 			</div>
 		</div>
-	</div>
-	<!-- End match table -->
+		<!-- End match table -->
 
-	<!-- End community sub menu  -->
-	<div class="container">
-		<!-- Basic Tables start -->
-		<section class="section">
-			<div class="card">
-				<!-- Trending Section Start -->
-				<section class="trending__section pt-0">
-					<div class="container">
-						<div class="row">
-							<div class="col-12">
-								<div class="section-title">
-									<h5 class="card-title mtitle mtitle2">최근 본 매치 목록</h5>
+		<!-- End community sub menu  -->
+		<div class="container">
+			<!-- Basic Tables start -->
+			<section class="section">
+				<div class="card">
+					<!-- Trending Section Start -->
+					<section class="trending__section pt-0">
+						<div class="container">
+							<div class="row">
+								<div class="col-12">
+									<div class="section-title">
+										<h5 class="card-title mtitle mtitle2">최근 본 매치 목록</h5>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-12 msection">
-								<!-- Swiper -->
-								<div class="swiper mySwiper mtbanner" data-aos="fade-up">
-									<div class="swiper-wrapper mtbanner">
-										<div class="swiper-slide mtbanner" th:each="num : ${#numbers.sequence(1,5)}" ><!-- 여기서 반복문 th:each="" -->
-											<div class="card">
-												<div class="card-content">
+							<div class="row">
+								<div class="col-12 msection">
+									<!-- Swiper -->
+									<div class="swiper mySwiper mtbanner" data-aos="fade-up">
+										<div class="swiper-wrapper mtbanner">
+											<div class="swiper-slide mtbanner"
+												th:each="num : ${#numbers.sequence(1,5)}">
+												<!-- 여기서 반복문 th:each="" -->
+												<div class="card">
+													<div class="card-content">
 
-													<img class="img-fluid w-100"
-														src="/assets/compiled/jpg/banana.jpg" alt="Card image cap">
+														<img class="img-fluid w-100"
+															src="/assets/compiled/jpg/banana.jpg"
+															alt="Card image cap">
+													</div>
+													<div class="card-footer d-flex justify-content-between">
+														<span>그룹이름</span>
+														<button class="btn btn-light-primary"
+															th:id="${numStat.count}" data-bs-toggle="collapse"
+															data-bs-target="#collapseExample" aria-expanded="false"
+															aria-controls="collapseExample"
+															th:attrappend="aria-controls=${numStat.count}">그룹
+															목록보기</button>
+													</div>
 												</div>
-												<div class="card-footer d-flex justify-content-between">
-													<span>그룹이름</span>
-													<button class="btn btn-light-primary" th:id="${numStat.count}" data-bs-toggle="collapse"
-														data-bs-target="#collapseExample" aria-expanded="false"
-														
-														aria-controls="collapseExample"
-														th:attrappend="aria-controls=${numStat.count}"
-														>그룹
-														목록보기</button>
-												</div>
-
 											</div>
 										</div>
+										<div class="swiper-pagination mtbanner"></div>
 									</div>
-									<div class="swiper-pagination mtbanner"></div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<!-- Swiper JS -->
-					<script
-						src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-					<!-- Initialize Swiper -->
-				</section>
-				<!-- Trending Section End -->
-	
-</div>
-<script>
+						<!-- Swiper JS -->
+						<script
+							src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+						<!-- Initialize Swiper -->
+					</section>
+					<!-- Trending Section End -->
+
+				</div>
+				<script>
 	function matchAjax(matchDate,page) {
 		$.ajax({
 			type: 'GET',
@@ -199,13 +207,12 @@
 				$('#matchList').empty();
 				for(let matchInfo of result){
 					let b = `<tr class="navbar-brand">					
-					<td class="text-center"><b>${matchInfo.time}</b></td>
-					<td>${matchInfo.gameWayName}</td>
+					<td class="text-center">${matchInfo.gameWayName}</td>
 					<td>${matchInfo.genName}</td>
 					<td>${matchInfo.lvName}</td>
 					<td>${matchInfo.crtroomLocationName}</td>
 					<td class="text-end">
-						<a class="btn btn-primary matchbtn1" href="matchdetail?matchNo=${matchInfo.matchNo}">ff</a>
+						<a class="btn btn-primary matchbtn1" href="matchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>
 					</td>
 				</tr>`
 					$('#matchList').append(b)

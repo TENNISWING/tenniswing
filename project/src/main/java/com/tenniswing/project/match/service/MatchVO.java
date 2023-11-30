@@ -7,12 +7,14 @@ import lombok.Data;
 @Data
 public class MatchVO {
 	private int matchNo;
-	private String memNo;
+	private String memNo;	
+	private String memId;	
 	private Date matchDate;
 	private int time;
 	private String gameWay;
 	private String gameWayName;
 	private String progState;
+	private String progStateName;
 	private String ntrp;
 	private String lv;
 	private String lvName;
