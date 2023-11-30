@@ -126,7 +126,7 @@ public class MemberController {
 		String role = memberVO.getMemDiv();	
 		
 		//첨부파일 불러오기
-		List<AttachVO> attachList =  attachService.attachList("m1", 1);
+		List<AttachVO> attachList =  attachService.attachList("m1", 2);
 		
 		//회원정보 dom에 전달		
 		model.addAttribute("member", memberVO);
