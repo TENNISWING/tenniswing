@@ -30,15 +30,27 @@
   		FROM match m, crtroom c
   		WHERE m.crtroom_no = c.crtroom_no
   		 AND TRUNC (match_date) = TRUNC(#{matchDate})
- 		 <if test="gameWay">and game_way = #{gameWay}</if>
- 		 <if test="gen">and gen = #{gen}</if>
- 		 <if test="lv">and lv = #{lv}</if>
- 		 <if test="crtroomLocation">and crtroom_location = #{crtroomLocation}</if>
- 		 <if test="progStateName">and prog_state_name = #{progStateName}</if>
+ 		 <if test="gameWay != null and gameWay != ''">and game_way = #{gameWay}</if>
+ 		 <if test="gen != null and gen != ''">and gen = #{gen}</if>
+ 		 <if test="lv != null and lv != ''">and lv = #{lv}</if>
+ 		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
+ 		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
   		ORDER BY time
   		
-  		) A) b where rn between (#{page}-1)*5 + 1 and #{page} * 5
-   	</select>   	
+  		) A) b where rn between (#{page}-1)*#{pageUnit} + 1 and #{page} * #{pageUnit}
+   	</select>
+   	
+   	<select id="selectCount" resultType="int">
+   		select count(*)
+   		FROM match m, crtroom c
+  		WHERE m.crtroom_no = c.crtroom_no
+  		 AND TRUNC (match_date) = TRUNC(#{matchDate})
+ 		 <if test="gameWay != null and gameWay != ''">and game_way = #{gameWay}</if>
+ 		 <if test="gen != null and gen != ''">and gen = #{gen}</if>
+ 		 <if test="lv != null and lv != ''">and lv = #{lv}</if>
+ 		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
+ 		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
+   	</select>
    	
    	<!-- 클럽 전체 조회  -->
   	<select id="selectAllClubMatch" resultType="MatchVO">
@@ -72,6 +84,17 @@
   		ORDER BY time
   		
   		) A) b where rn between (#{page}-1)*10 + 1 and #{page} * 10
+   	</select>
+   	
+   	<select id="selectClubCount" resultType="int">
+   		select count(*)
+   		FROM club_match m, crtroom c
+  		WHERE m.crtroom_no = c.crtroom_no
+  		AND TRUNC (match_date) = TRUNC(#{matchDate})
+ 		 <if test="gameWay">and game_way = #{gameWay}</if>
+ 		 <if test="lv">and lv = #{lv}</if>
+ 		 <if test="crtroomLocation">and crtroom_location = #{crtroomLocation}</if>
+ 		 <if test="progStateName">and prog_state_name = #{progStateName}</if>
    	</select>
    	
    	<!-- 대회 전체 조회  -->
