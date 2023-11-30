@@ -1,6 +1,7 @@
 package com.tenniswing.project.court.web;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,9 @@ public class CourtController {
 		public String courtDetailPage(CrtroomVO crtroomVO, Model model) { 
 			model.addAttribute("courtDetail", courtroomService.selectCourtroom(crtroomVO));
 			model.addAttribute("reserveInfo", new CrtReserveVO());
+			model.addAttribute("reserveTimeList", crtReserveService.reserveTimeCodeList());
+			
+			System.out.println(crtReserveService.reserveTimeCodeList());
 			return "court/courtDetail";
 		}
 		
@@ -59,11 +63,17 @@ public class CourtController {
 		 * "redirect:reserveCourt"; }
 		 */
 		
+		@GetMapping("impossibleReserve")
+		@ResponseBody
+		public List<CrtReserveVO> impossibleReserve(CrtReserveVO crtReserveVO) {
+			return crtReserveService.impossibleReserveList(crtReserveVO);
+		}
+		
 		@GetMapping("reserveCourt")
 		public String reserveCourtForm(CrtReserveVO crtReserveVO, Model model) {
 			//crtReserveService.insertCrtReserve(crtReserveVO);
 			model.addAttribute("reserveInfo",crtReserveVO);
-			System.out.println(crtReserveVO);
+			
 			return "court/reserveCourt";
 		}
 		
@@ -79,8 +89,6 @@ public class CourtController {
 			Map<String, Object> map = new HashMap<>();
 			
 			map = crtReserveService.insertCrtReserve(crtReserveVO);
-			
-			
 			
 			return map;
 		}
