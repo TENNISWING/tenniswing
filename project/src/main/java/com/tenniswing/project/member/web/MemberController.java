@@ -75,9 +75,7 @@ public class MemberController {
 
 	// 회원가입 처리
 	@PostMapping("signup")
-	public String signupProc(MemberVO memberVO, Model model) throws IOException {
-		
-		
+	public String signupProc(MemberVO memberVO, Model model) throws IOException {		
 						
 		boolean check = memberService.idCheck(memberVO.getMemId());
 		
@@ -88,21 +86,20 @@ public class MemberController {
 
 		int result = memberService.insertMember(memberVO);
 
-		if (result > 0) {
+		if (result > 0) {			
+			
+			if(memberVO.getMemDiv().equals("ROLE_HOST")) {
+				return "redirect:/loginform";
+			}
 			
 			List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());
-			
 			
 			//테이블 구분, 게시글 번호, 파일목록
 			int n = attachService.saveAttach("m1", 1, files);
 			
-			if(n > 0) {
-				System.out.println(files.get(0).getAttachOriginName());
-				System.out.println(files.get(0).getAttachSaveName());
-				System.out.println(files.get(0).getSize());
-				System.out.println(files.get(0).getAttachPath());
-			
+			if(n > 0) {			
 				return "redirect:/loginform";
+				
 			}else {
 				model.addAttribute("message", "파일등록에 실패하였습니다.");
 				return "member/signup";

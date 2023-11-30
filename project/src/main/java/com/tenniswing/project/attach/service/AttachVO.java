@@ -25,10 +25,9 @@ public class AttachVO {
 	private long size;
 	
 	@Builder
-	public AttachVO(String originalName, String saveName, long size, String path, String ext){
+	public AttachVO(String originalName, String saveName, String path, String ext){
 		this.attachOriginName = originalName;
-        this.attachSaveName = saveName;
-        this.size = size;
+        this.attachSaveName = saveName; 
         this.attachPath = path;
         this.attachExt = ext;
 	}

@@ -19,10 +19,20 @@
 	</sql>
 	
 	<!-- 조회 -->
+	<sql id="searchColumns">
+		 attach_origin_name
+		, attach_save_name
+		, attach_path
+		, attach_ext
+		, attach_table_div
+		, attach_table_pk		
+	</sql>
+	
+	<!-- 조회 -->
 	<select id="attachListAll" resultType="AttachVO">
-		SELECT <include refid="fileColumns"/>
+		SELECT <include refid="searchColumns"/>
 		FROM ATTACH
-		WHERE attach_div = #{attachTableDiv}
+		WHERE attach_table_div = #{attachTableDiv}
 		AND attach_table_pk = #{attacTablePk}
 	</select>
 	
