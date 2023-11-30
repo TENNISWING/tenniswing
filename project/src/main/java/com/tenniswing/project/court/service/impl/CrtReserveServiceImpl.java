@@ -1,5 +1,8 @@
 package com.tenniswing.project.court.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +16,17 @@ public class CrtReserveServiceImpl implements CrtReserveService {
 	@Autowired CrtReserveMapper crtReserveMapper;
 	
 	@Override
-	public int insertCrtReserve(CrtReserveVO crtReserveVO) {
+	public Map<String, Object> insertCrtReserve(CrtReserveVO crtReserveVO) {
+		Map<String, Object> map = new HashMap<>();
+		boolean isSuccessed = false;
 		int result = crtReserveMapper.insertCrtReserve(crtReserveVO);
-		if(result == 1) {
-			return crtReserveVO.getCrtroomNo();
+		if(result > 0) {
+			isSuccessed = true;
 		}
-		else {
-			return -1;
-		}
+		map.put("result", isSuccessed);
+		map.put("crtReserveVO", crtReserveVO);
+		
+		return map;
 	}
 
 }

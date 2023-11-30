@@ -1,5 +1,8 @@
 package com.tenniswing.project.court.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -64,6 +67,24 @@ public class CourtController {
 			return "court/reserveCourt";
 		}
 		
+		@PostMapping("reserveCourt")
+		@ResponseBody
+		public Map<String, Object> reserveCourtProccess(CrtReserveVO crtReserveVO) {
+			//System.out.println(crtReserveVO);
+			String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+			
+			if(memId.equals("anonymousUser")) {
+				//return "redirect:loginform";
+			}
+			Map<String, Object> map = new HashMap<>();
+			
+			map = crtReserveService.insertCrtReserve(crtReserveVO);
+			
+			
+			
+			return map;
+		}
+		
 	// 호스트
 		// 코트장
 			// 목록
@@ -104,7 +125,7 @@ public class CourtController {
 			
 			// 등록
 			@PostMapping("registerCourtroom")
-			public String insertCourtroomProcess(CrtroomVO crtroomVO, RedirectAttributes rttr) {
+			public String insertCourtroomProccess(CrtroomVO crtroomVO, RedirectAttributes rttr) {
 				String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
 				
 				crtroomVO.setHostId(hostId);
@@ -152,7 +173,7 @@ public class CourtController {
 			
 			// 등록
 			@PostMapping("registerCourtDetail")
-			public String insertCourtDetailProcess(CrtDetailVO crtDetailVO, @RequestParam String action, RedirectAttributes rttr) {
+			public String insertCourtDetailProccess(CrtDetailVO crtDetailVO, @RequestParam String action, RedirectAttributes rttr) {
 				crtDetailService.insertCrtDetail(crtDetailVO);
 				
 				int crtroomNo = crtDetailVO.getCrtroomNo();
