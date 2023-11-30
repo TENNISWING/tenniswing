@@ -196,11 +196,11 @@
 								</tr>
 							</thead> -->
 							<tbody id="matchList">
-								<th:block th:each="num : ${#numbers.sequence(1,12)}">
+								<th:block th:each="num : ${#numbers.sequence(1,24)}">
 									<tr class="navbar-brand">
 										<td class="text-center" style="width: 10%"><b>실내</b></td>
 										<td style="width: 50%; text-align: center;">
-										<input type="hidden" id="reserveTime" value="be" th:attrappend="value=${num}">[[${num+8}]]:00  ~  [[${num+9}]]:00</td>
+										<input type="hidden" id="reserveTime" value="be" th:attrappend="value=${num}">[[${(num+5)}]]:00  ~  [[${num+6}]]:00</td>
 										<td style="width: 10%"><input type="hidden" name="tReserveTime" value="1">1시간</td>
 										<td style="width: 10%"><input type="hidden" name="reservePrice" value="10000">10,000원</td>
 										<td class="text-end" style="width: 20%"><button class="btn btn-primary matchbtn1">예약하기</button></td>
@@ -209,11 +209,16 @@
 							</tbody>
 						</table>
 						<input type="hidden" id="reserveTime" name="reserveTime">
+						<input type="hidden" id="crtNo" name="crtNo">
 						<script>
 							$('.matchbtn1').on('click',function(e){
 								let reserveTime = $(e.target).closest('tr').find('input').val();
 								$('input[name="reserveTime"]').val(reserveTime);
 							})
+							$('input[name="crtDetailNo"]').eq(0).prop('checked',true);
+							let courtNo = $('input[name="crtDetailNo"]:checked').next().text();
+							$('input[name="crtNo"]').val(courtNo);
+							console.log(courtNo);
 						</script>
 						<!-- ============== 상세 안내 ============== -->
 						<div class="col-md-6" style="width: 100%">
@@ -680,12 +685,22 @@
                         $('.swiper-wrapper.dateslide > div div').on('click', function (e) {
                         	$('.swiper-wrapper.dateslide > div div').removeClass('active');
                         	$(e.target).toggleClass('active');
-                        	let clickDate = $(e.target).data('day');
+                        	/* let clickDate = $(e.target).data('day');
                         	$('#hiddenDate').append('<input type="hidden" name="reserveDate" value="">');
-                        	$('input[name="reserveDate"]').val(clickDate);
+                        	$('input[name="reserveDate"]').val(clickDate); */
                         	
                         	//matchAjax(matchDate,1);
                         })
+                        let data = $('.swiper-wrapper.dateslide > div div');
+                        $.each(data, function(index, item){
+                        	if($(item).hasClass('active')){
+                        		let clickDate = $(item).data('day');
+                            	$('#hiddenDate').append('<input type="hidden" name="reserveDate" value="">');
+                            	$('input[name="reserveDate"]').val(clickDate);
+                        	}
+                        })
+                        
+                       // if($('.swiper-wrapper.dateslide > div div').hasClass('active') == true)
                         
                     </script>
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
