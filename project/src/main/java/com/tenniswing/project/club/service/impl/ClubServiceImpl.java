@@ -1,6 +1,8 @@
 package com.tenniswing.project.club.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,7 @@ public class ClubServiceImpl implements ClubService {
 			return -1;
 		}
 	}
+	
 	//클럽 삭제
 	@Override
 	public boolean deleteClub(int ClubNo) {
@@ -47,6 +50,22 @@ public class ClubServiceImpl implements ClubService {
 		}else {
 			return false;
 		}
+	}
+	
+	//클럽 수정
+	@Override
+	public Map<String, Object> updateClub(ClubVO clubVO) {
+		Map<String, Object> map = new HashMap<>();
+		boolean isSuccessed = false;
+		
+		int result = clubMapper.updateClub(clubVO);
+		
+		if(result == 1) {
+			isSuccessed = true;
+		}
+		map.put("result", isSuccessed);
+		map.put("info", clubVO);
+		return map;
 	}
 
 	
