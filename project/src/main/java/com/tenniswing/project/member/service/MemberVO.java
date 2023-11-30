@@ -1,8 +1,11 @@
 package com.tenniswing.project.member.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -35,4 +38,7 @@ public class MemberVO {
 	private String hostActNo;
 	private String hostDepositor;
 	private String hostBusinessRegiNo;
+	
+	//attach
+	private List<MultipartFile> files = new ArrayList<>();
 }

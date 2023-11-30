@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.tenniswing.project.attach.mapper.AttachMapper">
+		
+	<!-- 등록 -->
+	<sql id="fileColumns">
+		attach_no
+		, attach_ext
+		, attach_origin_name
+		, attach_save_name
+		, attach_path
+		, attach_turn
+		, attach_table_div
+		, attach_table_pk		
+	</sql>
+	
+	<!-- 조회 -->
+	<select id="attachListAll" resultType="AttachVO">
+		SELECT <include refid="fileColumns"/>
+		FROM ATTACH
+		WHERE attach_div = #{attachTableDiv}
+		AND attach_table_pk = #{attacTablePk}
+	</select>
+	
+	<!-- 파일정보 저장  -->
+	<insert id="saveAttachAll" parameterType="list">
+		<selectKey keyProperty="attachNo" resultType="int"
+				order="BEFORE">
+				<!-- primarykey가 숫자일 경우 사용 -->
+				SELECT NVL(MAX(ATTACH_NO), 0) + 1
+				FROM ATTACH
+			</selectKey>
+		INSERT INTO ATTACH (
+			<include refid="fileColumns"/>
+		) 
+		<foreach item="file" collection="list" index="idx" separator="UNION ALL">
+		SELECT 
+			#{attachNo} + #{idx}
+			, #{file.attachExt}
+			, #{file.attachOriginName}
+			, #{file.attachSaveName}
+			, #{file.attachPath}
+			, #{file.attachTurn}
+			, #{file.attachTableDiv}
+			, #{file.attacTablePk}		
+		FROM DUAL		
+		</foreach>
+	</insert>
+</mapper>

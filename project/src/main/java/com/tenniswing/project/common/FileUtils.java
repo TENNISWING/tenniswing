@@ -17,8 +17,6 @@ import com.tenniswing.project.attach.service.AttachVO;
 
 @Component
 public class FileUtils {
-//	@Value("${lodingPath}")
-//    String uploadPath;
     private final String uploadPath = Paths.get("C:", "attach").toString();
 
     /**
@@ -50,7 +48,7 @@ public class FileUtils {
 
         String saveName = generateSaveFilename(multipartFile.getOriginalFilename());
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")).toString();
-        String mapperPath = today + "/" + saveName;
+        String mapperPath = "/attach/" + today + "/" + saveName;
         String uploadPath = getUploadPath(today) + File.separator + saveName;
         File uploadFile = new File(uploadPath);
 
@@ -65,6 +63,7 @@ public class FileUtils {
                 .saveName(saveName)
                 .size(multipartFile.getSize())
                 .path(mapperPath)
+                .ext(saveName.substring(saveName.lastIndexOf(".")))
                 .build();
     }
 
