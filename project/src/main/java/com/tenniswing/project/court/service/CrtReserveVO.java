@@ -29,4 +29,5 @@ public class CrtReserveVO {
 	//
 	private String crtroomName;
 	private String crtroomLocation;
+	private String crtNo;
 }
