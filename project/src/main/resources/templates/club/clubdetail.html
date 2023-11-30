@@ -383,6 +383,37 @@ object-fit: cover;
 		
 		
 		//클럽 수정 아작스
+		//수정 모달창 열릴때
+		
+		$('.clubEditModal').on('show.bs.modal', function(e){
+			let clubNo = $('#info-tab').data('club-no')
+			
+			$.ajax({
+					url : 'clubUpdate',  //컨트롤러에 맵핑에 있는 경로
+					data : {
+						clubName, 
+						clubRegion, 
+						clubGen, 
+						clubAge, 
+						clubDay, 
+						clubTime, 
+						clubCrt, 
+						clubRecruitment},
+					type : 'post',
+					datatype : 'text',
+					success : function(result) {
+						$(e.target).text('수정')
+							alert("수정성공")
+						// getRepList(snsWrtNo); //다시 메인 페이지 보여줘야하나요?
+					},
+					error : function() {
+						alert("등록 실패")
+
+					}
+				})
+		})
+		
+		
 		/* $('#clubEdit').on('click',function(e){
 			let clubNo = $('#info-tab').data('club-no')
 			

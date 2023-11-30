@@ -1,6 +1,7 @@
 package com.tenniswing.project.club.web;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,8 +34,6 @@ public class ClubController {
 	 public List<ClubVO> clubPageAjax(ClubVO clubVO) { 
 		 return clubService.selectAllClub(clubVO);
 		 }
-	 
-	
 	 
 	
 	@GetMapping("clubform")  //등록 페이지
@@ -71,7 +70,7 @@ public class ClubController {
 		clubVO.setMemId(id);
 		model.addAttribute("club",clubService.selectClub(clubVO));
 		
-		System.out.println("==================="+ clubVO);
+		//System.out.println("==================="+ clubVO);
 		return "club/clubInfo";
 	}
 	
@@ -80,6 +79,16 @@ public class ClubController {
 	public boolean deleteClubAjax(@RequestParam("paramclubNo") Integer clubNo) {
 		boolean result = clubService.deleteClub(clubNo);
 		return result;
+	}
+	
+	//클럽 수정
+	@GetMapping("clubUpdate")
+	@ResponseBody
+	public Map<String, Object> clubUpdateFormAjax(ClubVO clubVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		clubVO.setMemId(id);
+		System.out.println("-----수정아작스컨트롤러 "+clubVO);
+		return clubService.updateClub(clubVO);
 	}
 	
 	
