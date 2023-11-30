@@ -1,6 +1,8 @@
 package com.tenniswing.project.court.service;
 
+import java.util.Map;
+
 public interface CrtReserveService {
 	// 예약등록
-	public int insertCrtReserve(CrtReserveVO crtReserveVO);
+	public Map<String, Object> insertCrtReserve(CrtReserveVO crtReserveVO);
 }
