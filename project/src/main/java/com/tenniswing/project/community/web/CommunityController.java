@@ -93,9 +93,13 @@ public class CommunityController {
 		// sns 좋아요 등록
 		@PostMapping("snsLikeInsert")
 		@ResponseBody
-		public int insertLikeAjax() {
+		public int insertLikeAjax(SnsVO snsVO) {
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			snsVO.setMemId(id);
+			System.out.println(snsVO);
+			int result = snsService.insertLike(snsVO);
 			
-			return 0;
+			return result;
 		}
 		
 		// sns 내가 등록한 게시글 보기
