@@ -41,4 +41,5 @@ public class MemberVO {
 	
 	//attach
 	private List<MultipartFile> files = new ArrayList<>();
+	private String attachPath;
 }

@@ -4,35 +4,31 @@
 	layout:decorate="~{/layouts/main-layout}">
 
 <th:block layout:fragment="content">
-
-	<div class="container mt-5">
+	<h3 class="container p-3">매치 이력</h3>
+	<div class="container" id="mypage">
 		<div class="row">
 			<div class="col-lg-4 col-md-auto">
 				<div th:replace="/member/mypage-sidemenu :: sidemenu"></div>
 			</div>
-			<div class="col-lg-8 col-md-auto" id="mypage">
+			<div class="col-lg-8 col-md-auto">
 				<!-- Profile Table Start -->
 				<div class="cart__form">
 					<table>
-						<thead><h5 class="p-3 m-2">매치 이력</h5>
+						<thead>				
 							<tr>
 								<th class="cart-pd__thumb">일자</th>
 								<th class="cart-pd__qty">코트장이름</th>
 								<th class="cart-pd__price">매치상대</th>
-								<th class="cart-pd__status">상태</th>
+								<th class="cart-pd__status">코멘트</th>
 							</tr>
 						</thead>
 						<tbody>
-
 							<tr>
 								<td class="cart-pd__date text-start" data-title="Date">
 									Order on <br /> 25 April 2022
 								</td>
 								<td class="cart-pd__thumb">
 									<div class="product-card--inline">
-										<a href="product-single.html" class="product__image"> <img
-											src="assets/images/cart/cart-03.png" alt="product" />
-										</a>
 										<div class="product__content">
 											<h5 class="product__title">
 												<a href="#">All Natural Blueberries </a>
@@ -44,41 +40,121 @@
 									</div>
 								</td>
 								<td class="cart-pd__qty" data-title="Quantity">2</td>
-								<td class="cart-pd__Price" data-title="Price">$12.22</td>
-
+								<td>
+									<div class="accordion-item">
+										<h2 class="accordion-header" id="headingTwo">
+											<button class="collapsed btn btn-outline-success"
+												type="button" data-bs-toggle="collapse"
+												data-bs-target="#collapseTwo" aria-expanded="false"
+												aria-controls="collapseTwo">코멘트보기</button>
+										</h2>
+									</div>
+								</td>
 							</tr>
+							<tr>
+								<td colspan="4" id="collapseTwo"
+									class="accordion-collapse collapse"
+									aria-labelledby="headingTwo" >
+									<div class="accordion-body">
+										<div class="input-group mb-3">
+											<input type="text" class="form-control"	placeholder="코멘트 입력" id="repCtt" name="repCtt">
+											<button class="btn btn-success regiBtn" type="button">등록</button>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="cart-pd__date text-start" data-title="Date">
+									Order on <br /> 25 April 2022
+								</td>
+								<td class="cart-pd__thumb">
+									<div class="product-card--inline">
+										<div class="product__content">
+											<h5 class="product__title">
+												<a href="#">All Natural Blueberries </a>
+											</h5>
+											<ul class="product__info">
+												<li class="info-item">Weight: <span>5kg</span></li>
+											</ul>
+										</div>
+									</div>
+								</td>
+								<td class="cart-pd__qty" data-title="Quantity">2</td>
+								<td>
+									<button class="collapsed btn btn-outline-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo1">코멘트보기</button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" id="collapseTwo1" class="accordion-collapse collapse">								
+										<div class="input-group mb-3">
+											<input type="text" class="form-control"	placeholder="코멘트 입력" id="repCtt" name="repCtt">
+											<button class="btn btn-success regiBtn" type="button">등록</button>
+										</div>							
+								</td>
+							</tr>
+						
 						</tbody>
 					</table>
 				</div>
 				<!-- Profile Card End -->
+
+				<div class="table-responsive mt-5">
+					<table class="table" id="table1">
+						<thead>
+							<tr>
+								<th>일자</th>
+								<th>코트장 이름</th>
+								<th>매치상대</th>
+								<th>코멘트</th>			
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Graiden</td>
+								<td>vehicula.aliquet@semconsequat.co.uk</td>
+								<td>076 4820 8838</td>
+								<td>123</td>					
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="modal fade" id="galleryModal" tabindex="-1" role="dialog"
-		aria-labelledby="galleryModalTitle" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="galleryModalTitle">프로필사진</h5>
-					<button type="button" class="close" data-bs-dismiss="modal"
-						aria-label="Close">
-						<i data-feather="x"></i>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="d-flex justify-content-center">
-						<img class="d-block" th:src="${attachList.attachPath}">
-					</div>
-				</div>
 
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+
+	<script>
+	function myPageAjax(page) {
+		
+		$.ajax({
+			type: 'GET',
+			url: 'matchList',
+			data: {matchDate, page, gameWay, gen, location, ntrp},
+			success: function(result) {
+				//리스트
+				$('#matchList').empty();
+				for(let matchInfo of result.matchList){
+					let b = `<tr class="navbar-brand">					
+					<td class="text-center"><b>${dateFormat(matchInfo.matchDate)}</b></td>
+					<td>${matchInfo.time}시</td>
+					<td>${matchInfo.gameWayName}</td>
+					<td>${matchInfo.crtroomName}</td>
+					<td>${matchInfo.genName}</td>
+					<td class="text-end mtbt">
+						<a class="btn btn-primary matchbtn1" href="matchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>
+					</td>
+				</tr>`
+					$('#matchList').append(b)
+				}
+				
+				showPage(result.selectCount);
+			}
+		})
+	}
+	</script>
+
 
 </th:block>
 

@@ -27,7 +27,6 @@
 		SELECT *
 		FROM MEM
 		WHERE MEM_ID = #{memId}
-		<!-- LIKE '%' || #{keyword} || '%' LIKE '%${keyword}%' -->
 	</select>
 
 	<!-- 멤버정보 조회 -->
@@ -48,10 +47,14 @@
 		,p.CRTROOM_NO
 		,p.PR_IMAGE
 		,p.MANNER_POINT
+		, (SELECT ATTACH_PATH
+		FROM ATTACH
+		where  m.mem_no = attach_table_pk
+		AND attach_table_div = 'm') as ATTACH_PATH
 		FROM MEM m JOIN PR p
 		ON m.mem_id = p.mem_id
 		WHERE m.mem_id = #{memId}
-		<!-- LIKE '%' || #{keyword} || '%' LIKE '%${keyword}%' -->
+		
 	</select>
 
 	<!-- 아이디 중복 체크 -->
