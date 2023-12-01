@@ -28,6 +28,7 @@ public class ProdDetailServiceImpl implements ProdDetailService{
 		Map<String, Object> map = new HashMap<>();
 		ProdVO tempVO = new ProdVO();
 		tempVO.setProdNo(prodDetailVO.getProdNo());
+		//tempVO.setProdTSto(prodDetailVO.getProdDetailSto());
 		
 		if(prodDetailVO.getProdDetailSaleSts() == null) {
 			prodDetailVO.setProdDetailSaleSts("p2");
@@ -46,12 +47,41 @@ public class ProdDetailServiceImpl implements ProdDetailService{
 	//수정
 	@Override
 	public Map<String, Object> updateProdDetail(ProdDetailVO prodDetailVO) {
-		return null;
+		Map<String, Object> map = new HashMap<>();
+		ProdVO tempVO = new ProdVO();
+		tempVO.setProdNo(prodDetailVO.getProdNo());
+		
+		if(prodDetailVO.getProdDetailSaleSts() == null) {
+			prodDetailVO.setProdDetailSaleSts("p2");
+		}
+		boolean isSucess = false;
+		
+		int result = prodDetailMapper.updateProdDetail(prodDetailVO);
+		if(result == 1) {
+			isSucess = true;
+		}
+		map.put("result", isSucess);	
+		map.put("targetVO", prodDetailVO);
+		map.put("listDetailVO", prodDetailMapper.selectAllProdDetail(tempVO));
+		return map;
 	}
 	//삭제
 	@Override
-	public Map<String, Object> deleteProdDetail(int prodDetailNo) {
-		return null;
+	public Map<String, Object> deleteProdDetail(ProdDetailVO prodDetailVO) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		ProdVO tempVO = new ProdVO();
+		tempVO.setProdNo(prodDetailVO.getProdNo());
+		
+		boolean isSuccess = false;
+		
+		int result = prodDetailMapper.deleteProdDetail(prodDetailVO);
+		if(result == 1) {
+			isSuccess = true;
+		}
+		map.put("result", isSuccess);
+		map.put("target", prodDetailVO);
+		map.put("listDetailVO", prodDetailMapper.selectAllProdDetail(tempVO));
+		return map;	
 	}
 	
 }

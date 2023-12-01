@@ -37,4 +37,7 @@ public interface MatchMapper {
 	
 	//페이징
 	public int selectCount(MatchVO matchVO);
+	public int selectClubCount(MatchVO matchVO);
+	public int selectContCount(MatchVO matchVO);
+	public int selectStarterCount(MatchVO matchVO);
 }

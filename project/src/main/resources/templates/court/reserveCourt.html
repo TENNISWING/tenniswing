@@ -130,6 +130,7 @@
 		</form>
 	</div>
 	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
 	<script th:inline="javascript">
 		$('#reserveSubmit').on('click', function(){
 			
@@ -199,7 +200,67 @@
 					}
 				});
 			
-			/* $.ajax({
+ /* $.ajax({
+
+	<script type="text/javascript">
+		$('#reserveSubmit').on('click', function(){
+			IMP.init("imp48072683");
+			IMP.request_pay({
+				pg: 'kcp.T0000',
+				pay_method: 'card',
+				merchant_uid: 'sddddddfasdf',
+				name: '종',
+				amount: 100,
+				buyer_email: '이메일',
+				buyer_name: '사는사람',
+				buyer_tel: '전화번호',
+				buyer_addr: '주소',
+				buyer_postcode: '123-456',
+				display: {
+					card_quota: [6]  // 할부개월 6개월까지 활성화
+				}
+			}, function(rsp) { // callback
+
+				if (rsp.success) {
+					// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+					// jQuery로 HTTP 요청
+					console.log(rsp.imp_uid)
+					console.log(rsp.merchant_uid)
+					
+
+					$.ajax({
+						url: 'Order.do',
+						method: 'post',						
+						data: {
+							id: uid,
+							total: lastSum,
+							imp_uid: rsp.imp_uid,            // 결제 고유번호
+							merchant_uid: rsp.merchant_uid   // 주문번호
+						},
+						success: function(e) {
+							if (e.retCode == 'Success') {
+								location.href = "OrderComplete.do";
+							} else {
+								alert("결제 실패, 다시 시도해 주세요.");
+							}
+						},
+						error: function(e) {
+							console.log(e);
+						}
+					})
+
+				} else {
+					alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+				}
+			});
+			
+			
+			
+			
+			
+			
+			$.ajax({
+
 				method: 'post',
 				url: 'reserveCourt',
 				data: $("form[name='reserve']").serialize(),				

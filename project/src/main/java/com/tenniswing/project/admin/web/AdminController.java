@@ -77,6 +77,13 @@ public class AdminController {
 								// JSON => @RequestBody
 		return prodService.updateProd(prodVO);
 	}
+	
+//	상품 상세 수정 - 처리
+	@PostMapping("adminEditDetail_Product")
+	@ResponseBody
+	public Map<String, Object> adminEditDetailProdcutProcess(@RequestBody ProdDetailVO prodDetailVO) {
+		return prodDetailService.updateProdDetail(prodDetailVO);
+	}
 
 	//
 	/*
@@ -89,6 +96,13 @@ public class AdminController {
 	@ResponseBody
 	public Map<String, Object> adminDeleteProductProcess(@RequestParam Integer prodNo) {
 		return prodService.deleteProd(prodNo);
+	}
+	
+//	상품 상세 삭제
+	@PostMapping("adminDeleteDetail_Product")
+	@ResponseBody
+	public Map<String, Object> adminDeleteDetailProductProcess(@RequestBody ProdDetailVO prodDetailVO) {
+		return prodDetailService.deleteProdDetail(prodDetailVO);
 	}
 	
 	@GetMapping("admin_Order")

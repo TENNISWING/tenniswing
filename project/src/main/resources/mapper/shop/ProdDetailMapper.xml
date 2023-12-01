@@ -36,4 +36,24 @@
   			#{prodNo}
   		)
   	</insert>
+  	
+  	<!-- 수정 -->
+  	<update id="updateProdDetail" parameterType="ProdDetailVO">
+  		UPDATE prod_detail
+  			<set>
+				<if test="prodDetailSto != null and !prodDetailSto.equals('')">
+					prod_detail_sto = #{prodDetailSto},
+				</if>
+				<if test="prodDetailSaleSts != null and !prodDetailSaleSts.equals('')">
+					prod_detail_sale_sts = #{prodDetailSaleSts},
+				</if>
+  			</set>
+  		WHERE prod_detail_no = #{prodDetailNo}
+  	</update>
+  	
+  	<!-- 삭제 -->
+  	<delete id="deleteProdDetail" parameterType="ProdDetailVO">
+  		DELETE FROM prod_detail
+  		WHERE prod_detail_no = #{prodDetailNo}
+  	</delete>
   </mapper>

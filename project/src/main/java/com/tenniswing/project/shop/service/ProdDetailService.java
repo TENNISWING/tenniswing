@@ -11,5 +11,5 @@ public interface ProdDetailService {
 //	수정
 	public Map<String, Object> updateProdDetail(ProdDetailVO prodDetailVO);
 //	삭제
-	public Map<String, Object> deleteProdDetail(int prodDetailNo);
+	public Map<String, Object> deleteProdDetail(ProdDetailVO prodDetailVO);
 }

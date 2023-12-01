@@ -2,13 +2,15 @@ package com.tenniswing.project.match.service;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
 public class MatchVO {
 	private int matchNo;
 	private String memNo;	
-	private String memId;	
+	private String memId;
 	private Date matchDate;
 	private int time;
 	private String gameWay;
@@ -16,6 +18,7 @@ public class MatchVO {
 	private String progState;
 	private String progStateName;
 	private String ntrp;
+	private String ntrpName;
 	private String lv;
 	private String lvName;
 	private String gen;
