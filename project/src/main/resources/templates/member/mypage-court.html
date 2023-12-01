@@ -5,16 +5,16 @@
 
 <th:block layout:fragment="content">
 
-	<div class="container mt-5" id="mypage">
+	<div class="container mt-5">
 		<div class="row">
 			<div class="col-lg-4 col-md-auto">
 				<div th:replace="/member/mypage-sidemenu :: sidemenu"></div>
 			</div>
-			<div class="col-lg-8 col-md-auto" >
+			<div class="col-lg-8 col-md-auto" id="mypage">
 				<!-- Profile Table Start -->
 				<div class="cart__form">
 					<table>
-						<thead><h5 class="p-3 my-2">매치 이력</h5>
+						<thead><h5 class="p-3 my-2">코트 예약 이력</h5>
 							<tr>
 								<th class="cart-pd__thumb">일자</th>
 								<th class="cart-pd__qty">코트장이름</th>
@@ -68,7 +68,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="d-flex justify-content-center">
-						<img class="d-block" th:src="${attachList}">
+						<img class="d-block" th:src="${attachList.attachPath}">
 					</div>
 				</div>
 
@@ -79,8 +79,6 @@
 			</div>
 		</div>
 	</div>
-	
-	
 
 </th:block>
 

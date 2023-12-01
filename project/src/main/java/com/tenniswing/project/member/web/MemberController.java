@@ -93,17 +93,11 @@ public class MemberController {
 			}
 			
 			List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());
-			System.out.println(memberVO.getMemNo());
+			
 			//테이블 구분, 게시글 번호, 파일목록
 			int n = attachService.saveAttach("m", memberVO.getMemNo(), files);
 			
-			if(n > 0) {			
-				return "redirect:/loginform";
-				
-			}else {
-				model.addAttribute("message", "파일등록에 실패하였습니다.");
-				return "member/signup";
-			}
+			return "redirect:/loginform";
 			
 		} else {
 			model.addAttribute("message", "회원가입에 실패하였습니다.");
@@ -129,12 +123,23 @@ public class MemberController {
 		model.addAttribute("member", memberVO);
 		
 		//첨부파일 불러오기
-		List<AttachVO> attachList =  attachService.attachList("m", memberVO.getMemNo());
+		List<AttachVO> attachList =  attachService.attachList("m", memberVO.getMemNo());	
 		
-		if(attachList != null) {
-			//첨부파일 dom에 전달		
-			model.addAttribute("attachList", attachList.get(0));
-		}		
+		String path = "";
+		
+		if(attachList != null && attachList.size() != 0) {
+			//첨부파일 dom에 전달	
+			path = attachList.get(0).getAttachPath();
+			model.addAttribute("attachList", path);
+		}else {
+			if(memberVO.getGen().equals("남성")) {
+				path = "/assets/compiled/jpg/2.jpg";
+				model.addAttribute("attachList", path);
+			}else {		
+				path = "/assets/compiled/jpg/3.jpg";
+				model.addAttribute("attachList", path);
+			}
+		}
 		
 		if(role.equals("ROLE_ADMIN")) {
 			return "redirect:admin";
@@ -143,6 +148,11 @@ public class MemberController {
 		}
 		
 		return "member/mypage";
+	}
+	
+	@GetMapping("mypage-club")
+	public String clubMyPage(Model model) {
+		return "member/mypage-club";
 	}
 
 }

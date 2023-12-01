@@ -5,7 +5,7 @@
 		<li class="list-group-item d-flex justify-content-between p-4">
 			<div class="avatar avatar-xl col-lg-3 col-md-auto"
 				data-bs-toggle="modal" data-bs-target="#galleryModal">
-				<img th:src="${attachList.attachPath}" style="cursor: pointer;">
+				<img th:src="${attachList}" style="cursor: pointer;">
 			</div>
 			<div class="name col-lg-9 col-md-auto">
 				<h5 class="font-bold">[[${member.nick}]]</h5>
@@ -28,7 +28,7 @@
 	<ul class="list-group mb-3">
 		<li class="list-group-item d-flex justify-content-evenly p-3">
 			<div class="text-center cotainer">
-				<button type="button" class="btn btn-success">프로필 보기</button>
+				<button type="button" class="btn btn-success" id="pay">프로필 보기</button>
 			</div>
 			<div class="text-center ">
 				<!-- Profile Card End -->
@@ -42,7 +42,6 @@
 	<ul class="list-group mb-5">
 		<li class="list-group-item btn btn-outline-success p-3 active">매치 이력</li>
 		<li class="list-group-item btn btn-outline-success p-3">나의 클럽목록</li>
-		<li class="list-group-item btn btn-outline-success p-3">나의 친구</li>
 		<li class="list-group-item btn btn-outline-success p-3">코트 예약</li>
 		<li class="list-group-item btn btn-outline-success p-3">나의 작성글</li>
 		<li class="list-group-item btn btn-outline-success p-3 mb-5">쇼핑</li>
@@ -52,9 +51,25 @@
 		$('.list-group-item.btn').on('click', function(e){
 			$('.list-group-item.btn').removeClass('active');
 			$(e.target).toggleClass('active');
-		})
-	</script>
+			let menuNo = $(e.target).index();
 
+			if(menuNo = 0){
+				location.href="mypage";
+			}else if(menuNo = 1){
+				location.href="mypage-club";
+			}
+			}else if(menuNo = 2){
+				location.href="mypage-court";
+			}
+			}else if(menuNo = 3){
+				location.href="mypage";
+			}
+			}else if(menuNo = 4){
+				location.href="mypage";
+			}
+		})
+		
+	</script>
 </th:block>
 
 </html>
