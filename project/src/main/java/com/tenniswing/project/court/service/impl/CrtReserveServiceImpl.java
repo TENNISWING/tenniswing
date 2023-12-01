@@ -1,6 +1,7 @@
 package com.tenniswing.project.court.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,16 @@ public class CrtReserveServiceImpl implements CrtReserveService {
 		map.put("crtReserveVO", crtReserveVO);
 		
 		return map;
+	}
+
+	@Override
+	public List<CrtReserveVO> impossibleReserveList(CrtReserveVO crtReserveVO) {
+		return crtReserveMapper.impossibleReserveList(crtReserveVO);
+	}
+
+	@Override
+	public List<CrtReserveVO> reserveTimeCodeList() {
+		return crtReserveMapper.reserveTimeCodeList();
 	}
 
 }

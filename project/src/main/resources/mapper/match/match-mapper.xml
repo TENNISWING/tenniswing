@@ -18,21 +18,19 @@
                     FIND_CATEGORY_NAME (m.prog_state)   prog_state_name,
                     m.ntrp,
                     m.lv,
-                    FIND_CATEGORY_NAME (m.lv)  lv_name,
                     m.gen,
                     FIND_CATEGORY_NAME (m.gen)  gen_name,
                     m.crt_use_amt,
                     m.recruit_psn_num,
                     m.detail_ctt,
                     c.crtroom_no,
+                    c.crtroom_name,
                     c.crtroom_location,
                     FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
   		FROM match m, crtroom c
   		WHERE m.crtroom_no = c.crtroom_no
   		 AND TRUNC (match_date) = TRUNC(#{matchDate})
- 		 <if test="gameWay != null and gameWay != ''">and game_way = #{gameWay}</if>
  		 <if test="gen != null and gen != ''">and gen = #{gen}</if>
- 		 <if test="lv != null and lv != ''">and lv = #{lv}</if>
  		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
  		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
   		ORDER BY time
@@ -45,9 +43,7 @@
    		FROM match m, crtroom c
   		WHERE m.crtroom_no = c.crtroom_no
   		 AND TRUNC (match_date) = TRUNC(#{matchDate})
- 		 <if test="gameWay != null and gameWay != ''">and game_way = #{gameWay}</if>
  		 <if test="gen != null and gen != ''">and gen = #{gen}</if>
- 		 <if test="lv != null and lv != ''">and lv = #{lv}</if>
  		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
  		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
    	</select>
@@ -72,18 +68,18 @@
   				, m.crt_use_amt
   				, m.detail_ctt
   				, m.crtroom_no
+  				, c.crtroom_name
                 , c.crtroom_location
                 , FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
   		FROM club_match m, crtroom c
   		WHERE m.crtroom_no = c.crtroom_no
   		AND TRUNC (match_date) = TRUNC(#{matchDate})
- 		 <if test="gameWay">and game_way = #{gameWay}</if>
- 		 <if test="lv">and lv = #{lv}</if>
- 		 <if test="crtroomLocation">and crtroom_location = #{crtroomLocation}</if>
- 		 <if test="progStateName">and prog_state_name = #{progStateName}</if>
+ 		 <if test="gameWay != null and gameWay != ''">and game_way = #{gameWay}</if>
+ 		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
+ 		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
   		ORDER BY time
   		
-  		) A) b where rn between (#{page}-1)*10 + 1 and #{page} * 10
+  		) A) b where rn between (#{page}-1)*#{pageUnit} + 1 and #{page} * #{pageUnit}
    	</select>
    	
    	<select id="selectClubCount" resultType="int">
@@ -91,10 +87,9 @@
    		FROM club_match m, crtroom c
   		WHERE m.crtroom_no = c.crtroom_no
   		AND TRUNC (match_date) = TRUNC(#{matchDate})
- 		 <if test="gameWay">and game_way = #{gameWay}</if>
- 		 <if test="lv">and lv = #{lv}</if>
- 		 <if test="crtroomLocation">and crtroom_location = #{crtroomLocation}</if>
- 		 <if test="progStateName">and prog_state_name = #{progStateName}</if>
+ 		 <if test="gameWay != null and gameWay != ''">and game_way = #{gameWay}</if>
+ 		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
+ 		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
    	</select>
    	
    	<!-- 대회 전체 조회  -->
@@ -111,21 +106,29 @@
   				, m.recruit_psn_num
   				, m.ntrp
   				, m.lv
-  				, FIND_CATEGORY_NAME (m.lv)  lv_name
   				, m.cont_attend_cost
   				, m.detail_ctt
   				, m.crtroom_no
+  				, c.crtroom_name
   				, c.crtroom_location
                 , FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
   		FROM cont_match m, crtroom c
   		WHERE m.crtroom_no = c.crtroom_no
   		AND TRUNC(start_date) = TRUNC(#{matchDate})
- 		 <if test="lv">and lv = #{lv}</if>
- 		 <if test="crtroomLocation">and crtroom_location = #{crtroomLocation}</if>
- 		 <if test="progStateName">and prog_state_name = #{progStateName}</if>
+ 		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
+ 		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
   		ORDER BY time
   		
-  		) A) b where rn between (#{page}-1)*10 + 1 and #{page} * 10
+  		) A) b where rn between (#{page}-1)*#{pageUnit} + 1 and #{page} * #{pageUnit}
+   	</select>
+   	
+   	<select id="selectContCount" resultType="int">
+   		select count(*)
+   		FROM cont_match m, crtroom c
+  		WHERE m.crtroom_no = c.crtroom_no
+  		AND TRUNC(start_date) = TRUNC(#{matchDate})
+ 		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
+ 		 <if test="progStateName != null and progStateName != ''">and prog_state_name</if>
    	</select>
 
 	<!-- 스타터 전체 조회  -->
@@ -139,26 +142,38 @@
   				, m.prog_state
   				, FIND_CATEGORY_NAME (m.prog_state)   prog_state_name
   				, m.ntrp
+  				, FIND_CATEGORY_NAME (m.ntrp)  ntrp_name
   				, m.lv
-  				, FIND_CATEGORY_NAME (m.lv)  lv_name
   				, m.gen
   				, FIND_CATEGORY_NAME (m.gen)  gen_name
   				, m.rsprice
   				, m.recruit_psn_num
   				, m.detail_ctt
   				, m.crtroom_no
+  				, c.crtroom_name
   				, c.crtroom_location
                 , FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
   		FROM starter_match m, crtroom c
   		WHERE m.crtroom_no = c.crtroom_no
   		AND TRUNC (match_date) = TRUNC(#{matchDate})
- 		 <if test="gen">and gen = #{gen}</if>
- 		 <if test="lv">and lv = #{lv}</if>
- 		 <if test="crtroomLocation">and crtroom_location = #{crtroomLocation}</if>
- 		 <if test="progStateName">and prog_state_name = #{progStateName}</if>
+ 		 <if test="gen != null and gen != ''">and gen = #{gen}</if>
+ 		 <if test="ntrp != null and ntrp != ''">and ntrp = #{ntrp}</if>
+ 		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
+ 		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
   		ORDER BY time
   		
-  		) A) b where rn between (#{page}-1)*10 + 1 and #{page} * 10
+  		) A) b where rn between (#{page}-1)*#{pageUnit} + 1 and #{page} * #{pageUnit}
+   	</select>
+   	
+   	<select id="selectStarterCount" resultType="int">
+   		select count(*)
+   		FROM starter_match m, crtroom c
+  		WHERE m.crtroom_no = c.crtroom_no
+  		AND TRUNC (match_date) = TRUNC(#{matchDate})
+  		 <if test="gen != null and gen != ''">and gen = #{gen}</if>
+ 		 <if test="ntrp != null and ntrp != ''">and ntrp = #{ntrp}</if>
+ 		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
+ 		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
    	</select>
 
   	<!-- 단건조회 -->

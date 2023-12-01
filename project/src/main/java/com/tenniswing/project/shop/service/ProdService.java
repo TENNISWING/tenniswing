@@ -16,6 +16,12 @@ public interface ProdService {
 	// 수정
 	public Map<String, Object> updateProd(ProdVO prodVO);
 	
+	// 수정 - 상품 상세 추가시
+	
+	// 수정 - 상품 상세 수정시
+	
+	// 수정 - 상품 상세 삭제시
+	
 	// 삭제
 	public Map<String, Object> deleteProd(int prodNo);
 }
