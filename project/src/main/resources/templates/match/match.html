@@ -78,10 +78,9 @@
 									<option value="">성별</option>
 									<option value="c1">남자</option>
 									<option value="c2">여자</option>
-									<option value="c3">모두</option>
 								</select>
 							</div>
-							<div class="custom__dropdown custom__dropdown__v2">
+							<!-- <div class="custom__dropdown custom__dropdown__v2">
 								<select id="location" name="location">
 									<option value="">지역</option>
 									<option value="b1">서울</option>
@@ -93,10 +92,10 @@
 									<option value="b7">충청도</option>
 									<option value="b8">제주도</option>
 								</select>
-							</div>
-							<div class="custom__dropdown custom__dropdown__v2">
-								<select id="level" name="level">
-									<option value="">레벨</option>
+							</div> -->
+							<!-- <div class="custom__dropdown custom__dropdown__v2">
+								<select id="ntrp" name="ntrp">
+									<option value="">NTRP</option>
 									<option value="e1">1.0</option>
 									<option value="e2">1.5</option>
 									<option value="e3">2.0</option>
@@ -105,21 +104,28 @@
 									<option value="e6">3.5</option>
 									<option value="e7">4.0</option>
 								</select>
-							</div>
+							</div> -->
+						<button type="button" id="btnsearch">검색</button>
 						</form>
 					</div>
-					<div class="matchregibtn">
-						<button type="button" id="btnsearch">검색</button>
-					</div>
 					<div class="col-lg-2 text-end">
-						<button type="button" style="margin-right: 9px"
-							class="btn btn-primary matchregibtn"
+						<button type="button" class="btn btn-primary matchregibtn"
 							th:onclick="|location.href='@{matchregi}'|">매치 등록</button>
 					</div>
 				</div>
 
 				<!-- Default Table -->
 				<table class="table">
+				<thead>
+						<tr>
+							<th>날짜</th>
+							<th>경기 시간</th>
+							<th>경기 방식</th>
+							<th>코트장 이름</th>
+							<th>모집 성별</th>
+							<th>모집 상태</th>
+						</tr>
+					</thead>
 					<tbody id="matchList">
 
 					</tbody>
@@ -188,31 +194,50 @@
 
 				</div>
 		<script>
-				$('#btnsearch').on("click", function(e) {
-					let matchDate = $('.matchdate .active').data('day');
-					matchAjax(matchDate,1) 
-				})
+	$('#btnsearch').on("click", function(e) {
+		let matchDate = $('.matchdate .active').data('day');
+		matchAjax(matchDate,1) 
+	})
+	
+	function dateFormat(dd) {
+		let date = new Date(dd);
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        let second = date.getSeconds();
+
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : day;
+        hour = hour >= 10 ? hour : '0' + hour;
+        minute = minute >= 10 ? minute : '0' + minute;
+        second = second >= 10 ? second : '0' + second;
+
+        //date.getFullYear() + '-' + month + '-' + day;
+        return month + '월 ' + day + '일';
+}
 				
 	function matchAjax(matchDate,page) {
 		let gameWay = $('#gameWay').val();		
 		let gen = $('#gen').val();
 		let location = $('#location').val();
-		
+		let ntrp = $('#ntrp').val();
 		
 		$.ajax({
 			type: 'GET',
 			url: 'matchList',
-			data: {matchDate, page, gameWay, gen, location},
+			data: {matchDate, page, gameWay, gen, location, ntrp},
 			success: function(result) {
 				//리스트
 				$('#matchList').empty();
 				for(let matchInfo of result.matchList){
 					let b = `<tr class="navbar-brand">					
-					<td class="text-center">${matchInfo.gameWayName}</td>
+					<td class="text-center"><b>${dateFormat(matchInfo.matchDate)}</b></td>
+					<td>${matchInfo.time}시</td>
+					<td>${matchInfo.gameWayName}</td>
+					<td>${matchInfo.crtroomName}</td>
 					<td>${matchInfo.genName}</td>
-					<td>${matchInfo.lvName}</td>
-					<td>${matchInfo.crtroomLocationName}</td>
-					<td class="text-end">
+					<td class="text-end mtbt">
 						<a class="btn btn-primary matchbtn1" href="matchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>
 					</td>
 				</tr>`

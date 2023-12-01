@@ -63,39 +63,8 @@
 					<div class="col-lg-8">
 						<form action="#" class="matfilter">
 							<div class="custom__dropdown custom__dropdown__v2">
-								<select id="gameWay" name="gameWay">
-									<option value="">게임방식</option>
-									<option value="f1">단식</option>
-									<option value="f2">남복</option>
-									<option value="f3">여복</option>
-									<option value="f4">랠리</option>
-									<option value="f5">혼복</option>
-								</select>
-							</div>
-							<div class="custom__dropdown custom__dropdown__v2">
-								<select id="gen" name="gen">
-									<option value="">성별</option>
-									<option value="c1">남자</option>
-									<option value="c2">여자</option>
-									<option value="c3">모두</option>
-								</select>
-							</div>
-							<div class="custom__dropdown custom__dropdown__v2">
-								<select id="location" name="location">
-									<option value="">지역</option>
-									<option value="b1">서울</option>
-									<option value="b2">경기</option>
-									<option value="b3">인천</option>
-									<option value="b4">강원도</option>
-									<option value="b5">전라도</option>
-									<option value="b6">경상도</option>
-									<option value="b7">충청도</option>
-									<option value="b8">제주도</option>
-								</select>
-							</div>
-							<div class="custom__dropdown custom__dropdown__v2">
 								<select id="level" name="level">
-									<option value="">레벨</option>
+									<option value="">NTRP</option>
 									<option value="e1">1.0</option>
 									<option value="e2">1.5</option>
 									<option value="e3">2.0</option>
@@ -105,20 +74,27 @@
 									<option value="e7">4.0</option>
 								</select>
 							</div>
+						<button type="button" id="btnsearch">검색</button>
 						</form>
 					</div>
-					<div class="matchregibtn">
-						<button type="button" id="btnsearch">검색</button>
-					</div>
 					<div class="col-lg-2 text-end">
-						<button type="button" style="margin-right: 9px"
-							class="btn btn-primary matchregibtn"
+						<button type="button" class="btn btn-primary matchregibtn"
 							th:onclick="|location.href='@{matchregi}'|">매치 등록</button>
 					</div>
 				</div>
 
 				<!-- Default Table -->
 				<table class="table">
+				<thead>
+						<tr>
+							<th>날짜</th>
+							<th>경기 시간</th>
+							<th>클럽 이름</th>
+							<th>모집 인원</th>
+							<th>코트장 이름</th>
+							<th>모집 상태</th>
+						</tr>
+					</thead>
 					<tbody id="matchList">
 
 					</tbody>
@@ -190,39 +166,118 @@
 	
 </div>
 <script>
+
+	$('#btnsearch').on("click", function(e) {
+		let matchDate = $('.matchdate .active').data('day');
+		contMatchAjax(matchDate,1) 
+	})
+	
+	function dateFormat(dd) {
+		let date = new Date(dd);
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        let second = date.getSeconds();
+
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : day;
+        hour = hour >= 10 ? hour : '0' + hour;
+        minute = minute >= 10 ? minute : '0' + minute;
+        second = second >= 10 ? second : '0' + second;
+
+        //date.getFullYear() + '-' + month + '-' + day;
+        return month + '월 ' + day + '일';
+}
+	
 	function contMatchAjax(matchDate,page) {
+		let gameWay = $('#gameWay').val();		
+		let gen = $('#gen').val();
+		let location = $('#location').val();		
+		
 		$.ajax({
 			type: 'GET',
 			url: 'contMatchList',
-			data: {matchDate, page},
+			data: {matchDate, page, gameWay, gen, location},
 			success: function(result) {
 				$('#matchList').empty();
-				for(let matchInfo of result){
+				for(let matchInfo of result.contMatchList){
 					let b = `<tr class="navbar-brand">					
-					<td class="text-center"><b>${matchInfo.time}</b></td>
-					<td>${matchInfo.lvName}</td>
-					<td>${matchInfo.crtroomLocationName}</td>
-					<td class="text-end">
+					<td class="text-center"><b>${dateFormat(matchInfo.matchDate)}</b></td>
+					<td>${matchInfo.time}시</td>
+					<td>${matchInfo.contName}</td>
+					<td>${matchInfo.recruitPsnNum}명</td>
+					<td>${matchInfo.crtroomName}</td>
+					<td class="text-end mtbt">
 						<a class="btn btn-primary matchbtn1" href="contestmatchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>
 					</td>
 				</tr>`
 					$('#matchList').append(b)
 				}
+				
+				showPage(result.selectContCount);
 			}
 		})
 	}
 	
+	$('.pagination').on("click","li a", function(e) {
+		e.preventDefault();
+		console.log("page click");
+		
+		var targetPageNum = $(this).attr("href");
+		
+		console.log("targetPageNum: " + targetPageNum);
+		
+		pageNum = targetPageNum;
+		
+		contMatchAjax(matchDate,targetPageNum);
 	
-	/* // 페이징
-	function getList() {
-		var bno;
-		var page;
-		\
-	
-	} */
+	});
 	
 	
-
+	pageNum = 1;
+	pageSize = 10.0; //페이지 번호 수
+	pageUnit = 5;  //한페이지에 출력할 행의 수
+	// 페이징
+	function showPage(replyCnt) {
+		
+		var endNum = Math.ceil(pageNum / pageSize) * pageSize;
+		var startNum = endNum > pageSize? endNum - pageSize : 1;
+		
+		var prev = startNum != 1;
+		var next = false;
+		
+		if(endNum * 10 >= replyCnt) {
+			endNum = Math.ceil(replyCnt/pageUnit);
+		}
+		
+		if(endNum * 10 < replyCnt) {
+			next = true;
+		}
+		
+		var str= "";
+		
+		if(prev) {
+			str+= "<li class='page-item'><a class='page-link' href='"+(startNum -1)+"'>Previous</a></li>";
+		}
+		
+		for(var i = startNum ; i <= endNum; i++) {
+			var active = pageNum == i? "active":"";
+			str+= "<li class='page-item "+active+"'> <a class='page-link' href='"+i+"'>"+i+"</a></li>";		
+		}
+		
+		if(next) {
+			str+= "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>Next</a><li>";
+		}
+		
+		str += "";
+		
+		console.log(str);
+		
+		$('.pagination').html(str);
+	}
+	
+	
                         var swiper = new Swiper(".mySwiper.dateslide", {            
 
                             direction : getDirection(),
@@ -311,7 +366,7 @@
                         	$('.swiper-wrapper.dateslide > div div').removeClass('active');
                         	$(e.target).toggleClass('active');
                         	let matchDate = $(e.target).data('day');
-                        	contMatchAjax(matchDate,1);
+                        	contMatchAjax(matchDate,2);
                         	
                             //태그네임 가져오기                 
                             //console.log($(e.target).prop('tagName'))

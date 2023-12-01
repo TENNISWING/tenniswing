@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tenniswing.project.court.service.CourtroomService;
+import com.tenniswing.project.court.service.CrtroomVO;
 import com.tenniswing.project.match.service.MatchService;
 import com.tenniswing.project.match.service.MatchVO;
 
@@ -21,6 +23,9 @@ public class MatchController {
 	
 	@Autowired
 	MatchService matchService;	
+	
+	@Autowired
+	CourtroomService courtroomService;
 
 	@GetMapping(value = {"/", "/home"})
 	public String matchPage(Model model) {
@@ -59,8 +64,12 @@ public class MatchController {
 	
 	@GetMapping("contMatchList")
 	@ResponseBody
-	public List<MatchVO> contMatchAjax(MatchVO matchVO) {		
-		return matchService.selectAllContMatch(matchVO);
+	public HashMap<String,Object> contMatchAjax(MatchVO matchVO) {
+		List<MatchVO> list = matchService.selectAllContMatch(matchVO);
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("selectContCount", matchService.selectContCount(matchVO));
+		map.put("contMatchList", matchService.selectAllContMatch(matchVO));
+		return map;
 	}
 	
 	@GetMapping("startermatch")  
@@ -70,9 +79,13 @@ public class MatchController {
 	
 	@GetMapping("starterMatchList")
 	@ResponseBody
-	public List<MatchVO> starterMatchAjax(MatchVO matchVO) {		
-		return matchService.selectAllStarterMatch(matchVO);
-	}
+	public HashMap<String,Object> starterMatchAjax(MatchVO matchVO) {
+		List<MatchVO> list = matchService.selectAllStarterMatch(matchVO);
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("selectStarterCount", matchService.selectStarterCount(matchVO));
+		map.put("starterMatchList", matchService.selectAllStarterMatch(matchVO));
+		return map;
+	}	
 	
 	@GetMapping("matchdetail")  
 	public String matchdetailPage(Model model, @RequestParam Integer matchNo) {
@@ -118,6 +131,15 @@ public class MatchController {
 		return "match/matchregi";
 	}
 	
+	/*
+	 * @GetMapping("searchCourt")
+	 * 
+	 * @ResponseBody public HashMap<String,Object> searchCourtAjax() {
+	 * List<CrtroomVO> list = courtroomService.selectAllCourtroomMain();
+	 * HashMap<String,Object> map = new HashMap<>(); map.put("searchCourtList",
+	 * courtroomService.searchCourtList()); map.put("starterMatchList",
+	 * courtroomService.selectAllCourtroomMain()); return map; }
+	 */
 	@PostMapping("matchregiform")
 	public String insertClubProcess(MatchVO matchVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();

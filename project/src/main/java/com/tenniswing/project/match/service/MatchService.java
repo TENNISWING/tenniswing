@@ -2,6 +2,8 @@ package com.tenniswing.project.match.service;
 
 import java.util.List;
 
+import com.tenniswing.project.court.service.CrtroomVO;
+
 public interface MatchService {
 	//전체조회
 		public List<MatchVO> selectAllMatch(MatchVO matchVO);
@@ -36,4 +38,9 @@ public interface MatchService {
 		//페이징
 		public int selectCount(MatchVO matchVO);
 		public int selectClubCount(MatchVO matchVO);
+		public int selectContCount(MatchVO matchVO);
+		public int selectStarterCount(MatchVO matchVO);
+		
+		//코트찾기
+		public int searchCourtList(CrtroomVO crtroomVO);
 }
