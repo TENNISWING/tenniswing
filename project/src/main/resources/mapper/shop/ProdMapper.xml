@@ -73,7 +73,7 @@
   				<if test="cateGen != null and !cateGen.equals('')">
   					cate_gen = #{cateGen},
   				</if>
-  				<if test="prodPrice != null and !prodPrice.equals('')">
+  				<if test="prodPrice != 0 and !prodPrice.equals('')">
   					prod_price = #{prodPrice},
   				</if>
   				<if test="prodSaleSts != null and !prodSaleSts.equals('')">

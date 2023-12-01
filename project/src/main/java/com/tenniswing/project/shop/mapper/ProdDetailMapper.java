@@ -14,5 +14,5 @@ public interface ProdDetailMapper {
 //	수정
 	public int updateProdDetail(ProdDetailVO prodDetailVO);
 //	삭제
-	public int deleteProdDetail(int prodDetailNo);
+	public int deleteProdDetail(ProdDetailVO prodDetailVO);
 }
