@@ -2,136 +2,204 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/main-layout}">
-<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<!--아임포트 라이브러리-->
+<script
+            type="text/javascript"
+            src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
+    ></script>
 <th:block layout:fragment="content">
 	<div class="container">
 		<form name="reserve">
-		<section class="section">
-	        <div class="row">
-	            <div class="col-12">
-	            	<h5>예약 정보</h5>
-	                <div class="card">
-	                    <div class="card-body">
-	                    	<hr>
-	                        <p><b>코트장 이름</b> <span style="float: right">[[ ${reserveInfo.crtroomName} ]]</span><code></code><code></code></p>
-	                        <p><b>코트장 위치</b> <span style="float: right">[[ ${reserveInfo.crtroomLocation} ]]</span><code></code><code></code></p>
-	                        <p><b>코트번호</b> <span style="float: right">[[ ${reserveInfo.crtNo} ]]</span><code></code><code></code></p>
-	                        <p><b>이용 날짜</b> <span style="float: right">[[${#dates.format(reserveInfo.reserveDate,'yyyy년MM월dd일')}]]</span><code></code><code></code></p>
-	                        <p class="reserveTime"><b>이용 시간</b> <span style="float: right">[[${reserveInfo.reserveTime}]]</span><code></code><code></code></p>
-	                        <p><b>이용 금액</b>
-	                        <span style="float: right" data-th-text="${#numbers.formatInteger(reserveInfo.reservePrice, 3, 'COMMA') + '원'}"></span><code></code><code></code></p>
-	                        <hr>
-	                        <p><b>결제 금액</b>
-	                        <span style="float: right" data-th-text="${#numbers.formatInteger(reserveInfo.reservePrice, 3, 'COMMA') + '원'}"></span><code></code><code></code></p>
-	                        <input type="hidden" name="reservePrice" th:value="${reserveInfo.reservePrice}">
-	                        <input type="hidden" name="crtroomNo" th:value="${reserveInfo.crtroomNo}">
-	                        <input type="hidden" name="crtDetailNo" th:value="${reserveInfo.crtDetailNo}">
-	                        <input type="hidden" name="reserveDate" th:value="${#dates.format(reserveInfo.reserveDate,'yyyy-MM-dd')}">
-	                        <input type="hidden" name="reserveTime" th:value="${reserveInfo.reserveTime}">
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </section>
-	    <section class="section">
-	    	<div class="row">
-	            <div class="col-12">
-	            	<h5>안내 사항</h5>
-			    	<div class="card">
-						<div class="card-body">
-							<p>Click the accordions below to expand/collapse the accordion
-								content.</p>
-							<div class="accordion" id="accordionExample">
-								<div class="accordion-item">
-									<h2 class="accordion-header" id="headingOne">
-										<button class="accordion-button" type="button"
-											data-bs-toggle="collapse" data-bs-target="#collapseOne"
-											aria-expanded="true" aria-controls="collapseOne">
-											Accordion Item #1</button>
-									</h2>
-									<div id="collapseOne" class="accordion-collapse collapse show"
-										aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-										<div class="accordion-body">
-											<strong>This is the first item's accordion body.</strong> It is
-											shown by default, until the collapse plugin adds the appropriate
-											classes that we use to style each element. These classes control
-											the overall appearance, as well as the showing and hiding via
-											CSS transitions. You can modify any of this with custom CSS or
-											overriding our default variables. It's also worth noting that
-											just about any HTML can go within the
-											<code>.accordion-body</code>
-											, though the transition does limit overflow.
+			<section class="section">
+		        <div class="row">
+		                <div class="card">
+		                    <div class="card-body">
+		                    	<hr>
+		                        <p><b>코트장 이름</b> <span style="float: right">[[ ${reserveInfo.crtroomName} ]]</span><code></code><code></code></p>
+		                        <p><b>코트장 위치</b> <span style="float: right">[[ ${reserveInfo.crtroomLocation} ]]</span><code></code><code></code></p>
+		                        <p><b>코트번호</b> <span style="float: right">[[ ${reserveInfo.crtNo} ]]</span><code></code><code></code></p>
+		                        <p><b>이용 날짜</b> <span style="float: right">[[${#dates.format(reserveInfo.reserveDate,'yyyy년MM월dd일')}]]</span><code></code><code></code></p>
+		                        <p class="reserveTime"><b>이용 시간</b> <span style="float: right">[[${reserveInfo.reserveTime}]]</span><code></code><code></code></p>
+		                        <p><b>이용 금액</b>
+		                        <span style="float: right" data-th-text="${#numbers.formatInteger(reserveInfo.reservePrice, 3, 'COMMA') + '원'}"></span><code></code><code></code></p>
+		                        <hr>
+		                        <p><b>결제 금액</b>
+		                        <span style="float: right" data-th-text="${#numbers.formatInteger(reserveInfo.reservePrice, 3, 'COMMA') + '원'}"></span><code></code><code></code></p>
+		                        <input type="hidden" name="reservePrice" th:value="${reserveInfo.reservePrice}">
+		                        <input type="hidden" name="crtroomNo" th:value="${reserveInfo.crtroomNo}">
+		                        <input type="hidden" name="crtDetailNo" th:value="${reserveInfo.crtDetailNo}">
+		                        <input type="hidden" name="reserveDate" th:value="${#dates.format(reserveInfo.reserveDate,'yyyy-MM-dd')}">
+		                        <input type="hidden" name="reserveTime" th:value="${reserveInfo.reserveTime}">
+		                    </div>
+		                </div>
+		            </div>
+		    </section>
+		    <section class="section">
+		    	<div class="row">
+		            <div class="col-12">
+		            	<h5>안내 사항</h5>
+				    	<div class="card">
+							<div class="card-body">
+								<p>Click the accordions below to expand/collapse the accordion
+									content.</p>
+								<div class="accordion" id="accordionExample">
+									<div class="accordion-item">
+										<h2 class="accordion-header" id="headingOne">
+											<button class="accordion-button" type="button"
+												data-bs-toggle="collapse" data-bs-target="#collapseOne"
+												aria-expanded="true" aria-controls="collapseOne">
+												Accordion Item #1</button>
+										</h2>
+										<div id="collapseOne" class="accordion-collapse collapse show"
+											aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+											<div class="accordion-body">
+												<strong>This is the first item's accordion body.</strong> It is
+												shown by default, until the collapse plugin adds the appropriate
+												classes that we use to style each element. These classes control
+												the overall appearance, as well as the showing and hiding via
+												CSS transitions. You can modify any of this with custom CSS or
+												overriding our default variables. It's also worth noting that
+												just about any HTML can go within the
+												<code>.accordion-body</code>
+												, though the transition does limit overflow.
+											</div>
 										</div>
 									</div>
-								</div>
-								<div class="accordion-item">
-									<h2 class="accordion-header" id="headingTwo">
-										<button class="accordion-button collapsed" type="button"
-											data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-											aria-expanded="false" aria-controls="collapseTwo">
-											Accordion Item #2</button>
-									</h2>
-									<div id="collapseTwo" class="accordion-collapse collapse"
-										aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-										<div class="accordion-body">
-											<strong>This is the second item's accordion body.</strong> It is
-											hidden by default, until the collapse plugin adds the
-											appropriate classes that we use to style each element. These
-											classes control the overall appearance, as well as the showing
-											and hiding via CSS transitions. You can modify any of this with
-											custom CSS or overriding our default variables. It's also worth
-											noting that just about any HTML can go within the
-											<code>.accordion-body</code>
-											, though the transition does limit overflow.
+									<div class="accordion-item">
+										<h2 class="accordion-header" id="headingTwo">
+											<button class="accordion-button collapsed" type="button"
+												data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+												aria-expanded="false" aria-controls="collapseTwo">
+												Accordion Item #2</button>
+										</h2>
+										<div id="collapseTwo" class="accordion-collapse collapse"
+											aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+											<div class="accordion-body">
+												<strong>This is the second item's accordion body.</strong> It is
+												hidden by default, until the collapse plugin adds the
+												appropriate classes that we use to style each element. These
+												classes control the overall appearance, as well as the showing
+												and hiding via CSS transitions. You can modify any of this with
+												custom CSS or overriding our default variables. It's also worth
+												noting that just about any HTML can go within the
+												<code>.accordion-body</code>
+												, though the transition does limit overflow.
+											</div>
 										</div>
 									</div>
-								</div>
-								<div class="accordion-item">
-									<h2 class="accordion-header" id="headingThree">
-										<button class="accordion-button collapsed" type="button"
-											data-bs-toggle="collapse" data-bs-target="#collapseThree"
-											aria-expanded="false" aria-controls="collapseThree">
-											Accordion Item #3</button>
-									</h2>
-									<div id="collapseThree" class="accordion-collapse collapse"
-										aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-										<div class="accordion-body">
-											<strong>This is the third item's accordion body.</strong> It is
-											hidden by default, until the collapse plugin adds the
-											appropriate classes that we use to style each element. These
-											classes control the overall appearance, as well as the showing
-											and hiding via CSS transitions. You can modify any of this with
-											custom CSS or overriding our default variables. It's also worth
-											noting that just about any HTML can go within the
-											<code>.accordion-body</code>
-											, though the transition does limit overflow.
+									<div class="accordion-item">
+										<h2 class="accordion-header" id="headingThree">
+											<button class="accordion-button collapsed" type="button"
+												data-bs-toggle="collapse" data-bs-target="#collapseThree"
+												aria-expanded="false" aria-controls="collapseThree">
+												Accordion Item #3</button>
+										</h2>
+										<div id="collapseThree" class="accordion-collapse collapse"
+											aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+											<div class="accordion-body">
+												<strong>This is the third item's accordion body.</strong> It is
+												hidden by default, until the collapse plugin adds the
+												appropriate classes that we use to style each element. These
+												classes control the overall appearance, as well as the showing
+												and hiding via CSS transitions. You can modify any of this with
+												custom CSS or overriding our default variables. It's also worth
+												noting that just about any HTML can go within the
+												<code>.accordion-body</code>
+												, though the transition does limit overflow.
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+							<div class="form-check">
+			                    <div class="custom-control custom-checkbox">
+			                        <input type="checkbox" class="form-check-input form-check-success" checked
+			                            name="customCheck" id="customColorCheck3">
+			                        <label class="form-check-label" for="customColorCheck3">위 내용에 동의합니다.</label>
+			                    </div>
+			                </div>
+			                <div class="justify-content-around text-center">
+			                	<br>
+				                <button type="button" id="reserveSubmit" class="btn btn-success rounded-pill" style="width: 200px">결제하기</button>
+				                <button type="button" class="btn btn-success rounded-pill" style="width: 200px">취소하기</button>
+			                </div>
 						</div>
-						<div class="form-check">
-		                    <div class="custom-control custom-checkbox">
-		                        <input type="checkbox" class="form-check-input form-check-success" checked
-		                            name="customCheck" id="customColorCheck3">
-		                        <label class="form-check-label" for="customColorCheck3">위 내용에 동의합니다.</label>
-		                    </div>
-		                </div>
-		                <div class="justify-content-around text-center">
-		                	<br>
-			                <button type="button" id="reserveSubmit" class="btn btn-success rounded-pill" style="width: 200px">결제하기</button>
-			                <button type="button" class="btn btn-success rounded-pill" style="width: 200px">취소하기</button>
-		                </div>
 					</div>
 				</div>
-			</div>
-		</section>
+			</section>
 		</form>
 	</div>
-	<script type="text/javascript">
+	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+	<script th:inline="javascript">
 		$('#reserveSubmit').on('click', function(){
 			
-			$.ajax({
+				let crtroomNo = [[${reserveInfo.crtroomNo}]];
+				let reservePrice = Number([[${reserveInfo.reservePrice}]]);
+				let reserveDate = [[${reserveInfo.reserveDate}]];
+				let crtDetailNo = [[${reserveInfo.crtDetailNo}]];
+				let reserveTime = [[${reserveInfo.reserveTime}]];
+				let tReserveTime = [[${reserveInfo.tReserveTime}]];
+				//var IMP = window.IMP;
+				IMP.init("imp30873503");
+
+				let today = new Date();
+				const year = today.getFullYear(); //년
+				const month = today.getMonth() + 1;  //월
+				const date = today.getDate();	//일
+				let hour = today.getHours(); // 시
+				let minute = today.getMinutes();  // 분
+				let second = today.getSeconds();  // 초
+				let milliseconds = today.getMilliseconds();
+				let makeMerchantUid = year.toString() + '0' + month.toString() + date.toString() + hour + minute + second + milliseconds;
+
+				IMP.request_pay({
+					pg: 'html5_inicis.INIpayTest',
+					pay_method: 'card',
+					merchant_uid: makeMerchantUid,
+					name: crtroomNo,
+					amount: reservePrice,
+					buyer_email: reserveDate,
+					buyer_name: crtDetailNo,
+					buyer_tel: reserveTime,
+					buyer_addr: tReserveTime,
+					//buyer_postcode: '123-456',
+					display: {
+						card_quota: [6]  // 할부개월 6개월까지 활성화
+					}
+				}, function(rsp) { // callback
+
+					if (rsp.success) {
+						// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+						// jQuery로 HTTP 요청
+						console.log(rsp.imp_uid)
+						console.log(rsp.merchant_uid)
+				/* 		$.ajax({
+							url: 'Order.do',
+							method: 'post',
+							data: {
+								id: uid,
+								total: lastSum,
+								imp_uid: rsp.imp_uid,            // 결제 고유번호
+								merchant_uid: rsp.merchant_uid   // 주문번호
+							},
+							success: function(e) {
+								if (e.retCode == 'Success') {
+									location.href = "OrderComplete.do";
+								} else {
+									alert("결제 실패, 다시 시도해 주세요.");
+								}
+							},
+							error: function(e) {
+								console.log(e);
+							}
+						}) */
+
+					} else {
+						alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+					}
+				});
+			
+			/* $.ajax({
 				method: 'post',
 				url: 'reserveCourt',
 				data: $("form[name='reserve']").serialize(),				
@@ -154,8 +222,9 @@
 					}
 				},
 				error: () => console.log(error)
-			})
+			}) */
 		}); 
 	</script>
+    
 </th:block>
 </html>

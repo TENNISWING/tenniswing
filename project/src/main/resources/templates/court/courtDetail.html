@@ -11,7 +11,7 @@
 	<div class="container">
 		<section class="product-main">
 			<div class="container">
-			<!-- ============ form ============ -->
+				<!-- ============ form ============ -->
 				<form th:action="@{/reserveCourt}" method="GET"
 					th:object="${crtReserveVO}">
 					<div class="row product-detail">
@@ -76,7 +76,8 @@
 							<div class="product-detail__wrapper">
 								<h2 class="product-detail__title">[[
 									${courtDetail.crtroomName} ]]</h2>
-								<input type="hidden" name="crtroomName" th:value="${courtDetail.crtroomName}">
+								<input type="hidden" name="crtroomName"
+									th:value="${courtDetail.crtroomName}">
 								<div class="product-detail__meta">
 									<div class="rating">
 										<ul>
@@ -156,18 +157,19 @@
 									<span class="product-detail--stroke">코트장 위치</span>
 									<div>
 										<input type="text" style="border: 0; text-align: center"
-											th:value="${courtDetail.crtroomLocation}" disabled />
-										<input type="hidden" style="border: 0; text-align: center" name="crtroomLocation"
+											th:value="${courtDetail.crtroomLocation}" disabled /> <input
+											type="hidden" style="border: 0; text-align: center"
+											name="crtroomLocation"
 											th:value="${courtDetail.crtroomLocation}">
 									</div>
 								</div>
 							</div>
 						</div>
-						
+
 						<!-- ============== 날짜 선택 ============== -->
 						<!-- date slide -->
 						<div class="container mt-3 mb-5">
-						<br>
+							<br>
 							<!-- Swiper -->
 							<div class="swiper mySwiper dateslide">
 								<div class="swiper-wrapper dateslide matchdate">
@@ -180,8 +182,10 @@
 						</div>
 						<!-- End date slide -->
 						<!-- =============== 코트 선택 =============== -->
-						<div class="container" style="margin-left: 20px; margin-bottom: 20px;">
-							<th:block th:each="courtDetail, stat : ${courtDetail.crtDetailList}">
+						<div class="container"
+							style="margin-left: 20px; margin-bottom: 20px;">
+							<th:block
+								th:each="courtDetail, stat : ${courtDetail.crtDetailList}">
 								<table style="display: none">
 									<tbody>
 										<tr>
@@ -191,9 +195,11 @@
 										<tr>
 									</tbody>
 								</table>
-								<input type="radio" class="btn-check" name="crtDetailNo" id="success-outlined" 
-									th:attrappend="id=${stat.index}" autocomplete="off" th:value="${courtDetail.crtDetailNo}">
-								<label class="btn btn-outline-success" for="success-outlined" th:attrappend="for=${stat.index}">[[${stat.index}+1]]코트</label>
+								<input type="radio" class="btn-check" name="crtDetailNo"
+									id="success-outlined" th:attrappend="id=${stat.index}"
+									autocomplete="off" th:value="${courtDetail.crtDetailNo}">
+								<label class="btn btn-outline-success" for="success-outlined"
+									th:attrappend="for=${stat.index}">[[${stat.index}+1]]코트</label>
 							</th:block>
 						</div>
 						<table class="table">
@@ -205,7 +211,7 @@
 								</tr>
 							</thead> -->
 							<tbody id="matchList">
-								
+
 							</tbody>
 						</table>
 						<input type="hidden" id="reserveTime" name="reserveTime">
@@ -575,6 +581,7 @@
 	<!-- End viewed history -->
 	<script th:inline="javascript">
 	
+						
 						let reserveTimeCode = [];
 						
 						$(function(){
@@ -582,65 +589,75 @@
 							for(let i=0; i< list.length; i++){
 								reserveTimeCode.push([list[i].subcategoryCode , list[i].name]);
 							}
+							
 							$('input[name="crtDetailNo"]').eq(0).prop('checked',true);
+							
 							let reserveDate = $('input[name="reserveDate"]').val();
 							let crtDetailNo = Number($('input[name="crtDetailNo"]:checked').val());
+							
+							reserveAjax(reserveDate, crtDetailNo);
+							
 							let courtNo = $('input[name="crtDetailNo"]:checked').next().text();
 							$('input[name="crtNo"]').val(courtNo);
-							reserveAjax(reserveDate, crtDetailNo);
 						})
+						
 							
 						function reserveAjax(reserveDate, crtDetailNo) {
 							let crtIndoorOutdoorName = $('input[name="crtDetailNo"]:checked').prev().find('.crtIndoorOutdoorName').text();
 							let crtUsePrice = $('input[name="crtDetailNo"]:checked').prev().find('.crtUsePrice').text();
 							let useUnitTime = $('input[name="crtDetailNo"]:checked').prev().find('.useUnitTime').text();
+							
 							$.ajax({
 								type: 'GET',
 								url: 'impossibleReserve',
 								data: {reserveDate, crtDetailNo},
 								success: function(result) {
-									console.log(result);
+								
 									$('#matchList').empty();
 										for(let i=0; i<reserveTimeCode.length; i++){
 											let b = ``;
-										for(let reserve of result){
-											if(reserve.reserveTime === reserveTimeCode[i][0]){
-												b = `
-													<tr class="navbar-brand">
-														<td class="text-center" style="width: 10%"><b>`+crtIndoorOutdoorName+`</b></td>
-														<td style="width: 50%; text-align: center;">`+reserveTimeCode[i][1]+`
-														<input type="hidden" class="reserveTime" value="`+reserveTimeCode[i][0]+`"></td>
-														<td style="width: 10%"><span class="tReserveTime">`+useUnitTime+`</span><span>시간</span></td>
-														<td style="width: 10%"><span class="reservePrice">`+crtUsePrice+`</span><span>원</span></td>
-														<td class="text-end" style="width: 20%; height: 49px;"><div style="font-size: 13px; color: red; margin-right: 13px">예약마감</div></td>
-													</tr>
-												`;
-											}else{
-												b = `
-														<tr class="navbar-brand">
-															<td class="text-center" style="width: 10%"><b>`+crtIndoorOutdoorName+`</b></td>
-															<td style="width: 50%; text-align: center;">`+reserveTimeCode[i][1]+`
-															<input type="hidden" class="reserveTime" value="`+reserveTimeCode[i][0]+`"></td>
-															<td style="width: 10%"><span class="tReserveTime">`+useUnitTime+`</span><span>시간</span></td>
-															<td style="width: 10%"><span class="reservePrice">`+crtUsePrice+`</span><span>원</span></td>
-															<td class="text-end" style="width: 20%"><button class="btn btn-primary matchbtn1 reserveBtn">예약하기</button></td>
-														</tr>
-												`;
-											}
+											b = `
+												<tr class="navbar-brand">
+													<td class="text-center" style="width: 10%"><b>`+crtIndoorOutdoorName+`</b></td>
+													<td style="width: 50%; text-align: center;">`+reserveTimeCode[i][1]+`
+													<input type="hidden" class="reserveTime" value="`+reserveTimeCode[i][0]+`"></td>
+													<td style="width: 10%"><span class="tReserveTime">`+useUnitTime+`</span><span>시간</span></td>
+													<td style="width: 10%"><span class="reservePrice">`+crtUsePrice+`</span><span>원</span></td>
+													<td class="text-end" style="width: 20%"><button class="btn btn-primary matchbtn1 reserveBtn">예약하기</button></td>
+												</tr>
+											`;
+											
+											
+												for(let reserve of result){
+													if(reserve.reserveTime === reserveTimeCode[i][0]){
+														b = `
+															<tr class="navbar-brand">
+																<td class="text-center" style="width: 10%"><b>`+crtIndoorOutdoorName+`</b></td>
+																<td style="width: 50%; text-align: center;">`+reserveTimeCode[i][1]+`
+																<input type="hidden" class="reserveTime" value="`+reserveTimeCode[i][0]+`"></td>
+																<td style="width: 10%"><span class="tReserveTime">`+useUnitTime+`</span><span>시간</span></td>
+																<td style="width: 10%"><span class="reservePrice">`+crtUsePrice+`</span><span>원</span></td>
+																<td class="text-end" style="width: 20%; height: 49px;"><div style="font-size: 13px; color: red; margin-right: 13px">예약마감</div></td>
+															</tr>
+														`;															
+														break;													
+													}
+												}
+												
+												$('#matchList').append(b)
+											
 										}
-										$('#matchList').append(b)
+										$('.matchbtn1').on('click',function(e){
+											let reserveTime = $(e.target).closest('tr').find('.reserveTime').val();
+											let tReserveTime = $(e.target).closest('tr').find('.tReserveTime').text();
+											let reservePrice = $(e.target).closest('tr').find('.reservePrice').text();
+											$('input[name="reserveTime"]').val(reserveTime);
+											$('input[name="tReserveTime"]').val(tReserveTime);
+											$('input[name="reservePrice"]').val(reservePrice);
+										})
 									}
-									$('.matchbtn1').on('click',function(e){
-										let reserveTime = $(e.target).closest('tr').find('.reserveTime').val();
-										let tReserveTime = $(e.target).closest('tr').find('.tReserveTime').text();
-										let reservePrice = $(e.target).closest('tr').find('.reservePrice').text();
-										$('input[name="reserveTime"]').val(reserveTime);
-										$('input[name="tReserveTime"]').val(tReserveTime);
-										$('input[name="reservePrice"]').val(reservePrice);
-									})
-								}
-							})
-						}
+								})
+							}
 	
                         var swiper = new Swiper(".mySwiper.dateslide", {            
 
@@ -730,23 +747,23 @@
                         $('.swiper-wrapper.dateslide > div div').on('click', function (e) {
                         	$('.swiper-wrapper.dateslide > div div').removeClass('active');
                         	$(e.target).toggleClass('active');
-                        	/* let clickDate = $(e.target).data('day');
-                        	$('#hiddenDate').append('<input type="hidden" name="reserveDate" value="">');
-                        	$('input[name="reserveDate"]').val(clickDate); */
+                        	let clickDate = $(e.target).data('day');
+                        	/* $('#hiddenDate').append('<input type="hidden" name="reserveDate" value="">'); */
+                        	$('input[name="reserveDate"]').val(clickDate);
                         	
                         	//matchAjax(matchDate,1);
-                        	let reserveDate = $('input[name="reserveDate"]').val();
-							let crtDetailNo = Number($('input[name="crtDetailNo"]').val());
-							reserveAjax(reserveDate, crtDetailNo);
+                        	let reserveDateclick = $('input[name="reserveDate"]').val();
+							let crtDetailNoclick = Number($('input[name="crtDetailNo"]:checked').val());
+							reserveAjax(reserveDateclick, crtDetailNoclick);
                         })
                         
                         // 코트 클릭했을 때도 아작스
                         $('input[name="crtDetailNo"]').change(function(){
-                        	let reserveDate = $('input[name="reserveDate"]').val();
-							let crtDetailNo = Number($('input[name="crtDetailNo"]:checked').val());
-							reserveAjax(reserveDate, crtDetailNo);
-							let courtNo = $('input[name="crtDetailNo"]:checked').next().text();
-							$('input[name="crtNo"]').val(courtNo);
+                        	let reserveDatechange = $('input[name="reserveDate"]').val();
+							let crtDetailNochange = Number($('input[name="crtDetailNo"]:checked').val());
+							reserveAjax(reserveDatechange, crtDetailNochange);
+							/* let courtNo = $('input[name="crtDetailNo"]:checked').next().text();
+							$('input[name="crtNo"]').val(courtNo); */
                         })
                         
                         let data = $('.swiper-wrapper.dateslide > div div');
