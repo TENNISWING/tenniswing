@@ -335,7 +335,7 @@
 											<div class="form-group ">
 												<label for="exampleFormControlTextarea1" class="form-label">성별</label>
 												<select class="form-control" data-parsley-required="true"
-													th:field="*{clubGen}" th:value="${club.clubGen}">
+													 name="clubGen">
 													<option th:selected="${club.clubGen}=='남성'" value="c1">남성</option>
 													<option th:selected="${club.clubGen}=='여성'" value="c2">여성</option>
 													<option th:selected="${club.clubGen}=='모두'" value="c3">모두</option>

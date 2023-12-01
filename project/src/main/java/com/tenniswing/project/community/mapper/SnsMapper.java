@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.repository.query.Param;
 
+import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.community.service.SnsVO;
 
 public interface SnsMapper {
@@ -37,4 +38,7 @@ public interface SnsMapper {
 	
 	// 회원별 게시글당 좋아요 번호 조회
 	public SnsVO selectLikeNo(SnsVO snsVO);
+	
+	//sns 첨부파일 
+	public List<AttachVO> attachListAllSns();
 }

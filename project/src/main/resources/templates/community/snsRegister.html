@@ -62,41 +62,43 @@
                 <div class="card">
                     <div class="card-content">
                         <div class="card-body">
-                            <form class="form form-vertical">
+                            <form th:action="@{/snsRegister}" method="Post" name="insertForm" 
+                            th:object="${snsVO}" class="form form-vertical" enctype="multipart/form-data">
                                 <div class="form-body">
                                     <div class="row">
                                          <div class="col-12">
                                             <div class="form-group mandatory">
                                                 <label for="password-vertical" data-parsley-required="true" class="form-label" >제목</label>
                                                 <input type="text" id="password-vertical" class="form-control"
-                                                    name="contact" placeholder="">
+                                                    name="snsTitle" placeholder="">
                                             </div>
                                         </div>
                                          <div class="col-12">
                                             <div class="form-group">
                                                 <label for="password-vertical" data-parsley-required="true" >그룹 이름</label>
                                                 <input type="text" id="password-vertical" class="form-control"
-                                                    name="contact" placeholder="">
+                                                    name="grpName" placeholder="">
                                             </div>
                                         </div>
                                          <div class="col-12">
                                             <div class="form-group mandatory">
                                                 <label for="password-vertical" class="form-label">내용</label>
-                                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                 <textarea class="form-control" id="exampleFormControlTextarea1" name="snsCtt" rows="3"></textarea>
                                             </div>
                                         </div>
                                          <div class="col-12">
                                             <div class="form-group">
                                                 <label for="contact-info-vertical" data-parsley-required="true" >태그</label>
-                                                <input type="text" id="tag" class="form-control"
-                                                    name="tag">
+                                                <input type="text" id="snsTag" class="form-control"
+                                                    name="snsTag">
                                             </div>
                                         </div>
                                                
                                         <div class="col-12">
                                             <div class="form-group mandatory">
                                                 <label for="contact-info-vertical">사진 / 동영상 첨부하기</label>
-                                               <input type="file" class="image-preview-filepond">
+                                               <input type="file" class="image-preview-filepond" id="files"
+														name="files" multiple>
                                             </div>
                                         </div>
                                         
@@ -122,15 +124,17 @@
 	</div>
 	<script>
 
-    const input = document.querySelector('input[name=tag]');
+    const input = document.querySelector('input[name=snsTag]');
     console.log(input);
     let tagify = new Tagify(input); // initialize Tagify
     
     // 태그가 추가되면 이벤트 발생
     tagify.on('add', onAddTag)
     function onAddTag(e){
-        console.log("onAddTag: ", e.detail);
+        console.log("onAddTag: ", e.detail.tagify.value);
         console.log("original input value: ", input.value)
+        //console.log(data.value)
+        //loadOriginalValues
     }
 
 

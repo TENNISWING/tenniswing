@@ -127,6 +127,11 @@ public class MemberController {
 		
 		String path = "";
 		
+/*
+		//첨부파일 dom에 전달		
+		model.addAttribute("attachList", attachList.get(0)); //땡겨온다음에 여기넣기
+*/
+    
 		if(attachList != null && attachList.size() != 0) {
 			//첨부파일 dom에 전달	
 			path = attachList.get(0).getAttachPath();
@@ -140,6 +145,7 @@ public class MemberController {
 				model.addAttribute("attachList", path);
 			}
 		}
+
 		
 		if(role.equals("ROLE_ADMIN")) {
 			return "redirect:admin";

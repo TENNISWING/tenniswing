@@ -17,8 +17,9 @@ public class AttachServiceImpl implements AttachService {
 	AttachMapper attachMapper;
 
 	@Override
-	public List<AttachVO> attachList(String tableDiv, int attacTablePk ) {		
-		return attachMapper.attachListAll(tableDiv,attacTablePk);
+	public List<AttachVO> attachList(String tableDiv, int attachTablePk ) {
+		System.out.println(attachTablePk);
+		return attachMapper.attachListAll(tableDiv,attachTablePk);
 	}
 
 	@Override
@@ -29,10 +30,15 @@ public class AttachServiceImpl implements AttachService {
 		
 		for (AttachVO file : files) {
 			file.setAttachTableDiv(tableDiv);
-			file.setAttacTablePk(tablePk);
+			file.setAttachTablePk(tablePk);
 		}
 		
 		return attachMapper.saveAttachAll(files);
+	}
+
+	@Override
+	public List<AttachVO> attachListAllSns() {
+		return attachMapper.attachListAllSns();
 	}
 	
 	

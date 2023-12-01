@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.community.mapper.SnsMapper;
 import com.tenniswing.project.community.service.SnsService;
 import com.tenniswing.project.community.service.SnsVO;
@@ -97,6 +98,11 @@ public class SnsServiceImpl implements SnsService {
 	@Override
 	public SnsVO selectLikeNo(SnsVO snsVO) {
 		return snsMapper.selectLikeNo(snsVO);
+	}
+	
+	@Override
+	public List<AttachVO> attachListAllSns() {
+		return snsMapper.attachListAllSns();
 	}
 
 }

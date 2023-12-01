@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.data.repository.query.Param;
 
+import com.tenniswing.project.attach.service.AttachVO;
+
 public interface SnsService {
 	// 전체조회
 	public List<SnsVO> selectAllSnsInfo();
@@ -32,5 +34,8 @@ public interface SnsService {
 	
 	// 좋아요 삭제
 	public boolean deleteLike(int likeNo);
+	
+	//sns 첨부파일 조회
+	public List<AttachVO> attachListAllSns();
 
 }
