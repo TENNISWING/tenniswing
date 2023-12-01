@@ -37,12 +37,12 @@
 	</select>
 	
 	<!-- sns 첨부파일 조회 -->
-	<select id="attachListAllSns" resultType="AttachVO">
+<!-- 	<select id="attachListAllSns" resultType="AttachVO">
 		SELECT <include refid="searchColumns"/>
 		FROM attach a JOIN SNS s
         ON a.attach_table_pk = s.sns_wrt_no
 		WHERE a.attach_table_div= 's'
-	</select>
+	</select> -->
 	
 	<!-- 파일정보 저장  -->
 	<insert id="saveAttachAll" parameterType="list">
@@ -64,7 +64,7 @@
 			, #{file.attachPath}
 			, #{file.attachTurn}
 			, #{file.attachTableDiv}
-			, #{file.attacTablePk}		
+			, #{file.attachTablePk}		
 		FROM DUAL		
 		</foreach>
 	</insert>
