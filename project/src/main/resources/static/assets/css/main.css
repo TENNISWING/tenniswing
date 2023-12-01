@@ -79,6 +79,10 @@
 # Match
 --------------------------------------------------------------*/
 
+.table {
+	text-align: center;
+}
+
 .mctdeall {
 	font-family: NanumSquareNeo-Variable;
 }
@@ -194,6 +198,25 @@ margin-bottom: 1px;
 	margin-bottom: -45px;
 }
 
+#btnsearch {
+	--bs-btn-color: #fff;
+    --bs-btn-bg: #3E444B;
+    --bs-btn-border-color: #3E444B;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #3E444B;
+    --bs-btn-hover-border-color: #3E444B;
+    --bs-btn-focus-shadow-rgb: 95, 118, 200;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #3E444B;
+    --bs-btn-active-border-color: #3E444B;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #3E444B;
+    --bs-btn-disabled-border-color: #3E444B;
+    font-size:13px;
+    border-radius: 8px; 
+}
+
 .matchbtn1 {
     --bs-btn-color: #fff;
     --bs-btn-bg: #259EFF;
@@ -213,6 +236,10 @@ margin-bottom: 1px;
     border-radius: 8px;
 }
 
+.mtbt {
+	text-align-last: center;
+}
+
 .matchregibtn {
     --bs-btn-color: #fff;
     --bs-btn-bg: #3E444B;
@@ -230,6 +257,7 @@ margin-bottom: 1px;
     --bs-btn-disabled-border-color: #3E444B;
     font-size:13px;
     border-radius: 8px;
+    margin-right: 75px;
 }
 
 .matchbtn2 {
