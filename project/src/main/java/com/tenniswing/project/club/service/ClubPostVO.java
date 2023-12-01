@@ -19,5 +19,8 @@ public class ClubPostVO {
 	private String memId;
 	private int clubNo;
 	
+	//회원 이름
+	private String name;
+	
 	
 }

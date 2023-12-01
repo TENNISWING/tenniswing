@@ -112,39 +112,45 @@
 									<button class="nav-link" id="matchJoin-tab"
 										data-bs-toggle="tab" data-bs-target="#tab-matchJoin-pane"
 										type="button" role="tab" aria-controls="tab-matchJoin-pane"
-										aria-selected="false" data-url="clubMatchJoin">매치 모집</button>
+										aria-selected="false" data-url="clubMatchJoin"
+										th:data-club-no="${club.clubNo}">매치 모집</button>
 								</li>
 
 								<li class="nav-item" role="presentation">
 									<button class="nav-link" id="matchDate-tab"
 										data-bs-toggle="tab" data-bs-target="#tab-matchDate-pane"
 										type="button" role="tab" aria-controls="tab-matchDate-pane"
-										aria-selected="false" data-url="clubMatchDate">매치일정</button>
+										aria-selected="false" data-url="clubMatchDate"
+										th:data-club-no="${club.clubNo}">매치일정</button>
 								</li>
 								<li class="nav-item" role="presentation">
 									<button class="nav-link" id="matchEnd-tab" data-bs-toggle="tab"
 										data-bs-target="#tab-matchEnd-pane" type="button" role="tab"
 										aria-controls="tab-matchEnd-pane" aria-selected="false"
-										data-url="clubMatchEnd">매치 결과</button>
+										data-url="clubMatchEnd"
+										th:data-club-no="${club.clubNo}">매치 결과</button>
 								</li>
 
 								<li class="nav-item" role="presentation">
 									<button class="nav-link" id="post-tab" data-bs-toggle="tab"
 										data-bs-target="#tab-post-pane" type="button" role="tab"
 										aria-controls="tab-post-pane" aria-selected="false"
-										data-url="clubPost">자유게시판</button>
+										data-url="clubPost"
+										th:data-club-no="${club.clubNo}">자유게시판</button>
 								</li>
 								<li class="nav-item" role="presentation">
 									<button class="nav-link" id="member-tab" data-bs-toggle="tab"
 										data-bs-target="#tab-member-pane" type="button" role="tab"
 										aria-controls="tab-member-pane" aria-selected="false"
-										data-url="clubMember">멤버</button>
+										data-url="clubMember"
+										th:data-club-no="${club.clubNo}">멤버</button>
 								</li>
 								<li class="nav-item" role="presentation">
 									<button class="nav-link" id="clubApply-tab"
 										data-bs-toggle="tab" data-bs-target="#tab-clubApply-pane"
 										type="button" role="tab" aria-controls="tab-clubApply-pane"
-										aria-selected="false" data-url="clubApply">가입 신청</button>
+										aria-selected="false" data-url="clubApply"
+										th:data-club-no="${club.clubNo}">가입 신청</button>
 								</li>
 							</ul>
 						</div>
@@ -391,6 +397,7 @@
 			//console.log($(event.target))
 			url = url + '?clubNo=' + clubNo;
 			$(target).load(url)
+			console.log(url)
 		});
 		//들어왔을때 정보 바로 불러오기
 		$(document).ready(function () {
@@ -456,7 +463,7 @@
 				$('#updateBtn').on("click", function(e) { //수정 버튼 눌렀을때
 					console.log("수정 버튼 눌렀을때");
 					var clubData = $("#updateForm").serialize() ;
-					console.log("폼 데이터가 어떻게 나오죠?"+clubData);
+					//console.log("폼 데이터가 어떻게 나오죠?"+clubData);
 					$.ajax({
 						url: 'clubUpdate',  //컨트롤러에 맵핑에 있는 경로
 						data: clubData,

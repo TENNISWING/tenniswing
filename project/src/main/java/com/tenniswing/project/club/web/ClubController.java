@@ -72,7 +72,7 @@ public class ClubController {
 		return "club/clubdetail";
 	}
 	
-	//상세페이지 > 탭 > 클럽정보
+	//상세페이지 > 탭 > 클럽정보	
 	@GetMapping("clubInfo")  
 	public String infoTapPage(Model model, ClubVO clubVO) { 
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -97,7 +97,7 @@ public class ClubController {
 	public Map<String, Object> clubUpdateFormAjax(ClubVO clubVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		clubVO.setMemId(id);
-		System.out.println("-----수정아작스컨트롤러 "+clubVO);
+		//System.out.println("-----수정아작스컨트롤러 "+clubVO);
 		Map<String, Object> result = clubService.updateClub(clubVO);
 		return result;
 	}
@@ -122,9 +122,19 @@ public class ClubController {
 	
 	//상세페이지 > 탭 > 자유게시판
 	@GetMapping("clubPost")  
-	public String boardTapPage(Model model) { 		
+	public String boardTapPage(Model model, ClubVO clubVO) { 
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		clubVO.setMemId(id);
+		model.addAttribute("club",clubService.selectClub(clubVO));
+		
 		return "club/clubPost";
 	}
+		//자유게시판 리스트
+		@GetMapping("postList")
+		@ResponseBody 
+		public List<ClubPostVO> postListAjax(ClubPostVO clubPostVO) { 
+			return clubPostService.selectAllPost(clubPostVO);
+		 }
 	
 		//자유게시판 등록
 		@PostMapping("postInsert")
@@ -132,7 +142,7 @@ public class ClubController {
 		public int postInsertAjax(ClubPostVO clubPostVO, Model model) {
 			String id = SecurityContextHolder.getContext().getAuthentication().getName();
 			clubPostVO.setMemId(id);
-			System.out.println("====== clubPostVO 뭔가요 "+clubPostVO);
+			//System.out.println("++++++ clubPostVO 뭔가요 "+clubPostVO);
 			int result =  clubPostService.insertPost(clubPostVO);
 		return result;
 		}
