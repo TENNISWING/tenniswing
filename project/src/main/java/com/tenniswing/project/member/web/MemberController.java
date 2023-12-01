@@ -128,14 +128,14 @@ public class MemberController {
 		String role = memberVO.getMemDiv();	
 		
 		//첨부파일 불러오기
-		List<AttachVO> attachList =  attachService.attachList("m", memberVO.getMemNo());
+		List<AttachVO> attachList =  attachService.attachList("m", memberVO.getMemNo());//이거 땡겨오기
 		
 		//회원정보 dom에 전달		
 		model.addAttribute("member", memberVO);
 		
 		
 		//첨부파일 dom에 전달		
-		model.addAttribute("attachList", attachList.get(0));
+		model.addAttribute("attachList", attachList.get(0)); //땡겨온다음에 여기넣기
 		
 		if(role.equals("ROLE_ADMIN")) {
 			return "redirect:admin";

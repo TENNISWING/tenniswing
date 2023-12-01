@@ -20,7 +20,7 @@ public class AttachVO {
 	// 첨부파일 테이블 구분 코드
 	private String attachTableDiv;	
 	// 첨부파일 테이블 PK
-	private int attacTablePk;	
+	private int attachTablePk;	
 	//파일크기
 	private long size;
 	
@@ -31,9 +31,9 @@ public class AttachVO {
         this.attachPath = path;
         this.attachExt = ext;
 	}
-	
-	 public void setPostId(int tablePk, String tableDiv ) {
-	        this.attacTablePk = tablePk;
+
+	public void setPostId(int tablePk, String tableDiv ) {
+	        this.attachTablePk = tablePk;
 	        this.attachTableDiv = tableDiv;
 	    }
 	

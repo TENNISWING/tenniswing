@@ -1,9 +1,12 @@
 package com.tenniswing.project.community.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tenniswing.project.attach.service.AttachVO;
 
@@ -26,6 +29,8 @@ public class SnsVO {
 	private int snsGrpNo;
 	private int test;
 	
+//	private Map<String, String> snsTag;
+	
 	//sns 좋아요
 	private int likeNo;
 	private int likeCnt; //좋아요 수 count
@@ -44,7 +49,11 @@ public class SnsVO {
 	private List<AttachVO> attachList;
 	
 	// sns 댓글 리스트
-	private List<SnsRepVO> snsRepList;
+	//private List<SnsRepVO> snsRepList;
+	
+	//attach
+	private List<MultipartFile> files = new ArrayList<>();
+	
 	
 
 

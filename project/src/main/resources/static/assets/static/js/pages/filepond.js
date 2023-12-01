@@ -114,7 +114,7 @@ FilePond.create(document.querySelector(".image-preview-filepond"), {
   allowImageFilter: false,
   allowImageExifOrientation: false,
   allowImageCrop: false,
-  acceptedFileTypes: ["image/png", "image/jpg", "image/jpeg"],
+  acceptedFileTypes: ["image/png", "image/jpg", "image/jpeg" , "video/mp4"],
   fileValidateTypeDetectType: (source, type) =>
     new Promise((resolve, reject) => {
       // Do custom type detection here and return with promise
