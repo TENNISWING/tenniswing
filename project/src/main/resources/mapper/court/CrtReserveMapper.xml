@@ -49,4 +49,30 @@
 	)
 	SELECT * FROM dual
 </insert>
+
+<!-- 예약 불가능한 리스트 -->
+<select id="impossibleReserveList" resultType="crtReserveVO">
+	SELECT cdi.crt_detail_no
+        , cdi.crt_use_price
+        , cdi.use_unit_time
+        , cdi.crt_indoor_outdoor
+        , FIND_CATEGORY_NAME(cdi.crt_indoor_outdoor) crt_indoor_outdoor_name
+        , rdi.reserve_date
+        , rdi.reserve_time
+        , FIND_CATEGORY_NAME(rdi.reserve_time) reserve_time_name
+	FROM reserve r JOIN crt_detail_inf cdi
+                ON cdi.crt_detail_no = r.crt_detail_no
+                JOIN reserve_detail_inf rdi
+                ON r.reserve_no = rdi.reserve_no
+	WHERE rdi.reserve_date = #{reserveDate}
+	AND cdi.crt_detail_no = #{crtDetailNo}
+</select>
+
+<!-- 예약시간 구분코드 -->
+<select id="reserveTimeCodeList" resultType="crtReserveVO">
+	SELECT subcategory_code, name
+	FROM subcategory
+	WHERE maincategory_code = 'BG'
+	ORDER BY 2
+</select>
 </mapper>

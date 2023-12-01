@@ -26,8 +26,17 @@ public class CrtReserveVO {
 	private String reserveTime;
 	private String tReserveTime;
 	
-	//
+	// 화면단 뿌려줄 때 사용
 	private String crtroomName;
 	private String crtroomLocation;
 	private String crtNo;
+	
+	// 아작스로 예약 가능시간 뿌려줄 때 사용
+	private String crtIndoorOutdoor;
+	private String reserveTimeName;
+	private String crtIndoorOutdoorName;
+	
+	// 예약 구분코드
+	private String subcategoryCode;
+	private String name;
 }

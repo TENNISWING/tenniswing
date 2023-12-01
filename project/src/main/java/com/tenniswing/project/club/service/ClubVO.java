@@ -1,6 +1,7 @@
 package com.tenniswing.project.club.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,11 +24,14 @@ public class ClubVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date clubCreateDate;
 	
+	//구분코드
 	private String clubGenName;
 	private String clubRegionName;
 	private String clubDayName;
 	private String clubAgeName;
 	private String clubTimeName;
 	private String clubRecruitmentName;
+	
+	private List<ClubPostVO> clubPostList;
 	
 }
