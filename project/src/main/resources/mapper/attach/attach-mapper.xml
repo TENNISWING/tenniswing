@@ -64,7 +64,7 @@
 			, #{file.attachPath}
 			, #{file.attachTurn}
 			, #{file.attachTableDiv}
-			, #{file.attacTablePk}		
+			, #{file.attachTablePk}		
 		FROM DUAL		
 		</foreach>
 	</insert>

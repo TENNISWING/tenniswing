@@ -92,7 +92,10 @@ public class MemberController {
 				return "redirect:/loginform";
 			}
 			
+			System.out.println("1"+memberVO.getFiles());
+			
 			List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());
+			System.out.println("2"+files);
 			
 			//테이블 구분, 게시글 번호, 파일목록
 			int n = attachService.saveAttach("m", memberVO.getMemNo(), files);
