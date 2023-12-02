@@ -8,7 +8,7 @@ public interface AttachService {
 	public List<AttachVO> attachList(String tableDiv, int attachTablePk);
 	
 	//sns 첨부파일 조회
-	//public List<AttachVO> attachListAllSns();
+	public List<AttachVO> attachListAllSns();
 	
 	//전체등록
 	public int saveAttach( String tableDiv, int tablePk, List<AttachVO> files );

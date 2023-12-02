@@ -23,6 +23,10 @@
 		,( SELECT COUNT(*)
 		FROM sns_like l
 		where l.sns_wrt_no = s.sns_wrt_no ) as like_cnt
+		, (SELECT ATTACH_PATH
+		FROM ATTACH
+		where  s.sns_wrt_no = attach_table_pk
+		AND attach_table_div = 's') as ATTACH_PATH
 		from sns s
 		join sns_grp g
 		on s.sns_grp_no = g.sns_grp_no
