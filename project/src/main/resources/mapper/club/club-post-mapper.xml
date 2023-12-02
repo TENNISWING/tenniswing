@@ -7,6 +7,7 @@
   <select id="selectAllPost" resultType="ClubPostVO">
   	SELECT club_post_no
   		   , c.club_post_title
+  		   , c.club_post_ctt
   		   , m.name
   		   , c.club_post_write_date
   		   , c.club_post_hit
@@ -44,5 +45,11 @@
   	 				,#{clubNo}
   	 			)
   	</insert>
+  	
+  	<!-- 게시글 삭제 -->
+  	<delete id="deletePost" parameterType="int">
+  		DELETE FROM club_post
+  		WHERE club_post_no = #{clubPostNo}
+  	</delete>
   
   </mapper>

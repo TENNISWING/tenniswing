@@ -19,6 +19,8 @@ public interface ClubPostMapper {
 	public int insertPost(ClubPostVO clubPostVO);
 	
 	//수정
+	public int updatePost(ClubPostVO clubPostVO);
 	
 	//삭제
+	public int deletePost(int clubPostNo);
 }

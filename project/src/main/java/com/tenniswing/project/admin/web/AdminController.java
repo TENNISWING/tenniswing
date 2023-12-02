@@ -1,5 +1,6 @@
 package com.tenniswing.project.admin.web;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.tenniswing.project.attach.service.AttachService;
+import com.tenniswing.project.attach.service.AttachVO;
+import com.tenniswing.project.common.FileUtils;
 import com.tenniswing.project.shop.service.ProdDetailService;
 import com.tenniswing.project.shop.service.ProdDetailVO;
 import com.tenniswing.project.shop.service.ProdService;
@@ -24,6 +31,12 @@ public class AdminController {
 	
 	@Autowired
 	ProdDetailService prodDetailService;
+	
+	@Autowired
+	FileUtils fileUtils;
+	
+	@Autowired
+	AttachService attachService;
 
 	// 상품 목록
 	@GetMapping("admin_Product")
@@ -35,6 +48,16 @@ public class AdminController {
 	// 한건 조회
 	@GetMapping("adminDetail_Product")
 	public String adminDetailProductPage(Model model, ProdVO prodVO) {
+		
+		// 첨부파일 불러오기
+		List<AttachVO> attachList = attachService.attachList("p", prodVO.getProdNo());
+		String path = "";
+		
+		if(attachList != null && attachList.size() != 0) {
+			path = attachList.get(0).getAttachPath();
+			model.addAttribute("attachList", path);
+		}
+		
 		model.addAttribute("prod", prodService.selectProd(prodVO));
 		model.addAttribute("prodDetailList", prodDetailService.selectAllProdDetail(prodVO));
 		model.addAttribute("prodDetail", new ProdDetailVO());
@@ -57,11 +80,22 @@ public class AdminController {
 
 	// 등록 - 처리
 	// adminAddProductProcess(ProdVO prodVO, RedirectAttributes rttr)
-	@PostMapping("adminAdd_Product")
+	/*
+	 * @ResponseBody
+	 * 
+	 * @PostMapping("adminAdd_Product") public int adminAddProductProcess(ProdVO
+	 * prodVO) { System.out.println(prodVO.getFiles()); return
+	 * prodService.insertProd(prodVO); }
+	 */
+	
 	@ResponseBody
-	public int adminAddProductProcess(@RequestBody ProdVO prodVO) {
+	@RequestMapping(value = "adminAdd_Product", method = RequestMethod.POST)
+	public int adminAddProductProcess(ProdVO prodVO) {
+		System.out.println("파일" + prodVO.getFiles());
+		System.out.println(prodVO);
 		return prodService.insertProd(prodVO);
 	}
+
 
 	// 수정
 	@GetMapping("adminEdit_Product")

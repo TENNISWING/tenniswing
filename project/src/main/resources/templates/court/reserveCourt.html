@@ -133,13 +133,22 @@
 
 	<script th:inline="javascript">
 		$('#reserveSubmit').on('click', function(){
+				const pdate = [[${reserveInfo.reserveDate}]];
+				const rdate = new Date(pdate);
+				console.log(rdate);
+				const ryear = rdate.getFullYear();
+				const rmonth = ('0' + (rdate.getMonth() + 1)).slice(-2);
+				const rday = ('0' + rdate.getDate()).slice(-2);
+				const rdateStr = ryear.toString()+'-'+rmonth.toString()+'-'+rday.toString();
 			
+				let crtroomName = [[${reserveInfo.crtroomName}]];
 				let crtroomNo = [[${reserveInfo.crtroomNo}]];
 				let reservePrice = Number([[${reserveInfo.reservePrice}]]);
-				let reserveDate = [[${reserveInfo.reserveDate}]];
+				let reserveDate = rdateStr;
 				let crtDetailNo = [[${reserveInfo.crtDetailNo}]];
 				let reserveTime = [[${reserveInfo.reserveTime}]];
 				let tReserveTime = [[${reserveInfo.tReserveTime}]];
+				
 				//var IMP = window.IMP;
 				IMP.init("imp30873503");
 
@@ -154,16 +163,17 @@
 				let makeMerchantUid = year.toString() + '0' + month.toString() + date.toString() + hour + minute + second + milliseconds;
 
 				IMP.request_pay({
-					pg: 'html5_inicis.INIpayTest',
+					pg: 'kcp',
 					pay_method: 'card',
 					merchant_uid: makeMerchantUid,
-					name: crtroomNo,
-					amount: reservePrice,
-					buyer_email: reserveDate,
+					name: crtroomName,
+					amount: 100,
+					//amount: reservePrice,
+					/* buyer_email: reserveDate,
 					buyer_name: crtDetailNo,
 					buyer_tel: reserveTime,
 					buyer_addr: tReserveTime,
-					//buyer_postcode: '123-456',
+					text_free: crtroomNo, */
 					display: {
 						card_quota: [6]  // 할부개월 6개월까지 활성화
 					}
@@ -174,31 +184,60 @@
 						// jQuery로 HTTP 요청
 						console.log(rsp.imp_uid)
 						console.log(rsp.merchant_uid)
-				/* 		$.ajax({
-							url: 'Order.do',
+				 		
+						$.ajax({
+							url: 'reserveCourt',
 							method: 'post',
-							data: {
-								id: uid,
-								total: lastSum,
-								imp_uid: rsp.imp_uid,            // 결제 고유번호
-								merchant_uid: rsp.merchant_uid   // 주문번호
-							},
-							success: function(e) {
-								if (e.retCode == 'Success') {
-									location.href = "OrderComplete.do";
+							data: {crtroomName,
+								   crtroomNo,
+								   reservePrice,
+								   reserveDate,
+								   crtDetailNo,
+								   reserveTime,
+								   tReserveTime,
+								   reserve_uid: rsp.merchant_uid,
+								   reserve_pay_no: rsp.imp_uid},
+							/* {
+								reservePrice: rsp.amount,
+								reservePayNo: rsp.imp_uid,     // 결제 고유번호
+								reserveUid: rsp.merchant_uid   // 주문번호
+								crtroomNo: rsp.text_free,
+								crtDetailNo: rsp.buyer_name,
+								reserveDate: rsp.buyer_email,
+								reserveTime: rsp.buyer_tel,
+								tReserveTime: rsp.buyer_addr
+							}, */
+							success: function (results) {
+								console.log(results.crtReserveVO)
+								if (results.result) {
+									Swal2.fire({
+										icon: "success",
+										text: "정상적으로 예약되었습니다.",
+									}).then(function(){
+										location.href = "/court";
+									})
 								} else {
-									alert("결제 실패, 다시 시도해 주세요.");
+									Swal2.fire({
+										icon: "error",
+										text: "예약 실패되었습니다.",
+									}).then(function(){
+										location.reload();
+									})
 								}
 							},
-							error: function(e) {
-								console.log(e);
-							}
-						}) */
-
+							error: function(err) {console.log(err)}
+						})
 					} else {
 						alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+						/* Swal2.fire({
+							icon: "error",
+							text: "결제에 실패하였습니다.",
+						}).then(function(){
+							location.reload();
+						}) */
 					}
 				});
+			});
 			
  /* $.ajax({
 
@@ -248,17 +287,32 @@
 							console.log(e);
 						}
 					})
+					
+					$.ajax({
+						url: 'Order.do',
+						method: 'post',
+						data: {
+							id: uid,
+							total: lastSum,
+							imp_uid: rsp.imp_uid,            // 결제 고유번호
+							merchant_uid: rsp.merchant_uid   // 주문번호
+						},
+						success: function(e) {
+							if (e.retCode == 'Success') {
+								location.href = "OrderComplete.do";
+							} else {
+								alert("결제 실패, 다시 시도해 주세요.");
+							}
+						},
+						error: function(e) {
+							console.log(e);
+						}
+					}) 
 
 				} else {
 					alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
 				}
 			});
-			
-			
-			
-			
-			
-			
 			$.ajax({
 
 				method: 'post',
@@ -283,8 +337,8 @@
 					}
 				},
 				error: () => console.log(error)
-			}) */
-		}); 
+			})
+		});  */
 	</script>
     
 </th:block>
