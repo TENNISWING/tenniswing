@@ -155,6 +155,17 @@ public class ClubController {
 			return result;
 		}
 		
+		//자유게시판 수정
+		@PostMapping("postUpdate")
+		@ResponseBody
+		public Map<String, Object> postUpdateFormAjax(ClubPostVO clubPostVO) {
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			clubPostVO.setMemId(id);
+			//System.out.println("-----수정아작스컨트롤러 "+clubVO);
+			Map<String, Object> result = clubPostService.updatePost(clubPostVO);
+			return result;
+		}
+		
 	
 	//상세페이지 > 탭 > 멤버
 	@GetMapping("clubMember")  
