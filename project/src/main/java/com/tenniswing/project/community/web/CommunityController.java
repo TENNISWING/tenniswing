@@ -130,10 +130,11 @@ public class CommunityController {
 			/*
 			 * for(String tag : snsVO.getSnsTag().replaceAll("[**]", "").split(",")) {
 			 * System.out.println(tag); }
-			 * 
-			 * 
-			 * if(id.equals("anonymousUser")) { //return "redirect:loginform"; }
 			 */
+			if(id.equals("anonymousUser")) {
+				return "redirect:loginform"; 
+			}
+			
 			snsService.insertSns(snsVO);
 			
 			rttr.addAttribute("snsWrtNo", snsVO.getSnsWrtNo());
