@@ -38,7 +38,6 @@
 		, a.attach_ext
 		, a.attach_table_div
 		, a.attach_table_pk
-		, s.sns_wrt_no
 		FROM attach a JOIN SNS s
 		ON a.attach_table_pk = s.sns_wrt_no
 		WHERE a.attach_table_div= 's'
