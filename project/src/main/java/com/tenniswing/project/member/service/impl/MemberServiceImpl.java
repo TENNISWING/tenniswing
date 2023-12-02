@@ -156,7 +156,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		MemberVO oldMemberVO = memberMapper.memberUpdateInfo(memberVO.getMemId());
 		
-		System.out.println(memberVO.getFiles());
+	
 		
 		if(memberVO.getFiles().size() == 0) {
 			return 0;

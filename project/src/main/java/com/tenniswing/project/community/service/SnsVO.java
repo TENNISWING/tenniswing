@@ -47,6 +47,7 @@ public class SnsVO {
 
 	//sns 이미지 리스트
 	private List<AttachVO> attachList;
+	private String attachPath; 
 	
 	// sns 댓글 리스트
 	//private List<SnsRepVO> snsRepList;

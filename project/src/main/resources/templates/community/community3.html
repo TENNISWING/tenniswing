@@ -60,7 +60,8 @@
 												<div class="card-content">
 													<div class="card-body">
 														<h4 class="card-title">[[${s.snsTitle}]]</h4>
-														<th:block th:each=" lang : ${#strings.arraySplit(s.snsTag,',')}">
+														<th:block
+															th:each=" lang : ${#strings.arraySplit(s.snsTag,',')}">
 															<h4 class="card-title">[[${lang}]]</h4>
 														</th:block>
 														<h6 class="card-subtitle" style="font-weight: 300;">[[${s.grpName}]]</h6>
@@ -68,8 +69,13 @@
 													<div id="myCarousel" th:attrappend="id=${sStat.count}"
 														class="carousel slide" data-ride="carousel">
 														<div class="carousel-inner">
-													<!-- 	<th:block th:each="simg : ${attachList}"> -->
-														<!-- <th:block th:if>
+															<video class="main-top-promotion-video" autoplay="autoplay" loop="loop" muted="muted">
+															<source th:src="${s.attachPath}" type="video/mp4">
+															</video>
+														
+
+															<!-- 	<th:block th:each="simg : ${attachList}"> -->
+															<!-- <th:block th:if>
 													
 															<div class="carousel-item active">
 																<img th:src="${simg.attachPath}"
@@ -79,10 +85,10 @@
 														<th:block th:unless>
 															
 														</th:block> -->
-													<!-- 	<img th:src="${s.attachList.attachPath}"
-																	class="d-block w-100" alt="..."> -->
+															<!-- 	<img th:src="${s.attachList.attachPath}"
+																	class="d-block w-100" alt="..."> 
 													<!-- 	</th:block> -->
-												<!-- 			<div class="carousel-item">
+															<!-- 			<div class="carousel-item">
 																<img src="./assets/compiled/jpg/bg-mountain.jpg"
 																	class="d-block w-100" alt="...">
 															</div> -->
@@ -111,11 +117,11 @@
 												<div class="buttons" style="float: right">
 													<ul class="nav d-flex justify-content-around text-center"
 														style="float: right">
-														
-														<!-- 좋아요 버튼 --> 
+
+														<!-- 좋아요 버튼 -->
 														<li class="d-flex flex-column">
 															<div>
-											<!-- 					<a th:if="${#strings.isEmpty(s.likeNo)}" class="btn icon btn-white" th:data-snslike="${s.snsWrtNo}">
+																<!-- 					<a th:if="${#strings.isEmpty(s.likeNo)}" class="btn icon btn-white" th:data-snslike="${s.snsWrtNo}">
 																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC" id="likeBtn"
 																		th:attrappend="id=${sStat.count}">
 																	</i>
@@ -125,17 +131,20 @@
 																		th:attrappend="id=${sStat.count}">
 																	</i>
 																</a> -->
-																	<a th:if="${#strings.isEmpty(s.likeNo)}" class="btn icon btn-white" th:data-snslike="${s.snsWrtNo}">
-																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC" id="likeBtn"
-																		th:attrappend="id=${sStat.count}">
-																	</i>
+																<a th:if="${#strings.isEmpty(s.likeNo)}"
+																	class="btn icon btn-white"
+																	th:data-snslike="${s.snsWrtNo}"> <i
+																	class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC"
+																	id="likeBtn" th:attrappend="id=${sStat.count}"> </i>
+																</a> <a th:if="${not #strings.isEmpty(s.likeNo)}"
+																	class="btn icon btn-white"
+																	th:data-snslike="${s.snsWrtNo}"> <i
+																	class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC active"
+																	th:data-likeno="${s.likeNo}" id="likeBtn"
+																	th:attrappend="id=${sStat.count}"> </i>
 																</a>
-																<a th:if="${not #strings.isEmpty(s.likeNo)}" class="btn icon btn-white" th:data-snslike="${s.snsWrtNo}">
-																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC active"  th:data-likeno="${s.likeNo}" id="likeBtn"
-																		th:attrappend="id=${sStat.count}">
-																	</i>
-																</a>
-															</div><span>[[${s.likeCnt}]]</span>
+															</div>
+															<span>[[${s.likeCnt}]]</span>
 														</li>
 
 														<!-- 댓글 버튼 -->
@@ -145,8 +154,7 @@
 																	<i class="fa-solid fa-comment fs-5 text-secondary"
 																	th:id="${sStat.count}"></i>
 																</a>
-															</div>
-														</li>
+															</div></li>
 
 														<!-- 공유하기 버튼 -->
 														<li class="d-flex flex-column">
@@ -158,36 +166,31 @@
 																	aria-expanded="false" aria-controls="collapseExample"><i
 																	class="fa-solid fa-share-from-square fs-5 text-secondary"
 																	th:id="${sStat.count}"></i></a>
-															</div>
-															<!-- 콜랩스 추가 -->
+															</div> <!-- 콜랩스 추가 -->
 															<div class="collapse snsBtnsCol" id="collapseExample"
 																th:attrappend="id=${sStat.count}">
-																<span onclick="shareNaver()"> 
-																	<script type="text/javascript"
-																			src="https://ssl.pstatic.net/share/js/naver_sharebutton.js">
-																	</script>
-																	<script type="text/javascript">
+																<span onclick="shareNaver()"> <script
+																		type="text/javascript"
+																		src="https://ssl.pstatic.net/share/js/naver_sharebutton.js">
+																	</script> <script type="text/javascript">
 																	new ShareNaver.makeButton(
 																			{
 																				"type" : "a"
 																			});
 																	</script>
-																</span> 
-																<span th:onclick="javascript:kakaoShare()"
+																</span> <span th:onclick="javascript:kakaoShare()"
 																	id="kakao-link-btn"><img
 																	src="assets/img/sns/kakaoTalk.png"
-																	style="width: 16px; height: 16px;">
-																</span>
-															</div>
-															<!-- 콜랩스 추가 끝 -->
+																	style="width: 16px; height: 16px;"> </span>
+															</div> <!-- 콜랩스 추가 끝 -->
 														</li>
 
 														<!-- 스크랩 버튼 -->
 														<li class="d-flex flex-column">
 															<div>
-																<a class="btn icon btn-white bmark">
-																	<i class="fa-regular fa-bookmark fs-5 text-secondary iBmark">
-																	</i>
+																<a class="btn icon btn-white bmark"> <i
+																	class="fa-regular fa-bookmark fs-5 text-secondary iBmark">
+																</i>
 																</a>
 															</div>
 														</li>
