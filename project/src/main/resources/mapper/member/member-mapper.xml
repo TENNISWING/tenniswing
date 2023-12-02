@@ -28,6 +28,13 @@
 		FROM MEM
 		WHERE MEM_ID = #{memId}
 	</select>
+	
+		<!-- 로그인 -->
+	<select id="checkPw" resultType="MemberVO">
+		SELECT pwd
+		FROM MEM
+		WHERE MEM_ID = #{memId}
+	</select>
 
 	<!-- 멤버정보 조회 -->
 	<select id="memberInfo" resultType="MemberVO">
@@ -53,8 +60,34 @@
 		AND attach_table_div = 'm') as ATTACH_PATH
 		FROM MEM m JOIN PR p
 		ON m.mem_id = p.mem_id
-		WHERE m.mem_id = #{memId}
-		
+		WHERE m.mem_id = #{memId}		
+	</select>
+	
+		<!-- 멤버수정폼 조회 -->
+	<select id="memberUpdateInfo" resultType="MemberVO">
+		SELECT m.MEM_NO
+		,m.MEM_ID
+		,m.NAME
+		,m.MEM_DIV
+		,m.PHONE_NO
+		,p.NICK
+		,p.AGE
+		,p.LV
+		,p.REGION
+		,p.GEN
+		,p.NTRP
+		,p.PREFER_GAME_WAY
+		,p.PREFER_AGE
+		,p.CRTROOM_NO
+		,p.PR_IMAGE
+		,p.MANNER_POINT
+		, (SELECT ATTACH_PATH
+		FROM ATTACH
+		where  m.mem_no = attach_table_pk
+		AND attach_table_div = 'm') as ATTACH_PATH
+		FROM MEM m JOIN PR p
+		ON m.mem_id = p.mem_id
+		WHERE m.mem_id = #{memId}		
 	</select>
 
 	<!-- 아이디 중복 체크 -->
@@ -152,14 +185,30 @@
 		SELECT * FROM DUAL
 	</insert>
 
-	<!-- 수정 : 전제조건, 전체 데이터 전송 -->
-	<update id="updateEmpInfo" parameterType="MemberVO">
-		UPDATE employees
-		SET
-		first_name = #{firstName}
-		, email = #{email}
-		, salary = #{salary}
-		WHERE employee_id = #{employeeId}
+	<update id="updateMemberInfo" parameterType="MemberVO">
+		UPDATE MEM 
+		SET		
+			NAME = #{name}
+			<if test="pwdUpdate != null and !pwdUpdate.equals('')">, PWD = #{pwdUpdate}</if>
+			,PHONE_NO = #{phoneNo}			
+		WHERE mem_id = #{memId}
+	</update>
+
+	<update id="updatePrInfo" parameterType="MemberVO">
+		UPDATE PR
+		SET		
+			NICK = #{nick}
+			,AGE = #{age}
+			,LV = #{lv}
+			,REGION = #{region}
+			,GEN = #{gen}
+			,NTRP = #{ntrp}
+			,PREFER_GAME_WAY =#{preferGameWay}
+			,PREFER_AGE =#{preferAge}
+			,CRTROOM_NO = #{crtroomNo}
+			,PR_IMAGE = #{prImage}
+			,MANNER_POINT = #{mannerPoint}
+			WHERE mem_id = #{memId}
 	</update>
 
 	<!-- 수정 : 전제조건, 변경된 데이터만 올 경우 Dynamic Sql -->

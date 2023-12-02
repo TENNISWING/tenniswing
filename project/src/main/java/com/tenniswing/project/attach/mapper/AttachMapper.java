@@ -14,4 +14,6 @@ public interface AttachMapper {
 	
 	//전체등록
 	public int saveAttachAll(List<AttachVO> files);
+	
+	public int updateAttach(List<AttachVO> files);
 }

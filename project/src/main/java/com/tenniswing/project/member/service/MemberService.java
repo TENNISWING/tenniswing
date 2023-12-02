@@ -12,6 +12,10 @@ public interface MemberService {
 	
 	// 마이페이지 회원정보 조회
 	public MemberVO memberInfo(String memId);
+	// 수정폼 회원정보 조회
+	public MemberVO memberUpdateInfo(String memId);
+	//프로필 사진 업로드
+	public int profileUpload(MemberVO memberVO);
 	
 	// 아이디 중복 체크
 	public boolean idCheck(String memId);

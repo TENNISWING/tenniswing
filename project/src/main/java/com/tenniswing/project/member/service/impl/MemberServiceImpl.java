@@ -42,13 +42,26 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberVO memberInfo(String memId) {
-		
-		MemberVO memberVO = new MemberVO();
-		
-		memberVO = memberMapper.memberInfo(memId);		
+		 MemberVO memberVO = memberMapper.memberInfo(memId);		
 
 		if (memberVO.getAttachPath() == null) {
 			if (memberVO.getGen().equals("남성")) {
+				memberVO.setAttachPath("/assets/compiled/jpg/2.jpg");		
+			} else {
+				memberVO.setAttachPath("/assets/compiled/jpg/3.jpg");		
+			}
+		} 
+	
+		return memberVO;
+	}
+	
+	@Override
+	public MemberVO memberUpdateInfo(String memId) {
+		
+		MemberVO memberVO = memberMapper.memberUpdateInfo(memId);		
+
+		if (memberVO.getAttachPath() == null) {
+			if (memberVO.getGen().equals("c1")) {
 				memberVO.setAttachPath("/assets/compiled/jpg/2.jpg");		
 			} else {
 				memberVO.setAttachPath("/assets/compiled/jpg/3.jpg");		
@@ -94,18 +107,74 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Map<String, Object> updateMemberInfo(MemberVO memberVO) {
 		Map<String, Object> map = new HashMap<>();
-
-		boolean isSuccessed = false;
-		int result = memberMapper.updateMemberInfo(memberVO);
-
-		if (result == 1) {
-			isSuccessed = true;
+		
+		//pw check
+		MemberVO pwvo = memberMapper.checkPw(memberVO.getMemId());
+		
+		//패스워드 맞는지 확인
+		if(!passwordEncoder.matches(memberVO.getPwd(), pwvo.getPwd())) {
+			map.put("message", "비밀번호가 일치하지않아 수정에 실패하였습니다.");
+			return map;
+		}		
+		
+		if(memberVO.getPwdUpdate() != null && memberVO.getPwdUpdate().length() != 0) {
+			System.out.println("비번어떻게 들어 오냐???   " + memberVO.getPwdUpdate() + "공백이냐?");
+			memberVO.setPwdUpdate(passwordEncoder.encode(memberVO.getPwdUpdate()));
 		}
+		
+		int result = 0;
+		
+		result += memberMapper.updateMemberInfo(memberVO);
+		result += memberMapper.updatePrInfo(memberVO);
 
-		map.put("result", isSuccessed);
-		map.put("target", memberVO);
+		if (result > 0) {			
+			map.put("message", "프로필을 수정 하였습니다.");
+		}
+		
+
+		if(memberVO.getFiles().size() != 0) {	
+			
+			memberVO = memberMapper.memberInfo(memberVO.getMemId());	
+			if(memberVO.getAttachPath() != null && memberVO.getAttachPath().length() != 0) {
+				System.out.println("업데이트");
+				List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());
+				attachService.updateAttach("m", memberVO.getMemNo(), files);
+			}else {
+				System.out.println("인서트=? " + memberVO.getMemNo());
+				List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());			
+				//테이블 구분, 게시글 번호, 파일목록
+				attachService.saveAttach("m", memberVO.getMemNo(), files);
+			}
+			
+		}	
 
 		return map;
+	}
+	
+	@Override
+	public int profileUpload(MemberVO memberVO) {
+		
+		MemberVO oldMemberVO = memberMapper.memberUpdateInfo(memberVO.getMemId());
+		
+		System.out.println(memberVO.getFiles());
+		
+		if(memberVO.getFiles().size() == 0) {
+			return 0;
+		}
+		
+		int n = 0;
+		
+		if(oldMemberVO.getAttachPath() != null && oldMemberVO.getAttachPath().length() != 0) {
+			System.out.println("업데이트");
+			List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());
+			n = attachService.updateAttach("m", oldMemberVO.getMemNo(), files);
+		}else {
+			System.out.println("인서트=? " + oldMemberVO.getMemNo());
+			List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());			
+			//테이블 구분, 게시글 번호, 파일목록
+			n = attachService.saveAttach("m", oldMemberVO.getMemNo(), files);
+		}
+		return n;
 	}
 
 	@Override
@@ -159,5 +228,9 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+	
 
 }

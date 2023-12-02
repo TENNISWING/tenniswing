@@ -1,6 +1,9 @@
 package com.tenniswing.project.member.web;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.member.service.MemberService;
 import com.tenniswing.project.member.service.MemberVO;
 
@@ -107,14 +112,47 @@ public class MemberController {
 	@GetMapping("mypage-profile")
 	public String profileMyPage(Model model) {
 		//로그인 회원 아이디 불러오기
-		String id = SecurityContextHolder.getContext().getAuthentication().getName();		
-		MemberVO memberVO =  memberService.memberInfo(id);	
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();	
 		
 		// 회원정보 dom에 전달
-		model.addAttribute("member", memberVO);
+		model.addAttribute("member",  memberService.memberUpdateInfo(id));
 		model.addAttribute("nowpage", 10 );
 		return "member/mypage-profile";
 	}	
+	
+	@PostMapping("profileUpdate")
+	public String profileUpdate(Model model, MemberVO memberVO){
+		//로그인 회원 아이디 불러오기
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();	
+		
+		Map<String, Object> map = new HashMap<>();	
+		
+		map = memberService.updateMemberInfo(memberVO);
+		
+		model.addAttribute("member",  memberService.memberUpdateInfo(id));
+		model.addAttribute("nowpage", 10 );		
+		model.addAttribute("message", map.get("message"));
+		
+		return "member/mypage-profile";		
+	}
+	
+	@PostMapping("profileupload")
+	public String profileUploadAjax(MemberVO memberVO, Model model) {
+		//로그인 회원 아이디 불러오기
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();	
+		memberVO.setMemId(id);
+		System.out.println(memberVO.getFiles() + "파일받아오냐?");
+		int n = memberService.profileUpload(memberVO);
+		
+		if(n > 0) {
+			model.addAttribute("message", "프로필사진 등록을 완료하였습니다.");
+		}
+		// 회원정보 dom에 전달
+		model.addAttribute("member",  memberService.memberUpdateInfo(id));
+		model.addAttribute("nowpage", 10 );		
+		
+		return "member/mypage-profile";
+	}
 	
 	@GetMapping("mypage-club")
 	public String clubMyPage(Model model) {

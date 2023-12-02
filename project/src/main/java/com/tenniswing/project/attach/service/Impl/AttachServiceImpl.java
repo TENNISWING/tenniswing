@@ -40,6 +40,21 @@ public class AttachServiceImpl implements AttachService {
 	public List<AttachVO> attachListAllSns() {
 		return attachMapper.attachListAllSns();
 	}
+
+	@Override
+	public int updateAttach(String tableDiv, int tablePk, List<AttachVO> files) {
+		if(CollectionUtils.isEmpty(files)) {
+			return 0;
+		}
+		
+		for (AttachVO file : files) {
+			file.setAttachTableDiv(tableDiv);
+			file.setAttachTablePk(tablePk);
+		}
+		
+		return attachMapper.updateAttach(files);
+		
+	}
 	
 	
 }

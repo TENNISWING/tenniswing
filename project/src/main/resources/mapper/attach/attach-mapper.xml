@@ -64,8 +64,23 @@
 			, #{file.attachPath}
 			, #{file.attachTurn}
 			, #{file.attachTableDiv}
-			, #{file.attacTablePk}		
+			, #{file.attachTablePk}		
 		FROM DUAL		
 		</foreach>
 	</insert>
+	
+	<!--  파일 정보 수정  -->
+	<update id="updateAttach"  parameterType="AttachVO">
+		UPDATE attach	
+			<foreach item="file" collection="list" separator=",">
+		SET
+			attach_ext = #{file.attachExt}
+			, attach_origin_name = #{file.attachOriginName}
+			, attach_save_name = #{file.attachSaveName}
+			, attach_path = #{file.attachPath}
+			, attach_turn = #{file.attachTurn}
+		WHERE attach_table_div = #{file.attachTableDiv}
+		AND attach_table_pk = #{file.attachTablePk}
+		</foreach>
+	</update>
 </mapper>
