@@ -3,6 +3,13 @@
 	layout:decorate="~{/layouts/admin/admin-layout}">
 <head>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<style type="text/css">
+		#imgArea {
+			font-family: 'Noto Sans KR', sans-serif !important;
+			margin: 0;
+			
+		}
+	</style>
 </head>
 <th:block layout:fragment="admincontent">
 	<!-- Main__container Start-->
@@ -34,20 +41,27 @@
 									<div class="dashboard-block__title">
 										<h4>Product Image</h4>
 									</div>
-									<div class="card block__card" style="padding: 20px">
-										<div class="upload__drag">
-											<label for="imageUpload">
+									<div class="card block__card" style="padding: 30px">
+											<!-- <label for="imageUpload">
 												<img src="assets/admin/images/upload-icon.png" class="upload-icon"
 													alt="icon" /> <span> <a href="#">Click to upload</a>
 													or drag and drop
 												</span> <span>SVG, PNG, JPG or GIF (max. 2Mb)</span>
 											</label>
 											<input type="file" id="imageUpload" accept=".png, .jpg, .jpeg, .svg, .gif"
-												multiple="multiple" onchange="setThumbnail(event)" />
+												multiple="multiple" onchange="setThumbnail(event)" /> -->
+										<div class="form-group">	
+											<div class="container card text-center" id="imgArea">
+												<!-- File uploader with image preview -->
+												<label style="margin-bottom: 6px; font-size: 15px; text-align: left;">상품 사진</label>
+												<input type="file" class="image-preview-filepond" id="files"
+													name="files" multiple>
+												<!-- File uploader with multiple files upload -->
+                            					<!-- <input type="file" class="multiple-files-filepond" multiple> -->
+											</div>
 										</div>
-
-										<div class="preview__wrapper">
-											<!--
+										<!-- <div class="preview__wrapper">
+											
 											<div class="preview__item__wrapper">
 												<div class="preview__item">
 													<img src="assets/admin/images/upload-icon.png"
@@ -59,8 +73,8 @@
 													accept=".png, .jpg, .jpeg, .svg, .gif" />
 												</div>
 											</div>
-											-->
-										</div>
+											
+										</div> -->
 										<!-- <p>
 											<a href="#" class="btn btn-outline">Add more image</a>
 										</p> -->
@@ -179,15 +193,23 @@
 		$('#addBnt').on('click', insertProd);
 	
 		function insertProd(e) {
-			let prodInfo = getProdInfo();
-			console.log(prodInfo);
+			/* let prodInfo = getProdInfo();
+			console.log(prodInfo); */
 			//console.log(prodInfo.prodName);
 			
-			let str = prodInfo.prodPrice;
+			let form = $('#addProdForm')[0];
+			let prodInfo = new FormData(form);
+			
+			for(let value of prodInfo.values())
+				console.log(value);
+			
+			//return;	
+			
+			let str = $('#prodPrice').val();
 			let regex = /[0-9]/g;
 			let result = str.replace(regex, '');
 			
-			if(prodInfo.prodName == '') {
+			if($('#prodName').val() == '') {
 				Swal.fire({
 					title: "상품 이름",
 					text: "상품 이름을 입력하세요.",
@@ -197,7 +219,7 @@
 					}
 				})				
 				return;	
-			} else if(prodInfo.prodBrand == '') {
+			} else if($('#prodBrand').val() == '') {
 				Swal.fire({
 					title: "상품 브랜드",
 					text: "상품 브랜드를 입력하세요.",
@@ -207,7 +229,7 @@
 					}
 				})				
 				return;	
-			} else if(prodInfo.prodExp == '') {
+			} else if($('#prodExp').val() == '') {
 				Swal.fire({
 					title: "상품 설명",
 					text: "상품 설명을 입력하세요.",
@@ -217,7 +239,7 @@
 					}
 				})				
 				return;	
-			} else if(prodInfo.prodPrice == '' || result != '') {
+			} else if($('#prodPrice').val() == '' || result != '') {
 				Swal.fire({
 					title: "상품 가격",
 					text: "상품 가격을 입력하세요.",
@@ -232,8 +254,14 @@
 			// Ajax -> JSON
 			$.ajax('adminAdd_Product', {
 				type : 'post',
-				contentType : 'application/json',
-				data : JSON.stringify(prodInfo)
+				//contentType : 'application/json',
+				//data : JSON.stringify(prodInfo)
+				data : prodInfo,
+				enctype: 'multipart/form-data',
+				//dataType : 'json'
+				//cache : false,
+				contentType : false,
+				processData : false
 			})
 			.done(result => {
 				//console.log('JSON', result);
@@ -260,115 +288,22 @@
 		}
 		
 
-		function getProdInfo() {
+		/* function getProdInfo() {
 			let formData = $('#addProdForm').serializeArray();
 			let prodSaleSts = $('#prodSaleSts').is(':checked') ? 'p1' : 'p2';
 			formData.push({name: 'prodSaleSts', value: prodSaleSts});
-
+			let prodImg = $('#files').;
+			formData.push({name: 'files', value: });
+			
 			let objData = {};
 
 			$.each(formData, (idx, obj) => {
 				objData[obj.name] = obj.value;
 			});
 			return objData;
-		}
+		} */
 	</script>
 	
-	<script type="text/javascript">
-		function setThumbnail(event) {
-			// 이미지 비워주기
-			$('#imageUpload').empty();
-			console.log(event.target.files);
-
-			let files = event.target.files;
-			let arr = Array.prototype.slice.call(files);
-
-			// 업로드 가능 파일인지 체크
-			for (let i = 0; i < files.length; i++) {
-				if (!checkExtension(files[i].name, files[i].size)) {
-					return false;
-				}
-			}
-			preview(arr);
-		}
-
-
-		function checkExtension(fileName, fileSize) {
-			var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
-			var maxSize = 20971520;  //20MB
-
-			if (fileSize >= maxSize) {
-				alert('파일 사이즈 초과');
-				$("input[type='file']").val("");  //파일 초기화
-				return false;
-			}
-
-			if (regex.test(fileName)) {
-				alert('업로드 불가능한 파일이 있습니다.');
-				$("input[type='file']").val("");  //파일 초기화
-				return false;
-			}
-			return true;
-		}
-
-		function preview(arr) {
-			var reader = new FileReader();
-			arr.forEach(function (f) {
-				//파일명이 길면 파일명...으로 처리
-				let fileName = f.name;
-				if (fileName.length > 10) {
-					fileName = fileName.substring(0, 7) + "...";
-				}
-
-				let divT1 = $('<div>').attr('class', 'preview__item__wrapper');
-				let divT2 = $('<div>').attr('class', 'preview__item');
-				let btnT = $('<button>').attr('class', 'close-btn');
-				let iT = $('<i>').addClass('fa-solid').addClass('fa-xmark').on('click', function (event) {
-					console.log(event.target.parentElement.parentElement);
-					event.target.parentElement.parentElement.parentElement.remove();
-				});
-				
-				//이미지 파일 미리보기
-				if (f.type.match('image.*')) {
-					reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
-					reader.onload = function (e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
-						//console.log(e.target.result);
-						let img = $('<img>').attr('src', e.target.result);
-						btnT.append(iT);
-						divT2.append(img);
-						divT2.append(btnT);
-						divT1.append(divT2);
-						$('.preview__wrapper').append(divT1);
-					}
-					reader.readAsDataURL(f);
-				}
-			});
-		}
-
-
-		// for (let image of event.target.files) {
-		// 	let divT1 = $('<div>').attr('class', 'preview__item__wrapper');
-		// 	let divT2 = $('<div>').attr('class', 'preview__item');
-		// 	let btnT = $('<button>').attr('class', 'close-btn').on('click', function (event) {
-		// 		console.log(event.target.parentElement.parentElement);
-		// 		event.target.parentElement.parentElement.parentElement.remove();
-		// 	});
-		// 	let iT = $('<i>').addClass('fa-solid').addClass('fa-xmark');
-
-		// 	let reader = new FileReader();
-
-		// 	reader.onload = function (e) {
-		// 		let img = $('<img>').attr('src', e.target.result);
-		// 		btnT.append(iT);
-		// 		divT2.append(img);
-		// 		divT2.append(btnT);
-		// 		divT1.append(divT2);
-		// 		$('.preview__wrapper').append(divT1);
-		// 	};
-		// 	reader.readAsDataURL(image);
-		// }
-		
-	</script>
 	<script type="text/javascript">
 		$('#prodPrice').val(null);
 		//console.log([[ ${prodVO} ]]);

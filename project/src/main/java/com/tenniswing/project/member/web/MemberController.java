@@ -80,8 +80,21 @@ public class MemberController {
 
 		int result = memberService.insertMember(memberVO);	
 
-		if (result > 0) {
-			return "redirect:/loginform";			
+		if (result > 0) {			
+			
+			if(memberVO.getMemDiv().equals("ROLE_HOST")) {
+				return "redirect:/loginform";
+			}
+			
+			System.out.println("1"+memberVO.getFiles());
+			
+			List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());
+			System.out.println("2"+files);
+			
+			//테이블 구분, 게시글 번호, 파일목록
+			int n = attachService.saveAttach("m", memberVO.getMemNo(), files);
+			
+			return "redirect:/loginform";
 		} else {
 			model.addAttribute("message", "회원가입에 실패하였습니다.");
 			return "member/signup";

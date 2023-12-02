@@ -9,7 +9,7 @@ import com.tenniswing.project.attach.service.AttachVO;
 
 public interface SnsService {
 	// 전체조회
-	public List<SnsVO> selectAllSnsInfo();
+	public List<SnsVO> selectAllSnsInfo(SnsVO snsVO);
 	
 	// 단건조회
 	public SnsVO selectSnsInfo(SnsVO snsVO);
@@ -37,5 +37,7 @@ public interface SnsService {
 	
 	//sns 첨부파일 조회
 	public List<AttachVO> attachListAllSns();
+
+	//public List<SnsVO> selectAllSnsInfo(SnsVO snsVO);
 
 }

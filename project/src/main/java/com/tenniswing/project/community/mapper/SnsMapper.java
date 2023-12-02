@@ -9,7 +9,7 @@ import com.tenniswing.project.community.service.SnsVO;
 
 public interface SnsMapper {
 	// 전체조회(다건 조회)
-	public List<SnsVO> selectAllSnsInfo();
+	public List<SnsVO> selectAllSnsInfo(SnsVO snsVO);
 	
 	// 단건 조회
 	public SnsVO selectSnsInfo(SnsVO snsVO);

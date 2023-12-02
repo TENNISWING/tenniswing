@@ -36,6 +36,7 @@ public class AttachServiceImpl implements AttachService {
 		return attachMapper.saveAttachAll(files);
 	}
 
+
 	@Override
 	public List<AttachVO> attachListAllSns() {
 		return attachMapper.attachListAllSns();
@@ -55,6 +56,5 @@ public class AttachServiceImpl implements AttachService {
 		return attachMapper.updateAttach(files);
 		
 	}
-	
 	
 }

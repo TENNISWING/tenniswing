@@ -20,8 +20,8 @@ public class SnsServiceImpl implements SnsService {
 
 	// 전체조회(다건 조회)
 	@Override
-	public List<SnsVO> selectAllSnsInfo() {
-		return snsMapper.selectAllSnsInfo();
+	public List<SnsVO> selectAllSnsInfo(SnsVO snsVO) {
+		return snsMapper.selectAllSnsInfo(snsVO);
 	}
 
 	// 단건 조회
@@ -104,5 +104,11 @@ public class SnsServiceImpl implements SnsService {
 	public List<AttachVO> attachListAllSns() {
 		return snsMapper.attachListAllSns();
 	}
+
+	/*
+	 * @Override public List<SnsVO> selectAllSnsInfo() { // TODO Auto-generated
+	 * method stub return null; }
+	 */
+
 
 }
