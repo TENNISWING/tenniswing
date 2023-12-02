@@ -49,6 +49,7 @@ public class CommunityController {
 //					System.out.println("tata" + tag.getSnsTag().split(","));
 //				}
 //			}
+			//snsService.selectAllSnsInfo(snsVO).get(0).getSnsTag();
 			//snsService.selectAllSnsInfo()
 			//System.out.println("list aaaa ::: " + list);
 			model.addAttribute("snsList", snsService.selectAllSnsInfo(snsVO));
@@ -64,9 +65,7 @@ public class CommunityController {
 			
 			return "community/community3";
 		}
-		
-		//첨부파일불러오기2
-		
+
 		
 		// sns댓글List
 		@GetMapping("snsRep")

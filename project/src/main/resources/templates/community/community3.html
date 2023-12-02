@@ -62,16 +62,19 @@
 														<h4 class="card-title">[[${s.snsTitle}]]</h4>
 														<th:block
 															th:each=" lang : ${#strings.arraySplit(s.snsTag,',')}">
-															<h4 class="card-title">[[${lang}]]</h4>
+															<h4 class="card-title tagVal">[[${lang}]]</h4>
 														</th:block>
 														<h6 class="card-subtitle" style="font-weight: 300;">[[${s.grpName}]]</h6>
 													</div>
 													<div id="myCarousel" th:attrappend="id=${sStat.count}"
 														class="carousel slide" data-ride="carousel">
 														<div class="carousel-inner">
-															<video class="main-top-promotion-video" autoplay="autoplay" loop="loop" muted="muted">
+															<div class="carousel-item active">
+																<video class="main-top-promotion-video" autoplay="autoplay" loop="loop" muted="muted">
 															<source th:src="${s.attachPath}" type="video/mp4">
 															</video>
+															</div>
+															
 														
 
 															<!-- 	<th:block th:each="simg : ${attachList}"> -->
@@ -486,8 +489,11 @@
 			})
 		}); */
 
-
-
+	//tag value 꺼내기
+	let tagVal = document.querySelectorAll('.tagVal');
+	//let valTag = Object.values(tagVal);
+	console.log(tagVal);
+	
 	// 댓글 모달창이 열릴때 이벤트
 	let snsWrtNo = 0;
 	var snsRepNo = 0;
