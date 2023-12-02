@@ -522,7 +522,7 @@
 		            //수정 아이콘 눌렀을때 누른행 제외하고 사라지고 등록 버튼 수정버튼으로 변경
 		            $('.repEditBtn').on('click', function(e){
 		            	$('#replyList').empty();
-		            	console.log($(e.target).prop('id').replace('editBtn',''));
+		            	console.log("내가확인"+$(e.target).prop('id').replace('editBtn',''));
 		            	let cnt = $('#replyList tr').length;
 
 		            	let num = $(e.target).prop('id').replace('editBtn','');

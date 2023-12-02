@@ -146,6 +146,15 @@ public class ClubController {
 			int result =  clubPostService.insertPost(clubPostVO);
 		return result;
 		}
+		
+		//자유게시판 삭제
+		@PostMapping("postDelete") 
+		@ResponseBody
+		public boolean deletePostAjax(@RequestParam("paramPostNo") Integer clubPostNo) {
+			boolean result = clubPostService.deletePost(clubPostNo);
+			return result;
+		}
+		
 	
 	//상세페이지 > 탭 > 멤버
 	@GetMapping("clubMember")  
