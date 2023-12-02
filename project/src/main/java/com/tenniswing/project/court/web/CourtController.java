@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.court.service.CrtDetailService;
 import com.tenniswing.project.court.service.CrtDetailVO;
+import com.tenniswing.project.court.service.CrtRefundVO;
 import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.court.service.CrtReserveVO;
 import com.tenniswing.project.court.service.CrtroomVO;
@@ -91,6 +92,19 @@ public class CourtController {
 			map = crtReserveService.insertCrtReserve(crtReserveVO);
 			
 			return map;
+		}
+		
+		// 환불 테스트
+		@GetMapping("refundTest")
+		public String refundCourt(CrtRefundVO crtRefundVO){
+			String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+			
+			if(memId.equals("anonymousUser")) {
+				//return "redirect:loginform";
+			}
+			Map<String, Object> map = new HashMap<>();
+			
+			return "court/refundTest";
 		}
 		
 	// 호스트
