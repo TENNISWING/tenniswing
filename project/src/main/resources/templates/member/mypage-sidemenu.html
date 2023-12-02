@@ -3,9 +3,8 @@
 <th:block th:fragment="sidemenu">
 	<ul class="list-group mb-3">
 		<li class="list-group-item d-flex justify-content-between p-4">
-			<div class="avatar avatar-xl col-lg-3 col-md-auto"
-				data-bs-toggle="modal" data-bs-target="#galleryModal">
-				<img th:src="${attachList}" style="cursor: pointer;">
+			<div class="avatar avatar-xl col-lg-3 col-md-auto" data-bs-toggle="modal" data-bs-target="#galleryModal">
+				<img th:src="${member.attachPath}" style="cursor: pointer;">
 			</div>
 			<div class="name col-lg-9 col-md-auto">
 				<h5 class="font-bold">[[${member.nick}]]</h5>
@@ -19,7 +18,7 @@
 					[[${member.mannerPoint}]]</i>
 			</div>
 			<div class="text-center">
-				<i class="fa-solid fa-trophy fs-4 text-primary">LV
+				<i class="fa-solid fa-trophy fs-4 text-primary" id="level">LV
 					[[${member.ntrp}]]</i>
 			</div>
 
@@ -28,47 +27,71 @@
 	<ul class="list-group mb-3">
 		<li class="list-group-item d-flex justify-content-evenly p-3">
 			<div class="text-center cotainer">
-				<button type="button" class="btn btn-success" id="pay">프로필 보기</button>
+				<button type="button" class="btn btn-success" th:onclick="|location.href='@{/mypage-profile}'|">프로필
+					보기</button>
 			</div>
 			<div class="text-center ">
 				<!-- Profile Card End -->
-				<button class="btn btn-success" type="button"
-					th:onclick="|location.href='@{/logout}'|">로그아웃</button>
+				<button class="btn btn-success" type="button" th:onclick="|location.href='@{/logout}'|">로그아웃</button>
 			</div>
 		</li>
-
 	</ul>
 
 	<ul class="list-group mb-5">
-		<li class="list-group-item btn btn-outline-success p-3 active">매치 이력</li>
+		<li class="list-group-item btn btn-outline-success p-3">매치
+			이력</li>
 		<li class="list-group-item btn btn-outline-success p-3">나의 클럽목록</li>
 		<li class="list-group-item btn btn-outline-success p-3">코트 예약</li>
 		<li class="list-group-item btn btn-outline-success p-3">나의 작성글</li>
 		<li class="list-group-item btn btn-outline-success p-3 mb-5">쇼핑</li>
 	</ul>
-	
-	<script>
-		$('.list-group-item.btn').on('click', function(e){
-			$('.list-group-item.btn').removeClass('active');
-			$(e.target).toggleClass('active');
-			let menuNo = $(e.target).index();
 
-			if(menuNo = 0){
-				location.href="mypage";
-			}else if(menuNo = 1){
-				location.href="mypage-club";
-			}
-			}else if(menuNo = 2){
-				location.href="mypage-court";
-			}
-			}else if(menuNo = 3){
-				location.href="mypage";
-			}
-			}else if(menuNo = 4){
-				location.href="mypage";
-			}
+	<div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="galleryModalTitle">프로필사진</h5>
+					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+						<i data-feather="x"></i>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="d-flex justify-content-center">
+						<img class="d-block" th:src="${member.attachPath}">
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$(document).ready(function () {
+			let pageDiv = Number('[[${nowpage}]]');
+
+			$('.list-group-item.btn').removeClass('active');
+			$('.list-group-item.btn').eq(pageDiv).toggleClass('active');
+
+			$('.list-group-item.btn').on('click', function (e) {
+				let menuNo = $(e.target).index();
+				if (menuNo == 0) {
+					location.href = "mypage";
+				} else if (menuNo == 1) {
+					location.href = "mypage-club";
+				} else if (menuNo == 2) {
+					location.href = "mypage-court";
+				} else if (menuNo == 3) {
+					location.href = "mypage-write";
+				} else if (menuNo == 4) {
+					location.href = "mypage-shop";
+				}
+			})
 		})
-		
+
 	</script>
 </th:block>
 

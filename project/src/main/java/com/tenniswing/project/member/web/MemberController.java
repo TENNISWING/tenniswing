@@ -1,7 +1,9 @@
 package com.tenniswing.project.member.web;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,9 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
-import com.tenniswing.project.common.FileUtils;
 import com.tenniswing.project.member.service.MemberService;
 import com.tenniswing.project.member.service.MemberVO;
 
@@ -28,12 +28,6 @@ public class MemberController {
 	
 	@Autowired
 	HttpSession httpSession;
-	
-	@Autowired
-	FileUtils fileUtils;
-	
-	@Autowired
-	AttachService attachService;
 
 	// 로그인 폼 이동
 	@GetMapping("loginform")
@@ -101,12 +95,10 @@ public class MemberController {
 			int n = attachService.saveAttach("m", memberVO.getMemNo(), files);
 			
 			return "redirect:/loginform";
-			
 		} else {
 			model.addAttribute("message", "회원가입에 실패하였습니다.");
 			return "member/signup";
-		}	
-		
+		}			
 	
 	}
 
@@ -115,53 +107,114 @@ public class MemberController {
 	public String mypagePage(Model model) {
 		//로그인 회원 아이디 불러오기
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();		
+		MemberVO memberVO = memberService.memberInfo(id);	
 		
-		//아이디 셋 후 회원 정보 불러오기
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemId(id);		
-		memberVO = memberService.memberInfo(memberVO);
-		String role = memberVO.getMemDiv();	
-		
-		//회원정보 dom에 전달		
+		// 회원정보 dom에 전달
 		model.addAttribute("member", memberVO);
+		model.addAttribute("nowpage", 0);
 		
-		//첨부파일 불러오기
-		List<AttachVO> attachList =  attachService.attachList("m", memberVO.getMemNo());	
-		
-		String path = "";
-		
-/*
-		//첨부파일 dom에 전달		
-		model.addAttribute("attachList", attachList.get(0)); //땡겨온다음에 여기넣기
-*/
-    
-		if(attachList != null && attachList.size() != 0) {
-			//첨부파일 dom에 전달	
-			path = attachList.get(0).getAttachPath();
-			model.addAttribute("attachList", path);
-		}else {
-			if(memberVO.getGen().equals("남성")) {
-				path = "/assets/compiled/jpg/2.jpg";
-				model.addAttribute("attachList", path);
-			}else {		
-				path = "/assets/compiled/jpg/3.jpg";
-				model.addAttribute("attachList", path);
-			}
-		}
-
-		
-		if(role.equals("ROLE_ADMIN")) {
+		if (memberVO.getMemDiv().equals("ROLE_ADMIN")) {
 			return "redirect:admin";
-		}else if(role.equals("ROLE_HOST")) {
+		} else if (memberVO.getMemDiv().equals("ROLE_HOST")) {
 			return "redirect:host";
 		}
 		
 		return "member/mypage";
 	}
 	
+	@GetMapping("mypage-profile")
+	public String profileMyPage(Model model) {
+		//로그인 회원 아이디 불러오기
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();	
+		
+		// 회원정보 dom에 전달
+		model.addAttribute("member",  memberService.memberUpdateInfo(id));
+		model.addAttribute("nowpage", 10 );
+		return "member/mypage-profile";
+	}	
+	
+	@PostMapping("profileUpdate")
+	public String profileUpdate(Model model, MemberVO memberVO){
+		//로그인 회원 아이디 불러오기
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();	
+		
+		Map<String, Object> map = new HashMap<>();	
+		
+		map = memberService.updateMemberInfo(memberVO);
+		
+		model.addAttribute("member",  memberService.memberUpdateInfo(id));
+		model.addAttribute("nowpage", 10 );		
+		model.addAttribute("message", map.get("message"));
+		
+		return "member/mypage-profile";		
+	}
+	
+	@PostMapping("profileupload")
+	public String profileUploadAjax(MemberVO memberVO, Model model) {
+		//로그인 회원 아이디 불러오기
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();	
+		memberVO.setMemId(id);
+		System.out.println(memberVO.getFiles() + "파일받아오냐?");
+		int n = memberService.profileUpload(memberVO);
+		
+		if(n > 0) {
+			model.addAttribute("message", "프로필사진 등록을 완료하였습니다.");
+		}
+		// 회원정보 dom에 전달
+		model.addAttribute("member",  memberService.memberUpdateInfo(id));
+		model.addAttribute("nowpage", 10 );		
+		
+		return "member/mypage-profile";
+	}
+	
 	@GetMapping("mypage-club")
 	public String clubMyPage(Model model) {
+		//로그인 회원 아이디 불러오기
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();		
+		MemberVO memberVO =  memberService.memberInfo(id);	
+		
+		// 회원정보 dom에 전달
+		model.addAttribute("member", memberVO);
+		model.addAttribute("nowpage", 1 );
 		return "member/mypage-club";
 	}
+	
+	@GetMapping("mypage-court")
+	public String courtMyPage(Model model) {
+		//로그인 회원 아이디 불러오기
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();		
+		MemberVO memberVO =  memberService.memberInfo(id);	
+		
+		// 회원정보 dom에 전달
+		model.addAttribute("member", memberVO);
+		model.addAttribute("nowpage", 2 );
+		return "member/mypage-court";
+	}
+	
+	@GetMapping("mypage-write")
+	public String writeMyPage(Model model) {
+		//로그인 회원 아이디 불러오기
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();		
+		MemberVO memberVO =  memberService.memberInfo(id);	
+		
+		// 회원정보 dom에 전달
+		model.addAttribute("member", memberVO);
+		model.addAttribute("nowpage", 3 );
+		return "member/mypage-write";
+	}
+	
+	@GetMapping("mypage-shop")
+	public String shopMyPage(Model model) {
+		//로그인 회원 아이디 불러오기
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();		
+		MemberVO memberVO =  memberService.memberInfo(id);	
+		
+		// 회원정보 dom에 전달
+		model.addAttribute("member", memberVO);
+		model.addAttribute("nowpage", 4 );
+		return "member/mypage-shop";
+	}
+	
+	
 
 }
