@@ -18,6 +18,7 @@ public class CrtReserveVO {
 	private int crtroomNo;
 	private int crtDetailNo;
 	private String memId;
+	private String reserveUid;
 	
 	// 예약 상세 테이블
 	private int reserveDetailNo;

@@ -15,6 +15,7 @@ public class MemberVO {
 	private String memId;
 	private String name;
 	private String pwd;
+	private String pwdUpdate;
 	private String phoneNo;
 	private String memDiv;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -41,4 +42,5 @@ public class MemberVO {
 	
 	//attach
 	private List<MultipartFile> files = new ArrayList<>();
+	private String attachPath;
 }

@@ -42,7 +42,8 @@ public class CommunityController {
 		public String snsListPage(SnsVO snsVO, Model model) {
 			//String id = SecurityContextHolder.getContext().getAuthentication().getName();
 			//snsVO.setMemId(id);
-			List<SnsVO> list = snsService.selectAllSnsInfo();
+			//List<SnsVO> list = snsService.selectAllSnsInfo(snsVO);
+			snsService.selectAllSnsInfo(snsVO);
 //			for(SnsVO tag : list) {
 //				if(tag.getSnsTag() != null) {
 //					System.out.println("tata" + tag.getSnsTag().split(","));
@@ -50,18 +51,21 @@ public class CommunityController {
 //			}
 			//snsService.selectAllSnsInfo()
 			//System.out.println("list aaaa ::: " + list);
-			model.addAttribute("snsList", list );
+			model.addAttribute("snsList", snsService.selectAllSnsInfo(snsVO));
 			model.addAttribute("memLikeNo", snsService.selectLikeNo(snsVO));
 			
 
 			//첨부파일 불러오기
 			//List<AttachVO> attachList =  attachService.attachListAllSns();//이거 땡겨오기
-			System.out.println("첨부파일 넘버"+list.get(0).getAttachList());
+			System.out.println("첨부파일 넘버"+snsService.selectAllSnsInfo(snsVO));
 			//첨부파일 dom에 전달		
 			//model.addAttribute("attachList", attachList); //땡겨온다음에 여기넣기
 			//System.out.println("첨부파일찍음"+attachList);
+			
 			return "community/community3";
 		}
+		
+		//첨부파일불러오기2
 		
 		
 		// sns댓글List

@@ -1,9 +1,11 @@
 package com.tenniswing.project.shop.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tenniswing.project.attach.service.AttachVO;
 
@@ -36,6 +38,6 @@ public class ProdVO {
 	// 상품 성별
 	private String cateGen;
 	
-	// 첨부파일
-	private List<AttachVO> attachList;
+	//attach
+	private List<MultipartFile> files = new ArrayList<>();
 }
