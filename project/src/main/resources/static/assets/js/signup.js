@@ -155,6 +155,95 @@ $(document).ready(function () {
         })
     }
     $('#hostForm').hide();
+
+    $('#submitBtn').on('click', function (e) {
+        e.preventDefault();
+        if ($('#phoneCk').is(':checked') && $('#idck').is(':checked')) {
+            $('form').submit();
+        } else if (!$('#idck').is(':checked')) {
+            Swal2.fire({
+                icon: "error",
+                title: "아이디 중복 확인이 필요합니다.",
+            })
+        } else {
+            Swal2.fire({
+                icon: "error",
+                title: "본인 인증이 필요합니다.",
+            })
+        }
+    })
+
+    IMP.init("imp48072683");
+    $('#phoneNoBtn').on('click', function (e) {
+        IMP.certification({
+
+
+        }, function (rsp) {
+            if (rsp.success) {
+                let impUid = rsp.imp_uid;
+                Swal2.fire({
+                    icon: "success",
+                    title: "본인 인증이 완료되었습니다.",
+                })
+                $('#phoneCk').prop('checked', true);
+            } else {
+                console.log("실패")
+            }
+        });
+    })
+
+    $('#forgotphoneNoBtn').on('click', function (e) {
+        console.log('로딩됨?')
+        if($('#phoneNo').val() == ''){
+            Swal2.fire({
+                icon: "error",
+                title: "번호를 입력 해 주세요.",
+            })
+            return;
+        }
+
+        IMP.certification({
+        }, function (rsp) {
+            if (rsp.success) {
+                let impUid = rsp.imp_uid;
+                Swal2.fire({
+                    icon: "success",
+                    title: "본인 인증이 완료되었습니다.",
+                })
+                $('#phoneCk').prop('checked', true);
+            } else {
+                console.log("실패")
+            }
+        });
+    })
+
+    $('#forgotpwphoneNoBtn').on('click', function (e) {
+        console.log('로딩됨?')
+        if($('#phoneNo').val() == ''){
+            Swal2.fire({
+                icon: "error",
+                title: "번호를 입력 해 주세요.",
+            })
+            return;
+        }
+
+        IMP.certification({
+        }, function (rsp) {
+            if (rsp.success) {
+                let impUid = rsp.imp_uid;
+                Swal2.fire({
+                    icon: "success",
+                    title: "본인 인증이 완료되었습니다.",
+                })
+                $('#phoneCk').prop('checked', true);
+            } else {
+                console.log("실패")
+            }
+        });
+    })
+
+    
+
 });
 
 //멤버 호스트 메뉴 전환

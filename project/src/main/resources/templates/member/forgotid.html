@@ -10,38 +10,35 @@
 		<div class="text-center mb-5 p-3">
 			<div class="row">
 				<div class="card-header">
-					<a href="/">
-						<h3 class="text-center mt-2 mb-4">아이디 찾기</h3>
-					</a>
+					<h3 class="text-center mt-2 mb-4">아이디 찾기</h3>
 				</div>
 				<div class="p-5 border border-success-subtle mb-5">
-					<div th:if="${param.error}" class="text-danger mb-2">로그인을
-						실패하였습니다. 다시 입력해 주세요.</div>
+					<input type="text" id="message" hidden="true" th:value="${message}">
+					<input class="form-check-input" type="checkbox" name="phoneCk"
+						id="phoneCk" hidden="true">
 					<div class="col-12 text-start">
 						<label for="phoneNo">휴대폰 번호</label><br>
 						<div class="input-group mb-3">
 							<input type="text" class="form-control is-invalid"
 								placeholder="숫자만 입력 해주세요" aria-describedby="phoneNoBtn"
 								id="phoneNo" name="phoneNo" maxlength="11" required>
-							<button class="btn btn-success" type="button" id="phoneNoBtn">인증하기</button>
+							<button class="btn btn-success" type="button" id="forgotphoneNoBtn">인증하기</button>
 						</div>
 					</div>
-					<div class="col-12 text-start">
-						<label for="certNo">인증 번호</label><br>
+					<div class="col-12 text-start" hidden>
+						<label for="memId">아이디(이메일)</label><br>
 						<div class="input-group mb-3">
-							<input type="text" class="form-control is-invalid"
-								placeholder="숫자만 입력 해주세요" aria-describedby="phoneNoBtn"
-								id="certNo" name="certNo" required>
-							<button class="btn btn-success" type="button" id="phoneNoBtn">확인</button>
+							<input type="text" class="form-control" id="memId" name="memId"
+								readonly value="">
 						</div>
 					</div>
 				</div>
 				<button class="btn btn-success" type="button"
-							th:onclick="|location.href='@{/loginform}'|">돌아가기</button>
+					th:onclick="|location.href='@{/loginform}'|">돌아가기</button>
 			</div>
 		</div>
 	</div>
-
+		<script src="/assets/js/signup.js"></script>
 	<!-- End forgotid form -->
 </th:block>
 
