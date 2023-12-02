@@ -1,6 +1,9 @@
 package com.tenniswing.project.court.service;
 
+import java.util.List;
 import java.util.Map;
+
+import com.tenniswing.project.attach.service.AttachVO;
 
 public interface CrtDetailService {
 	// 조회
@@ -17,4 +20,5 @@ public interface CrtDetailService {
 	
 	// 삭제
 	public boolean deleteCrtDetail(int crtDetailNo);
+	
 }

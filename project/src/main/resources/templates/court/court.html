@@ -305,8 +305,8 @@
                     		border-radius: 10px; margin-bottom: 2.5%; cursor:pointer; box-shadow: 1px 1px 10px #eee">
                      <div class="card" th:onclick="|location.href='@{/courtDetail(crtroomNo=${courtList.crtroomNo})}'|"
                      	style="margin: 0">
-                            <img src="/assets/img/card.jpg" class="card-img-top img-fluid"
-                                alt="singleminded">
+                           	<img th:src="${courtList.attachPath}" class="card-img-top img-fluid"
+                                alt="singleminded" style="overfit: cover">
                          <ul class="list-group list-group-flush">
                        	 	 <li class="list-group-item" style="border: 0;"></li>
                          	 <li class="list-group-item rating" style="border: 0;">

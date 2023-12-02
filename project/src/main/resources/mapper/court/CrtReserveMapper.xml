@@ -68,7 +68,7 @@
                 ON cdi.crt_detail_no = r.crt_detail_no
                 JOIN reserve_detail_inf rdi
                 ON r.reserve_no = rdi.reserve_no
-	WHERE rdi.reserve_date = #{reserveDate}
+	WHERE TO_CHAR(rdi.reserve_date, 'YYYY/MM/DD') = #{reserveDate}
 	AND cdi.crt_detail_no = #{crtDetailNo}
 </select>
 

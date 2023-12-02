@@ -2,6 +2,7 @@ package com.tenniswing.project.court.mapper;
 
 import java.util.List;
 
+import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.court.service.CrtroomVO;
 
 public interface CourtroomMapper {
@@ -25,4 +26,7 @@ public interface CourtroomMapper {
 	
 	// 삭제
 	public int deleteCourtroom(int courtroomNo);
+	
+	// 첨부파일
+	public List<AttachVO> attachListAllCourt();
 }

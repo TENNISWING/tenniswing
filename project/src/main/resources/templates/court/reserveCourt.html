@@ -186,17 +186,19 @@
 						console.log(rsp.merchant_uid)
 				 		
 						$.ajax({
-							url: 'reserveCourt',
+							url: 'reserveCourtPost',
 							method: 'post',
-							data: {crtroomName,
+							contentType : 'application/json',
+							data : JSON.stringify(
+								  {crtroomName,
 								   crtroomNo,
 								   reservePrice,
 								   reserveDate,
 								   crtDetailNo,
 								   reserveTime,
 								   tReserveTime,
-								   reserve_uid: rsp.merchant_uid,
-								   reserve_pay_no: rsp.imp_uid},
+								   reserveUid: rsp.merchant_uid,
+								   reservePayNo: rsp.imp_uid}),
 							/* {
 								reservePrice: rsp.amount,
 								reservePayNo: rsp.imp_uid,     // 결제 고유번호

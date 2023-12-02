@@ -3,6 +3,8 @@ package com.tenniswing.project.court.service;
 import java.util.List;
 import java.util.Map;
 
+import com.tenniswing.project.attach.service.AttachVO;
+
 public interface CourtroomService {
 	// 사용자
 	public List<CrtroomVO> selectAllCourtroomMain();

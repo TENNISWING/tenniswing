@@ -16,4 +16,8 @@ public interface AttachMapper {
 	public int saveAttachAll(List<AttachVO> files);
 	
 	public int updateAttach(List<AttachVO> files);
+	
+	// 코트 순서 등록
+	public int saveAttachTurn(List<AttachVO> files);
+	
 }

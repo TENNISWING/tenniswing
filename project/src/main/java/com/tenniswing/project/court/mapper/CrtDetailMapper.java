@@ -1,7 +1,11 @@
 package com.tenniswing.project.court.mapper;
 
+import java.util.List;
+
+import com.tenniswing.project.attach.service.AttachVO;
+import java.util.List;
+
 import com.tenniswing.project.court.service.CrtDetailVO;
-import com.tenniswing.project.court.service.CrtroomVO;
 
 public interface CrtDetailMapper {
 	// 조회
@@ -18,4 +22,5 @@ public interface CrtDetailMapper {
 	
 	// 삭제
 	public int deleteCrtDetail(int crtDetailNo);
+	
 }
