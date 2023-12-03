@@ -71,10 +71,13 @@
 							<div class="col-7">
 								<label for="phoneNo">휴대폰 번호</label><br>
 								<div class="input-group mb-3">
+									
+										<input class="form-check-input" type="checkbox" name="phoneCk" id="phoneCk"	hidden="true">
+								
 									<input type="text" class="form-control is-invalid" placeholder="숫자만 입력 해주세요"
 										aria-describedby="phoneNoBtn" id="phoneNo" name="phoneNo" maxlength="11"
-										required>
-									<button class="btn btn-success" type="button" id="phoneNoBtn">인증하기</button>
+										aria-label="Text input with checkbox" required>
+									<button class="btn btn-success" type="button" id="phoneNoBtn">인증하기 </button>
 								</div>
 							</div>
 						</div>
@@ -283,7 +286,7 @@
 								</div>
 							</div>
 						</div>
-						<button class="btn btn-success" type="submit">회원 가입</button>
+						<button class="btn btn-success" type="submit" id="submitBtn">회원 가입</button>
 						<button class="btn btn-success" type="reset">취소</button>
 						<button class="btn btn-success" type="button"
 							th:onclick="|location.href='@{/loginform}'|">돌아가기</button>
@@ -299,23 +302,9 @@
 	</div>
 
 	<!-- End signup form -->
+
 	<script src="/assets/js/signup.js"></script>
-	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-	<script>
-		IMP.init("imp48072683");
-		$('#phoneNoBtn').on('click', function (e) {
-			IMP.certification({	
-			
-			
-			}, function (rsp) { 
-				if (rsp.success) {
-						console.log("성공")
-				} else {
-					console.log("실패")
-				}
-			});
-		})
-	</script>
+
 
 </th:block>
 
