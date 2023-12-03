@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -33,7 +34,7 @@ public class MemberController {
 	
 	@Autowired
 	FileUtils fileUtils;
-	
+
 	@Autowired
 	AttachService attachService;
 
@@ -141,7 +142,7 @@ public class MemberController {
 		return "member/mypage-profile";
 	}	
 	
-	@PostMapping("profileUpdate")
+	@PostMapping("profileUpdate")	
 	public String profileUpdate(Model model, MemberVO memberVO){
 		//로그인 회원 아이디 불러오기
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();	
@@ -158,21 +159,15 @@ public class MemberController {
 	}
 	
 	@PostMapping("profileupload")
-	public String profileUploadAjax(MemberVO memberVO, Model model) {
-		//로그인 회원 아이디 불러오기
-		String id = SecurityContextHolder.getContext().getAuthentication().getName();	
-		memberVO.setMemId(id);
-		System.out.println(memberVO.getFiles() + "파일받아오냐?");
+	@ResponseBody
+	public Boolean profileUploadAjax(MemberVO memberVO, Model model) {
+
 		int n = memberService.profileUpload(memberVO);
 		
 		if(n > 0) {
-			model.addAttribute("message", "프로필사진 등록을 완료하였습니다.");
-		}
-		// 회원정보 dom에 전달
-		model.addAttribute("member",  memberService.memberUpdateInfo(id));
-		model.addAttribute("nowpage", 10 );		
-		
-		return "member/mypage-profile";
+			return true;
+		}		
+		return false;
 	}
 	
 	@GetMapping("mypage-club")
