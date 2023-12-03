@@ -52,8 +52,8 @@
   				club_post_title = #{clubPostTitle}
   				, club_post_ctt = #{clubPostCtt}
   				, club_post_edit_date = SYSDATE
-  		WHERE club_post_no = ${clubPostNo}
-  		AND mem_id = ${memId}		
+  		WHERE club_post_no = #{clubPostNo}
+  		AND mem_id = #{memId}		
   	</update>
   	
   	<!-- 게시글 삭제 -->

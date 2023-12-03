@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.tenniswing.project.club.mapper.ClubRepMapper">
+	<!-- 댓글 조회 -->
+	<select id="selectAllRep" resultType="ClubRepVO">
+	SELECT r.club_rep_no
+		   , r.club_rep_ctt
+		   , r.club_rep_write_date
+		   , r.club_rep_edit_date
+		   , r.club_post_no
+		   , m.mem_id
+		   , m.name
+	FROM club_rep r LEFT JOIN mem m	 
+						   ON r.mem_id = m.mem_id
+	WHERE r.club_post_no = #{clubPostNo}
+	ORDER BY r.club_rep_write_date DESC					     
+	</select>
+	
+	<insert id="insertRep" parameterType="ClubRepVO">
+		<selectKey keyProperty="clubRepNo" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(club_rep_no), 0) + 1 
+			FROM club_rep		   
+		</selectKey>
+		INSERT INTO club_rep
+			  (
+				club_rep_no
+		 	    , club_rep_ctt
+		 	    , club_rep_write_date
+		 	    , club_post_no
+		 	    , mem_id
+			  )
+			   VALUES
+			  (
+				#{clubRepNo}
+		 	    , #{clubRepCtt}
+		 	    , SYSDATE
+		 	    , #{clubPostNo}
+		 	    , #{memId}
+			  )		
+	</insert>
+	
+	<delete id="deleteRep" parameterType="int">
+		DELETE FROM club_rep
+		WHERE club_rep_no = #{clubRepNo} 
+		AND mem_id = #{memId}
+	</delete>
+
+</mapper>
