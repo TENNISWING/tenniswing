@@ -57,9 +57,10 @@
 						<div class="col-xl-12 col-lg-12">
 							<div class="swiper main__mySwiper">
 								<div class="swiper-wrapper">
+								<th:block th:each="banner, stat: ${banner}">
 									<div class="swiper-slide">
 										<div class="single__slide__wrapper"
-											style="background-image: url('assets/img/shop/shop1.jpg')">
+											th:style="'background-image: url('+${banner.attachPath}+'); background-size: cover;'">
 											<div class="hero__wrapper text-left">
 												<!-- <h5 class="hero__subtitle">Limited offer 25% off</h5>
 												<h1 class="hero__title">
@@ -67,19 +68,20 @@
 												</h1>  -->
 												<p class="hero__content"></p>
 												<div class="hero__btn">
-													<a href="product.html" class="btn btn-primary">Shop Now</a>
+													<a th:href="@{/courtDetail(crtroomNo=${banner.crtroomNo})}" class="btn btn-primary">코트 보러가기</a>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="swiper-slide">
+									</th:block>
+									<!-- <div class="swiper-slide">
 										<div class="single__slide__wrapper"
 											style="background-image: url('assets/img/shop/shop2.jpg')">
 											<div class="hero__wrapper text-left">
-												<!-- <h5 class="hero__subtitle">Limited offer 10% off</h5>
+												<h5 class="hero__subtitle">Limited offer 10% off</h5>
 												<h1 class="hero__title">
 													Shop wise <br /> with price <br /> comparisons
-												</h1> -->
+												</h1>
 												<p class="hero__content"></p>
 												<div class="hero__btn">
 													<a href="product.html" class="btn btn-primary">Shop Now</a>
@@ -91,17 +93,17 @@
 										<div class="single__slide__wrapper"
 											style="background-image: url('assets/img/shop/shop3.jpg')">
 											<div class="hero__wrapper text-left">
-												<!-- <h5 class="hero__subtitle">Limited offer 10% off</h5>
+												<h5 class="hero__subtitle">Limited offer 10% off</h5>
 												<h1 class="hero__title">
 													Summer <br /> Skin care <br /> Product
-												</h1>  -->
+												</h1>
 												<p class="hero__content"></p>
 												<div class="hero__btn">
 													<a href="product.html" class="btn btn-primary">Shop Now</a>
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> -->
 								</div>
 								<div class="banner__navigation">
 									<div class="swiper-button-next">
@@ -305,8 +307,8 @@
                     		border-radius: 10px; margin-bottom: 2.5%; cursor:pointer; box-shadow: 1px 1px 10px #eee">
                      <div class="card" th:onclick="|location.href='@{/courtDetail(crtroomNo=${courtList.crtroomNo})}'|"
                      	style="margin: 0">
-                            <img src="/assets/img/card.jpg" class="card-img-top img-fluid"
-                                alt="singleminded">
+                           	<img th:src="${courtList.attachPath}" class="card-img-top img-fluid"
+                                alt="singleminded" style="overfit: cover">
                          <ul class="list-group list-group-flush">
                        	 	 <li class="list-group-item" style="border: 0;"></li>
                          	 <li class="list-group-item rating" style="border: 0;">

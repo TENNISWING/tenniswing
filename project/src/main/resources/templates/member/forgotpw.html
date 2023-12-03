@@ -10,60 +10,52 @@
 		<div class="text-center mb-5 p-3">
 			<div class="row">
 				<div class="card-header">
-					<a href="/">
-						<h3 class="text-center mt-2 mb-4">비밀번호 찾기</h3>
-					</a>
+					<h3 class="text-center mt-2 mb-4">비밀번호 찾기</h3>
 				</div>
 				<div class="p-5 border border-success-subtle mb-5">
-					<div th:if="${param.error}" class="text-danger mb-2">로그인을
-						실패하였습니다. 다시 입력해 주세요.</div>
+					<input type="text" id="message" hidden="true" th:value="${message}">
 					<div class="col-12 text-start">
 						<label for="memId">아이디(이메일)</label><br>
 						<div class="input-group mb-3">
 							<input type="text" class="form-control is-invalid"
-								placeholder="숫자만 입력 해주세요" aria-describedby="phoneNoBtn"
-								id="memId" name="memId" maxlength="11" required>
-							<button class="btn btn-success" type="button" id="memIdBtn">아이디입력</button>
+								placeholder="영문 | 숫자만 입력 가능" aria-describedby="duplicateBtn"
+								id="memId" name="memId" maxlength="40" autofocus required>
+							<input type="checkbox" id="idck" hidden="true">
 						</div>
 					</div>
 					<div class="col-12 text-start">
 						<label for="phoneNo">휴대폰 번호</label><br>
 						<div class="input-group mb-3">
-							<input type="text" class="form-control is-invalid"
-								placeholder="숫자만 입력 해주세요" aria-describedby="phoneNoBtn"
-								id="phoneNo" name="phoneNo" maxlength="11" required>
-							<button class="btn btn-success" type="button" id="phoneNoBtn">인증하기</button>
+
+							<input class="form-check-input" type="checkbox" name="phoneCk"
+								id="phoneCk" hidden="true"> <input type="text"
+								class="form-control is-invalid" placeholder="숫자만 입력 해주세요"
+								aria-describedby="phoneNoBtn" id="phoneNo" name="phoneNo"
+								maxlength="11" aria-label="Text input with checkbox" required>
+							<button class="btn btn-success" type="button"
+								id="forgotpwphoneNoBtn">인증하기</button>
 						</div>
 					</div>
-					<div class="col-12 text-start">
-						<label for="certNo">인증 번호</label><br>
+					<!-- 		<div class="col-12" hidden="true">
+						<label for="pwd">비밀 번호 수정</label><br>
 						<div class="input-group mb-3">
-							<input type="text" class="form-control is-invalid" placeholder="숫자만 입력 해주세요"
-								id="certNo" name="certNo" maxlength="11" required>
-							<button class="btn btn-success" type="button" id="certNoBtn">확인</button>
+							<input type="password" class="form-control is-invalid"
+								placeholder="비밀번호 8자리이상" aria-describedby=pwview id="pwd"
+								name="pwd" pattern=".{8,50}" title="최소8자리입력해주세요" required>
+							<button class="btn btn-success" type="button" id="pwview">
+								<i class="fa-regular fa-eye-slash"></i>
+							</button>
 						</div>
-					</div>
-					
-					<div>
-						<div class="col-12" hidden="true">
-							<label for="pwd">수정 비밀번호</label><br>
-							<div class="input-group mb-3">
-								<input type="password" class="form-control is-invalid"
-									placeholder="비밀번호 8자리이상" aria-describedby=pwview id="pwd"
-									name="pwd" pattern=".{8,50}" title="최소8자리입력해주세요" required>
-								<button class="btn btn-success" type="button" id="pwview">
-									<i class="fa-regular fa-eye-slash"></i>
-								</button>
-							</div>
-						</div>
-					</div>
+					</div> -->
+
+
 				</div>
 				<button class="btn btn-success" type="button"
-							th:onclick="|location.href='@{/loginform}'|">돌아가기</button>
+					th:onclick="|location.href='@{/loginform}'|">돌아가기</button>
 			</div>
 		</div>
 	</div>
-
+	<script src="/assets/js/signup.js"></script>
 	<!-- End forgotpw form -->
 </th:block>
 

@@ -216,13 +216,13 @@
         //date.getFullYear() + '-' + month + '-' + day;
         return month + '월 ' + day + '일';
 }
-				
+				 
 	function matchAjax(matchDate,page) {
 		let gameWay = $('#gameWay').val();		
 		let gen = $('#gen').val();
 		let location = $('#location').val();
 		let ntrp = $('#ntrp').val();
-		
+		 
 		$.ajax({
 			type: 'GET',
 			url: 'matchList',

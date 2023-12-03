@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
+import com.tenniswing.project.common.FileUtils;
 import com.tenniswing.project.member.service.MemberService;
 import com.tenniswing.project.member.service.MemberVO;
 
@@ -28,6 +30,12 @@ public class MemberController {
 	
 	@Autowired
 	HttpSession httpSession;
+	
+	@Autowired
+	FileUtils fileUtils;
+
+	@Autowired
+	AttachService attachService;
 
 	// 로그인 폼 이동
 	@GetMapping("loginform")
@@ -93,7 +101,7 @@ public class MemberController {
 			
 			//테이블 구분, 게시글 번호, 파일목록
 			int n = attachService.saveAttach("m", memberVO.getMemNo(), files);
-			
+			model.addAttribute("message", "회원가입을 마쳤습니다. <br> 로그인 해주세요.");
 			return "redirect:/loginform";
 		} else {
 			model.addAttribute("message", "회원가입에 실패하였습니다.");
@@ -133,7 +141,7 @@ public class MemberController {
 		return "member/mypage-profile";
 	}	
 	
-	@PostMapping("profileUpdate")
+	@PostMapping("profileUpdate")	
 	public String profileUpdate(Model model, MemberVO memberVO){
 		//로그인 회원 아이디 불러오기
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();	
@@ -150,21 +158,15 @@ public class MemberController {
 	}
 	
 	@PostMapping("profileupload")
-	public String profileUploadAjax(MemberVO memberVO, Model model) {
-		//로그인 회원 아이디 불러오기
-		String id = SecurityContextHolder.getContext().getAuthentication().getName();	
-		memberVO.setMemId(id);
-		System.out.println(memberVO.getFiles() + "파일받아오냐?");
+	@ResponseBody
+	public Boolean profileUploadAjax(MemberVO memberVO, Model model) {
+
 		int n = memberService.profileUpload(memberVO);
 		
 		if(n > 0) {
-			model.addAttribute("message", "프로필사진 등록을 완료하였습니다.");
-		}
-		// 회원정보 dom에 전달
-		model.addAttribute("member",  memberService.memberUpdateInfo(id));
-		model.addAttribute("nowpage", 10 );		
-		
-		return "member/mypage-profile";
+			return true;
+		}		
+		return false;
 	}
 	
 	@GetMapping("mypage-club")

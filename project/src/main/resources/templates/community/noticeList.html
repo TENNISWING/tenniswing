@@ -5,288 +5,137 @@
 
 	<th:block layout:fragment="content">
             <!-- community sub menu -->
-            <div class="container mb-4">
-                <ul class="nav d-flex justify-content-around text-center">
-                    <li class="d-flex flex-column"><a href="sns"><div><i class="fa-solid fa-photo-film fs-3 text-info"></i></div>SNS</a></li>
-                    <li class="d-flex flex-column"><a href="freeboardList"><div><i class="fa-solid fa-chalkboard-teacher fs-3 text-primary"></i></div>자유게시판</a></li>
-                    <li class="d-flex flex-column"><a href="noticeList"><div><i class="fa-solid fa-clipboard-list fs-3 text-warning"></i></div>공지사항</a></li>                    
-                </ul>
-            </div>
+         	<div class="container mb-4">
+		<ul class="nav d-flex justify-content-around text-center matchsidevar">
+			<li class="d-flex flex-column"><a href="sns"><img
+					src="assets/img/match/icon/icon1.png" class=" miconimg">SNS</a></li>
+			<li class="d-flex flex-column"><a href="freeboardList"><img
+					src="assets/img/match/icon/icon3.png" class=" miconimg">자유게시판</a></li>
+			<li class="d-flex flex-column"><a href="noticeList"><img
+					src="assets/img/match/icon/icon4.png" class=" miconimg">공지사항</a></li>
+		</ul>
+	</div>
             <!-- End community sub menu  -->
 
-            <!-- slide banner -->
-            <div class="container-fluid mb-2 bg-light-info">
-                <div class="container pt-3 pb-3">
-                    <div class="swiper mySwiper banner" data-aos="fade-up">
-                        <div class="swiper-wrapper banner">
-                            <div class="swiper-slide banner text-center">
-                                <img src="/assets/img/slide.png" class="img-fluid" alt="">
-                            </div>
-                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
-                                    class="img-fluid" alt=""></div>
-                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
-                                    class="img-fluid" alt=""></div>
-                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
-                                    class="img-fluid" alt=""></div>
-                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
-                                    class="img-fluid" alt=""></div>
-                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
-                                    class="img-fluid" alt=""></div>
-                            <div class="swiper-slide banner text-center"><img src="/assets/img/slide.png"
-                                    class="img-fluid" alt=""></div>
-                        </div>
-                        <div class="swiper-pagination banner"></div>
-                    </div>
-                </div>
-                <script>
-                    var swiper = new Swiper(".mySwiper.banner", {
-                        loop: true,
-                        loopPreventsSliding: true,
-                        grabCursor: true,
-                        autoplay: {
-                            delay: 2000,
-                            pauseOnMouseEnter: true,
-                            disableOnInteraction: false
-                        },
-                        pagination: {
-                            el: ".swiper-pagination.banner",
-                            dynamicBullets: true,
-                            clickable: true,
-                        },
-                    });
-                </script>
-            </div>
-            <!-- End slide banner -->
-
-            <!-- date slide -->
-            <div class="container mt-3 mb-5">
-                <!-- Swiper -->
-                <div class="swiper mySwiper dateslide">
-                    <div class="swiper-wrapper dateslide">
-                        <!-- <div class="swiper-slide dateslide">resizeme</div>            -->
-                    </div>
-                    <div class="swiper-button-next dateslide text-green"></div>
-                    <div class="swiper-button-prev dateslide text-green"></div>
-                    <script>
-                        var swiper = new Swiper(".mySwiper.dateslide", {            
-
-                            direction : getDirection(),
-                            on: {
-                                resize: function () {
-                                swiper.changeDirection(getDirection());
-                                },
-                            },
-                            pagination: {
-                                el: ".swiper-pagination.dateslide",                         
-                            },
-                            navigation: {
-                                nextEl: ".swiper-button-next.dateslide",
-                                prevEl: ".swiper-button-prev.dateslide",
-                            },
-                            breakpoints: {
-                                320: {
-                                    slidesPerView: 5,
-                                },
-                                480: {
-                                    slidesPerView: 5,
-                                },
-                                640: {
-                                    slidesPerView: 5,
-                                },
-                                992: {
-                                    slidesPerView: 7,
-                                }
-                            }
-                        });
-
-                        function getDirection() {
-                            var windowWidth = window.innerWidth;
-                            var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
-                            return direction;
-                            }
-
-                        const days = ["일", "월", "화", "수", "목", "금", "토", "일", "월", "화", "수", "목", "금", "토"];
-                        let dateGetDay = new Date().getDay();
-                        let dateGetDate = new Date().getDate();
-                        let dateArry = [];
-
-                        for (let i = 0; i < 14; i++) {
-                            dateArry.push({
-                                "day": days[i],
-                                "date": dateGetDate + i
-                            })
-                        }
-                    
-                        $.each(dateArry, (idx, ele) => {
-                            if (idx == 0) {
-                                $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                                    <div class="text-white bg-green rounded-pill">
-                                                    ${ele.date}<br>
-                                                    ${ele.day}</div></div>`)
-                            } else {
-                                $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                                    <div class="text-dark">
-                                                    ${ele.date}<br>
-                                                    ${ele.day}</div></div>`)
-                            }
-                        })
-                        $('.swiper-wrapper.dateslide > div div').on('click', function (e) {
-                            //태그네임 가져오기                 
-                            console.log($(e.target).prop('tagName'))
-                            $('.swiper-wrapper.dateslide > div div').attr('class', 'text-dark')
-                            $(e.target).attr('class','bg-green rounded-pill text-white');
-                            // $(e.target).attr('class','bg-green rounded-pill text-white');                           
-                            // $(e.target)
-                            // if ($(e.target).prop('tagName') == 'A') {                                
-                            //     $('.swiper-wrapper.dateslide a').attr('class', 'link-dark');
-                            //     $(e.target).parent().attr('class', 'bg-green rounded-pill');
-                            //     $(e.target).attr('class', 'text-white');
-                            // }else if ($(e.target).prop('tagName') == 'DIV') {                                
-                            //     $('.swiper-wrapper.dateslide a').attr('class', 'link-dark');
-                            //     $(e.target).attr('class', 'bg-green rounded-pill');
-                            //     $(e.target).children().attr('class', 'text-white');
-                            // }else{}
-                        })
-                    </script>
-                </div>
-            </div>
-            <!-- End date slide -->
-
+		
             <!-- match table -->
             <div class="container">
-                <div class="card-body">
-                    <h5 class="card-title">매치</h5>
-                    <!-- Default Table -->
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-center">
-                                    <b>14 : 00</b>
-                                </td>
-                                <td>
-                                    서남센터 테니스장 12번 코트
-                                </td>
-                                <td class="text-end">
-                                    <button type="button" class="btn btn-primary">신청 가능</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">
-                                    <b>14 : 00</b>
-                                </td>
-                                <td>
-                                    서남센터 테니스장 12번 코트
-                                </td>
-                                <td class="text-end">
-                                    <button type="button" class="btn btn-secondary disabled">매칭 완료</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">
-                                    <b>14 : 00</b>
-                                </td>
-                                <td>
-                                    서남센터 테니스장 12번 코트
-                                </td>
-                                <td class="text-end">
-                                    <button type="button" class="btn btn-danger">마감 임박</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="container">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">다음</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+              <div class="row">
+				<div class="content__body">
+									<section class="archive-category">
+										<div class="col-12">
+											<div class="filter__area" style="margin: 0;">
+												<div class="email-fixed-search col-6 ">
+													<div
+														class="form-group position-relative  mb-0 has-icon-left">
+														<input type="text" class="form-control"
+															placeholder="Search...">
+															<div class="fbrdInsertBtn">
+															<a class="btn btn-secondary rounded-pill" th:onclick="|location.href='@{noticeForm}'|">글 등록</a>
+															</div>
+															
+														<div class="form-control-icon">
+															<svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
+                                                        <use xlink:href="assets/static/images/bootstrap-icons.svg#search" />
+                                                    </svg>
+														</div>
+													</div>
+												</div>
+												<div class="shortBy-select select__style d-lg-flex d-none">
+													<label for="sortBy2">Sort by:</label> <select name="sortBy"
+														id="sortBy2">
+														<option value="0">최신순</option>
+														<option value="0">인기순</option>
+														<option value="0">이름순</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</section>
+								</div>
+								<!-- table hover -->
+								<div class="table-responsive">
+									<table class="table table-hover mb-0">
+										<thead>
+											<tr>
+												<th>NO</th>
+												<th>제목</th>
+												<th>작성일</th>
+												<th>조회수</th>
+												<th>작성자</th>
+											</tr>
+										</thead>
+									
+										<tbody id="noticeBrd">
+										<th:block th:each="n : ${notice}">
+											<tr	style="height: 70px;">
+												<td>[[${n.brdWrtNo}]]</td>
+												<td>[[${n.brdTitle}]]</td>
+												<td>[[${#dates.format(n.brdWriteDate,'yyyy-MM-dd')}]]</td>
+												<td>[[${n.brdHit}]]</td>
+												<td>[[${n.name}]]</td>
+											</tr> 
+										</th:block> 
+										</tbody>
+									</table>
+								</div>
+								<br>
+								<ul class="pagination justify-content-center">
+									<li class="page-item disabled"><a class="page-link"
+										href="#" tabindex="-1" aria-disabled="true">이전</a></li>
+									<li class="page-item"><a class="page-link" href="#">1</a></li>
+									<li class="page-item"><a class="page-link" href="#">2</a></li>
+									<li class="page-item"><a class="page-link" href="#">3</a></li>
+									<li class="page-item"><a class="page-link" href="#">다음</a>
+									</li>
+								</ul>
+							
+						</div>
+              
             </div>
-            <!-- End match table -->
-
-            <!-- viewed history -->
-            <div class="container">
-                <h5 class="card-title">최근 매치 조회 내역</h5>
-                <!-- Swiper -->
-                <div class="swiper mySwiper history">
-
-                    <div class="swiper-wrapper history">
-                        <!-- <div class="swiper-slide dateslide"><span class="bg-primary p-3">slide 1</span></div>             -->
-                        <div class="swiper-slide history card">
-                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
-                            <h5 class="card-title">14 : 00</h5>
-                            <p class="card-text">서남센터 테니스장 12코트</p>
-                        </div>
-                        <div class="swiper-slide history card">
-                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
-                            <h5 class="card-title">14 : 00</h5>
-                            <p class="card-text">서남센터 테니스장 12코트</p>
-                        </div>
-                        <div class="swiper-slide history card">
-                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
-                            <h5 class="card-title">14 : 00</h5>
-                            <p class="card-text">서남센터 테니스장 12코트</p>
-                        </div>
-                        <div class="swiper-slide history card">
-                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
-                            <h5 class="card-title">14 : 00</h5>
-                            <p class="card-text">서남센터 테니스장 12코트</p>
-                        </div>
-                        <div class="swiper-slide history card">
-                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
-                            <h5 class="card-title">14 : 00</h5>
-                            <p class="card-text">서남센터 테니스장 12코트</p>
-                        </div>
-                        <div class="swiper-slide history card">
-                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
-                            <h5 class="card-title">14 : 00</h5>
-                            <p class="card-text">서남센터 테니스장 12코트</p>
-                        </div>
-                        <div class="swiper-slide history card">
-                            <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
-                            <h5 class="card-title">14 : 00</h5>
-                            <p class="card-text">서남센터 테니스장 12코트</p>
-                        </div>
-                    </div>
-                    <div class="swiper-pagination history"></div>
-                    <script>
-                        var swiper = new Swiper(".mySwiper.history", {
-                            slidesPerView: 5,
-                            height: 300,
-                            pagination: {
-                                el: ".swiper-pagination.history",
-                                type: "progressbar"
-                            },
-                            breakpoints: {
-                                320: {
-                                    slidesPerView: 3,
-                                    spaceBetween: 10
-                                },
-                                480: {
-                                    slidesPerView: 3,
-                                    spaceBetween: 20
-                                },
-                                640: {
-                                    slidesPerView: 4,
-                                    spaceBetween: 20
-                                },
-                                992: {
-                                    slidesPerView: 4,
-                                    spaceBetween: 20
-                                }
-                            }
-                        });
-                    </script>
-                </div>
-            </div>
-            <!-- End viewed history -->
+           
+            
+            <script type="text/javascript">
+         
+  /*           function getNoticeList(){
+            	//let brdWrtNo = 1; 
+            	//let brdTitle = '테스트중';
+            	$.ajax({
+            		type:'GET',
+            		url: 'noticePage',
+            		data:{brdTitle},
+            		success: function(data){
+            			console.log(data);
+            			//$('#noticeBrd').empty();
+            			
+            			for(let nBrd of data){
+            				console.log(nBrd);
+            			 let b=`
+            				<tr id = ${nBrd.brdWrtNo}
+							style="height: 70px;">
+							<td>${nBrd.brdWrtNo}</td>
+							<td>${nBrd.brdTitle}</td>
+							<td>${nBrd.brdCtt}</td>
+							<td>${new Date(nBrd.brdWriteDate).toLocaleDateString()}</td>
+							<td>${nBrd.brdHit}</td>
+							<td>${nBrd.name}</td>
+						</tr> `
+            			$('#noticeBrd').append(b); 
+            			}
+            		},
+            		error: (err) => {console.log(err);}
+            		
+            		
+            	})
+            }
+            
+            
+            $(document).ready(function(){
+            	getNoticeList();
+			})  */
+			
+            </script>
+        
 	</th:block>
 
 </html>

@@ -49,9 +49,9 @@ public class ProdServiceImpl implements ProdService{
 		
 		List<AttachVO> files = fileUtils.uploadFiles(prodVO.getFiles());
 		
+		int result = prodMapper.insertProd(prodVO);
 		attachService.saveAttach("p", prodVO.getProdNo(), files);
 		
-		int result = prodMapper.insertProd(prodVO);
 		if(result == 1) {
 			return prodVO.getProdNo(); 
 		}

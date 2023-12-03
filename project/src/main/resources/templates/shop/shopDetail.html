@@ -12,17 +12,24 @@
 			display: flex;
 			justify-content: space-between;
 		}
+		
+		#InfoContent p{
+			margin: 0;
+		}
 	</style>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <th:block layout:fragment="content">
 	<!-- product detail section start  -->
 	<section class="product-main">
 		<div class="container">
 			<div class="row product-detail">
+			
 				<div class="col-md-6">
+				
 					<div class="product-gallery">
-						<div
-							class="product-gallery__thumb swiper productGallerySwiperThumb">
+						<!-- 큰 사진 보여주는 공간 -->
+						<div class="product-gallery__thumb swiper productGallerySwiperThumb">
 							<div class="swiper-wrapper">
 								<div class="swiper-slide">
 									<div class="gallery-item">
@@ -50,6 +57,7 @@
 								</div>
 							</div>
 						</div>
+						<!-- 작은 사진 보여주는 공간 -->
 						<div class="product-gallery__main swiper productGallerySwiper">
 							<div class="swiper-wrapper">
 								<div class="swiper-slide">
@@ -78,14 +86,18 @@
 								</div>
 							</div>
 						</div>
+						
 					</div>
 				</div>
-
+				
 				<div class="col-md-6">
+					<!-- 상품 설명 -->
 					<div class="product-detail__wrapper">
-						<h2 class="product-detail__title">EB 18 Large Cage Free White
-							A Egg</h2>
+						<!-- 상품 이름 -->
+						<h2 class="product-detail__title">
+							[[ ${prod.prodName} ]]</h2>
 						<div class="product-detail__meta">
+							<!-- 상품 별점 -->
 							<div class="rating">
 								<ul style="padding: 0">
 									<li><i class="fa-solid fa-star"></i></li>
@@ -95,7 +107,9 @@
 									<li><i class="fa-regular fa-star"></i></li>
 								</ul>
 							</div>
+							
 							<ul class="right-meta">
+								<!-- 카카오 공유 ㅂ튼 -->
 								<li><a class="share__btn" id="kakao-link-btn" href="javascript:kakaoShare()"> <svg width="16"
 											height="16" viewBox="0 0 16 16" fill="none"
 											xmlns="http://www.w3.org/2000/svg">
@@ -112,6 +126,7 @@
 												stroke-linecap="round" stroke-linejoin="round" />
                                             </svg> Share
 								</a></li>
+								<!-- 위시리스트 버튼 위시리스트 넣는 이벤트 -->
 								<li><a href="#" class="wishlist__btn"> <svg width="16"
 											height="16" viewBox="0 0 16 16" fill="none"
 											xmlns="http://www.w3.org/2000/svg">
@@ -121,74 +136,142 @@
 												stroke-linejoin="round" />
                                             </svg> Add to Wishlist
 								</a></li>
+								<!-- 재고 있는지 -->
 								<li>
 									<div class="stock__item">In-stock</div>
 								</li>
 							</ul>
 						</div>
-						<h3 class="product-detail__price">$15.00</h3>
+						<!-- 상품 가격 -->
+						<h3 class="product-detail__price" id="prodPrice">[[ ${prod.prodPrice} ]]</h3>
 						<!-- <p class="product-detail__short_desc">There are many
 							variations of passages of Lorem Ipsum and available,majority have
 							suffered alteration in somey form, by injected humour, or
 							randomised words which don't look even slightly believable.</p> -->
-						<div class="product-detail__attr">
-							<div class="product__attr">
-								<span class="product-detail--stroke">Filter By Color</span>
-								<ul class="product__attr--color">
-									<li><input type="radio" name="filterByColor"
-										id="colorGreen01" value="green" /> <label for="colorGreen01"
-										data-bg="#12B76A"></label></li>
-
-									<li><input type="radio" name="filterByColor"
-										id="colorYellow01" value="yellow" /> <label
-										for="colorYellow01" data-bg="#F1C584"></label></li>
-								</ul>
+						<form action="" th:object="${prodDetail}" id="prodBuyForm">
+							<div class="product-detail__attr">
+								<div class="product__attr">
+									<!-- <span class="product-detail--stroke">Color</span> -->
+									
+									<!-- 샋상 선택 -->
+									<!-- <ul class="product__attr--color">
+										<li><input type="radio" name="filterByColor"
+											id="colorGreen01" value="green" /> <label for="colorGreen01"
+											data-bg="#12B76A"></label></li>
+	
+										<li><input type="radio" name="filterByColor"
+											id="colorYellow01" value="yellow" /> <label
+											for="colorYellow01" data-bg="#F1C584"></label></li>
+									</ul> -->
+									<div class="input-group mb-3" id="buyColor">
+										<label class="input-group-text" for="cateColor"
+											style="margin: 0; padding: 10px 26px;">Color</label>
+										<select class="form-select" th:field="*{cateColor}"
+												style="padding-left: 20px" onchange="changeSize()">
+											<option value="none" selected>Choose...</option>
+											<option value="be2">흰색</option>
+											<option value="be1">검은색</option>
+											<option value="be3">파란색</option>
+											<option value="be4">초록색</option>
+											<option value="be5">노란색</option>
+											<option value="be6">주황색</option>
+											<option value="be7">빨간색</option>
+										</select>
+									</div>
+								</div>
 							</div>
-						</div>
-
-						<div class="product-detail__attr">
-							<div class="product__attr">
-								<span class="product-detail--stroke">Size</span>
-								<ul class="product__attr--size">
-									<li><input type="radio" name="filterBySize"
-										id="sizeXXL-01" value="xxl" /> <label for="sizeXXL-01">XXL</label>
-									</li>
-									<li><input type="radio" name="filterBySize" id="sizeXL-01"
-										value="xl" /> <label for="sizeXL-01">XL</label></li>
-									<li><input type="radio" name="filterBySize" id="sizeL-01"
-										value="l" /> <label for="sizeL-01">L</label></li>
-									<li><input type="radio" name="filterBySize" id="sizeM-01"
-										value="m" /> <label for="sizeM-01">M</label></li>
-									<li><input type="radio" name="filterBySize" id="sizeS-01"
-										value="s" /> <label for="sizeS-01">S</label></li>
-									<li><input type="radio" name="filterBySize" id="sizeXS-01"
-										value="xs" /> <label for="sizeXS-01">XS</label></li>
-								</ul>
+	
+							<div class="product-detail__attr" style="margin-top: 0">
+								<div class="product__attr">
+									<!-- <span class="product-detail--stroke">Size</span>
+									<ul class="product__attr--size">
+										<li><input type="radio" name="filterBySize"
+											id="sizeXXL-01" value="xxl" /> <label for="sizeXXL-01">XXL</label>
+										</li>
+										<li><input type="radio" name="filterBySize" id="sizeXL-01"
+											value="xl" /> <label for="sizeXL-01">XL</label></li>
+										<li><input type="radio" name="filterBySize" id="sizeL-01"
+											value="l" /> <label for="sizeL-01">L</label></li>
+										<li><input type="radio" name="filterBySize" id="sizeM-01"
+											value="m" /> <label for="sizeM-01">M</label></li>
+										<li><input type="radio" name="filterBySize" id="sizeS-01"
+											value="s" /> <label for="sizeS-01">S</label></li>
+										<li><input type="radio" name="filterBySize" id="sizeXS-01"
+											value="xs" /> <label for="sizeXS-01">XS</label></li>
+									</ul> -->
+									<div class="input-group mb-3" id="buySize"
+										th:switch="${prod.cateProd}">
+										<th:block th:case="의류">
+											<label class="input-group-text" for="cateSize"
+												style="margin: 0; padding: 10px 30px;">Size</label>
+											<select class="form-select" th:field="*{cateSize}" style="padding-left: 20px">
+												<option value="none" selected>Choose...</option>
+												<option value="o1">XS</option>
+												<option value="o2">S</option>
+												<option value="o3">M</option>
+												<option value="o4">L</option>
+												<option value="o5">XL</option>
+											</select>
+										</th:block>
+										<th:block th:case="신발">
+											<label class="input-group-text" for="cateSize"
+												style="margin: 0; padding: 10px 30px;">Size</label>
+											<select class="form-select" th:field="*{cateSize}"
+												th:switch="${prod.cateProd}" style="padding-left: 20px"
+												onchange="changeCount()">
+												<option value="none" selected>Choose...</option>
+												<option value="o7">220</option>
+												<option value="o8">230</option>
+												<option value="o9">240</option>
+												<option value="o10">250</option>
+												<option value="o11">260</option>
+												<option value="o12">270</option>
+												<option value="o13">280</option>
+												<option value="o14">290</option>
+											</select>
+										</th:block>
+										<th:block th:case="*">
+											<label class="input-group-text" for="cateSize"
+												style="margin: 0; padding: 10px 30px;">Size</label>
+											<select class="form-select" th:field="*{cateSize}"
+												th:switch="${prod.cateProd}"
+												onFocus="this.initialSelect = this.selectedIndex;"
+												onChange="this.selectedIndex = this.initialSelect;"
+												style="padding-left: 20px">
+												<option value="o6">FREE</option>
+											</select>
+										</th:block>
+									</div>
+								</div>
 							</div>
-						</div>
-
-						<div class="product-detail__qty">
-							<span class="product-detail--stroke">quantity</span>
-							<div class="quantity quantity--outline">
-								<button type="button" class="decressQnt">
-									<span class="bar"></span>
-								</button>
-								<input class="qnttinput" type="number" disabled value="0"
-									min="01" max="100" />
-								<button type="button" class="incressQnt">
-									<span class="bar"></span>
-								</button>
+							
+							<!-- 상품 수량 -->
+							<div class="product-detail__qty">
+								<span class="product-detail--stroke">quantity</span>
+								<div class="quantity quantity--outline">
+									<button type="button" class="decressQnt">
+										<span class="bar"></span>
+									</button>
+									<input id="prodDetailSto" name="prodDetailSto" class="qnttinput" type="number"
+										disabled value="1" min="1" max="10" />
+									<button type="button" class="incressQnt" id="checkCount">
+										<span class="bar"></span>
+									</button>
+								</div>
 							</div>
-						</div>
-
-						<div class="product-detail__action">
-							<div class="item">
-								<a href="#" class="btn btn-primary btn-outline">Add to Cart</a>
+							
+							<!-- 구매, 장바구니 버튼 -->
+							<div class="product-detail__action">
+								<div class="item">
+									<a href="#" class="btn btn-primary btn-outline">Add to Cart</a>
+								</div>
+								<div class="item">
+									<a href="checkout" class="btn btn-primary btn-filled">Buy Now</a>
+								</div>
 							</div>
-							<div class="item">
-								<a href="checkout" class="btn btn-primary btn-filled">Buy Now</a>
-							</div>
-						</div>
+						</form>
+						
+						<!-- 배송 및 환불 정보들 -->
 						<div class="product-detail__accordion accordion"
 							id="productDetailAccordion">
 							<div class="accordion-item">
@@ -197,14 +280,16 @@
 										class="accordion-button product-detail--stroke collapsed"
 										type="button" data-bs-toggle="collapse"
 										data-bs-target="#accordion_one" aria-controls="accordion_one">
-										Shipping & Returns</button>
+										배송 안내</button>
 								</h2>
 								<div id="accordion_one" class="accordion-collapse collapse"
 									aria-labelledby="accordionOne"
 									data-bs-parent="#productDetailAccordion">
 									<div class="accordion-body">
-										<p>Lorem ipsum dolor sit amet consectetur adipisicing
-											elit. Est, porro.</p>
+										<p>배송지역: 전국(일부지역 제외)</p>
+										<p>배송비: 3,000원 (주문 합계 50,000원 이상 무료)</p>
+										<p>배송기간: 영업일 기준 1~2일 소요</p>
+										<p>배송안내: 상품의 출고지 또는 물류센터 보관장소에 따라 분리 배송</p>
 									</div>
 								</div>
 							</div>
@@ -214,42 +299,23 @@
 										class="accordion-button product-detail--stroke collapsed"
 										type="button" data-bs-toggle="collapse"
 										data-bs-target="#accordion_two" aria-controls="accordion_two">
-										Care instructions</button>
+										반품 안내</button>
 								</h2>
 								<div id="accordion_two" class="accordion-collapse collapse"
 									aria-labelledby="accordionTwo"
 									data-bs-parent="#productDetailAccordion">
 									<div class="accordion-body">
-										<p>Lorem ipsum dolor sit amet consectetur adipisicing
-											elit. Qui cum beataesimilique, quae vel inventore veniam
-											ducimus cupiditate dolorem consequatur explicabo magnam
-											expedita accusamus nihil quas dolorum! Accusamus, omnis
-											aliquid?</p>
-									</div>
-								</div>
-							</div>
-							<div class="accordion-item">
-								<h2 class="accordion-header" id="accordionThree">
-									<button
-										class="accordion-button product-detail--stroke collapsed"
-										type="button" data-bs-toggle="collapse"
-										data-bs-target="#accordion_three"
-										aria-controls="accordion_three">
-										Specifications</button>
-								</h2>
-								<div id="accordion_three" class="accordion-collapse collapse"
-									aria-labelledby="accordionThree"
-									data-bs-parent="#productDetailAccordion">
-									<div class="accordion-body">
-										<p>Lorem ipsum dolor sit amet consectetur, adipisicing
-											elit. Vel nobis, ab odio ipsa suscipit maxime assumenda
-											laboriosam. Nemo, soluta ratione?</p>
+										<p>· 반품접수는 상품 수령 후 7일 이내에 상품 미훼손 및 미사용한 경우에만 해당됩니다.</p>
+										<p>· 색상/사이즈 불만족, 고객 변심 반품의 경우 배송 비용에 대한 배송비는 환불되지 않습니다.</p>
+										<p>· 제품하자, 오배송으로 인한 반품 및 교환은 고객센터로 연락주시면 빠른 처리 도와드리겠습니다.</p>
+										<p>· 테니스윙 온라인 스토어에서 구매하신 제품에 대해 반품 접수를 원하실 경우 마이페이지를 이용하시거나 테니스윙 고객센터 유선상담을 통해 처리하실 수 있습니다.</p>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				
 			</div>
 
 			<div class="row product-info">
@@ -276,13 +342,6 @@
 										data-bs-target="#women-tab-pane" type="button" role="tab"
 										aria-controls="women-tab-pane" aria-selected="false">
 										Reviews</button>
-								</li>
-								<li class="nav-item" role="presentation">
-									<button class="nav-link" id="electronics-tab"
-										data-bs-toggle="tab" data-bs-target="#electronics-tab-pane"
-										type="button" role="tab" aria-controls="electronics-tab-pane"
-										aria-selected="false">
-										Questions</button>
 								</li>
 							</ul>
 						</div>
@@ -311,11 +370,18 @@
 						</div>
 						<div class="tab-pane fade" id="groceries-tab-pane" role="tabpanel"
 							aria-labelledby="groceries-tab" tabindex="0">
-							<div class="content__body">
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Eligendi aliquam quod sapiente maxime necessitatibus natus
-									incidunt voluptate, ut illo asperiores. Provident error sit
-									fuga amet magnam sed reiciendis minus odio.</p>
+							<div class="content__body" id="InfoContent">
+								<p style="margin-bottom: 5px"><b>배송 안내</b></p>
+								<p>· 배송지역: 전국(일부지역 제외)</p>
+								<p>· 배송비: 3,000원 (주문 합계 50,000원 이상 무료)</p>
+								<p>· 배송기간: 영업일 기준 1~2일 소요</p>
+								<p>· 배송안내: 상품의 출고지 또는 물류센터 보관장소에 따라 분리 배송</p>
+								<br>
+								<p style="margin-bottom: 5px"><b>반품 안내</b></p>
+								<p>· 반품접수는 상품 수령 후 7일 이내에 상품 미훼손 및 미사용한 경우에만 해당됩니다.</p>
+								<p>· 색상/사이즈 불만족, 고객 변심 반품의 경우 배송 비용에 대한 배송비는 환불되지 않습니다.</p>
+								<p>· 제품하자, 오배송으로 인한 반품 및 교환은 고객센터로 연락주시면 빠른 처리 도와드리겠습니다.</p>
+								<p>· 테니스윙 온라인 스토어에서 구매하신 제품에 대해 반품 접수를 원하실 경우 마이페이지를 이용하시거나 테니스윙 고객센터 유선상담을 통해 처리하실 수 있습니다.</p>
 							</div>
 						</div>
 						<!-- 후기 -->
@@ -396,7 +462,8 @@
 												</div>
 
 												<div class="input-group mb-3">
-													<label class="input-group-text" for="inputGroupSelect01" style="margin: 0; padding-left: 23px; padding-right: 23px">
+													<label class="input-group-text" for="inputGroupSelect01" 
+														style="margin: 0; font-weight: 400; color: #71808F; padding-left: 25px; padding-right: 25px">
 														   Stars</label>
 													<select class="form-select" id="inputGroupSelect01">
 														<option selected>Choose...</option>
@@ -517,18 +584,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane fade" id="electronics-tab-pane"
-							role="tabpanel" aria-labelledby="electronics-tab" tabindex="0">
-							<div class="content__body">
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Numquam, placeat quibusdam. Reiciendis veritatis facere,
-									perspiciatis unde nostrum hic deleniti, optio quibusdam quae
-									repellendus laboriosam aut perferendis quis dolore, deserunt
-									illo animi quod tempora adipisci consequatur enim! Aspernatur
-									corporis provident, iusto laborum vero libero similique debitis
-									inventore repellat doloribus. Neque, ipsam!</p>
-							</div>
-						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -537,6 +593,7 @@
 	<!-- product detail section end -->
 
 	<!-- Trending Section Start -->
+	<!-- 하단 상품 슬라이드 -->
 	<section class="trending__section pt-0">
 		<div class="container">
 			<div class="row">
@@ -705,24 +762,140 @@
 		}
 	</script>
 
-	<script type="text/javascript">
-		/* let exBtn = $('.accordion-header button');
-		console.log(exBtn);
+	<script th:inline="javascript">
+	/*<![CDATA[*/
 		
-		exBtn.on('click', function(e){
-			console.log(e.target);
-			if ($(e.target).is('collapsed')) {
-				console.log(e.target);
-		        $(e.target).addClass('collapsed');
-				$(e.target).attr('aria-expanded', 'false');
-		    }
-			else {
-				console.log('asd');
-				$(e.target).addClass('collapsed');
-				$(e.target).attr('aria-expanded', 'true');
+		// 상품 상세 존재하는 색상 표시
+		//console.log(/*[[ ${prodDetailList} ]]*/);
+		let prodDetailList = [[ ${prodDetailList} ]];
+		let prodDetailColors = [];
+		
+		prodDetailList.forEach(function(item) {
+			//console.log(item);
+			//console.log(item.cateColor);
+			// 중복 제거하며 배열에 담기
+			if(item.prodDetailSaleSts == '판매중'){				
+				if(!prodDetailColors.includes(item.cateColor))
+					prodDetailColors.push(item.cateColor);
 			}
-		}); */
+		});
+		
+		console.log(prodDetailColors);
+		//console.log($('#cateColor option').text());
+		
+		$('#cateColor option').each((idx, item) => {
+			//console.log($(item).text());
+			if(!prodDetailColors.includes($(item).text()) && $(item).val() != 'none')
+				$(item).hide();
+		});
+		
+		// 색상 선택 시 해당 색상에 존재하는 사이즈 출력
+		function changeSize() {
+			console.log($('#cateColor option:selected').text());
+			$('#cateSize option').show();
+			$('#cateSize').val('none').prop('selected', true);
+			
+			let selectColor = $('#cateColor option:selected').text();
+			let selectTemp = [];
+			
+			// 선택한 색이 가지고 있는 사이즈 배열에 담기
+			prodDetailList.forEach(function(item) {
+				if(item.prodDetailSaleSts == '판매중'){					
+					if(item.cateColor == selectColor)				
+						selectTemp.push(item.cateSize);
+				}
+			});
+			
+			console.log(selectTemp);
+			
+			$('#cateSize option').each((idx, item) => {
+				//console.log($(item).text());
+				if(!selectTemp.includes($(item).text()) && $(item).val() != 'none'){					
+					//console.log($(item).text());
+					$(item).hide();
+				}
+			})
+			$('#prodDetailSto').val('1');
+		}
+		
+		let selectNum;
+		// 사이즈별 제고 처리
+		function changeCount() {
+			//console.log($('#cateColor').val());
+			if($('#cateColor').val() == 'none'){
+				Swal.fire({
+					title: "상품 색상",
+					text: "상품 색상을 선택해주세요.",
+					icon: "info",
+					didClose: () =>{
+						$('#cateColor').focus();
+						$('#cateSize').val('none').prop('selected', true);
+					}
+				})				
+				return;	
+			}
+			let selectColor = $('#cateColor option:selected').text();
+			let selectSize = $('#cateSize option:selected').text();
+			
+			
+			// 선택한 색, 사이즈가 가지는 수량 담기
+			prodDetailList.forEach(function(item) {
+				if(item.prodDetailSaleSts == '판매중'){					
+					if(item.cateColor == selectColor && item.cateSize == selectSize)				
+						selectNum = item.prodDetailSto;
+				}
+			});
+			
+			console.log(selectNum);
+			
+			$('#prodDetailSto').attr('max', selectNum);
+			$('#checkCount').attr("disabled", false);
+			$('#prodDetailSto').val('1');
+		}
+		
+		$('#checkCount').on('click', function(e){
+			if($('#cateColor').val() == 'none'){
+				Swal.fire({
+					title: "상품 색상",
+					text: "상품 색상을 선택해주세요.",
+					icon: "info",
+					didClose: () =>{
+						$('#cateColor').focus();
+						$('#prodDetailSto').val('1');
+					}
+				})				
+				return;	
+			} else if($('#cateSize').val() == 'none'){
+				Swal.fire({
+					title: "상품 사이즈",
+					text: "상품 사이즈를 선택해주세요.",
+					icon: "info",
+					didClose: () =>{
+						$('#cateSize').focus();
+						$('#prodDetailSto').val('1');
+					}
+				})				
+				return;	
+			}
+			console.log($('#prodDetailSto').val());
+			if($('#prodDetailSto').val() == (selectNum - 1)) {
+				$('#checkCount').attr("disabled", true);
+			}
+		});
+		
+		
+	/*]]>*/
+	</script>
 	
+	<!--/* 가격부분 , 추가하는 기능 */-->
+	<script type="text/javascript">
+
+		let changePrice = $('#prodPrice').text();
+		changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		
+		changePrice = changePrice + '원';
+		$('#prodPrice').text(changePrice);
+
 	</script>
 </th:block>
 
