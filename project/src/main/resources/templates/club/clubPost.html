@@ -165,7 +165,7 @@
 							<div class="form-group">
 								<label for=clubPostTitle>제목</label>
 								<textarea name="clubPostTitle" cols="30" rows="1" id="clubPostTitle"
-									class="form-control form-area"></textarea>
+									class="form-control form-area" th:text="${club.clubNo}"></textarea>
 							</div>
 							<div class="form-group">
 								<label for="clubPostCtt">내용</label>
@@ -273,7 +273,7 @@
 											aria-describedby="basic-addon2">
 										<button type="button" class="input-group-text repInserBtn" data-value="${clubPost.clubPostNo}">등록</button>
 									</div>
-									<div class="table-responsive">
+									<div class="table-responsive" >
 											<table class="table" id="table1">
 												<thead>
 													<tr>
@@ -283,7 +283,7 @@
 														<th></th>
 													</tr>
 												</thead>
-												<tbody id="repList"> </tbody>
+												<tbody id="repList" data-value="${clubPost.clubPostNo}"> </tbody>
 											</table>
 									</div>
 									</div>
@@ -345,8 +345,10 @@
 
 						//상세 조회 (제목 클릭)
 						$(".boardContainer").on("click", function (e) {
-							//const toggleAnswer = document.querySelector(".boardBody")
 							$(this).parent().parent().next().toggle();
+							
+							// 댓글 리스트 아작스
+							//repListAjax(clubPostNo);
 						});
 						
 						
