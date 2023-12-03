@@ -28,6 +28,16 @@
 		WHERE crt_detail_no = #{crtDetailNo}
 	</select>
 	
+	<!-- 환불 금액 -->
+	<select id="refundInf" resultType="crtDetailVO">
+		SELECT seven_day_before
+				, five_day_before
+				, three_day_before
+				, less_than_two_day_before
+				, significant
+		FROM refund_inf
+	</select>
+	
 	<!-- 코트 등록 -->
 	<insert id="insertCrtDetail" parameterType="crtDetailVO">
 		<selectKey keyProperty="crtDetailNo"
