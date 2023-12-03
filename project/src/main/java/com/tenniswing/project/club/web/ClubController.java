@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenniswing.project.club.service.ClubPostService;
 import com.tenniswing.project.club.service.ClubPostVO;
+import com.tenniswing.project.club.service.ClubRepService;
+import com.tenniswing.project.club.service.ClubRepVO;
 import com.tenniswing.project.club.service.ClubService;
 import com.tenniswing.project.club.service.ClubVO;
 
@@ -25,6 +27,9 @@ public class ClubController {
 	
 	@Autowired
 	ClubPostService clubPostService;
+	
+	@Autowired
+	ClubRepService clubRepService;
 
 // --------------------------------------- 메인	
 	//클럽페이지
@@ -154,6 +159,47 @@ public class ClubController {
 			boolean result = clubPostService.deletePost(clubPostNo);
 			return result;
 		}
+		
+		//자유게시판 수정
+		@PostMapping("postUpdate")
+		@ResponseBody
+		public Map<String, Object> postUpdateFormAjax(ClubPostVO clubPostVO) {
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			clubPostVO.setMemId(id);
+			//System.out.println("-----plz "+clubPostVO);
+			Map<String, Object> result = clubPostService.updatePost(clubPostVO);
+			return result;
+		}
+		
+			//자유게시판 댓글 조회
+			@GetMapping("repList")
+			@ResponseBody
+			public List<ClubRepVO> repListAjax(ClubRepVO clubRepVO){
+				System.out.println("000000000000"+clubRepVO);
+				return clubRepService.selectAllRep(clubRepVO);
+			}
+			
+			
+			//자유게시판 댓글 등록
+			@PostMapping("repInsert")
+			@ResponseBody
+			public int insertRepAjax(ClubRepVO clubRepVO, Model model) {
+				String id = SecurityContextHolder.getContext().getAuthentication().getName();
+				clubRepVO.setMemId(id);
+				
+				int result = clubRepService.insertRep(clubRepVO);
+				
+				return result;
+			}
+		
+			
+			//자유게시판 댓글 삭제
+			@PostMapping("repDelete")
+			@ResponseBody
+			public boolean deleteRepAjax(@RequestParam("repNo")Integer clubRepNo) {
+				boolean result = clubRepService.deleteRep(clubRepNo);
+				return result;
+			}
 		
 	
 	//상세페이지 > 탭 > 멤버
