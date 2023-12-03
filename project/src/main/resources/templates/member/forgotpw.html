@@ -10,9 +10,7 @@
 		<div class="text-center mb-5 p-3">
 			<div class="row">
 				<div class="card-header">
-					<a href="/">
-						<h3 class="text-center mt-2 mb-4">비밀번호 찾기</h3>
-					</a>
+					<h3 class="text-center mt-2 mb-4">비밀번호 찾기</h3>
 				</div>
 				<div class="p-5 border border-success-subtle mb-5">
 					<input type="text" id="message" hidden="true" th:value="${message}">
@@ -34,11 +32,11 @@
 								class="form-control is-invalid" placeholder="숫자만 입력 해주세요"
 								aria-describedby="phoneNoBtn" id="phoneNo" name="phoneNo"
 								maxlength="11" aria-label="Text input with checkbox" required>
-							<button class="btn btn-success" type="button" id="forgotpwphoneNoBtn">인증하기
-							</button>
+							<button class="btn btn-success" type="button"
+								id="forgotpwphoneNoBtn">인증하기</button>
 						</div>
 					</div>
-			<!-- 		<div class="col-12" hidden="true">
+					<!-- 		<div class="col-12" hidden="true">
 						<label for="pwd">비밀 번호 수정</label><br>
 						<div class="input-group mb-3">
 							<input type="password" class="form-control is-invalid"
