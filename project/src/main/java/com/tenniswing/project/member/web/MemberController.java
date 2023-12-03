@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
+import com.tenniswing.project.common.FileUtils;
 import com.tenniswing.project.member.service.MemberService;
 import com.tenniswing.project.member.service.MemberVO;
 
@@ -28,6 +30,12 @@ public class MemberController {
 	
 	@Autowired
 	HttpSession httpSession;
+	
+	@Autowired
+	FileUtils fileUtils;
+	
+	@Autowired
+	AttachService attachService;
 
 	// 로그인 폼 이동
 	@GetMapping("loginform")

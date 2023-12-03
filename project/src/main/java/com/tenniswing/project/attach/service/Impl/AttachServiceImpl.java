@@ -37,10 +37,10 @@ public class AttachServiceImpl implements AttachService {
 	}
 
 
-	@Override
-	public List<AttachVO> attachListAllSns() {
-		return attachMapper.attachListAllSns();
-	}
+	/*
+	 * @Override public List<AttachVO> attachListAllSns() { return
+	 * attachMapper.attachListAllSns(); }
+	 */
 
 	@Override
 	public int updateAttach(String tableDiv, int tablePk, List<AttachVO> files) {
