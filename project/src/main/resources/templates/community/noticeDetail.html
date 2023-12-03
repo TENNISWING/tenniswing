@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main-layout}">
+<head>
+	<!-- tagify 소스 다운 -->
+	<script src="https://unpkg.com/@yaireo/tagify"></script>
+	<!-- 폴리필 (구버젼 브라우저 지원) -->
+	<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+	
+</head>
+<th:block layout:fragment="content">
+
+
+	<!-- club sub menu -->
+	<div class="container mb-4">
+		<ul class="nav d-flex justify-content-around text-center">
+			<li class="d-flex flex-column"><a href="sns">
+					<div>
+						<i class="fa-solid fa-photo-film fs-3 text-info"></i>
+					</div>SNS
+			</a></li>
+			<li class="d-flex flex-column"><a href="freeboardList">
+					<div>
+						<i class="fa-solid fa-chalkboard-teacher fs-3 text-primary"></i>
+					</div>자유게시판
+			</a></li>
+			<li class="d-flex flex-column"><a href="noticeList">
+					<div>
+						<i class="fa-solid fa-clipboard-list fs-3 text-warning"></i>
+					</div>공지사항
+			</a></li>
+		</ul>
+	</div>
+	<!-- End club sub menu  -->
+
+	<div class="container">
+			<h2>게시글 상세 화면</h2>
+	    	<table class="board_detail">
+				<colgroup>
+					<col width="15%"/>
+					<col width="35%"/>
+					<col width="15%"/>
+					<col width="35%"/>
+				</colgroup>
+				<caption>게시글 상세내용</caption>
+				<tbody>
+					<tr>
+						<th scope="row">글 번호</th>
+						<td ></td>
+						<th scope="row">조회수</th>
+						<td ></td>
+					</tr>
+					<tr>
+						<th scope="row">작성자</th>
+						<td ></td>
+						<th scope="row">작성일</th>
+						<td ></td>
+					</tr>
+					<tr>
+						<th scope="row">제목</th>
+						<td colspan="3">
+							<input type="text" id="title" name="title" 
+								/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4" class="view_text">
+							<textarea title="내용" id="contents" name="contents" 
+								></textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+    
+
+	</div>
+	<script>
+
+    /* const input = document.querySelector('input[name=snsTag]');
+    console.log(input);
+    let tagify = new Tagify(input); // initialize Tagify
+    
+    // 태그가 추가되면 이벤트 발생
+    tagify.on('add', onAddTag)
+    function onAddTag(e){
+        console.log("onAddTag: ", e.detail.tagify.value);
+        console.log("original input value: ", input.value)
+        //console.log(data.value)
+        //loadOriginalValues
+    } */
+
+
+
+</script>
+
+
+</th:block>
+
+</html>

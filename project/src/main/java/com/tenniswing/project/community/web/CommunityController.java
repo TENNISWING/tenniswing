@@ -16,6 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.common.FileUtils;
+import com.tenniswing.project.community.service.BrdService;
+import com.tenniswing.project.community.service.BrdVO;
 import com.tenniswing.project.community.service.SnsRepService;
 import com.tenniswing.project.community.service.SnsRepVO;
 import com.tenniswing.project.community.service.SnsService;
@@ -29,6 +31,9 @@ public class CommunityController {
 //	
 	@Autowired
 	SnsRepService snsRepService;
+	
+	@Autowired
+	BrdService brdService;
 	
 	@Autowired
 	FileUtils fileUtils;
@@ -180,24 +185,75 @@ public class CommunityController {
 		public String snsMyListPage(Model model) {
 			return "community/snsMyList";
 		}
-		
 
 		// 자유게시판 메인(리스트 페이지)
 		@GetMapping("freeboardList")
 		public String freeboardListPage(Model model) {
 			return "community/freeboardList";
 		}
-		
-		// 공지사항 게시판 메인(리스트 페이지)
-		@GetMapping("noticeList")
-		public String noticeListPage(Model model) {
-			return "community/noticeList";
-		}
-		
-		
 		// 자유게시판 글 등록폼
 		@GetMapping("freeBrdForm")
 		public String freeBrdFormPage(Model model) {
 			return "community/freeBrdForm";
 		}
+		
+		// 공지사항 게시판 메인(리스트 페이지)
+		@GetMapping("noticeList")
+		public String noticeListPage(BrdVO brdVO, Model model) {
+			model.addAttribute("notice", brdService.selectBrdAllInfo(brdVO));
+			return "community/noticeList";
+		}
+		// 공지사항 리스트 뿌려주는 ajax 
+		@GetMapping("noticePage")
+		@ResponseBody
+		public List<BrdVO> noticeListAjax(BrdVO brdVO) {
+			
+			return brdService.selectBrdAllInfo(brdVO);
+		}
+		// 공지사항 상세 페이지
+		@GetMapping("noticeDetail")
+		public String noticeDetailPage(BrdVO brdVO, Model model) {
+			return "community/noticeDetail";
+		}
+		
+		// 공지사항 등록 페이지
+		@GetMapping("noticeForm")
+		public String noticeFormPage(BrdVO brdVO, Model model) {
+			
+			return "community/noticeForm";
+		}
+		
+		// 공지사항 등록 처리
+		@PostMapping("noticeForm")
+		public String insertNoticeForm(BrdVO brdVO, RedirectAttributes rttr, Model model) {
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			brdVO.setMemId(id);
+			
+			if(id.equals("anonymousUser")) {
+				return "redirect:loginform"; 
+			}
+			
+			brdService.insertBrd(brdVO);
+			
+			rttr.addAttribute("brdWrtNo", brdVO.getBrdWrtNo());
+			
+			
+			//사진 등록
+			//테이블 구분, 게시글 번호, 파일목록
+			List<AttachVO> files = fileUtils.uploadFiles(brdVO.getFiles());
+			
+			int n = attachService.saveAttach("s", brdVO.getBrdWrtNo(), files);
+			
+			if(n > 0) {			
+				return "redirect:noticeList";
+				
+			}else {
+				model.addAttribute("message", "파일등록에 실패하였습니다.");
+				return "redirect:noticeList";
+			}
+			
+			
+		}
+		
+		
 }

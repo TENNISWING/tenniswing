@@ -8,7 +8,7 @@
 	<!-- 전체 조회 -->
 	<resultMap type="SnsVO" id="snsResult">
 		<collection property="attachList" javaType="ArrayList"
-			column="attach_table_div" ofType="AttachVO" select="attachListAllSns"></collection>
+			column="sns_wrt_no" ofType="AttachVO" select="attachListAllSns"></collection>
 	</resultMap>
 	<select id="selectAllSnsInfo" resultMap="snsResult">
 		select s.sns_wrt_no as snsWrtNo
@@ -45,6 +45,7 @@
 		FROM attach a JOIN SNS s
 		ON a.attach_table_pk = s.sns_wrt_no
 		WHERE a.attach_table_div= 's'
+		AND s.sns_wrt_no = #{snsWrtNo}
 	</select>
 
 
