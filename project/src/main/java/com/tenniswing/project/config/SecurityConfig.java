@@ -28,7 +28,8 @@ public class SecurityConfig {
 				.and()
 				
 				.formLogin()
-				.loginPage("/loginform").loginProcessingUrl("/loginProc")
+				.loginPage("/loginform")
+				.loginProcessingUrl("/loginProc")
 				.usernameParameter("memId")
 				.passwordParameter("pwd")
 				.defaultSuccessUrl("/")

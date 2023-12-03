@@ -10,8 +10,10 @@ public interface AttachMapper {
 	public List<AttachVO> attachListAll(String attachTableDiv, int attachTablePk);
 	
 	//sns 첨부파일 
-	public List<AttachVO> attachListAllSns();
+	//public List<AttachVO> attachListAllSns();
 	
 	//전체등록
 	public int saveAttachAll(List<AttachVO> files);
+	
+	public int updateAttach(List<AttachVO> files);
 }

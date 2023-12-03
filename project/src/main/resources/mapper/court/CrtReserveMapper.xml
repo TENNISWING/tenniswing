@@ -22,6 +22,8 @@
 		, CRTROOM_NO
 		, CRT_DETAIL_NO
 		, MEM_ID
+		, RESERVE_PAY_NO
+		, RESERVE_UID
 	)
 	VALUES
 	(
@@ -30,6 +32,8 @@
 		, #{crtroomNo}
 		, #{crtDetailNo}
 		, #{memId}
+		, #{reservePayNo}
+		, #{reserveUid}
 	)
 	INTO reserve_detail_inf
 	(
