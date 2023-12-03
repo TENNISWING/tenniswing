@@ -2,6 +2,7 @@ package com.tenniswing.project.court.mapper;
 
 import java.util.List;
 
+import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.court.service.CrtroomVO;
 
 public interface CourtroomMapper {
@@ -15,6 +16,12 @@ public interface CourtroomMapper {
 	// 단건조회
 	public CrtroomVO selectCourtroom(CrtroomVO crtroomVO);
 	
+	// Main 코트 배너
+	public List<CrtroomVO> crtroomBanner();
+	
+	// 최근 등록한 코트
+	public List<CrtroomVO> recentRegiCourt();
+	
 	// 필터조회(지역, 날짜, 시간대)
 	
 	// 등록
@@ -25,4 +32,7 @@ public interface CourtroomMapper {
 	
 	// 삭제
 	public int deleteCourtroom(int courtroomNo);
+	
+	// 첨부파일
+	public List<AttachVO> attachListAllCourt();
 }

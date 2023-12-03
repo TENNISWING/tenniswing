@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.court.mapper.CourtroomMapper;
 import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.court.service.CrtroomVO;
@@ -69,5 +70,15 @@ public class CourtroomServiceImpl implements CourtroomService {
 	@Override
 	public List<CrtroomVO> selectAllCourtroomMain() {
 		return courtroomMapper.selectAllCourtroomMain();
+	}
+
+	@Override
+	public List<CrtroomVO> crtroomBanner() {
+		return courtroomMapper.crtroomBanner();
+	}
+
+	@Override
+	public List<CrtroomVO> recentRegiCourt() {
+		return courtroomMapper.recentRegiCourt();
 	}
 }

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -102,7 +101,7 @@ public class MemberController {
 			
 			//테이블 구분, 게시글 번호, 파일목록
 			int n = attachService.saveAttach("m", memberVO.getMemNo(), files);
-			
+			model.addAttribute("message", "회원가입을 마쳤습니다. <br> 로그인 해주세요.");
 			return "redirect:/loginform";
 		} else {
 			model.addAttribute("message", "회원가입에 실패하였습니다.");

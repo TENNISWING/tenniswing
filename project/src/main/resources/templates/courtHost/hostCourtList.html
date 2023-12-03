@@ -16,10 +16,13 @@
 		<!-- Basic Tables start -->
     <section class="section">
         <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">
+            <div class="card-header" style="overflow: hidden">
+                <h5 class="card-title" style="float: left">
                     Court List
                 </h5>
+                <div style="float: right">
+                	<button class="btn btn-primary" th:onclick="|location.href='@{/registerCourtroom}'|">코트 등록하기</button>
+               	</div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -48,13 +51,12 @@
 	                                <td>[[ ${#dates.format(courtList.crtroomRegiDate,'yyyy년MM월dd일')} ]]</td>
 	                                <td>
 	                                	<div th:onclick="|location.href='@{/hostCourtDetail(crtroomNo=${courtList.crtroomNo})}'|" class="btn icon btn-primary"><i class="icon dripicons dripicons-enter"></i></div>
-	                           			<div class="btn icon btn-success edit" data-bs-toggle="modal" id="courtroomEdit" th:attrappend="id=${stat.index}"
-                                			data-bs-target="#exampleModalCenter"><i class="icon dripicons dripicons-pencil"></i></div>
+	                           			<div class="btn icon btn-success edit" th:onclick="|location.href='@{/editCourtroom(crtroomNo=${courtList.crtroomNo})}'|" id="courtroomEdit" th:attrappend="id=${stat.index}"><i class="icon dripicons dripicons-pencil"></i></div>
 										<div class="btn icon btn-danger courtroom" id="courtroomDelete" th:attrappend="id=${stat.index}"><i class="icon dripicons dripicons-trash"></i></div>
 	                                </td>
 	                            </tr>
 	                            <!-- Vertically Centered modal Modal -->
-					            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+					            <!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
 					                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 					                <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
 					                    role="document">
@@ -87,7 +89,7 @@
 					                        </div>
 					                    </div>
 					                </div>
-					            </div>
+					            </div> -->
                             </th:block>
                         </tbody>
                     </table>

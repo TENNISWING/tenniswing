@@ -20,8 +20,13 @@
   				, c.crtroom_regi_date
   				, FIND_CATEGORY_NAME(c.crtroom_region) crtroom_region_name
                 , MIN(d.crt_use_price) min_price
+                , a.attach_path
   		FROM crtroom c JOIN crt_detail_inf d
                        ON c.crtroom_no = d.crtroom_no
+                       JOIN attach a
+                       ON c.crtroom_no = a.attach_table_pk
+        WHERE a.attach_table_div = 'cd'
+        AND a.attach_turn = 1
         GROUP BY c.crtroom_no
                 , c.host_id
   				, c.crtroom_name
@@ -33,6 +38,7 @@
   				, c.crtroom_caution
   				, c.crtroom_use_guide
   				, c.crtroom_regi_date
+  				, a.attach_path
   		ORDER BY 1
   	</select>
   	
@@ -71,6 +77,7 @@
   	<!-- 코트 상세 조회 -->
   	<resultMap id="courtResult" type="crtroomVO">
   		<collection property="crtDetailList" javaType="ArrayList" column="crtroom_no" ofType="CrtDetailVO" select="selectCourtDetail" />
+  		<collection property="attachList" javaType="ArrayList" column="crtroom_no" ofType="AttachVO" select="attachListAllCourt" />
   	</resultMap>
   	<select id="selectCourtroom" resultMap="courtResult">
   		SELECT cr.crtroom_no
@@ -107,6 +114,32 @@
 				, FIND_CATEGORY_NAME(crt_indoor_outdoor) crt_indoor_outdoor_name
 		FROM CRT_DETAIL_INF
 		WHERE crtroom_no = #{crtroomNo}
+  	</select>
+  	<select id="attachListAllCourt" resultType="AttachVO">
+		select a.attach_origin_name
+		, a.attach_save_name
+		, a.attach_path
+		, a.attach_ext
+		, a.attach_table_div
+		, a.attach_table_pk
+		FROM attach a JOIN crt_detail_inf c
+		ON a.attach_table_pk = c.crtroom_no
+		WHERE a.attach_table_div= 'cd'
+		AND c.crtroom_no = #{crtroomNo}
+	</select>
+  	
+  	<!-- Main 코트 배너 -->
+  	<select id="crtroomBanner" resultType="crtroomVO">
+  		select a.attach_path
+        		, c.crtroom_no
+		from crt_detail_inf c JOIN attach a
+		                ON a.attach_table_pk = c.crtroom_no
+		                JOIN crtroom cr
+		                ON c.crtroom_no = cr.crtroom_no
+		where a.attach_table_div = 'cd'
+		and <![CDATA[rownum < 5]]>
+		and a.attach_turn = 1
+		order by a.attach_in_date desc
   	</select>
   	
   	<!-- 코트장 등록 -->

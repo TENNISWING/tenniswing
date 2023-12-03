@@ -19,7 +19,7 @@
 						<div class="card-content">
 							<div class="card-body">
 								<!-- 등록 폼 -->
-								<form th:action="@{/registerCourtDetail}" method="POST" 
+								<form th:action="@{/registerCourtDetail}" method="POST" enctype="multipart/form-data"
 								      th:object="${crtDetailVO}" class="form" name="insertForm" data-parsley-validate
 								      onsubmit="return crtDetailInsertHandler();">
 									<div class="row">
@@ -62,7 +62,7 @@
 											<label for="contact-info-horizontal">코트 이미지<span style="color: red"> *</span></label>
 										</div>
 										<div class="col-md-8 form-group">
-											<input type="file" class="multiple-files-filepond" multiple>
+											<input type="file" id="files" name="files" class="multiple-files-filepond" multiple>
 										</div>
 										<input type="hidden"
 												class="form-control" name="crtroomNo" th:value="${param.crtroomNo}"

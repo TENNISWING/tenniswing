@@ -3,9 +3,10 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/main-layout}">
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <th:block layout:fragment="content">
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=55c9a1570cea1c39facf69c028dd3016&libraries=services"></script>
 
 	<!-- courtroom card -->
 	<div class="container">
@@ -21,7 +22,14 @@
 								<div
 									class="product-gallery__thumb swiper productGallerySwiperThumb">
 									<div class="swiper-wrapper">
-										<div class="swiper-slide">
+										<th:block th:each="courtDetail, stat : ${courtDetail.attachList}">
+											<div class="swiper-slide">
+												<div class="gallery-item">
+													<img th:src="${courtDetail.attachPath}" alt="product iamge" />
+												</div>
+											</div>
+										</th:block>
+										<!-- <div class="swiper-slide">
 											<div class="gallery-item">
 												<img src="/assets/img/card.jpg" alt="product iamge" />
 											</div>
@@ -35,17 +43,19 @@
 											<div class="gallery-item">
 												<img src="/assets/img/card.jpg" alt="product iamge" />
 											</div>
-										</div>
-										<div class="swiper-slide">
-											<div class="gallery-item">
-												<img src="/assets/img/card.jpg" alt="product iamge" />
-											</div>
-										</div>
+										</div> -->
 									</div>
 								</div>
 								<div class="product-gallery__main swiper productGallerySwiper">
 									<div class="swiper-wrapper">
-										<div class="swiper-slide">
+										<th:block th:each="courtDetail, stat : ${courtDetail.attachList}">
+											<div class="swiper-slide">
+												<div class="gallery-item">
+													<img th:src="${courtDetail.attachPath}" alt="product iamge" />
+												</div>
+											</div>
+										</th:block>
+										<!-- <div class="swiper-slide">
 											<div class="gallery-item">
 												<img src="/assets/img/card.jpg" alt="product iamge" />
 											</div>
@@ -59,12 +69,7 @@
 											<div class="gallery-item">
 												<img src="/assets/img/card.jpg" alt="product iamge" />
 											</div>
-										</div>
-										<div class="swiper-slide">
-											<div class="gallery-item">
-												<img src="/assets/img/card.jpg" alt="product iamge" />
-											</div>
-										</div>
+										</div> -->
 									</div>
 								</div>
 							</div>
@@ -212,9 +217,10 @@
 								</tr>
 							</thead> -->
 							<tbody id="matchList">
-
+							
 							</tbody>
 						</table>
+						<div id="loadDiv" style="display: flex; justify-content: center"></div>
 						<input type="hidden" id="reserveTime" name="reserveTime">
 						<input type="hidden" id="tReserveTime" name="tReserveTime">
 						<input type="hidden" id="reservePrice" name="reservePrice">
@@ -278,7 +284,17 @@
 										<div class="tab-pane fade" id="refund-tab-pane"
 											role="tabpanel" aria-labelledby="groceries-tab" tabindex="0">
 											<div class="content__body">
-												<p>환불안내</p>
+												<h5 style="margin-top: 20px;">Refund Information</h5>
+												<br>
+												<ul>
+													<li>7일 전 취소시: [[${refundInf.sevenDayBefore}]]% 환불</li>
+													<li>5일 전 취소시: [[${refundInf.fiveDayBefore}]]% 환불</li>
+													<li>3일 전 취소시: [[${refundInf.threeDayBefore}]]% 환불</li>
+													<li>2일 전 ~ 당일: 환불 불가</li>
+													<br>
+													<li>당일 천재지변으로 인해 구장 이용이 불가한 경우 [[${refundInf.significant}]]% 환불</li>
+													<li>적용기준: 호우경보, 대설경보, 태풍주의보, 태풍경보</li>
+												</ul>
 											</div>
 										</div>
 										<!-- 후기 -->
@@ -426,16 +442,76 @@
 										<div class="tab-pane fade" id="electronics-tab-pane"
 											role="tabpanel" aria-labelledby="electronics-tab"
 											tabindex="0">
-											<div class="content__body">
-												<p>Lorem ipsum dolor sit amet consectetur adipisicing
-													elit. Numquam, placeat quibusdam. Reiciendis veritatis
-													facere, perspiciatis unde nostrum hic deleniti, optio
-													quibusdam quae repellendus laboriosam aut perferendis quis
-													dolore, deserunt illo animi quod tempora adipisci
-													consequatur enim! Aspernatur corporis provident, iusto
-													laborum vero libero similique debitis inventore repellat
-													doloribus. Neque, ipsam!</p>
+											<h5 style="margin-top: 20px;">court address</h5>
+											<div style="margin-top: 15px">
+												<div><span class="fa-fw select-all fas"></span>[[${courtDetail.crtroomLocation}]]</div>
 											</div>
+											<div class="content__body" style="display: flex; justify-content: center">
+												<div id="map" style="width:100%;height:400px;"></div>
+											</div>
+											<br>
+											<div style="display: flex; justify-content: space-around">
+												<ul style="list-style: none">
+													<li><img src="assets/img/icon/envelope.svg" style="hieght: 40px; width: 40px;"></li>
+													<li style="margin-top: 10px; text-align:center">Email</li>
+													<li></li>
+												</ul>
+												<ul style="list-style: none">
+													<li><img src="assets/img/icon/phone-call.svg" style="hieght: 40px; width: 40px;"></li>
+													<li style="margin-top: 10px; text-align:center">Tel</li>
+													<li></li>
+												</ul>
+												<ul style="list-style: none">
+													<li><img src="assets/img/icon/marker.svg" style="hieght: 40px; width: 40px;"></li>
+													<li style="margin-top: 10px; text-align:center">Court</li>
+													<li style="margin-top: 10px;">[[${courtDetail.crtroomLocation}]]</li>
+												</ul>
+											</div>
+											<script>
+											
+									        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+											    mapOption = {
+											        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+											        level: 3 // 지도의 확대 레벨
+											    };  
+			
+											// 지도를 생성합니다    
+											var map = new kakao.maps.Map(mapContainer, mapOption); 
+			
+											// 주소-좌표 변환 객체를 생성합니다
+											var geocoder = new kakao.maps.services.Geocoder();
+			
+											let address = `[[${courtDetail.crtroomLocation}]]`;
+											
+											// 주소로 좌표를 검색합니다
+											geocoder.addressSearch(address, function(result, status) {
+			
+											    // 정상적으로 검색이 완료됐으면 
+											     if (status === kakao.maps.services.Status.OK) {
+			
+											        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			
+											        // 결과값으로 받은 위치를 마커로 표시합니다
+											        var marker = new kakao.maps.Marker({
+											            map: map,
+											            position: coords
+											        });
+			
+											        // 인포윈도우로 장소에 대한 설명을 표시합니다
+											        var infowindow = new kakao.maps.InfoWindow({
+											            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리학원</div>'
+											        });
+											        infowindow.open(map, marker);
+			
+											        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+											        map.setCenter(coords);
+											        
+											    } 
+											});    
+											$('#electronics-tab').on('click',function(e){
+												map.relayout();
+											})
+									    </script>
 										</div>
 									</div>
 								</div>
@@ -583,7 +659,7 @@
 	<script th:inline="javascript">
 	
 						
-						let reserveTimeCode = [];
+							let reserveTimeCode = [];
 						
 						$(function(){
 							let list = [[${reserveTimeList}]];
@@ -595,14 +671,14 @@
 							
 							let reserveDate = $('input[name="reserveDate"]').val();
 							let crtDetailNo = Number($('input[name="crtDetailNo"]:checked').val());
-							
+							console.log(reserveTimeCode);
 							reserveAjax(reserveDate, crtDetailNo);
 							
 							let courtNo = $('input[name="crtDetailNo"]:checked').next().text();
 							$('input[name="crtNo"]').val(courtNo);
+							
 						})
 						
-							
 						function reserveAjax(reserveDate, crtDetailNo) {
 							let crtIndoorOutdoorName = $('input[name="crtDetailNo"]:checked').prev().find('.crtIndoorOutdoorName').text();
 							let crtUsePrice = $('input[name="crtDetailNo"]:checked').prev().find('.crtUsePrice').text();
@@ -615,6 +691,7 @@
 								success: function(result) {
 								
 									$('#matchList').empty();
+									$('#loadDiv').empty();
 										for(let i=0; i<reserveTimeCode.length; i++){
 											let b = ``;
 											b = `
@@ -630,6 +707,7 @@
 											
 											
 												for(let reserve of result){
+													console.log(reserve.reserveTime);
 													if(reserve.reserveTime === reserveTimeCode[i][0]){
 														b = `
 															<tr class="navbar-brand">
@@ -648,6 +726,18 @@
 												$('#matchList').append(b)
 											
 										}
+												$('#loadDiv').append(`
+														<button id="load" class="btn btn-primary" style="width: 200px;">More</button>
+														`)
+												$('#matchList td').css('display','none');
+												$('#matchList td').slice(0,50).show();
+												$('#load').click(function(e){
+													e.preventDefault();
+													$('#matchList td:hidden').slice(0,50).show();
+													if($("#matchList td:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+											            $('#load').fadeOut(100); // 컨텐츠 없을 시 버튼 사라짐
+											        }
+												})
 										$('.matchbtn1').on('click',function(e){
 											let reserveTime = $(e.target).closest('tr').find('.reserveTime').val();
 											let tReserveTime = $(e.target).closest('tr').find('.tReserveTime').text();

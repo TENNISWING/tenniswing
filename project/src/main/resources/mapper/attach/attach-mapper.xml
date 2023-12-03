@@ -69,6 +69,31 @@
 		</foreach>
 	</insert>
 	
+	<!-- 코트 순서 추가  -->
+	<insert id="saveAttachTurn" parameterType="list">
+		<selectKey keyProperty="attachNo" resultType="int"
+				order="BEFORE">
+				<!-- primarykey가 숫자일 경우 사용 -->
+				SELECT NVL(MAX(ATTACH_NO), 0) + 1
+				FROM ATTACH
+			</selectKey>
+		INSERT INTO ATTACH (
+			<include refid="fileColumns"/>
+		) 
+		<foreach item="file" collection="list" index="idx" separator="UNION ALL">
+		SELECT 
+			#{attachNo} + #{idx}
+			, #{file.attachExt}
+			, #{file.attachOriginName}
+			, #{file.attachSaveName}
+			, #{file.attachPath}
+			, #{file.attachTurn}
+			, #{file.attachTableDiv}
+			, #{file.attachTablePk}		
+		FROM DUAL		
+		</foreach>
+	</insert>
+	
 	<!--  파일 정보 수정  -->
 	<update id="updateAttach"  parameterType="AttachVO">
 		UPDATE attach	

@@ -10,10 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.tenniswing.project.attach.service.AttachService;
+import com.tenniswing.project.attach.service.AttachVO;
+import com.tenniswing.project.common.FileUtils;
 import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.court.service.CrtDetailService;
 import com.tenniswing.project.court.service.CrtDetailVO;
@@ -33,12 +37,19 @@ public class CourtController {
 	
 	@Autowired
 	CrtReserveService crtReserveService;
+	
+	@Autowired
+	FileUtils fileUtils;
+	
+	@Autowired
+	AttachService attachService;
 
 	// 메인
 
 		@GetMapping("court")  
-		public String courtPage(Model model) { 			
+		public String courtPage(Model model) {
 			model.addAttribute("courtList", courtroomService.selectAllCourtroomMain());
+			model.addAttribute("banner", courtroomService.crtroomBanner());
 			return "court/court";
 		}
 		
@@ -47,7 +58,7 @@ public class CourtController {
 			model.addAttribute("courtDetail", courtroomService.selectCourtroom(crtroomVO));
 			model.addAttribute("reserveInfo", new CrtReserveVO());
 			model.addAttribute("reserveTimeList", crtReserveService.reserveTimeCodeList());
-			
+			model.addAttribute("refundInf", crtDetailService.refundInf());
 			System.out.println(crtReserveService.reserveTimeCodeList());
 			return "court/courtDetail";
 		}
@@ -78,9 +89,9 @@ public class CourtController {
 			return "court/reserveCourt";
 		}
 		
-		@PostMapping("reserveCourt")
+		@PostMapping("reserveCourtPost")
 		@ResponseBody
-		public Map<String, Object> reserveCourtProccess(CrtReserveVO crtReserveVO) {
+		public Map<String, Object> reserveCourtProccess(@RequestBody CrtReserveVO crtReserveVO) {
 			//System.out.println(crtReserveVO);
 			String memId = SecurityContextHolder.getContext().getAuthentication().getName();
 			
@@ -97,14 +108,15 @@ public class CourtController {
 		// 환불 테스트
 		@GetMapping("refundTest")
 		public String refundCourt(CrtRefundVO crtRefundVO){
-			String memId = SecurityContextHolder.getContext().getAuthentication().getName();
-			
-			if(memId.equals("anonymousUser")) {
-				//return "redirect:loginform";
-			}
-			Map<String, Object> map = new HashMap<>();
-			
 			return "court/refundTest";
+		}
+		
+		@PostMapping("refundTestPost")
+		@ResponseBody
+		public boolean refundCourtProccess(@RequestBody CrtRefundVO crtRefundVO){
+			boolean result = true;
+			
+			return result;
 		}
 		
 	// 호스트
@@ -117,6 +129,7 @@ public class CourtController {
 				if(hostId.equals("anonymousUser")) {
 					return "redirect:loginform";
 				}
+				
 				System.out.println(hostId);
 				model.addAttribute("courtList", courtroomService.selectAllCourtroom(hostId));
 				return "courtHost/hostCourtList";
@@ -135,6 +148,7 @@ public class CourtController {
 			public String hostCourtDetailPage(CrtroomVO crtroomVO, Model model) {
 				System.out.println(courtroomService.selectCourtroom(crtroomVO));
 				model.addAttribute("courtDetail", courtroomService.selectCourtroom(crtroomVO));
+				model.addAttribute("refundInf", crtDetailService.refundInf());
 				return "courtHost/hostCourtDetail";
 			}
 				
@@ -152,9 +166,20 @@ public class CourtController {
 				
 				crtroomVO.setHostId(hostId);
 				courtroomService.insertCourtroom(crtroomVO);
+				//사진 등록
+				//테이블 구분, 게시글 번호, 파일목록
+				List<AttachVO> files = fileUtils.uploadFiles(crtroomVO.getFiles());
 				
-				rttr.addAttribute("crtroomNo", crtroomVO.getCrtroomNo());
-				return "redirect:registerCourtDetail";
+				int n = attachService.saveAttach("co", crtroomVO.getCrtroomNo(), files);
+				
+				if(n > 0) {			
+					rttr.addAttribute("crtroomNo", crtroomVO.getCrtroomNo());
+					return "redirect:registerCourtDetail";
+				}else {
+					rttr.addAttribute("message", "파일등록에 실패하였습니다.");
+					return "redirect:hostCourtList";
+				}
+				
 			}
 			
 			// 수정 - 페이지
@@ -198,14 +223,25 @@ public class CourtController {
 			public String insertCourtDetailProccess(CrtDetailVO crtDetailVO, @RequestParam String action, RedirectAttributes rttr) {
 				crtDetailService.insertCrtDetail(crtDetailVO);
 				
-				int crtroomNo = crtDetailVO.getCrtroomNo();
+				//사진 등록
+				//테이블 구분, 파일목록
+				List<AttachVO> files = fileUtils.uploadFiles(crtDetailVO.getFiles());
 				
-				if(action.equals("complete")) {
-					return "redirect:hostCourtDetail?crtroomNo="+crtroomNo;
-				}
-				else {
-					rttr.addAttribute("crtroomNo", crtroomNo);
-					return "redirect:registerCourtDetail";
+				int crtroomNo = crtDetailVO.getCrtroomNo();
+				int n = attachService.saveAttachTurn("cd", crtroomNo, files);
+				
+				
+				if(n > 0) {
+					if(action.equals("complete")) {
+						return "redirect:hostCourtDetail?crtroomNo="+crtroomNo;
+					}
+					else {
+						rttr.addAttribute("crtroomNo", crtroomNo);
+						return "redirect:registerCourtDetail";
+					}
+				} else {
+						rttr.addAttribute("message", "파일 등록에 실패했습니다.");
+						return "redirect:hostCourtList";
 				}
 			}
 			

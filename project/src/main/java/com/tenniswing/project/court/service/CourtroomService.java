@@ -3,6 +3,8 @@ package com.tenniswing.project.court.service;
 import java.util.List;
 import java.util.Map;
 
+import com.tenniswing.project.attach.service.AttachVO;
+
 public interface CourtroomService {
 	// 사용자
 	public List<CrtroomVO> selectAllCourtroomMain();
@@ -13,6 +15,12 @@ public interface CourtroomService {
 	
 	// 상세조회
 	public CrtroomVO selectCourtroom(CrtroomVO crtroomVO);
+	
+	// Main 코트 배너
+	public List<CrtroomVO> crtroomBanner();
+	
+	// 최근 등록한 코트
+	public List<CrtroomVO> recentRegiCourt();
 	
 	// 등록
 	public int insertCourtroom(CrtroomVO crtroomVO);
