@@ -56,5 +56,11 @@ public class AttachServiceImpl implements AttachService {
 		return attachMapper.updateAttach(files);
 		
 	}
+
+	@Override
+	public List<AttachVO> attachListAllSns() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

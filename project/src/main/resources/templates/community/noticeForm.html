@@ -124,6 +124,8 @@
 	
 	<script src="assets/extensions/summernote/summernote-lite.min.js"></script>
 	<script src="assets/static/js/pages/summernote.js"></script>
+	<!-- include summernote-ko-KR -->
+
 	
 	<script>
 		
@@ -135,7 +137,13 @@
 				focus : true, // 에디터 로딩후 포커스를 맞출지 여부
 				lang : "ko-KR", // 한글 설정
 				placeholder : '최대 2048자까지 쓸 수 있습니다' //placeholder 설정
-
+				, callbacks: {
+					  onFocus: function (contents) {
+						    if($('.summernote').summernote('isEmpty')){
+						      $(".summernote").html(''); 
+						    }
+						  }
+						}
 			});
 	
 /* 		// 서머노트에 text 쓰기

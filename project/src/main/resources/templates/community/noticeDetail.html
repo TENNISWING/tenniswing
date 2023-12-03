@@ -8,6 +8,7 @@
 	<!-- 폴리필 (구버젼 브라우저 지원) -->
 	<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 	
+   
 </head>
 <th:block layout:fragment="content">
 
@@ -35,46 +36,75 @@
 	<!-- End club sub menu  -->
 
 	<div class="container">
-			<h2>게시글 상세 화면</h2>
-	    	<table class="board_detail">
-				<colgroup>
-					<col width="15%"/>
-					<col width="35%"/>
-					<col width="15%"/>
-					<col width="35%"/>
-				</colgroup>
-				<caption>게시글 상세내용</caption>
-				<tbody>
-					<tr>
-						<th scope="row">글 번호</th>
-						<td ></td>
-						<th scope="row">조회수</th>
-						<td ></td>
-					</tr>
-					<tr>
-						<th scope="row">작성자</th>
-						<td ></td>
-						<th scope="row">작성일</th>
-						<td ></td>
-					</tr>
-					<tr>
-						<th scope="row">제목</th>
-						<td colspan="3">
-							<input type="text" id="title" name="title" 
-								/>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="4" class="view_text">
-							<textarea title="내용" id="contents" name="contents" 
-								></textarea>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-    
+		<!-- 테이블시작  -->
+			    <div class="col-xxl-12">
+                                        <div class="dashboard-block">
+                                            <div class="dashboard-block__title">
+                                                <h4>Basic info</h4>
+                                            </div>
+                                            <div class="form__wrapper form-padding">
+                                                <div class="flex__form c-3">
+                                                    <div class="form-group">
+                                                        <label for="product_name">제목</label>
+                                                        <input type="text" name="product_name" id="product_name" class="form-control"  th:value="${nbrd.brdTitle}" readonly="readonly"/>
+                                                    </div>
+                                          
+                                                    <div class="form-group">
+                                                        <label for="stock">작성 일자</label>
+                                                        <input type="text" name="stock" id="stock" class="form-control"  th:value="${#dates.format(nbrd.brdWriteDate,'yyyy-MM-dd')}" readonly="readonly"/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="slug">작성자</label>
+                                                        <input type="text" name="slug" id="slug" class="form-control" th:value="${nbrd.name}" readonly="readonly"/>
+                                                    </div>
+       
+                                                </div>
+                                       
+                                                <div class="form-group">
+                                                    <label for="description">내용</label>
+                                                    <textarea
+                                                        name="description"
+                                                        class="form-control"
+                                                        id="description"
+                                                        cols="30"
+                                                        rows="4"
+                                                       readonly="readonly"
+                                                    >[[${nbrd.brdCtt}]]</textarea>
+                                                </div>
+                                
+                                            </div>
+                                        </div>
+                                        <div class="dashboard-block">
+                                            <div class="dashboard-block__title">
+                                                <h4>Pricing</h4>
+                                            </div>
+                                            <div class="form__wrapper form-padding">
+                                                <div class="flex__form c-3">
+                                                    <div class="form-group">
+                                                        <label for="old_price">Old Price</label>
+                                                        <input type="number" name="old_price" id="old_price" class="form-control" placeholder="Enter Old Price" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="new_price">new Price</label>
+                                                        <input type="number" name="new_price" id="new_price" class="form-control" placeholder="Enter New Price" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="discount">Discount</label>
+                                                        <input type="number" name="discount" id="discount" class="form-control" placeholder="Enter Discount" />
+                                                    </div>
+                                                </div>
+                                                <div class="btn__group flex-wrap">
+                                                    <button type="button" class="btn btn-primary -o me-auto">Save as draft</button>
+                                                    <button type="button" class="btn btn-outline">Cancel</button>
+                                                    <button type="submit" class="btn btn-gray-filled">Add Product</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+	    <!-- 테이블 end -->
 
 	</div>
+	
 	<script>
 
     /* const input = document.querySelector('input[name=snsTag]');
