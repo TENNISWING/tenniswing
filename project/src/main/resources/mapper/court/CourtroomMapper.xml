@@ -128,6 +128,20 @@
 		AND c.crtroom_no = #{crtroomNo}
 	</select>
   	
+  	<!-- Main 코트 배너 -->
+  	<select id="crtroomBanner" resultType="crtroomVO">
+  		select a.attach_path
+        		, c.crtroom_no
+		from crt_detail_inf c JOIN attach a
+		                ON a.attach_table_pk = c.crtroom_no
+		                JOIN crtroom cr
+		                ON c.crtroom_no = cr.crtroom_no
+		where a.attach_table_div = 'cd'
+		and <![CDATA[rownum < 5]]>
+		and a.attach_turn = 1
+		order by a.attach_in_date desc
+  	</select>
+  	
   	<!-- 코트장 등록 -->
   	<insert id="insertCourtroom" parameterType="crtroomVO">
   		<selectKey keyProperty="crtroomNo"

@@ -64,4 +64,9 @@ public class CrtDetailServiceImpl implements CrtDetailService {
 		return crtDetailMapper.selectCrtDetailNo(crtDetailNo);
 	}
 
+	@Override
+	public CrtDetailVO refundInf() {
+		return crtDetailMapper.refundInf();
+	}
+
 }

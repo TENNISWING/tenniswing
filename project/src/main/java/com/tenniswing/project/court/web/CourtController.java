@@ -49,6 +49,7 @@ public class CourtController {
 		@GetMapping("court")  
 		public String courtPage(Model model) {
 			model.addAttribute("courtList", courtroomService.selectAllCourtroomMain());
+			model.addAttribute("banner", courtroomService.crtroomBanner());
 			return "court/court";
 		}
 		
@@ -57,7 +58,7 @@ public class CourtController {
 			model.addAttribute("courtDetail", courtroomService.selectCourtroom(crtroomVO));
 			model.addAttribute("reserveInfo", new CrtReserveVO());
 			model.addAttribute("reserveTimeList", crtReserveService.reserveTimeCodeList());
-			
+			model.addAttribute("refundInf", crtDetailService.refundInf());
 			System.out.println(crtReserveService.reserveTimeCodeList());
 			return "court/courtDetail";
 		}
@@ -147,6 +148,7 @@ public class CourtController {
 			public String hostCourtDetailPage(CrtroomVO crtroomVO, Model model) {
 				System.out.println(courtroomService.selectCourtroom(crtroomVO));
 				model.addAttribute("courtDetail", courtroomService.selectCourtroom(crtroomVO));
+				model.addAttribute("refundInf", crtDetailService.refundInf());
 				return "courtHost/hostCourtDetail";
 			}
 				

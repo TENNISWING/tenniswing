@@ -157,8 +157,14 @@
 											<label for="password-horizontal">환불안내</label>
 										</div>
 										<div class="col-md-8 form-group">
-											<textarea id="email-horizontal" rows="3"
-												class="form-control"  readonly></textarea>
+											<ul style="font-size: 13px;">
+												<li>7일 전 취소시: [[${refundInf.sevenDayBefore}]]% 환불</li>
+												<li>5일 전 취소시: [[${refundInf.fiveDayBefore}]]% 환불</li>
+												<li>3일 전 취소시: [[${refundInf.threeDayBefore}]]% 환불</li>
+												<li>2일 전 ~ 당일: 환불 불가</li>
+												<li>당일 천재지변으로 인해 구장 이용이 불가한 경우 [[${refundInf.significant}]]% 환불</li>
+												<li>적용기준: 호우경보, 대설경보, 태풍주의보, 태풍경보</li>
+											</ul>
 										</div>
 										<div class="col-md-4">
 											<label for="password-horizontal">등록일</label>

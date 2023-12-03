@@ -31,6 +31,7 @@ public class CrtroomVO {
 	
 	private int crtCount;
 	private int minPrice;
+	private String phoneNo;
 	private String attachPath;
 	
 	// 코트 상세 테이블

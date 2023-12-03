@@ -22,6 +22,13 @@ public class CrtDetailVO {
 	// 추가 등록 or 완료
 	private String action;
 	
+	// 환불안내
+	private int sevenDayBefore;
+	private int fiveDayBefore;
+	private int threeDayBefore;
+	private int lessThanTwoDayBefore;
+	private int significant;
+	
 	// attach
 	private List<MultipartFile> files = new ArrayList<>();
 	

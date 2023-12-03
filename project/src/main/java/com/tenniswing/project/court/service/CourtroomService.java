@@ -16,6 +16,12 @@ public interface CourtroomService {
 	// 상세조회
 	public CrtroomVO selectCourtroom(CrtroomVO crtroomVO);
 	
+	// Main 코트 배너
+	public List<CrtroomVO> crtroomBanner();
+	
+	// 최근 등록한 코트
+	public List<CrtroomVO> recentRegiCourt();
+	
 	// 등록
 	public int insertCourtroom(CrtroomVO crtroomVO);
 	
