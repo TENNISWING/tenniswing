@@ -34,4 +34,7 @@ public interface CourtroomService {
 	
 	// 삭제
 	public boolean deleteCourtroom(int crtroomNo);
+	
+	// 코트검색	
+	public List<CrtroomVO> courtSearch(String str);
 }

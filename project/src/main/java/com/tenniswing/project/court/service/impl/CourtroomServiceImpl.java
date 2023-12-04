@@ -102,4 +102,9 @@ public class CourtroomServiceImpl implements CourtroomService {
 	public MemberVO selectCrtDetailHost(String hostId) {
 		return courtroomMapper.selectCrtDetailHost(hostId);
 	}
+
+	@Override
+	public List<CrtroomVO> courtSearch(String str) {		
+		return courtroomMapper.courtSearch(str);
+	}
 }

@@ -39,4 +39,7 @@ public interface CourtroomMapper {
 	
 	// 첨부파일
 	public List<AttachVO> attachListAllCourt();
+	
+	//코트검색
+	public List<CrtroomVO> courtSearch(String str);
 }

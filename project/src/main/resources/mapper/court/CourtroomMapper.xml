@@ -242,4 +242,11 @@
 		DELETE FROM crtroom
 		WHERE crtroom_no = #{crtroomNo}
 	</delete>
+	
+	<!-- 검색창 코트 정보 -->
+	<select id="courtSearch" resultType="crtroomVO">
+		SELECT *
+		FROM crtroom
+		WHERE crtroom_name LIKE '%'||#{str}||'%'
+	</select>
   </mapper>
