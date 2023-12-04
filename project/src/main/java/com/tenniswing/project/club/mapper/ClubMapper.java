@@ -22,5 +22,6 @@ public interface ClubMapper {
 	public int deleteClub(int ClubNo);
 	
 	//첨부파일
-	public List<AttachVO> attachListAllClub();
+	public List<AttachVO> attachListALllClub();
+	
 }

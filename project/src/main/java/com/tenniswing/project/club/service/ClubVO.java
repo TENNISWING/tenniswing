@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tenniswing.project.attach.service.AttachVO;
+
 import lombok.Data;
 
 @Data
@@ -36,7 +38,20 @@ public class ClubVO {
 	
 	private List<ClubPostVO> clubPostList;
 
-	public List<MultipartFile> files = new ArrayList<>();
+	//attach
+	private List<MultipartFile> files = new ArrayList<>();
+	private List<AttachVO> attachList;
+	private String attachPath;
+	
+	//회원
+	private String clubJoinApplyWrt;
+	private String clubApprove;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date joinDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date quitDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date applyDate;
 	
 	
 }

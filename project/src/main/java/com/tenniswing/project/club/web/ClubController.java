@@ -82,7 +82,7 @@ public class ClubController {
 			return "redirect:club";
 		}else {
 			rttr.addAttribute("message", "파일등록에 실패하였습니다.");
-			return "redirect:clubform";
+			return "redirect:club";
 		}
 		
 	}

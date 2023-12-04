@@ -5,21 +5,38 @@
   <mapper namespace="com.tenniswing.project.club.mapper.ClubMapper">
   <!-- 클럽 전체 조회 -->
   <select id = "selectAllClub" resultType="ClubVO">
-  	SELECT club_no
-  		   , club_name
-  		   , FIND_CATEGORY_NAME (club_region) club_region_name
-  		   , FIND_CATEGORY_NAME (club_gen) club_gen_name
-  		   , FIND_CATEGORY_NAME (club_age) club_age_name
-  		   , FIND_CATEGORY_NAME (club_day) club_day_name
-  		   , FIND_CATEGORY_NAME (club_time) club_time_name
-  		   , club_intro
-  		   , club_crt
-  		   , club_mem_num
-  		   , FIND_CATEGORY_NAME (club_recruitment) club_recruitment_name
-  		   , mem_id
-  		   , club_create_date
-    FROM club
-    ORDER BY club_create_date DESC
+	SELECT c.club_no
+  		   , c.club_name
+  		   , FIND_CATEGORY_NAME (c.club_region) club_region_name
+  		   , FIND_CATEGORY_NAME (c.club_gen) club_gen_name
+  		   , FIND_CATEGORY_NAME (c.club_age) club_age_name
+  		   , FIND_CATEGORY_NAME (c.club_day) club_day_name
+  		   , FIND_CATEGORY_NAME (c.club_time) club_time_name
+  		   , c.club_intro
+  		   , c.club_crt
+  		   , c.club_mem_num
+  		   , FIND_CATEGORY_NAME (c.club_recruitment) club_recruitment_name
+  		   , c.mem_id
+  		   , c.club_create_date
+  		   , a.attach_path
+    FROM club c JOIN attach a
+    			  ON c.club_no = a.attach_table_pk
+    WHERE a.attach_table_div = 'cl'
+    GROUP BY c.club_no
+   			 , c.club_name
+             , c.club_region
+             , c.club_gen
+             , c.club_age
+             , c.club_day
+             , c.club_time
+    	  	 , c.club_intro
+    	  	 , c.club_crt
+    	  	 , c.club_mem_num
+             , c.club_recruitment
+    	  	 , c.mem_id
+    	  	 , c.club_create_date
+    	  	 , a.attach_path
+    ORDER BY c.club_create_date DESC
   </select>
   
   <!-- 클럽 단건 조회 -->
