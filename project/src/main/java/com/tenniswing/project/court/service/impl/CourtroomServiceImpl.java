@@ -81,4 +81,9 @@ public class CourtroomServiceImpl implements CourtroomService {
 	public List<CrtroomVO> recentRegiCourt() {
 		return courtroomMapper.recentRegiCourt();
 	}
+
+	@Override
+	public List<CrtroomVO> courtSearch(String str) {		
+		return courtroomMapper.courtSearch(str);
+	}
 }

@@ -278,4 +278,15 @@ public class CourtController {
 				/* return "redirect:hostCourtDetail?crtroomNo="+crtroomNo; */
 				return result;
 			}
+			
+			//검색
+			@GetMapping("searcharea")
+			@ResponseBody
+			public List<CrtroomVO> searchProcess(@RequestParam(value="inputVal") String str) {
+				System.out.println("====="+ str);
+				
+				//System.out.println(courtroomService.courtSearch(str));
+				
+				return courtroomService.courtSearch(str);
+			}
 }
