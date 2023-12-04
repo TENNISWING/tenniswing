@@ -1,5 +1,6 @@
 package com.tenniswing.project.community.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,30 +84,32 @@ public class CommunityController {
 		public String updateSnsForm(SnsVO snsVO, RedirectAttributes rttr, Model model) {
 			String id = SecurityContextHolder.getContext().getAuthentication().getName();
 			snsVO.setMemId(id);
-	
+			System.out.println("====="+snsVO);
 			if(id.equals("anonymousUser")) {
 				return "redirect:loginform"; 
 			}
+			Map<String, Object> map = new HashMap<>();	
 			
-			snsService.updateSns(snsVO);
+			int  n = snsService.updateSns(snsVO);
 			
-			rttr.addAttribute("snsWrtNo", snsVO.getSnsWrtNo());
 			
+//			rttr.addAttribute("snsWrtNo", snsVO.getSnsWrtNo());
+//			
 			
 			//사진 등록
 			//테이블 구분, 게시글 번호, 파일목록
-			List<AttachVO> files = fileUtils.uploadFiles(snsVO.getFiles());
-			
-			int n = attachService.updateAttach("s", snsVO.getSnsWrtNo(), files);
-			
-			if(n > 0) {			
-				return "redirect:sns";
-				
-			}else {
-				model.addAttribute("message", "파일등록에 실패하였습니다.");
-				return "redirect:sns";
-			}
-			
+//			List<AttachVO> files = fileUtils.uploadFiles(snsVO.getFiles());
+//			
+//			int n = attachService.updateAttach("s", snsVO.getSnsWrtNo(), files);
+//			
+//			if(n > 0) {			
+//				return "redirect:sns";
+//				
+//			}else {
+//				model.addAttribute("message", "파일등록에 실패하였습니다.");
+//				return "redirect:sns";
+//			}
+			return "redirect:sns";
 		}
 		
 		// sns댓글List

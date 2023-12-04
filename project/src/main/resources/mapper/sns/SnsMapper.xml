@@ -21,6 +21,7 @@
 				, m.name
 				, s.mem_id
 				, g.grp_name
+				, g.sns_grp_no
 				,( SELECT COUNT(*)
 				     FROM sns_like l
 				    where l.sns_wrt_no = s.sns_wrt_no ) as like_cnt
@@ -59,6 +60,7 @@
 				, m.name
 				, s.mem_id
 				, g.grp_name
+				, g.sns_grp_no
 				,( SELECT COUNT(*)
 				    FROM sns_like l
 				    where l.sns_wrt_no = s.sns_wrt_no ) as like_cnt
@@ -189,22 +191,21 @@
 		)
 	</insert>
 
-	<!-- 수정 : 전제조건, 전체 데이터 전송 -->
+	<!-- 수정 : 그룹업데이트 -->
 	<update id="updateGrp" parameterType="SnsVO">
 
 		update sns_grp
-			set  g.post_num = #{postNum}
-		        ,g.grp_name = #{grpName}
-		        ,g.grp_edit_date = sysdate
+			set  grp_name = #{grpName}
+		        ,grp_edit_date = sysdate
 		   where sns_grp_no = #{snsGrpNo}
 	</update>
-	
+	<!-- 수정 : SNS 업데이트 -->
 	<update id="updateSns" parameterType="SnsVO">
 		update sns
 			set  sns_title = #{snsTitle}
 		        ,sns_ctt = #{snsCtt}
 		        ,sns_edit_date = sysdate
-		        ,sns_tag = #{snsTag}
+		    <!--     ,sns_tag = #{snsTag} -->
 		  where sns_wrt_no = #{snsWrtNo}
 	</update>
 

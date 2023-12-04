@@ -20,7 +20,7 @@ public class SecurityConfig {
 
 
 				//여기에 로그인 필요한 페이지 적어주세요.
-				.antMatchers("/mypage/**","/clubform","/matchregi").authenticated()
+				.antMatchers("/mypage/**","/clubform","/matchregi","/snsRegister","/snsEditForm").authenticated()
 				//.antMatchers("/admin/**").hasRole("ADMIN")
 				//.antMatchers("/host/**").hasRole("HOST")
 				.anyRequest().permitAll()

@@ -61,7 +61,7 @@
 													<div class="card-body">
 														<span class="card-title" style="font-weight: bold;">[[${s.snsTitle}]]</span> 
 														<div class="edBtns" style="float: right;">
-																<i type="button" class="fa-regular fa-pen-to-square editBtnClass" th:onclick="|location.href='@{/snsEditForm(snsWrtNo=${s.snsWrtNo})}'|" id="editSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i> 
+																<i type="button" class="fa-regular fa-pen-to-square editBtnClass" th:onclick="|location.href='@{/snsEditForm(snsWrtNo=${s.snsWrtNo}, snsGrpNo=${s.snsGrpNo})}'|" id="editSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i> 
 																<i type="button" class="fa-regular fa-trash-can" id="delSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i>
 															</div>
 														<br>

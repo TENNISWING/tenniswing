@@ -81,39 +81,30 @@ public class SnsServiceImpl implements SnsService {
 	}
 
 	// SNS 수정
-	@Override
-	@Transactional
-	public Map<String, Object> updateSns(SnsVO snsVO) {
-		Map<String, Object> map = new HashMap<>();
-		boolean isSuccessed = false;
-		
-		ObjectMapper obj = new ObjectMapper();
-		String tag = "";
-		try {
-			Map<String, String>[] list = obj.readValue(snsVO.getSnsTag(), Map[].class);
-			if (list != null) {
-				for (Map i : list) {
-					tag += "#" + i.get("value") + ",";
-				}
-				snsVO.setSnsTag(tag);
-
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		int result = snsMapper.updateSns(snsVO);
+	@Override	
+	public int updateSns(SnsVO snsVO) {
 	
-		if (result > 0) {
-			//update호츌
-			snsMapper.updateGrp(snsVO);
-			isSuccessed = true;
-		}
-		map.put("result", isSuccessed);
-		map.put("info", snsVO);
+//		ObjectMapper obj = new ObjectMapper();
+//		String tag = "";
+//		try {
+//			Map<String, String>[] list = obj.readValue(snsVO.getSnsTag(), Map[].class);
+//			if (list != null) {
+//				for (Map i : list) {
+//					tag += "#" + i.get("value") + ",";
+//				}
+//				snsVO.setSnsTag(tag);
+//
+//			}
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 
-		return map;
+		//int result = snsMapper.updateGrp(snsVO);
+		int result = snsMapper.updateSns(snsVO);
+
+		return result;
+	
 	}
 
 	// 삭제
@@ -144,11 +135,10 @@ public class SnsServiceImpl implements SnsService {
 		return snsMapper.attachListAllSns();
 	}
 
-	@Override
-	public Map<String, Object> updateGrp(SnsVO snsVO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/*
+	 * @Override public Map<String, Object> updateGrp(SnsVO snsVO) { // TODO
+	 * Auto-generated method stub return null; }
+	 */
 
 	
 
