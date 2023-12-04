@@ -16,7 +16,7 @@ public interface CrtDetailService {
 	public CrtDetailVO refundInf();
 	
 	// 등록
-	public int insertCrtDetail(CrtDetailVO crtDetailVO);
+	public int insertCrtDetail(CrtDetailVO crtDetailVO, List<AttachVO> attach);
 	
 	// 수정
 	public Map<String, Object> updateCrtDetail(CrtDetailVO crtDetailVO);

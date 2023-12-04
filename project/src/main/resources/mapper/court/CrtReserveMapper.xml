@@ -9,10 +9,10 @@
 	<selectKey keyProperty="reserveNo,reserveDetailNo"
 			   resultType="CrtReserveVO"
 			   order="BEFORE">
-		SELECT (SELECT NVL(MAX(reserve_no),0)+1
-				FROM reserve) reserve_no,
+		SELECT  (SELECT NVL(MAX(reserve_no),0)+1
+				  FROM reserve) reserve_no,
 				(SELECT NVL(MAX(reserve_detail_no),0)+1
-				FROM reserve_detail_inf) reserve_detail_no
+				   FROM reserve_detail_inf) reserve_detail_no
 		FROM dual
 	</selectKey>
 	 INSERT ALL INTO reserve
@@ -68,15 +68,15 @@
                 ON cdi.crt_detail_no = r.crt_detail_no
                 JOIN reserve_detail_inf rdi
                 ON r.reserve_no = rdi.reserve_no
-	WHERE TO_CHAR(rdi.reserve_date, 'YYYY/MM/DD') = #{reserveDate}
+	WHERE TRUNC(rdi.reserve_date) = #{reserveDate}
 	AND cdi.crt_detail_no = #{crtDetailNo}
 </select>
 
 <!-- 예약시간 구분코드 -->
 <select id="reserveTimeCodeList" resultType="crtReserveVO">
 	SELECT subcategory_code, name
-	FROM subcategory
-	WHERE maincategory_code = 'BG'
-	ORDER BY 2
+	  FROM subcategory
+	 WHERE maincategory_code = 'BG'
+	 ORDER BY 2
 </select>
 </mapper>

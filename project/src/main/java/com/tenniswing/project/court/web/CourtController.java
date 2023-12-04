@@ -1,6 +1,5 @@
 package com.tenniswing.project.court.web;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +25,7 @@ import com.tenniswing.project.court.service.CrtRefundVO;
 import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.court.service.CrtReserveVO;
 import com.tenniswing.project.court.service.CrtroomVO;
+import com.tenniswing.project.member.service.MemberVO;
 
 @Controller
 public class CourtController {
@@ -49,16 +50,19 @@ public class CourtController {
 		@GetMapping("court")  
 		public String courtPage(Model model) {
 			model.addAttribute("courtList", courtroomService.selectAllCourtroomMain());
-			model.addAttribute("banner", courtroomService.crtroomBanner());
+			model.addAttribute("recentCrt", courtroomService.recentRegiCourt());
 			return "court/court";
 		}
 		
 		@GetMapping("courtDetail")  
 		public String courtDetailPage(CrtroomVO crtroomVO, Model model) { 
-			model.addAttribute("courtDetail", courtroomService.selectCourtroom(crtroomVO));
+			CrtroomVO courtroom = courtroomService.selectCourtroom(crtroomVO);
+			model.addAttribute("courtDetail", courtroom);
 			model.addAttribute("reserveInfo", new CrtReserveVO());
 			model.addAttribute("reserveTimeList", crtReserveService.reserveTimeCodeList());
 			model.addAttribute("refundInf", crtDetailService.refundInf());
+			model.addAttribute("nearCourt", courtroomService.nearCrtroom(courtroom));
+			model.addAttribute("hostInfo", courtroomService.selectCrtDetailHost(courtroom.getHostId()));
 			System.out.println(crtReserveService.reserveTimeCodeList());
 			return "court/courtDetail";
 		}
@@ -93,14 +97,13 @@ public class CourtController {
 		@ResponseBody
 		public Map<String, Object> reserveCourtProccess(@RequestBody CrtReserveVO crtReserveVO) {
 			//System.out.println(crtReserveVO);
-			String memId = SecurityContextHolder.getContext().getAuthentication().getName();
-			
-			if(memId.equals("anonymousUser")) {
-				//return "redirect:loginform";
-			}
-			Map<String, Object> map = new HashMap<>();
-			
-			map = crtReserveService.insertCrtReserve(crtReserveVO);
+			/*
+			 * MemberVO member = (MemberVO)
+			 * SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			 * 
+			 * if(member == null) { return "redirect:loginform"; }
+			 */
+			Map<String, Object> map = crtReserveService.insertCrtReserve(crtReserveVO);
 			
 			return map;
 		}
@@ -126,9 +129,9 @@ public class CourtController {
 			public String hostCourtListPage(Model model) {
 				String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
 				
-				if(hostId.equals("anonymousUser")) {
-					return "redirect:loginform";
-				}
+				/*
+				 * if(hostId.equals("anonymousUser")) { return "redirect:loginform"; }
+				 */
 				
 				System.out.println(hostId);
 				model.addAttribute("courtList", courtroomService.selectAllCourtroom(hostId));
@@ -161,23 +164,26 @@ public class CourtController {
 			
 			// 등록
 			@PostMapping("registerCourtroom")
-			public String insertCourtroomProccess(CrtroomVO crtroomVO, RedirectAttributes rttr) {
+			public String insertCourtroomProccess(CrtroomVO crtroomVO, RedirectAttributes rttr, Model model) {
 				String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
 				
 				crtroomVO.setHostId(hostId);
-				courtroomService.insertCourtroom(crtroomVO);
+				
 				//사진 등록
 				//테이블 구분, 게시글 번호, 파일목록
+				int n = 0;
 				List<AttachVO> files = fileUtils.uploadFiles(crtroomVO.getFiles());
-				
-				int n = attachService.saveAttach("co", crtroomVO.getCrtroomNo(), files);
+				if(!CollectionUtils.isEmpty(files)) {
+
+					n= courtroomService.insertCourtroom(crtroomVO, files);
+				}
 				
 				if(n > 0) {			
 					rttr.addAttribute("crtroomNo", crtroomVO.getCrtroomNo());
 					return "redirect:registerCourtDetail";
 				}else {
-					rttr.addAttribute("message", "파일등록에 실패하였습니다.");
-					return "redirect:hostCourtList";
+					model.addAttribute("message", "파일등록에 실패하였습니다.");
+					return "courtHost/registerCourtroom";
 				}
 				
 			}
@@ -220,28 +226,25 @@ public class CourtController {
 			
 			// 등록
 			@PostMapping("registerCourtDetail")
-			public String insertCourtDetailProccess(CrtDetailVO crtDetailVO, @RequestParam String action, RedirectAttributes rttr) {
-				crtDetailService.insertCrtDetail(crtDetailVO);
-				
-				//사진 등록
-				//테이블 구분, 파일목록
+			public String insertCourtDetailProccess(CrtDetailVO crtDetailVO, @RequestParam String action, RedirectAttributes rttr, Model model) {
+				int n = 0;
 				List<AttachVO> files = fileUtils.uploadFiles(crtDetailVO.getFiles());
-				
+				if(!CollectionUtils.isEmpty(files)) {
+					n = crtDetailService.insertCrtDetail(crtDetailVO, files);
+				}
 				int crtroomNo = crtDetailVO.getCrtroomNo();
-				int n = attachService.saveAttachTurn("cd", crtroomNo, files);
-				
-				
 				if(n > 0) {
 					if(action.equals("complete")) {
-						return "redirect:hostCourtDetail?crtroomNo="+crtroomNo;
+						rttr.addAttribute("crtroomNo", crtroomNo);
+						return "redirect:hostCourtDetail";
 					}
 					else {
 						rttr.addAttribute("crtroomNo", crtroomNo);
 						return "redirect:registerCourtDetail";
 					}
 				} else {
-						rttr.addAttribute("message", "파일 등록에 실패했습니다.");
-						return "redirect:hostCourtList";
+						model.addAttribute("message", "파일 등록에 실패했습니다.");
+						return "courtHost/registerCourtDetail";
 				}
 			}
 			
