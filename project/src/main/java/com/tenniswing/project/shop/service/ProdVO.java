@@ -38,6 +38,11 @@ public class ProdVO {
 	// 상품 성별
 	private String cateGen;
 	
+	private String attachPath;
+	
 	//attach
 	private List<MultipartFile> files = new ArrayList<>();
+	
+	//이미지 리스트
+	private List<AttachVO> attachList;
 }

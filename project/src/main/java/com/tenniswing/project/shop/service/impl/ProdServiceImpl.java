@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tenniswing.project.attach.mapper.AttachMapper;
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.common.FileUtils;
@@ -25,6 +26,9 @@ public class ProdServiceImpl implements ProdService{
 	
 	@Autowired
 	AttachService attachService;
+	
+	@Autowired
+	AttachMapper attachMapper;
 	
 //	전체 조회
 	@Override
@@ -50,7 +54,15 @@ public class ProdServiceImpl implements ProdService{
 		List<AttachVO> files = fileUtils.uploadFiles(prodVO.getFiles());
 		
 		int result = prodMapper.insertProd(prodVO);
-		attachService.saveAttach("p", prodVO.getProdNo(), files);
+		
+		int idx = 1;
+		for (AttachVO file : files) {
+			file.setAttachTableDiv("p");
+			file.setAttachTablePk(prodVO.getProdNo());
+			file.setAttachTurn(idx);
+			idx++;
+		}
+		attachMapper.saveAttachTurn(files);
 		
 		if(result == 1) {
 			return prodVO.getProdNo(); 

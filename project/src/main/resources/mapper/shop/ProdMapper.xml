@@ -7,10 +7,14 @@
   
   	<!-- 전체 조회 -->
   	<select id="selectAllProd" resultType="ProdVO">
-  		SELECT 	prod_no, prod_name, prod_brand, prod_t_sto, prod_price,
-       			prod_regi_date, FIND_CATEGORY_NAME(prod_sale_sts) AS prod_sale_sts,
-       			FIND_CATEGORY_NAME(cate_prod) AS cate_prod, FIND_CATEGORY_NAME(cate_gen) AS cate_gen       
-		FROM 	prod
+  		SELECT 	p.prod_no, p.prod_name, p.prod_brand, p.prod_t_sto, p.prod_price,
+       			p.prod_regi_date, FIND_CATEGORY_NAME(p.prod_sale_sts) AS prod_sale_sts,
+       			FIND_CATEGORY_NAME(p.cate_prod) AS cate_prod, FIND_CATEGORY_NAME(p.cate_gen) AS cate_gen,
+       			a.attach_path       
+		FROM 	prod p, attach a
+		WHERE	p.prod_no = a.attach_table_pk
+		AND		a.attach_table_div = 'p'
+		<!-- AND 	a.attach_turn = 1 -->
   		ORDER BY prod_no
   	</select>
   	

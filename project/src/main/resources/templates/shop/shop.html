@@ -254,7 +254,7 @@
 								<div class="product__image__wrapper">
 									<!-- 상품 이미지 -->
 									<a th:onclick="|location.href='@{/shopDetail(prodNo=${prodList.prodNo})}'|" class="product__image"> 
-										<img src="assets/img/shop/teni.jpg" alt="icon" />
+										<img th:src="${prodList.attachPath}" alt="icon" style="overflow: cover;"/>
 									</a>
 									<!-- <div class="badge">10%</div> -->
 									<div class="product__actions">
@@ -325,7 +325,7 @@
 										<div class="cart__action__btn header__cart">
 											<div class="cart__btn">
 												<!-- 장바구니 이벤트 줄 버튼 -->
-												<a href="#" class="btn btn-outline">Add to cart</a>
+												<a href="#" class="btn btn-outline">Add to wish</a>
 											</div>
 											
 											<!-- 장바구니 수량 선택 부분 -->
