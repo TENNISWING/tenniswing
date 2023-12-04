@@ -29,6 +29,7 @@ public interface SnsMapper {
 	
 	// 수정
 	public int updateSns(SnsVO snsVO);
+	public int updateGrp(SnsVO snsVO);
 	
 	// 삭제
 	public int deleteSns(@Param("snsWrtNo")int snsWrtNo );

@@ -67,8 +67,8 @@
 										</thead>
 									
 										<tbody id="noticeBrd">
-										<th:block th:each="n : ${notice}">
-											<tr	style="height: 70px;">
+										<th:block th:each="n : ${notice}" >
+											<tr	style="height: 70px;" th:onclick="|location.href='@{/noticeDetail(brdWrtNo=${n.brdWrtNo})}'|">
 												<td>[[${n.brdWrtNo}]]</td>
 												<td>[[${n.brdTitle}]]</td>
 												<td>[[${#dates.format(n.brdWriteDate,'yyyy-MM-dd')}]]</td>
