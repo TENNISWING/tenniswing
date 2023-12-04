@@ -8,7 +8,15 @@
 	<!-- 폴리필 (구버젼 브라우저 지원) -->
 	<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 	
+   <style type="text/css">
    
+   .editDelBtn {
+   
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+   </style>
 </head>
 <th:block layout:fragment="content">
 
@@ -40,66 +48,43 @@
 			    <div class="col-xxl-12">
                                         <div class="dashboard-block">
                                             <div class="dashboard-block__title">
-                                                <h4>Basic info</h4>
+                                                <h4>공지사항 게시글 </h4>
                                             </div>
                                             <div class="form__wrapper form-padding">
                                                 <div class="flex__form c-3">
                                                     <div class="form-group">
                                                         <label for="product_name">제목</label>
-                                                        <input type="text" name="product_name" id="product_name" class="form-control"  th:value="${nbrd.brdTitle}" readonly="readonly"/>
+                                                        <div th:text="${nbrd.brdTitle}"></div>
                                                     </div>
                                           
                                                     <div class="form-group">
                                                         <label for="stock">작성 일자</label>
-                                                        <input type="text" name="stock" id="stock" class="form-control"  th:value="${#dates.format(nbrd.brdWriteDate,'yyyy-MM-dd')}" readonly="readonly"/>
+                                                        <div  th:text="${#dates.format(nbrd.brdWriteDate,'yyyy-MM-dd')}"></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="slug">작성자</label>
-                                                        <input type="text" name="slug" id="slug" class="form-control" th:value="${nbrd.name}" readonly="readonly"/>
+                                                        <div th:text="${nbrd.name}"></div>
                                                     </div>
        
                                                 </div>
-                                       
-                                                <div class="form-group">
+                                       			<hr>
+                                                <div class="form-group" style="height:200px;">
                                                     <label for="description">내용</label>
-                                                    <textarea
-                                                        name="description"
-                                                        class="form-control"
-                                                        id="description"
-                                                        cols="30"
-                                                        rows="4"
-                                                       readonly="readonly"
-                                                    >[[${nbrd.brdCtt}]]</textarea>
+                                                    <div th:utext="${nbrd.brdCtt}"></div>
                                                 </div>
                                 
                                             </div>
                                         </div>
-                                        <div class="dashboard-block">
-                                            <div class="dashboard-block__title">
-                                                <h4>Pricing</h4>
-                                            </div>
-                                            <div class="form__wrapper form-padding">
-                                                <div class="flex__form c-3">
-                                                    <div class="form-group">
-                                                        <label for="old_price">Old Price</label>
-                                                        <input type="number" name="old_price" id="old_price" class="form-control" placeholder="Enter Old Price" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="new_price">new Price</label>
-                                                        <input type="number" name="new_price" id="new_price" class="form-control" placeholder="Enter New Price" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="discount">Discount</label>
-                                                        <input type="number" name="discount" id="discount" class="form-control" placeholder="Enter Discount" />
-                                                    </div>
-                                                </div>
+                                  
+                                            <div class="editDelBtn">
+                                           
                                                 <div class="btn__group flex-wrap">
-                                                    <button type="button" class="btn btn-primary -o me-auto">Save as draft</button>
-                                                    <button type="button" class="btn btn-outline">Cancel</button>
-                                                    <button type="submit" class="btn btn-gray-filled">Add Product</button>
+                                                    <button type="button" class="btn btn-primary -o me-auto">목록으로</button>
+                                                    <button type="button" class="btn btn-outline">삭제</button>
+                                                    <button type="submit" class="btn btn-gray-filled" style="margin-left:20px;">수정</button>
                                                 </div>
                                             </div>
-                                        </div>
+                                       
                                     </div>
 	    <!-- 테이블 end -->
 

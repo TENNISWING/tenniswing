@@ -70,7 +70,44 @@ public class CommunityController {
 			
 			return "community/community3";
 		}
-
+		
+		// SNS 수정
+		@GetMapping("snsEditForm")
+		public String snsEditFormPage(SnsVO snsVO, Model model) {
+			model.addAttribute("editList",snsService.selectSnsInfo(snsVO));			
+			return "community/snsEditForm";
+		}
+		
+		// SNS 수정처리 기능
+		@PostMapping("snsEditForm")
+		public String updateSnsForm(SnsVO snsVO, RedirectAttributes rttr, Model model) {
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			snsVO.setMemId(id);
+	
+			if(id.equals("anonymousUser")) {
+				return "redirect:loginform"; 
+			}
+			
+			snsService.updateSns(snsVO);
+			
+			rttr.addAttribute("snsWrtNo", snsVO.getSnsWrtNo());
+			
+			
+			//사진 등록
+			//테이블 구분, 게시글 번호, 파일목록
+			List<AttachVO> files = fileUtils.uploadFiles(snsVO.getFiles());
+			
+			int n = attachService.updateAttach("s", snsVO.getSnsWrtNo(), files);
+			
+			if(n > 0) {			
+				return "redirect:sns";
+				
+			}else {
+				model.addAttribute("message", "파일등록에 실패하였습니다.");
+				return "redirect:sns";
+			}
+			
+		}
 		
 		// sns댓글List
 		@GetMapping("snsRep")

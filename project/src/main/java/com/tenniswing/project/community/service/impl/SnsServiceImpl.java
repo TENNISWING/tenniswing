@@ -6,7 +6,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.community.mapper.SnsMapper;
 import com.tenniswing.project.community.service.SnsService;
@@ -33,6 +37,22 @@ public class SnsServiceImpl implements SnsService {
 	// 등록
 	@Override
 	public int insertSns(SnsVO snsVO) {
+		ObjectMapper obj = new ObjectMapper();
+		String tag = "";
+		try {
+			Map<String, String>[] list = obj.readValue(snsVO.getSnsTag(), Map[].class);
+			if (list != null) {
+				for (Map i : list) {
+					tag += "#" + i.get("value") + ",";
+				}
+				snsVO.setSnsTag(tag);
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		int result = snsMapper.insertSns(snsVO);
 
 		if (result == 1) {
@@ -41,7 +61,7 @@ public class SnsServiceImpl implements SnsService {
 			return -1;
 		}
 	}
-
+	
 	// 그룹등록
 	@Override
 	public int insertSnsGrp(SnsVO snsVO) {
@@ -60,20 +80,39 @@ public class SnsServiceImpl implements SnsService {
 		return 0;
 	}
 
-
-	// 수정
+	// SNS 수정
 	@Override
+	@Transactional
 	public Map<String, Object> updateSns(SnsVO snsVO) {
 		Map<String, Object> map = new HashMap<>();
 		boolean isSuccessed = false;
 		
+		ObjectMapper obj = new ObjectMapper();
+		String tag = "";
+		try {
+			Map<String, String>[] list = obj.readValue(snsVO.getSnsTag(), Map[].class);
+			if (list != null) {
+				for (Map i : list) {
+					tag += "#" + i.get("value") + ",";
+				}
+				snsVO.setSnsTag(tag);
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		int result = snsMapper.updateSns(snsVO);
-		if(result == 1) {
+	
+		if (result > 0) {
+			//update호츌
+			
 			isSuccessed = true;
 		}
 		map.put("result", isSuccessed);
 		map.put("info", snsVO);
-		
+
 		return map;
 	}
 
@@ -82,16 +121,16 @@ public class SnsServiceImpl implements SnsService {
 	public int deleteSns(int snsWrtNo) {
 		return 0;
 	}
-	
+
 	// 좋아요 삭제
 	@Override
 	public boolean deleteLike(int likeNo) {
 		int result = snsMapper.deleteLike(likeNo);
-		if(result == 1) {
+		if (result == 1) {
 			return true;
-		}else {
+		} else {
 			return false;
-			
+
 		}
 	}
 
@@ -99,16 +138,23 @@ public class SnsServiceImpl implements SnsService {
 	public SnsVO selectLikeNo(SnsVO snsVO) {
 		return snsMapper.selectLikeNo(snsVO);
 	}
-	
+
 	@Override
 	public List<AttachVO> attachListAllSns() {
 		return snsMapper.attachListAllSns();
 	}
 
+	@Override
+	public Map<String, Object> updateGrp(SnsVO snsVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
 	/*
 	 * @Override public List<SnsVO> selectAllSnsInfo() { // TODO Auto-generated
 	 * method stub return null; }
 	 */
-
 
 }
