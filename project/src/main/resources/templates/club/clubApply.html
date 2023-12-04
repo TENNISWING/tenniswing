@@ -25,12 +25,44 @@ justify-content:space-between;
 				</div>
 			</div>
 			<div>
-				<button class="btn btn-outline-success">승인</button>
-				<button class="btn btn-outline-success">거절</button>
+				<button class="btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#applyModal">확인</button>
 			</div>
 		</div>
+		
 
 	</div>
+	
+	<!-- 멤버신청 확인 모달 -->
+		<div class="modal fade text-left" id="applyModal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+			<div
+				class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+				role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel33">신청 확인</h4>
+						<button type="button" class="close" data-bs-dismiss="modal"
+							aria-label="Close">
+							<i data-feather="x"></i>
+						</button>
+					</div>
+					<div class="modal-body" style="text-align: center;">
+						<div>
+							<img src="./assets/img/card.jpg" style="width: 450px;">
+						</div>
+						<br>
+						<p style="text-align: left;"></p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-light-secondary"
+							id="applyBtn" data-bs-dismiss="modal">거절</button>
+						<button type="button" class="btn btn-primary ms-1" id="refuseBtn"
+							data-bs-dismiss="modal">승인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /멤버신청 확인 모달  -->
 	<br>
 	<ul class="pagination justify-content-center">
 		<li class="page-item disabled"><a class="page-link" href="#"
