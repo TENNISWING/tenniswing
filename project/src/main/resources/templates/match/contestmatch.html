@@ -63,7 +63,7 @@
 					<div class="col-lg-8">
 						<form action="#" class="matfilter">
 							<div class="custom__dropdown custom__dropdown__v2">
-								<select id="level" name="level">
+								<select id="ntrp" name="ntrp">
 									<option value="">NTRP</option>
 									<option value="e1">1.0</option>
 									<option value="e2">1.5</option>
@@ -74,12 +74,25 @@
 									<option value="e7">4.0</option>
 								</select>
 							</div>
+							<div class="custom__dropdown custom__dropdown__v2">
+								<select id="crtroomLocation" name="crtroomLocation">
+									<option value="">지역</option>
+									<option value="b1">서울</option>
+									<option value="b2">경기</option>
+									<option value="b3">인천</option>
+									<option value="b4">강원도</option>
+									<option value="b5">전라도</option>
+									<option value="b6">경상도</option>
+									<option value="b7">충청도</option>
+									<option value="b8">제주도</option>
+								</select>
+							</div>
 						<button type="button" id="btnsearch">검색</button>
 						</form>
 					</div>
 					<div class="col-lg-2 text-end">
 						<button type="button" class="btn btn-primary matchregibtn"
-							th:onclick="|location.href='@{matchregi}'|">매치 등록</button>
+							th:onclick="|location.href='@{contestmatchregi}'|">매치 등록</button>
 					</div>
 				</div>
 
@@ -193,12 +206,13 @@
 	function contMatchAjax(matchDate,page) {
 		let gameWay = $('#gameWay').val();		
 		let gen = $('#gen').val();
-		let location = $('#location').val();		
+		let crtroomLocation = $('#crtroomLocation').val();	
+		let ntrp = $('#ntrp').val();	
 		
 		$.ajax({
 			type: 'GET',
 			url: 'contMatchList',
-			data: {matchDate, page, gameWay, gen, location},
+			data: {matchDate, page, gameWay, gen, crtroomLocation, ntrp},
 			success: function(result) {
 				$('#matchList').empty();
 				for(let matchInfo of result.contMatchList){
@@ -208,10 +222,13 @@
 					<td>${matchInfo.contName}</td>
 					<td>${matchInfo.recruitPsnNum}명</td>
 					<td>${matchInfo.crtroomName}</td>
-					<td class="text-end mtbt">
-						<a class="btn btn-primary matchbtn1" href="contestmatchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>
-					</td>
-				</tr>`
+					<td class="text-end mtbt">`
+					if(matchInfo.progStateName=='모집마감'){
+					b += `<a class="btn btn-secondary disabled matchbtn2" href="contestmatchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>`
+					} else {
+					b += `<a class="btn btn-primary matchbtn1" href="contestmatchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>`
+					}
+					b += `</td></tr>`
 					$('#matchList').append(b)
 				}
 				
@@ -322,7 +339,7 @@
                         let month = today.getMonth();
                         let dateGetDate = today.getDate();
                         let dateArry = [];
-						let matchDate = year+"/"+(month+1)+"/"+dateGetDate
+						let matchDate = year+"-"+(month+1)+"-"+dateGetDate
 						contMatchAjax(matchDate,1)
                         
                         for (let i = 0; i < 14; i++) {
@@ -332,7 +349,7 @@
                             	"dayNo": weekName,
                                 "day": days[weekName],
                                 "date": day.getDate(),
-                                "allDate": day.getFullYear()+"/"+(day.getMonth()+1)+"/"+day.getDate()
+                                "allDate": day.getFullYear()+"-"+(day.getMonth()+1)+"-"+day.getDate()
                             })
  
                         }

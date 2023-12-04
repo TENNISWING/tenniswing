@@ -35,9 +35,8 @@
                             </div>
                         </div>                        
                         <div class="article-content">
-                        	<p>인원 수 [[${starterMatchInfo.recruitPsnNum}]]</p>
-                        	<p>모집 성별 [[${starterMatchInfo.genName}]]</p>
-                        	<p>레벨 [[${starterMatchInfo.lvName}]]</p>
+                        	<p>모집 인원 수 : [[${starterMatchInfo.recruitPsnNum}]]명</p>
+                        	<p>모집 성별 : [[${starterMatchInfo.genName}]]</p>
                         </div>                        
                     </article>
                 </div>
@@ -51,15 +50,15 @@
                         </div>
                         <div class="widget-body">
                             <div class="latest-post-aside media">
-                            	<p>경기 시간</p>
+                            	<p>경기 시간 : [[${starterMatchInfo.time}]]시</p>
                             </div>
                             <div class="latest-post-aside media">
-                                <p>코트장 이름 [[${starterMatchInfo.crtroomName}]]</p>
+                                <p>코트장 이름 : [[${starterMatchInfo.crtroomName}]]</p>
                             <div class="lpa-right">
                                 </div>
                             </div>
                             <div class="latest-post-aside media">
-                            	<p>코트장 위치 [[${starterMatchInfo.crtroomLocationName}]]</p>
+                            	<p>코트장 위치 : [[${starterMatchInfo.crtroomLocationName}]]</p>
                             </div>
                         </div>
                     </div>
@@ -71,7 +70,7 @@
                             <h3 class="mdttitle">인당 요금</h3>
                         </div>
                         <div class="widget-body">
-							<p>레슨비 [[${starterMatchInfo.rsPrice}]]</p>     
+							<p>레슨비 : [[${starterMatchInfo.rsPrice}]]</p>     
                     </div>
                     <!-- End Author -->                              
                 </div>
@@ -95,7 +94,7 @@
 					</div>
 					<div class="cart__action__btn">
 						<td class="text-end">
-			                <button type="button" class="btn btn-primary matchbtn4">목록으로</button>
+			                <button type="button" class="btn btn-primary matchbtn4" th:onclick="|location.href='@{/}'|">목록으로</button>
 			            </td>
 						<div class="quantity cart__quantity">
 							<button type="button" class="decressQnt">

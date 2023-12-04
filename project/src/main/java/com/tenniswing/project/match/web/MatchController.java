@@ -22,7 +22,7 @@ import com.tenniswing.project.match.service.MatchVO;
 public class MatchController {
 	
 	@Autowired
-	MatchService matchService;	
+	MatchService matchService;
 	
 	@Autowired
 	CourtroomService courtroomService;
@@ -115,36 +115,61 @@ public class MatchController {
 	public String startermatchdetailPage(Model model, @RequestParam Integer matchNo) {
 		MatchVO matchVO = new MatchVO();
 		matchVO.setMatchNo(matchNo);
-		model.addAttribute("starterMatchInfo", matchService.selectStarterMatch(matchVO));		
+		model.addAttribute("starterMatchInfo", matchService.selectStarterMatch(matchVO));
 		return "match/startermatchdetail";
 	}
 		
 	@GetMapping("matchregi")  
-	public String matchregiPage(Model model) { 			
+	public String matchregiPage(Model model) {		
 		return "match/matchregi";
 	}
 	
-	//등록 페이지
-	@GetMapping("matchregiform")
-	public String matchregiformPage(Model model) {
-		model.addAttribute("matchVO",new MatchVO());
-		return "match/matchregi";
-	}
-	
-	/*
-	 * @GetMapping("searchCourt")
-	 * 
-	 * @ResponseBody public HashMap<String,Object> searchCourtAjax() {
-	 * List<CrtroomVO> list = courtroomService.selectAllCourtroomMain();
-	 * HashMap<String,Object> map = new HashMap<>(); map.put("searchCourtList",
-	 * courtroomService.searchCourtList()); map.put("starterMatchList",
-	 * courtroomService.selectAllCourtroomMain()); return map; }
-	 */
-	@PostMapping("matchregiform")
-	public String insertClubProcess(MatchVO matchVO) {
+	@PostMapping("matchregi")  
+	public String matchregiProcess(Model model, MatchVO matchVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		
-		//matchVO.set
-		return id;	
+		matchVO.setMemId(id);
+		int n = matchService.insertMatch(matchVO);
+		if(n>0) {
+			return "redirect:/";
+		} else {
+			model.addAttribute("msg","등록 실패");
+			return "match/matchregi";
+		}
+	}
+	
+	@GetMapping("clubmatchregi")  
+	public String clubmatchregiPage(Model model) {		
+		return "match/clubmatchregi";
+	}
+	
+	@PostMapping("clubmatchregi")  
+	public String clubmatchregiProcess(Model model, MatchVO matchVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		matchVO.setMemId(id);
+		int n = matchService.insertClubMatch(matchVO);
+		if(n>0) {
+			return "redirect:/";
+		} else {
+			model.addAttribute("msg","등록 실패");
+			return "match/clubmatchregi";
+		}
+	}
+	
+	@GetMapping("contestmatchregi")
+	public String contmatchregiPage(Model model) {		
+		return "match/contestmatchregi";
+	}
+	
+	@PostMapping("contestmatchregi")  
+	public String contmatchregiProcess(Model model, MatchVO matchVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		matchVO.setMemId(id);
+		int n = matchService.insertContMatch(matchVO);
+		if(n>0) {
+			return "redirect:/";
+		} else {
+			model.addAttribute("msg","등록 실패");
+			return "match/contestmatchregi";
+		}
 	}
 }
