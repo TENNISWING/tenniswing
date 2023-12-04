@@ -109,7 +109,7 @@ public class CommunityController {
 //				model.addAttribute("message", "파일등록에 실패하였습니다.");
 //				return "redirect:sns";
 //			}
-			return "redirect:sns";
+			return "redirect:/sns";
 		}
 		
 		// sns댓글List

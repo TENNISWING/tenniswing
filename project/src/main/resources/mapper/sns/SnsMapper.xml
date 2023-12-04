@@ -204,8 +204,7 @@
 		update sns
 			set  sns_title = #{snsTitle}
 		        ,sns_ctt = #{snsCtt}
-		        ,sns_edit_date = sysdate
-		    <!--     ,sns_tag = #{snsTag} -->
+		        <!-- ,sns_tag = #{snsTag} -->
 		  where sns_wrt_no = #{snsWrtNo}
 	</update>
 
