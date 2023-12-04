@@ -41,8 +41,17 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberVO memberInfo(String memId) {
-		 MemberVO memberVO = memberMapper.memberInfo(memId);		
+	public MemberVO memberInfo(String memId) {		
+		 MemberVO memberVO = new MemberVO();
+		 memberVO.setMemId(memId);
+		 
+		 memberVO = memberMapper.memberLogin(memberVO);
+		 
+		 if(memberVO.getMemDiv().equals("ROLE_MEMBER")) {
+			 memberMapper.memberInfo(memId);
+		 }else {
+			 return memberVO;
+		}		 		
 
 		if (memberVO.getAttachPath() == null) {
 			if (memberVO.getGen().equals("남성")) {
