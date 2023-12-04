@@ -6,7 +6,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
+import com.tenniswing.project.attach.mapper.AttachMapper;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.court.mapper.CrtDetailMapper;
 import com.tenniswing.project.court.service.CrtDetailService;
@@ -18,9 +21,29 @@ public class CrtDetailServiceImpl implements CrtDetailService {
 	@Autowired
 	CrtDetailMapper crtDetailMapper;
 	
+	@Autowired
+	AttachMapper attachMapper;
+	
 	@Override
-	public int insertCrtDetail(CrtDetailVO crtDetailVO) {
+	@Transactional
+	public int insertCrtDetail(CrtDetailVO crtDetailVO, List<AttachVO> files) {
 		int result = crtDetailMapper.insertCrtDetail(crtDetailVO);
+		
+		//사진 등록
+		//테이블 구분, 파일목록
+
+		int crtroomNo = crtDetailVO.getCrtroomNo();
+		
+		int index = 1;
+		for (AttachVO file : files) {
+			file.setAttachTableDiv("cd");
+			file.setAttachTablePk(crtroomNo);
+			file.setAttachTurn(index);
+			index++;
+		}
+		
+		attachMapper.saveAttachTurn(files);
+		
 		
 		if(result == 1) {
 			return crtDetailVO.getCrtDetailNo();

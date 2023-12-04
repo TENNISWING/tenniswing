@@ -29,7 +29,7 @@
 										</div>
 										<div class="col-md-8 form-group mandatory">
 											<input type="text" id="first-name-horizontal"
-												class="form-control" name="crtroomName" th:value="${crtroomName}"
+												class="form-control" name="crtroomName" th:value="*{crtroomName}"
 												 data-parsley-required="true">
 										</div>
 										<div class="col-md-4">
@@ -108,7 +108,7 @@
 										<div class="col-md-8 form-group">
 											<input type="file" class="image-preview-filepond" name="files"
 												data-parsley-required="true" placeholder="파일을 첨부해주세요."
-												multiple>
+												multiple> <div th:text="${message}"></div>
 										</div>
 										<!-- 운영 허가증 끝 -->
 										<div class="row">

@@ -36,23 +36,18 @@ public class AttachServiceImpl implements AttachService {
 		return attachMapper.saveAttachAll(files);
 	}
 	
-	// 순서 추가 - 코트
-	@Override
-	public int saveAttachTurn( String tableDiv, int tablePk, List<AttachVO> files ) {
-		if(CollectionUtils.isEmpty(files)) {
-			return 0;
-		}
-		
-		int index = 1;
-		for (AttachVO file : files) {
-			file.setAttachTableDiv(tableDiv);
-			file.setAttachTablePk(tablePk);
-			file.setAttachTurn(index);
-			index++;
-		}
-		
-		return attachMapper.saveAttachTurn(files);
-	}
+	/*
+	 * // 순서 추가 - 코트
+	 * 
+	 * @Override public int saveAttachTurn( String tableDiv, int tablePk,
+	 * List<AttachVO> files ) { if(CollectionUtils.isEmpty(files)) { return 0; }
+	 * 
+	 * int index = 1; for (AttachVO file : files) {
+	 * file.setAttachTableDiv(tableDiv); file.setAttachTablePk(tablePk);
+	 * file.setAttachTurn(index); index++; }
+	 * 
+	 * return attachMapper.saveAttachTurn(files); }
+	 */
 
 
 	/*
