@@ -107,7 +107,7 @@ public class SnsServiceImpl implements SnsService {
 	
 		if (result > 0) {
 			//update호츌
-			
+			snsMapper.updateGrp(snsVO);
 			isSuccessed = true;
 		}
 		map.put("result", isSuccessed);

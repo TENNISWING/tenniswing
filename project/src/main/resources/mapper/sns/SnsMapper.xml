@@ -195,16 +195,16 @@
 		update sns_grp
 			set  g.post_num = #{postNum}
 		        ,g.grp_name = #{grpName}
-		        ,g.grp_edit_date = #{grpEditDate}
+		        ,g.grp_edit_date = sysdate
 		   where sns_grp_no = #{snsGrpNo}
 	</update>
 	
 	<update id="updateSns" parameterType="SnsVO">
 		update sns
-		 		,s.sns_title = #{snsTitle}
-		        ,s.sns_ctt = #{snsCtt}
-		        ,s.sns_edit_date = #{snsEditDate}
-		        ,s.sns_tag = #{snsTag}
+			set  sns_title = #{snsTitle}
+		        ,sns_ctt = #{snsCtt}
+		        ,sns_edit_date = sysdate
+		        ,sns_tag = #{snsTag}
 		  where sns_wrt_no = #{snsWrtNo}
 	</update>
 
