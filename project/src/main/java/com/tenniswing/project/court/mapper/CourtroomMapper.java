@@ -40,6 +40,12 @@ public interface CourtroomMapper {
 	// 첨부파일
 	public List<AttachVO> attachListAllCourt();
 	
-	//코트검색
+	// 코트검색
 	public List<CrtroomVO> courtSearch(String str);
+	
+	// 코트 후기 조회
+	public List<CrtroomVO> selectCourtReview(int crtroomNo);
+	
+	// 코트 후기 등록
+	public int insertCourtReview(CrtroomVO crtroomVO);
 }

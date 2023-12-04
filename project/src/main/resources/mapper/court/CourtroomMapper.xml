@@ -249,4 +249,18 @@
 		FROM crtroom
 		WHERE crtroom_name LIKE '%'||#{str}||'%'
 	</select>
+	
+	<!-- 코트 후기 조회 -->
+	<select id="selectCourtReview" resultType="crtroomVO">
+		SELECT mem_id
+				, review_ctt
+				, review_star
+				, review_write_date
+				, review_edit_date
+				, reserve_no
+		FROM review
+		WHERE crtroom_no = #{crtroomNo}
+	</select>
+	
+	<!-- 코트 후기 등록 -->
   </mapper>

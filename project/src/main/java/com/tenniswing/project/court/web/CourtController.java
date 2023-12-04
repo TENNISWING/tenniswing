@@ -25,7 +25,6 @@ import com.tenniswing.project.court.service.CrtRefundVO;
 import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.court.service.CrtReserveVO;
 import com.tenniswing.project.court.service.CrtroomVO;
-import com.tenniswing.project.member.service.MemberVO;
 
 @Controller
 public class CourtController {
@@ -63,8 +62,17 @@ public class CourtController {
 			model.addAttribute("refundInf", crtDetailService.refundInf());
 			model.addAttribute("nearCourt", courtroomService.nearCrtroom(courtroom));
 			model.addAttribute("hostInfo", courtroomService.selectCrtDetailHost(courtroom.getHostId()));
+			//model.addAttribute("courtReview", courtroomService.selectCourtReview(courtroom.getCrtroomNo()));
 			System.out.println(crtReserveService.reserveTimeCodeList());
 			return "court/courtDetail";
+		}
+		
+		@PostMapping("insertCourtReview")
+		@ResponseBody
+		public int insertCourtReview(@RequestBody CrtroomVO crtroomVO) {
+			int n = courtroomService.insertCourtReview(crtroomVO);
+			
+			return n;
 		}
 		
 		/*

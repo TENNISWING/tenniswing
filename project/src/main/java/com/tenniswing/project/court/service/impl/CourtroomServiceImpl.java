@@ -107,4 +107,23 @@ public class CourtroomServiceImpl implements CourtroomService {
 	public List<CrtroomVO> courtSearch(String str) {		
 		return courtroomMapper.courtSearch(str);
 	}
+
+	@Override
+	public List<CrtroomVO> selectCourtReview(int crtroomNo) {
+		return courtroomMapper.selectCourtReview(crtroomNo);
+	}
+
+	@Override
+	public int insertCourtReview(CrtroomVO crtroomVO) {
+		int result = courtroomMapper.insertCourtReview(crtroomVO);
+		
+		int crtroomNo = crtroomVO.getCrtroomNo();
+		
+		if(result == 1) {
+			return crtroomNo;		
+		}
+		else {
+			return -1;
+		}
+	}
 }
