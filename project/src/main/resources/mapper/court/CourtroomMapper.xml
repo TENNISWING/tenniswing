@@ -79,6 +79,7 @@
   		<collection property="crtDetailList" javaType="ArrayList" column="crtroom_no" ofType="CrtDetailVO" select="selectCourtDetail" />
   		<collection property="attachList" javaType="ArrayList" column="crtroom_no" ofType="AttachVO" select="attachListAllCourt" />
   	</resultMap>
+  	
   	<select id="selectCourtroom" resultMap="courtResult">
   		SELECT cr.crtroom_no
   				, cr.crtroom_name
@@ -90,6 +91,7 @@
   				, cr.crtroom_caution
   				, cr.crtroom_use_guide
   				, cr.crtroom_regi_date
+  				, cr.host_id
   				, MIN(cdi.crt_use_price) min_price
   		FROM crtroom cr JOIN crt_detail_inf cdi
   						ON cr.crtroom_no = cdi.crtroom_no
@@ -103,6 +105,7 @@
   				, cr.crtroom_caution
   				, cr.crtroom_use_guide
   				, cr.crtroom_regi_date
+  				, cr.host_id
   		HAVING cr.crtroom_no = #{crtroomNo}
   	</select>
   	<select id="selectCourtDetail" resultType="crtDetailVO">
@@ -115,6 +118,7 @@
 		FROM CRT_DETAIL_INF
 		WHERE crtroom_no = #{crtroomNo}
   	</select>
+  	
   	<select id="attachListAllCourt" resultType="AttachVO">
 		select a.attach_origin_name
 		, a.attach_save_name
@@ -128,18 +132,56 @@
 		AND c.crtroom_no = #{crtroomNo}
 	</select>
   	
-  	<!-- Main 코트 배너 -->
-  	<select id="crtroomBanner" resultType="crtroomVO">
-  		select a.attach_path
-        		, c.crtroom_no
-		from crt_detail_inf c JOIN attach a
-		                ON a.attach_table_pk = c.crtroom_no
-		                JOIN crtroom cr
-		                ON c.crtroom_no = cr.crtroom_no
-		where a.attach_table_div = 'cd'
-		and <![CDATA[rownum < 5]]>
-		and a.attach_turn = 1
-		order by a.attach_in_date desc
+  	
+	<!-- 호스트 정보 -->
+	<select id="selectCrtDetailHost" resultType="memberVO">
+		SELECT mem_id
+			, phone_no
+		FROM mem
+		WHERE mem_id = #{hostId}
+	</select>
+	
+  	<!-- 인근 코트장 추천 -->
+	<select id="nearCrtroom" resultType="crtroomVO">
+  		SELECT cr.crtroom_no
+  				, cr.crtroom_name
+  				, cr.crtroom_location
+  				, MIN(cdi.crt_use_price) min_price
+  				, a.attach_path
+  		FROM crtroom cr JOIN crt_detail_inf cdi
+  						ON cr.crtroom_no = cdi.crtroom_no
+  						JOIN attach a
+  						ON cr.crtroom_no = a.attach_table_pk
+  		WHERE a.attach_table_div = 'cd'
+  		AND a.attach_turn = 1
+  		AND cr.crtroom_region = #{crtroomRegion}
+  		and <![CDATA[rownum < 8]]>
+  		GROUP BY cr.crtroom_no
+  				, cr.crtroom_name
+  				, cr.crtroom_location
+  				, a.attach_path
+  	</select>
+  	
+  	<!-- 코트 하단 스와이퍼 -->
+  	<select id="recentRegiCourt" resultType="crtroomVO">
+  		SELECT cr.crtroom_no
+  				, cr.crtroom_name
+  				, cr.crtroom_location
+  				, MIN(cdi.crt_use_price) min_price
+  				, a.attach_path
+  		FROM crtroom cr JOIN crt_detail_inf cdi
+  						ON cr.crtroom_no = cdi.crtroom_no
+  						JOIN attach a
+  						ON cr.crtroom_no = a.attach_table_pk
+  		WHERE a.attach_table_div = 'cd'
+  		AND a.attach_turn = 1
+  		and <![CDATA[rownum < 8]]>
+  		GROUP BY cr.crtroom_no
+  				, cr.crtroom_name
+  				, cr.crtroom_location
+  				, a.attach_path
+  				, a.attach_in_date
+  		ORDER BY a.attach_in_date desc
   	</select>
   	
   	<!-- 코트장 등록 -->
@@ -200,4 +242,11 @@
 		DELETE FROM crtroom
 		WHERE crtroom_no = #{crtroomNo}
 	</delete>
+	
+	<!-- 검색창 코트 정보 -->
+	<select id="courtSearch" resultType="crtroomVO">
+		SELECT *
+		FROM crtroom
+		WHERE crtroom_name LIKE '%'||#{str}||'%'
+	</select>
   </mapper>

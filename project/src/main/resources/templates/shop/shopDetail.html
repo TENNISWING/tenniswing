@@ -148,7 +148,7 @@
 							variations of passages of Lorem Ipsum and available,majority have
 							suffered alteration in somey form, by injected humour, or
 							randomised words which don't look even slightly believable.</p> -->
-						<form action="" th:object="${prodDetail}" id="prodBuyForm">
+						<form action="checkout" th:object="${prodDetail}" id="prodBuyForm">
 							<div class="product-detail__attr">
 								<div class="product__attr">
 									<!-- <span class="product-detail--stroke">Color</span> -->
@@ -253,7 +253,7 @@
 										<span class="bar"></span>
 									</button>
 									<input id="prodDetailSto" name="prodDetailSto" class="qnttinput" type="number"
-										disabled value="1" min="1" max="10" />
+										readonly="readonly" value="1" min="1" max="10" />
 									<button type="button" class="incressQnt" id="checkCount">
 										<span class="bar"></span>
 									</button>
@@ -263,10 +263,14 @@
 							<!-- 구매, 장바구니 버튼 -->
 							<div class="product-detail__action">
 								<div class="item">
-									<a href="#" class="btn btn-primary btn-outline">Add to Cart</a>
+									<div class="header__cart">
+										<div class="cart__btn">								
+											<a href="#" class="btn btn-primary btn-outline">Add to Cart</a>
+										</div>
+									</div>
 								</div>
 								<div class="item">
-									<a href="checkout" class="btn btn-primary btn-filled">Buy Now</a>
+									<a type="button" id="goCheckout" class="btn btn-primary btn-filled">Buy Now</a>
 								</div>
 							</div>
 						</form>
@@ -438,8 +442,6 @@
 										</div>
 										<form action="#" class="form__wrapper">
 											<div class="modal-body">
-											
-										
 												
 													<!-- <div class="form-group">
 														<label for="name">Name</label> <input type="text" name="name"
@@ -675,18 +677,10 @@
 													<del>$22.00</del>
 												</div>
 												<div class="cart__action__btn">
-													<div class="cart__btn">
-														<a href="#" class="btn btn-outline">Add to cart</a>
-													</div>
-													<div class="quantity cart__quantity">
-														<button type="button" class="decressQnt">
-															<span class="bar"></span>
-														</button>
-														<input class="qnttinput" type="number" disabled value="0"
-															min="01" max="100" />
-														<button type="button" class="incressQnt">
-															<span class="bar"></span>
-														</button>
+													<div class="header__cart">
+														<div class="cart__btn">
+															<a href="#" class="btn btn-outline">Add to cart</a>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -883,6 +877,32 @@
 			}
 		});
 		
+		/* 체크아웃 페이지로 이동 */
+		$('#goCheckout').on('click', function() {
+			/* let formData = $('#prodBuyForm').serializeArray();
+			let quantity = $('#prodDetailSto').val();
+			formData.push({name: 'prodDetailSto', value: quantity});
+			
+			let prodNum = [[ ${prod.prodNo} ]];
+			formData.push({name: 'prodNo', value: prodNum});
+			console.log(formData);
+			
+			let dataObj = {};
+			
+			$.each(formData, (idx, obj) => {
+				dataObj[obj.name] = obj.value;	
+			});
+		
+			
+			console.log(dataObj); */
+			
+			/* $.ajax('checkout', {
+				type: 'get',
+				data : dataObj,   //{a:'a',b:'b'}  =>  ?a=a&b=b
+				//dataType : 'application/json',
+			}); */
+			$('#prodBuyForm')[0].submit();
+		});
 		
 	/*]]>*/
 	</script>

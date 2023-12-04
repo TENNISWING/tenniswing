@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
@@ -54,7 +58,12 @@ public class ShopController {
 	}
 
 	@GetMapping("checkout")
-	public String checkoutPage(Model model) {
+	public String checkoutPage(Model model, ProdDetailVO prodDetailVO, ProdVO prodVO) {
+		/*
+		 * ProdVO prodVO = new ProdVO(); prodVO.setProdNo(prodDetailVO.getProdNo());
+		 */
+		//model.addAttribute("prodDetail", prodDetailVO);
+		model.addAttribute("prod", prodService.selectProd(prodVO));
 		return "shop/checkout";
 	}
 }
