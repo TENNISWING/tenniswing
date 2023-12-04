@@ -19,6 +19,7 @@ public interface MatchMapper {
 	
 	//등록
 	public int insertMatch(MatchVO matchVO);
+	public int insertHistMatch(MatchVO matchVO);
 	public int insertClubMatch(MatchVO matchVO);
 	public int insertContMatch(MatchVO matchVO);
 	public int insertStarterMatch(MatchVO matchVO);

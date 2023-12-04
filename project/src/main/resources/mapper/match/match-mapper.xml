@@ -23,13 +23,15 @@
                     m.crt_use_amt,
                     m.recruit_psn_num,
                     m.detail_ctt,
+                    m.age,
                     c.crtroom_no,
                     c.crtroom_name,
                     c.crtroom_location,
                     FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
   		FROM match m, crtroom c
   		WHERE m.crtroom_no = c.crtroom_no
-  		 AND TRUNC (match_date) = TRUNC(#{matchDate})
+  		 AND TRUNC (match_date) = TRUNC(#{matchDate})  		 
+ 		 <if test="gameWay != null and gameWay != ''">and game_way = #{gameWay}</if>
  		 <if test="gen != null and gen != ''">and gen = #{gen}</if>
  		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
  		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
@@ -43,6 +45,7 @@
    		FROM match m, crtroom c
   		WHERE m.crtroom_no = c.crtroom_no
   		 AND TRUNC (match_date) = TRUNC(#{matchDate})
+  		 <if test="gameWay != null and gameWay != ''">and game_way = #{gameWay}</if>
  		 <if test="gen != null and gen != ''">and gen = #{gen}</if>
  		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
  		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
@@ -62,12 +65,14 @@
   				, FIND_CATEGORY_NAME (m.prog_state)   prog_state_name
   				, m.recruit_psn_num
   				, m.club_no
-  				, m.ntrp
+  				, m.ntrp  				
+  				, FIND_CATEGORY_NAME (m.ntrp)  ntrp_name
   				, m.lv
   				, FIND_CATEGORY_NAME (m.lv)  lv_name
   				, m.crt_use_amt
   				, m.detail_ctt
   				, m.crtroom_no
+  				, m.age
   				, c.crtroom_name
                 , c.crtroom_location
                 , FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
@@ -75,6 +80,8 @@
   		WHERE m.crtroom_no = c.crtroom_no
   		AND TRUNC (match_date) = TRUNC(#{matchDate})
  		 <if test="gameWay != null and gameWay != ''">and game_way = #{gameWay}</if>
+ 		 <if test="ntrp != null and ntrp != ''">and ntrp = #{ntrp}</if>
+ 		 <if test="lv != null and lv != ''">and lv = #{lv}</if>
  		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
  		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
   		ORDER BY time
@@ -88,6 +95,8 @@
   		WHERE m.crtroom_no = c.crtroom_no
   		AND TRUNC (match_date) = TRUNC(#{matchDate})
  		 <if test="gameWay != null and gameWay != ''">and game_way = #{gameWay}</if>
+ 		 <if test="ntrp != null and ntrp != ''">and ntrp = #{ntrp}</if>
+ 		 <if test="lv != null and lv != ''">and lv = #{lv}</if>
  		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
  		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
    	</select>
@@ -105,16 +114,19 @@
   				, FIND_CATEGORY_NAME (m.prog_state)   prog_state_name
   				, m.recruit_psn_num
   				, m.ntrp
+  				, FIND_CATEGORY_NAME (m.ntrp)   ntrp_name
   				, m.lv
   				, m.cont_attend_cost
   				, m.detail_ctt
   				, m.crtroom_no
+  				, m.age
   				, c.crtroom_name
   				, c.crtroom_location
                 , FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
   		FROM cont_match m, crtroom c
   		WHERE m.crtroom_no = c.crtroom_no
   		AND TRUNC(start_date) = TRUNC(#{matchDate})
+ 		 <if test="ntrp != null and ntrp != ''">and ntrp = #{ntrp}</if>
  		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
  		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
   		ORDER BY time
@@ -127,8 +139,9 @@
    		FROM cont_match m, crtroom c
   		WHERE m.crtroom_no = c.crtroom_no
   		AND TRUNC(start_date) = TRUNC(#{matchDate})
+ 		 <if test="ntrp != null and ntrp != ''">and ntrp = #{ntrp}</if>
  		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
- 		 <if test="progStateName != null and progStateName != ''">and prog_state_name</if>
+ 		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
    	</select>
 
 	<!-- 스타터 전체 조회  -->
@@ -150,6 +163,7 @@
   				, m.recruit_psn_num
   				, m.detail_ctt
   				, m.crtroom_no
+  				, m.age
   				, c.crtroom_name
   				, c.crtroom_location
                 , FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
@@ -194,8 +208,10 @@
   				, m.recruit_psn_num
   				, m.detail_ctt
   				, m.crtroom_no
+  				, m.age
                 , c.crtroom_name
                 , c.crtroom_location
+                , FIND_CATEGORY_NAME (c.crtroom_location)   crtroom_location_name
   		FROM match m, crtroom c
   		WHERE m.crtroom_no = c.crtroom_no
   		and m.match_no = #{matchNo}
@@ -217,13 +233,12 @@
   				, m.recruit_psn_num
   				, m.detail_ctt
   				, m.crtroom_no
+  				, m.age
                 , c.crtroom_name
                 , c.crtroom_location
-                , r.club_match_recruit_psn_num
-                , r.match_recruit_write_date
-  		FROM club_match m, crtroom c, club_match_recruit r
+                , FIND_CATEGORY_NAME (c.crtroom_location)   crtroom_location_name
+  		FROM club_match m, crtroom c
   		WHERE m.crtroom_no = c.crtroom_no
-  		and m.match_no = r.match_no
         and m.match_no = #{matchNo}
   	</select>
   	
@@ -242,8 +257,10 @@
   				, c.cont_attend_cost
   				, c.detail_ctt
   				, c.crtroom_no
+  				, c.age
                 , b.crtroom_name
                 , b.crtroom_location
+                , FIND_CATEGORY_NAME (b.crtroom_location)   crtroom_location_name
   		FROM cont_match c, crtroom b
   		WHERE c.crtroom_no = b.crtroom_no
         AND c.match_no = #{matchNo}
@@ -265,6 +282,7 @@
   				, s.recruit_psn_num
   				, s.detail_ctt
   				, s.crtroom_no
+  				, s.age
   				, c.crtroom_name
   				, c.crtroom_location
   				, FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
@@ -276,6 +294,50 @@
   	<!-- 등록 -->
   	<insert id="insertMatch" parameterType="MatchVO">
   	 	<selectKey keyProperty="matchNo" 
+  	 			   resultType="int" 
+  	 			   order="BEFORE">
+  	 		<!-- primarykey가 숫자일 경우 사용 -->
+  	 		SELECT NVL(MAX(match_no), 0) + 1
+			FROM match
+  	 	</selectKey>
+  	 	INSERT INTO match
+  	 			(
+	  	 			match_no
+	  				, mem_id
+	  				, match_date
+	  				, time
+	  				, game_way
+	  				, prog_state
+	  				, ntrp
+	  				, lv
+	  				, gen
+	  				, crt_use_amt
+	  				, recruit_psn_num
+	  				, detail_ctt
+	  				, crtroom_no
+	  				, age
+  	 			)
+  	 			VALUES
+  	 			(
+  	 				#{matchNo}
+  	 				,#{memId}
+  	 				,#{matchDate}
+  	 				,#{time}
+  	 				,#{gameWay}
+  	 				,'g1'
+  	 				,#{ntrp}
+  	 				,#{lv}
+  	 				,#{gen}
+  	 				,#{crtUseAmt}
+  	 				,#{recruitPsnNum}
+  	 				,#{detailCtt}
+  	 				,#{crtroomNo}
+  	 				,#{age}
+  	 			)  	 			
+  	</insert>
+  	
+  	<insert id="insertHistMatch" parameterType="MatchVO">
+  	<selectKey keyProperty="matchNo" 
   	 			   resultType="int" 
   	 			   order="BEFORE">
   	 		<!-- primarykey가 숫자일 경우 사용 -->
@@ -297,11 +359,12 @@
 	  				, recruit_psn_num
 	  				, detail_ctt
 	  				, crtroom_no
+	  				, age
   	 			)
   	 			VALUES
   	 			(
   	 				#{matchNo}
-  	 				,#{memNo}
+  	 				,#{memId}
   	 				,#{matchDate}
   	 				,#{time}
   	 				,#{gameWay}
@@ -312,7 +375,8 @@
   	 				,#{crtUseAmt}
   	 				,#{recruitPsnNum}
   	 				,#{detailCtt}
-  	 				,#{crtroomNo}  	 				
+  	 				,#{crtroomNo}
+  	 				,#{age}  	 				
   	 			)  	 			
   	</insert>
   	
@@ -323,7 +387,7 @@
   	 			   order="BEFORE">
   	 		<!-- primarykey가 숫자일 경우 사용 -->
   	 		SELECT NVL(MAX(match_no), 0) + 1 
-			FROM match
+			FROM club_match
   	 	</selectKey>
   	 	INSERT INTO club_match
   	 			(
@@ -340,6 +404,7 @@
 	  				, crt_use_amt
 	  				, detail_ctt
 	  				, crtroom_no
+	  				, age
   	 			)
   	 			VALUES
   	 			(
@@ -348,14 +413,15 @@
   	 				,#{matchDate}
   	 				,#{time}
   	 				,#{gameWay}
-  	 				,#{progState}
+  	 				,'l2'
   	 				,#{recruitPsnNum}
   	 				,#{clubNo}
   	 				,#{ntrp}
   	 				,#{lv}
   	 				,#{crtUseAmt}
   	 				,#{detailCtt}
-  	 				,#{crtroomNo}  	 				
+  	 				,#{crtroomNo}
+  	 				,#{age}
   	 			)  	 			
   	</insert>
   	
@@ -366,7 +432,7 @@
   	 			   order="BEFORE">
   	 		<!-- primarykey가 숫자일 경우 사용 -->
   	 		SELECT NVL(MAX(match_no), 0) + 1 
-			FROM match
+			FROM cont_match
   	 	</selectKey>
   	 	INSERT INTO cont_match
   	 			(
@@ -382,6 +448,7 @@
 	  				, cont_attend_cost
 	  				, detail_ctt
 	  				, crtroom_no
+	  				, age
   	 			)
   	 			VALUES
   	 			(
@@ -390,15 +457,16 @@
   	 				,#{startDate}
   	 				,#{endDate}
   	 				,#{time}
-  	 				,#{progState}
+  	 				,'l2'
+  	 				,#{recruitPsnNum}
   	 				,#{ntrp}
   	 				,#{lv}
   	 				,#{contAttendCost}
   	 				,#{detailCtt}
-  	 				,#{crtroomNo}  	 				
+  	 				,#{crtroomNo}
+  	 				,#{age}
   	 			)  	 			
-  	</insert>
-  	
+  	</insert>  	
   	  	
   	<!-- 스타터 등록 -->
   	<insert id="insertStarterMatch" parameterType="MatchVO">
@@ -407,7 +475,7 @@
   	 			   order="BEFORE">
   	 		<!-- primarykey가 숫자일 경우 사용 -->
   	 		SELECT NVL(MAX(match_no), 0) + 1 
-			FROM match
+			FROM starter_match
   	 	</selectKey>
   	 	INSERT INTO starter_match
   	 			(

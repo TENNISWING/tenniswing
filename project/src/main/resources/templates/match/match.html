@@ -80,8 +80,8 @@
 									<option value="c2">여자</option>
 								</select>
 							</div>
-							<!-- <div class="custom__dropdown custom__dropdown__v2">
-								<select id="location" name="location">
+							<div class="custom__dropdown custom__dropdown__v2">
+								<select id="crtroomLocation" name="crtroomLocation">
 									<option value="">지역</option>
 									<option value="b1">서울</option>
 									<option value="b2">경기</option>
@@ -92,7 +92,7 @@
 									<option value="b7">충청도</option>
 									<option value="b8">제주도</option>
 								</select>
-							</div> -->
+							</div>
 							<!-- <div class="custom__dropdown custom__dropdown__v2">
 								<select id="ntrp" name="ntrp">
 									<option value="">NTRP</option>
@@ -220,27 +220,30 @@
 	function matchAjax(matchDate,page) {
 		let gameWay = $('#gameWay').val();		
 		let gen = $('#gen').val();
-		let location = $('#location').val();
+		let crtroomLocation = $('#crtroomLocation').val();
 		let ntrp = $('#ntrp').val();
 		 
 		$.ajax({
 			type: 'GET',
 			url: 'matchList',
-			data: {matchDate, page, gameWay, gen, location, ntrp},
+			data: {matchDate, page, gameWay, gen, crtroomLocation, ntrp},
 			success: function(result) {
 				//리스트
 				$('#matchList').empty();
-				for(let matchInfo of result.matchList){
+				for(let matchInfo of result.matchList){				
 					let b = `<tr class="navbar-brand">					
 					<td class="text-center"><b>${dateFormat(matchInfo.matchDate)}</b></td>
 					<td>${matchInfo.time}시</td>
 					<td>${matchInfo.gameWayName}</td>
 					<td>${matchInfo.crtroomName}</td>
 					<td>${matchInfo.genName}</td>
-					<td class="text-end mtbt">
-						<a class="btn btn-primary matchbtn1" href="matchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>
-					</td>
-				</tr>`
+					<td class="text-end mtbt">`					
+					if (matchInfo.progStateName=='마감'){
+					b += `<a class="btn btn-secondary disabled matchbtn2" href="matchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>`
+					} else {
+					b += `<a class="btn btn-primary matchbtn1" href="matchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>`
+					}
+					b += '</td></tr>'
 					$('#matchList').append(b)
 				}
 				
@@ -342,7 +345,7 @@
                             var windowWidth = window.innerWidth;
                             var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
                             return direction;
-                            }
+                        }
 
                         const days = ["일", "월", "화", "수", "목", "금", "토"];
                         let today = new Date();
@@ -351,7 +354,7 @@
                         let month = today.getMonth();
                         let dateGetDate = today.getDate();
                         let dateArry = [];
-						let matchDate = year+"/"+(month+1)+"/"+dateGetDate
+						let matchDate = year+"-"+(month+1)+"-"+dateGetDate
 						matchAjax(matchDate,1)
                         
                         for (let i = 0; i < 14; i++) {
@@ -361,7 +364,7 @@
                             	"dayNo": weekName,
                                 "day": days[weekName],
                                 "date": day.getDate(),
-                                "allDate": day.getFullYear()+"/"+(day.getMonth()+1)+"/"+day.getDate()
+                                "allDate": day.getFullYear()+"-"+(day.getMonth()+1)+"-"+day.getDate()
                             })
  
                         }

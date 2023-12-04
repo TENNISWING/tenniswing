@@ -11,8 +11,10 @@ public class MatchVO {
 	private int matchNo;
 	private String memNo;	
 	private String memId;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date matchDate;
 	private int time;
+	private String age;
 	private String gameWay;
 	private String gameWayName;
 	private String progState;
@@ -28,13 +30,15 @@ public class MatchVO {
 	private int recruitPsnNum;
 	private int recruitPsnNumName;
 	private String detailCtt;
-	private int crtroomNo;
+	private Integer crtroomNo;
 	
 	private String clubName;
 	private int clubNo;
 	
 	private String contName;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date startDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date endDate;
 	private int contAttendCost;
 	
