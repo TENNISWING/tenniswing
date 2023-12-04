@@ -17,5 +17,5 @@ public interface AttachService {
 	public int updateAttach(String tableDiv, int tablePk, List<AttachVO> files);
 	
 	//코트 첨부파일 순서
-	public int saveAttachTurn(String tableDiv, int tablePK, List<AttachVO> files);
+	//public int saveAttachTurn(String tableDiv, int tablePK, List<AttachVO> files);
 }

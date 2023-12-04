@@ -52,88 +52,87 @@
 
 			<!-- Banner Slider v2 End-->
 			<section class="banner__slider__section__v2 pb-0" style="height: 300px">
-				<div class="container">
-					<div class="row">
-						<div class="col-xl-12 col-lg-12">
-							<div class="swiper main__mySwiper">
-								<div class="swiper-wrapper">
-								<th:block th:each="banner, stat: ${banner}">
-									<div class="swiper-slide">
-										<div class="single__slide__wrapper"
-											th:style="'background-image: url('+${banner.attachPath}+'); background-size: cover;'">
-											<div class="hero__wrapper text-left">
-												<!-- <h5 class="hero__subtitle">Limited offer 25% off</h5>
-												<h1 class="hero__title">
-													Organic Fruit <br /> For Your Family’s Health
-												</h1>  -->
-												<p class="hero__content"></p>
-												<div class="hero__btn">
-													<a th:href="@{/courtDetail(crtroomNo=${banner.crtroomNo})}" class="btn btn-primary">코트 보러가기</a>
-												</div>
-											</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-12 col-lg-12">
+					<div class="swiper main__mySwiper">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<div class="single__slide__wrapper"
+									style="background-image: url('assets/img/shop/shop1.jpg')">
+									<div class="hero__wrapper text-left">
+										<!-- <h5 class="hero__subtitle">Limited offer 25% off</h5>
+										<h1 class="hero__title">
+											Organic Fruit <br /> For Your Family’s Health
+										</h1>  -->
+										<p class="hero__content"></p>
+										<div class="hero__btn">
+											<a href="product.html" class="btn btn-primary">Shop Now</a>
 										</div>
 									</div>
-									</th:block>
-									<!-- <div class="swiper-slide">
-										<div class="single__slide__wrapper"
-											style="background-image: url('assets/img/shop/shop2.jpg')">
-											<div class="hero__wrapper text-left">
-												<h5 class="hero__subtitle">Limited offer 10% off</h5>
-												<h1 class="hero__title">
-													Shop wise <br /> with price <br /> comparisons
-												</h1>
-												<p class="hero__content"></p>
-												<div class="hero__btn">
-													<a href="product.html" class="btn btn-primary">Shop Now</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="swiper-slide">
-										<div class="single__slide__wrapper"
-											style="background-image: url('assets/img/shop/shop3.jpg')">
-											<div class="hero__wrapper text-left">
-												<h5 class="hero__subtitle">Limited offer 10% off</h5>
-												<h1 class="hero__title">
-													Summer <br /> Skin care <br /> Product
-												</h1>
-												<p class="hero__content"></p>
-												<div class="hero__btn">
-													<a href="product.html" class="btn btn-primary">Shop Now</a>
-												</div>
-											</div>
-										</div>
-									</div> -->
 								</div>
-								<div class="banner__navigation">
-									<div class="swiper-button-next">
-										<svg width="35" height="16" viewBox="0 0 35 16" fill="none"
-											xmlns="http://www.w3.org/2000/svg">
-		                                        <path d="M1 8L34 8"
-												stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
-												stroke-linejoin="round" />
-		                                        <path d="M27 1L34 8L27 15"
-												stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
-												stroke-linejoin="round" />
-	                                    </svg>
+							</div>
+							<div class="swiper-slide">
+								<div class="single__slide__wrapper"
+									style="background-image: url('assets/img/shop/shop2.jpg')">
+									<div class="hero__wrapper text-left">
+										<!-- <h5 class="hero__subtitle">Limited offer 10% off</h5>
+										<h1 class="hero__title">
+											Shop wise <br /> with price <br /> comparisons
+										</h1> -->
+										<p class="hero__content"></p>
+										<div class="hero__btn">
+											<a href="product.html" class="btn btn-primary">Shop Now</a>
+										</div>
 									</div>
-									<div class="swiper-button-prev">
-										<svg width="23" height="16" viewBox="0 0 23 16" fill="none"
-											xmlns="http://www.w3.org/2000/svg">
-		                                        <path d="M22 8H1"
-												stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
-												stroke-linejoin="round" />
-		                                        <path d="M8 15L1 8L8 1"
-												stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
-												stroke-linejoin="round" />
-	                                    </svg>
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="single__slide__wrapper"
+									style="background-image: url('assets/img/shop/shop3.jpg')">
+									<div class="hero__wrapper text-left">
+										<!-- <h5 class="hero__subtitle">Limited offer 10% off</h5>
+										<h1 class="hero__title">
+											Summer <br /> Skin care <br /> Product
+										</h1>  -->
+										<p class="hero__content"></p>
+										<div class="hero__btn">
+											<a href="product.html" class="btn btn-primary">Shop Now</a>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						<div class="banner__navigation">
+							<div class="swiper-button-next">
+								<svg width="35" height="16" viewBox="0 0 35 16" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 8L34 8"
+										stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" />
+                                        <path d="M27 1L34 8L27 15"
+										stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" />
+                                    </svg>
+							</div>
+							<div class="swiper-button-prev">
+								<svg width="23" height="16" viewBox="0 0 23 16" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M22 8H1"
+										stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" />
+                                        <path d="M8 15L1 8L8 1"
+										stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" />
+                                    </svg>
+							</div>
+						</div>
 					</div>
 				</div>
-			</section>
+
+			</div>
+		</div>
+	</section>
 			<!-- Banner Slider v2 End-->
 			<!-- courtroom filter -->
             <div class="container mb-4" style="margin-top: 20px;">
@@ -410,12 +409,13 @@
 
             <!-- viewed history -->
             <!-- Trending Section Start -->
+            <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 			<section class="trending__section pt-0">
 				<div class="container">
 					<div class="row">
 						<div class="col-12">
 							<div class="section-title" style="margin: 50px 0 0 0">
-								<h2>Releted Product</h2>
+								<h2><span style="font-size: 25px">Recently Registered Court</span></h2>
 							</div>
 						</div>
 					</div>
@@ -424,14 +424,16 @@
 							<div class="product__wrapper swiper__pagination">
 								<div class="swiper trending__Swiper">
 									<div class="swiper-wrapper">
-										<div th:each="num : ${#numbers.sequence(1,8)}" class="swiper-slide">
+									<th:block th:each="recentCrt, stat : ${recentCrt}">
+										<div class="swiper-slide">
 											<div class="product-card">
 												<div class="product__image__wrapper">
-													<a href="product-single.html" class="product__image"> <img
-														src="assets/img/shop/teni.jpg" alt="icon" />
+													<a th:onclick="|location.href='@{/courtDetail(crtroomNo=${recentCrt.crtroomNo})}'|" class="product__image"
+													> <img
+														th:src="${recentCrt.attachPath}" alt="icon" style="overfit: cover;" />
 													</a>
-													<div class="badge">10%</div>
-													<div class="product__actions">
+													<div class="badge">New</div>
+													<!-- <div class="product__actions">
 														<a href="#" class="action__btn"> <svg width="16"
 																height="14" viewBox="0 0 16 14" fill="none"
 																xmlns="http://www.w3.org/2000/svg">
@@ -466,7 +468,7 @@
 																	stroke-linejoin="round" />
 		                                                        </svg>
 														</a>
-													</div>
+													</div> -->
 												</div>
 												<div class="product__content">
 													<div class="product__rating">
@@ -481,20 +483,19 @@
 													</div>
 													<div class="product__title">
 														<h5>
-															<a href="product-single.html">Tootsie Frooties- Taffy
-																Candy - Bulk Fruit Chews - Fruity Roll Fruity Roll</a>
+															<a th:onclick="|location.href='@{/courtDetail(crtroomNo=${recentCrt.crtroomNo})}'|">[[${recentCrt.crtroomName}]]</a>
 														</h5>
 													</div>
 													<div class="product__bottom">
 														<div class="product__price">
-															$22.00
-															<del>$22.00</del>
+															[[${recentCrt.minPrice}]]원 ~
+															<!-- <del>$22.00</del> -->
 														</div>
 														<div class="cart__action__btn">
 															<div class="cart__btn">
-																<a href="#" class="btn btn-outline">Add to cart</a>
+																<button type="button" th:onclick="|location.href='@{/courtDetail(crtroomNo=${recentCrt.crtroomNo})}'|" class="btn btn-outline">상세보기</button>
 															</div>
-															<div class="quantity cart__quantity">
+															<!-- <div class="quantity cart__quantity">
 																<button type="button" class="decressQnt">
 																	<span class="bar"></span>
 																</button>
@@ -503,13 +504,13 @@
 																<button type="button" class="incressQnt">
 																	<span class="bar"></span>
 																</button>
-															</div>
+															</div> -->
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-					
+										</th:block>
 									</div>
 		
 									<div class="swiper-button-next">
@@ -545,4 +546,24 @@
 			<!-- Trending Section End -->
             <!-- End viewed history -->
 	</th:block>
+	<script>
+	new Swiper(".swiper-wrapper", {
+		/* loop : true, */
+		loopPreventsSliding : true,
+		grabCursor : true,
+		slidesPerView : 3,
+		spaceBetween : 20,
+
+		/* autoplay : {
+			delay : 2000,
+			pauseOnMouseEnter : true,
+			disableOnInteraction : false
+		}, */
+		pagination : {
+			el : ".swiper-pagination",
+			dynamicBullets : true,
+			clickable : true,
+		},
+	});
+	</script>
 </html>
