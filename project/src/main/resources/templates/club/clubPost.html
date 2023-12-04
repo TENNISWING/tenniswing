@@ -242,7 +242,9 @@
 						$('#postList').empty();
 						for (let [index, clubPost] of data.entries()) {
 							let List = `
-							<tr class="toggleBoard" style="height: 70px;">
+							<tr class="toggleBoard accordion-header" style="height: 70px;" data-bs-toggle="collapse"
+								data-bs-target="#p${clubPost.clubPostNo}" aria-expanded="false"
+									aria-controls="collapseTwo" onclick="repListAjax(${clubPost.clubPostNo})">
 								<td>${new Date(clubPost.clubPostWriteDate).toLocaleDateString()}</td>
 								<td>
 									<div class="boardContainer toggleBoardTitle" data-value="${clubPost.clubPostNo}">
@@ -257,8 +259,10 @@
 								<i type="button" class="fa-regular fa-trash-can postDelBtn" data-value="${clubPost.clubPostNo}"></i>
 								</td>
 							</tr>
-							<tr class="toggleBoard" style="display:none;">
-							<td colspan='5' style="padding: 0;">
+							<tr class="toggleBoard">
+							<td colspan='5' style="padding: 0;"  id="p${clubPost.clubPostNo}"
+								class="accordion-collapse collapse"
+									aria-labelledby="headingTwo">
 								<div class="boardBody" style="text-align: center;">
 									<div>
 										<img src="./assets/img/card.jpg" style="width: 70%; padding:25px 0px">
@@ -283,7 +287,7 @@
 														<th></th>
 													</tr>
 												</thead>
-												<tbody id="repList"> </tbody>
+												<tbody id="r${clubPost.clubPostNo}"> </tbody>
 											</table>
 									</div>
 									</div>
@@ -344,14 +348,16 @@
 						})
 
 						//상세 조회 (제목 클릭)
-						$(".boardContainer").on("click", function (e) {
+					/* 	$(".boardContainer").on("click", function (e) {
+							//const toggleAnswer = document.querySelector(".boardBody")
+
 							$(this).parent().parent().next().toggle();
 							let clubPostNo = $(this).data('value');
 							console.log("댓글리스트에 게시글 번호"+clubPostNo);
 							// 댓글 리스트 아작스
 							repListAjax(clubPostNo);
 						});
-						
+						 */
 						
 						//댓글 등록 버튼 클릭
 						$('.repInserBtn').on("click", function(e) {
@@ -385,7 +391,7 @@
 								<td></td>
 							</tr>
 							`
-						$('#repList').append(List)
+						$('#r'+clubPostNo).append(List)
 						}
 					},
 					error: function () {
