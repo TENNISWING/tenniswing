@@ -333,7 +333,7 @@
   	 				,#{detailCtt}
   	 				,#{crtroomNo}
   	 				,#{age}
-  	 			)  	 			
+  	 			)
   	</insert>
   	
   	<insert id="insertHistMatch" parameterType="MatchVO">
@@ -368,7 +368,7 @@
   	 				,#{matchDate}
   	 				,#{time}
   	 				,#{gameWay}
-  	 				,#{progState}
+  	 				,'g1'
   	 				,#{ntrp}
   	 				,#{lv}
   	 				,#{gen}
@@ -376,8 +376,8 @@
   	 				,#{recruitPsnNum}
   	 				,#{detailCtt}
   	 				,#{crtroomNo}
-  	 				,#{age}  	 				
-  	 			)  	 			
+  	 				,#{age}
+  	 			)
   	</insert>
   	
   	<!-- 클럽 등록 -->
@@ -487,25 +487,27 @@
 	  				, ntrp
 	  				, lv
 	  				, gen
-	  				, rsprice
+	  				, rsPrice
 	  				, recruit_psn_num
 	  				, detail_ctt
 	  				, crtroom_no
+	  				, age
   	 			)
   	 			VALUES
   	 			(
   	 				#{matchNo}
-  	 				,#{memNo}
+  	 				,#{memId}
   	 				,#{matchDate}
   	 				,#{time}
-  	 				,#{progState}
+  	 				,'g1'
   	 				,#{ntrp}
   	 				,#{lv}
   	 				,#{gen}
-  	 				,#{rsprice}
+  	 				,#{rsPrice}
   	 				,#{recruitPsnNum}
   	 				,#{detailCtt}
-  	 				,#{crtroomNo}  		 				
+  	 				,#{crtroomNo}
+  	 				,#{age} 		 				
   	 			)  	 			
   	</insert>	
   	  	

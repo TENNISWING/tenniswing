@@ -95,6 +95,19 @@ public class MatchController {
 		return "match/matchdetail";
 	}
 	
+	@PostMapping("matchdetailregi")  
+	public String matchdetailregiProcess(Model model, MatchVO matchVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		matchVO.setMemId(id);
+		int n = matchService.insertHistMatch(matchVO);
+		if(n>0) {
+			return "redirect:/";
+		} else {
+			model.addAttribute("msg","등록 실패");
+			return "match/matchdetail";
+		}
+	}
+	
 	@GetMapping("clubmatchdetail")  
 	public String clubmatchdetailPage(Model model, @RequestParam Integer matchNo) {
 		MatchVO matchVO = new MatchVO();
@@ -170,6 +183,24 @@ public class MatchController {
 		} else {
 			model.addAttribute("msg","등록 실패");
 			return "match/contestmatchregi";
+		}
+	}
+	
+	@GetMapping("startermatchregi")
+	public String startermatchregiPage(Model model) {		
+		return "match/startermatchregi";
+	}
+	
+	@PostMapping("startermatchregi")  
+	public String startermatchregiProcess(Model model, MatchVO matchVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		matchVO.setMemId(id);
+		int n = matchService.insertStarterMatch(matchVO);
+		if(n>0) {
+			return "redirect:/";
+		} else {
+			model.addAttribute("msg","등록 실패");
+			return "match/startermatchregi";
 		}
 	}
 }
