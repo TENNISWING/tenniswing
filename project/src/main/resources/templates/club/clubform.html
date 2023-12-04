@@ -25,8 +25,8 @@
 		<div class="page-title">
 			<div class="row">
 				<div class="col-12 col-md-6 order-md-1 order-last">
-					<h3 style="color: black">클럽을 직접 개설하세요</h3>
-					<p class="text-subtitle text-muted">클럽 만들고 함께 테니스를 치세요오오</p>
+					<h3 style="color: black">클럽 창설</h3>
+					<p class="text-subtitle text-muted">모든 사항은 필수 입력 사항입니다.</p>
 					<br>
 				</div>
 				<div class="col-12 col-md-6 order-md-2 order-first">
@@ -59,8 +59,9 @@
 									</div>
 									<div class="col-12">
 										<div class="form-group mandatory">
-											<label for="contact-info-vertical">프로필사진</label> <input
-												type="file" class="image-preview-filepond">
+											<label for="contact-info-vertical">프로필사진</label> 
+											<input type="file" class="image-preview-filepond" name="files"
+												data-parsley-required="true" placeholder="파일을 첨부해주세요." multiple>
 										</div>
 									</div>
 									<div class="col-12">
@@ -146,7 +147,7 @@
 										<div class="form-group ">
 											<label for="exampleFormControlTextarea1" class="form-label">주 코트장</label>
 											 <input type="text" id="formClubName" class="form-control"
-											name="clubCrt" th:value="${clubCrt}" placeholder="주로 이용하는 코트장을 입력하세요.">
+											name="clubCrt"placeholder="주로 이용하는 코트장을 입력하세요.">
 										</div>
 									</div>
 									<div class="col-6">

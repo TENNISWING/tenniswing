@@ -11,13 +11,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.tenniswing.project.attach.service.AttachService;
+import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.club.service.ClubPostService;
 import com.tenniswing.project.club.service.ClubPostVO;
 import com.tenniswing.project.club.service.ClubRepService;
 import com.tenniswing.project.club.service.ClubRepVO;
 import com.tenniswing.project.club.service.ClubService;
 import com.tenniswing.project.club.service.ClubVO;
+import com.tenniswing.project.common.FileUtils;
 
 @Controller
 public class ClubController {
@@ -30,6 +34,12 @@ public class ClubController {
 	
 	@Autowired
 	ClubRepService clubRepService;
+	
+	@Autowired
+	FileUtils fileUtils;
+	
+	@Autowired
+	AttachService attachService;
 
 // --------------------------------------- 메인	
 	//클럽페이지
@@ -56,12 +66,25 @@ public class ClubController {
 	
 	//등록 프로세스
 	@PostMapping("clubform") 
-	public String insertClubProcess(ClubVO clubVO) {
-		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+	public String insertClubProcess(ClubVO clubVO, RedirectAttributes rttr) {
 		
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		clubVO.setMemId(id);
+		
 		clubService.insertClub(clubVO);
-		return "redirect:club";
+		
+		//사진 등록
+		List<AttachVO> files = fileUtils.uploadFiles(clubVO.getFiles());
+		int n = attachService.saveAttach("cl",clubVO.getClubNo(), files); //구분코드, 번호, 파일목록
+		
+		if(n> 0) {
+			rttr.addAttribute("clubNo", clubVO.getClubNo());
+			return "redirect:club";
+		}else {
+			rttr.addAttribute("message", "파일등록에 실패하였습니다.");
+			return "redirect:club";
+		}
+		
 	}
 	
 // ---------------------------------------상세페이지

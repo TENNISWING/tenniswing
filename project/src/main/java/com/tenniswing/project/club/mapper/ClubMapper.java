@@ -2,6 +2,7 @@ package com.tenniswing.project.club.mapper;
 
 import java.util.List;
 
+import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.club.service.ClubVO;
 
 public interface ClubMapper {
@@ -19,4 +20,8 @@ public interface ClubMapper {
 	
 	//삭제
 	public int deleteClub(int ClubNo);
+	
+	//첨부파일
+	public List<AttachVO> attachListALllClub();
+	
 }

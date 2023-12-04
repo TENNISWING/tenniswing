@@ -13,9 +13,13 @@ public interface ClubService {
 	//등록
 	public int insertClub(ClubVO clubVO);
 	
+	//클럽 사진 업로드
+	//public int insertClubImg(ClubVO clubVO);
+	
 	//삭제
 	public boolean deleteClub(int ClubNo);
 	
 	//수정
 	public Map<String, Object> updateClub(ClubVO clubVO);
+
 }
