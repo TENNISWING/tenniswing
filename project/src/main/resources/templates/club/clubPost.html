@@ -300,8 +300,8 @@
 						//삭제 아이콘 클릭할때
 						$(".postDelBtn").on("click", function (e) {
 
-							let no = $(this).data('value');
-
+							let clubPostNo = $(this).data('value');
+							console.log("삭제아이콘클릭" + clubPostNo);
 							Swal.fire({
 								title: "게시글을 삭제하시겠습니까?",
 								icon: "warning",
@@ -312,7 +312,7 @@
 								confirmButtonText: "삭제"
 							}).then((result) => {
 								if (result.isConfirmed) {
-									postDelteAjax(no)
+									postDeleteAjax(clubPostNo)
 								}
 							});
 						});
@@ -388,20 +388,39 @@
 								<td>${rep.name}</td>
 								<td>${rep.clubRepCtt}</td>
 								<td>${new Date(rep.clubRepWriteDate).toLocaleDateString()}</td>
-								<td></td>
+								<td><i type="button" class="fa-regular fa-trash-can repDelBtn" data-value="${rep.clubRepNo}"></i></td>
 							</tr>
 							`
-						$('#r'+clubPostNo).append(List)
+						$('#r'+clubPostNo).append(List)	
 						}
-					},
-					error: function () {
-						alert("삭제실패");
-					}
+						//댓글 삭제 버튼 클릭
+						$('.repDelBtn').on("click", function (e) {
+							let clubRepNo = $(this).data('value');
+							console.log("댓글 번호:"+clubRepNo)
+							Swal.fire({
+								title: "댓글을 삭제하시겠습니까?",
+								icon: "warning",
+								showCancelButton: true,
+								confirmButtonColor: "#3085d6",
+								cancelButtonColor: "#d33",
+								cancelButtonText: '취소',
+								confirmButtonText: "삭제"
+							}).then((result) => {
+								if (result.isConfirmed) {
+									repDeleteAjax(clubRepNo)
+								}
+							})
+						}); 
+					}//success 끝
+					
+					
+					
+					
 				})
 			};
 			
 			//댓글 등록 아작스
-			function repInsertAjax(clubPostNo,clubRepCtt){
+		 	function repInsertAjax(clubPostNo,clubRepCtt){
 				$.ajax({
 					type:'POST',
 					url:'repInsert',
@@ -415,10 +434,31 @@
 						alert("등록 실패")
 					}
 				})
-			}
+			}; 
+			
+			//댓글 삭제 아작스
+			function repDeleteAjax(clubRepNo) {
+				$.ajax({
+					type: 'POST',
+					url: 'repDelete',
+					data: { paramRepNo: clubRepNo },
+					dataType: 'JSON',
+					success: function (result) {
+						if (result) {
+							//삭제되면 리스트 다시 불러오기
+							postListAjax()
+						}
+					},
+					error: function () {
+						alert("삭제실패");
+					}
+				})
+			};
+			
+			
 			
 			//게시글 삭제 아작스
-			function postDelteAjax(no) {
+		 	function postDelteAjax(clubPostNo) {
 				$.ajax({
 					type: 'POST',
 					url: 'postDelete',
@@ -434,7 +474,7 @@
 						alert("삭제실패");
 					}
 				})
-			};
+			}; 
 			
 			
 

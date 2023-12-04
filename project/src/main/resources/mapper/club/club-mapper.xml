@@ -123,4 +123,26 @@
   </delete>
   
   
+  <!-- 회원 > 클럽 가입 등록 -->
+  <insert id="insertClubMem" parameterType="clubVO">
+  	INSERT INTO club_mem
+  			(
+  				club_join_apply_wrt
+  				, club_approve
+  				, mem_id
+  				, club_no
+  				, apply_date
+  			)
+  		   VALUES
+  		   (
+  		   	#{clubJoinApplyWrt}
+  		   	, 'm3'
+  		   	, #{memId}
+  		   	, #{clubNo}
+  		   	, SYSDATE
+  		   )
+  				
+  </insert>
+  
+  
   </mapper>

@@ -59,7 +59,7 @@ public class ClubController {
 	//등록 페이지
 	@GetMapping("clubform")  
 	public String clubFormPage(Model model) { 	
-	    //처음 입력 폼은 모두 비어져야해서 빈 객체(new new ClubVO()) 전달
+	    //처음 입력 폼은 모두 비워져야해서 빈 객체(new new ClubVO()) 전달
 		model.addAttribute("clubVO",new ClubVO());
 		return "club/clubform";
 	}
@@ -86,6 +86,19 @@ public class ClubController {
 		}
 		
 	}
+	
+	//회원 클럽 가입신청(등록) 모달	
+	@PostMapping("memFormAjax")
+	@ResponseBody
+	public int clubMemFormAjax(ClubVO clubVO, Model model) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		clubVO.setMemId(id);
+		int result = clubService.insertClubMem(clubVO);
+		return result;
+	}
+	
+	
+	
 	
 // ---------------------------------------상세페이지
 	
@@ -167,12 +180,23 @@ public class ClubController {
 		//자유게시판 등록
 		@PostMapping("postInsert")
 		@ResponseBody
-		public int postInsertAjax(ClubPostVO clubPostVO, Model model) {
+		public String postInsertAjax(ClubPostVO clubPostVO, RedirectAttributes rttr) {
 			String id = SecurityContextHolder.getContext().getAuthentication().getName();
 			clubPostVO.setMemId(id);
 			//System.out.println("++++++ clubPostVO 뭔가요 "+clubPostVO);
-			int result =  clubPostService.insertPost(clubPostVO);
-		return result;
+			clubPostService.insertPost(clubPostVO);
+			
+			//사진 등록
+			List<AttachVO> files = fileUtils.uploadFiles(clubPostVO.getFiles());
+			int n = attachService.saveAttach("cp",clubPostVO.getClubPostNo(), files); //구분코드, 번호, 파일목록
+			
+			if(n> 0) {
+				rttr.addAttribute("clubNo", clubPostVO.getClubNo());
+				return "redirect:clubPost";
+			}else {
+				rttr.addAttribute("message", "파일등록에 실패하였습니다.");
+				return "redirect:clubPost";
+			}
 		}
 		
 		//자유게시판 삭제
@@ -219,7 +243,7 @@ public class ClubController {
 			//자유게시판 댓글 삭제
 			@PostMapping("repDelete")
 			@ResponseBody
-			public boolean deleteRepAjax(@RequestParam("repNo")Integer clubRepNo) {
+			public boolean deleteRepAjax(@RequestParam("paramRepNo")Integer clubRepNo) {
 				boolean result = clubRepService.deleteRep(clubRepNo);
 				return result;
 			}

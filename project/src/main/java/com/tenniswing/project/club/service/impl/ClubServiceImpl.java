@@ -78,6 +78,19 @@ public class ClubServiceImpl implements ClubService {
 		map.put("info", clubVO);
 		return map;
 	}
+	
+
+	//클럽 가입 신청
+	@Override
+	public int insertClubMem(ClubVO clubVO) {
+		return clubMapper.insertClubMem(clubVO);
+	}
+
+	//신청리스트
+	//@Override
+	//public List<ClubVO> selectAllClubMem(ClubVO clubVO) {
+	//	return clubMapper.selectAllClubMem(clubVO);
+	//}
 
 	
 	 
