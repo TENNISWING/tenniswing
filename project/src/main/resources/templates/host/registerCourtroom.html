@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/host/host-layout}">
+
+	<th:block layout:fragment="hostcontent">
+
+	<div class="container">
+		<!-- // Basic multiple Column Form section start -->
+		<section id="multiple-column-form">
+			<div class="row match-height">
+				<div class="col-12">
+					<div class="card">
+							<h4>코트 등록</h4>
+							<p style="color: red; font-size: 13px;">모든 사항은 필수 입력 사항입니다.</p>
+						<div class="card-content">
+							<div class="card-body">
+								<!-- 등록 폼 -->
+								<form th:action="@{/hostregisterCourtroom}" method="POST" name="insertForm"
+								th:object="${crtroomVO}" class="form" enctype="multipart/form-data"
+								data-parsley-validate>
+									<div class="row">
+									<!-- 코트장 등록 -->
+										<div class="col-md-4">
+											<label for="first-name-horizontal">코트장 이름<span style="color: red"> *</span></label>
+										</div>
+										<div class="col-md-8 form-group mandatory">
+											<input type="text" id="first-name-horizontal"
+												class="form-control" name="crtroomName" th:value="*{crtroomName}"
+												 data-parsley-required="true">
+										</div>
+										<div class="col-md-4">
+											<label for="email-horizontal">코트장 지역<span style="color: red"> *</span></label>
+										</div>
+										<div class="col-md-8 form-group">
+											<select class="form-control"
+												name="crtroomRegion" data-parsley-required="true"
+		                                        th:field="*{crtroomRegion}">
+												<option value="b1">서울</option>
+	                                            <option value="b2">경기</option>
+	                                            <option value="b3">인천</option>
+	                                            <option value="b4">강원도</option>
+	                                            <option value="b5">전라도</option>
+	                                            <option value="b6">경상도</option>
+	                                            <option value="b7">충청도</option>
+	                                            <option value="b8">제주도</option>
+											</select>
+										</div>
+										<div class="col-md-4">
+											<label for="email-horizontal">코트장 위치<span style="color: red"> *</span></label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="text" class="form-control" id="sample5_address"
+												name="crtroomLocation" th:field="*{crtroomLocation}" data-parsley-required="true"
+												style="width:80%;display:inline-block;">
+											<button type="button" class="btn btn-primary me-1 mb-1" style="border:1px solid black;display:inline-block;"
+												onclick="sample5_execDaumPostcode()">주소 검색</button>
+										</div>
+										<div class="col-md-4">
+											<label for="contact-info-horizontal">운영 시작 시간<span style="color: red"> *</span></label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="date" class="form-control flatpickr-time-picker-24h" name="crtroomOperateStartTime"
+												data-parsley-required="true" placeholder="운영 시작 시간을 입력하세요."
+												th:field="*{crtroomOperateStartTime}"
+												>
+										</div>
+										<div class="col-md-4">
+											<label for="contact-info-horizontal">운영 종료 시간<span style="color: red"> *</span></label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="date" class="form-control flatpickr-time-picker-24h" name="crtroomOperateEndTime"
+												data-parsley-required="true" placeholder="운영 종료 시간을 입력하세요."
+												th:field="*{crtroomOperateEndTime}">
+										</div>
+										<div class="col-md-4">
+											<label for="email-horizontal">코트장 설명<span style="color: red"> *</span></label>
+										</div>
+										<div class="col-md-8 form-group">
+											<textarea class="form-control" name="crtroomExp" rows="3"
+						                            placeholder="코트장 설명을 입력하세요."
+						                            data-parsley-required="true"
+						                            th:field="*{crtroomExp}"></textarea>
+										</div>
+										<div class="col-md-4">
+											<label for="password-horizontal">주의사항<span style="color: red"> *</span></label>
+										</div>
+										<div class="col-md-8 form-group">
+											<textarea class="form-control" name="crtroomCaution" rows="3"
+						                            data-parsley-required="true" placeholder="주의사항을 입력하세요."
+													th:field="*{crtroomCaution}"></textarea>
+										</div>
+										<div class="col-md-4">
+											<label for="password-horizontal">이용안내<span style="color: red"> *</span></label>
+										</div>
+										<div class="col-md-8 form-group">
+											<textarea class="form-control" name="crtroomUseGuide" rows="3"
+						                            data-parsley-required="true" placeholder="이용 안내를 입력하세요."
+													th:field="*{crtroomUseGuide}"></textarea>
+										</div>
+										<!-- 운영 허가증 시작 -->
+										<div class="col-md-4">
+											<label for="crtOperatePermit" class="form-label">운영 허가증<span style="color: red"> *</span></label>
+										</div>
+										<div class="col-md-8 form-group">
+											<input type="file" class="image-preview-filepond" name="files"
+												data-parsley-required="true" placeholder="파일을 첨부해주세요."
+												multiple> <div th:text="${message}"></div>
+										</div>
+										<!-- 운영 허가증 끝 -->
+										<div class="row">
+											<div class="col-12 d-flex justify-content-end">
+												<button type="submit" class="btn btn-primary me-1 mb-1">
+													코트장 내의 코트 정보 등록</button>
+												<button type="reset"
+													class="btn btn-light-secondary me-1 mb-1">
+													리셋</button>
+												<button type="button" class="btn btn-light-secondary me-1 mb-1 cancelBtn">
+												등록 취소</button>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- // Basic multiple Column Form section end -->
+	</div>
+	<script>
+		$('.cancelBtn').on('click',function(e){
+			Swal.fire({
+				  title: "",
+				  text: "변경된 값이 저장되지 않습니다. \n정말 취소하시겠습니까?",
+				  icon: "warning",
+				  showCancelButton: true,
+				  confirmButtonColor: "#3085d6",
+				  cancelButtonColor: "#d33",
+				  confirmButtonText: "Yes!"
+				}).then((result) => {
+				  if (result.isConfirmed) {
+					  window.history.back();
+				  }
+				});
+		})
+	</script>
+	<!-- 입력 체크 -->
+	<script>
+		document.querySelector('form[name="insertForm"]')
+				.addEventListener('submit', crtroomInsertHandler);
+		function crtroomInsertHandler(e){
+			e.preventDefault();
+			let crtroomName = document.getElementsByName('crtroomName')[0];
+			let crtroomRegion = document.getElementsByName('crtroomRegion')[0];
+			let crtroomLocation = document.getElementsByName('crtroomLocation')[0];
+			let crtroomOperateStartTime = document.getElementsByName('crtroomOperateStartTime')[0];
+			let crtroomOperateEndTime = document.getElementsByName('crtroomOperateEndTime')[0];
+			let crtroomExp = document.getElementsByName('crtroomExp')[0];
+			let crtroomCaution = document.getElementsByName('crtroomCaution')[0];
+			let crtroomUseGuide = document.getElementsByName('crtroomUseGuide')[0];
+			
+			let list = [crtroomName,crtroomRegion,crtroomLocation,crtroomOperateStartTime,
+						crtroomOperateEndTime,crtroomExp,crtroomCaution,crtroomUseGuide];
+			let listExp = ['이름','지역','위치','운영 시작 시간','운영 종료 시간','설명','주의사항','이용안내'];
+			for(let i=0; i < list.length; i++){
+				if(list[i].value == ''){
+					Swal.fire({
+						  icon: "error",
+						  title: "",
+						  text: "코트장 "+listExp[i]+"이(가) 입력되지 않았습니다.",
+						});
+					list[i].focus();
+					return;
+				}
+			}
+			
+			insertForm.submit();
+		}
+	</script>
+	<!-- 주소 검색 -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 API KEY를 사용하세요&libraries=services"></script>
+	<script>
+	    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+	        mapOption = {
+	            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+	            level: 5 // 지도의 확대 레벨
+	        };
+	
+	    //지도를 미리 생성
+	    var map = new daum.maps.Map(mapContainer, mapOption);
+	    //주소-좌표 변환 객체를 생성
+	    var geocoder = new daum.maps.services.Geocoder();
+	    //마커를 미리 생성
+	    var marker = new daum.maps.Marker({
+	        position: new daum.maps.LatLng(37.537187, 127.005476),
+	        map: map
+	    });
+	
+	
+	    function sample5_execDaumPostcode() {
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	                var addr = data.address; // 최종 주소 변수
+	
+	                // 주소 정보를 해당 필드에 넣는다.
+	                document.getElementById("sample5_address").value = addr;
+	                // 주소로 상세 정보를 검색
+	                geocoder.addressSearch(data.address, function(results, status) {
+	                    // 정상적으로 검색이 완료됐으면
+	                    if (status === daum.maps.services.Status.OK) {
+	
+	                        var result = results[0]; //첫번째 결과의 값을 활용
+	
+	                        // 해당 주소에 대한 좌표를 받아서
+	                        var coords = new daum.maps.LatLng(result.y, result.x);
+	                        // 지도를 보여준다.
+	                        mapContainer.style.display = "block";
+	                        map.relayout();
+	                        // 지도 중심을 변경한다.
+	                        map.setCenter(coords);
+	                        // 마커를 결과값으로 받은 위치로 옮긴다.
+	                        marker.setPosition(coords)
+	                    }
+	                });
+	            }
+	        }).open();
+	    }
+	</script>
+</th:block>
+</html>
