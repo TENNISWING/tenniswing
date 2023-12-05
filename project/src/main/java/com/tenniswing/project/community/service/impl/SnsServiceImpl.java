@@ -13,12 +13,16 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.community.mapper.SnsMapper;
+import com.tenniswing.project.community.mapper.SnsRepMapper;
 import com.tenniswing.project.community.service.SnsService;
 import com.tenniswing.project.community.service.SnsVO;
 
 @Service
 public class SnsServiceImpl implements SnsService {
 
+	@Autowired
+	SnsRepMapper snsRepMapper;
+	
 	@Autowired
 	SnsMapper snsMapper;
 
@@ -82,35 +86,68 @@ public class SnsServiceImpl implements SnsService {
 
 	// SNS 수정
 	@Override	
-	public int updateSns(SnsVO snsVO) {
-	
-//		ObjectMapper obj = new ObjectMapper();
-//		String tag = "";
-//		try {
-//			Map<String, String>[] list = obj.readValue(snsVO.getSnsTag(), Map[].class);
-//			if (list != null) {
-//				for (Map i : list) {
-//					tag += "#" + i.get("value") + ",";
-//				}
-//				snsVO.setSnsTag(tag);
-//
-//			}
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+	public Map<String, Object> updateSns(SnsVO snsVO) {
+		Map<String, Object> map = new HashMap<>();
+		boolean isSuccessed = false;
+		
+		ObjectMapper obj = new ObjectMapper();
+		String tag = "";
+		try {
+			Map<String, String>[] list = obj.readValue(snsVO.getSnsTag(), Map[].class);
+			if (list != null) {
+				for (Map i : list) {
+					String str = (String) i.get("value");
+					char charAt = str.charAt(0);
+				
+				if(charAt != '#') {
+					tag += "#" + i.get("value") + ",";
+				}else {
+					tag += i.get("value") + ",";
+				}
+				/* tag += "#" + i.get("value") + ","; */
+						/*
+						 * if(((List<SnsVO>) i.get("value")).contains("#")) { tag += i.get("value")+",";
+						 * }else { tag += "#" + i.get("value") + ","; }
+						 */
+					
+				}
 
-		//int result = snsMapper.updateGrp(snsVO);
+				snsVO.setSnsTag(tag);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		int result = snsMapper.updateSns(snsVO);
+		if(result == 1) {
+			isSuccessed = true;
+			snsMapper.updateGrp(snsVO);
+			
+		}
 
-		return result;
+		map.put("result", isSuccessed);
+		map.put("info", snsVO);
+		
+		return map;
 	
 	}
 
 	// 삭제
 	@Override
-	public int deleteSns(int snsWrtNo) {
-		return 0;
+	public boolean deleteSns(int snsWrtNo) {
+		
+		HashMap<String, Long> map = new HashMap<String, Long>();
+		map.put("snsWrtNo", (long)snsWrtNo);
+		map.put("delResult", (long)0);
+		snsMapper.deleteSns(map);
+		long result = (long)map.get("delResult");
+		System.out.println("서비스임플"+result);
+		if(result >= 1) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	// 좋아요 삭제

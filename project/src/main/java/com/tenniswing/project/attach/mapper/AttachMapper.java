@@ -20,4 +20,6 @@ public interface AttachMapper {
 	// 코트 순서 등록
 	public int saveAttachTurn(List<AttachVO> files);
 	
+	// sns 첨부파일 삭제
+	//public int deleteAttachSns(int attachTablePk);
 }

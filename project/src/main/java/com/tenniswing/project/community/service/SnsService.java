@@ -27,11 +27,11 @@ public interface SnsService {
 		
 		
 	// 수정
-	public int updateSns(SnsVO snsVO);
+	public Map<String, Object> updateSns(SnsVO snsVO);
 //	public Map<String, Object> updateGrp(SnsVO snsVO);
 	
 	// 삭제
-	public int deleteSns(@Param("snsWrtNo")int snsWrtNo );
+	public boolean deleteSns(int snsWrtNo );
 	
 	// 좋아요 삭제
 	public boolean deleteLike(int likeNo);

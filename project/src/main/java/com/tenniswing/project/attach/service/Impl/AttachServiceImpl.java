@@ -75,5 +75,14 @@ public class AttachServiceImpl implements AttachService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	/*
+	 * //sns 첨부파일 삭제
+	 * 
+	 * @Override public boolean deleteAttachSns(int tablePk) { int result =
+	 * attachMapper.deleteAttachSns(tablePk);
+	 * 
+	 * if(result == 1) { return true; }else { return false; } }
+	 */
 	
 }
