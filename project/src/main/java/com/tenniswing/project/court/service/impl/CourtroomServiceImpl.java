@@ -148,17 +148,14 @@ public class CourtroomServiceImpl implements CourtroomService {
 		return courtroomMapper.selectReview(reviewNo);
 	}
 
-	
-	
-	@Override
-	public Map<String, Object> updateReview(CrtroomVO crtroomVO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public boolean deleteReview(int reviewNo) {
-		// TODO Auto-generated method stub
-		return false;
+		int result = courtroomMapper.deleteReview(reviewNo);
+		
+		if(result == 1) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

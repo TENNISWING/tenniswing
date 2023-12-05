@@ -169,6 +169,18 @@ public class CourtController {
 			return map;
 		}
 		
+		@PostMapping("deleteReview")
+		@ResponseBody
+		public boolean deleteReview(@RequestParam Integer reviewNo) {
+			boolean result = courtroomService.deleteCourtroom(reviewNo);
+			/*
+			 * String msg = null; if(result) { msg = "정상적으로 삭제되었습니다. \n삭제대상 : "+crtroomNo;
+			 * }else { msg = "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다. \n삭제요청 : "+crtroomNo; }
+			 * rttr.addFlashAttribute("result", msg);
+			 */
+			return result;
+		}
+		
 		// 환불 테스트
 		@GetMapping("refundTest")
 		public String refundCourt(CrtRefundVO crtRefundVO){

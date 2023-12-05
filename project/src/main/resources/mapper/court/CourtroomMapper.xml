@@ -327,4 +327,10 @@
 	        ORDER BY reserve_no desc)
   		WHERE <![CDATA[rownum = 1]]>
   	</select>
+  	
+  	<!-- 후기 삭제 -->
+  	<delete id="deleteReview" parameterType="int">
+  		DELETE FROM review
+  		WHERE review_no = #{reviewNo}
+  	</delete>
   </mapper>

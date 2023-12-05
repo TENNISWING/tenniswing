@@ -50,9 +50,6 @@ public interface CourtroomService {
 	// 후기 등록 권한여부
 	public Integer confirmInsertReview(CrtroomVO crtroomVO);
 	
-	// 후기 수정
-	public Map<String, Object> updateReview(CrtroomVO crtroomVO);
-	
 	// 후기 삭제
 	public boolean deleteReview(int reviewNo);
 }
