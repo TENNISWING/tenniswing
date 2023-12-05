@@ -44,4 +44,7 @@ public interface MatchService {
 		
 		//코트찾기
 		public int searchCourtList(CrtroomVO crtroomVO);
+		
+		//이력 테이블
+		public int insertMatchHist(MatchVO matchVO);
 }

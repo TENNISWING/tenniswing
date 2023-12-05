@@ -44,21 +44,21 @@
 	<!-- club sub menu -->
 	<div class="container mb-4">
 		<ul class="nav d-flex justify-content-around text-center">
-			<li class="d-flex flex-column"><a href="javascript:void(0)">
-					<div>
-						<i class="fa-solid fa-list fs-3 text-info"></i>
-					</div>클럽 목록
-			</a></li>
-			<li class="d-flex flex-column"><a href="javascript:void(0)">
-					<div>
-						<i class="fa-solid fa-pen-square fs-3 text-primary"></i>
-					</div>클럽 창설
-			</a></li>
-			<li class="d-flex flex-column"><a href="javascript:void(0)">
-					<div>
-						<i class="fa-solid fa-m fs-3 text-warning"></i>
-					</div>마이 클럽
-			</a></li>
+			<li class="d-flex flex-column">
+				<a href="javascript:void(0)">
+					<div><i class="fa-solid fa-list fs-3 text-info"></i></div>클럽 목록
+				</a>
+			</li>
+			<li class="d-flex flex-column">
+				<a href="javascript:void(0)">
+					<div><i class="fa-solid fa-pen-square fs-3 text-primary"></i></div>클럽 창설
+				</a>
+			</li>
+			<li class="d-flex flex-column">
+				<a href="javascript:void(0)">
+					<div><i class="fa-solid fa-m fs-3 text-warning"></i></div>마이 클럽
+				</a>
+			</li>
 		</ul>
 	</div>
 	<!-- End club sub menu  -->
@@ -79,6 +79,8 @@
 						<div class="user__content">
 							<h3 style="line-height: 80px; color: #668585;"
 								th:text="${club.clubName}"></h3>
+								<h3 style="line-height: 80px; color: #668585;"
+								th:text="${club.memId}"></h3>
 							<h6 style="color: gray;">멤버수 : [[ ${club.clubMemNum} ]]명</h6>
 							<div>
 								<button class="btn btn-outline-success" id="clubEdit"

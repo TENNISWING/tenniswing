@@ -308,7 +308,7 @@
 										</button>
 									</div>
 									<div class="modal-body" style="text-align: center;">
-										<textarea name="area" cols="30" rows="5" id="area"
+										<textarea name="clubJoinApplyWrt" cols="30" rows="5" id="clubJoinApplyWrt"
 											class="form-control form-area" placeholder="클럽 가입 신청합니다."></textarea>
 										<p style="text-align: left; color: gray; margin-top: 20px;">
 											<b>이런 내용을 추가로 작성하면 좋아요</b><br>1. 살고있는 지역<br>2. 포지션<br>3.
@@ -318,37 +318,44 @@
 									<div class="modal-footer" style="text-align: center;">
 										<button type="button" class="btn btn-primary ms-1"
 											data-bs-dismiss="modal">취소</button>
-										<button type="button" class="btn btn-primary ms-1"
-											data-bs-dismiss="modal">신청</button>
+										<button type="button" class="btn btn-primary ms-1 submitBtn"
+											data-bs-dismiss="modal" data-value="${clubList.clubNo}">신청</button>
 									</div>
 								</div>
 							</div>
 						</div>
 						<!-- /클럽 가입 신청 작성 Modal  -->
-						
-						
-						
-						
-						
-						
 					`
 						$('#clubList').append(List)
 					}//반복문 끝
 					
-					
-					
-					/* $('.joinBtn').on("click", function(e){
+					 $('.submitBtn').on("click", function(e){
 						let clubNo = $(this).data('value');
-						clubNumber = 'club'+clubNo;
-						console.log(clubNumber)
-						//$('.clubModal').attr("id", clubNumber)
-					}) */
+						let clubJoinApplyWrt = $("#clubJoinApplyWrt").val();
+						clubMemFormAjax(clubNo,clubJoinApplyWrt)
+					}) 
 					
 					
 				}//success 끝
 			})//아작스끝
 			}
-			
+		
+			//클럽 가입 신청(등록)
+			function clubMemFormAjax(clubNo,clubJoinApplyWrt){
+				$.ajax({
+					type:'POST',
+					url:'memFormAjax',
+					data : {clubNo,clubJoinApplyWrt},
+					dataType:'text',
+					success:function(result){
+						$('#clubJoinApplyWrt').val('');
+						alert("신청이 완료되었습니다.")
+					},
+					error: function(){
+						alert("신청 실패")
+					}
+				})
+			}
 			
 			$(document).ready(function(){
 				clubListAjax()

@@ -5,6 +5,15 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<style>
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+</style>
+
 <th:block layout:fragment="content">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=55c9a1570cea1c39facf69c028dd3016&libraries=services"></script>
 
@@ -118,7 +127,7 @@
 									</ul>
 								</div>
 								<h3 class="product-detail__price">[[
-									${courtDetail.minPrice} ]]원 ~</h3>
+									${#numbers.formatInteger(courtDetail.minPrice, 3, 'COMMA') + '원'} ]] ~</h3>
 								<p class="product-detail__short_desc">[[
 									${courtDetail.crtroomExp} ]]</p>
 								<div class="product-detail__attr">
@@ -273,21 +282,21 @@
 										<div class="tab-pane fade show active" id="home-tab-pane"
 											role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 											<div class="content__body">
-												<p>[[ ${courtDetail.crtroomUseGuide} ]]</p>
+												<pre style="font-size: 14px; font-family: 'NanumSquareNeo-Variable';">[[ ${courtDetail.crtroomUseGuide} ]]</pre>
 											</div>
 										</div>
 										<div class="tab-pane fade" id="groceries-tab-pane"
 											role="tabpanel" aria-labelledby="groceries-tab" tabindex="0">
 											<div class="content__body">
-												<p>[[ ${courtDetail.crtroomCaution} ]]</p>
+												<pre style="font-size: 14px; font-family: 'NanumSquareNeo-Variable';">[[ ${courtDetail.crtroomCaution} ]]</pre>
 											</div>
 										</div>
 										<div class="tab-pane fade" id="refund-tab-pane"
 											role="tabpanel" aria-labelledby="groceries-tab" tabindex="0">
 											<div class="content__body">
-												<h5 style="margin-top: 20px;">Refund Information</h5>
+												<h5 style="margin-top: 20px; font-family: 'NanumSquareNeo-Variable'">Refund Information</h5>
 												<br>
-												<ul>
+												<ul style="font-family: 'NanumSquareNeo-Variable'">
 													<li>7일 전 취소시: [[${refundInf.sevenDayBefore}]]% 환불</li>
 													<li>5일 전 취소시: [[${refundInf.fiveDayBefore}]]% 환불</li>
 													<li>3일 전 취소시: [[${refundInf.threeDayBefore}]]% 환불</li>
@@ -302,112 +311,77 @@
 										<div class="tab-pane fade" id="women-tab-pane" role="tabpanel"
 											aria-labelledby="women-tab" tabindex="0">
 
-											<!--review form Modal -->
-											<div class="modal fade text-left" id="inlineForm"
-												tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
-												aria-hidden="true">
-												<div
-													class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-													role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h4 class="modal-title" id="myModalLabel33">Login
-																Form</h4>
-															<button type="button" class="close"
-																data-bs-dismiss="modal" aria-label="Close">
-																<i data-feather="x"></i>
-															</button>
-														</div>
-														<div class="modal-body">
-															<div class="input-group mb-3">
-																<input type="file" class="form-control"
-																	id="inputGroupFile01" style="padding: 0.375rem 0.75rem">
-															</div>
-
-															<div class="input-group mb-3">
-																<label class="input-group-text" for="inputGroupSelect01"
-																	style="margin: 0; padding-left: 23px; padding-right: 23px">
-																	Stars</label> <select class="form-select"
-																	id="inputGroupSelect01">
-																	<option selected>Choose...</option>
-																	<option value="1">One</option>
-																	<option value="2">Two</option>
-																	<option value="3">Three</option>
-																	<option value="4">Four</option>
-																	<option value="5">Five</option>
-																</select>
-															</div>
-
-															<div class="form-group">
-																<label for="area">Comment</label>
-																<textarea name="area" cols="30" rows="5" id="area"
-																	class="form-control form-area"
-																	placeholder="Type a comment"></textarea>
-															</div>
-															<div class="input-info__save">
-																<input class="checkbox" id="checkbox-2" type="checkbox"
-																	value="value2" /> <label for="checkbox-2">
-																	Save my name, email in this browser for the next time I
-																	comment.</label>
-															</div>
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-light-secondary"
-																data-bs-dismiss="modal">
-																<i class="bx bx-x d-block d-sm-none"></i> <span
-																	class="d-none d-sm-block">취소</span>
-															</button>
-															<button type="button" class="btn btn-primary ms-1"
-																data-bs-dismiss="modal">
-																<i class="bx bx-check d-block d-sm-none"></i> <span
-																	class="d-none d-sm-block">등록</span>
-															</button>
-														</div>
-													</div>
-												</div>
-											</div>
-
-											<div class="client__review">
+											<div class="client__review" style="font-family: 'NanumSquareNeo-Variable'">
 												<div class="outline"
 													style="margin: 30px 0 30px 0; overflow: hidden">
-													<h3 class="sec__title" style="margin: 0; float: left">Comments
-														(2)</h3>
-													<button type="button" class="btn btn-outline-success"
+													<h3 class="sec__title" style="margin: 0; float: left">Review</h3>
+													<button type="button" class="btn btn-outline-success" id="reviewBtn"
 														data-bs-toggle="modal" data-bs-target="#inlineForm"
-														style="float: right;">Launch Modal</button>
+														style="float: right;">후기 작성</button>
 												</div>
 												<div class="review__wrapper">
+													<th:block th:each="review, stat: ${courtReview}">
 													<div class="review__item">
 														<div class="avatar">
-															<img src="assets/img/shop/teni.jpg" alt="avatar" />
+															<img th:src="${review.attachPath}" alt="avatar" style="overfit:cover"/>
 														</div>
 														<div class="review__content">
 															<div class="review__desc">
 																<div class="review__wrap">
 																	<h5>
-																		<a href="#">Hena Sinha</a>
+																		<span>[[${review.memId}]]</span>
 																	</h5>
 																	<div class="rating">
-																		<ul>
+																		<th:block th:switch="${review.reviewStar}">
+																		<ul th:case="1" class="star">
+																			<li><i class="fa-solid fa-star"></i></li>
+																			<li><i class="fa-regular fa-star"></i></li>
+																			<li><i class="fa-regular fa-star"></i></li>
+																			<li><i class="fa-regular fa-star"></i></li>
+																			<li><i class="fa-regular fa-star"></i></li>
+																		</ul>
+																		<ul th:case="2" class="star">
+																			<li><i class="fa-solid fa-star"></i></li>
+																			<li><i class="fa-solid fa-star"></i></li>
+																			<li><i class="fa-regular fa-star"></i></li>
+																			<li><i class="fa-regular fa-star"></i></li>
+																			<li><i class="fa-regular fa-star"></i></li>
+																		</ul>
+																		<ul th:case="3" class="star">
+																			<li><i class="fa-solid fa-star"></i></li>
+																			<li><i class="fa-solid fa-star"></i></li>
+																			<li><i class="fa-solid fa-star"></i></li>
+																			<li><i class="fa-regular fa-star"></i></li>
+																			<li><i class="fa-regular fa-star"></i></li>
+																		</ul>
+																		<ul th:case="4" class="star">
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-regular fa-star"></i></li>
 																		</ul>
+																		<ul th:case="5" class="star">
+																			<li><i class="fa-solid fa-star"></i></li>
+																			<li><i class="fa-solid fa-star"></i></li>
+																			<li><i class="fa-solid fa-star"></i></li>
+																			<li><i class="fa-solid fa-star"></i></li>
+																			<li><i class="fa-solid fa-star"></i></li>
+																		</ul>
+																		</th:block>
 																	</div>
 																</div>
-																<div class="date">18 Jun 2022</div>
+																<script th:inline="javascript">
+																</script>
+																<div class="date">[[${#dates.format(review.reviewWriteDate, 'yyyy년 MM월 dd일')}]]</div>
 															</div>
 															<div class="review__para">
-																<p>There are many variations of passages of Lorem
-																	Ipsum available, but the majority have thank you
-																	suffered alteration in some form, by injected humour,
-																	or randomised words which don't look.</p>
+																<p>[[${review.reviewCtt}]]</p>
 															</div>
 														</div>
 													</div>
-													<div class="review__item">
+													</th:block>
+													<!-- <div class="review__item">
 														<div class="avatar">
 															<img src="assets/img/shop/teni.jpg" alt="avatar" />
 														</div>
@@ -436,16 +410,21 @@
 																	or randomised words which don't look.</p>
 															</div>
 														</div>
-													</div>
+													</div> -->
+													<br>
+												<div style="display: flex; justify-content: center">
+												<button id="reviewLoad" class="btn btn-primary" style="width: 200px;">More</button>
+												</div>
 												</div>
 											</div>
 										</div>
+										
 										<div class="tab-pane fade" id="electronics-tab-pane"
 											role="tabpanel" aria-labelledby="electronics-tab"
-											tabindex="0">
-											<h5 style="margin-top: 20px;">court address</h5>
+											tabindex="0" style="font-family: 'NanumSquareNeo-Variable'">
+											<h5 style="margin-top: 20px; font-family: 'NanumSquareNeo-Variable'">court address</h5>
 											<div style="margin-top: 15px">
-												<div><span class="fa-fw select-all fas"></span>[[${courtDetail.crtroomLocation}]]</div>
+												<!-- <div><span class="fa-fw select-all fas"></span>[[${courtDetail.crtroomLocation}]]</div>  -->
 											</div>
 											<div class="content__body" style="display: flex; justify-content: center">
 												<div id="map" style="width:1200px;height:400px;"></div>
@@ -454,20 +433,22 @@
 											<div style="display: flex; justify-content: space-around">
 												<ul style="list-style: none">
 													<li style="text-align: center"><img src="assets/img/icon/envelope.svg" style="hieght: 40px; width: 40px;"></li>
-													<li style="margin-top: 10px; text-align:center">Email</li>
+													<li style="margin-top: 10px; text-align:center"><strong>Email</strong></li>
 													<li style="margin-top: 10px;">[[${hostInfo.memId}]]</li>
 												</ul>
 												<ul style="list-style: none">
 													<li style="text-align: center"><img src="assets/img/icon/phone-call.svg" style="hieght: 40px; width: 40px;"></li>
-													<li style="margin-top: 10px; text-align:center">Tel</li>
+													<li style="margin-top: 10px; text-align:center"><strong>Tel</strong></li>
 													<li style="margin-top: 10px;">[[${hostInfo.phoneNo}]]</li>
 												</ul>
 												<ul style="list-style: none; display: flex; flex-direction: column">
 													<li style="text-align: center"><img src="assets/img/icon/marker.svg" style="hieght: 40px; width: 40px;"></li>
-													<li style="margin-top: 10px; text-align:center">Court</li>
+													<li style="margin-top: 10px; text-align:center"><strong>Court</strong></li>
 													<li style="margin-top: 10px;">[[${courtDetail.crtroomLocation}]]</li>
 												</ul>
 											</div>
+											<br>
+											<div style="text-align: center;">※ 문의사항 있을시 이메일 또는 전화, 문자 주시면 답변드리겠습니다.</div>
 											
 										</div>
 									</div>
@@ -561,7 +542,7 @@
 											</div>
 											<div class="product__bottom">
 												<div class="product__price">
-													[[${nearCrt.minPrice}]]원 ~
+													[[${#numbers.formatInteger(nearCrt.minPrice, 3, 'COMMA') + '원'}]] ~
 													<!-- <del>$22.00</del> -->
 												</div>
 												<div class="cart__action__btn">
@@ -612,6 +593,131 @@
 			</div>
 		</div>
 	</section>
+		<!--review form Modal -->
+		<form method="POST" th:object="${crtroomVO}" id="addReview" enctype="multipart/form-data">
+		<input type="hidden" name="crtroomNo" th:value="${param.crtroomNo}">
+		<div class="modal fade text-left" id="inlineForm"
+			tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
+			aria-hidden="true">
+			<div
+				class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+				role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel33">후기 등록</h4>
+						<button type="button" class="close"
+							data-bs-dismiss="modal" aria-label="Close">
+							<i data-feather="x"></i>
+						</button>
+					</div>
+					
+					<div class="modal-body">
+						<div class="input-group mb-3">
+							<input type="file" class="form-control" name="files"
+								id="files" style="padding: 0.375rem 0.75rem" multiple>
+						</div>
+						<div class="input-group mb-3">
+							<label class="input-group-text" for="inputGroupSelect01"
+								style="margin: 0; padding-left: 23px; padding-right: 23px">
+								별점</label> <select class="form-select"
+								id="reviewStar" th:field="*{reviewStar}">
+								<option value="5">5점</option>
+								<option value="4">4점</option>
+								<option value="3">3점</option>
+								<option value="2">2점</option>
+								<option value="1">1점</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="area">Comment</label>
+							<textarea cols="30" rows="5" id="reviewCtt"
+								class="form-control form-area"
+								placeholder="Type a comment" th:field="*{reviewCtt}"></textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-light-secondary"
+							data-bs-dismiss="modal">
+							<i class="bx bx-x d-block d-sm-none"></i> <span
+								class="d-none d-sm-block">취소</span>
+						</button>
+						<button type="button" class="btn btn-primary ms-1 reviewBtn"
+							data-bs-dismiss="modal" id="reviewRegi">
+							<i class="bx bx-check d-block d-sm-none"></i> <span
+								class="d-none d-sm-block">등록</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		</form>
+		<script type="text/javascript">
+			$('.review__item').css('display','none');
+			$('.review__item').slice(0,3).show();
+			$('#reviewLoad').click(function(e){
+				e.preventDefault();
+				$('.review__item:hidden').slice(0,3).show();
+				if($(".review__item:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+		            $('#reviewLoad').fadeOut(100); // 컨텐츠 없을 시 버튼 사라짐
+		        }
+			});
+			
+			$('#reviewRegi').on('click',function(e){
+				console.log(reviewCtt);
+				let form = $('#addReview')[0];
+				let reviewInfo = new FormData(form);
+				
+				for(let value of reviewInfo.values())
+					console.log(value);
+				
+				if($('#reviewStar').val() == '') {
+					Swal.fire({
+						text: "별점을 선택해주세요.",
+						icon: "info",
+						didClose: () =>{
+							$('#reviewStar').focus();
+						}
+					})				
+					return;	
+				} else if($('#reviewCtt').val() == '') {
+					Swal.fire({
+						text: "후기 내용을 입력하세요.",
+						icon: "info",
+						didClose: () =>{
+							$('#reviewCtt').focus();
+						}
+					})				
+					return;	
+				}
+				
+				$.ajax('insertCourtReview', {
+					type: 'post',
+					data: reviewInfo,
+					enctype: 'multipart/form-data',
+					contentType : false,
+					processData : false
+				}).done(results => {
+					if (results.result) {
+						Swal2.fire({
+							icon: "success",
+							text: "정상적으로 등록되었습니다.",
+						}).then(function(){
+							console.log(results.reviewList);
+							location.reload();
+						})
+					} else {
+						Swal2.fire({
+							icon: "error",
+							text: "정상적으로 등록되지 않았습니다.",
+						}).then(function(){
+							console.log(results);
+						})
+					}
+				})
+				.fail(err => console.log(err));	
+			})
+			
+		</script>
 	<!-- Trending Section End -->
 	<!-- End viewed history -->
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -682,7 +788,7 @@
 		})
     </script>
 	<script th:inline="javascript">
-	
+							
 						
 							let reserveTimeCode = [];
 						
@@ -702,6 +808,21 @@
 							let courtNo = $('input[name="crtDetailNo"]:checked').next().text();
 							$('input[name="crtNo"]').val(courtNo);
 							
+							
+							
+							let crtroomNo = $('input[name="crtroomNo"]').val();
+							console.log(crtroomNo)
+							$.ajax('confirmReserve', {
+								type: 'post',
+								data: {crtroomNo},							
+							}).done(results => {
+								if(results == 0){
+									console.log("로그인 안됨");
+									$('#reviewBtn').css('display','none');
+								}else{
+									
+								}
+							}).fail(err => console.log(err));	
 						})
 						
 						function reserveAjax(reserveDate, crtDetailNo) {
@@ -715,12 +836,21 @@
 								data: {reserveDate, crtDetailNo},
 								success: function(result) {
 									let currentDate = new Date();
+									
+									let currentDay = currentDate.getDate();
 									let currentTime = String(currentDate.getHours());
-									console.log(typeof(currentTime));
+									let reserveDateT = new Date(reserveDate);
+									
+									let tomorrow = new Date(currentDate.setDate(reserveDateT.getDate()+1));
+									console.log(currentDay);
+									
 									$('#matchList').empty();
 									$('#loadDiv').empty();
 										for(let i=0; i<reserveTimeCode.length; i++){
 											let b = ``;
+											if(24-currentDate.getHours() < 19-i && currentDay == reserveDateT.getDate()){
+												continue;
+											}
 											b = `
 												<tr class="navbar-brand">
 													<td class="text-center" style="width: 10%"><b>`+crtIndoorOutdoorName+`</b></td>
@@ -728,7 +858,7 @@
 													<input type="hidden" class="reserveTime" value="`+reserveTimeCode[i][0]+`"></td>
 													<input type="hidden" class="reserveTimeName" value="`+reserveTimeCode[i][1]+`"></td>
 													<td style="width: 10%"><span class="tReserveTime">`+useUnitTime+`</span><span>시간</span></td>
-													<td style="width: 10%"><span class="reservePrice">`+crtUsePrice+`</span><span>원</span></td>
+													<td style="width: 10%"><span class="reservePrice">`+crtUsePrice+`</span></td>
 													<td class="text-end" style="width: 20%"><button class="btn btn-primary matchbtn1 reserveBtn">예약하기</button></td>
 												</tr>
 											`;
@@ -744,7 +874,7 @@
 																<input type="hidden" class="reserveTime" value="`+reserveTimeCode[i][0]+`"></td>
 																<input type="hidden" class="reserveTimeName" value="`+reserveTimeCode[i][1]+`"></td>
 																<td style="width: 10%"><span class="tReserveTime">`+useUnitTime+`</span><span>시간</span></td>
-																<td style="width: 10%"><span class="reservePrice">`+crtUsePrice+`</span><span>원</span></td>
+																<td style="width: 10%"><span class="reservePrice">`+crtUsePrice+`</span></td>
 																<td class="text-end" style="width: 20%; height: 49px;"><div style="font-size: 13px; color: red; margin-right: 13px">예약마감</div></td>
 															</tr>
 														`;															
@@ -753,7 +883,6 @@
 												}
 												
 												$('#matchList').append(b)
-											
 										}
 												$('#loadDiv').append(`
 														<button id="load" class="btn btn-primary" style="width: 200px;">More</button>

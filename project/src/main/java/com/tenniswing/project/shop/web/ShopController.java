@@ -1,14 +1,13 @@
 package com.tenniswing.project.shop.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenniswing.project.attach.service.AttachService;
@@ -36,8 +35,21 @@ public class ShopController {
 	// 상품 목록
 	@GetMapping("shop")
 	public String shopPage(Model model) {
-		model.addAttribute("prodList", prodService.selectAllProd());
+//		model.addAttribute("prodList", prodService.selectAllProd());
+		model.addAttribute("newProd", prodService.selectSwiperProd());
 		return "shop/shop";
+	}
+	
+	@GetMapping("shopList")
+	@ResponseBody
+	public Map<String, Object> prodPage(ProdVO prodVO) {
+		System.out.println("!!!! before"+prodVO);
+		List<ProdVO> list = prodService.selectAllProd(prodVO);
+		System.out.println("!!!! after "+list);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("selectCount", prodService.selectCount(prodVO));
+		map.put("shopList", prodService.selectAllProd(prodVO));
+		return map;
 	}
 
 	// 한건 조회
