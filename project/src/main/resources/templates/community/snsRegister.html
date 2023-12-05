@@ -3,11 +3,12 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/main-layout}">
 <head>
-	<!-- tagify 소스 다운 -->
-	<script src="https://unpkg.com/@yaireo/tagify"></script>
-	<!-- 폴리필 (구버젼 브라우저 지원) -->
-	<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
-	
+<!-- tagify 소스 다운 -->
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<!-- 폴리필 (구버젼 브라우저 지원) -->
+<script
+	src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+
 </head>
 <th:block layout:fragment="content">
 
@@ -47,112 +48,165 @@
 							class="breadcrumb-header float-start float-lg-end">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="index.html">SNS</a></li>
-								<li class="breadcrumb-item active" aria-current="page">SNS 등록</li>
+								<li class="breadcrumb-item active" aria-current="page">SNS
+									등록</li>
 							</ol>
 						</nav>
 					</div>
 				</div>
 				<hr>
-							
+
 			</div>
 			<!-- Basic Vertical form layout section start -->
-    <section id="basic-vertical-layouts">
-        <div class="row match-height">
-            <div class="col-md-12 col-12">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <form th:action="@{/snsRegister}" method="Post" name="insertForm" 
-                            th:object="${snsVO}" class="form form-vertical" enctype="multipart/form-data">
-                                <div class="form-body">
-                                    <div class="row">
-                                         <div class="col-12">
-                                            <div class="form-group mandatory">
-                                                <label for="password-vertical" data-parsley-required="true" class="form-label" >제목</label>
-                                                <input type="text" id="password-vertical" class="form-control"
-                                                    name="snsTitle" placeholder="">
-                                            </div>
-                                        </div>
-                                         <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="password-vertical" data-parsley-required="true">그룹 등록</label>
-                                         <div class="input-group mb-3">
-	                                        <select class="form-select" id="inputGroupSelect01">
-	                                            
-	                                            <option selected>Choose...</option>
-	                                            
-	                                            <th:block>
-	                                            <option value="1">One</option>
-	                                            </th:block>
-	                                            <option value="2">Two</option>
-	                                            <option value="3">Three</option>
-	                                        </select>
-	                                        <label class="input-group-text" for="inputGroupSelect01">그룹이름</label>
-                                    	</div>
-                                              <!--   <input type="text" id="password-vertical" class="form-control"
-                                                    name="grpName" placeholder=""> -->
-                                            </div>
-                                        </div>
-                                         <div class="col-12">
-                                            <div class="form-group mandatory">
-                                                <label for="password-vertical" class="form-label">내용</label>
-                                                 <textarea class="form-control" id="exampleFormControlTextarea1" name="snsCtt" rows="3"></textarea>
-                                            </div>
-                                        </div>
-                                         <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="contact-info-vertical" data-parsley-required="true" >태그</label>
-                                                <input type="text" id="snsTag" class="form-control"
-                                                    name="snsTag">
-                                            </div>
-                                        </div>
-                                               
-                                        <div class="col-12">
-                                            <div class="form-group mandatory">
-                                                <label for="contact-info-vertical">사진 / 동영상 첨부하기</label>
-                                               <input type="file" class="image-preview-filepond" id="files"
-														name="files" multiple>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
-                                            <button type="reset"
-                                                class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-    <!-- // Basic Vertical form layout section end -->
+			<section id="basic-vertical-layouts">
+				<div class="row match-height">
+					<div class="col-md-12 col-12">
+						<div class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<form th:action="@{/snsRegister}" method="Post"
+										name="insertForm" th:object="${snsVO}"
+										class="form form-vertical" enctype="multipart/form-data">
+										<div class="form-body">
+											<div class="row">
+												<div class="col-12">
+													<div class="form-group mandatory">
+														<label for="password-vertical"
+															data-parsley-required="true" class="form-label">제목</label>
+														<input type="text" id="password-vertical"
+															class="form-control" name="snsTitle" placeholder="">
+													</div>
+												</div>
+												<div class="col-12">
+													<div class="form-group">
+														<div>
+															<label for="password-vertical"
+																data-parsley-required="true" class="groupRegBtn">그룹
+																등록</label>
 
-			
+															<div class="input-group mb-3">
+																<select class="form-select" id="inputGroupSelect01">
+
+																	<option selected>Choose...</option>
+
+																	<th:block>
+																		<option value="1">One</option>
+																	</th:block>
+																	<option value="2">Two</option>
+																	<option value="3">Three</option>
+																</select> <label class="input-group-text"
+																	for="inputGroupSelect01" data-bs-toggle="modal"
+																	data-bs-target="#inlineForm">그룹이름</label>
+															</div>
+															<!--   <input type="text" id="password-vertical" class="form-control"
+                                                    name="grpName" placeholder=""> -->
+														</div>
+													</div>
+													<div class="col-12">
+														<div class="form-group mandatory">
+															<label for="password-vertical" class="form-label">내용</label>
+															<textarea class="form-control"
+																id="exampleFormControlTextarea1" name="snsCtt" rows="3"></textarea>
+														</div>
+													</div>
+													<div class="col-12">
+														<div class="form-group">
+															<label for="contact-info-vertical"
+																data-parsley-required="true">태그</label> <input
+																type="text" id="snsTag" class="form-control"
+																name="snsTag">
+														</div>
+													</div>
+
+													<div class="col-12">
+														<div class="form-group mandatory">
+															<label for="contact-info-vertical">사진 / 동영상 첨부하기</label>
+															<input type="file" class="image-preview-filepond"
+																id="files" name="files" multiple>
+														</div>
+													</div>
+
+													<div class="col-12 d-flex justify-content-end">
+														<button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+														<button type="reset"
+															class="btn btn-light-secondary me-1 mb-1">Reset</button>
+													</div>
+												</div>
+											</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</section>
+			<!-- // Basic Vertical form layout section end -->
+
+
+		</div>
+	</div>
+	<!-- 그룹등록모달 -->
+	<div class="modal fade text-left" id="inlineForm" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+			role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel33">Login Form</h4>
+					<button type="button" class="close" data-bs-dismiss="modal"
+						aria-label="Close">
+						<i data-feather="x"></i>
+					</button>
+				</div>
+				<form action="#">
+					<div class="modal-body">
+						<label for="email">Email: </label>
+						<div class="form-group">
+							<input id="email" type="text" placeholder="Email Address"
+								class="form-control">
+						</div>
+						<label for="password">Password: </label>
+						<div class="form-group">
+							<input id="password" type="password" placeholder="Password"
+								class="form-control">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-light-secondary"
+							data-bs-dismiss="modal">
+							<i class="bx bx-x d-block d-sm-none"></i> <span
+								class="d-none d-sm-block">Close</span>
+						</button>
+						<button type="button" class="btn btn-primary ms-1"
+							data-bs-dismiss="modal">
+							<i class="bx bx-check d-block d-sm-none"></i> <span
+								class="d-none d-sm-block">login</span>
+						</button>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 	<script>
+		const input = document.querySelector('input[name=snsTag]');
+		console.log(input);
+		let tagify = new Tagify(input); // initialize Tagify
 
-    const input = document.querySelector('input[name=snsTag]');
-    console.log(input);
-    let tagify = new Tagify(input); // initialize Tagify
-    
-    // 태그가 추가되면 이벤트 발생
-    tagify.on('add', onAddTag)
-    function onAddTag(e){
-        console.log("onAddTag: ", e.detail.tagify.value);
-        console.log("original input value: ", input.value)
-        //console.log(data.value)
-        //loadOriginalValues
-    }
+		// 태그가 추가되면 이벤트 발생
+		tagify.on('add', onAddTag)
+		function onAddTag(e) {
+			console.log("onAddTag: ", e.detail.tagify.value);
+			console.log("original input value: ", input.value)
+			//console.log(data.value)
+			//loadOriginalValues
+		}
+		/* 
+		 $('.groupRegBtn').on('click', function() {
 
-
-
-</script>
+		 }) */
+	</script>
 
 
 </th:block>
