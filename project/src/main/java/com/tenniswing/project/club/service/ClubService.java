@@ -28,4 +28,7 @@ public interface ClubService {
     //public List<ClubVO> selectAllClubMem(ClubVO clubVO);
 	
 
+	//재은
+	public ClubVO selectMatchClub(ClubVO clubVO);
+
 }

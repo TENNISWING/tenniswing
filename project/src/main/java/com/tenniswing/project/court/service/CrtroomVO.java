@@ -42,4 +42,14 @@ public class CrtroomVO {
 	
 	// 이미지 리스트
 	private List<AttachVO> attachList;
+	
+	// 후기
+	private int reviewNo;
+	private String memId;
+	private String reviewCtt;
+	private int reviewStar;
+	private Date reviewWriteDate;
+	private Date reviewEditDate;
+	private int reserveNo;
+	
 }

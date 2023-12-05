@@ -91,6 +91,12 @@ public class ClubServiceImpl implements ClubService {
 	//	return clubMapper.selectAllClubMem(clubVO);
 	//}
 
+	//재은
+	@Override
+	public ClubVO selectMatchClub(ClubVO clubVO) {
+		return clubMapper.selectMatchClub(clubVO);
+	}
+
 	
 	 
 	

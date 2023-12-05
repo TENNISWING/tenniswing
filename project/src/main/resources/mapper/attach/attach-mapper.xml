@@ -108,4 +108,10 @@
 		AND attach_table_pk = #{file.attachTablePk}
 		</foreach>
 	</update>
+	
+<!-- 	<delete id="deleteAttachSns" parameterType="AttachVO">
+		DELETE FROM attach
+		WHERE attach_table_div = 's'
+		AND attach_table_pk = #{attachTablePk}
+	</delete> -->
 </mapper>

@@ -151,12 +151,9 @@
 							</div>
 							
 							<div class="col-4">
-								<br>
-								<h5>
-									<button type="button" class="btn btn-success" id="ntrpQ"
+									<button type="button" class="mtntrpbtn" id="ntrpQ"
 										href="javascript:void(0)" data-bs-toggle="modal"
 										data-bs-target="#ntrpModal">NTRP이란?</button>
-								</h5>
 							</div>
 							<div class="modal fade" id="ntrpModal" tabindex="-1"
 								role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -234,13 +231,18 @@
 													class="d-none d-sm-block">확인</span>
 											</button>
 										</div>
+
 									</div>
 								</div>
 							</div>
-						</div>
-						<button class="btn btn-success" type="submit">매치 등록</button>
-						<button class="btn btn-success" type="reset">취소</button>
+							<div class="ctrgbtns"><br>
+						<button class="btn btn-success" type="submit">등록하기</button>
+						<button class="btn btn-success" type="submit">수정</button>
 						<button class="btn btn-success" type="button"
+
+							th:onclick="|location.href='@{/}'|">취소</button>
+						</div></div>
+
 							th:onclick="|location.href='@{/}'|">돌아가기</button>
 
 					</div>

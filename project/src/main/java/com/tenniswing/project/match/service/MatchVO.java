@@ -55,4 +55,6 @@ public class MatchVO {
 	private int clubMatchRecruitPsnNum;
 	private Date matchRecruitWriteDate;
 	
+	private String attachPath; 
+	
 }
