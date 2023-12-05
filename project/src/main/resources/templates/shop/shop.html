@@ -3,10 +3,12 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/main-layout}">
 <head>
-	<style type="text/css">
-		
+	<style type="text/css">	
 		.list{
 			max-height: none;
+		}
+		#secondDrop div{
+			width: 120px;
 		}
 	</style>
 </head>
@@ -116,7 +118,7 @@
 							<form action="#" class="product-filter">
 								<!-- 카테고리 -->
 								<div class="select__style">
-									<select class="category-select" id="cateProd" name="cateProd">
+									<select class="form-select select__style" id="cateProd" name="cateProd">
 										<option value="none">카테고리</option>
 										<option value="q6">기타</option>
 										<option value="q1">의류</option>
@@ -127,15 +129,15 @@
 									</select>
 								</div>
 								<!-- 성별 -->
-								<div class="select__style">
+								<div class="select__style" id="secondDrop">
 									<select class="category-select" id="cateGen" name="cateGen">
 										<option value="none">성별</option>
-										<option value="c3">모두</option>
 										<option value="c1">남성</option>
 										<option value="c2">여성</option>
+										<option value="c3">성별 무관</option>
 									</select>
 								</div>
-								<button type="button" id="btnsearch">검색</button>
+								<button type="button" id="btnreset" class="danger__btn border-30">초기화</button>
 							</form>
 								<!-- <div class="custom__dropdown custom__dropdown__v2">
 									<div class="selected">
@@ -381,8 +383,25 @@
 	<!-- 페이징 처리 -->
 	<script type="text/javascript">
 		prodPage(1);
-	
-		$('#btnsearch').on('click', function(e) {
+		
+		$('#cateProd').on('change', function(e) {
+			pageNum = 1;
+			prodPage(1);
+		});
+		$('#cateGen').on('change', function(e) {
+			pageNum = 1;
+			prodPage(1);
+		});
+		
+		/* $('#btnsearch').on('click', function(e) {
+			pageNum = 1;
+			prodPage(1);
+		}); */
+		
+		$('#btnreset').on('click', function(e) {
+			$('#cateProd').val('none').prop('selected',true);
+			$('#cateGen').val('none').prop('selected',true);
+			pageNum = 1;
 			prodPage(1);
 		});
 		
@@ -484,6 +503,7 @@
 									</div>`;
 						$('#shopList').append(prodData);
 					}
+					
 					showPage(result.selectCount);
 				}
 			})
@@ -511,8 +531,6 @@
 			
 			var prev = startNum != 1;
 			var next = false;
-			
-			pageNum = 1;
 			
 			if(endNum * 10 >= replyCnt) {
 				endNum = Math.ceil(replyCnt/pageUnit);
