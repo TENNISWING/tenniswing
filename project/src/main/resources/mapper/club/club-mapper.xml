@@ -95,7 +95,7 @@
             , p.region
             , p.ntrp
             , p.pr_image
-   HAVING c.club_no = #{clubNo};  
+   HAVING c.club_no = #{clubNo}
   </select>
   
   

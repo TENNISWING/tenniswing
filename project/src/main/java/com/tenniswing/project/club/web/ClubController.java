@@ -108,9 +108,10 @@ public class ClubController {
 	// 상세페이지 > 탭 > 클럽정보
 	@GetMapping("clubInfo")
 	public String infoTapPage(Model model, ClubVO clubVO) {
-		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		clubVO.setMemId(id);
+		//String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		//clubVO.setMemId(id);
 		model.addAttribute("club", clubService.selectClub(clubVO));
+		System.out.println("@@@@@@@@@@@@클럽정보탭에 들어왔는데"+clubVO);
 		return "club/clubInfo";
 	}
 
