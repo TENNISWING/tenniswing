@@ -211,71 +211,7 @@
 				</div>
 			</section>
 
-			<!-- 클럽 가입 신청 버튼 Modal  -->
-			<div class="modal fade" id="exampleModalCenter" tabindex="-1"
-				role="dialog" aria-labelledby="exampleModalCenterTitle"
-				aria-hidden="true">
-				<div
-					class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
-					role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalCenterTitle">클럽 가입하기</h5>
-							<button type="button" class="close" data-bs-dismiss="modal"
-								aria-label="Close">
-								<i data-feather="x"></i>
-							</button>
-						</div>
-
-						<div class="modal-body" style="text-align: center;">
-							<div>
-								<img src="./assets/img/card.jpg" style="width: 450px;">
-							</div>
-							<br>
-							<p style="text-align: left;"></p>
-						</div>
-						<div class="modal-footer" style="text-align: center;">
-							<button type="button" class="btn btn-primary ms-1"
-								data-bs-dismiss="modal" data-bs-target="#exampleModalToggle2"
-								data-bs-toggle="modal">가입신청서 작성</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- 클럽 가입 신청 작성 Modal  -->
-			<div class="modal fade" id="exampleModalToggle2" tabindex="-1"
-				role="dialog" aria-labelledby="exampleModalCenterTitle"
-				aria-hidden="true">
-				<div
-					class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
-					role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalCenterTitle">가입신청</h5>
-							<button type="button" class="close" data-bs-dismiss="modal"
-								aria-label="Close">
-								<i data-feather="x"></i>
-							</button>
-						</div>
-						<div class="modal-body" style="text-align: center;">
-							<textarea name="area" cols="30" rows="5" id="area"
-								class="form-control form-area" placeholder="클럽 가입 신청합니다."></textarea>
-							<p style="text-align: left; color: gray; margin-top: 20px;">
-								<b>이런 내용을 추가로 작성하면 좋아요</b><br>1. 살고있는 지역<br>2. 포지션<br>3.
-								선호하는 플레이<br>4. 실력 및 경력<br>5. 나이
-							</p>
-						</div>
-						<div class="modal-footer" style="text-align: center;">
-							<button type="button" class="btn btn-primary ms-1"
-								data-bs-dismiss="modal">취소</button>
-							<button type="button" class="btn btn-primary ms-1"
-								data-bs-dismiss="modal">신청</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
+			
 		</div>
 	</div>
 
@@ -285,7 +221,6 @@
 		let clubListNo = 0;
 	
 		function clubListAjax(){
-		 
 			 $.ajax({
 				type: 'GET',
 				url: 'clubList',
@@ -297,9 +232,8 @@
 					for (let clubList of result) {
 						let List = `
 						<li class="media">
-						<div>
-							<img src="/assets/compiled/jpg/1.jpg" alt="avtar img holder"
-								style="width: 80px; border-radius: 70%;">
+						<div class="clubImg" style="width: 100px; height:100px; border-radius: 70%; overflow:hidden;" >
+							<img src="${clubList.attachPath}" alt="avtar img holder" style="width: 100% ;height: 100%; object-fit:cover;">
 						</div>
 						<div class="media-body" onclick="location.href='/clubdetail?clubNo=${clubList.clubNo}'">
 							<div class="mail-items">
@@ -319,20 +253,109 @@
 
 						<div class="mail-meta-item">
 							<div class="float-right">
-								<button type="button" style="margin: 0"
-									class="btn btn-primary btn-block my-4 compose-btn"
-									data-bs-toggle="modal" data-bs-target="#exampleModalCenter">가입</button>
+								<button type="button" style="margin: 0" id="clubBtn"
+									class="btn btn-primary btn-block my-4 joinBtn"
+									data-bs-toggle="modal" data-bs-target="#club${clubList.clubNo}">가입</button>
 							</div>
 						</div>
 						</li>
+						
+						<!-- 클럽 가입 신청 버튼 Modal  -->
+						<div class="modal fade clubModal" id="club${clubList.clubNo}" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalCenterTitle"
+							aria-hidden="true">
+							<div
+								class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+								role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalCenterTitle">클럽 가입하기</h5>
+										<button type="button" class="close" data-bs-dismiss="modal"
+											aria-label="Close">
+											<i data-feather="x"></i>
+										</button>
+									</div>
+
+									<div class="modal-body" style="text-align: center;">
+										<div>
+											<img src="${clubList.attachPath}" style="width: 450px;">
+										</div>
+										<br>
+										<p style="text-align: left;">${clubList.clubIntro}</p>
+									</div>
+									<div class="modal-footer" style="text-align: center;">
+										<button type="button" class="btn btn-primary ms-1"
+											data-bs-dismiss="modal" data-bs-target="#exampleModalToggle2"
+											data-bs-toggle="modal">가입신청서 작성</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /클럽 가입 신청 버튼 Modal  -->
+						<!-- 클럽 가입 신청 작성 Modal  -->
+						<div class="modal fade" id="exampleModalToggle2" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalCenterTitle"
+							aria-hidden="true">
+							<div
+								class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+								role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalCenterTitle">가입신청</h5>
+										<button type="button" class="close" data-bs-dismiss="modal"
+											aria-label="Close">
+											<i data-feather="x"></i>
+										</button>
+									</div>
+									<div class="modal-body" style="text-align: center;">
+										<textarea name="clubJoinApplyWrt" cols="30" rows="5" id="clubJoinApplyWrt"
+											class="form-control form-area" placeholder="클럽 가입 신청합니다."></textarea>
+										<p style="text-align: left; color: gray; margin-top: 20px;">
+											<b>이런 내용을 추가로 작성하면 좋아요</b><br>1. 살고있는 지역<br>2. 포지션<br>3.
+											선호하는 플레이<br>4. 실력 및 경력<br>5. 나이
+										</p>
+									</div>
+									<div class="modal-footer" style="text-align: center;">
+										<button type="button" class="btn btn-primary ms-1"
+											data-bs-dismiss="modal">취소</button>
+										<button type="button" class="btn btn-primary ms-1 submitBtn"
+											data-bs-dismiss="modal" data-value="${clubList.clubNo}">신청</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /클럽 가입 신청 작성 Modal  -->
 					`
 						$('#clubList').append(List)
-					}
-				
-				}
-			})
+					}//반복문 끝
+					
+					 $('.submitBtn').on("click", function(e){
+						let clubNo = $(this).data('value');
+						let clubJoinApplyWrt = $("#clubJoinApplyWrt").val();
+						clubMemFormAjax(clubNo,clubJoinApplyWrt)
+					}) 
+					
+					
+				}//success 끝
+			})//아작스끝
 			}
-			
+		
+			//클럽 가입 신청(등록)
+			function clubMemFormAjax(clubNo,clubJoinApplyWrt){
+				$.ajax({
+					type:'POST',
+					url:'memFormAjax',
+					data : {clubNo,clubJoinApplyWrt},
+					dataType:'text',
+					success:function(result){
+						$('#clubJoinApplyWrt').val('');
+						alert("신청이 완료되었습니다.")
+					},
+					error: function(){
+						alert("신청 실패")
+					}
+				})
+			}
 			
 			$(document).ready(function(){
 				clubListAjax()

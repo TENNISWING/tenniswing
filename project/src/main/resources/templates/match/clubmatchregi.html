@@ -7,10 +7,10 @@
 	
 	<!-- signup form -->
 	<div class="container justify-content-center" id="signupForm">
-		<form class="form form-vertical" action="matchregi" method="POST">
+		<form class="form form-vertical" action="clubmatchregi" method="POST">
 			<div class="form-body">
 				<div class="text-center">
-					<h3 class="my-4">매치 등록</h3>
+					<h3 class="my-4">클럽 매치 등록</h3>
 				</div>
 				<div th:text="${msg}"></div>
 				<!-- <div class="col-3"></div> -->
@@ -31,6 +31,17 @@
 								<div class="input-group mb-3">
 									<input type="text" class="form-control" placeholder="코트 입력"
 										aria-describedby="crtroomBtn" id="crtroomNo" name="crtroomNo">
+									<button class="btn btn-success" type="button" id="crtroomBtn">찾기</button>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-8">
+								<label for="crtroomNo">클럽명</label><br>
+								<div class="input-group mb-3">
+									<input type="text" class="form-control" placeholder="클럽명 입력"
+										aria-describedby="crtroomBtn" id="clubName" name="clubName">
 									<button class="btn btn-success" type="button" id="crtroomBtn">찾기</button>
 								</div>
 							</div>
@@ -79,20 +90,6 @@
 									</select>
 								</div>
 							</div>
-							</div>
-							
-							<div class="row">
-							<div class="col-6">
-								<label for="gen">모집 성별</label><br>
-								<div class="form-group">
-									<select class="choices form-select" name="gen" id="gen">
-										<optgroup label="성별">
-											<option value="c1">남성</option>
-											<option value="c2">여성</option>
-										</optgroup>
-									</select>
-								</div>
-							</div>
 						
 							<div class="col-6">
 								<label for="ntrp">ntrp</label><br>
@@ -134,7 +131,7 @@
 								<label for="name">코트비</label><br>
 								<div class="input-group mb-3">
 									<input type="text" class="form-control is-invalid"
-										placeholder="코트비 입력" id="crtamt" name="crtamt" maxlength="10"
+										placeholder="코트비 입력" id="crtUseAmt" name="crtUseAmt" maxlength="10"
 										required>
 								</div>
 							</div>
@@ -151,9 +148,12 @@
 							</div>
 							
 							<div class="col-4">
-									<button type="button" class="mtntrpbtn" id="ntrpQ"
+								<br>
+								<h5>
+									<button type="button" class="btn btn-success" id="ntrpQ"
 										href="javascript:void(0)" data-bs-toggle="modal"
 										data-bs-target="#ntrpModal">NTRP이란?</button>
+								</h5>
 							</div>
 							<div class="modal fade" id="ntrpModal" tabindex="-1"
 								role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -231,18 +231,13 @@
 													class="d-none d-sm-block">확인</span>
 											</button>
 										</div>
-
 									</div>
 								</div>
 							</div>
-							<div class="ctrgbtns"><br>
-						<button class="btn btn-success" type="submit">등록하기</button>
-						<button class="btn btn-success" type="submit">수정</button>
+						</div>
+						<button class="btn btn-success" type="submit">매치 등록</button>
+						<button class="btn btn-success" type="reset">취소</button>
 						<button class="btn btn-success" type="button"
-
-							th:onclick="|location.href='@{/}'|">취소</button>
-						</div></div>
-
 							th:onclick="|location.href='@{/}'|">돌아가기</button>
 
 					</div>

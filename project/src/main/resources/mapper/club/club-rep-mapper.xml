@@ -45,7 +45,7 @@
 	<delete id="deleteRep" parameterType="int">
 		DELETE FROM club_rep
 		WHERE club_rep_no = #{clubRepNo} 
-		AND mem_id = #{memId}
+		
 	</delete>
 
 </mapper>

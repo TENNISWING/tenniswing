@@ -9,6 +9,10 @@
 	height: 1200px;
 }
 </style>
+<!-- tagify 소스 다운 -->
+	<script src="https://unpkg.com/@yaireo/tagify"></script>
+	<!-- 폴리필 (구버젼 브라우저 지원) -->
+	<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 </head>
 
 <th:block layout:fragment="content">
@@ -59,42 +63,37 @@
 											<div class="card snsimg">
 												<div class="card-content">
 													<div class="card-body">
-														<h4 class="card-title">[[${s.snsTitle}]]</h4>
+														<span class="card-title" style="font-weight: bold;">[[${s.snsTitle}]]</span> 
+														<div class="edBtns" style="float: right;">
+																<i type="button" class="fa-regular fa-pen-to-square editBtnClass" th:onclick="|location.href='@{/snsEditForm(snsWrtNo=${s.snsWrtNo}, snsGrpNo=${s.snsGrpNo})}'|" id="editSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i> 
+																<i type="button" class="fa-regular fa-trash-can delBtnClass" id="delSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i>
+															</div>
+														<br>
+															
 														<th:block
 															th:each=" lang : ${#strings.arraySplit(s.snsTag,',')}">
-															<h4 class="card-title tagVal">[[${lang}]]</h4>
+															<span class="card-title tagVal">[[${lang}]]</span>
+														<!-- <input th:each="tagg:${#strings.arraySplit(s.snsTag,',')}" type="text" class="tags4" name="tags4" th:value="${lang}" readonly> -->
+															
 														</th:block>
 														<h6 class="card-subtitle" style="font-weight: 300;">[[${s.grpName}]]</h6>
 													</div>
 													<div id="myCarousel" th:attrappend="id=${sStat.count}"
 														class="carousel slide" data-ride="carousel">
 														<div class="carousel-inner">
-															<div class="carousel-item active">
-																<video class="main-top-promotion-video" autoplay="autoplay" loop="loop" muted="muted">
-															<source th:src="${s.attachPath}" type="video/mp4">
-															</video>
-															</div>
-															
-														
-
-															<!-- 	<th:block th:each="simg : ${attachList}"> -->
-															<!-- <th:block th:if>
-													
-															<div class="carousel-item active">
-																<img th:src="${simg.attachPath}"
-																	class="d-block w-100" alt="...">
-															</div>
-														</th:block>
-														<th:block th:unless>
-															
-														</th:block> -->
-															<!-- 	<img th:src="${s.attachList.attachPath}"
-																	class="d-block w-100" alt="..."> 
-													<!-- 	</th:block> -->
-															<!-- 			<div class="carousel-item">
-																<img src="./assets/compiled/jpg/bg-mountain.jpg"
-																	class="d-block w-100" alt="...">
-															</div> -->
+														<!-- 사진 / 동영상 반복문 -->
+															<th:block th:each="simg : ${s.attachList}"> 
+																<div class="carousel-item" th:if="${simg.attachExt=='.mp4'}" th:classappend="${simgStat.count==1}?active:_">
+																	<video class="main-top-promotion-video" autoplay="autoplay" loop="loop" muted="muted">
+																		<source th:src="${simg.attachPath}" type="video/mp4">
+																	</video>
+																</div>
+																<div class="carousel-item" th:unless="${simg.attachExt=='.mp4'}" th:classappend="${simgStat.count==1}?active:_">
+																	<img th:src="${simg.attachPath}"
+																		class="d-block w-100" alt="...">
+																</div>
+														</th:block> 
+														<!-- 사진 / 동영상 반복문 end -->
 														</div>
 														<a class="carousel-control-prev" href="#myCarousel"
 															th:attrappend="href=${sStat.count}" role="button"
@@ -137,7 +136,7 @@
 																<a th:if="${#strings.isEmpty(s.likeNo)}"
 																	class="btn icon btn-white"
 																	th:data-snslike="${s.snsWrtNo}"> <i
-																	class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC"
+																	class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC "
 																	id="likeBtn" th:attrappend="id=${sStat.count}"> </i>
 																</a> <a th:if="${not #strings.isEmpty(s.likeNo)}"
 																	class="btn icon btn-white"
@@ -191,9 +190,8 @@
 														<!-- 스크랩 버튼 -->
 														<li class="d-flex flex-column">
 															<div>
-																<a class="btn icon btn-white bmark"> <i
-																	class="fa-regular fa-bookmark fs-5 text-secondary iBmark">
-																</i>
+																<a class="btn icon btn-white bmark"> 
+																	<i class="fa-regular fa-bookmark fs-5 text-secondary iBmark"></i>
 																</a>
 															</div>
 														</li>
@@ -230,6 +228,9 @@
 
 	<!-- Initialize Swiper -->
 	<script>
+	
+	var input = document.querySelector('input[name=tags4]'),
+    tagify = new Tagify(input);
 
 		const swiper = new Swiper('.swiper', {
 			  // Optional parameters
@@ -289,13 +290,10 @@
 					</button>
 				</div>
 				<div class="modal-body">
-
-					<section class="section">
 						<div class="card">
 							<div class="card-header"></div>
 							<div class="card-body">
-								<div class="table-responsive">
-									<table class="table" id="table1">
+									<table class="table" id="tableRep">
 										<thead>
 											<tr>
 												<th>작성자</th>
@@ -318,11 +316,8 @@
 
 									</table>
 
-								</div>
 							</div>
 						</div>
-
-					</section>
 				</div>
 				<div class="modal-footer">
 					<div class="input-group mb-3">
@@ -500,7 +495,7 @@
 
 
 	//let valTag = Object.values(tagVal);
-	console.log(tagVal);
+	//console.log(tagVal);
 	
 	// 댓글 모달창이 열릴때 이벤트
 	let snsWrtNo = 0;
@@ -513,6 +508,10 @@
 
 	});
 
+/* 	$('#tableRep').DataTable({
+    	searching:false,
+    	ordering:false
+    }); */
 
 	//댓글 리스트 
 	function getRepList(snsWrtNo){
@@ -536,6 +535,8 @@
 						</tr>`
 		               $('#replyList').append(b);
 		            }
+		            
+		            
 		            //수정 아이콘 눌렀을때 누른행 제외하고 사라지고 등록 버튼 수정버튼으로 변경
 		            $('.repEditBtn').on('click', function(e){
 		            	$('#replyList').empty();
@@ -558,24 +559,9 @@
 				               $('#replyList').append(b);
 								snsRepNo = $(e.target).closest('tr').prop('id');
 								$('#repSubmit').text('수정');
-		            /* 	let i = 0;
-		            	while(cnt != 1){
-		            		console.log(cnt)
-		            		if($(e.target).prop('id').replace('editBtn','') == i){
-		            			i++;
-		            		}else if(cnt == 1){
-		            			break;
-		            		}else{
-
-		            			cnt--;
-		            			i++;
-		            		}
-		            	} */
-
-		            	/* for(let l=0; l <$('#replyList tr').length; l++){
-		            		$('#replyList tr')[i].remove();
-		            	} */
+	
 		            })
+		            
 		            $('.repDelBtn').on('click',function(e){
 		            	console.log("삭제클릭되나요");
 		            	console.log(e.target);
@@ -600,19 +586,6 @@
 							}
 		            	})
 		            });
-
-		        	// 댓글 수정
-		        	/* for(let[index, editList]of data.entries()){
-
-		    		$('#editBtn'+index).on('click', function(e){
-		    			console.log("수정버튼");
-		    			$('#repSubmit').text('수정');
-		    			$('#replyList').empty();
-
-
-		    		})
-
-		        	} */
 
 		         }
 
@@ -669,11 +642,37 @@
 			}
 	});
 
+		
+		// sns 삭제
+		$('.delBtnClass').on('click', function(e){
+			console.log("sns삭제 눌리나요");
+			let snsWrtNo = $(e.target).prop("id").replace("delSnsBtn","");
+			console.log(snsWrtNo);
+	       	 $.ajax({
+         		type:'POST',
+         		url: 'snsDel',
+         		data:{snsWrtNo},
+         		success:function(result){
+         			console.log(result)
+         			if(result){
+         				alert("정상삭제");
+         				location.reload();
+         			}
+         		},
+         		error : function() {
+						alert("삭제 실패");
+
+					}
+         	})
+			
+		})
+		
 
 
 
 
-	</script>
+
+		</script>
 </th:block>
 
 </html>

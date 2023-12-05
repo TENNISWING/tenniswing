@@ -19,6 +19,7 @@ public interface MatchService {
 		
 		//등록
 		public int insertMatch(MatchVO matchVO);
+		public int insertHistMatch(MatchVO matchVO);		
 		public int insertClubMatch(MatchVO matchVO);
 		public int insertContMatch(MatchVO matchVO);
 		public int insertStarterMatch(MatchVO matchVO);
@@ -43,4 +44,7 @@ public interface MatchService {
 		
 		//코트찾기
 		public int searchCourtList(CrtroomVO crtroomVO);
+		
+		//이력 테이블
+		public int insertMatchHist(MatchVO matchVO);
 }

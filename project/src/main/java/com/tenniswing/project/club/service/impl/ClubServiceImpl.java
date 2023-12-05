@@ -7,14 +7,20 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.club.mapper.ClubMapper;
 import com.tenniswing.project.club.service.ClubService;
 import com.tenniswing.project.club.service.ClubVO;
+import com.tenniswing.project.common.FileUtils;
 
 @Service
 public class ClubServiceImpl implements ClubService {
 
 	@Autowired ClubMapper clubMapper;
+	
+	@Autowired FileUtils fileUtils;
+	
+	@Autowired AttachService attachService;
 
 	//클럽 전체조회
 	@Override
@@ -31,8 +37,12 @@ public class ClubServiceImpl implements ClubService {
 	//클럽 등록
 	@Override
 	public int insertClub(ClubVO clubVO) {
-		int result = clubMapper.insertClub(clubVO);
 		
+		/*
+		 * List<AttachVO> files = fileUtils.uploadFiles(clubVO.getFiles());attachService.saveAttach("",
+		 * clubVO.getClubNo(), files);
+		 */
+		int result = clubMapper.insertClub(clubVO); 
 		if(result == 1) {
 			return clubVO.getClubNo();
 		}else {
@@ -67,6 +77,27 @@ public class ClubServiceImpl implements ClubService {
 		map.put("info", clubVO);
 		return map;
 	}
+	
 
+	//클럽 가입 신청
+	@Override
+	public int insertClubMem(ClubVO clubVO) {
+		return clubMapper.insertClubMem(clubVO);
+	}
+
+	//신청리스트
+	//@Override
+	//public List<ClubVO> selectAllClubMem(ClubVO clubVO) {
+	//	return clubMapper.selectAllClubMem(clubVO);
+	//}
+
+	//재은
+	@Override
+	public ClubVO selectMatchClub(ClubVO clubVO) {
+		return clubMapper.selectMatchClub(clubVO);
+	}
+
+	
+	 
 	
 }

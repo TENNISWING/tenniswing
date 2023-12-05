@@ -19,6 +19,7 @@ public interface MatchMapper {
 	
 	//등록
 	public int insertMatch(MatchVO matchVO);
+	public int insertHistMatch(MatchVO matchVO);
 	public int insertClubMatch(MatchVO matchVO);
 	public int insertContMatch(MatchVO matchVO);
 	public int insertStarterMatch(MatchVO matchVO);
@@ -40,4 +41,7 @@ public interface MatchMapper {
 	public int selectClubCount(MatchVO matchVO);
 	public int selectContCount(MatchVO matchVO);
 	public int selectStarterCount(MatchVO matchVO);
+	
+	//이력 테이블
+	public int insertMatchHist(MatchVO matchVO);
 }

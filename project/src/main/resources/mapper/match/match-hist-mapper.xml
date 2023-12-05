@@ -8,7 +8,7 @@
   	<select id="selectAllMatchHist" resultType="MatchHistVO">
   		SELECT match_hist_no
   				, match_no
-  				, match_apply_mem_no
+  				, mem_id
   				, match_apply_date
   				, wrt_regi_date
   				, match_state
@@ -34,7 +34,7 @@
   		SELECT match_hist_no
   				, match_no
   				, cont_match_no
-  				, match_apply_mem_no
+  				, mem_id
   				, match_apply_date
   				, wrt_regi_date
   				, match_state
@@ -46,7 +46,7 @@
   	<select id="selectAllStarterMatchHist" resultType="MatchHistVO">
   		SELECT match_hist_no
   				, match_no
-  				, match_apply_mem_no
+  				, mem_id
   				, match_apply_date
   				, wrt_regi_date
   				, match_state
@@ -58,7 +58,7 @@
   	<select id="selectMatchHist" resultType="MatchHistVO">
   		SELECT match_hist_no
   				, match_no
-  				, match_apply_mem_no
+  				, mem_id
   				, match_apply_date
   				, wrt_regi_date
   				, match_state
@@ -84,7 +84,7 @@
   		SELECT match_hist_no
   				, match_no
   				, cont_match_no
-  				, match_apply_mem_no
+  				, mem_id
   				, match_apply_date
   				, wrt_regi_date
   				, match_state
@@ -96,7 +96,7 @@
   	<select id="selectStarterMatchHist" resultType="MatchHistVO">
   		SELECT match_hist_no
   				, match_no
-  				, match_apply_mem_no
+  				, mem_id
   				, match_apply_date
   				, wrt_regi_date
   				, match_state
@@ -116,7 +116,7 @@
   	 			(
 		  	 		match_hist_no
 	  				, match_no
-	  				, match_apply_mem_no
+	  				, mem_id
 	  				, match_apply_date
 	  				, wrt_regi_date
 	  				, match_state	
@@ -125,13 +125,11 @@
   	 			(
   	 				#{matchHistNo}
   	 				,#{matchNo}
-  	 				,#{matchApplyMemNo}
-  	 				,#{matchApplyDate}
-  	 				,#{wrtRegiDate}
-  	 				,#{matchState}				
+  	 				,#{memId}
+  	 				,sysdate
+  	 				,sysdate
+  	 				,'g1'
   	 			)
-  	 		FROM match_hist
-  			WHERE match_hist_no = #{matchHistNo}	
   	</insert>  	
   
   <!-- 클럽매치이력 등록 -->
@@ -146,22 +144,20 @@
   	 			(
 		  	 		match_hist_no
 	  				, match_no
-	  				, match_apply_mem_no
+	  				, mem_id
 	  				, match_apply_date
 	  				, wrt_regi_date
-	  				, match_state	
+	  				, match_state
   	 			)
   	 			VALUES
   	 			(
   	 				#{matchHistNo}
   	 				,#{matchNo}
-  	 				,#{matchApplyMemNo}
-  	 				,#{matchApplyDate}
-  	 				,#{wrtRegiDate}
-  	 				,#{matchState}				
+  	 				,#{memId}
+  	 				,sysdate
+  	 				,#sysdate
+  	 				,'g1'
   	 			)
-  	 		FROM club_match_hist
-  			WHERE match_hist_no = #{matchHistNo}
   	</insert> 
   	
   	 <!-- 대회매치이력 등록 -->
@@ -176,24 +172,22 @@
   	 			(
 			  	 	match_hist_no
 	  				, match_no
-	  				, cont_match_no
-	  				, match_apply_mem_no
+	  				, match_apply_club_no
 	  				, match_apply_date
 	  				, wrt_regi_date
 	  				, match_state
+	  				, accept_state
   	 			)
   	 			VALUES
   	 			(
   	 				#{matchHistNo}
   	 				,#{matchNo}
-  	 				,#{contMatchNo}
-  	 				,#{matchApplyMemNo}
-  	 				,#{matchApplyDate}
-  	 				,#{wrtRegiDate}			
-  	 				,#{matchState}			
+  	 				,#{matchApplyClubNo}
+  	 				,sysdate
+  	 				,sysdate
+  	 				,'g1'
+  	 				,#{acceptState}
   	 			)
-  	 		FROM cont_match_hist
-  			WHERE match_hist_no = #{matchHistNo}
   	</insert> 
   	
   	 <!-- 스타터매치이력 등록 -->
@@ -208,7 +202,7 @@
   	 			(
 				  	match_hist_no
 	  				, match_no
-	  				, match_apply_mem_no
+	  				, mem_id
 	  				, match_apply_date
 	  				, wrt_regi_date
 	  				, match_state
@@ -217,13 +211,11 @@
   	 			(
   	 				#{matchHistNo}
   	 				,#{matchNo}
-  	 				,#{matchApplyMemNo}
-  	 				,#{matchApplyDate}
-  	 				,#{wrtRegiDate}			
-  	 				,#{matchState}			
+  	 				,#{memId}
+  	 				,sysdate
+  	 				,sysdate
+  	 				,'g1'
   	 			)
-  	 		FROM starter_match_hist
-  			WHERE match_hist_no = #{matchHistNo}
   	</insert> 
   
   	<!-- 수정 -->
@@ -232,7 +224,7 @@
   			SET
   				match_hist_no = #{matchHistNo}
   				, match_no = #{matchNo}
-  				, match_apply_mem_no = #{matchApplyMemNo}
+  				, mem_id = #{memId}
   				, match_apply_date = #{matchApplyDate}
   				, wrt_regi_date = #{wrtRegiDate}
   				, match_state = #{matchState}
@@ -260,7 +252,7 @@
   				match_hist_no = #{matchHistNo}
   				, match_no = #{matchNo}
   				, cont_match_no = #{contMatchNo}
-  				, match_applye_mem_no = #{matchApplyMemNo}
+  				, match_applye_mem_no = #{memId}
   				, match_apply_date = #{matchApplyDate}
   				, wrt_regi_date = #{wrtRegiDate}
   				, match_state = #{matchState}
@@ -273,7 +265,7 @@
   			SET
   				match_hist_no = #{matchHistNo}
   				, match_no = #{matchNo}
-  				, match_applye_mem_no = #{matchApplyMemNo}
+  				, match_applye_mem_no = #{memId}
   				, match_state = #{matchState}
   				, wrt_regi_date = #{wrtRegiDate}
   				, match_apply_date = #{matchApplyDate}

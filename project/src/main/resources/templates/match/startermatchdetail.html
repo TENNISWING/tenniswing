@@ -21,7 +21,7 @@
                 <div class="col-lg-8 m-15px-tb">
                     <article class="article">
                         <div class="article-img">
-                            <img src="assets/img/match/crt/crt1.jpg" title="" alt="">
+                            <img th:src="${starterMatchInfo.attachPath}" title="" alt="" style="width:850px; height:350px;">
                         </div>
                         <div class="article-title">
                             <div class="media">
@@ -35,9 +35,8 @@
                             </div>
                         </div>                        
                         <div class="article-content">
-                        	<p>인원 수 [[${starterMatchInfo.recruitPsnNum}]]</p>
-                        	<p>모집 성별 [[${starterMatchInfo.genName}]]</p>
-                        	<p>레벨 [[${starterMatchInfo.lvName}]]</p>
+                        	<p>모집 인원 수 : [[${starterMatchInfo.recruitPsnNum}]]명</p>
+                        	<p>모집 성별 : [[${starterMatchInfo.genName}]]</p>
                         </div>                        
                     </article>
                 </div>
@@ -51,15 +50,15 @@
                         </div>
                         <div class="widget-body">
                             <div class="latest-post-aside media">
-                            	<p>경기 시간</p>
+                            	<p>경기 시간 : [[${starterMatchInfo.time}]]시</p>
                             </div>
                             <div class="latest-post-aside media">
-                                <p>코트장 이름 [[${starterMatchInfo.crtroomName}]]</p>
+                                <p>코트장 이름 : [[${starterMatchInfo.crtroomName}]]</p>
                             <div class="lpa-right">
                                 </div>
                             </div>
                             <div class="latest-post-aside media">
-                            	<p>코트장 위치 [[${starterMatchInfo.crtroomLocationName}]]</p>
+                            	<p>코트장 위치 : [[${starterMatchInfo.crtroomLocationName}]]</p>
                             </div>
                         </div>
                     </div>
@@ -71,7 +70,7 @@
                             <h3 class="mdttitle">인당 요금</h3>
                         </div>
                         <div class="widget-body">
-							<p>레슨비 [[${starterMatchInfo.rsPrice}]]</p>     
+							<p>레슨비 : [[${starterMatchInfo.rsPrice}]]</p>     
                     </div>
                     <!-- End Author -->                              
                 </div>
@@ -80,33 +79,25 @@
 					<div class="cart__action__btn">
 						<td class="text-end">
 			                <button type="button" class="btn btn-primary matchbtn4" data-bs-toggle="modal"
-                                    data-bs-target="#backdrop">매치신청</button>
+                                    data-bs-target="#backdrop">신청하기</button>
 			            </td>
-						<div class="quantity cart__quantity">
-							<button type="button" class="decressQnt">
-								<span class="bar"></span>
-							</button>
-							<input class="qnttinput" type="number" disabled value="0"
-								min="01" max="100" />
-							<button type="button" class="incressQnt">
-								<span class="bar"></span>
-							</button>
-						</div>
 					</div>
 					<div class="cart__action__btn">
 						<td class="text-end">
-			                <button type="button" class="btn btn-primary matchbtn4">목록으로</button>
+
+			                <button type="button" class="btn btn-primary matchbtn4" th:onclick="|location.href='@{/startermatchupdateregi}'|">수정하기</a></button>
 			            </td>
-						<div class="quantity cart__quantity">
-							<button type="button" class="decressQnt">
-								<span class="bar"></span>
-							</button>
-							<input class="qnttinput" type="number" disabled value="0"
-								min="01" max="100" />
-							<button type="button" class="incressQnt">
-								<span class="bar"></span>
-							</button>
-						</div>
+					</div>
+					<div class="cart__action__btn">
+						<td class="text-end">
+			                <button type="button" class="btn btn-primary matchbtn4" data-bs-toggle="modal"
+                                    data-bs-target="#backdrop">삭제하기</button>
+			            </td>
+					</div>
+					<div class="cart__action__btn">
+						<td class="text-end">
+			                <button type="button" class="btn btn-primary matchbtn4" th:onclick="|location.href='@{/}'|">목록으로</a></button>
+			            </td>
 					</div>
 				</div>
 				<!-- button close -->
@@ -136,7 +127,7 @@
                                                 <i class="bx bx-x d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">아니오</span>
                                             </button>
-                                            <button type="button" class="btn btn-primary ms-1 mctdbtntn" data-bs-dismiss="modal">
+                                            <button type="button" id="mtdapbtn" class="btn btn-primary ms-1 mctdbtntn" data-bs-dismiss="modal">
                                                 <i class="bx bx-check d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block ">예</span>
                                             </button>
@@ -145,7 +136,19 @@
                                 </div>
                             </div>
             </div>
-           
+           <script th:inline='javascript'>
+            let matchNo = [[${starterMatchInfo.matchNo}]]
+            $('#mtdapbtn').on("click", function(e) {
+            	console.log('mtdapbtn');
+                $.ajax({
+               	 type: 'POST',
+               	 url: 'starterMatchDetailInsert',
+               	 data: {matchNo},
+                 success: function(result) {
+                	 }
+                })
+            })
+            </script>
 	</th:block>
 
 </html>

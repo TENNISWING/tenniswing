@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tenniswing.project.club.mapper.ClubMapper;
+import com.tenniswing.project.club.service.ClubVO;
 import com.tenniswing.project.match.mapper.MatchHistMapper;
 import com.tenniswing.project.match.service.MatchHistService;
 import com.tenniswing.project.match.service.MatchHistVO;
@@ -13,6 +15,7 @@ import com.tenniswing.project.match.service.MatchHistVO;
 public class MatchHistServiceImpl implements MatchHistService {
 
 	@Autowired MatchHistMapper matchHistMapper;
+	@Autowired ClubMapper clubMapper;
 	
 	@Override
 	public List<MatchHistVO> selectAllMatchHist() {
@@ -30,6 +33,20 @@ public class MatchHistServiceImpl implements MatchHistService {
 	}
 
 	@Override
+	public int insertClubMatchHist(MatchHistVO matchHistVO) {
+		ClubVO clubVO = new ClubVO();
+		clubVO.setMemId(matchHistVO.getMemId());
+		clubVO = clubMapper.selectMatchClub(clubVO);
+		matchHistVO.setMatchApplyClubNo(clubVO.getClubNo());
+		return matchHistMapper.insertClubMatchHist(matchHistVO);
+	}
+	
+	@Override
+	public int insertStarterMatchHist(MatchHistVO matchHistVO) {
+		return matchHistMapper.insertStarterMatchHist(matchHistVO);
+	}
+	
+	@Override
 	public int updateMatchHist(MatchHistVO matchHistVO) {
 		return matchHistMapper.updateMatchHist(matchHistVO);
 	}
@@ -38,5 +55,12 @@ public class MatchHistServiceImpl implements MatchHistService {
 	public int deleteMatchHist(MatchHistVO matchHistVO) {
 		return matchHistMapper.deleteMatchHist(matchHistVO);
 	}
+
+	@Override
+	public MatchHistVO selectClubMatchHist(MatchHistVO matchHistVO) {
+		return matchHistMapper.selectClubMatchHist(matchHistVO);
+	}
+
+	
 
 }

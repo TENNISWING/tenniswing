@@ -60,6 +60,11 @@ public class MatchServiceImpl implements MatchService {
 	public int insertMatch(MatchVO matchVO) {
 		return matchMapper.insertMatch(matchVO);
 	}
+	
+	@Override
+	public int insertHistMatch(MatchVO matchVO) {
+		return matchMapper.insertHistMatch(matchVO);
+	}	
 
 	@Override
 	public int insertClubMatch(MatchVO matchVO) {
@@ -140,6 +145,10 @@ public class MatchServiceImpl implements MatchService {
 	public int searchCourtList(CrtroomVO crtroomVO) {
 		return 0;
 	}
-	
+
+	@Override
+	public int insertMatchHist(MatchVO matchVO) {
+		return matchMapper.insertMatchHist(matchVO);
+	}
 	
 }
