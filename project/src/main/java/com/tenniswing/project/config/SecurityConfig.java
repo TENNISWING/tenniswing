@@ -20,8 +20,8 @@ public class SecurityConfig {
 
 
 				.antMatchers("/mypage/**","/clubform","/matchregi","/snsRegister").authenticated()
-				//.antMatchers("/admin/**").hasRole("ADMIN")
-				//.antMatchers("/host/**").hasRole("HOST")
+				//.antMatchers("/admin**").hasRole("ADMIN")
+				//.antMatchers("/host**").hasRole("HOST")
 
 				.anyRequest().permitAll()
 				

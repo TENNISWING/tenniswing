@@ -154,7 +154,7 @@
 			role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel33">Login Form</h4>
+					<h4 class="modal-title" id="myModalLabel33">SNS 나의 그룹 등록</h4>
 					<button type="button" class="close" data-bs-dismiss="modal"
 						aria-label="Close">
 						<i data-feather="x"></i>
@@ -162,27 +162,22 @@
 				</div>
 				<form action="#">
 					<div class="modal-body">
-						<label for="email">Email: </label>
+						<label for="email">그룹 생성</label>
 						<div class="form-group">
-							<input id="email" type="text" placeholder="Email Address"
-								class="form-control">
-						</div>
-						<label for="password">Password: </label>
-						<div class="form-group">
-							<input id="password" type="password" placeholder="Password"
-								class="form-control">
+							<input id="text" type="text" placeholder="생성할 그룹 이름을 입력하세요"
+								class="form-control grpInput">
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-light-secondary"
 							data-bs-dismiss="modal">
-							<i class="bx bx-x d-block d-sm-none"></i> <span
-								class="d-none d-sm-block">Close</span>
+							<i class="bx bx-x d-block d-sm-none"></i> 
+							<span class="d-none d-sm-block">Close</span>
 						</button>
-						<button type="button" class="btn btn-primary ms-1"
+						<button type="button" class="btn btn-primary ms-1 myGrpBtn"
 							data-bs-dismiss="modal">
-							<i class="bx bx-check d-block d-sm-none"></i> <span
-								class="d-none d-sm-block">login</span>
+							<i class="bx bx-check d-block d-sm-none"></i> 
+							<span class="d-none d-sm-block">등록</span>
 						</button>
 					</div>
 				</form>
@@ -202,10 +197,26 @@
 			//console.log(data.value)
 			//loadOriginalValues
 		}
-		/* 
-		 $('.groupRegBtn').on('click', function() {
-
-		 }) */
+		
+		 $('.myGrpBtn').on('click', function() {
+				let grpName = $('.grpInput').val();
+				$.ajax({
+					url: 'snsGrpInsert',
+					data: {grpName},
+					type : 'post',
+					datatype : 'text',
+					success: function(result){
+						if(result>0){
+						alert("그룹 등록 성공");
+							
+						}
+						$('.grpInput').val('');
+					},
+					error : function(){
+						alert("등록 실패");
+					}
+				})
+		 }) 
 	</script>
 
 

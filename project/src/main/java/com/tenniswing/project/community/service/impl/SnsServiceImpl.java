@@ -31,6 +31,13 @@ public class SnsServiceImpl implements SnsService {
 	public List<SnsVO> selectAllSnsInfo(SnsVO snsVO) {
 		return snsMapper.selectAllSnsInfo(snsVO);
 	}
+	
+	// 회원당 그룹 조회
+	@Override
+	public List<SnsVO> selectGroup(SnsVO snsVO){
+		return snsMapper.selectGroup(snsVO);
+	}
+
 
 	// 단건 조회
 	@Override
@@ -69,7 +76,8 @@ public class SnsServiceImpl implements SnsService {
 	// 그룹등록
 	@Override
 	public int insertSnsGrp(SnsVO snsVO) {
-		return 0;
+		
+		return snsMapper.insertSnsGrp(snsVO);
 	}
 
 	// 좋아요 등록

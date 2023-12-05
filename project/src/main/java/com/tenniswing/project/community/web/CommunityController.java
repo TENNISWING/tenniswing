@@ -227,7 +227,17 @@ public class CommunityController {
 			return "community/snsMyList";
 		}
 		
+		// sns 그룹 등록
 		
+		@PostMapping("snsGrpInsert")
+		@ResponseBody
+		public int snsGrpInsertAjax(SnsVO snsVO) {
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			snsVO.setMemId(id);
+			System.out.println("그룹찍어봄"+snsVO);
+			
+			return snsService.insertSnsGrp(snsVO);
+		}
 
 		// 자유게시판 메인(리스트 페이지)
 		@GetMapping("freeboardList")

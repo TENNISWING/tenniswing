@@ -180,30 +180,30 @@
 		sns_grp_no
 		,grp_create_date
 		,grp_name
+		,mem_id
 		)
 		VALUES
 		(
 		#{snsGrpNo}
-		<choose>
-			<when test="grpCreateDate != null">,#{grpCreateDate}</when>
-			<otherwise>,sysdate</otherwise>
-		</choose>
+		,sysdate
 		,#{grpName}
+		,#{memId}
 		)
 	</insert>
 	
 	<!-- 회원당 그룹 조회 -->
-	<select id="" resultType="SnsVO">
+	<select id="selectGroup" resultType="SnsVO">
 		select sns_grp_no
 			   ,grp_create_date
 			   ,post_num
 			   ,grp_name
 			   ,grp_edit_date
-			   ,s.mem_id
-		from sns_grp g, sns s
-		where g.sns_grp_no = s.sns_grp_no
-		and s.mem_id = #{memId}
+			   ,mem_id
+		from sns_grp g
+		where mem_id = #{memId}
 	</select>
+	
+
 	
 	
 	<!-- 수정 : 그룹업데이트 -->
