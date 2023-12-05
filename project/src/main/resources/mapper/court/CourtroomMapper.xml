@@ -76,6 +76,7 @@
   	
   	<!-- 코트 상세 조회 -->
   	<resultMap id="courtResult" type="crtroomVO">
+  		<id property="crtroomNo" column="crtroom_no"/>
   		<collection property="crtDetailList" javaType="ArrayList" column="crtroom_no" ofType="CrtDetailVO" select="selectCourtDetail" />
   		<collection property="attachList" javaType="ArrayList" column="crtroom_no" ofType="AttachVO" select="attachListAllCourt" />
   	</resultMap>
@@ -143,45 +144,48 @@
 	
   	<!-- 인근 코트장 추천 -->
 	<select id="nearCrtroom" resultType="crtroomVO">
-  		SELECT cr.crtroom_no
+		SELECT *
+  		FROM (SELECT cr.crtroom_no
   				, cr.crtroom_name
   				, cr.crtroom_location
   				, MIN(cdi.crt_use_price) min_price
   				, a.attach_path
-  		FROM crtroom cr JOIN crt_detail_inf cdi
-  						ON cr.crtroom_no = cdi.crtroom_no
-  						JOIN attach a
-  						ON cr.crtroom_no = a.attach_table_pk
-  		WHERE a.attach_table_div = 'cd'
-  		AND a.attach_turn = 1
-  		AND cr.crtroom_region = #{crtroomRegion}
-  		and <![CDATA[rownum < 8]]>
-  		GROUP BY cr.crtroom_no
-  				, cr.crtroom_name
-  				, cr.crtroom_location
-  				, a.attach_path
+	  		FROM crtroom cr JOIN crt_detail_inf cdi
+	  						ON cr.crtroom_no = cdi.crtroom_no
+	  						JOIN attach a
+	  						ON cr.crtroom_no = a.attach_table_pk
+	  		WHERE a.attach_table_div = 'cd'
+	  		AND a.attach_turn = 1
+	  		AND cr.crtroom_region = #{crtroomRegion}
+	  		GROUP BY cr.crtroom_no
+	  				, cr.crtroom_name
+	  				, cr.crtroom_location
+	  				, a.attach_path)
+  		WHERE <![CDATA[rownum < 8]]>
   	</select>
   	
   	<!-- 코트 하단 스와이퍼 -->
   	<select id="recentRegiCourt" resultType="crtroomVO">
-  		SELECT cr.crtroom_no
+  		SELECT *
+  		FROM (SELECT cr.crtroom_no
   				, cr.crtroom_name
   				, cr.crtroom_location
   				, MIN(cdi.crt_use_price) min_price
   				, a.attach_path
-  		FROM crtroom cr JOIN crt_detail_inf cdi
-  						ON cr.crtroom_no = cdi.crtroom_no
-  						JOIN attach a
-  						ON cr.crtroom_no = a.attach_table_pk
-  		WHERE a.attach_table_div = 'cd'
-  		AND a.attach_turn = 1
-  		and <![CDATA[rownum < 8]]>
-  		GROUP BY cr.crtroom_no
-  				, cr.crtroom_name
-  				, cr.crtroom_location
-  				, a.attach_path
-  				, a.attach_in_date
-  		ORDER BY a.attach_in_date desc
+		  		FROM crtroom cr JOIN crt_detail_inf cdi
+		  						ON cr.crtroom_no = cdi.crtroom_no
+		  						JOIN attach a
+		  						ON cr.crtroom_no = a.attach_table_pk
+		  		WHERE a.attach_table_div = 'cd'
+		  		AND a.attach_turn = 1
+		  		
+		  		GROUP BY cr.crtroom_no
+		  				, cr.crtroom_name
+		  				, cr.crtroom_location
+		  				, a.attach_path
+		  				, a.attach_in_date
+		  		ORDER BY a.attach_in_date desc)
+  		WHERE <![CDATA[rownum < 8]]>
   	</select>
   	
   	<!-- 코트장 등록 -->
@@ -252,15 +256,75 @@
 	
 	<!-- 코트 후기 조회 -->
 	<select id="selectCourtReview" resultType="crtroomVO">
-		SELECT mem_id
-				, review_ctt
-				, review_star
-				, review_write_date
-				, review_edit_date
-				, reserve_no
-		FROM review
-		WHERE crtroom_no = #{crtroomNo}
+		SELECT r.mem_id
+				, r.review_ctt
+				, r.review_star
+				, r.review_write_date
+				, r.review_edit_date
+				, r.reserve_no
+				, a.attach_path
+				, r.review_no
+		FROM review r JOIN attach a
+						ON r.review_no = a.attach_table_pk
+		WHERE r.crtroom_no = #{crtroomNo}
+		AND a.attach_table_div = 'cr'
+		ORDER BY 4 desc
+	</select>
+	
+	<!-- 코트 후기 단건조회 -->
+	<select id="selectReview" resultType="crtroomVO">
+		SELECT r.mem_id
+				, r.review_ctt
+				, r.review_star
+				, r.review_write_date
+				, r.review_edit_date
+				, r.reserve_no
+				, a.attach_path
+		FROM review r JOIN attach a
+						ON r.crtroom_no = a.attach_table_pk
+		WHERE r.review_no = #{reviewNo}
+		AND a.attach_table_div = 'cr'
+		ORDER BY a.attach_in_date desc
 	</select>
 	
 	<!-- 코트 후기 등록 -->
+	<insert id="insertCourtReview" parameterType="crtroomVO">
+  		<selectKey keyProperty="reviewNo"
+  				   resultType="int"
+  				   order="BEFORE">
+  			SELECT NVL(MAX(review_no), 0) + 1
+  			FROM review		   
+  		</selectKey>
+  		INSERT INTO review
+  			(
+  				REVIEW_NO
+				, MEM_ID
+				, REVIEW_CTT
+				, REVIEW_STAR
+				, REVIEW_WRITE_DATE
+				, RESERVE_NO
+				, CRTROOM_NO
+  			)
+  			VALUES
+  			(
+  				#{reviewNo}
+  				, #{memId}
+  				, #{reviewCtt}
+  				, #{reviewStar}
+  				, SYSDATE
+  				, #{reserveNo}
+  				, #{crtroomNo}
+  			)
+  	</insert>
+  	
+  	<!-- 후기 등록 권한여부 -->
+  	<select id="confirmInsertReview" resultType="int">
+  		SELECT *
+  		FROM (SELECT reserve_no
+	  		FROM reserve
+	  		WHERE crtroom_no = #{crtroomNo}
+	  		AND mem_id = #{memId}
+	        ORDER BY reserve_no desc)
+  		WHERE <![CDATA[rownum = 1]]>
+  	</select>
   </mapper>

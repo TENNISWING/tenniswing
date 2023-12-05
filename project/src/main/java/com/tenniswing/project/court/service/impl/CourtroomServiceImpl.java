@@ -114,16 +114,51 @@ public class CourtroomServiceImpl implements CourtroomService {
 	}
 
 	@Override
-	public int insertCourtReview(CrtroomVO crtroomVO) {
+	@Transactional
+	public int insertCourtReview(CrtroomVO crtroomVO, List<AttachVO> files) {
 		int result = courtroomMapper.insertCourtReview(crtroomVO);
 		
-		int crtroomNo = crtroomVO.getCrtroomNo();
+		//int crtroomNo = crtroomVO.getCrtroomNo();
+		int reviewNo = crtroomVO.getReviewNo();
+		
+		int index = 1;
+		for (AttachVO file : files) {
+			file.setAttachTableDiv("cr");
+			file.setAttachTablePk(reviewNo);
+			file.setAttachTurn(index);
+			index++;
+		}
+		attachMapper.saveAttachTurn(files);
 		
 		if(result == 1) {
-			return crtroomNo;		
+			return reviewNo;
 		}
 		else {
 			return -1;
 		}
+	}
+
+	@Override
+	public Integer confirmInsertReview(CrtroomVO crtroomVO) {
+		return courtroomMapper.confirmInsertReview(crtroomVO);
+	}
+
+	@Override
+	public CrtroomVO selectReview(int reviewNo) {
+		return courtroomMapper.selectReview(reviewNo);
+	}
+
+	
+	
+	@Override
+	public Map<String, Object> updateReview(CrtroomVO crtroomVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean deleteReview(int reviewNo) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -41,6 +41,18 @@ public interface CourtroomService {
 	// 코트 후기 조회
 	public List<CrtroomVO> selectCourtReview(int crtroomNo);
 	
+	// 코트 후기 단건조회
+	public CrtroomVO selectReview(int reviewNo);
+	
 	// 코트 후기 등록
-	public int insertCourtReview(CrtroomVO crtroomVO);
+	public int insertCourtReview(CrtroomVO crtroomVO, List<AttachVO> files);
+	
+	// 후기 등록 권한여부
+	public Integer confirmInsertReview(CrtroomVO crtroomVO);
+	
+	// 후기 수정
+	public Map<String, Object> updateReview(CrtroomVO crtroomVO);
+	
+	// 후기 삭제
+	public boolean deleteReview(int reviewNo);
 }
