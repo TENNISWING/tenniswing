@@ -15,11 +15,12 @@ public interface MatchHistService {
 		//등록
 		public int insertMatchHist(MatchHistVO matchHistVO);
 		public int insertClubMatchHist(MatchHistVO matchHistVO);
-
+		
 		public int insertStarterMatchHist(MatchHistVO matchHistVO);
 		
 		//수정
 		public int updateMatchHist(MatchHistVO matchHistVO);
+		public int updateStarterMatchHist(MatchHistVO matchHistVO);
 		
 		//삭제
 		public int deleteMatchHist(MatchHistVO matchHistVO);

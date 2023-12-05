@@ -214,7 +214,6 @@
                 , FIND_CATEGORY_NAME (c.crtroom_location)   crtroom_location_name
                 , a.attach_path
   		FROM match m, crtroom c, attach a
-
   		WHERE m.crtroom_no = c.crtroom_no
   		AND c.crtroom_no = a.attach_table_pk
   		AND a.attach_table_div = 'cd'

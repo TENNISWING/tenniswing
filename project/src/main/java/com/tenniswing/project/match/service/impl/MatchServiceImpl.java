@@ -52,7 +52,7 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public MatchVO selectStarterMatch(MatchVO matchVO) {
+	public MatchVO selectStarterMatch(MatchVO matchVO) {		
 		return matchMapper.selectStarterMatch(matchVO);
 	}
 
