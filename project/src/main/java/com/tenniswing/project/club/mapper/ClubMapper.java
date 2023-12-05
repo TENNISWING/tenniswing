@@ -1,6 +1,7 @@
 package com.tenniswing.project.club.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.club.service.ClubVO;
@@ -11,6 +12,7 @@ public interface ClubMapper {
 	
 	//단건조회
 	public ClubVO selectClub(ClubVO clubVO);
+	public Map<String, Object> selectClub1(ClubVO clubVO);
 	
 	//등록
 	public int insertClub(ClubVO clubVO);

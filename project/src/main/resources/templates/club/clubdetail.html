@@ -73,7 +73,7 @@
 					<div class="user__profile text-center"
 						style="padding: 20px 10px 40px 10px;">
 						<div class="club__avatar">
-							<img src="/assets/compiled/jpg/1.jpg" alt="profile-pic" />
+							<img src="${club.attachPath}" alt="profile-pic" />
 
 						</div>
 						<div class="user__content">
@@ -403,6 +403,7 @@
 		});
 		//들어왔을때 정보 바로 불러오기
 		$(document).ready(function () {
+			//console.log([[${club}]])
 			$('#info-tab').data("url")
 			let url = $('#info-tab').data("url")
 			let clubNo = $('#info-tab').data('club-no')
