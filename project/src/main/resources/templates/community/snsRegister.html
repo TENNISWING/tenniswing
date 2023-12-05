@@ -85,22 +85,20 @@
 																등록</label>
 
 															<div class="input-group mb-3">
-																<select class="form-select" id="inputGroupSelect01">
-
-																	<option selected>Choose...</option>
-
-																	<th:block>
-																		<option value="1">One</option>
+																<select class="form-select" id="grpName" name="grpName" required="required">
+																	<option selected value="none">그룹선택 안함</option>
+																	<th:block th:each="g : ${grpList}">
+																		<option th:value="${g.grpName}">[[${g.grpName}]]</option>
 																	</th:block>
-																	<option value="2">Two</option>
-																	<option value="3">Three</option>
-																</select> <label class="input-group-text"
-																	for="inputGroupSelect01" data-bs-toggle="modal"
-																	data-bs-target="#inlineForm">그룹이름</label>
+																</select> 
+																<label class="input-group-text"
+																	for="grpName" data-bs-toggle="modal"
+																	data-bs-target="#inlineForm">그룹 생성</label>
 															</div>
 															<!--   <input type="text" id="password-vertical" class="form-control"
                                                     name="grpName" placeholder=""> -->
 														</div>
+													</div>
 													</div>
 													<div class="col-12">
 														<div class="form-group mandatory">
@@ -133,6 +131,7 @@
 													</div>
 												</div>
 											</div>
+									
 									</form>
 								</div>
 							</div>
@@ -184,6 +183,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- 그룹등록모달 end -->
 	<script>
 		const input = document.querySelector('input[name=snsTag]');
 		console.log(input);
@@ -198,6 +198,8 @@
 			//loadOriginalValues
 		}
 		
+		
+		// select에서 사용할 그룹 이름 등록하기
 		 $('.myGrpBtn').on('click', function() {
 				let grpName = $('.grpInput').val();
 				$.ajax({
@@ -208,7 +210,7 @@
 					success: function(result){
 						if(result>0){
 						alert("그룹 등록 성공");
-							
+						location.reload();
 						}
 						$('.grpInput').val('');
 					},

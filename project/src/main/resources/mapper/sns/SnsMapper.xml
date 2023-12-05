@@ -113,6 +113,7 @@
 		,sns_hit
 		,sns_write_date
 		,sns_grp_no
+		,mem_id
 		)
 		VALUES
 		(
@@ -124,6 +125,7 @@
 		,#{snsHit}
 		,sysdate
 		,#{snsGrpNo}
+		,#{memId}
 		)
 		SELECT * FROM dual
 	</insert>
@@ -148,12 +150,14 @@
 		like_no
 		,mem_id
 		,sns_wrt_no
+		,post_num
 		)
 		VALUES
 		(
 		#{likeNo}
 		,#{memId}
 		,#{snsWrtNo}
+		,#{postNum}
 		)
 		<!-- <selectKey keyProperty="likeCnt" resultType="int" order="AFTER"> SELECT 
 			COUNT(*) FROM sns_like where sns_wrt_no =#{snsWrtNo} </selectKey> -->
@@ -199,7 +203,7 @@
 			   ,grp_name
 			   ,grp_edit_date
 			   ,mem_id
-		from sns_grp g
+		from sns_grp
 		where mem_id = #{memId}
 	</select>
 	

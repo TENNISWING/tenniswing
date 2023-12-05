@@ -66,6 +66,7 @@
                             th:object="${snsVO}" class="form form-vertical" enctype="multipart/form-data">
                             <input type="number" name="snsWrtNo" th:value="${editList.snsWrtNo}" hidden>
                             <input type="number" name="snsGrpNo" th:value=${editList.snsGrpNo} hidden>
+                            <input type="text" name="memId" th:value=${editList.memId} hidden>
                                 <div class="form-body">
                                     <div class="row">
                                          <div class="col-12">
@@ -76,11 +77,35 @@
                                             </div>
                                         </div>
                                          <div class="col-12">
-                                            <div class="form-group">
+                                        <!--     <div class="form-group">
                                                 <label for="password-vertical" data-parsley-required="true" >그룹 이름</label>
                                                 <input type="text" id="password-vertical" class="form-control"
                                                     name="grpName"  th:value="${editList.grpName!=null}?${editList.grpName}:''">
-                                            </div>
+                                            </div> -->
+                                            <!-- 그룹 셀렉트 추가 -->
+                                            		<div class="form-group">
+														<div>
+															<label for="password-vertical"
+																data-parsley-required="true" class="groupRegBtn">그룹
+																등록</label>
+
+															<div class="input-group mb-3">
+																<select class="form-select" id="grpName" name="grpName" required="required">
+																	<option selected value="none">그룹선택 안함</option>
+																	<th:block th:each="g : ${grpList}">
+																		<option th:value="${g.grpName}">[[${g.grpName}]]</option>
+																	</th:block>
+																</select> 
+																<label class="input-group-text"
+																	for="grpName" data-bs-toggle="modal"
+																	data-bs-target="#inlineForm">그룹 생성</label>
+															</div>
+															<!--   <input type="text" id="password-vertical" class="form-control"
+                                                    name="grpName" placeholder=""> -->
+														</div>
+													</div>
+                                            
+                                            <!-- 그룹 셀렉트 엔드 -->
                                         </div>
                                          <div class="col-12">
                                             <div class="form-group mandatory">
@@ -123,6 +148,45 @@
 			
 		</div>
 	</div>
+	
+	<div class="modal fade text-left" id="inlineForm" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+			role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel33">SNS 나의 그룹 등록</h4>
+					<button type="button" class="close" data-bs-dismiss="modal"
+						aria-label="Close">
+						<i data-feather="x"></i>
+					</button>
+				</div>
+				<form action="#">
+					<div class="modal-body">
+						<label for="email">그룹 생성</label>
+						<div class="form-group">
+							<input id="text" type="text" placeholder="생성할 그룹 이름을 입력하세요"
+								class="form-control grpInput">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-light-secondary"
+							data-bs-dismiss="modal">
+							<i class="bx bx-x d-block d-sm-none"></i> 
+							<span class="d-none d-sm-block">Close</span>
+						</button>
+						<button type="button" class="btn btn-primary ms-1 myGrpBtn"
+							data-bs-dismiss="modal">
+							<i class="bx bx-check d-block d-sm-none"></i> 
+							<span class="d-none d-sm-block">등록</span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
 	<script>
 
     const input = document.querySelector('input[name=snsTag]');
@@ -138,6 +202,26 @@
         //loadOriginalValues
     }
  
+ // select에서 사용할 그룹 이름 등록하기
+	 $('.myGrpBtn').on('click', function() {
+			let grpName = $('.grpInput').val();
+			$.ajax({
+				url: 'snsGrpInsert',
+				data: {grpName},
+				type : 'post',
+				datatype : 'text',
+				success: function(result){
+					if(result>0){
+					alert("그룹 등록 성공");
+					location.reload();
+					}
+					$('.grpInput').val('');
+				},
+				error : function(){
+					alert("등록 실패");
+				}
+			})
+	 }) 
 
 
 </script>

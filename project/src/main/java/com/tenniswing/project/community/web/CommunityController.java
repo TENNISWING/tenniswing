@@ -65,6 +65,7 @@ public class CommunityController {
 			snsVO.setMemId(id);
 		    //List<SnsVO> list = snsService.그룹셀렉트
 			model.addAttribute("snsVO", new SnsVO());
+			model.addAttribute("grpList",snsService.selectGroup(snsVO));
 			return "community/snsRegister";
 		}
 		
@@ -74,10 +75,6 @@ public class CommunityController {
 			String id = SecurityContextHolder.getContext().getAuthentication().getName();
 			snsVO.setMemId(id);
 			
-			/*
-			 * for(String tag : snsVO.getSnsTag().replaceAll("[**]", "").split(",")) {
-			 * System.out.println(tag); }
-			 */
 			if(id.equals("anonymousUser")) {
 				return "redirect:loginform"; 
 			}
@@ -107,7 +104,11 @@ public class CommunityController {
 		// SNS 수정
 		@GetMapping("snsEditForm")
 		public String snsEditFormPage(SnsVO snsVO, Model model) {
-			model.addAttribute("editList",snsService.selectSnsInfo(snsVO));			
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			snsVO.setMemId(id);
+			
+			model.addAttribute("editList",snsService.selectSnsInfo(snsVO));
+			model.addAttribute("grpList",snsService.selectGroup(snsVO));
 			return "community/snsEditForm";
 		}
 		
