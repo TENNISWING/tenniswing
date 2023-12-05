@@ -114,7 +114,8 @@ public class MemberController {
 	@GetMapping("mypage")
 	public String mypagePage(Model model) {
 		//로그인 회원 아이디 불러오기
-		String id = SecurityContextHolder.getContext().getAuthentication().getName();		
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		
 		MemberVO memberVO = memberService.memberInfo(id);	
 		
 		// 회원정보 dom에 전달

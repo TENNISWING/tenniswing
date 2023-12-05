@@ -355,7 +355,7 @@
   	 				,#{age}
   	 			)  	 			
   	</insert>
-  	
+
   	<!-- <insert id="insertHistMatch" parameterType="MatchVO">
   	<selectKey keyProperty="matchNo" 
   	 			   resultType="int" 
