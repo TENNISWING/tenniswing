@@ -356,7 +356,6 @@
   	 			)  	 			
   	</insert>
 
-  	</insert>
   	
   	<!-- <insert id="insertHistMatch" parameterType="MatchVO">
   	<selectKey keyProperty="matchNo" 
