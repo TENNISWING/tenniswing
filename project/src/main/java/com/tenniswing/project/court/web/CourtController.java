@@ -1,5 +1,6 @@
 package com.tenniswing.project.court.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,6 @@ import com.tenniswing.project.court.service.CrtRefundVO;
 import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.court.service.CrtReserveVO;
 import com.tenniswing.project.court.service.CrtroomVO;
-import com.tenniswing.project.member.service.MemberVO;
 
 @Controller
 public class CourtController {
@@ -63,9 +63,68 @@ public class CourtController {
 			model.addAttribute("refundInf", crtDetailService.refundInf());
 			model.addAttribute("nearCourt", courtroomService.nearCrtroom(courtroom));
 			model.addAttribute("hostInfo", courtroomService.selectCrtDetailHost(courtroom.getHostId()));
-			System.out.println(crtReserveService.reserveTimeCodeList());
+			model.addAttribute("courtReview", courtroomService.selectCourtReview(courtroom.getCrtroomNo()));
+			//System.out.println("--------------"+courtroom);
 			return "court/courtDetail";
 		}
+		
+		@PostMapping("insertCourtReview")
+		@ResponseBody
+		public Map<String, Object> insertCourtReview(CrtroomVO crtroomVO, Model model) {
+			Map<String, Object> map = new HashMap<>();
+			String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+			crtroomVO.setMemId(memId);
+			
+			int reserveNo = courtroomService.confirmInsertReview(crtroomVO);
+			if(reserveNo == 0) {
+				map.put("result", false);
+				map.put("review", "예약이 없습니다.");
+				return map;
+			}
+			crtroomVO.setReserveNo(reserveNo);
+			//사진 등록
+			//테이블 구분, 게시글 번호, 파일목록
+			int n = 0;
+			List<AttachVO> files = fileUtils.uploadFiles(crtroomVO.getFiles());
+			if(!CollectionUtils.isEmpty(files)) {
+				n = courtroomService.insertCourtReview(crtroomVO, files);
+			}
+			
+			boolean isSuccessed = false;
+			/*
+			 * int crtroomNo = crtroomVO.getCrtroomNo(); List<CrtroomVO> reviewList =
+			 * courtroomService.selectCourtReview(crtroomNo);
+			 */
+			
+			if(n > 0) {
+				isSuccessed = true;
+			}
+			
+			CrtroomVO review = courtroomService.selectReview(n);
+			map.put("review", review);
+			map.put("result", isSuccessed);
+			return map;
+		}
+		
+		// 예약한 회원인지 확인
+		@PostMapping("confirmReserve")
+		@ResponseBody
+		public Integer confirmReserve(CrtroomVO crtroomVO) {
+			String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+			if(memId.equals("anonymousUser")){
+				return 0;
+			}else {
+				crtroomVO.setMemId(memId);
+			}
+			Integer reserveNo = courtroomService.confirmInsertReview(crtroomVO);
+			if(reserveNo == null || reserveNo == 0) {
+				return 0;
+			} else {
+				return courtroomService.confirmInsertReview(crtroomVO);
+			}
+		}
+		
+		
 		
 		/*
 		 * @PostMapping("courtDetail") public String courtDetailReserve(CrtReserveVO
@@ -103,6 +162,8 @@ public class CourtController {
 			 * 
 			 * if(member == null) { return "redirect:loginform"; }
 			 */
+			String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+			crtReserveVO.setMemId(memId);
 			Map<String, Object> map = crtReserveService.insertCrtReserve(crtReserveVO);
 			
 			return map;
