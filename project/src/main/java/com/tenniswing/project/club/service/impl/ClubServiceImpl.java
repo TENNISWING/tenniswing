@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tenniswing.project.attach.service.AttachService;
-import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.club.mapper.ClubMapper;
 import com.tenniswing.project.club.service.ClubService;
 import com.tenniswing.project.club.service.ClubVO;
@@ -78,6 +77,19 @@ public class ClubServiceImpl implements ClubService {
 		map.put("info", clubVO);
 		return map;
 	}
+	
+
+	//클럽 가입 신청
+	@Override
+	public int insertClubMem(ClubVO clubVO) {
+		return clubMapper.insertClubMem(clubVO);
+	}
+
+	//신청리스트
+	//@Override
+	//public List<ClubVO> selectAllClubMem(ClubVO clubVO) {
+	//	return clubMapper.selectAllClubMem(clubVO);
+	//}
 
 	//재은
 	@Override

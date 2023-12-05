@@ -1,11 +1,9 @@
 package com.tenniswing.project.club.service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.tenniswing.project.attach.service.AttachVO;
 
@@ -37,9 +35,10 @@ public class ClubVO {
 	private String clubRecruitmentName;
 	
 	private List<ClubPostVO> clubPostList;
+	
+	private List<ClubVO> clubMemList;
 
 	//attach
-	private List<MultipartFile> files = new ArrayList<>();
 	private List<AttachVO> attachList;
 	private String attachPath;
 	

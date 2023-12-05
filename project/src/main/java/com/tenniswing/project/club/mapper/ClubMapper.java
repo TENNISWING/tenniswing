@@ -26,5 +26,10 @@ public interface ClubMapper {
 	
 	//첨부파일
 	public List<AttachVO> attachListALllClub();
-
+	
+	//회원 가입 신청(등록)
+	public int insertClubMem(ClubVO clubVO);
+		
+	//회원 리스트(전체조회)
+	//public List<ClubVO> selectAllClubMem(ClubVO clubVO);
 }

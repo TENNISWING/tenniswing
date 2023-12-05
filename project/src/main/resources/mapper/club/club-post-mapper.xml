@@ -11,8 +11,11 @@
   		   , m.name
   		   , c.club_post_write_date
   		   , c.club_post_hit
+  		   , a.attach_path
   	FROM club_post c LEFT JOIN mem m
-					 ON c.mem_id = m.mem_id
+					   ON c.mem_id = m.mem_id
+					 LEFT OUTER JOIN attach a
+					   ON (a.attach_table_pk = c.club_post_no AND a.attach_table_div = 'cp')
 	WHERE c.club_no = #{clubNo}
 	ORDER BY c.club_post_Write_date DESC		 
 					 
