@@ -165,7 +165,7 @@
 							<div class="form-group">
 								<label for=clubPostTitle>제목</label>
 								<textarea name="clubPostTitle" cols="30" rows="1" id="clubPostTitle"
-									class="form-control form-area"></textarea>
+									class="form-control form-area" th:text="${club.clubNo}"></textarea>
 							</div>
 							<div class="form-group">
 								<label for="clubPostCtt">내용</label>
@@ -247,7 +247,7 @@
 									aria-controls="collapseTwo" onclick="repListAjax(${clubPost.clubPostNo})">
 								<td>${new Date(clubPost.clubPostWriteDate).toLocaleDateString()}</td>
 								<td>
-									<div class="boardContainer toggleBoardTitle">
+									<div class="boardContainer toggleBoardTitle" data-value="${clubPost.clubPostNo}">
 										<p class="toggleBoardTitle" style="text-align: left;">${clubPost.clubPostTitle}</p>
 								    </div>
 								</td>
@@ -277,8 +277,8 @@
 											aria-describedby="basic-addon2">
 										<button type="button" class="input-group-text repInserBtn" data-value="${clubPost.clubPostNo}">등록</button>
 									</div>
-									<div class="table-responsive">
-											<table class="table" id="table1">
+									<div class="table-responsive" >
+											<table class="table" id="table1" data-value="${clubPost.clubPostNo}">
 												<thead>
 													<tr>
 														<th>작성자</th>
@@ -350,30 +350,22 @@
 						//상세 조회 (제목 클릭)
 					/* 	$(".boardContainer").on("click", function (e) {
 							//const toggleAnswer = document.querySelector(".boardBody")
+
 							$(this).parent().parent().next().toggle();
+							let clubPostNo = $(this).data('value');
+							console.log("댓글리스트에 게시글 번호"+clubPostNo);
+							// 댓글 리스트 아작스
+							repListAjax(clubPostNo);
 						});
 						 */
 						
-						//댓글 등록
+						//댓글 등록 버튼 클릭
 						$('.repInserBtn').on("click", function(e) {
 							console.log("등록번호 클릭");
 							let clubPostNo = $(this).data('value');
 							let clubRepCtt = $(this).prev().val();
-							console.log("댓글에 게시글 번호" + clubPostNo);
-							
-							$.ajax({
-								type:'POST',
-								url:'repInsert',
-								data : {clubPostNo,clubRepCtt},
-								dataType:'text',
-								success:function(result){
-									$('#repCtt').val('');
-									postListAjax()
-								},
-								error: function(){
-									alert("등록 실패")
-								}
-							})
+							//console.log("댓글에 게시글 번호" + clubPostNo);
+							repInsertAjax(clubPostNo,clubRepCtt)
 							
 						})
 					} //success 끝
@@ -408,6 +400,22 @@
 				})
 			};
 			
+			//댓글 등록 아작스
+			function repInsertAjax(clubPostNo,clubRepCtt){
+				$.ajax({
+					type:'POST',
+					url:'repInsert',
+					data : {clubPostNo,clubRepCtt},
+					dataType:'text',
+					success:function(result){
+						$('#repCtt').val('');
+						postListAjax()
+					},
+					error: function(){
+						alert("등록 실패")
+					}
+				})
+			}
 			
 			//게시글 삭제 아작스
 			function postDelteAjax(no) {

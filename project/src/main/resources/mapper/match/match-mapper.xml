@@ -214,6 +214,7 @@
                 , FIND_CATEGORY_NAME (c.crtroom_location)   crtroom_location_name
                 , a.attach_path
   		FROM match m, crtroom c, attach a
+
   		WHERE m.crtroom_no = c.crtroom_no
   		AND c.crtroom_no = a.attach_table_pk
   		AND a.attach_table_div = 'cd'
@@ -247,6 +248,7 @@
   		AND c.crtroom_no = a.attach_table_pk
   		AND a.attach_table_div = 'cd'
   		AND a.attach_turn = 1
+
         and m.match_no = #{matchNo}
   	</select>
   	
@@ -271,6 +273,7 @@
                 , FIND_CATEGORY_NAME (b.crtroom_location)   crtroom_location_name
                 , a.attach_path
   		FROM cont_match c, crtroom b, attach a
+
   		WHERE c.crtroom_no = b.crtroom_no
   		AND c.crtroom_no = a.attach_table_pk
   		AND a.attach_table_div = 'cd'
@@ -314,6 +317,7 @@
   	 			   order="BEFORE">
   	 		<!-- primarykey가 숫자일 경우 사용 -->
   	 		SELECT NVL(MAX(match_no), 0) + 1
+
 			FROM match
   	 	</selectKey>
   	 	INSERT INTO match
@@ -349,7 +353,9 @@
   	 				,#{detailCtt}
   	 				,#{crtroomNo}
   	 				,#{age}
-  	 			)
+  	 			)  	 			
+  	</insert>
+
   	</insert>
   	
   	<!-- <insert id="insertHistMatch" parameterType="MatchVO">

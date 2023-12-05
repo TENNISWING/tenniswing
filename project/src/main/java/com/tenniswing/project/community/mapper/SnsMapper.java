@@ -1,8 +1,7 @@
 package com.tenniswing.project.community.mapper;
 
 import java.util.List;
-
-import org.springframework.data.repository.query.Param;
+import java.util.Map;
 
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.community.service.SnsVO;
@@ -29,10 +28,12 @@ public interface SnsMapper {
 	
 	// 수정
 	public int updateSns(SnsVO snsVO);
+	public int updateGrp(SnsVO snsVO);
 	
 	// 삭제
-	public int deleteSns(@Param("snsWrtNo")int snsWrtNo );
+	public int deleteSns(Map<String, Long> map);
 	
+
 	// 좋아요 삭제
 	public int deleteLike(int likeNo);
 	

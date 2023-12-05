@@ -26,9 +26,11 @@ public class MatchController {
 	
 	@Autowired
 	MatchService matchService;
+
 	
 	@Autowired
 	MatchHistService matchHistService;
+
 	
 	@Autowired
 	CourtroomService courtroomService;

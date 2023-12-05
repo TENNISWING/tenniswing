@@ -7,32 +7,32 @@
 	namespace="com.tenniswing.project.community.mapper.SnsMapper">
 	<!-- 전체 조회 -->
 	<resultMap type="SnsVO" id="snsResult">
+	    <id column="sns_wrt_no" property="snsWrtNo"/>
 		<collection property="attachList" javaType="ArrayList"
 			column="sns_wrt_no" ofType="AttachVO" select="attachListAllSns"></collection>
 	</resultMap>
 	<select id="selectAllSnsInfo" resultMap="snsResult">
-		select s.sns_wrt_no as snsWrtNo
-		, s.sns_title
-		, s.sns_ctt
-		, s.sns_write_date
-		, s.sns_tag
-		, s.sns_hit
-		, m.name
-		, s.mem_id
-		, g.grp_name
-		,( SELECT COUNT(*)
-		FROM sns_like l
-		where l.sns_wrt_no = s.sns_wrt_no ) as like_cnt
-		, (SELECT ATTACH_PATH
-		FROM ATTACH
-		where  s.sns_wrt_no = attach_table_pk
-		AND attach_table_div = 's') as ATTACH_PATH
+		select s.sns_wrt_no 
+				, s.sns_title
+				, s.sns_ctt
+				, s.sns_write_date
+				, s.sns_tag
+				, s.sns_hit
+				, m.name
+				, s.mem_id
+				, g.grp_name
+				, g.sns_grp_no
+				,( SELECT COUNT(*)
+				     FROM sns_like l
+				    where l.sns_wrt_no = s.sns_wrt_no ) as like_cnt
+				    
 		from sns s
-		join sns_grp g
-		on s.sns_grp_no = g.sns_grp_no
-		join mem m
-		on s.mem_id = m.mem_id
-		order by s.sns_wrt_no
+				join sns_grp g
+		 			 on s.sns_grp_no = g.sns_grp_no
+				join mem m
+					 on s.mem_id = m.mem_id
+		  
+		order by s.sns_wrt_no desc
 	</select>
 
 	<select id="attachListAllSns" resultType="AttachVO">
@@ -49,29 +49,35 @@
 	</select>
 
 
-	<!-- 단건조회 -->
-	<select id="selectSnsInfo" resultType="SnsVO">
-		select s.sns_wrt_no
-		, s.sns_ctt
-		, s.sns_write_date
-		, s.sns_tag
-		, s.sns_hit
-		, s.mem_id
-		, g.sns_grp_no
-		, l.like_no
-		, s.sns_grp_no
-		from sns s join sns_like l
-		on s.sns_wrt_no = l.sns_wrt_no
-		join sns_grp g
-		on s.sns_grp_no = g.sns_grp_no
-		join attach a
-		on a.attach_table_pk = s.sns_wrt_no
-		where mem_id = #{memId}
-		<!-- LIKE '%' || #{keyword} || '%' LIKE '%${keyword}%' -->
+	<!-- SNS 단건조회 -->
+	<resultMap type="SnsVO" id="snsSelectOne">
+	<id column="sns_wrt_no" property="snsWrtNo"/>
+		<collection property="attachList" javaType="ArrayList" column="sns_wrt_no"  ofType="AttachVO" select="attachListAllSns"></collection>
+	</resultMap>
+	<select id="selectSnsInfo" resultMap="snsSelectOne">
+		select s.sns_wrt_no 
+				, s.sns_title
+				, s.sns_ctt
+				, s.sns_write_date
+				, s.sns_tag
+				, s.sns_hit
+				, m.name
+				, s.mem_id
+				, g.grp_name
+				, g.sns_grp_no
+				,( SELECT COUNT(*)
+				    FROM sns_like l
+				    where l.sns_wrt_no = s.sns_wrt_no ) as like_cnt
+		from sns s
+			join sns_grp g
+			  on s.sns_grp_no = g.sns_grp_no
+			join mem m
+			  on s.mem_id = m.mem_id
+        where sns_wrt_no= #{snsWrtNo}
 	</select>
 
 
-	<!-- 등록 -->
+	<!-- SNS 등록 -->
 	<insert id="insertSns" parameterType="SnsVO">
 		<selectKey keyProperty="snsWrtNo,snsGrpNo"
 			resultType="SnsVO" order="BEFORE">
@@ -159,6 +165,7 @@
 		DELETE FROM sns_like
 		WHERE like_no = #{likeNo}
 	</delete>
+	
 
 	<!-- sns 그룹 등록 -->
 	<insert id="insertSnsGrp" parameterType="SnsVO">
@@ -182,28 +189,48 @@
 			<otherwise>,sysdate</otherwise>
 		</choose>
 		,#{grpName}
-
-
 		)
 	</insert>
+	
+	<!-- 회원당 그룹 조회 -->
+	<select id="" resultType="SnsVO">
+		select sns_grp_no
+			   ,grp_create_date
+			   ,post_num
+			   ,grp_name
+			   ,grp_edit_date
+		from sns_grp g, sns s
+		where g.sns_grp_no = s.sns_grp_no
+	</select>
+	
+	
+	<!-- 수정 : 그룹업데이트 -->
+	<update id="updateGrp" parameterType="SnsVO">
 
-	<!-- 수정 : 전제조건, 전체 데이터 전송 -->
+		update sns_grp
+			set  grp_name = #{grpName}
+		        ,grp_edit_date = sysdate
+		   where sns_grp_no = #{snsGrpNo}
+	</update>
+	<!-- 수정 : SNS 업데이트 -->
 	<update id="updateSns" parameterType="SnsVO">
-		UPDATE employees
-		SET
-		first_name = #{firstName}
-		, email = #{email}
-		, salary = #{salary}
-		WHERE employee_id = #{employeeId}
+		update sns
+			set  sns_title = #{snsTitle}
+		        ,sns_ctt = #{snsCtt}
+		        ,sns_tag = #{snsTag}
+		  where sns_wrt_no = #{snsWrtNo}
 	</update>
 
 
 	<!-- 삭제 -->
-	<delete id="deleteSns" parameterType="int">
-		DELETE FROM employees
-		WHERE employee_id = #{empid} <!-- 기본타입으로 한건만 넘어올 경우 #에 다 집어넣어서 일치하지 않아도 됨 -->
+	
+	<delete id="deleteSns" statementType="CALLABLE" parameterType="map">
+	    {call DELETE_SNS(
+            #{snsWrtNo, mode=IN, jdbcType=DECIMAL},
+            #{delResult, mode=OUT, jdbcType=DECIMAL, javaType=long}
+        	)
+   		 }
 	</delete>
-
 
 
 
