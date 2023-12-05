@@ -19,4 +19,7 @@ public interface ClubMapper {
 	
 	//삭제
 	public int deleteClub(int ClubNo);
+
+	//재은
+	public ClubVO selectMatchClub(ClubVO clubVO);
 }

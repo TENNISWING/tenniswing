@@ -21,7 +21,7 @@
                 <div class="col-lg-8 m-15px-tb">
                     <article class="article">
                         <div class="article-img">
-                            <img src="assets/img/match/crt/crt1.jpg" title="" alt="">
+                            <img th:src="${contMatchInfo.attachPath}" title="" alt="" style="width:850px; height:350px;">
                         </div>
                         <div class="article-title">
                             <div class="media">
@@ -79,33 +79,24 @@
 					<div class="cart__action__btn">
 						<td class="text-end">
 			                <button type="button" class="btn btn-primary matchbtn4" data-bs-toggle="modal"
-                                    data-bs-target="#backdrop">매치신청</button>
+                                    data-bs-target="#backdrop">신청하기</button>
 			            </td>
-						<div class="quantity cart__quantity">
-							<button type="button" class="decressQnt">
-								<span class="bar"></span>
-							</button>
-							<input class="qnttinput" type="number" disabled value="0"
-								min="01" max="100" />
-							<button type="button" class="incressQnt">
-								<span class="bar"></span>
-							</button>
-						</div>
 					</div>
 					<div class="cart__action__btn">
 						<td class="text-end">
-			                <button type="button" class="btn btn-primary matchbtn4" th:onclick="|location.href='@{/}'|">목록으로</button>
+			                <button type="button" class="btn btn-primary matchbtn4" th:onclick="|location.href='@{/contmatchupdateregi}'|">수정하기</a></button>
 			            </td>
-						<div class="quantity cart__quantity">
-							<button type="button" class="decressQnt">
-								<span class="bar"></span>
-							</button>
-							<input class="qnttinput" type="number" disabled value="0"
-								min="01" max="100" />
-							<button type="button" class="incressQnt">
-								<span class="bar"></span>
-							</button>
-						</div>
+					</div>
+					<div class="cart__action__btn">
+						<td class="text-end">
+			                <button type="button" class="btn btn-primary matchbtn4" data-bs-toggle="modal"
+                                    data-bs-target="#backdrop">삭제하기</button>
+			            </td>
+					</div>
+					<div class="cart__action__btn">
+						<td class="text-end">
+			                <button type="button" class="btn btn-primary matchbtn4" th:onclick="|location.href='@{/}'|">목록으로</a></button>
+			            </td>
 					</div>
 				</div>
 				<!-- button close -->

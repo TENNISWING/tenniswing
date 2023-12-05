@@ -68,5 +68,11 @@ public class ClubServiceImpl implements ClubService {
 		return map;
 	}
 
+	//재은
+	@Override
+	public ClubVO selectMatchClub(ClubVO clubVO) {
+		return clubMapper.selectMatchClub(clubVO);
+	}
+
 	
 }

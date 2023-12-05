@@ -77,7 +77,7 @@
                 , c.crtroom_location
                 , FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
   		FROM club_match m, crtroom c
-  		WHERE m.crtroom_no = c.crtroom_no
+  		WHERE m.crtroom_no = c.crtroom_no  		
   		AND TRUNC (match_date) = TRUNC(#{matchDate})
  		 <if test="gameWay != null and gameWay != ''">and game_way = #{gameWay}</if>
  		 <if test="ntrp != null and ntrp != ''">and ntrp = #{ntrp}</if>
@@ -212,8 +212,12 @@
                 , c.crtroom_name
                 , c.crtroom_location
                 , FIND_CATEGORY_NAME (c.crtroom_location)   crtroom_location_name
-  		FROM match m, crtroom c
+                , a.attach_path
+  		FROM match m, crtroom c, attach a
   		WHERE m.crtroom_no = c.crtroom_no
+  		AND c.crtroom_no = a.attach_table_pk
+  		AND a.attach_table_div = 'cd'
+  		AND a.attach_turn = 1
   		and m.match_no = #{matchNo}
   	</select>
   	
@@ -237,8 +241,12 @@
                 , c.crtroom_name
                 , c.crtroom_location
                 , FIND_CATEGORY_NAME (c.crtroom_location)   crtroom_location_name
-  		FROM club_match m, crtroom c
+                , a.attach_path
+  		FROM club_match m, crtroom c, attach a
   		WHERE m.crtroom_no = c.crtroom_no
+  		AND c.crtroom_no = a.attach_table_pk
+  		AND a.attach_table_div = 'cd'
+  		AND a.attach_turn = 1
         and m.match_no = #{matchNo}
   	</select>
   	
@@ -261,8 +269,12 @@
                 , b.crtroom_name
                 , b.crtroom_location
                 , FIND_CATEGORY_NAME (b.crtroom_location)   crtroom_location_name
-  		FROM cont_match c, crtroom b
+                , a.attach_path
+  		FROM cont_match c, crtroom b, attach a
   		WHERE c.crtroom_no = b.crtroom_no
+  		AND c.crtroom_no = a.attach_table_pk
+  		AND a.attach_table_div = 'cd'
+  		AND a.attach_turn = 1
         AND c.match_no = #{matchNo}
   	</select>
   	
@@ -286,8 +298,12 @@
   				, c.crtroom_name
   				, c.crtroom_location
   				, FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
-  		FROM starter_match s, crtroom c
+  				, a.attach_path
+  		FROM starter_match s, crtroom c, attach a
   		WHERE s.crtroom_no = c.crtroom_no
+  		AND c.crtroom_no = a.attach_table_pk
+  		AND a.attach_table_div = 'cd'
+  		AND a.attach_turn = 1
   		AND match_no = #{matchNo}
   	</select>
   	
@@ -336,11 +352,11 @@
   	 			)
   	</insert>
   	
-  	<insert id="insertHistMatch" parameterType="MatchVO">
+  	<!-- <insert id="insertHistMatch" parameterType="MatchVO">
   	<selectKey keyProperty="matchNo" 
   	 			   resultType="int" 
   	 			   order="BEFORE">
-  	 		<!-- primarykey가 숫자일 경우 사용 -->
+  	 		primarykey가 숫자일 경우 사용
   	 		SELECT NVL(MAX(match_no), 0) + 1 
 			FROM match
   	 	</selectKey>
@@ -378,7 +394,7 @@
   	 				,#{crtroomNo}
   	 				,#{age}
   	 			)
-  	</insert>
+  	</insert> -->
   	
   	<!-- 클럽 등록 -->
   	<insert id="insertClubMatch" parameterType="MatchVO">
@@ -516,7 +532,7 @@
   		UPDATE match
   			SET
   				match_no = #{matchNo}
-	  				, mem_id = #{memNo}
+	  				, mem_id = #{memId}
 	  				, match_date = #{matchDate}
 	  				, time = #{time}
 	  				, game_way = #{gameWay}
@@ -528,6 +544,7 @@
 	  				, recruit_psn_num = #{recruitPsnNum}
 	  				, detail_ctt = #{detailCtt}
 	  				, crtroom_no = #{crtroomNo}
+	  				, age = #{age}
   		WHERE match_no = #{matchNo}
   	</update>
   	  	
@@ -548,6 +565,7 @@
 	  				, crt_use_amt = #{crtUseAmt}
 	  				, detail_ctt = #{detailCtt}
 	  				, crtroom_no = #{crtroomNo}
+	  				, age = #{age}
   		WHERE match_no = #{matchNo}
   	</update>
   	  	
@@ -567,6 +585,7 @@
 	  				, cont_attend_cost = #{contAttendCost}
 	  				, detail_ctt = #{detailCtt}
 	  				, crtroom_no = #{crtroomNo}
+	  				, age = #{age}
   		WHERE match_no = #{matchNo}
   	</update>
   	  	
@@ -575,7 +594,7 @@
   		UPDATE starter_match
   			SET
   				match_no = #{matchNo}
-	  				, mem_id = #{memNo}
+	  				, mem_id = #{memId}
 	  				, match_date = #{matchDate}
 	  				, time = #{time}
 	  				, prog_state = #{progState}
@@ -586,6 +605,7 @@
 	  				, recruit_psn_num = #{recruitPsnNum}
 	  				, detail_ctt = #{detailCtt}
 	  				, crtroom_no = #{crtroomNo}
+	  				, age = #{age}
   		WHERE match_no = #{matchNo}
   	</update>
   	  	

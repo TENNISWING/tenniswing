@@ -85,6 +85,15 @@
 # Match
 --------------------------------------------------------------*/
 
+.mtntrpbtn {
+	background-color: white;
+    border: none;
+}
+
+.ctrgbtns {
+	text-align: center;
+}
+
 .table {
 	text-align: center;
 }
