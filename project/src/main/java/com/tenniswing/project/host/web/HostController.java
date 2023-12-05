@@ -203,6 +203,15 @@ public class HostController {
 		return "host/reserveList";
 	}
 
+	// 환불 리스트
+	@GetMapping("reserveCancelList")
+	public String reserveCancelListPage(Model model) {
+		String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
+		// model.addAttribute("hostCalcList",
+		// courtroomService.selectAllCourtroom(hostId));
+		return "host/reserveCancelList";
+	}
+
 	// 정산 리스트
 	@GetMapping("hostCalcList")
 	public String hostCalcListPage(Model model) {
@@ -211,4 +220,5 @@ public class HostController {
 		// courtroomService.selectAllCourtroom(hostId));
 		return "host/hostCalcList";
 	}
+
 }
