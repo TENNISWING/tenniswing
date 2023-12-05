@@ -22,4 +22,7 @@ public interface ClubService {
 	//수정
 	public Map<String, Object> updateClub(ClubVO clubVO);
 
+	//재은
+	public ClubVO selectMatchClub(ClubVO clubVO);
+
 }

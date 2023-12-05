@@ -21,7 +21,7 @@
                 <div class="col-lg-8 m-15px-tb">
                     <article class="article">
                         <div class="article-img">
-                            <img src="assets/img/match/crt/crt1.jpg" title="" alt="">
+                            <img th:src="${clubMatchInfo.attachPath}" title="" alt="" style="width:850px; height:350px;">
                         </div>
                         <div class="article-title">
                             <div class="media">
@@ -80,33 +80,25 @@
 					<div class="cart__action__btn">
 						<td class="text-end">
 			                <button type="button" class="btn btn-primary matchbtn4" data-bs-toggle="modal"
-                                    data-bs-target="#backdrop">매치신청</button>
+                                    data-bs-target="#backdrop">신청하기</button>
+                            <input name="clubNo" type="number" th:value="${clubMatchInfo.clubNo}" hidden="true">
 			            </td>
-						<div class="quantity cart__quantity">
-							<button type="button" class="decressQnt">
-								<span class="bar"></span>
-							</button>
-							<input class="qnttinput" type="number" disabled value="0"
-								min="01" max="100" />
-							<button type="button" class="incressQnt">
-								<span class="bar"></span>
-							</button>
-						</div>
+					</div>
+					<div class="cart__action__btn">
+						<td class="text-end">
+			                <button type="button" class="btn btn-primary matchbtn4" th:onclick="|location.href='@{/clubmatchupdateregi}'|">수정하기</a></button>
+			            </td>
+					</div>
+					<div class="cart__action__btn">
+						<td class="text-end">
+			                <button type="button" class="btn btn-primary matchbtn4" data-bs-toggle="modal"
+                                    data-bs-target="#backdrop">삭제하기</button>
+			            </td>
 					</div>
 					<div class="cart__action__btn">
 						<td class="text-end">
 			                <button type="button" class="btn btn-primary matchbtn4" th:onclick="|location.href='@{/}'|">목록으로</a></button>
 			            </td>
-						<div class="quantity cart__quantity">
-							<button type="button" class="decressQnt">
-								<span class="bar"></span>
-							</button>
-							<input class="qnttinput" type="number" disabled value="0"
-								min="01" max="100" />
-							<button type="button" class="incressQnt">
-								<span class="bar"></span>
-							</button>
-						</div>
 					</div>
 				</div>
 				<!-- button close -->
@@ -136,7 +128,7 @@
                                                 <i class="bx bx-x d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">아니오</span>
                                             </button>
-                                            <button type="button" class="btn btn-primary ms-1 mctdbtntn" data-bs-dismiss="modal">
+                                            <button type="button" id="mtdapbtn" class="btn btn-primary ms-1 mctdbtntn" data-bs-dismiss="modal">
                                                 <i class="bx bx-check d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block ">예</span>
                                             </button>
@@ -146,6 +138,19 @@
                             </div>
             </div>
            
+      <script th:inline='javascript'>
+            let matchNo = '${clubMatchInfo.matchNo}';
+            $('#mtdapbtn').on("click", function(e) {
+            	console.log('mtdapbtn');
+                $.ajax({
+               	 type: 'POST',
+               	 url: 'clubMatchDetailInsert',
+               	 data: {matchNo},
+                 success: function(result) {
+                	 }
+                })
+            })
+            </script>
 	</th:block>
 
 </html>

@@ -122,5 +122,22 @@
   	WHERE club_no = #{clubNo}
   </delete>
   
+  <select id = "selectMatchClub" resultType="ClubVO">
+  	SELECT club_no
+  		   , club_name
+  		   , FIND_CATEGORY_NAME (club_region) club_region_name
+  		   , FIND_CATEGORY_NAME (club_gen) club_gen_name
+  		   , FIND_CATEGORY_NAME (club_age) club_age_name
+  		   , FIND_CATEGORY_NAME (club_day) club_day_name
+  		   , FIND_CATEGORY_NAME (club_time) club_time_name
+  		   , club_intro
+  		   , club_crt
+  		   , club_mem_num
+  		   , FIND_CATEGORY_NAME (club_recruitment) club_recruitment_name
+  		   , mem_id
+  		   , club_create_date
+    FROM club
+    WHERE club_no = #{memId}
+  </select>
   
   </mapper>

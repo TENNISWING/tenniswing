@@ -146,5 +146,9 @@ public class MatchServiceImpl implements MatchService {
 		return 0;
 	}
 
+	@Override
+	public int insertMatchHist(MatchVO matchVO) {
+		return matchMapper.insertMatchHist(matchVO);
+	}
 	
 }
