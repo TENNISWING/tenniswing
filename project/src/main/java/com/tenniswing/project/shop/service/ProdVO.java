@@ -40,6 +40,10 @@ public class ProdVO {
 	
 	private String attachPath;
 	
+	private int page;
+	private int rn;
+	private int pageUnit=12;
+	
 	//attach
 	private List<MultipartFile> files = new ArrayList<>();
 	

@@ -205,7 +205,7 @@
 										<th:block th:case="의류">
 											<label class="input-group-text" for="cateSize"
 												style="margin: 0; padding: 10px 30px;">Size</label>
-											<select class="form-select" th:field="*{cateSize}" style="padding-left: 20px">
+											<select class="form-select" th:field="*{cateSize}" style="padding-left: 20px" onchange="changeCount()">
 												<option value="none" selected>Choose...</option>
 												<option value="o1">XS</option>
 												<option value="o2">S</option>
@@ -214,12 +214,12 @@
 												<option value="o5">XL</option>
 											</select>
 										</th:block>
+										<!-- th:switch="${prod.cateProd}"  -->
 										<th:block th:case="신발">
 											<label class="input-group-text" for="cateSize"
 												style="margin: 0; padding: 10px 30px;">Size</label>
 											<select class="form-select" th:field="*{cateSize}"
-												th:switch="${prod.cateProd}" style="padding-left: 20px"
-												onchange="changeCount()">
+												style="padding-left: 20px" onchange="changeCount()">
 												<option value="none" selected>Choose...</option>
 												<option value="o7">220</option>
 												<option value="o8">230</option>
@@ -235,10 +235,8 @@
 											<label class="input-group-text" for="cateSize"
 												style="margin: 0; padding: 10px 30px;">Size</label>
 											<select class="form-select" th:field="*{cateSize}"
-												th:switch="${prod.cateProd}"
-												onFocus="this.initialSelect = this.selectedIndex;"
-												onChange="this.selectedIndex = this.initialSelect;"
-												style="padding-left: 20px">
+												onchange="changeCount()" style="padding-left: 20px">
+												<option value="none" selected>Choose...</option>
 												<option value="o6">FREE</option>
 											</select>
 										</th:block>
@@ -805,7 +803,7 @@
 			
 			$('#cateSize option').each((idx, item) => {
 				//console.log($(item).text());
-				if(!selectTemp.includes($(item).text()) && $(item).val() != 'none'){					
+				if((!selectTemp.includes($(item).text())) && $(item).val() != 'none'){					
 					//console.log($(item).text());
 					$(item).hide();
 				}

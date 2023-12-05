@@ -32,8 +32,19 @@ public class ProdServiceImpl implements ProdService{
 	
 //	전체 조회
 	@Override
-	public List<ProdVO> selectAllProd() {
-		return prodMapper.selectAllProd();
+	public List<ProdVO> selectAllProd(ProdVO prodVO) {
+		return prodMapper.selectAllProd(prodVO);
+	}
+	
+//	페이징 전체 갯수 조회
+	public int selectCount(ProdVO prodVO) {
+		return prodMapper.selectCount(prodVO);
+	}
+	
+//	최근 상품 스와이퍼
+	@Override
+	public List<ProdVO> selectSwiperProd() {
+		return prodMapper.selectSwiperProd();
 	}
 
 //	단건 조회

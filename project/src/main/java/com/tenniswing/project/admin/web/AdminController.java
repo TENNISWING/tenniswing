@@ -40,8 +40,9 @@ public class AdminController {
 
 	// 상품 목록
 	@GetMapping("admin_Product")
-	public String adminProductPage(Model model) {
-		model.addAttribute("prodList", prodService.selectAllProd());
+	public String adminProductPage(Model model, ProdVO prodVO) {
+		model.addAttribute("prodList", prodService.selectAllProd(prodVO));
+		System.out.println(prodService.selectAllProd(prodVO));
 		return "admin/admin_Product";
 	}
 
