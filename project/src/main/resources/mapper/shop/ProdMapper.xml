@@ -134,6 +134,13 @@
  		WHERE prod_no = #{prodNo} 				
   	</update>
   	
+  	<!-- 조회수 -->
+  	<update id="">
+  		UPDATE 	prod
+  		SET		prod_hit = prod_hit + 1
+  		WHERE	prod_no = #{prodNo}
+  	</update>
+  	
   	<!-- 상품 삭제 -->
   	<delete id="deleteProd" parameterType="int">
   		DELETE FROM prod

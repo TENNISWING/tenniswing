@@ -116,9 +116,9 @@
 						<div class="section-title__wrap">
 							<!-- 필터처리 -->
 							<form action="#" class="product-filter">
-								<!-- 카테고리 -->
-								<div class="select__style">
-									<select class="form-select select__style" id="cateProd" name="cateProd">
+								<!-- 카테고리 form-select select__style -->
+								<div class="select__style" id="firstDrop">
+									<select class="category-select" id="cateProd" name="cateProd">
 										<option value="none">카테고리</option>
 										<option value="q6">기타</option>
 										<option value="q1">의류</option>
@@ -399,6 +399,12 @@
 		}); */
 		
 		$('#btnreset').on('click', function(e) {
+			$('#secondDrop div span').text('성별');
+			$('#secondDrop div ul li:first-child').addClass('selected','focus');
+			$('#secondDrop div ul li').not(':first').attr('class', 'option');
+			$('#firstDrop div span').text('카테고리');
+			$('#firstDrop div ul li:first-child').addClass('selected','focus');
+			$('#firstDrop div ul li').not(':first').attr('class', 'option');
 			$('#cateProd').val('none').prop('selected',true);
 			$('#cateGen').val('none').prop('selected',true);
 			pageNum = 1;

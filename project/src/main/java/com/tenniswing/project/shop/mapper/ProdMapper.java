@@ -23,6 +23,9 @@ public interface ProdMapper {
 	// 수정
 	public int updateProd(ProdVO prodVO);
 	
+	// 조회수
+	public void updateProdHit(int hit);
+	
 	// 삭제
 	public int deleteProd(int prodNo);
 }

@@ -112,4 +112,10 @@ public class ProdServiceImpl implements ProdService{
 		map.put("target", prodNo);
 		return map;		
 	}
+
+//	조회수
+	@Override
+	public void updateProdHit(int hit) {
+		prodMapper.updateProdHit(hit);
+	}
 }

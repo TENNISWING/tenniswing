@@ -37,9 +37,13 @@ public class ProdVO {
 	private String cateProd;
 	// 상품 성별
 	private String cateGen;
+	// 조회수
+	private int prodHit;
 	
+	//첨부파일
 	private String attachPath;
 	
+	// 페이징
 	private int page;
 	private int rn;
 	private int pageUnit=12;
