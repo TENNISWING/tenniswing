@@ -1,5 +1,6 @@
 package com.tenniswing.project.community.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,30 +46,62 @@ public class CommunityController {
 		// SNS 메인
 		@GetMapping("sns")
 		public String snsListPage(SnsVO snsVO, Model model) {
-			//String id = SecurityContextHolder.getContext().getAuthentication().getName();
-			//snsVO.setMemId(id);
-			//List<SnsVO> list = snsService.selectAllSnsInfo(snsVO);
+
 			snsService.selectAllSnsInfo(snsVO);
-//			for(SnsVO tag : list) {
-//				if(tag.getSnsTag() != null) {
-//					System.out.println("tata" + tag.getSnsTag().split(","));
-//				}
-//			}
-			//snsService.selectAllSnsInfo(snsVO).get(0).getSnsTag();
-			//snsService.selectAllSnsInfo()
-			//System.out.println("list aaaa ::: " + list);
+
 			model.addAttribute("snsList", snsService.selectAllSnsInfo(snsVO));
 			model.addAttribute("memLikeNo", snsService.selectLikeNo(snsVO));
-			
 
-			//첨부파일 불러오기
-			//List<AttachVO> attachList =  attachService.attachListAllSns();//이거 땡겨오기
 			System.out.println("첨부파일 넘버"+snsService.selectAllSnsInfo(snsVO));
-			//첨부파일 dom에 전달		
-			//model.addAttribute("attachList", attachList); //땡겨온다음에 여기넣기
-			//System.out.println("첨부파일찍음"+attachList);
 			
 			return "community/community3";
+		}
+		
+		// sns 등록폼 페이지
+		@GetMapping("snsRegister")
+		public String snsRegPage(Model model) {
+			SnsVO snsVO = new SnsVO();
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			snsVO.setMemId(id);
+		    //List<SnsVO> list = snsService.그룹셀렉트
+			model.addAttribute("snsVO", new SnsVO());
+			return "community/snsRegister";
+		}
+		
+		// sns 등록 처리
+		@PostMapping("snsRegister")
+		public String insertSnsForm(SnsVO snsVO, RedirectAttributes rttr, Model model) {
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			snsVO.setMemId(id);
+			
+			/*
+			 * for(String tag : snsVO.getSnsTag().replaceAll("[**]", "").split(",")) {
+			 * System.out.println(tag); }
+			 */
+			if(id.equals("anonymousUser")) {
+				return "redirect:loginform"; 
+			}
+			
+			snsService.insertSns(snsVO);
+			
+			rttr.addAttribute("snsWrtNo", snsVO.getSnsWrtNo());
+			
+			
+			
+			//사진 등록
+			//테이블 구분, 게시글 번호, 파일목록
+			List<AttachVO> files = fileUtils.uploadFiles(snsVO.getFiles());
+			
+			int n = attachService.saveAttach("s", snsVO.getSnsWrtNo(), files);
+			
+			if(n > 0) {			
+				return "redirect:sns";
+				
+			}else {
+				model.addAttribute("message", "파일등록에 실패하였습니다.");
+				return "redirect:sns";
+			}
+			
 		}
 		
 		// SNS 수정
@@ -83,30 +116,41 @@ public class CommunityController {
 		public String updateSnsForm(SnsVO snsVO, RedirectAttributes rttr, Model model) {
 			String id = SecurityContextHolder.getContext().getAuthentication().getName();
 			snsVO.setMemId(id);
-	
+			System.out.println("==수정VO찍어봄==="+snsVO);
 			if(id.equals("anonymousUser")) {
 				return "redirect:loginform"; 
 			}
+			//Map<String, Object> map = new HashMap<>();	
 			
 			snsService.updateSns(snsVO);
-			
-			rttr.addAttribute("snsWrtNo", snsVO.getSnsWrtNo());
-			
-			
+	
 			//사진 등록
 			//테이블 구분, 게시글 번호, 파일목록
+		
 			List<AttachVO> files = fileUtils.uploadFiles(snsVO.getFiles());
-			
+//			if(files!=null && files.size()>0) {
+//				//삭제로직
+//				attachService.deleteAttachSns(tablePk);
+//			}
 			int n = attachService.updateAttach("s", snsVO.getSnsWrtNo(), files);
-			
 			if(n > 0) {			
-				return "redirect:sns";
+				return "redirect:/sns";
 				
 			}else {
 				model.addAttribute("message", "파일등록에 실패하였습니다.");
-				return "redirect:sns";
+				return "redirect:/sns";
 			}
 			
+		}
+		
+		
+		// SNS 삭제 처리
+		@PostMapping("snsDel")
+		@ResponseBody
+		public boolean snsDelAjax(Integer snsWrtNo) {
+			boolean result = snsService.deleteSns(snsWrtNo);
+			System.out.println("결과찍어봄"+result);
+			return result;
 		}
 		
 		// sns댓글List
@@ -155,47 +199,7 @@ public class CommunityController {
 			return result;
 		}
 		
-		// sns 등록폼 페이지
-		@GetMapping("snsRegister")
-		public String snsRegPage(Model model) {
-			model.addAttribute("snsVO", new SnsVO());
-			return "community/snsRegister";
-		}
-		
-		// sns 등록 처리
-		@PostMapping("snsRegister")
-		public String insertSnsForm(SnsVO snsVO, RedirectAttributes rttr, Model model) {
-			String id = SecurityContextHolder.getContext().getAuthentication().getName();
-			snsVO.setMemId(id);
-			
-			/*
-			 * for(String tag : snsVO.getSnsTag().replaceAll("[**]", "").split(",")) {
-			 * System.out.println(tag); }
-			 */
-			if(id.equals("anonymousUser")) {
-				return "redirect:loginform"; 
-			}
-			
-			snsService.insertSns(snsVO);
-			
-			rttr.addAttribute("snsWrtNo", snsVO.getSnsWrtNo());
-			
-			
-			//사진 등록
-			//테이블 구분, 게시글 번호, 파일목록
-			List<AttachVO> files = fileUtils.uploadFiles(snsVO.getFiles());
-			
-			int n = attachService.saveAttach("s", snsVO.getSnsWrtNo(), files);
-			
-			if(n > 0) {			
-				return "redirect:sns";
-				
-			}else {
-				model.addAttribute("message", "파일등록에 실패하였습니다.");
-				return "redirect:sns";
-			}
-			
-		}
+
 		
 		// sns 좋아요 등록
 		@PostMapping("snsLikeInsert")
@@ -222,6 +226,8 @@ public class CommunityController {
 		public String snsMyListPage(Model model) {
 			return "community/snsMyList";
 		}
+		
+		
 
 		// 자유게시판 메인(리스트 페이지)
 		@GetMapping("freeboardList")
