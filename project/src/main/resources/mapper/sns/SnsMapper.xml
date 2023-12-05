@@ -199,8 +199,10 @@
 			   ,post_num
 			   ,grp_name
 			   ,grp_edit_date
+			   ,s.mem_id
 		from sns_grp g, sns s
 		where g.sns_grp_no = s.sns_grp_no
+		and s.mem_id = #{memId}
 	</select>
 	
 	
