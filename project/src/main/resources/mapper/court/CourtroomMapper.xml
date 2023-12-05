@@ -157,6 +157,7 @@
 	  		WHERE a.attach_table_div = 'cd'
 	  		AND a.attach_turn = 1
 	  		AND cr.crtroom_region = #{crtroomRegion}
+	  		AND cr.crtroom_no <![CDATA[<>]]> #{crtroomNo}
 	  		GROUP BY cr.crtroom_no
 	  				, cr.crtroom_name
 	  				, cr.crtroom_location
@@ -287,6 +288,13 @@
 		ORDER BY a.attach_in_date desc
 	</select>
 	
+	<!-- 코트 별점 -->
+	<select id="crtroomStar" resultType="crtroomVO">
+		SELECT ROUND(SUM(review_star)/COUNT(review_no)) avg_star, COUNT(review_no) count_review
+        FROM review
+        WHERE crtroom_no = #{crtroomNO}
+	</select>
+	
 	<!-- 코트 후기 등록 -->
 	<insert id="insertCourtReview" parameterType="crtroomVO">
   		<selectKey keyProperty="reviewNo"
@@ -324,6 +332,7 @@
 	  		FROM reserve
 	  		WHERE crtroom_no = #{crtroomNo}
 	  		AND mem_id = #{memId}
+	  		AND reserve_state = 'i2'
 	        ORDER BY reserve_no desc)
   		WHERE <![CDATA[rownum = 1]]>
   	</select>
@@ -332,5 +341,12 @@
   	<delete id="deleteReview" parameterType="int">
   		DELETE FROM review
   		WHERE review_no = #{reviewNo}
+  	</delete>
+  	
+  	<!-- 후기 사진 삭제 -->
+  	<delete id="deleteReviewImg" parameterType="int">
+  		DELETE FROM attach
+  		WHERE attach_table_div = 'cr'
+  		AND attach_table_pk = #{reviewNo}
   	</delete>
   </mapper>

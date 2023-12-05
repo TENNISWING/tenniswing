@@ -64,6 +64,7 @@ public class CourtController {
 			model.addAttribute("nearCourt", courtroomService.nearCrtroom(courtroom));
 			model.addAttribute("hostInfo", courtroomService.selectCrtDetailHost(courtroom.getHostId()));
 			model.addAttribute("courtReview", courtroomService.selectCourtReview(courtroom.getCrtroomNo()));
+			model.addAttribute("crtroomStar", courtroomService.crtroomStar(courtroom.getCrtroomNo()));
 			//System.out.println("--------------"+courtroom);
 			return "court/courtDetail";
 		}
@@ -75,10 +76,10 @@ public class CourtController {
 			String memId = SecurityContextHolder.getContext().getAuthentication().getName();
 			crtroomVO.setMemId(memId);
 			
-			int reserveNo = courtroomService.confirmInsertReview(crtroomVO);
-			if(reserveNo == 0) {
+			Integer reserveNo = courtroomService.confirmInsertReview(crtroomVO);
+			if(reserveNo == null) {
 				map.put("result", false);
-				map.put("review", "예약이 없습니다.");
+				map.put("review", "이용 전이거나 예약건이 없습니다.");
 				return map;
 			}
 			crtroomVO.setReserveNo(reserveNo);
@@ -172,7 +173,7 @@ public class CourtController {
 		@PostMapping("deleteReview")
 		@ResponseBody
 		public boolean deleteReview(@RequestParam Integer reviewNo) {
-			boolean result = courtroomService.deleteCourtroom(reviewNo);
+			boolean result = courtroomService.deleteReview(reviewNo);
 			/*
 			 * String msg = null; if(result) { msg = "정상적으로 삭제되었습니다. \n삭제대상 : "+crtroomNo;
 			 * }else { msg = "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다. \n삭제요청 : "+crtroomNo; }

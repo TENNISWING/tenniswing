@@ -58,4 +58,10 @@ public interface CourtroomMapper {
 	
 	// 후기 삭제
 	public int deleteReview(int reviewNo);
+	
+	// 후기 사진 삭제
+	public int deleteReviewImg(int reviewNo);
+	
+	// 별점 및 후기수 계산
+	public CrtroomVO crtroomStar(int crtroomNo);
 }

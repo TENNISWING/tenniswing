@@ -52,4 +52,7 @@ public class CrtroomVO {
 	private Date reviewEditDate;
 	private int reserveNo;
 	
+	// 별점
+	private int avg_star;
+	private int countReview;
 }

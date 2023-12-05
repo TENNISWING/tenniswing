@@ -183,7 +183,7 @@
 					pay_method: 'card',
 					merchant_uid: makeMerchantUid,
 					name: crtroomName,
-					amount: 100,
+					amount: reservePrice,
 					//amount: reservePrice,
 					/* buyer_email: reserveDate,
 					buyer_name: crtDetailNo,
@@ -246,13 +246,13 @@
 							error: function(err) {console.log(err)}
 						})
 					} else {
-						alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
-						/* Swal2.fire({
+						//alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+						 Swal2.fire({
 							icon: "error",
 							text: "결제에 실패하였습니다.",
 						}).then(function(){
-							location.reload();
-						}) */
+							console.log(rsp.error_msg);
+						}) 
 					}
 				});
 				} else{

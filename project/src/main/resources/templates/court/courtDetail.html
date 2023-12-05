@@ -102,7 +102,7 @@
 											<li><i class="fa-regular fa-star"></i></li>
 										</ul>
 										<div class="total__rating">
-											<a href="#">(3,822 ratings)</a>
+											<p style="font-size: 14px">([[${crtroomStar.countReview}]] ratings)</p>
 										</div>
 									</div>
 									<ul class="right-meta">
@@ -122,7 +122,6 @@
 											</svg> Share
 										</a></li>
 										<li>
-											<div class="stock__item">New</div>
 										</li>
 									</ul>
 								</div>
@@ -314,14 +313,14 @@
 											<div class="client__review" style="font-family: 'NanumSquareNeo-Variable'">
 												<div class="outline"
 													style="margin: 30px 0 30px 0; overflow: hidden">
-													<h3 class="sec__title" style="margin: 0; float: left">Review</h3>
+													<h3 class="sec__title" id="reviewTitle" style="margin: 0; float: left">Review</h3>
 													<button type="button" class="btn btn-outline-success" id="reviewBtn"
 														data-bs-toggle="modal" data-bs-target="#inlineForm"
 														style="float: right;">후기 작성</button>
 												</div>
 												<div class="review__wrapper">
 													<th:block th:each="review, stat: ${courtReview}">
-													<div class="review__item">
+													<div class="review__item" id="review" th:attrappend="id=${review.reviewNo}">
 														<div class="avatar">
 															<img th:src="${review.attachPath}" alt="avatar" style="overfit:cover"/>
 														</div>
@@ -369,12 +368,15 @@
 																			<li><i class="fa-solid fa-star"></i></li>
 																		</ul>
 																		<input type="hidden" id="reviewNo" th:value="review.reviewNo">
+																		<input type="hidden" id="reviewWriteMem" th:value="review.memId">
 																		</th:block>
 																	</div>
 																</div>
 																<div class="date">[[${#dates.format(review.reviewWriteDate, 'yyyy년 MM월 dd일')}]]</div>
 															</div>
-																<button type="button" class="btn icon btn-danger reviewDel" id="reviewDel" th:attrappend="id=${stat.index}" style="float: right;">삭제</button>
+																<th:block th:if="${#strings.equals(review.memId, #authentication.name)}">
+																	<button type="button" class="btn icon btn-danger reviewDel" id="reviewDel" th:attrappend="id=${review.reviewNo}" style="float: right;">삭제</button>
+																</th:block>
 															<div class="review__para">
 																<p>[[${review.reviewCtt}]]</p>
 															</div>
@@ -382,48 +384,7 @@
 													</div>
 													</th:block>
 													<script>
-													$('.reviewDel').on('click',function(e){
-														
-														Swal.fire({
-															  title: "",
-															  text: "정말 삭제하시겠습니까?",
-															  icon: "warning",
-															  showCancelButton: true,
-															  confirmButtonColor: "#3085d6",
-															  cancelButtonColor: "#d33",
-															  confirmButtonText: "Yes, delete it!"
-															}).then((result) => {
-															  if (result.isConfirmed) {
-															    console.log($(e.target));
-																let cnt = $(e.target).prop("id").replace("reviewDel","");
-																console.log(cnt);
-																let reviewNo = Number($('#reviewNo'+cnt).text());
-																$.ajax({
-																	type: 'POST',
-																	url: 'deleteReview',
-																	data: {reviewNo},
-																	dataType: 'json',
-																	success: function(result){
-																		if(result){
-																			Swal.fire({
-																				  icon: "success",
-																				  title: "",
-																				  text: "정상적으로 삭제되었습니다.",
-																				}).then(function(){
-																					location.reload();
-																				})
-																		}else{
-																			Swal.fire({
-																				  icon: "error",
-																				  title: "",
-																				  text: "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다.",
-																			})
-																		}
-																	}
-																})
-														  	}
-														});
-													})
+													
 													</script>
 													<!-- <div class="review__item">
 														<div class="avatar">
@@ -531,7 +492,6 @@
 											> <img
 												th:src="${nearCrt.attachPath}" alt="icon" style="overfit: cover;" />
 											</a>
-											<div class="badge">New</div>
 											<!-- <div class="product__actions">
 												<a href="#" class="action__btn"> <svg width="16"
 														height="14" viewBox="0 0 16 14" fill="none"
@@ -696,6 +656,50 @@
 		</div>
 		</form>
 		<script type="text/javascript">
+			
+			$('.reviewDel').on('click',function(e){
+				
+				Swal.fire({
+					  title: "",
+					  text: "정말 삭제하시겠습니까?",
+					  icon: "warning",
+					  showCancelButton: true,
+					  confirmButtonColor: "#3085d6",
+					  cancelButtonColor: "#d33",
+					  confirmButtonText: "Yes, delete it!"
+					}).then((result) => {
+					  if (result.isConfirmed) {
+					    console.log($(e.target));
+						let reviewNo = $(e.target).prop("id").replace("reviewDel","");
+						console.log(reviewNo);
+						$.ajax({
+							type: 'POST',
+							url: 'deleteReview',
+							data: {reviewNo},
+							dataType: 'json',
+							success: function(result){
+								if(result){
+									Swal.fire({
+										  icon: "success",
+										  title: "",
+										  text: "정상적으로 삭제되었습니다.",
+										}).then(function(){
+											//location.reload();
+											$('#review'+reviewNo).html('');
+										})
+								}else{
+									Swal.fire({
+										  icon: "error",
+										  title: "",
+										  text: "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다.",
+									})
+								}
+							}
+						})
+				  	}
+				});
+			})	
+		
 			$('.review__item').css('display','none');
 			$('.review__item').slice(0,3).show();
 			$('#reviewLoad').click(function(e){
@@ -746,7 +750,7 @@
 							icon: "success",
 							text: "정상적으로 등록되었습니다.",
 						}).then(function(){
-							console.log(results.reviewList);
+							console.log(results.review);
 							location.reload();
 						})
 					} else {
@@ -835,7 +839,7 @@
 							
 						
 							let reserveTimeCode = [];
-						
+							//let auto = '';
 						$(function(){
 							let list = [[${reserveTimeList}]];
 							for(let i=0; i< list.length; i++){
@@ -866,7 +870,13 @@
 								}else{
 									
 								}
-							}).fail(err => console.log(err));	
+							}).fail(err => console.log(err));
+							
+							
+							/* auto = [[${#authentication.name}]];
+							if($('#reviewWriteMem').val() == auto){
+								$('.reviewDel').css('display','inline-block');
+							} */
 						})
 						
 						function reserveAjax(reserveDate, crtDetailNo) {
@@ -902,7 +912,7 @@
 													<input type="hidden" class="reserveTime" value="`+reserveTimeCode[i][0]+`"></td>
 													<input type="hidden" class="reserveTimeName" value="`+reserveTimeCode[i][1]+`"></td>
 													<td style="width: 10%"><span class="tReserveTime">`+useUnitTime+`</span><span>시간</span></td>
-													<td style="width: 10%"><span class="reservePrice">`+crtUsePrice+`</span></td>
+													<td style="width: 10%"><input type="hidden" class="reservePrice"  value="`+crtUsePrice+`"><span>`+Number(crtUsePrice).toLocaleString('ko-KR')+`</span>원</td>
 													<td class="text-end" style="width: 20%"><button class="btn btn-primary matchbtn1 reserveBtn">예약하기</button></td>
 												</tr>
 											`;
@@ -918,7 +928,7 @@
 																<input type="hidden" class="reserveTime" value="`+reserveTimeCode[i][0]+`"></td>
 																<input type="hidden" class="reserveTimeName" value="`+reserveTimeCode[i][1]+`"></td>
 																<td style="width: 10%"><span class="tReserveTime">`+useUnitTime+`</span><span>시간</span></td>
-																<td style="width: 10%"><span class="reservePrice">`+crtUsePrice+`</span></td>
+																<td style="width: 10%"><input type="hidden" class="reservePrice"  value="`+crtUsePrice+`"><span>`+Number(crtUsePrice).toLocaleString('ko-KR')+`</span>원</td>
 																<td class="text-end" style="width: 20%; height: 49px;"><div style="font-size: 13px; color: red; margin-right: 13px">예약마감</div></td>
 															</tr>
 														`;															
@@ -944,7 +954,7 @@
 											let reserveTime = $(e.target).closest('tr').find('.reserveTime').val();
 											let reserveTimeName = $(e.target).closest('tr').find('.reserveTimeName').val();
 											let tReserveTime = $(e.target).closest('tr').find('.tReserveTime').text();
-											let reservePrice = $(e.target).closest('tr').find('.reservePrice').text();
+											let reservePrice = $(e.target).closest('tr').find('.reservePrice').val();
 											$('input[name="reserveTime"]').val(reserveTime);
 											$('input[name="reserveTimeName"]').val(reserveTimeName);
 											$('input[name="tReserveTime"]').val(tReserveTime);

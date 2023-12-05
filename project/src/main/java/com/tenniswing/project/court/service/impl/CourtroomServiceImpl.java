@@ -153,9 +153,19 @@ public class CourtroomServiceImpl implements CourtroomService {
 		int result = courtroomMapper.deleteReview(reviewNo);
 		
 		if(result == 1) {
-			return true;
+			int resultImg = courtroomMapper.deleteReviewImg(reviewNo);
+			if(resultImg == 1) {
+				return true;
+			}else {
+				return false;
+			}
 		}else {
 			return false;
 		}
+	}
+
+	@Override
+	public CrtroomVO crtroomStar(int crtroomNo) {
+		return courtroomMapper.crtroomStar(crtroomNo);
 	}
 }

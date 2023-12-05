@@ -52,4 +52,7 @@ public interface CourtroomService {
 	
 	// 후기 삭제
 	public boolean deleteReview(int reviewNo);
+	
+	// 별점 및 후기수 계산
+	public CrtroomVO crtroomStar(int crtroomNo);
 }
