@@ -22,8 +22,7 @@
 </head>
 
 <th:block layout:fragment="content">
-
-[[${prodDetailVO}]] [[${prod}]]
+<!-- [[${prodDetailVO}]] [[${prod}]] -->
 	<!-- Checkout Section Start -->
 	<section class="checkout__section">
 		<div class="container">
@@ -101,7 +100,7 @@
 							<br />
 							
 							<div class="cta__form justify-content align-items-end mt-15" style="margin: 0; justify-content: space-around;">							
-								<button type="submit" class="btn btn-primary mt-10">결제하기</button>
+								<button type="submit" class="btn btn-primary mt-10" style="border-radius: 20px;">결제하기</button>
 								<a class="btn btn-transparent mt-10" onclick="history.back()" style="border: 1px solid; border-radius: 20px">취소하기</a>
 							</div>
 						</form>
@@ -144,74 +143,38 @@
 						<h4 class="cart-order__title">결제 상세 정보</h4>
 						<div class="cart__items">
 							<!-- Shopping Cart Item Start -->
+							<th:block th:each="prodDetailVO : ${prodDetailVO}">
 							<div class="shopping-card shopping-card__v2">
 								<a href="#" class="shopping-card__image"> <img
 									src="assets/images/cart/cart-01.png" alt="cart-product" />
 								</a>
 								<div class="shopping-card__content">
 									<div class="shopping-card__content-top">
-										<h5 class="product__title">
-											<a href="#">All Natural Italian Chicken Meatballs</a>
-										</h5>
-										<h5 class="product__price">$24.40</h5>
+										<!-- 상품명 -->
+										<!-- <th:block th:each="prodVO : ${prodVO}" th:if="${prodDetailVO.prodNo == prodVO.prodNo}"> -->
+											<h5 class="product__title">
+												<a th:onclick="|location.href='@{/shopDetail(prodNo=${prod.prodNo})}'|">
+													<b>[[ ${prod.prodName} ]]</b></a>
+											</h5>
+											<p class="product__price onePrice" id="prodPrice" th:value="${prod.prodPrice}">[[ ${prod.prodPrice} ]]</p>
+											<input >
+										<!-- </th:block> -->
 									</div>
 									<div class="shopping-card__content-bottom">
-										<button type="button" class="action__btn qty">Qty: 2</button>
+										<h5 class="action__btn qty" style="padding: 0 3px;"><b>수량 </b>: [[ ${prodDetailVO.prodDetailSto} ]]</h5>
 									</div>
 								</div>
 							</div>
-							<!-- Shopping Cart Item End -->
-							<!-- Shopping Cart Item Start -->
-							<div class="shopping-card shopping-card__v2">
-								<a href="#" class="shopping-card__image"> <img
-									src="assets/images/cart/cart-01.png" alt="cart-product" />
-								</a>
-								<div class="shopping-card__content">
-									<div class="shopping-card__content-top">
-										<h5 class="product__title">
-											<a href="#">All Natural Italian Chicken Meatballs</a>
-										</h5>
-										<h5 class="product__price">$24.40</h5>
-									</div>
-									<div class="shopping-card__content-bottom">
-										<button type="button" class="action__btn qty">Qty: 2</button>
-									</div>
-								</div>
-							</div>
-							<!-- Shopping Cart Item End -->
-							<!-- Shopping Cart Item Start -->
-							<div class="shopping-card shopping-card__v2">
-								<a href="#" class="shopping-card__image"> <img
-									src="assets/images/cart/cart-01.png" alt="cart-product" />
-								</a>
-								<div class="shopping-card__content">
-									<div class="shopping-card__content-top">
-										<h5 class="product__title">
-											<a href="#">All Natural Italian Chicken Meatballs</a>
-										</h5>
-										<h5 class="product__price">$24.40</h5>
-									</div>
-									<div class="shopping-card__content-bottom">
-										<button type="button" class="action__btn qty">Qty: 2</button>
-									</div>
-								</div>
-							</div>
+							</th:block>
 							<!-- Shopping Cart Item End -->
 							<div class="bar"></div>
 						</div>
-						<ul class="cart__subtotal cart__subtotal__v2">
-							<li><span class="label">Subtotal</span> <span class="value">$45.00</span>
-							</li>
-							<li><span class="label">Shipping:</span> <span class="value">$15.22</span>
-							</li>
-							<!-- <li><span class="label">Discount Coupon:</span> <span
-								class="value">-$10.00</span></li> -->
-						</ul>
+						<hr>
 						<div class="cart__total cart__total__v2">
 							<h3>
 								Total <span>(Incl. VAT)</span>
 							</h3>
-							<div class="total">$50.00</div>
+							<div class="total" id="totalPrice"></div>
 						</div>
 					</div>
 				</div>
@@ -306,7 +269,18 @@
 			document.querySelector('#addr3').innerText = add3;
 		}
 
-</script>
+	</script>
+	
+	<!--/* 가격부분 , 추가하는 기능 */-->
+	<script type="text/javascript">
+		let changePrice = $('#prodPrice').text();
+		changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		
+		changePrice = changePrice + '원';
+		$('#prodPrice').text(changePrice);
+
+		$('#totalPrice')
+	</script>
 </th:block>
 
 </html>

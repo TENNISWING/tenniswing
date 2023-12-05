@@ -149,6 +149,7 @@
 							suffered alteration in somey form, by injected humour, or
 							randomised words which don't look even slightly believable.</p> -->
 						<form action="checkout" th:object="${prodDetail}" id="prodBuyForm">
+							<input name="prodNo" th:value="${prod.prodNo}" type="hidden">
 							<div class="product-detail__attr">
 								<div class="product__attr">
 									<!-- <span class="product-detail--stroke">Color</span> -->
@@ -204,7 +205,7 @@
 										<th:block th:case="의류">
 											<label class="input-group-text" for="cateSize"
 												style="margin: 0; padding: 10px 30px;">Size</label>
-											<select class="form-select" th:field="*{cateSize}" style="padding-left: 20px">
+											<select class="form-select" th:field="*{cateSize}" style="padding-left: 20px" onchange="changeCount()">
 												<option value="none" selected>Choose...</option>
 												<option value="o1">XS</option>
 												<option value="o2">S</option>
@@ -213,12 +214,12 @@
 												<option value="o5">XL</option>
 											</select>
 										</th:block>
+										<!-- th:switch="${prod.cateProd}"  -->
 										<th:block th:case="신발">
 											<label class="input-group-text" for="cateSize"
 												style="margin: 0; padding: 10px 30px;">Size</label>
 											<select class="form-select" th:field="*{cateSize}"
-												th:switch="${prod.cateProd}" style="padding-left: 20px"
-												onchange="changeCount()">
+												style="padding-left: 20px" onchange="changeCount()">
 												<option value="none" selected>Choose...</option>
 												<option value="o7">220</option>
 												<option value="o8">230</option>
@@ -234,10 +235,8 @@
 											<label class="input-group-text" for="cateSize"
 												style="margin: 0; padding: 10px 30px;">Size</label>
 											<select class="form-select" th:field="*{cateSize}"
-												th:switch="${prod.cateProd}"
-												onFocus="this.initialSelect = this.selectedIndex;"
-												onChange="this.selectedIndex = this.initialSelect;"
-												style="padding-left: 20px">
+												onchange="changeCount()" style="padding-left: 20px">
+												<option value="none" selected>Choose...</option>
 												<option value="o6">FREE</option>
 											</select>
 										</th:block>
@@ -804,11 +803,12 @@
 			
 			$('#cateSize option').each((idx, item) => {
 				//console.log($(item).text());
-				if(!selectTemp.includes($(item).text()) && $(item).val() != 'none'){					
+				if((!selectTemp.includes($(item).text())) && $(item).val() != 'none'){					
 					//console.log($(item).text());
 					$(item).hide();
 				}
 			})
+			$('#checkCount').attr("disabled", false);
 			$('#prodDetailSto').val('1');
 		}
 		
@@ -848,6 +848,16 @@
 		}
 		
 		$('#checkCount').on('click', function(e){
+			if(resetOrder()){				
+				console.log($('#prodDetailSto').val());
+				if($('#prodDetailSto').val() == (selectNum - 1)) {
+					$('#checkCount').attr("disabled", true);
+				}
+			}
+		});
+		
+		/* 폼 초기화 함수 */
+		function resetOrder() {
 			if($('#cateColor').val() == 'none'){
 				Swal.fire({
 					title: "상품 색상",
@@ -858,7 +868,7 @@
 						$('#prodDetailSto').val('1');
 					}
 				})				
-				return;	
+				return false;	
 			} else if($('#cateSize').val() == 'none'){
 				Swal.fire({
 					title: "상품 사이즈",
@@ -869,39 +879,16 @@
 						$('#prodDetailSto').val('1');
 					}
 				})				
-				return;	
+				return false;	
 			}
-			console.log($('#prodDetailSto').val());
-			if($('#prodDetailSto').val() == (selectNum - 1)) {
-				$('#checkCount').attr("disabled", true);
-			}
-		});
+			return true;
+		}
 		
 		/* 체크아웃 페이지로 이동 */
 		$('#goCheckout').on('click', function() {
-			/* let formData = $('#prodBuyForm').serializeArray();
-			let quantity = $('#prodDetailSto').val();
-			formData.push({name: 'prodDetailSto', value: quantity});
-			
-			let prodNum = [[ ${prod.prodNo} ]];
-			formData.push({name: 'prodNo', value: prodNum});
-			console.log(formData);
-			
-			let dataObj = {};
-			
-			$.each(formData, (idx, obj) => {
-				dataObj[obj.name] = obj.value;	
-			});
-		
-			
-			console.log(dataObj); */
-			
-			/* $.ajax('checkout', {
-				type: 'get',
-				data : dataObj,   //{a:'a',b:'b'}  =>  ?a=a&b=b
-				//dataType : 'application/json',
-			}); */
-			$('#prodBuyForm')[0].submit();
+			if(resetOrder()){					
+				$('#prodBuyForm')[0].submit();
+			}
 		});
 		
 	/*]]>*/
@@ -916,6 +903,27 @@
 		changePrice = changePrice + '원';
 		$('#prodPrice').text(changePrice);
 
+	</script>
+	
+	<script>
+		new Swiper(".swiper-wrapper", {
+			/* loop : true, */
+			loopPreventsSliding : true,
+			grabCursor : true,
+			slidesPerView : 3,
+			spaceBetween : 20,
+	
+			/* autoplay : {
+				delay : 2000,
+				pauseOnMouseEnter : true,
+				disableOnInteraction : false
+			}, */
+			pagination : {
+				el : ".swiper-pagination",
+				dynamicBullets : true,
+				clickable : true,
+			},
+		});
 	</script>
 </th:block>
 
