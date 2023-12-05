@@ -25,7 +25,7 @@ public interface ClubService {
 	public int insertClubMem(ClubVO clubVO);
 	
 	//회원 리스트(전체조회)
-	//public List<ClubVO> selectAllClubMem(ClubVO clubVO);
+    //public List<ClubVO> selectAllClubMem(ClubVO clubVO);
 	
 
 }

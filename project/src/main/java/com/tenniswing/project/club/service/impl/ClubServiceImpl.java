@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tenniswing.project.attach.service.AttachService;
-import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.club.mapper.ClubMapper;
 import com.tenniswing.project.club.service.ClubService;
 import com.tenniswing.project.club.service.ClubVO;
