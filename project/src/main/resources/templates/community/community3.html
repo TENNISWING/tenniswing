@@ -9,6 +9,10 @@
 	height: 1200px;
 }
 </style>
+<!-- tagify 소스 다운 -->
+	<script src="https://unpkg.com/@yaireo/tagify"></script>
+	<!-- 폴리필 (구버젼 브라우저 지원) -->
+	<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 </head>
 
 <th:block layout:fragment="content">
@@ -61,14 +65,16 @@
 													<div class="card-body">
 														<span class="card-title" style="font-weight: bold;">[[${s.snsTitle}]]</span> 
 														<div class="edBtns" style="float: right;">
-																<i type="button" class="fa-regular fa-pen-to-square editBtnClass" th:onclick="|location.href='@{/snsEditForm(snsWrtNo=${s.snsWrtNo})}'|" id="editSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i> 
-																<i type="button" class="fa-regular fa-trash-can" id="delSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i>
+																<i type="button" class="fa-regular fa-pen-to-square editBtnClass" th:onclick="|location.href='@{/snsEditForm(snsWrtNo=${s.snsWrtNo}, snsGrpNo=${s.snsGrpNo})}'|" id="editSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i> 
+																<i type="button" class="fa-regular fa-trash-can delBtnClass" id="delSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i>
 															</div>
 														<br>
 															
 														<th:block
 															th:each=" lang : ${#strings.arraySplit(s.snsTag,',')}">
 															<span class="card-title tagVal">[[${lang}]]</span>
+														<!-- <input th:each="tagg:${#strings.arraySplit(s.snsTag,',')}" type="text" class="tags4" name="tags4" th:value="${lang}" readonly> -->
+															
 														</th:block>
 														<h6 class="card-subtitle" style="font-weight: 300;">[[${s.grpName}]]</h6>
 													</div>
@@ -130,7 +136,7 @@
 																<a th:if="${#strings.isEmpty(s.likeNo)}"
 																	class="btn icon btn-white"
 																	th:data-snslike="${s.snsWrtNo}"> <i
-																	class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC"
+																	class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC "
 																	id="likeBtn" th:attrappend="id=${sStat.count}"> </i>
 																</a> <a th:if="${not #strings.isEmpty(s.likeNo)}"
 																	class="btn icon btn-white"
@@ -222,6 +228,9 @@
 
 	<!-- Initialize Swiper -->
 	<script>
+	
+	var input = document.querySelector('input[name=tags4]'),
+    tagify = new Tagify(input);
 
 		const swiper = new Swiper('.swiper', {
 			  // Optional parameters
@@ -499,10 +508,10 @@
 
 	});
 
-	$('#tableRep').DataTable({
+/* 	$('#tableRep').DataTable({
     	searching:false,
     	ordering:false
-    });
+    }); */
 
 	//댓글 리스트 
 	function getRepList(snsWrtNo){
@@ -633,6 +642,31 @@
 			}
 	});
 
+		
+		// sns 삭제
+		$('.delBtnClass').on('click', function(e){
+			console.log("sns삭제 눌리나요");
+			let snsWrtNo = $(e.target).prop("id").replace("delSnsBtn","");
+			console.log(snsWrtNo);
+	       	 $.ajax({
+         		type:'POST',
+         		url: 'snsDel',
+         		data:{snsWrtNo},
+         		success:function(result){
+         			console.log(result)
+         			if(result){
+         				alert("정상삭제");
+         				location.reload();
+         			}
+         		},
+         		error : function() {
+						alert("삭제 실패");
+
+					}
+         	})
+			
+		})
+		
 
 
 

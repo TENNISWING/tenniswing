@@ -78,4 +78,6 @@
   		DELETE FROM sns_rep
   		WHERE sns_rep_no = #{snsRepNo} <!-- 기본타입으로 한건만 넘어올 경우 #에 다 집어넣어서 일치하지 않아도 됨 -->
   	</delete>
+  	
+  
   </mapper>
