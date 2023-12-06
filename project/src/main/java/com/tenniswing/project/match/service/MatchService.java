@@ -47,4 +47,10 @@ public interface MatchService {
 		
 		//이력 테이블
 		public int insertMatchHist(MatchVO matchVO);
+		
+		//최근 조회
+		public List<MatchVO> matchRecentView();
+		public List<MatchVO> clubRecentView();
+		public List<MatchVO> contRecentView();
+		public List<MatchVO> starterRecentView();
 }

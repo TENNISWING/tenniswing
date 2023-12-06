@@ -18,4 +18,7 @@ public interface BrdService {
 		
 		// 삭제
 		public boolean deleteBrd(int brdWrtNo);
+		
+		// 전체페이지수 count
+		public int selectCount(BrdVO brdVO);
 }

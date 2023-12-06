@@ -19,8 +19,10 @@ public interface MemberMapper {
 	
 	// 아이디 중복 체크
 	public int memberIdCheck(String memId);
-	
+	// 패스워드체크
 	public MemberVO checkPw(String memId);
+	// 아이디 찾기
+	public MemberVO searchId(MemberVO memberVO);
 
 	// 등록
 	public int insertMember(MemberVO memberVO);
@@ -28,6 +30,8 @@ public interface MemberMapper {
 	// 수정
 	public int updateMemberInfo(MemberVO memberVO);
 	public int updatePrInfo(MemberVO memberVO);
+	// 패스워드 수정
+	public int searchPwUpdate(MemberVO memberVO);
 
 	// 수정 : Dynamic SQL
 	public int updateMemberInfoDynamic(MemberVO memberVO);

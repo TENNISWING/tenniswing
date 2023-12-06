@@ -125,59 +125,54 @@
 		<!-- End match table -->
 
 	<!-- End community sub menu  -->
-	<div class="container">
-		<!-- Basic Tables start -->
-		<section class="section">
-			<div class="card">
-				<!-- Trending Section Start -->
-				<section class="trending__section pt-0">
-					<div class="container">
-						<div class="row">
-							<div class="col-12">
-								<div class="section-title">
-									<h5 class="card-title mtitle mtitle2">최근 본 매치 목록</h5>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-12 msection">
-								<!-- Swiper -->
-								<div class="swiper mySwiper mtbanner" data-aos="fade-up">
-									<div class="swiper-wrapper mtbanner">
-										<div class="swiper-slide mtbanner" th:each="num : ${#numbers.sequence(1,5)}" ><!-- 여기서 반복문 th:each="" -->
-											<div class="card">
-												<div class="card-content">
-
-													<img class="img-fluid w-100"
-														src="/assets/compiled/jpg/banana.jpg" alt="Card image cap">
-												</div>
-												<div class="card-footer d-flex justify-content-between">
-													<span>그룹이름</span>
-													<button class="btn btn-light-primary" th:id="${numStat.count}" data-bs-toggle="collapse"
-														data-bs-target="#collapseExample" aria-expanded="false"
-														
-														aria-controls="collapseExample"
-														th:attrappend="aria-controls=${numStat.count}"
-														>그룹
-														목록보기</button>
-												</div>
-
-											</div>
-										</div>
+		<div class="container">
+			<!-- Basic Tables start -->
+			<section class="section">
+				<div class="card">
+					<!-- Trending Section Start -->
+					<section class="trending__section pt-0">
+						<div class="container">
+							<div class="row">
+								<div class="col-12">
+									<div class="section-title">
+										<h5 class="card-title mtitle mtitle2">최근 등록된 매치</h5>
 									</div>
-									<div class="swiper-pagination mtbanner"></div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 msection">
+									<!-- Swiper -->
+									<div class="swiper mySwiper mtbanner" data-aos="fade-up">
+										<div class="swiper-wrapper mtbanner">
+											<th:block th:each="v : ${viewList}" th:if = "${vStat.index} < 10">
+											<div class="swiper-slide mtbanner"	>
+												<!-- 여기서 반복문 th:each="" -->
+												<div class="card">
+													<div class="card-content">
+
+														<img class="img-fluid w-100"
+															th:src="${v.attachPath}"
+															alt="Card image cap">
+													</div>
+													<div class="card-footer d-flex justify-content-between">
+														<span>[[ ${v.crtroomName} ]]</span>
+														<button class="btn btn-light-primary" th:onclick="|location.href='@{matchdetail(matchNo=${v.matchNo})}'|"
+															>매치 보러가기</button>
+													</div>
+												</div>
+											</div>
+												</th:block>
+										</div>
+										<div class="swiper-pagination mtbanner"></div>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<!-- Swiper JS -->
-					<script
-						src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-					<!-- Initialize Swiper -->
-				</section>
-				<!-- Trending Section End -->
-	
-</div>
+						<!-- Initialize Swiper -->
+					</section>
+					<!-- Trending Section End -->
+</div></section></div>
+				</div>
 <script>
 
 	$('#btnsearch').on("click", function(e) {

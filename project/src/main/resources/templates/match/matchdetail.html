@@ -92,8 +92,7 @@
 					</div>
 					<div class="cart__action__btn">
 						<td class="text-end">
-			                <button type="button" class="btn btn-primary matchbtn4" data-bs-toggle="deletemodal"
-                                    data-bs-target="#backdrop">삭제하기</button>
+			                <button type="button" class="btn btn-primary matchbtn4" id="deleteBtn">삭제하기</button>
 			            </td>
 					</div>
 					<div class="cart__action__btn">
@@ -130,7 +129,7 @@
                                                 <i class="bx bx-x d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">아니오</span>
                                             </button>
-                                            <button type="button" class="btn btn-primary ms-1 mctdbtntn" id="mtdapbtn" data-bs-dismiss="deletemodal">
+                                            <button type="button" class="btn btn-primary ms-1 mctdbtntn" id="mtdapbtn" data-bs-dismiss="modal">
                                                 <i class="bx bx-check d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">예</span>
                                             </button>
@@ -150,6 +149,18 @@
                  success: function(result) {
                 	 }
                 })
+            })
+            
+            
+            $('#deleteBtn').on("click", function(e) {
+            	console.log('deleteBtn');
+            	$.ajax({
+            		type: 'POST',
+            		url: 'matchDetailDelete',
+            		data: {matchNo},
+            		success: function(result){            			
+            		}
+            	})
             })
             </script>
 	</th:block>

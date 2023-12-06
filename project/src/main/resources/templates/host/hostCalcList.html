@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/host/host-layout}">
+
+<th:block layout:fragment="hostcontent">
+	<div class="page-content">
+		<!-- Main__container Start-->
+		<div class="main__container">
+			<!-- Main Inner Wrapper Start -->
+			<div class="main__inner--wrapper" style="padding: 40px 0;">	
+				<!-- Basic Tables start -->
+				<section class="section">
+					<div class="card">
+						<div class="card-header" style="overflow: hidden">
+							<div class="page-heading">
+								<h3>정산 리스트</h3>
+							</div>
+							<div style="float: right">
+								<button class="btn btn-primary"
+									th:onclick="|location.href='@{/hostregisterCourtroom}'|">코트
+									등록하기</button>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table" id="table1">
+									<thead>
+										<tr>
+											<th>Court No</th>
+											<th>image</th>
+											<th>Name</th>
+											<th>Location</th>
+											<th>Operate Time</th>
+											<th>Court Count</th>
+											<th>Register Date</th>
+											<th>Button</th>
+										</tr>
+									</thead>
+									<tbody>
+										<th:block th:each="courtList, stat : ${courtList}">
+											<tr>
+												<td id="crtroomNo" th:attrappend="id=${stat.index}">[[
+													${courtList.crtroomNo} ]]</td>
+												<td></td>
+												<td>[[ ${courtList.crtroomName} ]]</td>
+												<td>[[ ${courtList.crtroomLocation} ]]</td>
+												<td>[[ ${courtList.crtroomOperateStartTime} ]] ~ [[
+													${courtList.crtroomOperateEndTime} ]]</td>
+												<td>[[ ${courtList.crtCount} ]]</td>
+												<td>[[
+													${#dates.format(courtList.crtroomRegiDate,'yyyy년MM월dd일')}
+													]]</td>
+												<td>
+													<div
+														th:onclick="|location.href='@{/hostCourtDetail(crtroomNo=${courtList.crtroomNo})}'|"
+														class="btn icon btn-primary">
+														<i class="icon dripicons dripicons-enter"></i>
+													</div>
+													<div class="btn icon btn-success edit"
+														th:onclick="|location.href='@{/hosteditCourtroom(crtroomNo=${courtList.crtroomNo})}'|"
+														id="courtroomEdit" th:attrappend="id=${stat.index}">
+														<i class="icon dripicons dripicons-pencil"></i>
+													</div>
+													<div class="btn icon btn-danger courtroom"
+														id="courtroomDelete" th:attrappend="id=${stat.index}">
+														<i class="icon dripicons dripicons-trash"></i>
+													</div>
+												</td>
+											</tr>					
+										</th:block>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+		<!-- Basic Tables end -->
+	</div>
+	<script th:inline="javascript">
+	$('.courtroom').on('click',function(e){
+		
+		Swal.fire({
+			  title: "",
+			  text: "정말 삭제하시겠습니까?",
+			  icon: "warning",
+			  showCancelButton: true,
+			  confirmButtonColor: "#3085d6",
+			  cancelButtonColor: "#d33",
+			  confirmButtonText: "Yes, delete it!"
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			    console.log($(e.target));
+				let cnt = $(e.target).prop("id").replace("courtroomDelete","");
+				console.log(cnt);
+				let courtroomNo = Number($('#crtroomNo'+cnt).text());
+				$.ajax({
+					type: 'POST',
+					url: 'hostdeleteCourtroom',
+					data: {crtNo: courtroomNo},
+					dataType: 'json',
+					success: function(result){
+						if(result){
+							Swal.fire({
+								  icon: "success",
+								  title: "",
+								  text: "정상적으로 삭제되었습니다.",
+								}).then(function(){
+									location.reload();
+								})
+						}else{
+							Swal.fire({
+								  icon: "error",
+								  title: "",
+								  text: "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다.",
+							})
+						}
+					}
+				})
+		  	}
+		});
+	})
+		/* let msg = [[${result}]]
+		if(msg != null) alert(msg); */
+	</script>
+
+</th:block>
+</html>

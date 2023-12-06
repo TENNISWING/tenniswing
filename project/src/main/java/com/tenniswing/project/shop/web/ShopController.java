@@ -36,16 +36,17 @@ public class ShopController {
 	@GetMapping("shop")
 	public String shopPage(Model model) {
 //		model.addAttribute("prodList", prodService.selectAllProd());
-		model.addAttribute("newProd", prodService.selectSwiperProd());
+		model.addAttribute("popularProd", prodService.selectSwiperProd());
 		return "shop/shop";
 	}
 	
 	@GetMapping("shopList")
 	@ResponseBody
 	public Map<String, Object> prodPage(ProdVO prodVO) {
-		System.out.println("!!!! before"+prodVO);
-		List<ProdVO> list = prodService.selectAllProd(prodVO);
-		System.out.println("!!!! after "+list);
+		/*
+		 * System.out.println("!!!! before"+prodVO); List<ProdVO> list =
+		 * prodService.selectAllProd(prodVO); System.out.println("!!!! after "+list);
+		 */
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("selectCount", prodService.selectCount(prodVO));
 		map.put("shopList", prodService.selectAllProd(prodVO));

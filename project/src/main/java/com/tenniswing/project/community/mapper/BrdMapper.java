@@ -19,4 +19,7 @@ public interface BrdMapper {
 	
 	// 삭제
 	public int deleteBrd(int brdWrtNo);
+	
+	// 전체페이지수 count
+	public int selectCount(BrdVO brdVO);
 }

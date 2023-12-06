@@ -41,8 +41,17 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberVO memberInfo(String memId) {
-		 MemberVO memberVO = memberMapper.memberInfo(memId);		
+	public MemberVO memberInfo(String memId) {		
+		 MemberVO memberVO = new MemberVO();
+		 memberVO.setMemId(memId);
+		 
+		 memberVO = memberMapper.memberLogin(memberVO);
+		 
+		 if(memberVO.getMemDiv().equals("ROLE_MEMBER")) {
+			 memberVO = memberMapper.memberInfo(memId);
+		 }else {
+			 return memberVO;
+		}		 		
 
 		if (memberVO.getAttachPath() == null) {
 			if (memberVO.getGen().equals("남성")) {
@@ -117,8 +126,7 @@ public class MemberServiceImpl implements MemberService {
 			return map;
 		}		
 		
-		if(memberVO.getPwdUpdate() != null && memberVO.getPwdUpdate().length() != 0) {
-			System.out.println("비번어떻게 들어 오냐???   " + memberVO.getPwdUpdate() + "공백이냐?");
+		if(memberVO.getPwdUpdate() != null && memberVO.getPwdUpdate().length() != 0) {			
 			memberVO.setPwdUpdate(passwordEncoder.encode(memberVO.getPwdUpdate()));
 		}
 		
@@ -139,8 +147,7 @@ public class MemberServiceImpl implements MemberService {
 				System.out.println("업데이트");
 				List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());
 				attachService.updateAttach("m", memberVO.getMemNo(), files);
-			}else {
-				System.out.println("인서트=? " + memberVO.getMemNo());
+			}else {				
 				List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());			
 				//테이블 구분, 게시글 번호, 파일목록
 				attachService.saveAttach("m", memberVO.getMemNo(), files);
@@ -227,6 +234,33 @@ public class MemberServiceImpl implements MemberService {
 	public Map<String, Object> myShopHistory() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String searchId(MemberVO memberVO) {
+		memberVO = memberMapper.searchId(memberVO);
+		String message = "";
+		
+		if(memberVO == null) {
+			message = "가입된 회원이 아닙니다.";
+			return message;
+		}
+		
+		message = memberVO.getMemId();
+		return message;
+	}
+
+	@Override
+	public int searchPwUpdate(MemberVO memberVO) {
+		memberVO.setPwdUpdate(passwordEncoder.encode(memberVO.getPwd()));
+		
+		int n = memberMapper.searchPwUpdate(memberVO);
+		
+		if(n == 1) {
+			return n;
+		}
+		
+		return -1;
 	}
 
 

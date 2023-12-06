@@ -57,4 +57,9 @@ public class MatchVO {
 	
 	private String attachPath; 
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date inDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date updateDate;
+	
 }

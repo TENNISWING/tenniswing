@@ -374,6 +374,24 @@
 		})
 			
 	});
+	
+	//본인인증
+	IMP.init("imp48072683");
+    $('#phoneNoBtn').on('click', function (e) {
+        IMP.certification({
+        }, function (rsp) {
+            if (rsp.success) {
+                let impUid = rsp.imp_uid;
+                Swal2.fire({
+                    icon: "success",
+                    title: "본인 인증이 완료되었습니다.",
+                })
+                $('#phoneCk').prop('checked', true);
+            } else {
+                console.log("실패")
+            }
+        });
+    })                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 	</script>
 
 

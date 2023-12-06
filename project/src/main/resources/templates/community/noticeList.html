@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layouts/main-layout}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main-layout}">
 
-	<th:block layout:fragment="content">
-            <!-- community sub menu -->
-         	<div class="container mb-4">
+<th:block layout:fragment="content">
+	<!-- community sub menu -->
+	<div class="container mb-4">
 		<ul class="nav d-flex justify-content-around text-center matchsidevar">
 			<li class="d-flex flex-column"><a href="sns"><img
 					src="assets/img/match/icon/icon1.png" class=" miconimg">SNS</a></li>
@@ -15,127 +15,107 @@
 					src="assets/img/match/icon/icon4.png" class=" miconimg">공지사항</a></li>
 		</ul>
 	</div>
-            <!-- End community sub menu  -->
+	<!-- End community sub menu  -->
 
-		
-            <!-- match table -->
-            <div class="container">
-              <div class="row">
-				<div class="content__body">
-									<section class="archive-category">
-										<div class="col-12">
-											<div class="filter__area" style="margin: 0;">
-												<div class="email-fixed-search col-6 ">
-													<div
-														class="form-group position-relative  mb-0 has-icon-left">
-														<input type="text" class="form-control"
-															placeholder="Search...">
-															<div class="fbrdInsertBtn">
-															<a class="btn btn-secondary rounded-pill" th:onclick="|location.href='@{noticeForm}'|">글 등록</a>
-															</div>
-															
-														<div class="form-control-icon">
-															<svg class="bi" width="1.5em" height="1.5em" fill="currentColor">
-                                                        <use xlink:href="assets/static/images/bootstrap-icons.svg#search" />
+
+	<!-- match table -->
+	<div class="container">
+		<div class="row">
+			<div class="content__body">
+				<section class="archive-category">
+					<div class="col-12">
+						<div class="filter__area" style="margin: 0;">
+							<div class="email-fixed-search col-6 ">
+								<div class="form-group position-relative  mb-0 has-icon-left">
+									<input type="text" class="form-control" placeholder="Search...">
+									<div class="fbrdInsertBtn">
+										<a class="btn btn-secondary rounded-pill"
+											th:onclick="|location.href='@{noticeForm}'|">글 등록</a>
+									</div>
+
+									<div class="form-control-icon">
+										<svg class="bi" width="1.5em" height="1.5em"
+											fill="currentColor">
+                                                        <use
+												xlink:href="assets/static/images/bootstrap-icons.svg#search" />
                                                     </svg>
-														</div>
-													</div>
-												</div>
-												<div class="shortBy-select select__style d-lg-flex d-none">
-													<label for="sortBy2">Sort by:</label> <select name="sortBy"
-														id="sortBy2">
-														<option value="0">최신순</option>
-														<option value="0">인기순</option>
-														<option value="0">이름순</option>
-													</select>
-												</div>
-											</div>
-										</div>
-									</section>
+									</div>
 								</div>
-								<!-- table hover -->
-								<div class="table-responsive">
-									<table class="table table-hover mb-0">
-										<thead>
-											<tr>
-												<th>NO</th>
-												<th>제목</th>
-												<th>작성일</th>
-												<th>조회수</th>
-												<th>작성자</th>
-											</tr>
-										</thead>
-									
-										<tbody id="noticeBrd">
-										<th:block th:each="n : ${notice}" >
-											<tr	style="height: 70px;" th:onclick="|location.href='@{/noticeDetail(brdWrtNo=${n.brdWrtNo})}'|">
-												<td>[[${n.brdWrtNo}]]</td>
-												<td>[[${n.brdTitle}]]</td>
-												<td>[[${#dates.format(n.brdWriteDate,'yyyy-MM-dd')}]]</td>
-												<td>[[${n.brdHit}]]</td>
-												<td>[[${n.name}]]</td>
-											</tr> 
-										</th:block> 
-										</tbody>
-									</table>
-								</div>
-								<br>
-								<ul class="pagination justify-content-center">
-									<li class="page-item disabled"><a class="page-link"
-										href="#" tabindex="-1" aria-disabled="true">이전</a></li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">다음</a>
-									</li>
-								</ul>
-							
+							</div>
+							<div class="shortBy-select select__style d-lg-flex d-none">
+								<label for="sortBy2">Sort by:</label> <select name="sortBy"
+									id="sortBy2">
+									<option value="0">최신순</option>
+									<option value="0">인기순</option>
+									<option value="0">이름순</option>
+								</select>
+							</div>
 						</div>
-              
-            </div>
-           
-            
-            <script type="text/javascript">
-         
-  /*           function getNoticeList(){
-            	//let brdWrtNo = 1; 
-            	//let brdTitle = '테스트중';
-            	$.ajax({
-            		type:'GET',
-            		url: 'noticePage',
-            		data:{brdTitle},
-            		success: function(data){
-            			console.log(data);
-            			//$('#noticeBrd').empty();
-            			
-            			for(let nBrd of data){
-            				console.log(nBrd);
-            			 let b=`
-            				<tr id = ${nBrd.brdWrtNo}
-							style="height: 70px;">
-							<td>${nBrd.brdWrtNo}</td>
-							<td>${nBrd.brdTitle}</td>
-							<td>${nBrd.brdCtt}</td>
-							<td>${new Date(nBrd.brdWriteDate).toLocaleDateString()}</td>
-							<td>${nBrd.brdHit}</td>
-							<td>${nBrd.name}</td>
-						</tr> `
-            			$('#noticeBrd').append(b); 
-            			}
-            		},
-            		error: (err) => {console.log(err);}
-            		
-            		
-            	})
-            }
-            
-            
-            $(document).ready(function(){
-            	getNoticeList();
-			})  */
-			
-            </script>
-        
-	</th:block>
+					</div>
+				</section>
+			</div>
+			<!-- table hover -->
+			<div class="table-responsive">
+				<table class="table table-hover mb-0">
+					<thead>
+						<tr>
+							<th>NO</th>
+							<th>제목</th>
+							<th>작성일</th>
+							<th>조회수</th>
+							<th>작성자</th>
+						</tr>
+					</thead>
+
+					<tbody id="noticeBrd">
+						<th:block th:each="n : ${notice}">
+							<tr style="height: 70px;"
+								th:onclick="|location.href='@{/noticeDetail(brdWrtNo=${n.brdWrtNo})}'|">
+								<td>[[${n.brdWrtNo}]]</td>
+								<td>[[${n.brdTitle}]]</td>
+								<td>[[${#dates.format(n.brdWriteDate,'yyyy-MM-dd')}]]</td>
+								<td>[[${n.brdHit}]]</td>
+								<td>[[${n.name}]]</td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+			<br>
+			<!-- 페이징 시작 -->
+				<ul class="pagination justify-content-center">
+					<li class="page-item"
+						th:classappend="${paging.startPage} == 1 ? disabled"><a
+						class="page-link"
+						th:href="|javascript:gopage(${paging.startPage})|">이전</a></li>
+
+					<li
+						th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}"
+						class="page-item" th:addclass="${num} == ${paging.page} ? active">
+						<a class="page-link" th:href="|javascript:gopage(${num})|"
+						th:text="${num}">2</a>
+					</li>
+
+					<li class="page-item"
+						th:classappend="${paging.endPage} <= ${paging.lastPage} ? disabled">
+						<a class="page-link"
+						th:href="|javascript:gopage(${paging.endPage})|">다음</a>
+					</li>
+				</ul>
+			<!-- 페이징 종료 -->
+		</div>
+
+	</div>
+
+
+	<script type="text/javascript">
+	
+	function gopage(page){
+		location.href="noticeList?page="+page
+	}
+		
+	</script>
+
+</th:block>
 
 </html>

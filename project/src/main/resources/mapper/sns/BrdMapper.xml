@@ -6,6 +6,8 @@
   <mapper namespace="com.tenniswing.project.community.mapper.BrdMapper">
   	<!-- 공지 게시판 전체 조회  -->
  	<select id="selectBrdAllInfo" resultType="BrdVO">
+ 	select * from (    select A.* , rownum rn from (
+  	
   				select brd_wrt_no
  			   , brd_title
  			   , brd_ctt
@@ -18,12 +20,21 @@
  		where b.mem_id = m.mem_id
  	    and brd_div ='bc2'
  		order by brd_wrt_no DESC
+ 	
+ 	) A) b where rn between (#{page}-1)*#{pageUnit} + 1 and #{page} * #{pageUnit}
   	</select>
   	
   	
+  	<select id="selectCount" resultType="int">
+   		select count(*)
+   		from brd b, mem m
+ 		where b.mem_id = m.mem_id
+ 	    and brd_div ='bc2'
+   	</select>
+  	
   	<!-- 공지 게시판 단건조회 -->
   	<select id="selectBrdInfo" resultType="BrdVO">
-  		select brd_wrt_no
+  		select   brd_wrt_no
  			   , brd_title
  			   , brd_ctt
  			   , brd_write_date
@@ -31,10 +42,12 @@
  			   , FIND_CATEGORY_NAME(brd_div) brd_div_name
  			   , m.mem_id
  			   , m.name
- 		from brd b, mem m
- 		where b.mem_id = m.mem_id
- 		and brd_wrt_no = #{brdWrtNo}
- 		and brd_div ='bc2'
+ 			   
+ 		  from brd b, mem m
+ 		  
+ 		 where b.mem_id = m.mem_id
+ 		   and brd_wrt_no = #{brdWrtNo}
+ 		   and brd_div ='bc2'
   
   	</select>
   	
@@ -78,8 +91,6 @@
               , brd_ctt = #{brdCtt}
               , brd_edit_date = SYSDATE
         WHERE brd_wrt_no = #{brdWrtNo}
-        AND mem_id = #{memId}     
-  		
   	</update>
   	
   	
@@ -87,6 +98,5 @@
   	<delete id="deleteBrd" parameterType="int">
   		DELETE FROM brd
   		WHERE brd_wrt_no = #{brdWrtNo}
-  		AND brd_div = 'bc2'
   	</delete>
   </mapper>
