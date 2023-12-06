@@ -24,6 +24,8 @@
                     m.recruit_psn_num,
                     m.detail_ctt,
                     m.age,
+                    m.in_date,
+                    m.update_date,
                     c.crtroom_no,
                     c.crtroom_name,
                     c.crtroom_location,
@@ -49,6 +51,28 @@
  		 <if test="gen != null and gen != ''">and gen = #{gen}</if>
  		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
  		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
+   	</select>
+   	
+   	<!-- 매치 최근 조회 목록  -->
+  	<select id="matchRecentView" resultType="MatchVO">
+  		SELECT      m.match_no,
+                    m.mem_id,
+                    m.match_date,
+                    m.prog_state,
+                    FIND_CATEGORY_NAME (m.prog_state)   prog_state_name,
+                    m.in_date,
+                    m.update_date,
+                    c.crtroom_no,
+                    c.crtroom_name,
+                    c.crtroom_location,
+                    FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
+  					, a.attach_path
+  		FROM match m, crtroom c, attach a
+  		WHERE m.crtroom_no = c.crtroom_no
+  		AND c.crtroom_no = a.attach_table_pk
+  		AND a.attach_table_div = 'cd'
+  		AND a.attach_turn = 1
+  		ORDER BY m.in_date desc
    	</select>
    	
    	<!-- 클럽 전체 조회  -->
@@ -101,6 +125,28 @@
  		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
    	</select>
    	
+   	<!-- 클럽 매치 최근 조회 목록  -->
+  	<select id="clubRecentView" resultType="MatchVO">
+  		SELECT      m.match_no,
+                    m.mem_id,
+                    m.match_date,
+                    m.prog_state,
+                    FIND_CATEGORY_NAME (m.prog_state)   prog_state_name,
+                    m.in_date,
+                    m.update_date,
+                    c.crtroom_no,
+                    c.crtroom_name,
+                    c.crtroom_location,
+                    FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
+  					, a.attach_path
+  		FROM match m, crtroom c, attach a
+  		WHERE m.crtroom_no = c.crtroom_no
+  		AND c.crtroom_no = a.attach_table_pk
+  		AND a.attach_table_div = 'cd'
+  		AND a.attach_turn = 1
+  		ORDER BY m.in_date desc
+   	</select>
+   	
    	<!-- 대회 전체 조회  -->
   	<select id="selectAllContMatch" resultType="MatchVO">
   	select * from (    select A.* , rownum rn from (
@@ -142,6 +188,28 @@
  		 <if test="ntrp != null and ntrp != ''">and ntrp = #{ntrp}</if>
  		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
  		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
+   	</select>
+   	
+   	<!-- 대회 매치 최근 조회 목록  -->
+  	<select id="contRecentView" resultType="MatchVO">
+  		SELECT      m.match_no,
+                    m.mem_id,
+                    m.match_date,
+                    m.prog_state,
+                    FIND_CATEGORY_NAME (m.prog_state)   prog_state_name,
+                    m.in_date,
+                    m.update_date,
+                    c.crtroom_no,
+                    c.crtroom_name,
+                    c.crtroom_location,
+                    FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
+  					, a.attach_path
+  		FROM match m, crtroom c, attach a
+  		WHERE m.crtroom_no = c.crtroom_no
+  		AND c.crtroom_no = a.attach_table_pk
+  		AND a.attach_table_div = 'cd'
+  		AND a.attach_turn = 1
+  		ORDER BY m.in_date desc
    	</select>
 
 	<!-- 스타터 전체 조회  -->
@@ -189,6 +257,28 @@
  		 <if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
  		 <if test="progStateName != null and progStateName != ''">and prog_state_name = #{progStateName}</if>
    	</select>
+   	
+   	<!-- 스타터 매치 최근 조회 목록  -->
+  	<select id="starterRecentView" resultType="MatchVO">
+  		SELECT      m.match_no,
+                    m.mem_id,
+                    m.match_date,
+                    m.prog_state,
+                    FIND_CATEGORY_NAME (m.prog_state)   prog_state_name,
+                    m.in_date,
+                    m.update_date,
+                    c.crtroom_no,
+                    c.crtroom_name,
+                    c.crtroom_location,
+                    FIND_CATEGORY_NAME (c.crtroom_location)  crtroom_location_name
+  					, a.attach_path
+  		FROM match m, crtroom c, attach a
+  		WHERE m.crtroom_no = c.crtroom_no
+  		AND c.crtroom_no = a.attach_table_pk
+  		AND a.attach_table_div = 'cd'
+  		AND a.attach_turn = 1
+  		ORDER BY m.in_date desc
+   	</select>
 
   	<!-- 단건조회 -->
   	<select id="selectMatch" resultType="MatchVO">
@@ -209,12 +299,13 @@
   				, m.detail_ctt
   				, m.crtroom_no
   				, m.age
+  				, m.in_date
+  				, m.update_date
                 , c.crtroom_name
                 , c.crtroom_location
                 , FIND_CATEGORY_NAME (c.crtroom_location)   crtroom_location_name
                 , a.attach_path
   		FROM match m, crtroom c, attach a
-
   		WHERE m.crtroom_no = c.crtroom_no
   		AND c.crtroom_no = a.attach_table_pk
   		AND a.attach_table_div = 'cd'
@@ -336,6 +427,8 @@
 	  				, detail_ctt
 	  				, crtroom_no
 	  				, age
+	  				, in_date
+	  				, update_date
   	 			)
   	 			VALUES
   	 			(
@@ -353,6 +446,8 @@
   	 				,#{detailCtt}
   	 				,#{crtroomNo}
   	 				,#{age}
+  	 				,#{inDate}
+  	 				,#{updateDate}
   	 			)  	 			
   	</insert>
 
@@ -540,7 +635,6 @@
 	  				, match_date = #{matchDate}
 	  				, time = #{time}
 	  				, game_way = #{gameWay}
-	  				, prog_state = #{progState}
 	  				, ntrp = #{ntrp}
 	  				, lv = #{lv}
 	  				, gen = #{gen}
@@ -549,6 +643,8 @@
 	  				, detail_ctt = #{detailCtt}
 	  				, crtroom_no = #{crtroomNo}
 	  				, age = #{age}
+	  				, in_date = #{inDate}
+	  				, update_date = #{updateDate}
   		WHERE match_no = #{matchNo}
   	</update>
   	  	
@@ -561,7 +657,6 @@
 	  				, match_date = #{matchDate}
 	  				, time = #{time}
 	  				, game_way = #{gameWay}
-	  				, prog_state = #{progState}
 	  				, recruit_psn_num = #{recruitPsnNum}
 	  				, club_no = #{clubNo}
 	  				, ntrp = #{ntrp}
@@ -582,7 +677,6 @@
 	  				, start_date = #{startDate}
 	  				, end_date = #{endDate}
 	  				, time = #{time}
-	  				, prog_state = #{progState}
 	  				, recruit_psn_num = #{recruitPsnNum}
 	  				, ntrp = #{ntrp}
 	  				, lv = #{lv}
@@ -601,11 +695,10 @@
 	  				, mem_id = #{memId}
 	  				, match_date = #{matchDate}
 	  				, time = #{time}
-	  				, prog_state = #{progState}
 	  				, ntrp = #{ntrp}
 	  				, lv = #{lv}
 	  				, gen = #{gen}
-	  				, rsprice = #{rsprice}
+	  				, rsPrice = #{rsPrice}
 	  				, recruit_psn_num = #{recruitPsnNum}
 	  				, detail_ctt = #{detailCtt}
 	  				, crtroom_no = #{crtroomNo}

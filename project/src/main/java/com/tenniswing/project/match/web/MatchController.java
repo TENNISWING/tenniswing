@@ -25,31 +25,44 @@ import com.tenniswing.project.match.service.MatchVO;
 public class MatchController {
 	
 	@Autowired
-	MatchService matchService;
-
-	
+	MatchService matchService;	
 	@Autowired
-	MatchHistService matchHistService;
-
-	
+	MatchHistService matchHistService;	
 	@Autowired
 	CourtroomService courtroomService;
 	
+	
+	
+	//----------매치----------//
+	//매치 홈
 	@GetMapping(value = {"/", "/home"})
 	public String matchPage(Model model) {
+		List<MatchVO> viewList = matchService.matchRecentView();
+		System.out.println(viewList);
+		model.addAttribute("viewList", viewList);
 		return "match/match";
 	}
 	
 	@GetMapping("matchList")
 	@ResponseBody
 	public HashMap<String,Object> matchAjax(MatchVO matchVO) {
-		List<MatchVO> list = matchService.selectAllMatch(matchVO);
+		List<MatchVO> list = matchService.selectAllMatch(matchVO);		
 		HashMap<String,Object> map = new HashMap<>();
 		map.put("selectCount", matchService.selectCount(matchVO));
-		map.put("matchList", matchService.selectAllMatch(matchVO));
+		map.put("matchList", list);
+		
 		return map;
 	}
 	
+	@GetMapping("matchdetail")  
+	public String matchdetailPage(Model model, @RequestParam Integer matchNo) {
+		MatchVO matchVO = new MatchVO();
+		matchVO.setMatchNo(matchNo);
+		model.addAttribute("matchInfo", matchService.selectMatch(matchVO));
+		return "match/matchdetail";
+	}
+	
+	//매치 디테일 페이지 신청하기
 	@PostMapping("matchDetailInsert")
 	@ResponseBody
 	public boolean matchDetailListProcess(Model model, MatchHistVO matchHistVO) {
@@ -63,8 +76,68 @@ public class MatchController {
 		}
 	}
 	
+	//매치 디테일 페이지 삭제하기
+	@PostMapping("matchDetailDelete")
+	@ResponseBody
+	public boolean matchDetailDeleteProcess(Model model, MatchVO matchVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		matchVO.setMemId(id);
+		int n = matchService.deleteMatch(matchVO);
+		if(n>0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	//매치 등록페이지
+	@GetMapping("matchregi")  
+	public String matchregiPage(Model model) {		
+		return "match/matchregi";
+	}
+	
+	@PostMapping("matchregi")  
+	public String matchregiProcess(Model model, MatchVO matchVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		matchVO.setMemId(id);
+		int n = matchService.insertMatch(matchVO);
+		if(n>0) {
+			return "redirect:/";
+		} else {
+			model.addAttribute("msg","등록 실패");
+			return "match/matchregi";
+		}
+	}	
+	
+	//매치 수정페이지
+	@GetMapping("matchupdateregi")
+	public String matchupdateregiPage(Model model, MatchVO matchVO) {
+		model.addAttribute("matchInfo", matchService.selectMatch(matchVO));
+		return "match/matchupdateregi";
+	}
+	
+	@PostMapping("matchupdateregi")
+	public String matchupdateregiProcess(Model model, MatchVO matchVO) {
+		System.out.println(matchVO);
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		matchVO.setMemId(id);
+		int n = matchService.updateMatch(matchVO);
+		if(n>0) {
+			return "redirect:/";
+		} else {
+			model.addAttribute("msg","등록실패");
+			return "match/matchupdateregi";
+		}
+	}
+	
+	
+	
+	//----------클럽----------//
+	//클럽 홈
 	@GetMapping("clubmatch")  
 	public String clubmatchPage(Model model) {
+		List<MatchVO> viewList = matchService.clubRecentView();
+		model.addAttribute("viewList", viewList);
 		return "match/clubmatch";
 	}
 
@@ -90,58 +163,6 @@ public class MatchController {
 			return false;
 		}
 	}
-		
-	@GetMapping("contestmatch")  
-	public String contestmatchPage(Model model) {
-		return "match/contestmatch";
-	}
-	
-	@GetMapping("contMatchList")
-	@ResponseBody
-	public HashMap<String,Object> contMatchAjax(MatchVO matchVO) {
-		List<MatchVO> list = matchService.selectAllContMatch(matchVO);
-		HashMap<String,Object> map = new HashMap<>();
-		map.put("selectContCount", matchService.selectContCount(matchVO));
-		map.put("contMatchList", matchService.selectAllContMatch(matchVO));
-		return map;
-	}
-	
-	@GetMapping("startermatch")  
-	public String startermatchPage(Model model, MatchVO matchVO) {
-		return "match/startermatch";
-	}
-	
-	@GetMapping("starterMatchList")
-	@ResponseBody
-	public HashMap<String,Object> starterMatchAjax(MatchVO matchVO) {
-		List<MatchVO> list = matchService.selectAllStarterMatch(matchVO);
-		HashMap<String,Object> map = new HashMap<>();
-		map.put("selectStarterCount", matchService.selectStarterCount(matchVO));
-		map.put("starterMatchList", matchService.selectAllStarterMatch(matchVO));
-		return map;
-	}
-	
-	@PostMapping("starterMatchDetailInsert")
-	@ResponseBody
-	public boolean starterMatchDetailInsertProcess(Model model, MatchHistVO matchHistVO) {
-		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		matchHistVO.setMemId(id);
-		int n = matchHistService.insertStarterMatchHist(matchHistVO);
-		if(n>0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	@GetMapping("matchdetail")  
-	public String matchdetailPage(Model model, @RequestParam Integer matchNo) {
-		MatchVO matchVO = new MatchVO();
-		matchVO.setMatchNo(matchNo);
-		model.addAttribute("matchInfo", matchService.selectMatch(matchVO));		
-		return "match/matchdetail";
-	}
-	
 	
 	@GetMapping("clubmatchdetail")  
 	public String clubmatchdetailPage(Model model, @RequestParam Integer matchNo) {
@@ -149,40 +170,6 @@ public class MatchController {
 		matchVO.setMatchNo(matchNo);
 		model.addAttribute("clubMatchInfo", matchService.selectClubMatch(matchVO));		
 		return "match/clubmatchdetail";
-	}
-	
-	@GetMapping("contestmatchdetail")  
-	public String contestmatchdetailPage(Model model, @RequestParam Integer matchNo) { 	
-		MatchVO matchVO = new MatchVO();
-		matchVO.setMatchNo(matchNo);
-		model.addAttribute("contMatchInfo", matchService.selectContMatch(matchVO));		
-		return "match/contestmatchdetail";
-	}
-	
-	@GetMapping("startermatchdetail")  
-	public String startermatchdetailPage(Model model, @RequestParam Integer matchNo) {
-		MatchVO matchVO = new MatchVO();
-		matchVO.setMatchNo(matchNo);
-		model.addAttribute("starterMatchInfo", matchService.selectStarterMatch(matchVO));
-		return "match/startermatchdetail";
-	}
-		
-	@GetMapping("matchregi")  
-	public String matchregiPage(Model model) {		
-		return "match/matchregi";
-	}
-	
-	@PostMapping("matchregi")  
-	public String matchregiProcess(Model model, MatchVO matchVO) {
-		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		matchVO.setMemId(id);
-		int n = matchService.insertMatch(matchVO);
-		if(n>0) {
-			return "redirect:/";
-		} else {
-			model.addAttribute("msg","등록 실패");
-			return "match/matchregi";
-		}
 	}
 	
 	@GetMapping("clubmatchregi")  
@@ -203,6 +190,32 @@ public class MatchController {
 		}
 	}
 	
+	@GetMapping("clubmatchupdateregi")  
+	public String clubmatchupdateregiPage(Model model) {		
+		return "match/clubmatchupdateregi";
+	}
+	
+	
+	
+	//----------대회----------//
+	//대회 홈
+	@GetMapping("contestmatch")  
+	public String contestmatchPage(Model model) {
+		List<MatchVO> viewList = matchService.contRecentView();
+		model.addAttribute("viewList", viewList);
+		return "match/contestmatch";
+	}
+	
+	@GetMapping("contMatchList")
+	@ResponseBody
+	public HashMap<String,Object> contMatchAjax(MatchVO matchVO) {
+		List<MatchVO> list = matchService.selectAllContMatch(matchVO);
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("selectContCount", matchService.selectContCount(matchVO));
+		map.put("contMatchList", matchService.selectAllContMatch(matchVO));
+		return map;
+	}
+	
 	@GetMapping("contestmatchregi")
 	public String contmatchregiPage(Model model) {		
 		return "match/contestmatchregi";
@@ -219,6 +232,77 @@ public class MatchController {
 			model.addAttribute("msg","등록 실패");
 			return "match/contestmatchregi";
 		}
+	}
+	
+	@GetMapping("contestmatchdetail")  
+	public String contestmatchdetailPage(Model model, @RequestParam Integer matchNo) { 	
+		MatchVO matchVO = new MatchVO();
+		matchVO.setMatchNo(matchNo);
+		model.addAttribute("contMatchInfo", matchService.selectContMatch(matchVO));		
+		return "match/contestmatchdetail";
+	}
+	
+	@GetMapping("contmatchupdateregi")  
+	public String contmatchupdateregiPage(Model model) {		
+		return "match/contmatchupdateregi";
+	}
+	
+	
+	
+	//----------스타터----------//
+	//스타터 홈
+	@GetMapping("startermatch")  
+	public String startermatchPage(Model model) {
+		List<MatchVO> viewList = matchService.starterRecentView();
+		System.out.println(viewList);
+		model.addAttribute("viewList", viewList);
+		return "match/startermatch";
+	}
+	
+	@GetMapping("starterMatchList")
+	@ResponseBody
+	public HashMap<String,Object> starterMatchAjax(MatchVO matchVO) {
+		List<MatchVO> list = matchService.selectAllStarterMatch(matchVO);
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("selectStarterCount", matchService.selectStarterCount(matchVO));
+		map.put("starterMatchList", matchService.selectAllStarterMatch(matchVO));
+		return map;
+	}
+	
+	//스타터 디테일 페이지 신청하기
+	@PostMapping("starterMatchDetailInsert")
+	@ResponseBody
+	public boolean starterMatchDetailInsertProcess(Model model, MatchHistVO matchHistVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		matchHistVO.setMemId(id);
+		int n = matchHistService.insertStarterMatchHist(matchHistVO);
+		if(n>0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	//스타터 디테일 페이지 삭제하기
+		@PostMapping("starterDetailDelete")
+		@ResponseBody
+		public boolean starterDetailDeleteProcess(Model model, MatchVO matchVO) {
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			matchVO.setMemId(id);
+			int n = matchService.deleteStarterMatch(matchVO);
+			if(n>0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	
+	@GetMapping("startermatchdetail")  
+	public String startermatchdetailPage(Model model, @RequestParam Integer matchNo) {
+		MatchVO matchVO = new MatchVO();
+		matchVO.setMatchNo(matchNo);
+		model.addAttribute("starterMatchInfo", matchService.selectStarterMatch(matchVO));
+		return "match/startermatchdetail";
 	}
 	
 	@GetMapping("startermatchregi")
@@ -239,24 +323,23 @@ public class MatchController {
 		}
 	}
 	
-	@GetMapping("matchupdateregi")  
-	public String matchupdateregiPage(Model model, MatchVO matchVO) {
-		model.addAttribute("matchInfo", matchService.selectMatch(matchVO));
-		return "match/matchupdateregi";
-	}
-	
-	@GetMapping("clubmatchupdateregi")  
-	public String clubmatchupdateregiPage(Model model) {		
-		return "match/clubmatchupdateregi";
-	}
-	
-	@GetMapping("contmatchupdateregi")  
-	public String contmatchupdateregiPage(Model model) {		
-		return "match/contmatchupdateregi";
-	}
-	
 	@GetMapping("startermatchupdateregi")  
-	public String startermatchupdateregiPage(Model model) {		
+	public String startermatchupdateregiPage(Model model, MatchVO matchVO) {
+		model.addAttribute("starterMatchInfo", matchService.selectStarterMatch(matchVO));
 		return "match/startermatchupdateregi";
 	}
+	
+	@PostMapping("startermatchupdateregi")
+	public String startermatchupdateregiProcess(Model model, MatchVO matchVO) {
+		System.out.println(matchVO);
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		matchVO.setMemId(id);
+		int n = matchService.updateStarterMatch(matchVO);
+		if(n>0) {
+			return "redirect:/";
+		} else {
+			model.addAttribute("msg","등록실패");
+			return "match/startermatchupdateregi";
+		}
+	}	
 }

@@ -2755,9 +2755,10 @@ h4 {
   line-height: inherit;
   height: inherit;
   background: transparent;
-  width: 130px;
+  width: 135px;
   padding: 10px 30px 10px 15px;
-  border-right: 1px solid #eaecf0;
+  margin-right: 20px;
+  /* border-right: 1px solid #eaecf0; */
 }
 .select__style .nice-select::after {
   height: 8px;
@@ -2780,7 +2781,7 @@ h4 {
 }
 .select__style .nice-select .list {
   width: 100%;
-  max-height: 250px;
+  /* max-height: 250px; */
   overflow: auto;
   -webkit-box-shadow: -24px 24px 72px 17px rgba(145, 158, 171, 0.24);
           box-shadow: -24px 24px 72px 17px rgba(145, 158, 171, 0.24);

@@ -7,7 +7,7 @@
 	
 	<!-- signup form -->
 	<div class="container justify-content-center" id="signupForm">
-		<form class="form form-vertical" action="startermatchregi" method="POST">
+		<form class="form form-vertical" action="startermatchupdateregi" method="POST">
 			<div class="form-body">
 				<div class="text-center">
 					<h3 class="my-4">스타터 매치 수정</h3>
@@ -30,7 +30,7 @@
 								<label for="crtroomNo">자주가는 코트</label><br>
 								<div class="input-group mb-3">
 									<input type="text" class="form-control" placeholder="코트 입력"
-										aria-describedby="crtroomBtn" id="crtroomNo" name="crtroomNo">
+										aria-describedby="crtroomBtn" id="crtroomNo" name="crtroomNo" th:value="${starterMatchInfo.crtroomNo}">
 									<button class="btn btn-success" type="button" id="crtroomBtn">찾기</button>
 								</div>
 							</div>
@@ -39,7 +39,7 @@
 							<div class="row">
 								<div class="col-6">
 									<label for="region">매치 일자</label><br>
-										<input type="date" id="matchDate" name="matchDate" class="form-control flatpickr-always-open" placeholder="예약 일자 선택">
+										<input type="date" th:value="${#dates.format(starterMatchInfo.matchDate,'yyyy-MM-dd')}" id="matchDate" name="matchDate" class="form-control flatpickr-always-open" placeholder="예약 일자 선택">
 								</div>				
 							</div>
 						
@@ -56,12 +56,12 @@
 								<div class="form-group">
 									<select class="choices form-select" name="age" id="age">
 										<optgroup label="연령대">
-											<option value="a1">10대</option>
-											<option value="a2">20대</option>
-											<option value="a3">30대</option>
-											<option value="a4">40대</option>
-											<option value="a5">50대</option>
-											<option value="a6">60대이상</option>
+											<option value="a1" th:selected="'a1' == ${starterMatchInfo.age}">10대</option>
+											<option value="a2" th:selected="'a2' == ${starterMatchInfo.age}">20대</option>
+											<option value="a3" th:selected="'a3' == ${starterMatchInfo.age}">30대</option>
+											<option value="a4" th:selected="'a4' == ${starterMatchInfo.age}">40대</option>
+											<option value="a5" th:selected="'a5' == ${starterMatchInfo.age}">50대</option>
+											<option value="a6" th:selected="'a6' == ${starterMatchInfo.age}">60대이상</option>
 										</optgroup>
 									</select>
 								</div>
@@ -72,9 +72,9 @@
 								<div class="form-group">
 									<select class="choices form-select" name="lv" id="lv">
 										<optgroup label="구력">
-											<option value="d1">입문</option>
-											<option value="d2">2~5년</option>
-											<option value="d3">5년이상</option>
+											<option value="d1" th:selected="'d1' == ${starterMatchInfo.lv}">입문</option>
+											<option value="d2" th:selected="'d2' == ${starterMatchInfo.lv}">2~5년</option>
+											<option value="d3" th:selected="'d3' == ${starterMatchInfo.lv}">5년이상</option>
 										</optgroup>
 									</select>
 								</div>
@@ -87,8 +87,8 @@
 								<div class="form-group">
 									<select class="choices form-select" name="gen" id="gen">
 										<optgroup label="성별">
-											<option value="c1">남성</option>
-											<option value="c2">여성</option>
+											<option value="c1" th:selected="'c1' == ${starterMatchInfo.gen}">남성</option>
+											<option value="c2" th:selected="'c2' == ${starterMatchInfo.gen}">여성</option>
 										</optgroup>
 									</select>
 								</div>
@@ -99,13 +99,13 @@
 								<div class="form-group">
 									<select class="choices form-select" id="ntrp" name="ntrp">
 										<optgroup label="ntpr">
-											<option value="e1">1.0</option>
-											<option value="e2">1.5</option>
-											<option value="e3">2.0</option>
-											<option value="e4">2.5</option>
-											<option value="e5">3.0</option>
-											<option value="e6">3.5</option>
-											<option value="e7">4.0이상</option>
+											<option value="e1" th:selected="'e1' == ${starterMatchInfo.ntrp}">1.0</option>
+											<option value="e2" th:selected="'e2' == ${starterMatchInfo.ntrp}">1.5</option>
+											<option value="e3" th:selected="'e3' == ${starterMatchInfo.ntrp}">2.0</option>
+											<option value="e4" th:selected="'e4' == ${starterMatchInfo.ntrp}">2.5</option>
+											<option value="e5" th:selected="'e5' == ${starterMatchInfo.ntrp}">3.0</option>
+											<option value="e6" th:selected="'e6' == ${starterMatchInfo.ntrp}">3.5</option>
+											<option value="e7" th:selected="'e7' == ${starterMatchInfo.ntrp}">4.0이상</option>
 										</optgroup>
 									</select>
 								</div>
@@ -116,8 +116,8 @@
 						<div class="col-5">
 								<label for="name">레슨비</label><br>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control"
-										placeholder="레슨비 입력" id="rsprice" name="rsprice" maxlength="10"
+									<input type="text" class="form-control" th:value="${starterMatchInfo.rsPrice}"
+										placeholder="레슨비 입력" id="rsPrice" name="rsPrice" maxlength="10"
 										required>
 								</div>
 							</div>
@@ -127,7 +127,7 @@
 						<div class="col-6">
 								<label for="name">코멘트</label><br>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control is-invalid"
+									<input type="text" class="form-control is-invalid" th:value="${starterMatchInfo.detailCtt}"
 										placeholder="코멘트 입력" id="detailCtt" name="detailCtt">
 								</div>
 							</div>
@@ -218,18 +218,10 @@
 									</div>
 								</div>
 							</div><br>
-				<div class="product__bottom mtdbtn">
-					<div class="cart__action__btn">
-						<td class="text-end">
-			                <button type="button" class="btn btn-primary matchbtn4" data-bs-toggle="modal"
-                                    data-bs-target="#backdrop">수정하기</button>
-			            </td>
-			            <td class="text-end">
-			                <button type="button" class="btn btn-primary matchbtn4" data-bs-toggle="modal"
-                                    data-bs-target="#backdrop">취소</button>
-			            </td>
-					</div>
-					</div>
+						<input type="number" th:value="${starterMatchInfo.matchNo}" hidden="true" name="matchNo">
+						<button class="btn btn-success" type="submit" >수정하기</button>
+						<button class="btn btn-success" type="button" th:onclick="|location.href='@{/}'|">취소</button>
+						</div>
 				</div>
 
 		</form>
