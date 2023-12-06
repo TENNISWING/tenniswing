@@ -227,9 +227,14 @@
   
   <!-- 회원 > 클럽 가입 등록 -->
   <insert id="insertClubMem" parameterType="clubVO">
+  <selectKey keyProperty="clubMemNo" resultType="int" order="BEFORE">
+  		SELECT NVL(MAX(club_mem_no),0)+1
+  		FROM club_mem
+  	</selectKey>
   	INSERT INTO club_mem
   			(
-  				club_join_apply_wrt
+  				club_mem_no
+  				, club_join_apply_wrt
   				, club_approve
   				, mem_id
   				, club_no
@@ -237,13 +242,13 @@
   			)
   		   VALUES
   		   (
-  		   	#{clubJoinApplyWrt}
+  		   	#{clubMemNo}
+  		   	, #{clubJoinApplyWrt}
   		   	, 'm3'
   		   	, #{memId}
   		   	, #{clubNo}
   		   	, SYSDATE
   		   )
-  				
   </insert>
   
    <!-- 클럽 신청 목록 -->

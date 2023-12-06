@@ -90,8 +90,8 @@ public class ClubController {
 	@PostMapping("memFormAjax")
 	@ResponseBody
 	public int clubMemFormAjax(ClubVO clubVO, Model model) {
-		//String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		clubVO.setMemId(id);
 		int result = clubService.insertClubMem(clubVO);
 		return result;
 	}
@@ -259,6 +259,13 @@ public class ClubController {
 	@GetMapping("clubApply")
 	public String applyTapPage(Model model) {
 		return "club/clubApply";
+	}
+	
+	// 상세페이지 > 탭 > 클럽가입신청 리스트
+	@GetMapping("clubInquiryList")
+	@ResponseBody
+	public List<ClubVO> InquiryListAjax(ClubVO clubVO) {
+		return clubService.selectclubMem(clubVO);
 	}
 
 }
