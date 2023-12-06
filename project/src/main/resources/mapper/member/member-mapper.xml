@@ -29,12 +29,27 @@
 		WHERE MEM_ID = #{memId}
 	</select>
 	
-		<!-- 로그인 -->
+	<!-- 패스워드 체크 -->
 	<select id="checkPw" resultType="MemberVO">
 		SELECT pwd
 		FROM MEM
 		WHERE MEM_ID = #{memId}
 	</select>
+	
+	<!-- 아이디 찾기 -->
+	<select id="searchId" resultType="MemberVO">
+		SELECT mem_id
+		FROM MEM
+		WHERE PHONE_NO = #{phoneNo}
+	</select>
+	
+	<!-- 비밀번호 찾기 후 수정 -->
+	<update id="searchPwUpdate" parameterType="MemberVO">
+		UPDATE MEM 
+		SET		
+			PWD = #{pwdUpdate}		
+		WHERE mem_id = #{memId}
+	</update>
 
 	<!-- 멤버정보 조회 -->
 	<select id="memberInfo" resultType="MemberVO">

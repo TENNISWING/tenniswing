@@ -451,6 +451,50 @@
   	 			)  	 			
   	</insert>
   	
+  	<!-- <insert id="insertHistMatch" parameterType="MatchVO">
+  	<selectKey keyProperty="matchNo" 
+  	 			   resultType="int" 
+  	 			   order="BEFORE">
+  	 		primarykey가 숫자일 경우 사용
+  	 		SELECT NVL(MAX(match_no), 0) + 1 
+			FROM match
+  	 	</selectKey>
+  	 	INSERT INTO match
+  	 			(
+	  	 			match_no
+	  				, mem_id
+	  				, match_date
+	  				, time
+	  				, game_way
+	  				, prog_state
+	  				, ntrp
+	  				, lv
+	  				, gen
+	  				, crt_use_amt
+	  				, recruit_psn_num
+	  				, detail_ctt
+	  				, crtroom_no
+	  				, age
+  	 			)
+  	 			VALUES
+  	 			(
+  	 				#{matchNo}
+  	 				,#{memId}
+  	 				,#{matchDate}
+  	 				,#{time}
+  	 				,#{gameWay}
+  	 				,'g1'
+  	 				,#{ntrp}
+  	 				,#{lv}
+  	 				,#{gen}
+  	 				,#{crtUseAmt}
+  	 				,#{recruitPsnNum}
+  	 				,#{detailCtt}
+  	 				,#{crtroomNo}
+  	 				,#{age}
+  	 			)
+  	</insert> -->
+  	
   	<!-- 클럽 등록 -->
   	<insert id="insertClubMatch" parameterType="MatchVO">
   	 	<selectKey keyProperty="matchNo" 

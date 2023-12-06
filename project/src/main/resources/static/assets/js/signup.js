@@ -176,8 +176,6 @@ $(document).ready(function () {
     IMP.init("imp48072683");
     $('#phoneNoBtn').on('click', function (e) {
         IMP.certification({
-
-
         }, function (rsp) {
             if (rsp.success) {
                 let impUid = rsp.imp_uid;
@@ -193,8 +191,8 @@ $(document).ready(function () {
     })
 
     $('#forgotphoneNoBtn').on('click', function (e) {
-        console.log('로딩됨?')
-        if($('#phoneNo').val() == ''){
+
+        if ($('#phoneNo').val() == '') {
             Swal2.fire({
                 icon: "error",
                 title: "번호를 입력 해 주세요.",
@@ -205,21 +203,46 @@ $(document).ready(function () {
         IMP.certification({
         }, function (rsp) {
             if (rsp.success) {
-                let impUid = rsp.imp_uid;
                 Swal2.fire({
                     icon: "success",
                     title: "본인 인증이 완료되었습니다.",
                 })
                 $('#phoneCk').prop('checked', true);
+
+                let phoneNo = $('input[name="phoneNo"]').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'forgotid',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ phoneNo: phoneNo }),
+                    success: function (result) {
+                        console.log(result);
+                        $('#myId').prop('hidden', false);
+                        $('#memId').val(result);
+                        Swal2.fire({
+                            icon: "success",
+                            title: "아이디 찾기 완료",
+                        })
+                    }
+                    ,
+                    error: () => console.log(error)
+                })
             } else {
-                console.log("실패")
+                Swal2.fire({
+                    icon: "error",
+                    title: "본인 인증 실패",
+                })
             }
         });
+
+
+
+
     })
 
     $('#forgotpwphoneNoBtn').on('click', function (e) {
-        console.log('로딩됨?')
-        if($('#phoneNo').val() == ''){
+        if ($('#phoneNo').val() == '') {
             Swal2.fire({
                 icon: "error",
                 title: "번호를 입력 해 주세요.",
@@ -230,19 +253,40 @@ $(document).ready(function () {
         IMP.certification({
         }, function (rsp) {
             if (rsp.success) {
-                let impUid = rsp.imp_uid;
+     
                 Swal2.fire({
                     icon: "success",
                     title: "본인 인증이 완료되었습니다.",
                 })
                 $('#phoneCk').prop('checked', true);
+
+                let phoneNo = $('input[name="phoneNo"]').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'forgotid',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ phoneNo: phoneNo }),
+                    success: function (result) {
+                        console.log(result);
+                        $('#myId').prop('hidden', false);
+                        $('#memId').val(result);
+                        Swal2.fire({
+                            icon: "success",
+                            title: "아이디 찾기 완료",
+                        })
+                    }
+                    ,
+                    error: () => console.log(error)
+                })
+
             } else {
                 console.log("실패")
             }
         });
     })
 
-    
+
 
 });
 

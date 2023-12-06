@@ -24,6 +24,10 @@ import com.tenniswing.project.shop.service.ProdDetailVO;
 import com.tenniswing.project.shop.service.ProdService;
 import com.tenniswing.project.shop.service.ProdVO;
 
+import lombok.extern.slf4j.Slf4j;
+
+
+@Slf4j
 @Controller
 public class AdminController {
 	@Autowired
@@ -41,8 +45,8 @@ public class AdminController {
 	// 상품 목록
 	@GetMapping("admin_Product")
 	public String adminProductPage(Model model, ProdVO prodVO) {
-		model.addAttribute("prodList", prodService.selectAllProd(prodVO));
-		System.out.println(prodService.selectAllProd(prodVO));
+		model.addAttribute("prodList", prodService.selectAdminAllProd(prodVO));
+		//System.out.println(prodService.selectAllProd(prodVO));
 		return "admin/admin_Product";
 	}
 
@@ -76,6 +80,7 @@ public class AdminController {
 	@GetMapping("adminAdd_Product")
 	public String adminAddProductPage(Model model) {
 		model.addAttribute("prodVO", new ProdVO());
+		//log.warn("====================");
 		return "admin/adminAdd_Product";
 	}
 
