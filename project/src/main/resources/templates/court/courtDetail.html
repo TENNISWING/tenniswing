@@ -164,18 +164,19 @@
 								</div>
 								<h3 class="product-detail__price">[[
 									${#numbers.formatInteger(courtDetail.minPrice, 3, 'COMMA') + '원'} ]] ~</h3>
-								<p class="product-detail__short_desc">[[
+								<p class="product-detail__short_desc"> [[
 									${courtDetail.crtroomExp} ]]</p>
+								<br>
 								<div class="product-detail__attr">
 									<div class="product__attr">
 										<span class="product-detail--stroke" style="font-weight: bold">운영시간</span>
 										<ul class="product__attr--color" style="margin: 0; padding: 0">
 											<li><input type="text"
-												style="width: 70px; border: 0; text-align: center"
+												style="width: 70px; border: 0; text-align: center" id="crtroomOperateStartTime"
 												th:value="${courtDetail.crtroomOperateStartTime}" disabled /></li>
 											<li>~</li>
 											<li><input type="text"
-												style="width: 70px; border: 0; text-align: center"
+												style="width: 70px; border: 0; text-align: center" id="crtroomOperateEndTime"
 												th:value="${courtDetail.crtroomOperateEndTime}" disabled /></li>
 										</ul>
 									</div>
@@ -265,6 +266,7 @@
 							
 							</tbody>
 						</table>
+						<div id="lastDiv" style="display: flex; justify-content: center;"></div>
 						<div id="loadDiv" style="display: flex; justify-content: center"></div>
 						<input type="hidden" id="reserveTime" name="reserveTime">
 						<input type="hidden" id="reserveTimeName" name="reserveTimeName">
@@ -767,7 +769,7 @@
 										  text: "정상적으로 삭제되었습니다.",
 										}).then(function(){
 											//location.reload();
-											$('#review'+reviewNo).html('');
+											$('#review'+reviewNo).css('display','none');
 										})
 								}else{
 									Swal.fire({
@@ -836,12 +838,12 @@
  							console.log(results.review);
 							let offset = $(".client__review").offset(); //해당 위치 반환
 							$("html, body").animate({scrollTop: offset.top},400); // 선택한 위치로 이동. 두번째 인자는 0.4초를 의미한다.
-							$('#home-tab').removeClass('active');
+							/* $('#home-tab').removeClass('active');
 							$('#home-tab-pane').removeClass('show active');
 							$('#home-tab').attr('aria-selected','false');
 							$('#women-tab').addClass('active');
 							$('#women-tab-pane').addClass('show active');
-							$('#women-tab').attr('aria-selected','true');
+							$('#women-tab').attr('aria-selected','true'); */
 						})
 					} else {
 						Swal2.fire({
@@ -973,6 +975,8 @@
 							let crtIndoorOutdoorName = $('input[name="crtDetailNo"]:checked').prev().find('.crtIndoorOutdoorName').text();
 							let crtUsePrice = $('input[name="crtDetailNo"]:checked').prev().find('.crtUsePrice').text();
 							let useUnitTime = $('input[name="crtDetailNo"]:checked').prev().find('.useUnitTime').text();
+							let crtroomOperateStartTime = $('#crtroomOperateStartTime').val();
+							let crtroomOperateEndTime = $('#crtroomOperateEndTime').val();
 							
 							$.ajax({
 								type: 'GET',
@@ -987,12 +991,17 @@
 									
 									let tomorrow = new Date(currentDate.setDate(reserveDateT.getDate()+1));
 									console.log(currentDay);
+									console.log(reserveTimeCode[1][1].substr(-5));
 									
 									$('#matchList').empty();
 									$('#loadDiv').empty();
+									$('#lastDiv').empty();
 										for(let i=0; i<reserveTimeCode.length; i++){
 											let b = ``;
 											if(24-currentDate.getHours() < 19-i && currentDay == reserveDateT.getDate()){
+												continue;
+											}
+											if( crtroomOperateStartTime > reserveTimeCode[i][1]){
 												continue;
 											}
 											b = `
@@ -1026,7 +1035,10 @@
 													}
 												}
 												
-												$('#matchList').append(b)
+												$('#matchList').append(b);
+												if(crtroomOperateEndTime <= reserveTimeCode[i][1].substr(-5)){
+													break;
+												}
 										}
 												$('#loadDiv').append(`
 														<button id="load" class="btn btn-primary" style="width: 200px;">More</button>
@@ -1037,6 +1049,9 @@
 													e.preventDefault();
 													$('#matchList td:hidden').slice(0,50).show();
 													if($("#matchList td:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+														$('#lastDiv').append(`
+																					<div>마지막 행입니다.</div>
+																			   `);
 											            $('#load').fadeOut(100); // 컨텐츠 없을 시 버튼 사라짐
 											        }
 												})

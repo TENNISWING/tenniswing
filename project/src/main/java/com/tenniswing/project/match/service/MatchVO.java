@@ -62,4 +62,6 @@ public class MatchVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updateDate;
 	
+	private String name;
+	
 }

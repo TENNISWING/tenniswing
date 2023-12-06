@@ -8,7 +8,7 @@ import com.tenniswing.project.member.service.MemberVO;
 
 public interface CourtroomService {
 	// 사용자
-	public List<CrtroomVO> selectAllCourtroomMain();
+	public List<CrtroomVO> selectAllCourtroomMain(CrtroomVO crtroomVO);
 	
 	// 호스트
 	// 전체조회
@@ -55,4 +55,7 @@ public interface CourtroomService {
 	
 	// 별점 및 후기수 계산
 	public CrtroomVO crtroomStar(int crtroomNo);
+	
+	// 전체페이지수 count
+	public int selectCount(CrtroomVO crtroomVO);
 }

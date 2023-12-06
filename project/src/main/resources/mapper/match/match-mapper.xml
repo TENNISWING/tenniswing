@@ -305,12 +305,14 @@
                 , c.crtroom_location
                 , FIND_CATEGORY_NAME (c.crtroom_location)   crtroom_location_name
                 , a.attach_path
-  		FROM match m, crtroom c, attach a
+                , b.NAME
+  		FROM match m, crtroom c, attach a, mem b
   		WHERE m.crtroom_no = c.crtroom_no
   		AND c.crtroom_no = a.attach_table_pk
   		AND a.attach_table_div = 'cd'
   		AND a.attach_turn = 1
-  		and m.match_no = #{matchNo}
+  		AND m.mem_id = b.mem_id
+  		AND m.match_no = #{matchNo}
   	</select>
   	
   	<!-- 클럽 단건조회 -->
@@ -318,6 +320,7 @@
   		SELECT m.match_no
   				, m.club_name
   				, m.match_date
+  				, m.club_no
   				, m.time
   				, m.game_way
   				, FIND_CATEGORY_NAME (m.game_way)   game_way_name
@@ -339,7 +342,6 @@
   		AND c.crtroom_no = a.attach_table_pk
   		AND a.attach_table_div = 'cd'
   		AND a.attach_turn = 1
-
         and m.match_no = #{matchNo}
   	</select>
   	
@@ -507,13 +509,17 @@
   	 	INSERT INTO club_match
   	 			(
 		  	 		match_no
-	  				, club_name
+	  				, (select club_no
+	  				   from club
+	  				   where mem_id = #{memId}) as club_name
 	  				, match_date
 	  				, time
 	  				, game_way
 	  				, prog_state
 	  				, recruit_psn_num
-	  				, club_no
+	  				, (select club_no
+	  				   from club
+	  				   where mem_id = #{memId}) as club_no	  				   
 	  				, ntrp
 	  				, lv
 	  				, crt_use_amt

@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.tenniswing.project.attach.service.AttachVO;
+import com.tenniswing.project.community.service.BrdVO;
 import com.tenniswing.project.court.service.CrtroomVO;
 import com.tenniswing.project.member.service.MemberVO;
 
 public interface CourtroomMapper {
 	// 사용자
-	public List<CrtroomVO> selectAllCourtroomMain();
+	public List<CrtroomVO> selectAllCourtroomMain(CrtroomVO crtroomVO);
 	
 	// 호스트
 	// 전체조회
@@ -64,4 +65,7 @@ public interface CourtroomMapper {
 	
 	// 별점 및 후기수 계산
 	public CrtroomVO crtroomStar(int crtroomNo);
+	
+	// 전체페이지수 count
+	public int selectCount(CrtroomVO crtroomVO);
 }
