@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenniswing.project.attach.service.AttachService;
@@ -84,7 +85,9 @@ public class ShopController {
 	
 	@PostMapping("insertCart")
 	@ResponseBody
-	public 
+	public Map<String, Object> insertCart(@RequestBody ProdDetailVO prodDetailVO){
+		return null;
+	}
 
 	@GetMapping("checkout")
 	public String checkoutPage(Model model, ProdDetailVO prodDetailVO, ProdVO prodVO) {
