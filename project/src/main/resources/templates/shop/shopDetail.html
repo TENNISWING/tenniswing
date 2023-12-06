@@ -292,12 +292,12 @@
 								<div class="item">
 									<div class="header__cart">
 										<div class="cart__btn">								
-											<a href="#" class="btn btn-primary btn-outline">Add to Cart</a>
+											<a href="#" class="btn btn-primary btn-outline" id="myCart">장바구니</a>
 										</div>
 									</div>
 								</div>
 								<div class="item">
-									<a type="button" id="goCheckout" class="btn btn-primary btn-filled">Buy Now</a>
+									<a type="button" id="goCheckout" class="btn btn-primary btn-filled">구매하기</a>
 								</div>
 							</div>
 						</form>
@@ -844,7 +844,7 @@
 			}
 		});
 		
-		/* 폼 초기화 함수 */
+		/* 폼 입력 확인 함수 */
 		function resetOrder() {
 			if($('#cateColor').val() == 'none'){
 				Swal.fire({
@@ -921,6 +921,60 @@
 				clickable : true,
 			},
 		});
+	</script>
+	
+	<!-- 장바구니 로그인 체크 -->
+	<script th:inline="javascript">
+	$('#myCart').on('click', function(event){
+		event.preventDefault();
+		$(".flyoutCart").toggleClass("active");
+		//$('.flyoutCart').removeClass('active');
+		let auto = [[${#authentication.name}]];
+		console.log(auto);
+		if(auto == "anonymousUser"){
+			Swal.fire({
+				title: "로그인 확인",
+				html: `로그인이 필요한 서비스입니다.<br>
+					   로그인 페이지로 이동하시겠습니까?`,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "이동",
+				cancelButtonText: "취소"
+			}).then((result) => {
+				  if (result.isConfirmed) {
+				    location.href = '/loginform';
+				    return;
+				  }
+			})
+		} else {
+			//$(".flyoutCart").toggleClass("active");
+			if(resetOrder()){
+				let formData = $('#prodBuyForm').serializeArray();
+				console.log(formData);
+				let objData = {};
+
+				$.each(formData, (idx, obj) => {
+					objData[obj.name] = obj.value;
+				});
+				console.log(objData);
+				
+				/* 장바구니 추가 ajax */
+				$.ajax('', {
+					type : 'post',
+					contentType : 'application/json',
+					data : JSON.stringify(objData)
+				})
+				.done(result => {
+					if(result.)
+				})
+				
+			} else {
+				return;
+			}
+		}
+	});
 	</script>
 </th:block>
 

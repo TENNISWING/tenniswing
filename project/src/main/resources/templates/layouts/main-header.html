@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <th:block th:fragment="header">
 	<!-- header -->
 	<header class="mb-4">
@@ -72,7 +73,7 @@
 								</a> -->
 					<div class="miniCart">
 						<div class="header__cart" style="margin: 0px;">
-							<a href="#" class="cart__btn"> <!-- <div class="cart__btn-img" style="margin: 0">
+							<a href="#" class="cart__btn myCart"> <!-- <div class="cart__btn-img" style="margin: 0">
 									<img src="assets/img/shop/cart-icon.png" alt="cart-icon" />
 									<span class="value">10</span>
 								</div> -->
@@ -163,12 +164,12 @@
 	</header>
 	<!-- End header -->
 
-	<!-- Header FlyoutCart Start -->
+	<!-- Header FlyoutCart Start 카트 시작 -->
 	<div class="flyoutCart">
 		<div class="flyout__flip">
 			<div class="flyout__inner">
 				<div class="cart__header-top">
-					<div class="main__title">Your Cart</div>
+					<div class="main__title">장바구니</div>
 					<div class="close__btn action__btn">
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 							xmlns="http://www.w3.org/2000/svg">
@@ -181,8 +182,8 @@
 					</div>
 				</div>
 				<div class="cart__title">
-					<h3>Product</h3>
-					<h3>Price</h3>
+					<h3>상품 목록</h3>
+					<h3>상품 금액</h3>
 				</div>
 				<div class="cart__items">
 					<!-- Shopping Cart Item Start -->
@@ -230,17 +231,18 @@
 				</div>
 				<!-- Cart Items End -->
 				<!-- Cart SubTotal Start -->
-				<ul class="cart__subtotal">
-					<li><span class="label">Subtotal</span> <span class="value">$45.00</span>
+				<ul class="cart__subtotal" style="border-top: none;">
+					<!-- <li>
+						<span class="label">Subtotal</span> <span class="value">$45.00</span>
 					</li>
 					<li><span class="label">Shipping:</span> <span class="value">$15.22</span>
-					</li>
+					</li> -->
 				</ul>
 				<!-- Cart SubTotal End -->
 				<!-- Total Start -->
 				<div class="cart__total">
 					<h3>
-						Total <span>(Incl. VAT)</span>
+						결제금액 <span>(Incl. VAT)</span>
 					</h3>
 					<div class="total">$60.22</div>
 				</div>
@@ -248,15 +250,44 @@
 			</div>
 			<!-- Cart Button Start -->
 			<div class="cart__btns">
-				<a href="checkout" class="btn btn-primary">Go To Checkout</a> <a
-					href="#" class="btn btn-outline" style="border: 1px solid">Continue
-					shopping</a>
+				<a href="checkout" class="btn btn-primary">상품 주문</a> <a
+					href="#" class="btn btn-outline" style="border: 1px solid">쇼핑 하기</a>
 			</div>
 			<!-- Cart Button End -->
 		</div>
 	</div>
-	<!-- Header FlyoutCart End -->
-
+	<!-- Header FlyoutCart End 카트 종료 -->
+	
+	<!-- 장바구니 로그인 체크 -->
+	<script th:inline="javascript">
+	$('.myCart').on('click', function(event){
+		event.preventDefault();
+		$(".flyoutCart").toggleClass("active");
+		//$('.flyoutCart').removeClass('active');
+		let auto = [[${#authentication.name}]];
+		console.log(auto);
+		if(auto == "anonymousUser"){
+			Swal.fire({
+				title: "로그인 확인",
+				html: `로그인이 필요한 서비스입니다.<br>
+					   로그인 페이지로 이동하시겠습니까?`,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "이동",
+				cancelButtonText: "취소"
+			}).then((result) => {
+				  if (result.isConfirmed) {
+				    location.href = '/loginform';
+				    return;
+				  }
+			})
+		} else {
+			$(".flyoutCart").toggleClass("active");
+		}
+	});
+	</script>
 </th:block>
 
 </html>
