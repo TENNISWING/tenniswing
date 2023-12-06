@@ -122,13 +122,15 @@ public class CourtroomServiceImpl implements CourtroomService {
 		int reviewNo = crtroomVO.getReviewNo();
 		
 		int index = 1;
-		for (AttachVO file : files) {
-			file.setAttachTableDiv("cr");
-			file.setAttachTablePk(reviewNo);
-			file.setAttachTurn(index);
-			index++;
+		if(files != null && files.size() > 0) {
+			for (AttachVO file : files) {
+				file.setAttachTableDiv("cr");
+				file.setAttachTablePk(reviewNo);
+				file.setAttachTurn(index);
+				index++;
+			}
+			attachMapper.saveAttachTurn(files);
 		}
-		attachMapper.saveAttachTurn(files);
 		
 		if(result == 1) {
 			return reviewNo;
@@ -148,17 +150,20 @@ public class CourtroomServiceImpl implements CourtroomService {
 		return courtroomMapper.selectReview(reviewNo);
 	}
 
-	
-	
 	@Override
-	public Map<String, Object> updateReview(CrtroomVO crtroomVO) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean deleteReview(int reviewNo) {
+		int result = courtroomMapper.deleteReview(reviewNo);
+		
+		if(result == 1) {
+			int resultImg = courtroomMapper.deleteReviewImg(reviewNo);
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	@Override
-	public boolean deleteReview(int reviewNo) {
-		// TODO Auto-generated method stub
-		return false;
+	public CrtroomVO crtroomStar(int crtroomNo) {
+		return courtroomMapper.crtroomStar(crtroomNo);
 	}
 }

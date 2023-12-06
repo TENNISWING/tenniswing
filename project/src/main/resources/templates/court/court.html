@@ -2,7 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/layouts/main-layout}">
-
+<head>
+	<style>
+		.card {
+		  transition: all 0.3s ease;
+		}
+		.card:hover {
+		   box-shadow:
+		   -7px -7px 20px 0px #fff9,
+		   -4px -4px 5px 0px #fff9,
+		   7px 7px 20px 0px #0002,
+		   4px 4px 5px 0px #0001;
+		}
+	</style>
+</head>
 	<th:block layout:fragment="content">
 	
 
@@ -311,13 +324,51 @@
                          <ul class="list-group list-group-flush">
                        	 	 <li class="list-group-item" style="border: 0;"></li>
                          	 <li class="list-group-item rating" style="border: 0;">
-                         	 	<ul style="padding: 0">
-									<li><i class="fa-solid fa-star"></i></li>
-									<li><i class="fa-solid fa-star"></i></li>
-									<li><i class="fa-solid fa-star"></i></li>
-									<li><i class="fa-regular fa-star"></i></li>
-									<li><i class="fa-regular fa-star"></i></li>
-								</ul>
+                         	 	<th:block th:switch="${courtList.avgStar != null ? courtList.avgStar : 0}">
+									<ul th:case="0" class="star">
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+									</ul>
+									<ul th:case="1" class="star">
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+									</ul>
+									<ul th:case="2" class="star">
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+									</ul>
+									<ul th:case="3" class="star">
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+									</ul>
+									<ul th:case="4" class="star">
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+									</ul>
+									<ul th:case="5" class="star">
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+									</ul>
+									</th:block>
+								<div class="total__rating">([[${courtList.countReview}]])</div>
                          	 </li>
                          	 <li class="list-group-item" style="border: 0;"><span style="float: left;"><h5 class="card-title">[[ ${courtList.crtroomName} ]]</h5></span></li>
                              <li class="list-group-item" style="border: 0;"><span style="float: left;">[[ ${#numbers.formatInteger(courtList.minPrice, 3, 'COMMA') + '원'} ]] ~</span></li>
@@ -472,14 +523,51 @@
 												</div>
 												<div class="product__content">
 													<div class="product__rating">
-														<ul>
-															<li><i class="fa-solid fa-star"></i></li>
-															<li><i class="fa-solid fa-star"></i></li>
-															<li><i class="fa-solid fa-star"></i></li>
-															<li><i class="fa-solid fa-star"></i></li>
-															<li><i class="fa-regular fa-star"></i></li>
-														</ul>
-														<div class="total__rating">(321)</div>
+														<th:block th:switch="${recentCrt.avgStar != null ? recentCrt.avgStar : 0}">
+															<ul th:case="0" class="star">
+																<li><i class="fa-regular fa-star"></i></li>
+																<li><i class="fa-regular fa-star"></i></li>
+																<li><i class="fa-regular fa-star"></i></li>
+																<li><i class="fa-regular fa-star"></i></li>
+																<li><i class="fa-regular fa-star"></i></li>
+															</ul>
+															<ul th:case="1" class="star">
+																<li><i class="fa-solid fa-star"></i></li>
+																<li><i class="fa-regular fa-star"></i></li>
+																<li><i class="fa-regular fa-star"></i></li>
+																<li><i class="fa-regular fa-star"></i></li>
+																<li><i class="fa-regular fa-star"></i></li>
+															</ul>
+															<ul th:case="2" class="star">
+																<li><i class="fa-solid fa-star"></i></li>
+																<li><i class="fa-solid fa-star"></i></li>
+																<li><i class="fa-regular fa-star"></i></li>
+																<li><i class="fa-regular fa-star"></i></li>
+																<li><i class="fa-regular fa-star"></i></li>
+															</ul>
+															<ul th:case="3" class="star">
+																<li><i class="fa-solid fa-star"></i></li>
+																<li><i class="fa-solid fa-star"></i></li>
+																<li><i class="fa-solid fa-star"></i></li>
+																<li><i class="fa-regular fa-star"></i></li>
+																<li><i class="fa-regular fa-star"></i></li>
+															</ul>
+															<ul th:case="4" class="star">
+																<li><i class="fa-solid fa-star"></i></li>
+																<li><i class="fa-solid fa-star"></i></li>
+																<li><i class="fa-solid fa-star"></i></li>
+																<li><i class="fa-solid fa-star"></i></li>
+																<li><i class="fa-regular fa-star"></i></li>
+															</ul>
+															<ul th:case="5" class="star">
+																<li><i class="fa-solid fa-star"></i></li>
+																<li><i class="fa-solid fa-star"></i></li>
+																<li><i class="fa-solid fa-star"></i></li>
+																<li><i class="fa-solid fa-star"></i></li>
+																<li><i class="fa-solid fa-star"></i></li>
+															</ul>
+															</th:block>
+														<div class="total__rating">([[${recentCrt.countReview}]])</div>
 													</div>
 													<div class="product__title">
 														<h5>
