@@ -15,6 +15,11 @@ let onlyNum = /[\s]|[a-zA-Z]|[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]|[\{\}\[\]\/?,;:|\)*~`!^\-
 
 //아이디 체크 여부 확인 (true면 했음)
 let idchapply = $('#idck').is(':checked');
+
+
+$('#memId').val('');
+$('#phoneNo').val('');
+
 //아이디 이메일형식 체크, 소문자,숫자만 입력
 $('#memId').on('propertychange change keyup paste input', function (e) {
     $(e.target).val($(e.target).val().replace(onlyEngNum, ''));
@@ -122,7 +127,7 @@ $('#pwd').on('propertychange change keyup paste input', function (e) {
 
 //폰넘버 숫자만 입력, 공백 막음
 $('#phoneNo').on('propertychange change keyup paste input', function (e) {
-
+	
     $(e.target).val($(e.target).val().replace(onlyNum, ''));
 
     let intext = $(e.target).val();
@@ -155,6 +160,7 @@ $(document).ready(function () {
         })
     }
     $('#hostForm').hide();
+
 
     $('#submitBtn').on('click', function (e) {
         e.preventDefault();
@@ -253,37 +259,45 @@ $(document).ready(function () {
         IMP.certification({
         }, function (rsp) {
             if (rsp.success) {
-     
+
                 Swal2.fire({
                     icon: "success",
                     title: "본인 인증이 완료되었습니다.",
                 })
                 $('#phoneCk').prop('checked', true);
-
-                let phoneNo = $('input[name="phoneNo"]').val();
-
-                $.ajax({
-                    type: 'POST',
-                    url: 'forgotid',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ phoneNo: phoneNo }),
-                    success: function (result) {
-                        console.log(result);
-                        $('#myId').prop('hidden', false);
-                        $('#memId').val(result);
-                        Swal2.fire({
-                            icon: "success",
-                            title: "아이디 찾기 완료",
-                        })
-                    }
-                    ,
-                    error: () => console.log(error)
-                })
-
+                $('#myPw').prop('hidden', false);
             } else {
                 console.log("실패")
             }
         });
+    })
+
+    $('#pwUpdate').on('click', function (e) {
+        let phoneNo = $('input[name="phoneNo"]').val();
+        let memId = $('input[name="memId"]').val();
+        let pwd = $('input[name="pwd"]').val();
+        $.ajax({
+            type: 'POST',
+            url: 'forgotpw',
+            contentType: 'application/json',
+            data: JSON.stringify({ phoneNo, memId, pwd }),
+            success: function (result) {   
+                if (result > 0) {
+                    Swal2.fire({
+                        icon: "success",
+                        title: "비밀번호 수정 완료",
+                    }).then(result => {
+                    	location.href="/loginform";
+                    })                   
+                } else {
+                    Swal2.fire({
+                        icon: "error",
+                        title: "비밀번호 수정 실패",
+                    })
+                }
+            },
+            error: () => console.log(error)
+        })
     })
 
 

@@ -31,12 +31,12 @@
 								id="phoneCk" hidden="true"> <input type="text"
 								class="form-control is-invalid" placeholder="숫자만 입력 해주세요"
 								aria-describedby="phoneNoBtn" id="phoneNo" name="phoneNo"
-								maxlength="11" aria-label="Text input with checkbox" required>
+								maxlength="11" aria-label="Text input with checkbox" value="" required  >
 							<button class="btn btn-success" type="button"
 								id="forgotpwphoneNoBtn">인증하기</button>
 						</div>
 					</div>
-					<!-- 		<div class="col-12" hidden="true">
+					<div class="col-12 text-start" id="myPw" >
 						<label for="pwd">비밀 번호 수정</label><br>
 						<div class="input-group mb-3">
 							<input type="password" class="form-control is-invalid"
@@ -46,9 +46,8 @@
 								<i class="fa-regular fa-eye-slash"></i>
 							</button>
 						</div>
-					</div> -->
-
-
+						<button type="button" class="btn btn-success" id="pwUpdate">비밀번호 수정</button>					
+					</div>
 				</div>
 				<button class="btn btn-success" type="button"
 					th:onclick="|location.href='@{/loginform}'|">돌아가기</button>

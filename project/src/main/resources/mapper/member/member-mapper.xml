@@ -49,6 +49,7 @@
 		SET		
 			PWD = #{pwdUpdate}		
 		WHERE mem_id = #{memId}
+		AND phone_no = #{phoneNo}
 	</update>
 
 	<!-- 멤버정보 조회 -->
