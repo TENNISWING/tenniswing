@@ -5,7 +5,26 @@
   <mapper namespace="com.tenniswing.project.club.mapper.ClubMapper">
   <!-- 클럽 전체 조회 -->
   <select id = "selectAllClub" resultType="ClubVO">
-	SELECT c.club_no
+  SELECT club_no
+  		   , club_name
+  		   , FIND_CATEGORY_NAME (club_region) club_region_name
+  		   , FIND_CATEGORY_NAME (club_gen) club_gen_name
+  		   , FIND_CATEGORY_NAME (club_age) club_age_name
+  		   , FIND_CATEGORY_NAME (club_day) club_day_name
+  		   , FIND_CATEGORY_NAME (club_time) club_time_name
+  		   , club_intro
+  		   , club_crt
+  		   , club_mem_num
+  		   , FIND_CATEGORY_NAME (club_recruitment) club_recruitment_name
+  		   , mem_id
+  		   , club_create_date
+  		   ,  (SELECT ATTACH_PATH
+                FROM ATTACH
+                WHERE club_no = attach_table_pk
+            	AND attach_table_div = 'cl') as ATTACH_PATH
+    FROM club             
+    ORDER BY club_create_date DESC
+	<!-- SELECT c.club_no
   		   , c.club_name
   		   , FIND_CATEGORY_NAME (c.club_region) club_region_name
   		   , FIND_CATEGORY_NAME (c.club_gen) club_gen_name
@@ -36,7 +55,7 @@
     	  	 , c.mem_id
     	  	 , c.club_create_date
     	  	 , a.attach_path
-    ORDER BY c.club_create_date DESC
+    ORDER BY c.club_create_date DESC -->
   </select>
   
   <!-- 클럽 단건 조회 -->
@@ -44,7 +63,7 @@
   <id column="club_no" property="clubNo"/>
   		<collection property="clubMemList" javaType="ArrayList" column="club_no" ofType="clubVO" select="selectclubMem" />
   	</resultMap>
-  <select id = "selectClub" resultMap="clubtResult">
+  <!-- <select id = "selectClub" resultMap="clubtResult">
   	SELECT c.club_no
   		   , c.club_name
   		   , FIND_CATEGORY_NAME (c.club_region) club_region_name
@@ -76,9 +95,9 @@
     	  	 , c.club_create_date
     	  	 , a.attach_path
     HAVING c.club_no = #{clubNo}
-  </select>
+  </select> -->
   
-  <!-- <select id = "selectClub" resultType="clubVO">
+ <select id = "selectClub" resultType="clubVO">
   	SELECT club_no
   		   , club_name
   		   , FIND_CATEGORY_NAME (club_region) club_region_name
@@ -98,7 +117,7 @@
 		AND attach_table_div = 'cl') as ATTACH_PATH
     		FROM club 
     WHERE club_no = #{clubNo}
-  </select> -->
+  </select> 
   
   
   <select id="selectclubMem" resultType="clubVO">

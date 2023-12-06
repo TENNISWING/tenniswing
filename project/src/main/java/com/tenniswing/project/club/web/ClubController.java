@@ -25,6 +25,8 @@ import com.tenniswing.project.club.service.ClubService;
 import com.tenniswing.project.club.service.ClubVO;
 import com.tenniswing.project.common.FileUtils;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 public class ClubController {
 
@@ -48,6 +50,7 @@ public class ClubController {
 	@GetMapping("club")
 	public String clubPage(Model model) {
 		// model.addAttribute("clubList", clubService.selectAllClub());
+		log.debug("clubList---------------");
 		return "club/club";
 	}
 
@@ -99,10 +102,11 @@ public class ClubController {
 	@GetMapping("clubdetail")
 	public String clubDetailPage(Model model, ClubVO clubVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		clubVO.setMemId(id);
+		//clubVO.setMemId(id);
 		
 		model.addAttribute("club", clubService.selectClub(clubVO));
-		System.out.println(clubService.selectClub(clubVO)+"=@@@@@===");
+		model.addAttribute("loginId", id);
+		System.out.println(id+"=@@@@@===");
 		return "club/clubdetail";
 	}
 

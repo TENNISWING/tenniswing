@@ -73,22 +73,22 @@
 					<div class="user__profile text-center"
 						style="padding: 20px 10px 40px 10px;">
 						<div class="club__avatar">
-							<img src="${club.attachPath}" alt="profile-pic" />
+							<img th:src="${club.attachPath}" alt="profile-pic" />
 
 						</div>
 						<div class="user__content">
 							<h3 style="line-height: 80px; color: #668585;"
 								th:text="${club.clubName}"></h3>
-								<h3 style="line-height: 80px; color: #668585;"
-								th:text="${club.memId}"></h3>
 							<h6 style="color: gray;">멤버수 : [[ ${club.clubMemNum} ]]명</h6>
 							<div>
+							<th:block th:if="${#strings.equals(club.memId,loginId)}">
 								<button class="btn btn-outline-success" id="clubEdit"
 									data-bs-toggle="modal" data-bs-target="#EditModal"
 									style="width: 50%; margin-top: 30px;"
 									th:data-club-no="${club.clubNo}">클럽 수정</button>
 								<button class="btn btn-outline-success" id="clubDel"
 									style="width: 50%; margin-top: 30px;">클럽 삭제</button>
+							</th:block>		
 							</div>
 
 						</div>
@@ -147,6 +147,7 @@
 										data-url="clubMember"
 										th:data-club-no="${club.clubNo}">멤버</button>
 								</li>
+								<th:block th:if="${#strings.equals(club.memId,loginId)}">
 								<li class="nav-item" role="presentation">
 									<button class="nav-link" id="clubApply-tab"
 										data-bs-toggle="tab" data-bs-target="#tab-clubApply-pane"
@@ -154,6 +155,7 @@
 										aria-selected="false" data-url="clubApply"
 										th:data-club-no="${club.clubNo}">가입 신청</button>
 								</li>
+								<th:block>
 							</ul>
 						</div>
 					</div>
