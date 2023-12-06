@@ -9,10 +9,13 @@ import com.tenniswing.project.community.service.SnsVO;
 public interface SnsMapper {
 	// 전체조회(다건 조회)
 	public List<SnsVO> selectAllSnsInfo(SnsVO snsVO);
-	// 회원당 그룹 조회
+	// 회원당 등록한 그룹 조회
 	public List<SnsVO> selectGroup(SnsVO snsVO);
 	// 단건 조회
 	public SnsVO selectSnsInfo(SnsVO snsVO);
+	// 내 그룹 리스트(sns, snsgroup, like 다 가지고 있음)
+	public List<SnsVO> selectMyGroup(SnsVO snsVO);
+	
 	
 	// 등록
 	public int insertSns(SnsVO snsVO);

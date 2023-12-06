@@ -10,9 +10,10 @@
 }
 </style>
 <!-- tagify 소스 다운 -->
-	<script src="https://unpkg.com/@yaireo/tagify"></script>
-	<!-- 폴리필 (구버젼 브라우저 지원) -->
-	<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<!-- 폴리필 (구버젼 브라우저 지원) -->
+<script
+	src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 </head>
 
 <th:block layout:fragment="content">
@@ -63,37 +64,47 @@
 											<div class="card snsimg">
 												<div class="card-content">
 													<div class="card-body">
-														<span class="card-title" style="font-weight: bold;">[[${s.snsTitle}]]</span> 
+														<span class="card-title" style="font-weight: bold;">[[${s.snsTitle}]]</span>
 														<div class="edBtns" style="float: right;">
-																<i type="button" class="fa-regular fa-pen-to-square editBtnClass" th:onclick="|location.href='@{/snsEditForm(snsWrtNo=${s.snsWrtNo}, snsGrpNo=${s.snsGrpNo})}'|" id="editSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i> 
-																<i type="button" class="fa-regular fa-trash-can delBtnClass" id="delSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i>
-															</div>
+															<i type="button"
+																class="fa-regular fa-pen-to-square editBtnClass"
+																th:onclick="|location.href='@{/snsEditForm(snsWrtNo=${s.snsWrtNo}, snsGrpNo=${s.snsGrpNo})}'|"
+																id="editSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i> <i
+																type="button"
+																class="fa-regular fa-trash-can delBtnClass"
+																id="delSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i>
+														</div>
 														<br>
-															
+
 														<th:block
 															th:each=" lang : ${#strings.arraySplit(s.snsTag,',')}">
 															<span class="card-title tagVal">[[${lang}]]</span>
-														<!-- <input th:each="tagg:${#strings.arraySplit(s.snsTag,',')}" type="text" class="tags4" name="tags4" th:value="${lang}" readonly> -->
-															
+															<!-- <input th:each="tagg:${#strings.arraySplit(s.snsTag,',')}" type="text" class="tags4" name="tags4" th:value="${lang}" readonly> -->
+
 														</th:block>
 														<h6 class="card-subtitle" style="font-weight: 300;">[[${s.grpName}]]</h6>
 													</div>
 													<div id="myCarousel" th:attrappend="id=${sStat.count}"
 														class="carousel slide" data-ride="carousel">
 														<div class="carousel-inner">
-														<!-- 사진 / 동영상 반복문 -->
-															<th:block th:each="simg : ${s.attachList}"> 
-																<div class="carousel-item" th:if="${simg.attachExt=='.mp4'}" th:classappend="${simgStat.count==1}?active:_">
-																	<video class="main-top-promotion-video" autoplay="autoplay" loop="loop" muted="muted">
+															<!-- 사진 / 동영상 반복문 -->
+															<th:block th:each="simg : ${s.attachList}">
+																<div class="carousel-item"
+																	th:if="${simg.attachExt=='.mp4'}"
+																	th:classappend="${simgStat.count==1}?active:_">
+																	<video class="main-top-promotion-video"
+																		autoplay="autoplay" loop="loop" muted="muted">
 																		<source th:src="${simg.attachPath}" type="video/mp4">
 																	</video>
 																</div>
-																<div class="carousel-item" th:unless="${simg.attachExt=='.mp4'}" th:classappend="${simgStat.count==1}?active:_">
-																	<img th:src="${simg.attachPath}"
-																		class="d-block w-100" alt="...">
+																<div class="carousel-item"
+																	th:unless="${simg.attachExt=='.mp4'}"
+																	th:classappend="${simgStat.count==1}?active:_">
+																	<img th:src="${simg.attachPath}" class="d-block w-100"
+																		alt="...">
 																</div>
-														</th:block> 
-														<!-- 사진 / 동영상 반복문 end -->
+															</th:block>
+															<!-- 사진 / 동영상 반복문 end -->
 														</div>
 														<a class="carousel-control-prev" href="#myCarousel"
 															th:attrappend="href=${sStat.count}" role="button"
@@ -123,7 +134,7 @@
 														<!-- 좋아요 버튼 -->
 														<li class="d-flex flex-column">
 															<div>
-																<!-- 					<a th:if="${#strings.isEmpty(s.likeNo)}" class="btn icon btn-white" th:data-snslike="${s.snsWrtNo}">
+																<!-- <a th:if="${#strings.isEmpty(s.likeNo)}" class="btn icon btn-white" th:data-snslike="${s.snsWrtNo}">
 																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC" id="likeBtn"
 																		th:attrappend="id=${sStat.count}">
 																	</i>
@@ -133,19 +144,18 @@
 																		th:attrappend="id=${sStat.count}">
 																	</i>
 																</a> -->
-																<a th:if="${s.likeNo>0}"
-																	class="btn icon btn-white"
-																	th:data-snslike="${s.snsWrtNo}"> <i
-																	class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC "
+																<a th:if="${s.likeNo>0}" class="btn icon btn-white"
+																	th:data-snslike="${s.snsWrtNo}"> 
+																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC "
 																	id="likeBtn" th:attrappend="id=${sStat.count}"> </i>
-																</a> <a th:unless="${s.likeNo>0}"
-																	class="btn icon btn-white"
-																	th:data-snslike="${s.snsWrtNo}"> <i class="fa-regular fa-thumbs-up text-secondary likeBtnC active"
+																</a> 
+																<a th:unless="${s.likeNo>0}" class="btn icon btn-white"
+																	th:data-snslike="${s.snsWrtNo}"> 
+																	<i class="fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active"
 																	th:data-likeno="${s.likeNo}" id="likeBtn"
 																	th:attrappend="id=${sStat.count}"> </i>
 																</a>
-															</div>
-															<span>[[${s.likeCnt}]]</span>
+															</div> <span>[[${s.likeCnt}]]</span>
 														</li>
 
 														<!-- 댓글 버튼 -->
@@ -189,8 +199,8 @@
 														<!-- 스크랩 버튼 -->
 														<li class="d-flex flex-column">
 															<div>
-																<a class="btn icon btn-white bmark"> 
-																	<i class="fa-regular fa-bookmark fs-5 text-secondary iBmark"></i>
+																<a class="btn icon btn-white bmark"> <i
+																	class="fa-regular fa-bookmark fs-5 text-secondary iBmark"></i>
 																</a>
 															</div>
 														</li>
@@ -225,7 +235,7 @@
 	</div>
 	<!-- div container end -->
 
-	
+
 
 	<div class="modal fade text-left myRepList" id="large" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
@@ -242,20 +252,20 @@
 					</button>
 				</div>
 				<div class="modal-body">
-						<div class="card">
-							<div class="card-header"></div>
-							<div class="card-body">
-									<table class="table" id="tableRep">
-										<thead>
-											<tr>
-												<th>작성자</th>
-												<th>댓글 내용</th>
-												<th>작성일자</th>
-												<th></th>
-											</tr>
-										</thead>
-										<tbody id="replyList">
-											<!-- 	<tr th:each="num : ${#numbers.sequence(1,5)}">
+					<div class="card">
+						<div class="card-header"></div>
+						<div class="card-body">
+							<table class="table" id="tableRep">
+								<thead>
+									<tr>
+										<th>작성자</th>
+										<th>댓글 내용</th>
+										<th>작성일자</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody id="replyList">
+									<!-- 	<tr th:each="num : ${#numbers.sequence(1,5)}">
 												<td>Graiden</td>
 												<td>vehicula.aliquet@semconsequat.co.uk</td>
 												<td>076 4820 8838</td>
@@ -264,12 +274,12 @@
 													class="fa-regular fa-trash-can"></i></td>
 											</tr> -->
 
-										</tbody>
+								</tbody>
 
-									</table>
+							</table>
 
-							</div>
 						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<div class="input-group mb-3">
@@ -291,55 +301,57 @@
 	</div>
 
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-	
+
 	<!-- Initialize Swiper -->
 	<script th:inline="javascript">
+	
+	// scroll to element
+	const element = document.getElementById("content-types");
+	element.scrollIntoView();
+	
 	let message = [[${message}]]
 	if(message!= null){
 		alert(message)
 	}
 	
+	// Tagify
 	var input = document.querySelector('input[name=tags4]'),
     tagify = new Tagify(input);
-
-		const swiper = new Swiper('.swiper', {
-			  // Optional parameters
-			  direction: 'vertical',
-			  loop: false,
-			  mousewheel : true,
-			  centeredSlides: true, // 1번 슬라이드가 가운데 보이기
-
-
-			});
+	
+	// 스와이퍼
+	const swiper = new Swiper('.swiper', {
+		  // Optional parameters
+		  direction: 'vertical',
+		  loop: false,
+		  mousewheel : true,
+		  centeredSlides: true, // 1번 슬라이드가 가운데 보이기
 
 
-
-			$('.btn.icon.btn-white.snsBtns i').on('click', function(e) {
-						$(e.target).toggleClass('active');
-
-				let cnt = $(e.target).prop('id');
-
-				for(let i=1; i<= $('.btn.icon.btn-white.snsBtns').length; i++){
-					$('#collapseExample'+ i).attr('class', 'snsBtnsCol collapse')
-
-				}
+		});
 
 
+	// sns 공유 버튼
+	$('.btn.icon.btn-white.snsBtns i').on('click', function(e) {
+		$(e.target).toggleClass('active');
+
+		let cnt = $(e.target).prop('id');
+
+			for(let i=1; i<= $('.btn.icon.btn-white.snsBtns').length; i++){
+				$('#collapseExample'+ i).attr('class', 'snsBtnsCol collapse')
+	
+			}
 
 
-				if ($(e.target).hasClass('active')) {
-
-					$('#collapseExample'+ cnt).attr('class',
-							'snsBtnsCol collapse show')
-
-							//console.log($('#collapseExample'+i));
-
-				}else{
-					$('.btn.icon.btn-white.snsBtns i').attr("class", "fa-solid fa-share-from-square fs-5 text-secondary" );
-				}
-
-
-
+			if ($(e.target).hasClass('active')) {
+	
+				$('#collapseExample'+ cnt).attr('class',
+						'snsBtnsCol collapse show')
+	
+						//console.log($('#collapseExample'+i));
+	
+			}else{
+				$('.btn.icon.btn-white.snsBtns i').attr("class", "fa-solid fa-share-from-square fs-5 text-secondary" );
+			}
 
 	});
 
@@ -459,47 +471,6 @@
 
 		let repList = 0;
 
-	/* 	$('.d-flex.flex-column.ss').on('click', function(e){
-			event.preventDefault();
-			let btnId = $(e.target).prop('id');
-			console.log(btnId)
-			//repList = $(e.relatedTarget).data('');
-			$.ajax({
-				type: 'GET',
-				url:'snsRep',
-				data:{ snsWrtNo: btnId },
-				   success: function(data) {
-			            for(let matchInfo of data){
-			               let b = `<tr class="navbar-brand" onclick="|location.href='/matchdetail?matchNo=${matchInfo.matchNo})}'">
-			               <td class="text-center"><b>${matchInfo.time}</b></td>
-			               <td>${matchInfo.gameWayName}</td>
-			               <td>${matchInfo.genName}</td>
-			               <td>${matchInfo.lvName}</td>
-			               <td>${matchInfo.crtroomLocationName}</td>
-			               <td class="text-end">
-			                  <button type="button" class="btn btn-primary matchbtn1" onclick="location.href='/matchdetail?'">${matchInfo.matchNo}</button>
-			               </td>
-			            </tr>`
-			               $('.myRepList').append(b)
-			            }
-			         }
-
-			})
-		}); */
-
-	//tag value 꺼내기
-	//let tagVal = document.querySelectorAll('.tagVal');
-/* 	let tags = eval(request.POST['tags']),
-
-		
-		for (let tag in tags){
-		 console.log(tag['value']);
-		}  */
-
-
-	//let valTag = Object.values(tagVal);
-	//console.log(tagVal);
-	
 	// 댓글 모달창이 열릴때 이벤트
 	let snsWrtNo = 0;
 	var snsRepNo = 0;

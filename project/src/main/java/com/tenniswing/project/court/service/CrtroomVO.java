@@ -55,4 +55,8 @@ public class CrtroomVO {
 	// 별점
 	private Integer avgStar;
 	private int countReview;
+	
+	//페이징
+	private int page = 1;
+	private int pageUnit = 12;
 }

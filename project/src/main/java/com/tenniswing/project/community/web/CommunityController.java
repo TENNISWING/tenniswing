@@ -207,7 +207,11 @@ public class CommunityController {
 
 	// sns 내가 등록한 게시글 보기
 	@GetMapping("snsMyList")
-	public String snsMyListPage(Model model) {
+	public String snsMyListPage(SnsVO snsVO, Model model) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		snsVO.setMemId(id);
+		model.addAttribute("grpList", snsService.selectGroup(snsVO));
+		model.addAttribute("snsMyG", snsService.selectMyGroup(snsVO));
 		return "community/snsMyList";
 	}
 

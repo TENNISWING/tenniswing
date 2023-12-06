@@ -64,7 +64,7 @@
             <!-- End slide banner -->
 
 			<!-- Banner Slider v2 End-->
-			<section class="banner__slider__section__v2 pb-0" style="height: 300px">
+			<section class="banner__slider__section__v2 pb-0">
 		<div class="container">
 			<div class="row">
 				<div class="col-xl-12 col-lg-12">
@@ -72,45 +72,45 @@
 						<div class="swiper-wrapper">
 							<div class="swiper-slide">
 								<div class="single__slide__wrapper"
-									style="background-image: url('assets/img/shop/shop1.jpg')">
+									style="background-image: url('assets/img/shop/slide1.jpg'); height: 350px;">
 									<div class="hero__wrapper text-left">
-										<!-- <h5 class="hero__subtitle">Limited offer 25% off</h5>
+										<!-- <h5 class="hero__subtitle">Limited offer 25% off</h5>  -->
 										<h1 class="hero__title">
-											Organic Fruit <br /> For Your Family’s Health
-										</h1>  -->
+											<!-- Organic Fruit <br /> For Your Family’s Health -->
+										</h1>
 										<p class="hero__content"></p>
 										<div class="hero__btn">
-											<a href="product.html" class="btn btn-primary">Shop Now</a>
+											<!-- <a href="product.html" class="btn btn-primary">Shop Now</a> -->
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="swiper-slide">
 								<div class="single__slide__wrapper"
-									style="background-image: url('assets/img/shop/shop2.jpg')">
+									style="background-image: url('assets/img/shop/slide2.jpg')">
 									<div class="hero__wrapper text-left">
-										<!-- <h5 class="hero__subtitle">Limited offer 10% off</h5>
+										<!-- <h5 class="hero__subtitle">Limited offer 10% off</h5> -->
 										<h1 class="hero__title">
-											Shop wise <br /> with price <br /> comparisons
-										</h1> -->
+											<!-- Shop wise <br /> with price <br /> comparisons -->
+										</h1>
 										<p class="hero__content"></p>
 										<div class="hero__btn">
-											<a href="product.html" class="btn btn-primary">Shop Now</a>
+											<!-- <a href="product.html" class="btn btn-primary">Shop Now</a> -->
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="swiper-slide">
 								<div class="single__slide__wrapper"
-									style="background-image: url('assets/img/shop/shop3.jpg')">
+									style="background-image: url('assets/img/shop/slide3.jpg')">
 									<div class="hero__wrapper text-left">
-										<!-- <h5 class="hero__subtitle">Limited offer 10% off</h5>
+										<!-- <h5 class="hero__subtitle">Limited offer 10% off</h5> -->
 										<h1 class="hero__title">
-											Summer <br /> Skin care <br /> Product
-										</h1>  -->
+											<!-- Summer <br /> Skin care <br /> Product -->
+										</h1> 
 										<p class="hero__content"></p>
 										<div class="hero__btn">
-											<a href="product.html" class="btn btn-primary">Shop Now</a>
+											<!-- <a href="product.html" class="btn btn-primary">Shop Now</a> -->
 										</div>
 									</div>
 								</div>
@@ -148,45 +148,51 @@
 	</section>
 			<!-- Banner Slider v2 End-->
 			<!-- courtroom filter -->
-            <div class="container mb-4" style="margin-top: 20px;">
-                <ul class="nav text-center">
-                    <li class="d-flex flex-column" style="margin: 0 10px;">
-                    <button type="button" class="btn btn-outline-primary block"
-		                data-bs-toggle="modal" data-bs-target="#exampleModalCenter1">
-		                지역 선택
-		            </button></li>
-                    <li class="d-flex flex-column" style="margin: 0 10px;">
-                    <button type="button" class="btn btn-outline-primary block"
-		                data-bs-toggle="modal" data-bs-target="#exampleModalCenter2">
-		                날짜 선택
-		            </button></li>
-                    <li class="d-flex flex-column" style="margin: 0 10px;">
-                    <button type="button" class="btn btn-outline-primary block"
-		                data-bs-toggle="modal" data-bs-target="#exampleModalCenter3">
-		                시간 선택
-		            </button></li>
-		            <li class="d-flex flex-column" style="margin: 0 10px;">
-		            	<div class="btn-group mb-1">
-                            <div class="dropdown">
-                                 <button class="btn btn-primary dropdown-toggle me-1" type="button"
-                                     id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"
-                                     aria-expanded="false">
-                                     filter
-                                 </button>
-                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                     <a class="dropdown-item" href="#">최신순</a>
-                                     <a class="dropdown-item" href="#">인기순</a>
-                                     <a class="dropdown-item" href="#">별점순</a>
-                                 </div>
-                             </div>
-                        </div>
-		            </li>
-                </ul>
-            </div>
+	<section class="archive-category" style="padding-top: 30px">
+		<div class="container">
+            <div class="row align-items-center">
+				<div class="col-12">
+					<div class="filter__area">
+						<div class="section-title__wrap">
+							<!-- 필터처리 -->
+							<form action="#" class="product-filter">
+								<!-- 카테고리 form-select select__style -->
+								<div class="select__style" id="firstDrop">
+									<select class="category-select" id="crtroomRegion" name="crtroomRegion">
+										<option value="none">지역 선택</option>
+										<option value="b1">서울</option>
+                                        <option value="b2">경기</option>
+                                        <option value="b3">인천</option>
+                                        <option value="b4">강원도</option>
+                                        <option value="b5">전라도</option>
+                                        <option value="b6">경상도</option>
+                                        <option value="b7">충청도</option>
+                                        <option value="b8">제주도</option>
+									</select>
+								</div>
+								<button type="button" id="btnreset" class="danger__btn border-30"
+									style="background: rgba(18, 183, 106, 0.1) !important; color: #12b76a !important;">초기화</button>
+							</form>
+						</div>
+						<div class="shortBy-select select__style d-lg-flex d-none" id="prodSort">
+							<!-- <label for="sortBy2">Filters:</label> -->
+							<select name="sortBy" id="sortBy2">
+								<option value="0">최신순</option>
+								<option value="1">인기순</option>
+								<option value="2">낮은 가격순</option>
+								<option value="3">높은 가격순</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
             <!-- End courtroom sub menu  -->
             
+            
             <!-- Vertically Centered first modal Modal -->
-            <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog"
+            <!-- <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
                     role="document">
@@ -227,9 +233,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- Vertically Centered second modal Modal -->
-            <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog"
+            <!-- <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
                 <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
                     role="document">
@@ -262,9 +268,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- Vertically Centered third modal Modal -->
-            <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog"
+            <!-- <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
                     role="document">
@@ -308,7 +314,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- courtroom card -->
             <div class="container">
@@ -442,7 +448,7 @@
                  	</th:block>
              	</div>
             </div>
-                <div class="container">
+                <!-- <div class="container">
                 <br>
                     <ul class="pagination justify-content-center">
                         <li class="page-item disabled">
@@ -455,8 +461,29 @@
                             <a class="page-link" href="#">다음</a>
                         </li>
                     </ul>
-                </div>
+                </div> -->
             <!-- End match table -->
+            <!-- 페이징 시작 -->
+				<ul class="pagination justify-content-center">
+					<li class="page-item"
+						th:classappend="${paging.startPage} == 1 ? disabled"><a
+						class="page-link"
+						th:href="|javascript:gopage(${paging.startPage})|">이전</a></li>
+
+					<li
+						th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}"
+						class="page-item" th:addclass="${num} == ${paging.page} ? active">
+						<a class="page-link" th:href="|javascript:gopage(${num})|"
+						th:text="${num}">100</a>
+					</li>
+
+					<li class="page-item"
+						th:classappend="${paging.endPage} <= ${paging.lastPage} ? disabled">
+						<a class="page-link"
+						th:href="|javascript:gopage(${paging.endPage})|">다음</a>
+					</li>
+				</ul>
+			<!-- 페이징 종료 -->
 
             <!-- viewed history -->
             <!-- Trending Section Start -->
@@ -635,6 +662,161 @@
             <!-- End viewed history -->
 	</th:block>
 	<script>
+	prodPage(1);
+	//changePrice();
+	
+	$('#crtroomRegion').on('change', function(e) {
+		pageNum = 1;
+		prodPage(1);
+	});
+	$('#sortBy2').on('change', function(e) {
+		pageNum = 1;
+		prodPage(1);
+	})
+	
+	/* $('#btnsearch').on('click', function(e) {
+		pageNum = 1;
+		prodPage(1);
+	}); */
+	
+	$('#btnreset').on('click', function(e) {
+		$('#firstDrop div span').text('지역 선택');
+		$('#firstDrop div ul li:first-child').addClass('selected','focus');
+		$('#firstDrop div ul li').not(':first').attr('class', 'option');
+		$('#crtroomRegion').val('none').prop('selected',true);
+		$('#cateGen').val('none').prop('selected',true);
+		pageNum = 1;
+		prodPage(1);
+	});
+	
+	function prodPage(page) {
+		let crtroomRegion = $('#crtroomRegion').val();
+		let cateGen = $('#cateGen').val();
+		let prodName = $('#prodName').val();
+		let sort = $('#sortBy2').val();
+		if(sort == 0)
+			sort = 'prod_no DESC';
+		else if(sort == 1)
+			sort = 'prod_hit DESC';
+		else if(sort == 2)
+			sort = 'prod_price';
+		else if(sort == 3)
+			sort = 'prod_price DESC';
+		//console.log('in?? '+cateProd+cateGen);
+		
+		$.ajax({
+			type : 'GET',
+			url : 'shopList',
+			data : {page, crtroomRegion, cateGen, prodName, sort},
+			success : function(result) {
+				console.log(result.shopList);
+				$('#shopList').empty();
+				for(let prod of result.shopList) {
+					//console.log(prod);
+					let prodData = `<div class="product-card">
+										<div class="product__image__wrapper">
+										<!-- 상품 이미지 -->
+										<a href="shopDetail?prodNo=${prod.prodNo}" class="product__image"> 
+											<img src="${prod.attachPath}" alt="icon" style="overflow: cover;"/>
+										</a>
+										<!-- <div class="badge">10%</div> -->
+										<div class="product__actions">
+											<a href="#" class="action__btn"> <svg width="16"
+													height="14" viewBox="0 0 16 14" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+			                                            <path
+														d="M13.8931 2.07333C13.5526 1.73267 13.1483 1.46243 12.7033 1.27805C12.2584 1.09368 11.7814 0.998779 11.2998 0.998779C10.8181 0.998779 10.3412 1.09368 9.89618 1.27805C9.45121 1.46243 9.04692 1.73267 8.70642 2.07333L7.99975 2.78L7.29309 2.07333C6.60529 1.38553 5.67244 0.999136 4.69975 0.999136C3.72706 0.999136 2.79422 1.38553 2.10642 2.07333C1.41863 2.76112 1.03223 3.69397 1.03223 4.66666C1.03223 5.63935 1.41863 6.5722 2.10642 7.26L2.81309 7.96666L7.99975 13.1533L13.1864 7.96666L13.8931 7.26C14.2337 6.91949 14.504 6.51521 14.6884 6.07023C14.8727 5.62526 14.9676 5.14832 14.9676 4.66666C14.9676 4.185 14.8727 3.70807 14.6884 3.26309C14.504 2.81812 14.2337 2.41383 13.8931 2.07333V2.07333Z"
+														stroke="#252522" stroke-linecap="round"
+														stroke-linejoin="round" />
+			                                        </svg>
+											</a> <a href="#" class="action__btn"> <svg width="16"
+													height="16" viewBox="0 0 16 16" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+			                                            <path
+														d="M0.666992 7.99996C0.666992 7.99996 3.33366 2.66663 8.00033 2.66663C12.667 2.66663 15.3337 7.99996 15.3337 7.99996C15.3337 7.99996 12.667 13.3333 8.00033 13.3333C3.33366 13.3333 0.666992 7.99996 0.666992 7.99996Z"
+														stroke="#252522" stroke-linecap="round"
+														stroke-linejoin="round" />
+			                                            <path
+														d="M8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z"
+														stroke="#252522" stroke-linecap="round"
+														stroke-linejoin="round" />
+			                                        </svg>
+											</a> <a href="#" class="action__btn"> <svg width="16"
+													height="16" viewBox="0 0 16 16" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+			                                            <path
+														d="M10 9.33329L13.3333 5.99996L10 2.66663" stroke="#252522"
+														stroke-linecap="round" stroke-linejoin="round" />
+			                                            <path
+														d="M2.66699 13.3333V8.66667C2.66699 7.95942 2.94794 7.28115 3.44804 6.78105C3.94814 6.28095 4.62641 6 5.33366 6H13.3337"
+														stroke="#252522" stroke-linecap="round"
+														stroke-linejoin="round" />
+			                                        </svg>
+											</a>
+										</div>
+									</div>
+									<div class="product__content">
+										<!-- 병점 -->
+										<div class="product__rating">
+											<ul style="padding-left: 3px">
+												<!-- 별 -->
+												<li><i class="fa-solid fa-star"></i></li>
+												<li><i class="fa-solid fa-star"></i></li>
+												<li><i class="fa-solid fa-star"></i></li>
+												<!-- 비어있는 별 -->
+												<li><i class="fa-regular fa-star"></i></li>
+												<li><i class="fa-regular fa-star"></i></li>
+											</ul>
+											<!-- 후기 갯수 -->
+											<div class="total__rating">(321)</div>
+										</div>
+										<!-- 상품명 -->
+										<div class="product__title">
+											<h5>
+												<a href="shopDetail?prodNo=${prod.prodNo}">
+													${prod.prodName}
+												</a>
+											</h5>
+										</div>
+										<div class="product__bottom">
+											<!-- 상품가격 -->
+											<div class="product__price price" id="prodPrice${prod.prodNo}">
+												${prod.prodPrice}
+												<!-- <del>$22.00</del> -->
+											</div>
+											<!-- 장바구니 버튼(이벤트 주기) -->
+											<div class="cart__action__btn header__cart">
+												<div class="cart__btn">
+													<!-- 장바구니 이벤트 줄 버튼 -->
+													<a href="#" class="btn btn-outline">Add to Wish</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>`;
+					$('#shopList').append(prodData);
+				}
+				changePrice();
+				showPage(result.selectCount);
+			}
+		})
+	}
+	/* let pageNum = 1;
+	let pageSize = 10.0; //페이지 번호 수
+	let pageUnit = 12;  //한페이지에 출력할 행의 수
+	
+	$('.pagination').on('click', 'li a', function(e) {
+		e.preventDefault();
+		console.log('page click');
+		
+		let targetPage = $(this).attr('href');
+		console.log('targetPage: ' + targetPage);
+		
+		pageNum = targetPage;
+		prodPage(targetPage);
+		window.scrollTo(0,0);
+	}); */
+	
 	new Swiper(".swiper-wrapper", {
 		/* loop : true, */
 		loopPreventsSliding : true,
@@ -653,5 +835,9 @@
 			clickable : true,
 		},
 	});
+	
+	function gopage(page){
+		location.href="court?page="+page
+	}
 	</script>
 </html>

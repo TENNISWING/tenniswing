@@ -84,8 +84,8 @@ public class CourtroomServiceImpl implements CourtroomService {
 
 	//사용자
 	@Override
-	public List<CrtroomVO> selectAllCourtroomMain() {
-		return courtroomMapper.selectAllCourtroomMain();
+	public List<CrtroomVO> selectAllCourtroomMain(CrtroomVO crtroomVO) {
+		return courtroomMapper.selectAllCourtroomMain(crtroomVO);
 	}
 
 	@Override
@@ -165,5 +165,10 @@ public class CourtroomServiceImpl implements CourtroomService {
 	@Override
 	public CrtroomVO crtroomStar(int crtroomNo) {
 		return courtroomMapper.crtroomStar(crtroomNo);
+	}
+
+	@Override
+	public int selectCount(CrtroomVO crtroomVO) {
+		return courtroomMapper.selectCount(crtroomVO);
 	}
 }
