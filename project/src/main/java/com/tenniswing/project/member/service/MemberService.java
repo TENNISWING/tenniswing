@@ -19,6 +19,11 @@ public interface MemberService {
 	
 	// 아이디 중복 체크
 	public boolean idCheck(String memId);
+	
+	// 아이디 찾기
+	public String searchId(MemberVO memberVO);
+	// 패스워드 수정
+	public int searchPwUpdate(MemberVO memberVO);
 
 	// 회원가입
 	public int insertMember(MemberVO memberVO);
