@@ -252,14 +252,11 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int searchPwUpdate(MemberVO memberVO) {
-		memberVO.setPwdUpdate(passwordEncoder.encode(memberVO.getPwd()));
-		
-		int n = memberMapper.searchPwUpdate(memberVO);
-		
-		if(n == 1) {
+		memberVO.setPwdUpdate(passwordEncoder.encode(memberVO.getPwd()));		
+		int n = memberMapper.searchPwUpdate(memberVO);		
+		if(n > 0) {
 			return n;
-		}
-		
+		}		
 		return -1;
 	}
 

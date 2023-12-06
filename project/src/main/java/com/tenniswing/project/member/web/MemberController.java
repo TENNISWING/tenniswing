@@ -79,8 +79,7 @@ public class MemberController {
 	// 패스워드찾아서 업데이트
 	@PostMapping("forgotpw")
 	@ResponseBody
-	public int fortgotPwAjax(Model model, @RequestBody MemberVO memberVO) {	
-		System.out.println(memberVO+"aaaa");
+	public int fortgotPwAjax(Model model, @RequestBody MemberVO memberVO) {		
 		return memberService.searchPwUpdate(memberVO);
 	}
 
