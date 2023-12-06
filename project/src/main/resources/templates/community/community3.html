@@ -133,15 +133,14 @@
 																		th:attrappend="id=${sStat.count}">
 																	</i>
 																</a> -->
-																<a th:if="${#strings.isEmpty(s.likeNo)}"
+																<a th:if="${s.likeNo>0}"
 																	class="btn icon btn-white"
 																	th:data-snslike="${s.snsWrtNo}"> <i
 																	class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC "
 																	id="likeBtn" th:attrappend="id=${sStat.count}"> </i>
-																</a> <a th:if="${not #strings.isEmpty(s.likeNo)}"
+																</a> <a th:unless="${s.likeNo>0}"
 																	class="btn icon btn-white"
-																	th:data-snslike="${s.snsWrtNo}"> <i
-																	class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC active"
+																	th:data-snslike="${s.snsWrtNo}"> <i class="fa-regular fa-thumbs-up text-secondary likeBtnC active"
 																	th:data-likeno="${s.likeNo}" id="likeBtn"
 																	th:attrappend="id=${sStat.count}"> </i>
 																</a>
@@ -226,54 +225,7 @@
 	</div>
 	<!-- div container end -->
 
-	<!-- Initialize Swiper -->
-	<script>
 	
-	var input = document.querySelector('input[name=tags4]'),
-    tagify = new Tagify(input);
-
-		const swiper = new Swiper('.swiper', {
-			  // Optional parameters
-			  direction: 'vertical',
-			  loop: false,
-			  mousewheel : true,
-			  centeredSlides: true, // 1번 슬라이드가 가운데 보이기
-
-
-			});
-
-
-
-			$('.btn.icon.btn-white.snsBtns i').on('click', function(e) {
-						$(e.target).toggleClass('active');
-
-				let cnt = $(e.target).prop('id');
-
-				for(let i=1; i<= $('.btn.icon.btn-white.snsBtns').length; i++){
-					$('#collapseExample'+ i).attr('class', 'snsBtnsCol collapse')
-
-				}
-
-
-
-
-				if ($(e.target).hasClass('active')) {
-
-					$('#collapseExample'+ cnt).attr('class',
-							'snsBtnsCol collapse show')
-
-							//console.log($('#collapseExample'+i));
-
-				}else{
-					$('.btn.icon.btn-white.snsBtns i').attr("class", "fa-solid fa-share-from-square fs-5 text-secondary" );
-				}
-
-
-
-
-	});
-
-		</script>
 
 	<div class="modal fade text-left myRepList" id="large" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
@@ -339,8 +291,59 @@
 	</div>
 
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	
+	<!-- Initialize Swiper -->
+	<script th:inline="javascript">
+	let message = [[${message}]]
+	if(message!= null){
+		alert(message)
+	}
+	
+	var input = document.querySelector('input[name=tags4]'),
+    tagify = new Tagify(input);
 
-	<script type="text/javascript">
+		const swiper = new Swiper('.swiper', {
+			  // Optional parameters
+			  direction: 'vertical',
+			  loop: false,
+			  mousewheel : true,
+			  centeredSlides: true, // 1번 슬라이드가 가운데 보이기
+
+
+			});
+
+
+
+			$('.btn.icon.btn-white.snsBtns i').on('click', function(e) {
+						$(e.target).toggleClass('active');
+
+				let cnt = $(e.target).prop('id');
+
+				for(let i=1; i<= $('.btn.icon.btn-white.snsBtns').length; i++){
+					$('#collapseExample'+ i).attr('class', 'snsBtnsCol collapse')
+
+				}
+
+
+
+
+				if ($(e.target).hasClass('active')) {
+
+					$('#collapseExample'+ cnt).attr('class',
+							'snsBtnsCol collapse show')
+
+							//console.log($('#collapseExample'+i));
+
+				}else{
+					$('.btn.icon.btn-white.snsBtns i').attr("class", "fa-solid fa-share-from-square fs-5 text-secondary" );
+				}
+
+
+
+
+	});
+
+	
 		// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
 		Kakao.init('5cb79bd417ece35ea33fa7b756305a02');
 

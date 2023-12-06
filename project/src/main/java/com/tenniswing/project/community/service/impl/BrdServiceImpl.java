@@ -62,4 +62,9 @@ public class BrdServiceImpl implements BrdService {
 		}
 	}
 
+	@Override
+	public int selectCount(BrdVO brdVO) {
+		return brdMapper.selectCount(brdVO);
+	}
+
 }

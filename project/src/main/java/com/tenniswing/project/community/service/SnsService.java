@@ -10,7 +10,9 @@ import com.tenniswing.project.attach.service.AttachVO;
 public interface SnsService {
 	// 전체조회
 	public List<SnsVO> selectAllSnsInfo(SnsVO snsVO);
-	
+	// 회원당 그룹 조회
+	public List<SnsVO> selectGroup(SnsVO snsVO);
+
 	// 단건조회
 	public SnsVO selectSnsInfo(SnsVO snsVO);
 	// 좋아요번호 단건조회 (회원별 게시글 당)
