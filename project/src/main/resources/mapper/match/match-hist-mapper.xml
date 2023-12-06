@@ -144,14 +144,16 @@
   	 			(
 		  	 		match_hist_no
 	  				, match_no
-	  				, match_apply_club_no 
+	  				, match_apply_club_no
 	  				, match_state
   	 			)
   	 			VALUES
   	 			(
   	 				#{matchHistNo}
   	 				,#{matchNo}
-  	 				,#{matchApplyClubNo}
+  	 				, (select club_no
+	  				   from club
+	  				   where mem_id = #{memId})
   	 				,'g1'
   	 			)
   	</insert> 

@@ -509,17 +509,13 @@
   	 	INSERT INTO club_match
   	 			(
 		  	 		match_no
-	  				, (select club_no
-	  				   from club
-	  				   where mem_id = #{memId}) as club_name
+	  				, club_name
 	  				, match_date
 	  				, time
 	  				, game_way
 	  				, prog_state
 	  				, recruit_psn_num
-	  				, (select club_no
-	  				   from club
-	  				   where mem_id = #{memId}) as club_no	  				   
+	  				, club_no	  				   
 	  				, ntrp
 	  				, lv
 	  				, crt_use_amt
@@ -530,13 +526,17 @@
   	 			VALUES
   	 			(
   	 				#{matchNo}
-  	 				,#{clubName}
+  	 				, (select club_no
+	  				   from club
+	  				   where mem_id = #{memId})
   	 				,#{matchDate}
   	 				,#{time}
   	 				,#{gameWay}
   	 				,'l2'
   	 				,#{recruitPsnNum}
-  	 				,#{clubNo}
+  	 				, (select club_no
+	  				   from club
+	  				   where mem_id = #{memId})
   	 				,#{ntrp}
   	 				,#{lv}
   	 				,#{crtUseAmt}
