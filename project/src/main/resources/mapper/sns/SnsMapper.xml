@@ -81,6 +81,44 @@
         where sns_wrt_no= #{snsWrtNo}
 	</select>
 
+	<!-- memId와 grpNo가 일치하는 그룹 조회 -->
+	<select id="selectSnsGrp" resultType = "SnsVO">
+		
+	
+	</select>
+
+	<!-- 내가 등록한 그룹 리스트 sns, sns_grp 다 데려옴 -->
+	<select id="selectMyGroup" resultType="SnsVO">
+			select s.sns_wrt_no 
+				, s.sns_title
+				, s.sns_ctt
+				, s.sns_write_date
+				, s.sns_tag
+				, s.sns_hit
+				, m.name
+				, s.mem_id
+				, g.grp_name
+				, g.sns_grp_no
+				, g.grp_create_date
+				,( SELECT COUNT(*)
+				     FROM sns_like l
+				    where l.sns_wrt_no = s.sns_wrt_no ) as like_cnt
+				<if test='memId != null and memId != "".toString()'>
+				, (select like_no
+					from sns_like l
+					where l.sns_wrt_no = s.sns_wrt_no
+					and mem_id = #{memId}) as like_no
+				</if>    
+				
+			from sns s
+					join sns_grp g
+			 			 on s.sns_grp_no = g.sns_grp_no
+					join mem m
+						 on s.mem_id = m.mem_id
+			where s.mem_id = #{memId} 
+			order by s.sns_wrt_no desc
+	
+	</select>
 
 	<!-- SNS 등록 -->
 	<insert id="insertSns" parameterType="SnsVO">
