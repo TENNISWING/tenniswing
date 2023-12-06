@@ -61,6 +61,11 @@ public class MatchHistServiceImpl implements MatchHistService {
 		return matchHistMapper.selectClubMatchHist(matchHistVO);
 	}
 
+	@Override
+	public int updateStarterMatchHist(MatchHistVO matchHistVO) {
+		return matchHistMapper.updateStarterMatchHist(matchHistVO);
+	}
+
 	
 
 }

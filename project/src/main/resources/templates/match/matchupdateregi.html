@@ -12,8 +12,6 @@
 				<div class="text-center">
 					<h3 class="my-4">매치 수정</h3>
 				</div>
-				<div th:text="${msg}"></div>
-				<!-- <div class="col-3"></div> -->
 			</div>
 
 			<div class="justify-content-center">
@@ -234,19 +232,10 @@
 
 									</div>
 								</div>
-							</div><br>
-				<div class="product__bottom mtdbtn">
-					<div class="cart__action__btn">
-						<td class="text-end">
-			                <button type="button" class="btn btn-primary matchbtn4" data-bs-toggle="modal"
-                                    data-bs-target="#backdrop">수정하기</button>
-			            </td>
-			            <td class="text-end">
-			                <button type="button" class="btn btn-primary matchbtn4" data-bs-toggle="modal"
-                                    data-bs-target="#backdrop">취소</button>
-			            </td>
-					</div>
-					</div>
+							</div>
+						<input type="number" th:value="${matchInfo.matchNo}" hidden="true" name="matchNo">
+						<button class="btn btn-success" type="submit">수정하기</button>
+						<button class="btn btn-success" type="button" th:onclick="|location.href='@{/}'|">취소</button>
 				</div>
 
 		</form>

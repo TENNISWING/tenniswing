@@ -52,7 +52,7 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public MatchVO selectStarterMatch(MatchVO matchVO) {
+	public MatchVO selectStarterMatch(MatchVO matchVO) {		
 		return matchMapper.selectStarterMatch(matchVO);
 	}
 
@@ -149,6 +149,26 @@ public class MatchServiceImpl implements MatchService {
 	@Override
 	public int insertMatchHist(MatchVO matchVO) {
 		return matchMapper.insertMatchHist(matchVO);
+	}
+
+	@Override
+	public List<MatchVO> matchRecentView() {
+		return matchMapper.matchRecentView();
+	}
+
+	@Override
+	public List<MatchVO> starterRecentView() {
+		return matchMapper.starterRecentView();
+	}
+
+	@Override
+	public List<MatchVO> clubRecentView() {
+		return matchMapper.clubRecentView();
+	}
+
+	@Override
+	public List<MatchVO> contRecentView() {
+		return matchMapper.contRecentView();
 	}
 	
 }
