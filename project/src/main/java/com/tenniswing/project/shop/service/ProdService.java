@@ -7,6 +7,9 @@ public interface ProdService {
 	// 전체조회
 	public List<ProdVO> selectAllProd(ProdVO prodVO);
 	
+	// 어드민 전체조회
+	public List<ProdVO> selectAdminAllProd(ProdVO prodVO);
+	
 	// 페이징 전체 갯수
 	public int selectCount(ProdVO prodVO);
 	

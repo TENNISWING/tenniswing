@@ -48,6 +48,8 @@ public class ProdVO {
 	private int rn;
 	private int pageUnit=12;
 	
+	private String sort;
+	
 	//attach
 	private List<MultipartFile> files = new ArrayList<>();
 	

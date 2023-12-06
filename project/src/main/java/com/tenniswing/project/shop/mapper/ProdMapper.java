@@ -8,6 +8,9 @@ public interface ProdMapper {
 	// 전체조회
 	public List<ProdVO> selectAllProd(ProdVO prodVO);
 	
+	// 어드민 전체조회
+	public List<ProdVO> selectAdminAllProd(ProdVO prodVO);
+	
 	// 페이징 전체 갯수
 	public int selectCount(ProdVO prodVO);
 	
@@ -24,7 +27,7 @@ public interface ProdMapper {
 	public int updateProd(ProdVO prodVO);
 	
 	// 조회수
-	public void updateProdHit(int hit);
+	public void updateProdHit(int prodNo);
 	
 	// 삭제
 	public int deleteProd(int prodNo);

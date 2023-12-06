@@ -36,6 +36,12 @@ public class ProdServiceImpl implements ProdService{
 		return prodMapper.selectAllProd(prodVO);
 	}
 	
+//	전체 조회
+	@Override
+	public List<ProdVO> selectAdminAllProd(ProdVO prodVO) {
+		return prodMapper.selectAdminAllProd(prodVO);
+	}
+	
 //	페이징 전체 갯수 조회
 	public int selectCount(ProdVO prodVO) {
 		return prodMapper.selectCount(prodVO);
@@ -50,6 +56,7 @@ public class ProdServiceImpl implements ProdService{
 //	단건 조회
 	@Override
 	public ProdVO selectProd(ProdVO prodVO) {
+		prodMapper.updateProdHit(prodVO.getProdNo());
 		return prodMapper.selectProd(prodVO);
 	}
 
@@ -115,7 +122,7 @@ public class ProdServiceImpl implements ProdService{
 
 //	조회수
 	@Override
-	public void updateProdHit(int hit) {
-		prodMapper.updateProdHit(hit);
+	public void updateProdHit(int prodNo) {
+		prodMapper.updateProdHit(prodNo);
 	}
 }

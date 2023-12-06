@@ -10,6 +10,16 @@
 		#secondDrop div{
 			width: 120px;
 		}
+		section a,
+		section span,
+		section button,
+		section input{
+			font-family: 'Noto Sans KR', sans-serif !important;
+		}
+		#prodSort div{
+			text-align: right !important;
+			padding-right: 30px;
+		}
 	</style>
 </head>
 <th:block layout:fragment="content">
@@ -23,7 +33,7 @@
 		}
 	</script>
 	<!-- Banner Slider v2 End-->
-	<section class="banner__slider__section__v2 pb-0" style="height: 300px">
+	<section class="banner__slider__section__v2 pb-0">
 		<div class="container">
 			<div class="row">
 				<div class="col-xl-12 col-lg-12">
@@ -31,45 +41,45 @@
 						<div class="swiper-wrapper">
 							<div class="swiper-slide">
 								<div class="single__slide__wrapper"
-									style="background-image: url('assets/img/shop/shop1.jpg')">
+									style="background-image: url('assets/img/shop/slide1.jpg'); height: 350px;">
 									<div class="hero__wrapper text-left">
-										<!-- <h5 class="hero__subtitle">Limited offer 25% off</h5>
+										<!-- <h5 class="hero__subtitle">Limited offer 25% off</h5>  -->
 										<h1 class="hero__title">
-											Organic Fruit <br /> For Your Family’s Health
-										</h1>  -->
+											<!-- Organic Fruit <br /> For Your Family’s Health -->
+										</h1>
 										<p class="hero__content"></p>
 										<div class="hero__btn">
-											<a href="product.html" class="btn btn-primary">Shop Now</a>
+											<!-- <a href="product.html" class="btn btn-primary">Shop Now</a> -->
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="swiper-slide">
 								<div class="single__slide__wrapper"
-									style="background-image: url('assets/img/shop/shop2.jpg')">
+									style="background-image: url('assets/img/shop/slide2.jpg')">
 									<div class="hero__wrapper text-left">
-										<!-- <h5 class="hero__subtitle">Limited offer 10% off</h5>
+										<!-- <h5 class="hero__subtitle">Limited offer 10% off</h5> -->
 										<h1 class="hero__title">
-											Shop wise <br /> with price <br /> comparisons
-										</h1> -->
+											<!-- Shop wise <br /> with price <br /> comparisons -->
+										</h1>
 										<p class="hero__content"></p>
 										<div class="hero__btn">
-											<a href="product.html" class="btn btn-primary">Shop Now</a>
+											<!-- <a href="product.html" class="btn btn-primary">Shop Now</a> -->
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="swiper-slide">
 								<div class="single__slide__wrapper"
-									style="background-image: url('assets/img/shop/shop3.jpg')">
+									style="background-image: url('assets/img/shop/slide3.jpg')">
 									<div class="hero__wrapper text-left">
-										<!-- <h5 class="hero__subtitle">Limited offer 10% off</h5>
+										<!-- <h5 class="hero__subtitle">Limited offer 10% off</h5> -->
 										<h1 class="hero__title">
-											Summer <br /> Skin care <br /> Product
-										</h1>  -->
+											<!-- Summer <br /> Skin care <br /> Product -->
+										</h1> 
 										<p class="hero__content"></p>
 										<div class="hero__btn">
-											<a href="product.html" class="btn btn-primary">Shop Now</a>
+											<!-- <a href="product.html" class="btn btn-primary">Shop Now</a> -->
 										</div>
 									</div>
 								</div>
@@ -137,7 +147,8 @@
 										<option value="c3">성별 무관</option>
 									</select>
 								</div>
-								<button type="button" id="btnreset" class="danger__btn border-30">초기화</button>
+								<button type="button" id="btnreset" class="danger__btn border-30"
+									style="background: rgba(18, 183, 106, 0.1) !important; color: #12b76a !important;">초기화</button>
 							</form>
 								<!-- <div class="custom__dropdown custom__dropdown__v2">
 									<div class="selected">
@@ -235,14 +246,21 @@
 								<li class="clearAll"><a href="#">Clear all</a></li>
 							</ul> -->
 						</div>
-
-						<div class="shortBy-select select__style d-lg-flex d-none">
-							<label for="sortBy2">Sort by:</label> <select name="sortBy"
-								id="sortBy2">
-								<option value="0">Relevance</option>
-								<option value="0">Name (A-Z)</option>
-								<option value="0">Name (Z-A)</option>
-								<option value="0">Date</option>
+						<form action="#" style="width: 300px; margin-right: 30px;"
+							class="search__form search__form--v2">
+							<input type="search" class="form-control" name="prodName" id="prodName"
+								placeholder="Search" />
+							<button type="submit">
+								<img src="assets/img/search.png" alt="search" />
+							</button>
+						</form>
+						<div class="shortBy-select select__style d-lg-flex d-none" id="prodSort">
+							<!-- <label for="sortBy2">Filters:</label> -->
+							<select name="sortBy" id="sortBy2">
+								<option value="0">최신순</option>
+								<option value="1">인기순</option>
+								<option value="2">낮은 가격순</option>
+								<option value="3">높은 가격순</option>
 							</select>
 						</div>
 					</div>
@@ -285,7 +303,7 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="section-title">
-						<h2>Releted Product</h2>
+						<h2>Popular Product</h2>
 					</div>
 				</div>
 			</div>
@@ -295,15 +313,15 @@
 						<div class="swiper trending__Swiper">
 							<div class="swiper-wrapper">
 							
-								<div th:each="newProd : ${newProd}" class="swiper-slide">
+								<div th:each="popularProd : ${popularProd}" class="swiper-slide">
 									<div class="product-card">
 										<div class="product__image__wrapper">
-											<a th:onclick="|location.href='@{/shopDetail(prodNo=${newProd.prodNo})}'|" class="product__image"> <img
-												th:src="${newProd.attachPath}" alt="icon" />
+											<a th:onclick="|location.href='@{/shopDetail(prodNo=${popularProd.prodNo})}'|" class="product__image"> <img
+												th:src="${popularProd.attachPath}" alt="icon" />
 											</a>
-											<div class="badge">NEW</div>
+											<div class="badge">HIT</div>
 											<div class="product__actions">
-												<a th:onclick="|location.href='@{/shopDetail(prodNo=${newProd.prodNo})}'|" class="action__btn"> 
+												<a th:onclick="|location.href='@{/shopDetail(prodNo=${popularProd.prodNo})}'|" class="action__btn"> 
 													<svg width="16" height="14" viewBox="0 0 16 14" fill="none"
 														xmlns="http://www.w3.org/2000/svg">
                                                         <path
@@ -328,16 +346,16 @@
 											<!-- 상품명 -->
 											<div class="product__title">
 												<h5>
-													<a href="product-single.html">[[ ${newProd.prodName} ]]</a>
+													<a href="product-single.html">[[ ${popularProd.prodName} ]]</a>
 												</h5>
 											</div>
 											<div class="product__bottom">
-												<div class="product__price price" th:id="newProd+${newProd.prodNo}">
-													[[ ${newProd.prodPrice} ]]
+												<div class="product__price popularPrice" th:id="popularProd+${popularProd.prodNo}">
+													[[ ${popularProd.prodPrice} ]]
 												</div>
 												<div class="cart__action__btn">
 													<div class="cart__btn">
-														<a th:onclick="|location.href='@{/shopDetail(prodNo=${newProd.prodNo})}'|" class="btn btn-outline">
+														<a th:onclick="|location.href='@{/shopDetail(prodNo=${popularProd.prodNo})}'|" class="btn btn-outline">
 															상세보기</a>
 													</div>
 												</div>
@@ -383,6 +401,7 @@
 	<!-- 페이징 처리 -->
 	<script type="text/javascript">
 		prodPage(1);
+		//changePrice();
 		
 		$('#cateProd').on('change', function(e) {
 			pageNum = 1;
@@ -392,6 +411,20 @@
 			pageNum = 1;
 			prodPage(1);
 		});
+		$('#prodName').on('keyup', function(e) {
+			console.log($('#prodName').val());
+			pageNum = 1;
+			prodPage(1);
+		});
+		$('#prodName').on('input', function(e) {
+			console.log($('#prodName').val());
+			pageNum = 1;
+			prodPage(1);
+		});
+		$('#sortBy2').on('change', function(e) {
+			pageNum = 1;
+			prodPage(1);
+		})
 		
 		/* $('#btnsearch').on('click', function(e) {
 			pageNum = 1;
@@ -414,13 +447,22 @@
 		function prodPage(page) {
 			let cateProd = $('#cateProd').val();
 			let cateGen = $('#cateGen').val();
-			
+			let prodName = $('#prodName').val();
+			let sort = $('#sortBy2').val();
+			if(sort == 0)
+				sort = 'prod_no DESC';
+			else if(sort == 1)
+				sort = 'prod_hit DESC';
+			else if(sort == 2)
+				sort = 'prod_price';
+			else if(sort == 3)
+				sort = 'prod_price DESC';
 			//console.log('in?? '+cateProd+cateGen);
 			
 			$.ajax({
 				type : 'GET',
 				url : 'shopList',
-				data : {page, cateProd, cateGen},
+				data : {page, cateProd, cateGen, prodName, sort},
 				success : function(result) {
 					console.log(result.shopList);
 					$('#shopList').empty();
@@ -493,7 +535,7 @@
 											</div>
 											<div class="product__bottom">
 												<!-- 상품가격 -->
-												<div class="product__price price" id="prodPrice+${prod.prodNo}">
+												<div class="product__price price" id="prodPrice${prod.prodNo}">
 													${prod.prodPrice}
 													<!-- <del>$22.00</del> -->
 												</div>
@@ -509,7 +551,7 @@
 									</div>`;
 						$('#shopList').append(prodData);
 					}
-					
+					changePrice();
 					showPage(result.selectCount);
 				}
 			})
@@ -561,19 +603,32 @@
 		}
 		//showPage(12);
 		
+		function changePrice() {		
+			let price = $('.price');
+			
+			//console.log($(price).attr('id'));
+			//console.log([[ ${newProd} ]]);
+			
+			price.each(function(){
+				//console.log($(this).text());
+				//console.log($(this).attr('id'));
+				priceId = $(this).attr('id');
+				// jQuery id 찾을 때 변수 넣어서 찾기
+				//console.log($('#'+priceId));
+				
+				let changePrice = $('#'+priceId).text();
+				changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				
+				changePrice = changePrice + '원';
+				$('#'+priceId).text(changePrice);
+			});
+		}
+		
 	</script>
 	<!--/* 가격부분 , 추가하는 기능 */-->
 	<script type="text/javascript">
-		let price = $('.price');
-		
-		//console.log($(price).attr('id'));
-		//console.log([[ ${newProd} ]]);
-		
-		$('.price').each(function(){
-			//console.log($(this).attr('id'));
+		$('.popularPrice').each(function(){
 			priceId = $(this).attr('id');
-			// jQuery id 찾을 때 변수 넣어서 찾기
-			console.log($('#'+priceId));
 			
 			let changePrice = $('#'+priceId).text();
 			changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
