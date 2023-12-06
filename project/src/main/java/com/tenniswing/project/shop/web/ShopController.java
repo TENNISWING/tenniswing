@@ -18,6 +18,9 @@ import com.tenniswing.project.shop.service.ProdDetailVO;
 import com.tenniswing.project.shop.service.ProdService;
 import com.tenniswing.project.shop.service.ProdVO;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class ShopController {
 
@@ -56,15 +59,23 @@ public class ShopController {
 	// 한건 조회
 	@GetMapping("shopDetail")
 	public String shopDetailPage(Model model, ProdVO prodVO) {
+		ProdVO tempVO = new ProdVO();
+		
 		// 첨부파일 불러오기
 		List<AttachVO> attachList = attachService.attachList("p", prodVO.getProdNo());
-		String path = "";
+		//String path = "";
 
 		if (attachList != null && attachList.size() != 0) {
-			path = attachList.get(0).getAttachPath();
-			model.addAttribute("attachList", path);
+			//path = attachList.get(0).getAttachPath();
+			//model.addAttribute("image", path);
+			model.addAttribute("attachList", attachList);
 		}
-		model.addAttribute("prod", prodService.selectProd(prodVO));
+		
+		tempVO = prodService.selectProd(prodVO);
+		log.warn("=============="+tempVO);
+		model.addAttribute("prod", tempVO);
+		model.addAttribute("relatedProd", prodService.relatedSwiperProd(tempVO));
+		log.warn("=============="+prodService.relatedSwiperProd(prodVO));
 		model.addAttribute("prodDetailList", prodDetailService.selectAllProdDetail(prodVO));
 		model.addAttribute("prodDetail", new ProdDetailVO());
 		return "shop/shopDetail";

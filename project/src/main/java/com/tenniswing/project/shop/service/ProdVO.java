@@ -43,7 +43,7 @@ public class ProdVO {
 	//첨부파일
 	private String attachPath;
 	
-	// 페이징
+	//페이징
 	private int page;
 	private int rn;
 	private int pageUnit=12;

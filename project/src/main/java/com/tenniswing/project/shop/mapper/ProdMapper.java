@@ -16,6 +16,9 @@ public interface ProdMapper {
 	
 	// 최근 상품 스와이퍼
 	public List<ProdVO> selectSwiperProd();
+
+	// 최근 상품 스와이퍼
+	public List<ProdVO> relatedSwiperProd(ProdVO prodVO);
 	
 	// 단건조회
 	public ProdVO selectProd(ProdVO prodVO);

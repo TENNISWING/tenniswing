@@ -16,81 +16,96 @@
 		#InfoContent p{
 			margin: 0;
 		}
+		#mainImage img:hover {
+			transform: scale(1.2);
+		}
 	</style>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <th:block layout:fragment="content">
+<script type="text/javascript">
+		//뒤로가기로 리스트로 돌아올 경우 select 초기화
+		window.onpageshow = function(event) {    
+			if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+				$('#cateColor').val('none').prop('selected',true);
+				$('#cateSize').val('none').prop('selected',true);			
+				$('#prodDetailSto').val('1');			
+			}
+		}
+	</script>
 	<!-- product detail section start  -->
 	<section class="product-main">
 		<div class="container">
 			<div class="row product-detail">
 			
-				<div class="col-md-6">
+				<div class="col-md-7">
 				
 					<div class="product-gallery">
-						<!-- 큰 사진 보여주는 공간 -->
+						<!-- 서브 사진 보여주는 공간 -->
 						<div class="product-gallery__thumb swiper productGallerySwiperThumb">
 							<div class="swiper-wrapper">
-								<div class="swiper-slide">
-									<div class="gallery-item">
-										<img src="assets/img/shop/teni.jpg"
-											alt="product iamge" id="productD"/>
+									<div class="swiper-slide" th:each="attachList : ${attachList}">
+										<div class="gallery-item">
+											<img th:src="${attachList.attachPath}"
+												alt="product iamge" id="productD"
+												style="object-fit: cover !important; border-radius: 15px;"/>
+										</div>
 									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="gallery-item">
-										<img src="assets/img/shop/teni.jpg"
-											alt="product iamge" />
+									<!--/* <div class="swiper-slide">
+										<div class="gallery-item">
+											<img src="assets/img/shop/teni.jpg"
+												alt="product iamge" />
+										</div>
 									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="gallery-item">
-										<img src="assets/img/shop/teni.jpg"
-											alt="product iamge" />
+									<div class="swiper-slide">
+										<div class="gallery-item">
+											<img src="assets/img/shop/teni.jpg"
+												alt="product iamge" />
+										</div>
 									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="gallery-item">
-										<img src="assets/img/shop/teni.jpg"
-											alt="product iamge" />
-									</div>
-								</div>
+									<div class="swiper-slide">
+										<div class="gallery-item">
+											<img src="assets/img/shop/teni.jpg"
+												alt="product iamge" />
+										</div>
+									</div> */-->
 							</div>
 						</div>
-						<!-- 작은 사진 보여주는 공간 -->
+						<!-- 메인 사진 보여주는 공간 -->
 						<div class="product-gallery__main swiper productGallerySwiper">
-							<div class="swiper-wrapper">
-								<div class="swiper-slide">
-									<div class="gallery-item">
-										<img src="assets/img/shop/teni.jpg"
-											alt="product iamge" />
+							<div class="swiper-wrapper">				
+									<div class="swiper-slide" th:each="attachList : ${attachList}">
+										<div class="gallery-item" id="mainImage">
+											<img th:src="${attachList.attachPath}"
+												alt="product iamge" style="object-fit: cover !important; border-radius: 15px;
+												    -webkit-transition: all 300ms ease-in-out; transition: all 300ms ease-in-out;"/>
+										</div>
 									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="gallery-item">
-										<img src="assets/img/shop/teni.jpg"
-											alt="product iamge" />
+									<!--/* <div class="swiper-slide">
+										<div class="gallery-item">
+											<img src="assets/img/shop/teni.jpg"
+												alt="product iamge" />
+										</div>
 									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="gallery-item">
-										<img src="assets/img/shop/teni.jpg"
-											alt="product iamge" />
+									<div class="swiper-slide">
+										<div class="gallery-item">
+											<img src="assets/img/shop/teni.jpg"
+												alt="product iamge" />
+										</div>
 									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="gallery-item">
-										<img src="assets/img/shop/teni.jpg"
-											alt="product iamge" />
-									</div>
-								</div>
+									<div class="swiper-slide">
+										<div class="gallery-item">
+											<img src="assets/img/shop/teni.jpg"
+												alt="product iamge" />
+										</div>
+									</div> */-->
 							</div>
 						</div>
 						
 					</div>
 				</div>
 				
-				<div class="col-md-6">
+				<div class="col-md-5">
 					<!-- 상품 설명 -->
 					<div class="product-detail__wrapper">
 						<!-- 상품 이름 -->
@@ -353,22 +368,7 @@
 						<div class="tab-pane fade show active" id="home-tab-pane"
 							role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 							<div class="content__body">
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui
-									cursus malesuada massa vitae sed elementum volutpat
-									consectetur. Amet turpis aenean praesent arcu turpis elementum
-									vitae euismod ante. Dui diam vitae lorem faucibus non. Arcu
-									maecenas ornare sit tortor. <br /> <br /> Proin nulla elit
-									ornare enim enim. Mauris placerat mauris at consequat. Quis
-									elementum ipsum et cras sit sagittis eu, aliquet nibh. Eu nulla
-									nunc, purus phasellus facilisi risus molestie. Faucibus amet ut
-									tempor, vehicula amet. Duis aliquam tellus urna, nisl vivamus
-									sed aliquam tincidunt. Vitae mi varius egestas sed tristique
-									cras odio. Tempor aliquam eget phasellus sit lectus imperdiet.
-									Arcu adipiscing lorem eu leo orci condimentum imperdiet. Morbi
-									tellus velit nunc massa turpis tortor quis. Rutrum at faucibus
-									quam consectetur.
-								</p>
+								<pre>[[ ${prod.prodExp} ]]</pre>
 							</div>
 						</div>
 						<div class="tab-pane fade" id="groceries-tab-pane" role="tabpanel"
@@ -595,12 +595,13 @@
 
 	<!-- Trending Section Start -->
 	<!-- 하단 상품 슬라이드 -->
-	<section class="trending__section pt-0">
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+	<section class="trending__section pt-0" style="margin-top: 70px;">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
-					<div class="section-title" style="margin: 50px 0 0 0">
-						<h2>Releted Product</h2>
+					<div class="section-title">
+						<h2>Related Product</h2>
 					</div>
 				</div>
 			</div>
@@ -609,84 +610,58 @@
 					<div class="product__wrapper swiper__pagination">
 						<div class="swiper trending__Swiper">
 							<div class="swiper-wrapper">
-								<div th:each="num : ${#numbers.sequence(1,8)}" class="swiper-slide">
+							
+								<div th:each="relatedProd : ${relatedProd}" class="swiper-slide">
 									<div class="product-card">
 										<div class="product__image__wrapper">
-											<a href="product-single.html" class="product__image"> <img
-												src="assets/img/shop/teni.jpg" alt="icon" />
+											<a th:onclick="|location.href='@{/shopDetail(prodNo=${relatedProd.prodNo})}'|" class="product__image"> <img
+												th:src="${relatedProd.attachPath}" alt="icon" />
 											</a>
-											<div class="badge">10%</div>
+											<!-- <div class="badge">HIT</div> -->
 											<div class="product__actions">
-												<a href="#" class="action__btn"> <svg width="16"
-														height="14" viewBox="0 0 16 14" fill="none"
+												<a th:onclick="|location.href='@{/shopDetail(prodNo=${relatedProd.prodNo})}'|" class="action__btn"> 
+													<svg width="16" height="14" viewBox="0 0 16 14" fill="none"
 														xmlns="http://www.w3.org/2000/svg">
-                                                            <path
+                                                        <path
 															d="M13.8931 2.07333C13.5526 1.73267 13.1483 1.46243 12.7033 1.27805C12.2584 1.09368 11.7814 0.998779 11.2998 0.998779C10.8181 0.998779 10.3412 1.09368 9.89618 1.27805C9.45121 1.46243 9.04692 1.73267 8.70642 2.07333L7.99975 2.78L7.29309 2.07333C6.60529 1.38553 5.67244 0.999136 4.69975 0.999136C3.72706 0.999136 2.79422 1.38553 2.10642 2.07333C1.41863 2.76112 1.03223 3.69397 1.03223 4.66666C1.03223 5.63935 1.41863 6.5722 2.10642 7.26L2.81309 7.96666L7.99975 13.1533L13.1864 7.96666L13.8931 7.26C14.2337 6.91949 14.504 6.51521 14.6884 6.07023C14.8727 5.62526 14.9676 5.14832 14.9676 4.66666C14.9676 4.185 14.8727 3.70807 14.6884 3.26309C14.504 2.81812 14.2337 2.41383 13.8931 2.07333V2.07333Z"
 															stroke="#252522" stroke-linecap="round"
 															stroke-linejoin="round" />
-                                                        </svg>
-												</a> <a href="#" data-bs-toggle="modal"
-													data-bs-target="#prod__preview" class="action__btn"> <svg
-														width="16" height="16" viewBox="0 0 16 16" fill="none"
-														xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-															d="M0.666992 7.99996C0.666992 7.99996 3.33366 2.66663 8.00033 2.66663C12.667 2.66663 15.3337 7.99996 15.3337 7.99996C15.3337 7.99996 12.667 13.3333 8.00033 13.3333C3.33366 13.3333 0.666992 7.99996 0.666992 7.99996Z"
-															stroke="#252522" stroke-linecap="round"
-															stroke-linejoin="round" />
-                                                            <path
-															d="M8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z"
-															stroke="#252522" stroke-linecap="round"
-															stroke-linejoin="round" />
-                                                        </svg>
-												</a> <a href="#" class="action__btn"> <svg width="16"
-														height="16" viewBox="0 0 16 16" fill="none"
-														xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-															d="M10 9.33329L13.3333 5.99996L10 2.66663"
-															stroke="#252522" stroke-linecap="round"
-															stroke-linejoin="round" />
-                                                            <path
-															d="M2.66699 13.3333V8.66667C2.66699 7.95942 2.94794 7.28115 3.44804 6.78105C3.94814 6.28095 4.62641 6 5.33366 6H13.3337"
-															stroke="#252522" stroke-linecap="round"
-															stroke-linejoin="round" />
-                                                        </svg>
+                                                    </svg>
 												</a>
 											</div>
 										</div>
 										<div class="product__content">
 											<div class="product__rating">
-												<ul>
+												<ul style="padding: 0">
 													<li><i class="fa-solid fa-star"></i></li>
 													<li><i class="fa-solid fa-star"></i></li>
 													<li><i class="fa-solid fa-star"></i></li>
 													<li><i class="fa-solid fa-star"></i></li>
 													<li><i class="fa-regular fa-star"></i></li>
 												</ul>
-												<div class="total__rating">(321)</div>
+												<!-- <div class="total__rating">(321)</div> -->
 											</div>
+											<!-- 상품명 -->
 											<div class="product__title">
 												<h5>
-													<a href="product-single.html">Tootsie Frooties- Taffy
-														Candy - Bulk Fruit Chews - Fruity Roll Fruity Roll</a>
+													<a href="product-single.html">[[ ${relatedProd.prodName} ]]</a>
 												</h5>
 											</div>
 											<div class="product__bottom">
-												<div class="product__price">
-													$22.00
-													<del>$22.00</del>
+												<div class="product__price relatedPrice" th:id="relatedProd+${relatedProd.prodNo}">
+													[[ ${relatedProd.prodPrice} ]]
 												</div>
 												<div class="cart__action__btn">
-													<div class="header__cart">
-														<div class="cart__btn">
-															<a href="#" class="btn btn-outline">Add to cart</a>
-														</div>
+													<div class="cart__btn">
+														<a th:onclick="|location.href='@{/shopDetail(prodNo=${relatedProd.prodNo})}'|" class="btn btn-outline">
+															상세보기</a>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-			
+
 							</div>
 
 							<div class="swiper-button-next">
@@ -902,7 +877,16 @@
 		
 		changePrice = changePrice + '원';
 		$('#prodPrice').text(changePrice);
-
+		
+		$('.relatedPrice').each(function(){
+			priceId = $(this).attr('id');
+			
+			let changePrice = $('#'+priceId).text();
+			changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			
+			changePrice = changePrice + '원';
+			$('#'+priceId).text(changePrice);
+		});
 	</script>
 	
 	<script>
