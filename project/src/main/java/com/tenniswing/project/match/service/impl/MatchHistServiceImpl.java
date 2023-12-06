@@ -34,10 +34,6 @@ public class MatchHistServiceImpl implements MatchHistService {
 
 	@Override
 	public int insertClubMatchHist(MatchHistVO matchHistVO) {
-		ClubVO clubVO = new ClubVO();
-		clubVO.setMemId(matchHistVO.getMemId());
-		clubVO = clubMapper.selectMatchClub(clubVO);
-		matchHistVO.setMatchApplyClubNo(clubVO.getClubNo());
 		return matchHistMapper.insertClubMatchHist(matchHistVO);
 	}
 	
