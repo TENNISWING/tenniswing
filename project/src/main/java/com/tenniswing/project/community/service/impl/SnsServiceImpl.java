@@ -130,7 +130,7 @@ public class SnsServiceImpl implements SnsService {
 		int result = snsMapper.updateSns(snsVO);
 		if(result == 1) {
 			isSuccessed = true;
-			snsMapper.updateGrp(snsVO);
+			// 그룹 업데이트 snsMapper.updateGrp(snsVO);
 			
 		}
 

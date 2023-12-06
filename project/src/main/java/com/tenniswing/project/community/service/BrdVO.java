@@ -24,6 +24,10 @@ public class BrdVO {
 	private String name;
 	private String brdDiv;
 	
+	//페이징
+	private int page = 1;
+	private int pageUnit = 10;
+	
 	//구분코드
 	private String brdDivName;
 	

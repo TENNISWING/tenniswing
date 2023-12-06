@@ -25,7 +25,12 @@
 				,( SELECT COUNT(*)
 				     FROM sns_like l
 				    where l.sns_wrt_no = s.sns_wrt_no ) as like_cnt
-				    
+				<if test='memId != null and memId != "".toString()'>
+				, (select like_no
+					from sns_like l
+					where l.sns_wrt_no = s.sns_wrt_no
+					and mem_id = #{memId}) as like_no
+				</if>    
 		from sns s
 				join sns_grp g
 		 			 on s.sns_grp_no = g.sns_grp_no
@@ -79,31 +84,13 @@
 
 	<!-- SNS 등록 -->
 	<insert id="insertSns" parameterType="SnsVO">
-		<selectKey keyProperty="snsWrtNo,snsGrpNo"
-			resultType="SnsVO" order="BEFORE">
+		<selectKey keyProperty="snsWrtNo"
+			resultType="int" order="BEFORE">
 			<!-- primarykey가 숫자일 경우 사용 -->
-			SELECT(SELECT NVL(MAX(sns_wrt_no), 0) + 1
-			FROM sns) sns_wrt_no,
-			(SELECT NVL(MAX(sns_grp_no),0)+1
-			FROM sns_grp) sns_grp_no
-			FROM dual
+			SELECT NVL(MAX(sns_wrt_no), 0) + 1
+			FROM sns
 		</selectKey>
-		INSERT ALL
-		INTO sns_grp
-		(
-		sns_grp_no
-		,grp_create_date
-		,post_num
-		,grp_name
-		)
-		VALUES
-		(
-		#{snsGrpNo}
-		,sysdate
-		,#{postNum}
-		,#{grpName}
-		)
-		INTO sns
+		INSERT INTO sns
 		(
 		sns_wrt_no
 		,sns_title
@@ -113,7 +100,6 @@
 		,sns_hit
 		,sns_write_date
 		,sns_grp_no
-		,mem_id
 		)
 		VALUES
 		(
@@ -125,18 +111,10 @@
 		,#{snsHit}
 		,sysdate
 		,#{snsGrpNo}
-		,#{memId}
 		)
-		SELECT * FROM dual
+		
 	</insert>
 
-	<!-- 회원이 누른 좋아요 select -->
-	<select id="selectLikeNo" resultType="SnsVO">
-		select like_no
-		from sns_like
-		where sns_wrt_no = #{snsWrtNo}
-		and mem_id = #{memId}
-	</select>
 
 	<!-- sns 좋아요 등록 -->
 	<insert id="insertLike" parameterType="SnsVO">
@@ -150,14 +128,12 @@
 		like_no
 		,mem_id
 		,sns_wrt_no
-		,post_num
 		)
 		VALUES
 		(
 		#{likeNo}
 		,#{memId}
 		,#{snsWrtNo}
-		,#{postNum}
 		)
 		<!-- <selectKey keyProperty="likeCnt" resultType="int" order="AFTER"> SELECT 
 			COUNT(*) FROM sns_like where sns_wrt_no =#{snsWrtNo} </selectKey> -->
@@ -224,6 +200,7 @@
 			set  sns_title = #{snsTitle}
 		        ,sns_ctt = #{snsCtt}
 		        ,sns_tag = #{snsTag}
+		        ,sns_grp_no = #{snsGrpNo}
 		  where sns_wrt_no = #{snsWrtNo}
 	</update>
 

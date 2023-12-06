@@ -64,9 +64,8 @@
                         <div class="card-body">
                             <form action="snsEditForm" method="post" name="insertForm" 
                             th:object="${snsVO}" class="form form-vertical" enctype="multipart/form-data">
-                            <input type="number" name="snsWrtNo" th:value="${editList.snsWrtNo}" hidden>
-                            <input type="number" name="snsGrpNo" th:value=${editList.snsGrpNo} hidden>
-                            <input type="text" name="memId" th:value=${editList.memId} hidden>
+                            <input type="hidden" name="snsWrtNo" th:value="${editList.snsWrtNo}" >
+                            <input type="hidden" name="memId" th:value=${editList.memId}>
                                 <div class="form-body">
                                     <div class="row">
                                          <div class="col-12">
@@ -90,10 +89,10 @@
 																등록</label>
 
 															<div class="input-group mb-3">
-																<select class="form-select" id="grpName" name="grpName" required="required">
-																	<option selected value="none">그룹선택 안함</option>
+																<select class="form-select" id="snsGrpNo" th:field="*{snsGrpNo}">
+																	<option selected value="">그룹선택 안함</option>
 																	<th:block th:each="g : ${grpList}">
-																		<option th:value="${g.grpName}">[[${g.grpName}]]</option>
+																		<option th:value="${g.snsGrpNo}">[[${g.grpName}]]</option>
 																	</th:block>
 																</select> 
 																<label class="input-group-text"

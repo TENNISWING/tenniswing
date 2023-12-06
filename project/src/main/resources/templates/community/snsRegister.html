@@ -85,10 +85,10 @@
 																등록</label>
 
 															<div class="input-group mb-3">
-																<select class="form-select" id="grpName" name="grpName" required="required">
-																	<option selected value="none">그룹선택 안함</option>
+																<select class="form-select" id="snsGrpNo" th:field="*{snsGrpNo}">
+																	<option selected value="">그룹선택 안함</option>
 																	<th:block th:each="g : ${grpList}">
-																		<option th:value="${g.grpName}">[[${g.grpName}]]</option>
+																		<option th:value="${g.snsGrpNo}">[[${g.grpName}]]</option>
 																	</th:block>
 																</select> 
 																<label class="input-group-text"

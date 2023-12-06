@@ -26,7 +26,7 @@ public class SnsVO {
 	private String memNo;
 	private String memId;
 	private String name;
-	private int snsGrpNo;
+	private Integer snsGrpNo;
 	private int test;
 	
 //	private Map<String, String> snsTag;
@@ -34,6 +34,7 @@ public class SnsVO {
 	//sns 좋아요
 	private int likeNo;
 	private int likeCnt; //좋아요 수 count
+	
 	//memId
 	
 	//sns 그룹
