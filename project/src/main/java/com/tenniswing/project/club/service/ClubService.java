@@ -9,7 +9,8 @@ public interface ClubService {
 	
 	//단건조회
 	public ClubVO selectClub(ClubVO clubVO);
-	public Map<String, Object> selectClub1(ClubVO clubVO);
+	//public Map<String, Object> selectClub1(ClubVO clubVO);
+	public List<ClubVO> selectclubMem(ClubVO clubVO);
 	
 	//등록
 	public int insertClub(ClubVO clubVO);

@@ -43,6 +43,7 @@ public class ClubVO {
 	private String attachPath;
 	
 	//회원
+	private int clubMemNo;
 	private String clubJoinApplyWrt;
 	private String clubApprove;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -51,6 +52,8 @@ public class ClubVO {
 	private Date quitDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date applyDate;
+	
+	private List<ClubVO> memInquiryList;
 	
 	
 }

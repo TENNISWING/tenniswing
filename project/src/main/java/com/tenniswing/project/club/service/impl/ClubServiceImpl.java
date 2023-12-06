@@ -35,10 +35,16 @@ public class ClubServiceImpl implements ClubService {
 		return clubMapper.selectClub(clubVO);
 	}
 	
+	/*
+	 * @Override public Map<String, Object> selectClub1(ClubVO clubVO) {
+	 * 
+	 * return clubMapper.selectClub1(clubVO); }
+	 */
+	
+	//클럽 멤버 조회
 	@Override
-	public Map<String, Object> selectClub1(ClubVO clubVO) {
-		
-		return clubMapper.selectClub1(clubVO);
+	public List<ClubVO> selectclubMem(ClubVO clubVO) {
+		return clubMapper.selectclubMem(clubVO);
 	}
 	
 	//클럽 등록
@@ -103,6 +109,8 @@ public class ClubServiceImpl implements ClubService {
 	public ClubVO selectMatchClub(ClubVO clubVO) {
 		return clubMapper.selectMatchClub(clubVO);
 	}
+
+	
 
 	
 

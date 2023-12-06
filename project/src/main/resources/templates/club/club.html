@@ -283,7 +283,7 @@
 									</div>
 									<div class="modal-footer" style="text-align: center;">
 										<button type="button" class="btn btn-primary ms-1"
-											data-bs-dismiss="modal" data-bs-target="#exampleModalToggle2"
+											data-bs-dismiss="modal" data-bs-target="#join${clubList.clubNo}"
 											data-bs-toggle="modal">가입신청서 작성</button>
 									</div>
 								</div>
@@ -291,7 +291,7 @@
 						</div>
 						<!-- /클럽 가입 신청 버튼 Modal  -->
 						<!-- 클럽 가입 신청 작성 Modal  -->
-						<div class="modal fade" id="exampleModalToggle2" tabindex="-1"
+						<div class="modal fade" id="join${clubList.clubNo}" tabindex="-1"
 							role="dialog" aria-labelledby="exampleModalCenterTitle"
 							aria-hidden="true">
 							<div
@@ -328,8 +328,10 @@
 					}//반복문 끝
 					
 					 $('.submitBtn').on("click", function(e){
+						 console.log("신청버튼 클릭했어예")
 						let clubNo = $(this).data('value');
-						let clubJoinApplyWrt = $("#clubJoinApplyWrt").val();
+						let clubJoinApplyWrt = $(e.target).parent().prev().children().val()
+						console.log("글 내용은 들어오나여"+clubJoinApplyWrt)
 						clubMemFormAjax(clubNo,clubJoinApplyWrt)
 					}) 
 					
