@@ -15,6 +15,9 @@ import com.tenniswing.project.shop.mapper.ProdMapper;
 import com.tenniswing.project.shop.service.ProdService;
 import com.tenniswing.project.shop.service.ProdVO;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ProdServiceImpl implements ProdService{
 
@@ -51,6 +54,12 @@ public class ProdServiceImpl implements ProdService{
 	@Override
 	public List<ProdVO> selectSwiperProd() {
 		return prodMapper.selectSwiperProd();
+	}
+	
+//	관련 상품 스와이퍼
+	@Override
+	public List<ProdVO> relatedSwiperProd(ProdVO prodVO) {
+		return prodMapper.relatedSwiperProd(prodVO);
 	}
 
 //	단건 조회
