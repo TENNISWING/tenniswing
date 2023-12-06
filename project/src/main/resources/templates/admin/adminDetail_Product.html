@@ -27,7 +27,7 @@
     path,
     i {
        pointer-events: none;
-    }	
+    }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -487,6 +487,21 @@
 	
 	<!-- 상품 상세 등록 -->
 	<script type="text/javascript">
+		changeColor();	
+		function changeColor() {
+			//console.log($('#table1 span').text());
+			$('#table1 span').each((idx, item) => {
+				//console.log(item);
+				if($(item).text() == '판매중'){
+//					$(item).css('color', '#12b76a');				
+					$(item).attr('style', 'background: rgba(18, 183, 106, 0.1) !important; color: #12b76a !important;');				
+					//$(item).attr('style', 'color: #12b76a');				
+				} else {
+					$(item).attr('style', 'background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important');
+				}
+			})
+		}
+		
 		$('#goAddDetail').on('click', function(){
 			/* 폼 초기화 */
 			$('#prodDetailSto').val(null);
@@ -564,6 +579,7 @@
 											/* deleteDetailForm(e); */
 									  });
 									  updateProdSts();
+									  changeColor();
 								  });
 							  }
 						});
@@ -755,6 +771,7 @@
 										  		/* deleteDetailForm(e); */
 										  }); 
 										  updateProdSts();
+										  changeColor();
 									  });
 								  }
 							});
@@ -925,6 +942,7 @@
 								  		/* deleteDetailForm(e); */
 								  }); 
 								  updateProdSts();
+								  changeColor();
 							  });
 						  }
 					});
