@@ -3,8 +3,6 @@ package com.tenniswing.project.community.service;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.data.repository.query.Param;
-
 import com.tenniswing.project.attach.service.AttachVO;
 
 public interface SnsService {
@@ -12,6 +10,8 @@ public interface SnsService {
 	public List<SnsVO> selectAllSnsInfo(SnsVO snsVO);
 	// 회원당 그룹 조회
 	public List<SnsVO> selectGroup(SnsVO snsVO);
+	// 내 그룹 리스트(sns, snsgroup, like 다 가지고 있음)
+	public List<SnsVO> selectMyGroup(SnsVO snsVO);
 
 	// 단건조회
 	public SnsVO selectSnsInfo(SnsVO snsVO);

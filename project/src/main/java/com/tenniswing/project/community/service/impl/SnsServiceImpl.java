@@ -37,6 +37,15 @@ public class SnsServiceImpl implements SnsService {
 	public List<SnsVO> selectGroup(SnsVO snsVO){
 		return snsMapper.selectGroup(snsVO);
 	}
+	
+	// 내 그룹 리스트(sns, snsgroup, like 다 가지고 있음)
+	@Override
+	public List<SnsVO> selectMyGroup(SnsVO snsVO) {
+		
+		
+		
+		return snsMapper.selectMyGroup(snsVO); // 그룹조회한 mapper where memId
+	}
 
 
 	// 단건 조회
@@ -179,6 +188,7 @@ public class SnsServiceImpl implements SnsService {
 	public List<AttachVO> attachListAllSns() {
 		return snsMapper.attachListAllSns();
 	}
+
 
 	/*
 	 * @Override public Map<String, Object> updateGrp(SnsVO snsVO) { // TODO
