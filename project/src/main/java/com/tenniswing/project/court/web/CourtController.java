@@ -75,6 +75,15 @@ public class CourtController {
 			return "court/courtDetail";
 		}
 		
+		@GetMapping("courtFSP")
+		@ResponseBody
+		public Map<String, Object> courtFSP(CrtroomVO crtroomVO){
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("selectCount", courtroomService.selectCount(crtroomVO));
+			map.put("courtList", courtroomService.selectAllCourtroomMain(crtroomVO));
+			return map;
+		}
+		
 		@PostMapping("insertCourtReview")
 		@ResponseBody
 		public Map<String, Object> insertCourtReview(CrtroomVO crtroomVO, Model model) {

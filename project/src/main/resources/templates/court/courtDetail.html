@@ -414,8 +414,8 @@
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-solid fa-star"></i></li>
 																		</ul>
-																		<input type="hidden" id="reviewNo" th:value="review.reviewNo">
-																		<input type="hidden" id="reviewWriteMem" th:value="review.memId">
+																		<input type="hidden" id="reviewNo" th:value="${review.reviewNo}">
+																		<input type="hidden" id="reviewWriteMem" th:value="${review.memId}">
 																		</th:block>
 																	</div>
 																</div>
@@ -740,7 +740,6 @@
 		</div>
 		</form>
 		<script th:inline="javascript">
-			
 			$('.reviewDel').on('click',function(e){
 				
 				Swal.fire({
@@ -769,7 +768,7 @@
 										  text: "정상적으로 삭제되었습니다.",
 										}).then(function(){
 											//location.reload();
-											$('#review'+reviewNo).css('display','none');
+											$('#review'+reviewNo).remove();
 										})
 								}else{
 									Swal.fire({
@@ -834,16 +833,19 @@
 							icon: "success",
 							text: "정상적으로 등록되었습니다.",
 						}).then(function(){
- 							location.reload();
- 							console.log(results.review);
-							let offset = $(".client__review").offset(); //해당 위치 반환
-							$("html, body").animate({scrollTop: offset.top},400); // 선택한 위치로 이동. 두번째 인자는 0.4초를 의미한다.
-							/* $('#home-tab').removeClass('active');
-							$('#home-tab-pane').removeClass('show active');
-							$('#home-tab').attr('aria-selected','false');
-							$('#women-tab').addClass('active');
-							$('#women-tab-pane').addClass('show active');
-							$('#women-tab').attr('aria-selected','true'); */
+							setTimeout(function(){
+								location.reload();
+								$('#home-tab').removeClass('active');
+								$('#home-tab-pane').removeClass('show active');
+								$('#home-tab').attr('aria-selected','false');
+								$('#women-tab').addClass('active');
+								$('#women-tab-pane').addClass('active show');
+								$('#women-tab').attr('aria-selected','true');
+								let offset = $(".client__review").offset(); //해당 위치 반환
+								$("html, body").animate({scrollTop: offset.top},10); // 선택한 위치로 이동. 두번째 인자는 0.4초를 의미한다.
+							},100); // 3000밀리초 = 3초
+ 							console.log(results.reviews);
+							
 						})
 					} else {
 						Swal2.fire({
@@ -856,7 +858,6 @@
 				})
 				.fail(err => console.log(err));	
 			})
-			
 		</script>
 	<!-- Trending Section End -->
 	<!-- End viewed history -->
@@ -880,6 +881,7 @@
 			clickable : true,
 		},
 	});
+	
 	</script>
 	<script>
 		var coords = null;
@@ -990,20 +992,24 @@
 									let reserveDateT = new Date(reserveDate);
 									
 									let tomorrow = new Date(currentDate.setDate(reserveDateT.getDate()+1));
-									console.log(currentDay);
+									/* console.log(currentDay);
 									console.log(reserveTimeCode[1][1].substr(-5));
-									
+									 */
 									$('#matchList').empty();
 									$('#loadDiv').empty();
 									$('#lastDiv').empty();
 										for(let i=0; i<reserveTimeCode.length; i++){
 											let b = ``;
-											if(24-currentDate.getHours() < 19-i && currentDay == reserveDateT.getDate()){
+											if( crtroomOperateStartTime > reserveTimeCode[i][1].substr(0,5)){
+												console.log(reserveTimeCode[i][1].substr(-5));
+												console.log(crtroomOperateStartTime);
+												
 												continue;
 											}
-											if( crtroomOperateStartTime > reserveTimeCode[i][1]){
+											if(24-currentDate.getHours() < 25-i && currentDay == reserveDateT.getDate()){
 												continue;
 											}
+											
 											b = `
 												<tr class="navbar-brand">
 													<td class="text-center" style="width: 10%"><b>`+crtIndoorOutdoorName+`</b></td>
@@ -1035,10 +1041,19 @@
 													}
 												}
 												
-												$('#matchList').append(b);
-												if(crtroomOperateEndTime <= reserveTimeCode[i][1].substr(-5)){
+												
+												if(crtroomOperateEndTime < reserveTimeCode[i][1].substr(-5)){													
 													break;
 												}
+												$('#matchList').append(b);
+										}	
+										console.log($("#matchList").length);	
+										if($(".navbar-brand").length == 0){
+											b = `<tr class="navbar-brand">
+												<td colspan="5">예약 가능한 시간이 없습니다.</td>
+												</tr>`
+												$('#matchList').append(b);
+											return
 										}
 												$('#loadDiv').append(`
 														<button id="load" class="btn btn-primary" style="width: 200px;">More</button>

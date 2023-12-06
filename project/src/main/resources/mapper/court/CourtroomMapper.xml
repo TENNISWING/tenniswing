@@ -23,7 +23,7 @@
   				, FIND_CATEGORY_NAME(c.crtroom_region) crtroom_region_name
                 , MIN(d.crt_use_price) min_price
                 , a.attach_path
-                , ROUND(SUM(r.review_star)/COUNT(r.review_no)) avg_star
+                , TRUNC(SUM(r.review_star)/COUNT(r.review_no)) avg_star
   				, COUNT(r.review_no) count_review
   		FROM crtroom c JOIN crt_detail_inf d
                        ON c.crtroom_no = d.crtroom_no
@@ -177,7 +177,7 @@
   				, cr.crtroom_location
   				, MIN(cdi.crt_use_price) min_price
   				, a.attach_path
-  				, ROUND(SUM(r.review_star)/COUNT(r.review_no)) avg_star
+  				, TRUNC(SUM(r.review_star)/COUNT(r.review_no)) avg_star
   				, COUNT(r.review_no) count_review
 	  		FROM crtroom cr JOIN crt_detail_inf cdi
 	  						ON cr.crtroom_no = cdi.crtroom_no
@@ -204,7 +204,7 @@
   				, cr.crtroom_location
   				, MIN(cdi.crt_use_price) min_price
   				, a.attach_path
-  				, ROUND(SUM(r.review_star)/COUNT(r.review_no)) avg_star
+  				, TRUNC(SUM(r.review_star)/COUNT(r.review_no)) avg_star
   				, COUNT(r.review_no) count_review
 		  		FROM crtroom cr JOIN crt_detail_inf cdi
 		  						ON cr.crtroom_no = cdi.crtroom_no
@@ -325,7 +325,7 @@
 	
 	<!-- 코트 별점 -->
 	<select id="crtroomStar" resultType="crtroomVO">
-		SELECT ROUND(SUM(review_star)/COUNT(review_no)) avg_star, COUNT(review_no) count_review
+		SELECT TRUNC(SUM(review_star)/COUNT(review_no)) avg_star, COUNT(review_no) count_review
         FROM review
         WHERE crtroom_no = #{crtroomNO}
 	</select>
