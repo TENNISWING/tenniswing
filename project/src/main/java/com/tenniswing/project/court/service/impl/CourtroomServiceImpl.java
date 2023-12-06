@@ -122,13 +122,15 @@ public class CourtroomServiceImpl implements CourtroomService {
 		int reviewNo = crtroomVO.getReviewNo();
 		
 		int index = 1;
-		for (AttachVO file : files) {
-			file.setAttachTableDiv("cr");
-			file.setAttachTablePk(reviewNo);
-			file.setAttachTurn(index);
-			index++;
+		if(files != null && files.size() > 0) {
+			for (AttachVO file : files) {
+				file.setAttachTableDiv("cr");
+				file.setAttachTablePk(reviewNo);
+				file.setAttachTurn(index);
+				index++;
+			}
+			attachMapper.saveAttachTurn(files);
 		}
-		attachMapper.saveAttachTurn(files);
 		
 		if(result == 1) {
 			return reviewNo;
@@ -154,11 +156,7 @@ public class CourtroomServiceImpl implements CourtroomService {
 		
 		if(result == 1) {
 			int resultImg = courtroomMapper.deleteReviewImg(reviewNo);
-			if(resultImg == 1) {
-				return true;
-			}else {
-				return false;
-			}
+			return true;
 		}else {
 			return false;
 		}

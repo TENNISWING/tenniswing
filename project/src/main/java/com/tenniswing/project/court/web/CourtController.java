@@ -27,7 +27,11 @@ import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.court.service.CrtReserveVO;
 import com.tenniswing.project.court.service.CrtroomVO;
 
+import lombok.extern.slf4j.Slf4j;
+
+
 @Controller
+@Slf4j
 public class CourtController {
 
 	@Autowired
@@ -86,23 +90,20 @@ public class CourtController {
 			//사진 등록
 			//테이블 구분, 게시글 번호, 파일목록
 			int n = 0;
-			List<AttachVO> files = fileUtils.uploadFiles(crtroomVO.getFiles());
-			if(!CollectionUtils.isEmpty(files)) {
-				n = courtroomService.insertCourtReview(crtroomVO, files);
-			}
+			boolean isSuccessed = true;
 			
-			boolean isSuccessed = false;
+			List<AttachVO> files = fileUtils.uploadFiles(crtroomVO.getFiles());
+			int reviewNo = courtroomService.insertCourtReview(crtroomVO, files);
+			
 			/*
 			 * int crtroomNo = crtroomVO.getCrtroomNo(); List<CrtroomVO> reviewList =
 			 * courtroomService.selectCourtReview(crtroomNo);
 			 */
 			
-			if(n > 0) {
-				isSuccessed = true;
-			}
+			log.info("findEmp========");
 			
-			CrtroomVO review = courtroomService.selectReview(n);
-			map.put("review", review);
+			CrtroomVO review = courtroomService.selectReview(reviewNo);
+			map.put("reviews", review);
 			map.put("result", isSuccessed);
 			return map;
 		}

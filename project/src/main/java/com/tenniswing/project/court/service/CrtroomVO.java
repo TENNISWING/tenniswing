@@ -53,6 +53,6 @@ public class CrtroomVO {
 	private int reserveNo;
 	
 	// 별점
-	private int avg_star;
+	private Integer avgStar;
 	private int countReview;
 }

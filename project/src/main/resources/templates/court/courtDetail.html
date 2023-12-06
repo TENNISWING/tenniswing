@@ -94,13 +94,50 @@
 									th:value="${courtDetail.crtroomName}">
 								<div class="product-detail__meta">
 									<div class="rating">
-										<ul>
+									<th:block th:switch="${crtroomStar.avgStar != null ? crtroomStar.avgStar : 0}">
+										<ul th:case="0" class="star">
+											<li><i class="fa-regular fa-star"></i></li>
+											<li><i class="fa-regular fa-star"></i></li>
+											<li><i class="fa-regular fa-star"></i></li>
+											<li><i class="fa-regular fa-star"></i></li>
+											<li><i class="fa-regular fa-star"></i></li>
+										</ul>
+										<ul th:case="1" class="star">
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-regular fa-star"></i></li>
+											<li><i class="fa-regular fa-star"></i></li>
+											<li><i class="fa-regular fa-star"></i></li>
+											<li><i class="fa-regular fa-star"></i></li>
+										</ul>
+										<ul th:case="2" class="star">
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-regular fa-star"></i></li>
+											<li><i class="fa-regular fa-star"></i></li>
+											<li><i class="fa-regular fa-star"></i></li>
+										</ul>
+										<ul th:case="3" class="star">
 											<li><i class="fa-solid fa-star"></i></li>
 											<li><i class="fa-solid fa-star"></i></li>
 											<li><i class="fa-solid fa-star"></i></li>
 											<li><i class="fa-regular fa-star"></i></li>
 											<li><i class="fa-regular fa-star"></i></li>
 										</ul>
+										<ul th:case="4" class="star">
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-regular fa-star"></i></li>
+										</ul>
+										<ul th:case="5" class="star">
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+											<li><i class="fa-solid fa-star"></i></li>
+										</ul>
+										</th:block>
 										<div class="total__rating">
 											<p style="font-size: 14px">([[${crtroomStar.countReview}]] ratings)</p>
 										</div>
@@ -131,7 +168,7 @@
 									${courtDetail.crtroomExp} ]]</p>
 								<div class="product-detail__attr">
 									<div class="product__attr">
-										<span class="product-detail--stroke">운영시간</span>
+										<span class="product-detail--stroke" style="font-weight: bold">운영시간</span>
 										<ul class="product__attr--color" style="margin: 0; padding: 0">
 											<li><input type="text"
 												style="width: 70px; border: 0; text-align: center"
@@ -167,7 +204,7 @@
 								</div>
 							</div> -->
 								<div class="product-detail__qty">
-									<span class="product-detail--stroke">코트장 위치</span>
+									<span class="product-detail--stroke" style="font-weight: bold">코트장 위치</span>
 									<div>
 										<input type="text" style="border: 0; text-align: center"
 											th:value="${courtDetail.crtroomLocation}" disabled /> <input
@@ -322,7 +359,8 @@
 													<th:block th:each="review, stat: ${courtReview}">
 													<div class="review__item" id="review" th:attrappend="id=${review.reviewNo}">
 														<div class="avatar">
-															<img th:src="${review.attachPath}" alt="avatar" style="overfit:cover"/>
+																<img th:if="${review.attachPath} != null" th:src="${review.attachPath}" alt="avatar" style="overfit:cover"/>
+																<img th:unless="${review.attachPath} != null" src="/assets/img/default img.jpg" alt="avatar" style="overfit:cover"/>
 														</div>
 														<div class="review__content">
 															<div class="review__desc">
@@ -331,7 +369,14 @@
 																		<span>[[${review.memId}]]</span>
 																	</h5>
 																	<div class="rating">
-																		<th:block th:switch="${review.reviewStar}">
+																		<th:block th:switch="${review.reviewStar != null ? review.reviewStar : 0}">
+																		<ul th:case="0" class="star">
+																			<li><i class="fa-regular fa-star"></i></li>
+																			<li><i class="fa-regular fa-star"></i></li>
+																			<li><i class="fa-regular fa-star"></i></li>
+																			<li><i class="fa-regular fa-star"></i></li>
+																			<li><i class="fa-regular fa-star"></i></li>
+																		</ul>
 																		<ul th:case="1" class="star">
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-regular fa-star"></i></li>
@@ -530,14 +575,51 @@
 										</div>
 										<div class="product__content">
 											<div class="product__rating">
-												<ul>
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-regular fa-star"></i></li>
-												</ul>
-												<div class="total__rating">(321)</div>
+												<th:block th:switch="${nearCrt.avgStar != null ? nearCrt.avgStar : 0}">
+													<ul th:case="0" class="star">
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul>
+													<ul th:case="1" class="star">
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul>
+													<ul th:case="2" class="star">
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul>
+													<ul th:case="3" class="star">
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul>
+													<ul th:case="4" class="star">
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul>
+													<ul th:case="5" class="star">
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+													</ul>
+													</th:block>
+												<div class="total__rating">([[${nearCrt.countReview}]])</div>
 											</div>
 											<div class="product__title">
 												<h5>
@@ -655,7 +737,7 @@
 			</div>
 		</div>
 		</form>
-		<script type="text/javascript">
+		<script th:inline="javascript">
 			
 			$('.reviewDel').on('click',function(e){
 				
@@ -750,8 +832,16 @@
 							icon: "success",
 							text: "정상적으로 등록되었습니다.",
 						}).then(function(){
-							console.log(results.review);
-							location.reload();
+ 							location.reload();
+ 							console.log(results.review);
+							let offset = $(".client__review").offset(); //해당 위치 반환
+							$("html, body").animate({scrollTop: offset.top},400); // 선택한 위치로 이동. 두번째 인자는 0.4초를 의미한다.
+							$('#home-tab').removeClass('active');
+							$('#home-tab-pane').removeClass('show active');
+							$('#home-tab').attr('aria-selected','false');
+							$('#women-tab').addClass('active');
+							$('#women-tab-pane').addClass('show active');
+							$('#women-tab').attr('aria-selected','true');
 						})
 					} else {
 						Swal2.fire({

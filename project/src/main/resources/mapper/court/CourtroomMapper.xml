@@ -21,10 +21,14 @@
   				, FIND_CATEGORY_NAME(c.crtroom_region) crtroom_region_name
                 , MIN(d.crt_use_price) min_price
                 , a.attach_path
+                , ROUND(SUM(r.review_star)/COUNT(r.review_no)) avg_star
+  				, COUNT(r.review_no) count_review
   		FROM crtroom c JOIN crt_detail_inf d
                        ON c.crtroom_no = d.crtroom_no
                        JOIN attach a
                        ON c.crtroom_no = a.attach_table_pk
+                       LEFT OUTER JOIN review r
+					   ON c.crtroom_no = r.crtroom_no
         WHERE a.attach_table_div = 'cd'
         AND a.attach_turn = 1
         GROUP BY c.crtroom_no
@@ -150,10 +154,14 @@
   				, cr.crtroom_location
   				, MIN(cdi.crt_use_price) min_price
   				, a.attach_path
+  				, ROUND(SUM(r.review_star)/COUNT(r.review_no)) avg_star
+  				, COUNT(r.review_no) count_review
 	  		FROM crtroom cr JOIN crt_detail_inf cdi
 	  						ON cr.crtroom_no = cdi.crtroom_no
 	  						JOIN attach a
 	  						ON cr.crtroom_no = a.attach_table_pk
+	  						LEFT OUTER JOIN review r
+	  						ON cr.crtroom_no = r.crtroom_no
 	  		WHERE a.attach_table_div = 'cd'
 	  		AND a.attach_turn = 1
 	  		AND cr.crtroom_region = #{crtroomRegion}
@@ -173,10 +181,14 @@
   				, cr.crtroom_location
   				, MIN(cdi.crt_use_price) min_price
   				, a.attach_path
+  				, ROUND(SUM(r.review_star)/COUNT(r.review_no)) avg_star
+  				, COUNT(r.review_no) count_review
 		  		FROM crtroom cr JOIN crt_detail_inf cdi
 		  						ON cr.crtroom_no = cdi.crtroom_no
 		  						JOIN attach a
 		  						ON cr.crtroom_no = a.attach_table_pk
+		  						LEFT OUTER JOIN review r
+	  							ON cr.crtroom_no = r.crtroom_no
 		  		WHERE a.attach_table_div = 'cd'
 		  		AND a.attach_turn = 1
 		  		
@@ -265,10 +277,10 @@
 				, r.reserve_no
 				, a.attach_path
 				, r.review_no
-		FROM review r JOIN attach a
+		FROM review r LEFT OUTER JOIN attach a
 						ON r.review_no = a.attach_table_pk
+						AND a.attach_table_div = 'cr'
 		WHERE r.crtroom_no = #{crtroomNo}
-		AND a.attach_table_div = 'cr'
 		ORDER BY 4 desc
 	</select>
 	
@@ -281,11 +293,11 @@
 				, r.review_edit_date
 				, r.reserve_no
 				, a.attach_path
-		FROM review r JOIN attach a
-						ON r.crtroom_no = a.attach_table_pk
+				, r.review_no
+		FROM review r LEFT OUTER JOIN attach a
+						ON r.review_no = a.attach_table_pk
+                        AND a.attach_table_div = 'cr'
 		WHERE r.review_no = #{reviewNo}
-		AND a.attach_table_div = 'cr'
-		ORDER BY a.attach_in_date desc
 	</select>
 	
 	<!-- 코트 별점 -->
