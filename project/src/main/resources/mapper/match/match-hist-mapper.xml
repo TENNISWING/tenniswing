@@ -144,18 +144,14 @@
   	 			(
 		  	 		match_hist_no
 	  				, match_no
-	  				, mem_id
-	  				, match_apply_date
-	  				, wrt_regi_date
+	  				, match_apply_club_no 
 	  				, match_state
   	 			)
   	 			VALUES
   	 			(
   	 				#{matchHistNo}
   	 				,#{matchNo}
-  	 				,#{memId}
-  	 				,sysdate
-  	 				,#sysdate
+  	 				,#{matchApplyClubNo}
   	 				,'g1'
   	 			)
   	</insert> 
