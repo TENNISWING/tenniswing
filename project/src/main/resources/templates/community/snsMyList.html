@@ -103,18 +103,18 @@
 					</script>
 				</section>
 				<!-- Trending Section End -->
-				<div class="card-body shadow collapse Listbrd"  th:each="totalbrd : ${#numbers.sequence(1,5)}" id="collapseExample" th:attrappend="id=${totalbrdStat.count}"><!-- 반복문 -->
+				<div class="card-body shadow collapse Listbrd"  th:each="gl : ${grpList}" id="collapseExample" th:attrappend="id=${glStat.count}"><!-- 반복문 -->
 					<div class="table-responsive">
 						<table class="table dashboard__table order-list">
 							<thead>
 								<tr>
-									<th scope="col" class="text-start" style="width: 300px;">!!!썸네일</th>
+									<th scope="col" class="text-start" style="width: 300px;">[[${gl.grpName}]]</th>
 									<th scope="col" class="text-start">제목</th>
 									<th scope="col" class="text-center">Action</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="num : ${#numbers.sequence(1,10)}">
+								<tr th:each="num : ${#numbers.sequence(1,10)}"> <!-- sns 안에 들어있는 grp 반복문 -->
 									<td class="text-start"><img class="rounded"
 										src="assets/compiled/jpg/jump.jpg" style="width: 150px;"></td>
 									<td class="text-start">제목</td>
