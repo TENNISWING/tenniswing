@@ -20,6 +20,7 @@ public interface ClubMapper {
 	
 	//수정
 	public int updateClub(ClubVO clubVO);
+	public int clubMemAdd(ClubVO clubVO);
 	
 	//삭제
 	public int deleteClub(int ClubNo);

@@ -328,10 +328,10 @@
 					}//반복문 끝
 					
 					 $('.submitBtn').on("click", function(e){
-						 console.log("신청버튼 클릭했어예")
+						// console.log("확인버튼 클릭했어예")
 						let clubNo = $(this).data('value');
 						let clubJoinApplyWrt = $(e.target).parent().prev().children().val()
-						console.log("글 내용은 들어오나여"+clubJoinApplyWrt)
+						//console.log("글 내용은 들어오나여"+clubJoinApplyWrt)
 						clubMemFormAjax(clubNo,clubJoinApplyWrt)
 					}) 
 					

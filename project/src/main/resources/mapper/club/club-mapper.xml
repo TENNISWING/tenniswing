@@ -119,19 +119,23 @@
     WHERE club_no = #{clubNo}
   </select> 
   
-  
+ <!-- 신청 클럽 멤버 -->
   <select id="selectclubMem" resultType="clubVO">
   	    SELECT c.club_no
+  	    	, c.club_join_apply_wrt
+  	    	, c.club_mem_no
             , p.nick
-            , c.club_approve
-            , FIND_CATEGORY_NAME (p.age) mem_age
-            , FIND_CATEGORY_NAME (p.gen) mem_gen
-            , FIND_CATEGORY_NAME (p.region)mem_region
+            , FIND_CATEGORY_NAME (c.club_approve)club_approve_name
+            , FIND_CATEGORY_NAME (p.age) club_age_name
+            , FIND_CATEGORY_NAME (p.gen) club_gen_name
+            , FIND_CATEGORY_NAME (p.region)club_region_name
             , FIND_CATEGORY_NAME (p.ntrp)mem_ntrp
             , p.pr_image
    FROM club_mem c LEFT OUTER JOIN pr p
                                 ON c.mem_id = p.mem_id
    GROUP BY c.club_no  
+   			, c.club_join_apply_wrt
+   			, c.club_mem_no
             , p.nick
             , c.club_approve
             , p.age
@@ -139,7 +143,7 @@
             , p.region
             , p.ntrp
             , p.pr_image
-   HAVING c.club_no = #{clubNo}
+   HAVING c.club_no = #{clubNo} AND c.club_approve = 'm3'
   </select>
   
   
@@ -250,6 +254,13 @@
   		   	, SYSDATE
   		   )
   </insert>
+  
+  <update id = "clubMemOk" parameterType="clubVO">
+  	UPDATE club_mem
+  	   SET club_approve = #{clubApprove}
+  	   	   , join_date = SYSDATE
+  	WHERE club_no = #{clubNo} AND club_mem_no = #{clubMemNo}   	   
+  </update>
   
    <!-- 클럽 신청 목록 -->
   <!--  <select id = "selectAllClub" resultType="ClubVO">

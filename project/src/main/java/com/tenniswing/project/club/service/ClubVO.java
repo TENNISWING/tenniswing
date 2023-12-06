@@ -33,6 +33,7 @@ public class ClubVO {
 	private String clubAgeName;
 	private String clubTimeName;
 	private String clubRecruitmentName;
+	private String clubApproveName;
 	
 	private List<ClubPostVO> clubPostList;
 	
@@ -54,6 +55,10 @@ public class ClubVO {
 	private Date applyDate;
 	
 	private List<ClubVO> memInquiryList;
+	
+	private String memNtrp;
+	private String nick;
+	private String prImage;
 	
 	
 }

@@ -14,6 +14,7 @@ public interface ClubService {
 	
 	//등록
 	public int insertClub(ClubVO clubVO);
+	public Map<String, Object> clubMemAdd(ClubVO clubVO);
 	
 	//삭제
 	public boolean deleteClub(int ClubNo);

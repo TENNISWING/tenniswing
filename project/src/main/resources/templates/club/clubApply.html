@@ -13,59 +13,10 @@
 <th:block layout:fragment="content">
 	<body>
 		<div class="content__body">
-			<ul style="list-style: none;">
-				<li>
-					<div class="recent-message d-flex px-4 py-3"
-						style="border-bottom: 1px solid #e1e1e1; display: flex; justify-content: space-between;">
-						<div class="d-flex-right">
-							<div class="avatar avatar-lg">
-								<img src="./assets/compiled/jpg/4.jpg">
-							</div>
-							<div class="name ms-4">
-								<h5 class="mb-1">Hank Schrader</h5>
-								<h6 class="text-muted mb-0">@johnducky</h6>
-							</div>
-						</div>
-						<div>
-							<button class="btn btn-outline-success" type="button"
-								data-bs-toggle="modal" data-bs-target="#applyModal">확인</button>
-						</div>
-					</div>
-				</li>
+			<ul style="list-style: none;" id="memList">
+				<!-- 여기에 가입 신청 리스트 -->
 			</ul>
 		</div>
-
-		<!-- 멤버신청 확인 모달 -->
-		<div class="modal fade text-left" id="applyModal" tabindex="-1"
-			role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-			<div
-				class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-				role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="myModalLabel33">신청 확인</h4>
-						<button type="button" class="close" data-bs-dismiss="modal"
-							aria-label="Close">
-							<i data-feather="x"></i>
-						</button>
-					</div>
-					<div class="modal-body" style="text-align: center;">
-						<div>
-							<img src="./assets/img/card.jpg" style="width: 450px;">
-						</div>
-						<br>
-						<p style="text-align: left;"></p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-light-secondary"
-							id="applyBtn" data-bs-dismiss="modal">거절</button>
-						<button type="button" class="btn btn-primary ms-1" id="refuseBtn"
-							data-bs-dismiss="modal">승인</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /멤버신청 확인 모달  -->
 		<br>
 		<ul class="pagination justify-content-center">
 			<li class="page-item disabled"><a class="page-link" href="#"
@@ -76,8 +27,82 @@
 			<li class="page-item"><a class="page-link" href="#">다음</a></li>
 		</ul>
 
-		<script type="text/javascript">
-			
+		<script th:inline="javascript">
+		
+		
+		
+		//신청 목록 리스트
+		function applyListAjax(){
+			let clubNo = [[${club.clubNo}]];
+			console.log("멤버구성에서 클럽번호" + clubNo);
+			$.ajax({
+				type: 'GET',
+				url: 'clubInquiryList',
+				data:  {clubNo},
+				success: function (data) {
+					console.log(data);
+					for (let rep of data) {
+						let List = `
+							<li>
+							<div class="recent-message d-flex px-4 py-3"
+								style="border-bottom: 1px solid #e1e1e1; display: flex; justify-content: space-between;">
+								<div class="d-flex-right">
+									<div class="avatar avatar-lg">
+										<img src="./assets/compiled/jpg/4.jpg">
+									</div>
+									<div class="name ms-4">
+										<h5 class="mb-1">${rep.nick}</h5>
+										<h7 class="text-muted mb-0">${rep.clubGenName} / ${rep.clubAgeName}</h7>
+									</div>
+								</div>
+								<div>
+									<button class="btn btn-outline-success" type="button" 
+											data-bs-toggle="modal" data-bs-target="#wrt${rep.clubMemNo}"
+											id="memApplyBtn" data-club-no="${rep.clubNo}">확인</button>
+								</div>
+							</div>
+						</li>
+						<!-- 멤버신청 확인 모달 -->
+						<div class="modal fade text-left" id="wrt${rep.clubMemNo}" tabindex="-1"
+							role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+							<div
+								class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+								role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title" id="myModalLabel33">신청 확인</h4>
+										<button type="button" class="close" data-bs-dismiss="modal"
+											aria-label="Close">
+											<i data-feather="x"></i>
+										</button>
+									</div>
+									<div class="modal-body" style="text-align: center;">
+										<p style="text-align: left;">${rep.clubJoinApplyWrt}</p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-light-secondary"
+											id="noBtn" data-bs-dismiss="modal">거절</button>
+										<button type="button" class="btn btn-primary ms-1" id="okBtn"
+											data-bs-dismiss="modal">승인</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /멤버신청 확인 모달  -->
+						`
+						$('#memList').append(List)
+					} // 반복문 끝
+					$("#okBtn").on("click", function(e){
+						console.log("ddddd")
+						
+					})
+				} //success 끝
+			})
+		}
+		
+		$(document).ready(function () {
+			applyListAjax()
+		});
 		</script>
 	</body>
 </th:block>

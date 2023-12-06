@@ -257,14 +257,17 @@ public class ClubController {
 
 	// 상세페이지 > 탭 > 클럽가입신청
 	@GetMapping("clubApply")
-	public String applyTapPage(Model model) {
+	public String applyTapPage(Model model, ClubVO clubVO) {
+		model.addAttribute("club", clubService.selectClub(clubVO));
 		return "club/clubApply";
 	}
 	
 	// 상세페이지 > 탭 > 클럽가입신청 리스트
 	@GetMapping("clubInquiryList")
 	@ResponseBody
-	public List<ClubVO> InquiryListAjax(ClubVO clubVO) {
+	public List<ClubVO> InquiryListAjax(ClubVO clubVO, Model model) {
+		System.out.println("-----------%%%%%%% 클럽신청 리스트: "+clubVO);
+		model.addAttribute("mem", clubService.selectclubMem(clubVO));
 		return clubService.selectclubMem(clubVO);
 	}
 

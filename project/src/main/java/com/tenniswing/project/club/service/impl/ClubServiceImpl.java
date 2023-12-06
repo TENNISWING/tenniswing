@@ -103,12 +103,30 @@ public class ClubServiceImpl implements ClubService {
 	//public List<ClubVO> selectAllClubMem(ClubVO clubVO) {
 	//	return clubMapper.selectAllClubMem(clubVO);
 	//}
+	
+	//클럽 멤버 승인	
+	@Override
+	public Map<String, Object> clubMemAdd(ClubVO clubVO) {
+		Map<String, Object> map = new HashMap<>();
+		boolean isSuccessed = false;
+		
+		int result = clubMapper.clubMemAdd(clubVO);
+		if(result == 1) {
+			isSuccessed = true;
+		}
+		map.put("result",isSuccessed);
+		map.put("info",clubVO);
+		
+		return map;
+	}
 
 	//재은
 	@Override
 	public ClubVO selectMatchClub(ClubVO clubVO) {
 		return clubMapper.selectMatchClub(clubVO);
 	}
+
+	
 
 	
 
