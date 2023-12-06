@@ -30,7 +30,7 @@ public interface SnsService {
 		
 	// 수정
 	public Map<String, Object> updateSns(SnsVO snsVO);
-//	public Map<String, Object> updateGrp(SnsVO snsVO);
+	public Map<String, Object> updateGrp(SnsVO snsVO);
 	
 	// 삭제
 	public boolean deleteSns(int snsWrtNo );

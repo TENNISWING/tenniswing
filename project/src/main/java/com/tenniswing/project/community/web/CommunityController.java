@@ -139,7 +139,29 @@ public class CommunityController {
 		System.out.println("결과찍어봄" + result);
 		return result;
 	}
-
+	
+	// 그룹에 매칭되는 sns List
+	@GetMapping("mySnsList")
+	@ResponseBody
+	public List<SnsVO> mySnsListAjax(SnsVO snsVO){
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		snsVO.setMemId(id);
+		
+		return snsService.selectMyGroup(snsVO);
+	}
+	
+	// 그룹 이름 수정
+	@PostMapping("editGrpName")
+	@ResponseBody
+	public Map<String, Object> editGrpNameAjax(SnsVO snsVO){
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		snsVO.setMemId(id);
+		
+		Map<String, Object> result = snsService.updateGrp(snsVO);
+		return result;
+		
+	}
+	
 	// sns댓글List
 	@GetMapping("snsRep")
 	@ResponseBody
@@ -210,8 +232,12 @@ public class CommunityController {
 	public String snsMyListPage(SnsVO snsVO, Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		snsVO.setMemId(id);
+		
+		//회원의 그룹 불러오기
 		model.addAttribute("grpList", snsService.selectGroup(snsVO));
-		model.addAttribute("snsMyG", snsService.selectMyGroup(snsVO));
+		
+		//그 그룹에 해당하는 sns 불러오기
+		model.addAttribute("myGrpList", snsService.selectMyGroup(snsVO));
 		return "community/snsMyList";
 	}
 
