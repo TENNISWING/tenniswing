@@ -13,4 +13,6 @@ public interface CartService {
 	// 장바구니 등록
 	public Map<String, Object> insertCart(ProdDetailVO prodDetailVO);
 
+	// 장바구니 수정
+	public boolean updateCart(CartVO cartvo);
 }

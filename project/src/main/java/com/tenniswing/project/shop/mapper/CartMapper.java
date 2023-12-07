@@ -13,4 +13,7 @@ public interface CartMapper {
 	
 	// 장바구니 등록
 	public int insertCart(CartVO cartVO);
+	
+	// 장바구니 수정
+	public int updateCart(CartVO cartvo);
 }

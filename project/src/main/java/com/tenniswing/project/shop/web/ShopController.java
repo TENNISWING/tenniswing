@@ -109,6 +109,13 @@ public class ShopController {
 	public Map<String, Object> insertCart(@RequestBody ProdDetailVO prodDetailVO){
 		return cartService.insertCart(prodDetailVO);
 	}
+	
+//	장바구니 수정 처리
+	@PostMapping("updateCart")
+	@ResponseBody
+	public boolean updateCart(@RequestBody CartVO cartvo) {
+		return cartService.updateCart(cartvo);
+	}
 
 	@GetMapping("checkout")
 	public String checkoutPage(Model model, ProdDetailVO prodDetailVO, ProdVO prodVO) {

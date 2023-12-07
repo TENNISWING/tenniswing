@@ -316,7 +316,28 @@
 			        // 수량 변경시 디비 업데이트
 			        let cartNo;
 			        let cartProdQt;
-			        let 
+			        
+			        let updateTempId = $(this).prev().attr('id');
+			        console.log($(this).prev().attr('id'));
+			        cartNo = updateTempId.split('_')[1];
+			        cartProdQt = $('#'+updateTempId).val();
+			        
+			        //console.log(cartNo+','+cartProdQt);
+			        
+			        let updateCartData = {};
+			        updateCartData.cartNo = cartNo;
+			        updateCartData.cartProdQt = cartProdQt;
+			        updateCartData.memId = cartMemId;
+			        
+			        $.ajax('updateCart', {
+			        	type : 'post',
+			        	contentType : 'application/json',
+						data : JSON.stringify(updateCartData)
+			        })
+			        .done(result => {
+			        	console.log(result);
+			        })
+								        
 			    });
 			    $(".decressQntCart").on("click", function () {
 			        var $qty = $(this).closest("div").find(".qnttinputCart");
@@ -328,6 +349,31 @@
 			        }
 			        //changeOrginPrice();
 			        cartProdPrice();
+			        
+			     // 수량 변경시 디비 업데이트
+			        let cartNo;
+			        let cartProdQt;
+			        
+			        let updateTempId = $(this).next().attr('id');
+			        console.log($(this).prev().attr('id'));
+			        cartNo = updateTempId.split('_')[1];
+			        cartProdQt = $('#'+updateTempId).val();
+			        
+			        //console.log(cartNo+','+cartProdQt);
+			        
+			        let updateCartData = {};
+			        updateCartData.cartNo = cartNo;
+			        updateCartData.cartProdQt = cartProdQt;
+			        updateCartData.memId = cartMemId;
+			        
+			        $.ajax('updateCart', {
+			        	type : 'post',
+			        	contentType : 'application/json',
+						data : JSON.stringify(updateCartData)
+			        })
+			        .done(result => {
+			        	console.log(result);
+			        })
 			    });
 			    
 			    // span 클릭 이벤트 안되게 막기

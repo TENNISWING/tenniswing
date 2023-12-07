@@ -54,5 +54,24 @@
 				#{prodDetailNo}
 		)
   	</insert>
-  
+  	
+  	<!-- 카트 수정 -->
+  	<update id="updateCart" parameterType="CartVO">
+  		UPDATE 	cart
+		SET		cart_prod_qt = #{cartProdQt}
+  		WHERE 	cart_no = #{cartNo}
+  		AND		mem_id = #{memId}
+  	</update>
   </mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

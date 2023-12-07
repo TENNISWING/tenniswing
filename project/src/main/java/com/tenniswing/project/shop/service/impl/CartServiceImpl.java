@@ -73,6 +73,19 @@ public class CartServiceImpl implements CartService{
 		return map;
 	}
 
+	// 수정
+	@Override
+	public boolean updateCart(CartVO cartvo) {
+		boolean isSucess = false;
+		
+		if(cartMapper.updateCart(cartvo) == 1) {
+			isSucess = true;
+		}
+		return isSucess;
+	}
+	
+	
+
 	
 }
 
