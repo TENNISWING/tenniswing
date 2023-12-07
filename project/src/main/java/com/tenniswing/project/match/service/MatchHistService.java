@@ -12,10 +12,10 @@ public interface MatchHistService {
 		//클럽단건
 		public MatchHistVO selectClubMatchHist(MatchHistVO matchHistVO);
 		
-		//등록
+		//신청
 		public int insertMatchHist(MatchHistVO matchHistVO);
 		public int insertClubMatchHist(MatchHistVO matchHistVO);
-		
+		public int insertContMatchHist(MatchHistVO matchHistVO);		
 		public int insertStarterMatchHist(MatchHistVO matchHistVO);
 		
 		//수정
@@ -24,6 +24,7 @@ public interface MatchHistService {
 		
 		//삭제
 		public int deleteMatchHist(MatchHistVO matchHistVO);
+
 
 
 		

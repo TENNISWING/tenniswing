@@ -114,7 +114,9 @@
 							<th>경기 시간</th>
 							<th>클럽 이름</th>
 							<th>모집 인원</th>
+							<th>NTRP</th>
 							<th>코트장 이름</th>
+							<th>지역</th>
 							<th>모집 상태</th>
 						</tr>
 					</thead>
@@ -150,7 +152,7 @@
 									<!-- Swiper -->
 									<div class="swiper mySwiper mtbanner" data-aos="fade-up">
 										<div class="swiper-wrapper mtbanner">
-											<th:block th:each="v : ${viewList}" th:if = "${vStat.index} < 10">
+											<th:block th:each="v : ${viewList}">
 											<div class="swiper-slide mtbanner"	>
 												<!-- 여기서 반복문 th:each="" -->
 												<div class="card">
@@ -179,7 +181,7 @@
 					<!-- Trending Section End -->
 </div></section></div>
 				</div>
-<script>
+		<script>
 	$('#btnsearch').on("click", function(e) {
 		let matchDate = $('.matchdate .active').data('day');
 		clubMatchAjax(matchDate,1) 
@@ -222,7 +224,9 @@
 					<td>${matchInfo.time}시</td>
 					<td>${matchInfo.clubName}</td>
 					<td>${matchInfo.recruitPsnNum}명</td>
+					<td>${matchInfo.ntrpName}</td>
 					<td>${matchInfo.crtroomName}</td>
+					<td>${matchInfo.crtroomLocation}</td>
 					<td class="text-end mtbt">`
 					if(matchInfo.progStateName=='모집마감'){
 					b += `<a class="btn btn-secondary disabled matchbtn2" href="clubmatchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>`
@@ -383,7 +387,7 @@
                         	$('.swiper-wrapper.dateslide > div div').removeClass('active');
                         	$(e.target).toggleClass('active');
                         	let matchDate = $(e.target).data('day');
-                        	clubMatchAjax(matchDate,2);
+                        	clubMatchAjax(matchDate,1);
                         	
                             //태그네임 가져오기                 
                             //console.log($(e.target).prop('tagName'))

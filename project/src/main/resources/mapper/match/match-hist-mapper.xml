@@ -151,9 +151,7 @@
   	 			(
   	 				#{matchHistNo}
   	 				,#{matchNo}
-  	 				, (select club_no
-	  				   from club
-	  				   where mem_id = #{memId})
+  	 				,#{clubNo}
   	 				,'g1'
   	 			)
   	</insert> 
