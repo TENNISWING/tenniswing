@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<style type="text/css">
+	svg, path, span {
+		pointer-events: none;
+	}
+</style>
 <th:block th:fragment="header">
 	<!-- header -->
 	<header class="mb-4">
@@ -185,47 +190,8 @@
 					<h3>상품 목록</h3>
 					<h3>상품 금액</h3>
 				</div>
-				<div class="cart__items">
+				<div class="cart__items" id="cartList">
 					<!-- Shopping Cart Item Start -->
-					<div th:each="num : ${#numbers.sequence(1,3)}"
-						class="shopping-card">
-						<a href="#" class="shopping-card__image"> <img
-							src="assets/images/cart/cart-01.png" alt="cart-product" />
-						</a>
-						<div class="shopping-card__content">
-							<div class="shopping-card__content-top">
-								<h5 class="product__title">
-									<a href="#">All Natural Italian Chicken Meatballs</a>
-								</h5>
-								<h5 class="product__price">$24.40</h5>
-							</div>
-							<div class="shopping-card__content-bottom">
-								<div class="quantity__wrapper">
-									<div class="quantity">
-										<button type="button" class="decressQnt">
-											<span class="bar"></span>
-										</button>
-										<input class="qnttinput" type="number" disabled value="0"
-											min="01" max="100" />
-										<button type="button" class="incressQnt">
-											<span class="bar"></span>
-										</button>
-									</div>
-									<div class="stock__item">In Stock</div>
-								</div>
-								<button type="button" class="action__btn">
-									<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-										xmlns="http://www.w3.org/2000/svg">
-										<path
-											d="M1.25 3.5H2.75M2.75 3.5H14.75M2.75 3.5V14C2.75 14.3978 2.90804 14.7794 3.18934 15.0607C3.47064 15.342 3.85218 15.5 4.25 15.5H11.75C12.1478 15.5 12.5294 15.342 12.8107 15.0607C13.092 14.7794 13.25 14.3978 13.25 14V3.5H2.75ZM5 3.5V2C5 1.60218 5.15804 1.22064 5.43934 0.93934C5.72064 0.658035 6.10218 0.5 6.5 0.5H9.5C9.89782 0.5 10.2794 0.658035 10.5607 0.93934C10.842 1.22064 11 1.60218 11 2V3.5M6.5 7.25V11.75M9.5 7.25V11.75"
-											stroke="#667085" stroke-linecap="round"
-											stroke-linejoin="round" />
-									</svg>
-									<span>Delete</span>
-								</button>
-							</div>
-						</div>
-					</div>
 
 					<!-- Shopping Cart Item End -->
 				</div>
@@ -264,9 +230,9 @@
 		event.preventDefault();
 		$(".flyoutCart").toggleClass("active");
 		//$('.flyoutCart').removeClass('active');
-		let auto = [[${#authentication.name}]];
-		console.log(auto);
-		if(auto == "anonymousUser"){
+		let cartMemId = [[${#authentication.name}]];
+		console.log(cartMemId);
+		if(cartMemId == "anonymousUser"){
 			Swal.fire({
 				title: "로그인 확인",
 				html: `로그인이 필요한 서비스입니다.<br>
@@ -284,9 +250,150 @@
 				  }
 			})
 		} else {
+			$.ajax('selectCartList', {
+				type: 'get',
+		        data: {cartMemId},		
+			})
+			.done(result => {
+				console.log(result);
+				$('#cartList').empty();
+				for(let cart of result) {
+					let cartData = `<div class="shopping-card">
+										<a href="shopDetail?prodNo=${cart.prodNo}" class="shopping-card__image"> 
+											<img src="${cart.attachPath}" alt="cart-product" />
+										</a>
+										<div class="shopping-card__content">
+											<div class="shopping-card__content-top">
+												<h5 class="product__title">
+													<a href="shopDetail?prodNo=${cart.prodNo}"><b>${cart.prodName}</b></a>
+												</h5>
+												<h5 class="product__price cartPrice" id="cartPrice${cart.cartNo}">${cart.prodPrice}</h5>
+											</div>
+											<div class="shopping-card__content-top" id="soldOut">
+												<p style="margin: 0 0 9px 3px; color: #344054;">[color]${cart.cateColor} [size]${cart.cateSize}</p>
+											</div>
+											<div class="shopping-card__content-bottom">
+												<div class="quantity__wrapper">
+													<div class="quantity">
+														<button type="button" class="decressQnt" id="checkCartDown${cart.cartNo}">
+															<span class="bar"></span>
+														</button>
+														<input class="qnttinput" type="number" value="${cart.cartProdQt}" id="prodCartDetailSto${cart.cartNo}"
+															min="0" max="${cart.prodDetailSto}" readonly="readonly" />
+														<button type="button" class="incressQnt" id="checkCartCount${cart.cartNo}">
+															<span class="bar"></span>
+														</button>
+													</div>
+												</div>
+												<button type="button" class="action__btn" id="deleteCartBtn" style="padding-right: 0;">
+													<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+														xmlns="http://www.w3.org/2000/svg">
+														<path
+															d="M1.25 3.5H2.75M2.75 3.5H14.75M2.75 3.5V14C2.75 14.3978 2.90804 14.7794 3.18934 15.0607C3.47064 15.342 3.85218 15.5 4.25 15.5H11.75C12.1478 15.5 12.5294 15.342 12.8107 15.0607C13.092 14.7794 13.25 14.3978 13.25 14V3.5H2.75ZM5 3.5V2C5 1.60218 5.15804 1.22064 5.43934 0.93934C5.72064 0.658035 6.10218 0.5 6.5 0.5H9.5C9.89782 0.5 10.2794 0.658035 10.5607 0.93934C10.842 1.22064 11 1.60218 11 2V3.5M6.5 7.25V11.75M9.5 7.25V11.75"
+															stroke="#667085" stroke-linecap="round"
+															stroke-linejoin="round" />
+													</svg>
+													<span>삭제</span>
+												</button>
+											</div>
+										</div>
+									</div>`;
+					$('#cartList').append(cartData);
+				}
+				changeCartPrice();
+				$(".incressQnt").on("click", function () {
+			        var $qty = $(this).closest("div").find(".qnttinput");
+			        var currentVal = parseInt($qty.val(), 10);
+			        if (!isNaN(currentVal)) {
+			            $qty.val(currentVal + 1);
+			        }
+			    });
+			    $(".decressQnt").on("click", function () {
+			        var $qty = $(this).closest("div").find(".qnttinput");
+			        var currentVal = parseInt($qty.val(), 10);
+			        if (!isNaN(currentVal) && currentVal > 0) {
+			            $qty.val(currentVal - 1);
+			        } else {
+			            $(this).parents(".cart__action__btn").find(".cart__quantity").css("display", "none");
+			        }
+			    });
+			    
+			    $('span').css('pointer-events', 'none');
+			    checkAllProd();
+			})
+			.fail(err => console.log(err));
+			
 			$(".flyoutCart").toggleClass("active");
 		}
 	});
+	
+	/* 최대 재고 체크 */
+	function checkAllProd() {
+		checkCountProd();
+		let allSto = $('.incressQnt');
+		let downSto = $('.decressQnt');
+		
+		allSto.each(function() {
+			let maxId = $(this).attr('id');
+			//console.log(maxId);
+			
+			$('#'+maxId).on('click', function(e) {
+				//console.log(e.target.parentElement.children[1].value);
+				let stoInput = e.target.parentElement.children[1];
+				console.log($(stoInput).attr('max'));
+				if(e.target.parentElement.children[1].value == $(stoInput).attr('max'))
+		    		$('#'+maxId).attr('disabled', true);
+			})
+		});
+		
+		downSto.each(function() {
+			let downId = $(this).attr('id');
+			
+			$('#'+downId).on('click', function(e) {
+				let upBtn = e.target.parentElement.children[2];
+				$(upBtn).attr('disabled', false);
+			})
+		})
+	}
+	
+	/* 재고 체크 */
+	function checkCountProd() {
+		let sto = $('.qnttinput');
+		//let allSto = $('.incressQnt');
+		
+		sto.each(function() {
+			let stoInputId = $(this).attr('id');
+			if($('#'+stoInputId).attr('max') == 0) {
+				$('#'+stoInputId).val('0');
+				$('#'+stoInputId).next().attr('disabled', true);
+				$('#'+stoInputId).prev().attr('disabled', true);
+				
+				let soldData = `<span class="badge bg-success"style="background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important">
+								 SOLD OUT</span>`
+				$('#soldOut').append(soldData);
+			}
+			
+		});
+		
+	}
+	
+	/* 가격 */
+	function changeCartPrice() {		
+		let price = $('.cartPrice');
+		
+		price.each(function(){
+			priceId = $(this).attr('id');
+			// jQuery id 찾을 때 변수 넣어서 찾기
+			
+			let changePrice = $('#'+priceId).text();
+			//console.log(changePrice);
+			changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			
+			changePrice = changePrice + '원';
+			$('#'+priceId).text(changePrice);
+		});
+	}
+    
 	</script>
 </th:block>
 

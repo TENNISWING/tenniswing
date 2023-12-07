@@ -952,23 +952,42 @@
 			//$(".flyoutCart").toggleClass("active");
 			if(resetOrder()){
 				let formData = $('#prodBuyForm').serializeArray();
+				formData.push({name: 'memId', value: auto})
 				console.log(formData);
 				let objData = {};
 
 				$.each(formData, (idx, obj) => {
 					objData[obj.name] = obj.value;
 				});
+				// prodNO, cateColor, cateSize, memId
 				console.log(objData);
 				
-				/* 장바구니 추가 ajax */
-				$.ajax('', {
+				$.ajax('selectCart', {
 					type : 'post',
 					contentType : 'application/json',
 					data : JSON.stringify(objData)
 				})
 				.done(result => {
-					if(result.)
+					
 				})
+				/* 장바구니 추가 ajax */
+				$.ajax('insertCart', {
+					type : 'post',
+					contentType : 'application/json',
+					data : JSON.stringify(objData)
+				})
+				.done(result => {
+					console.log('카트 등록 후'+result.result);
+					console.log('카트 등록 후'+result.cartVO);
+					if(result.result){
+						Swal.fire({
+							  icon: "success",
+							  title: "장바구니",
+							  text: "장바구니가 추가되었습니다."
+						})
+					}
+				})
+				.fail(err => console.log(err));
 				
 			} else {
 				return;

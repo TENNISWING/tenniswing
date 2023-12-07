@@ -13,6 +13,15 @@
   		ORDER BY prod_detail_no
   	</select>
   	
+  	<!-- 카트 등록시 한건 조회 -->
+  	<select id="selectCartProd" resultType="ProdDetailVO">
+  		SELECT 	prod_detail_no
+  		FROM	prod_detail
+  		WHERE	prod_no = #{prodNo}
+  		AND		cate_color = #{cateColor}
+  		AND		cate_size = #{cateSize}
+  	</select>
+  	
   	<!-- 등록 -->
   	<insert id="insertProdDetail" parameterType="ProdDetailVO">
   		<selectKey keyProperty="prodDetailNo" resultType="int" order="BEFORE">

@@ -10,11 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.common.FileUtils;
+import com.tenniswing.project.shop.service.CartService;
+import com.tenniswing.project.shop.service.CartVO;
 import com.tenniswing.project.shop.service.ProdDetailService;
 import com.tenniswing.project.shop.service.ProdDetailVO;
 import com.tenniswing.project.shop.service.ProdService;
@@ -31,6 +34,9 @@ public class ShopController {
 	
 	@Autowired
 	ProdDetailService prodDetailService;
+	
+	@Autowired
+	CartService cartService;
 	
 	@Autowired
 	FileUtils fileUtils;
@@ -83,10 +89,25 @@ public class ShopController {
 		return "shop/shopDetail";
 	}
 	
+//	장바구니 리스트 출력
+	@GetMapping("selectCartList")
+	@ResponseBody
+	public List<CartVO> selectAllCart(@RequestParam(value = "cartMemId") String memId) {
+		return cartService.selectAllCart(memId);
+	}
+	
+//	장바구니 한건조회
+	@PostMapping("selectCart")
+	@ResponseBody
+	public Map<String, Object> selectCart(@RequestBody CartVO cartvo){
+		return cartService.selectAllCart(cartvo);
+	}
+	
+//	장바구니 추가 처리
 	@PostMapping("insertCart")
 	@ResponseBody
 	public Map<String, Object> insertCart(@RequestBody ProdDetailVO prodDetailVO){
-		return null;
+		return cartService.insertCart(prodDetailVO);
 	}
 
 	@GetMapping("checkout")

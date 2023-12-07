@@ -9,6 +9,10 @@ public interface ProdDetailMapper {
 
 //	전체조회
 	public List<ProdDetailVO> selectAllProdDetail(ProdVO prodVO);
+	
+//	장바구니 등록시 한건 조회
+	public ProdDetailVO selectCartProd(ProdDetailVO prodDetailVO);
+	
 //	등록
 	public int insertProdDetail(ProdDetailVO prodDetailVO);
 //	수정

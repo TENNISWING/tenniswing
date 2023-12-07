@@ -6,6 +6,10 @@ import java.util.Map;
 public interface ProdDetailService {
 //	전체조회
 	public List<ProdDetailVO> selectAllProdDetail(ProdVO prodVO);
+	
+//	장바구니 등록시 한건 조회
+	public ProdDetailVO selectCartProd(ProdDetailVO prodDetailVO);
+	
 //	등록
 	public Map<String, Object> insertProdDetail(ProdDetailVO prodDetailVO);
 //	수정
