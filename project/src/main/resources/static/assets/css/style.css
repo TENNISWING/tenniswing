@@ -7062,7 +7062,7 @@ h4 {
   font-weight: 500;
   line-height: 19px;
   letter-spacing: 0em;
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 @media screen and (max-width: 991px) {
   .product-detail__attr {
