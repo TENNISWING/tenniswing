@@ -19,6 +19,19 @@
 		#mainImage img:hover {
 			transform: scale(1.2);
 		}
+		section a,
+		section span,
+		section button,
+		section input,
+		section h1,
+		section h2,
+		section h3,
+		section h4,
+		section h5,
+		section h6,
+		section pre,{
+			font-family: 'Noto Sans KR', sans-serif !important;
+		}
 	</style>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -158,7 +171,7 @@
 							</ul>
 						</div>
 						<!-- 상품 가격 -->
-						<h3 class="product-detail__price" id="prodPrice">[[ ${prod.prodPrice} ]]</h3>
+						<h3 class="product-detail__price" id="prodPrice" style="color: #222222">[[ ${prod.prodPrice} ]]</h3>
 						<!-- <p class="product-detail__short_desc">There are many
 							variations of passages of Lorem Ipsum and available,majority have
 							suffered alteration in somey form, by injected humour, or
@@ -279,12 +292,12 @@
 								<div class="item">
 									<div class="header__cart">
 										<div class="cart__btn">								
-											<a href="#" class="btn btn-primary btn-outline">Add to Cart</a>
+											<a href="#" class="btn btn-primary btn-outline" id="myCart">장바구니</a>
 										</div>
 									</div>
 								</div>
 								<div class="item">
-									<a type="button" id="goCheckout" class="btn btn-primary btn-filled">Buy Now</a>
+									<a type="button" id="goCheckout" class="btn btn-primary btn-filled">구매하기</a>
 								</div>
 							</div>
 						</form>
@@ -601,7 +614,7 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="section-title">
-						<h2>Related Product</h2>
+						<h2 style="color: #222222">Related Product</h2>
 					</div>
 				</div>
 			</div>
@@ -831,7 +844,7 @@
 			}
 		});
 		
-		/* 폼 초기화 함수 */
+		/* 폼 입력 확인 함수 */
 		function resetOrder() {
 			if($('#cateColor').val() == 'none'){
 				Swal.fire({
@@ -908,6 +921,79 @@
 				clickable : true,
 			},
 		});
+	</script>
+	
+	<!-- 장바구니 로그인 체크 -->
+	<script th:inline="javascript">
+	$('#myCart').on('click', function(event){
+		event.preventDefault();
+		$(".flyoutCart").toggleClass("active");
+		//$('.flyoutCart').removeClass('active');
+		let auto = [[${#authentication.name}]];
+		console.log(auto);
+		if(auto == "anonymousUser"){
+			Swal.fire({
+				title: "로그인 확인",
+				html: `로그인이 필요한 서비스입니다.<br>
+					   로그인 페이지로 이동하시겠습니까?`,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "이동",
+				cancelButtonText: "취소"
+			}).then((result) => {
+				  if (result.isConfirmed) {
+				    location.href = '/loginform';
+				    return;
+				  }
+			})
+		} else {
+			//$(".flyoutCart").toggleClass("active");
+			if(resetOrder()){
+				let formData = $('#prodBuyForm').serializeArray();
+				formData.push({name: 'memId', value: auto})
+				console.log(formData);
+				let objData = {};
+
+				$.each(formData, (idx, obj) => {
+					objData[obj.name] = obj.value;
+				});
+				// prodNO, cateColor, cateSize, memId
+				console.log(objData);
+				
+				$.ajax('selectCart', {
+					type : 'post',
+					contentType : 'application/json',
+					data : JSON.stringify(objData)
+				})
+				.done(result => {
+					
+				})
+				/* 장바구니 추가 ajax */
+				$.ajax('insertCart', {
+					type : 'post',
+					contentType : 'application/json',
+					data : JSON.stringify(objData)
+				})
+				.done(result => {
+					console.log('카트 등록 후'+result.result);
+					console.log('카트 등록 후'+result.cartVO);
+					if(result.result){
+						Swal.fire({
+							  icon: "success",
+							  title: "장바구니",
+							  text: "장바구니가 추가되었습니다."
+						})
+					}
+				})
+				.fail(err => console.log(err));
+				
+			} else {
+				return;
+			}
+		}
+	});
 	</script>
 </th:block>
 

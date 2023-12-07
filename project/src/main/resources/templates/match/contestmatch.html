@@ -104,7 +104,9 @@
 							<th>경기 시간</th>
 							<th>클럽 이름</th>
 							<th>모집 인원</th>
+							<th>NTRP</th>
 							<th>코트장 이름</th>
+							<th>지역</th>
 							<th>모집 상태</th>
 						</tr>
 					</thead>
@@ -114,10 +116,6 @@
 				</table>
 				<div class="container mt-5 mb-5">
 					<ul class="pagination justify-content-center">
-						<li class="page-item disabled"><a class="page-link" href="#"
-							tabindex="-1" aria-disabled="true">이전</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">다음</a></li>
 					</ul>
 				</div>
 			</div>
@@ -144,7 +142,7 @@
 									<!-- Swiper -->
 									<div class="swiper mySwiper mtbanner" data-aos="fade-up">
 										<div class="swiper-wrapper mtbanner">
-											<th:block th:each="v : ${viewList}" th:if = "${vStat.index} < 10">
+											<th:block th:each="v : ${viewList}">
 											<div class="swiper-slide mtbanner"	>
 												<!-- 여기서 반복문 th:each="" -->
 												<div class="card">
@@ -156,7 +154,7 @@
 													</div>
 													<div class="card-footer d-flex justify-content-between">
 														<span>[[ ${v.crtroomName} ]]</span>
-														<button class="btn btn-light-primary" th:onclick="|location.href='@{matchdetail(matchNo=${v.matchNo})}'|"
+														<button class="btn btn-light-primary" th:onclick="|location.href='@{contestmatchdetail(matchNo=${v.matchNo})}'|"
 															>매치 보러가기</button>
 													</div>
 												</div>
@@ -216,7 +214,9 @@
 					<td>${matchInfo.time}시</td>
 					<td>${matchInfo.contName}</td>
 					<td>${matchInfo.recruitPsnNum}명</td>
+					<td>${matchInfo.ntrpName}</td>					
 					<td>${matchInfo.crtroomName}</td>
+					<td>${matchInfo.crtroomLocation}</td>
 					<td class="text-end mtbt">`
 					if(matchInfo.progStateName=='모집마감'){
 					b += `<a class="btn btn-secondary disabled matchbtn2" href="contestmatchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>`
@@ -378,7 +378,7 @@
                         	$('.swiper-wrapper.dateslide > div div').removeClass('active');
                         	$(e.target).toggleClass('active');
                         	let matchDate = $(e.target).data('day');
-                        	contMatchAjax(matchDate,2);
+                        	contMatchAjax(matchDate,1);
                         	
                             //태그네임 가져오기                 
                             //console.log($(e.target).prop('tagName'))

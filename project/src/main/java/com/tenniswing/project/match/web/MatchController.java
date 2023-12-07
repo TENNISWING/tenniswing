@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tenniswing.project.club.service.ClubService;
 import com.tenniswing.project.court.service.CourtroomService;
-import com.tenniswing.project.court.service.CrtroomVO;
 import com.tenniswing.project.match.service.MatchHistService;
 import com.tenniswing.project.match.service.MatchHistVO;
 import com.tenniswing.project.match.service.MatchService;
@@ -25,8 +23,10 @@ public class MatchController {
 
 	@Autowired
 	MatchService matchService;
+
 	@Autowired
 	MatchHistService matchHistService;
+
 	@Autowired
 	CourtroomService courtroomService;
 
@@ -35,7 +35,6 @@ public class MatchController {
 	@GetMapping(value = { "/", "/home" })
 	public String matchPage(Model model) {
 		List<MatchVO> viewList = matchService.matchRecentView();
-		System.out.println(viewList);
 		model.addAttribute("viewList", viewList);
 		return "match/match";
 	}
@@ -47,19 +46,16 @@ public class MatchController {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("selectCount", matchService.selectCount(matchVO));
 		map.put("matchList", list);
-
 		return map;
 	}
 
 	@GetMapping("matchdetail")
-	public String matchdetailPage(Model model, @RequestParam Integer matchNo) {
-		MatchVO matchVO = new MatchVO();
-		matchVO.setMatchNo(matchNo);
+	public String matchdetailPage(Model model, MatchVO matchVO) {
 		model.addAttribute("matchInfo", matchService.selectMatch(matchVO));
 		return "match/matchdetail";
 	}
 
-	// 매치 디테일 페이지 신청하기
+	// 매치 신청하기
 	@PostMapping("matchDetailInsert")
 	@ResponseBody
 	public boolean matchDetailListProcess(Model model, MatchHistVO matchHistVO) {
@@ -73,10 +69,10 @@ public class MatchController {
 		}
 	}
 
-	// 매치 디테일 페이지 삭제하기
+	// 매치 삭제하기
 	@PostMapping("matchDetailDelete")
 	@ResponseBody
-	public boolean matchDetailDeleteProcess(Model model, MatchVO matchVO) {
+	public boolean matchDetailDeleteProcess(MatchVO matchVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		matchVO.setMemId(id);
 		int n = matchService.deleteMatch(matchVO);
@@ -117,7 +113,9 @@ public class MatchController {
 	public String matchupdateregiProcess(Model model, MatchVO matchVO) {
 		System.out.println(matchVO);
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		matchVO.setMemId(id);
+		// matchVO.setMemId(id);
+		// 본인여부 체크
+
 		int n = matchService.updateMatch(matchVO);
 		if (n > 0) {
 			return "redirect:/";
@@ -142,19 +140,19 @@ public class MatchController {
 		List<MatchVO> list = matchService.selectAllClubMatch(matchVO);
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("selectClubCount", matchService.selectClubCount(matchVO));
-		map.put("clubMatchList", matchService.selectAllClubMatch(matchVO));
+		map.put("clubMatchList", list);
 		return map;
 	}
 
 	@GetMapping("clubmatchdetail")
-	public String clubmatchdetailPage(Model model, @RequestParam Integer matchNo) {
-		MatchVO matchVO = new MatchVO();
-		matchVO.setMatchNo(matchNo);
+	public String clubmatchdetailPage(Model model, MatchVO matchVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		model.addAttribute("clubList",matchService.selectMyClub(id));
 		model.addAttribute("clubMatchInfo", matchService.selectClubMatch(matchVO));
 		return "match/clubmatchdetail";
 	}
 
-	// 클럽 디테일 페이지 신청하기
+	// 클럽 매치 신청하기
 	@PostMapping("clubDetailInsert")
 	@ResponseBody
 	public boolean clubDetailInsertProcess(Model model, MatchHistVO matchHistVO) {
@@ -168,10 +166,10 @@ public class MatchController {
 		}
 	}
 
-	//클럽 디테일 페이지 삭제하기
+	// 클럽 매치 삭제하기
 	@PostMapping("clubDetailDelete")
 	@ResponseBody
-	public boolean clubDetailDeleteProcess(Model model, MatchVO matchVO) {
+	public boolean clubDetailDeleteProcess(MatchVO matchVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		matchVO.setMemId(id);
 		int n = matchService.deleteClubMatch(matchVO);
@@ -182,8 +180,11 @@ public class MatchController {
 		}
 	}
 
+	//클럽 매치 등록
 	@GetMapping("clubmatchregi")
 	public String clubmatchregiPage(Model model) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		model.addAttribute("clubList", matchService.selectMyOwnerClub(id));
 		return "match/clubmatchregi";
 	}
 
@@ -200,9 +201,25 @@ public class MatchController {
 		}
 	}
 
+	// 클럽 매치 수정페이지
 	@GetMapping("clubmatchupdateregi")
-	public String clubmatchupdateregiPage(Model model) {
+	public String clubupdateregiPage(Model model, MatchVO matchVO) {
+		model.addAttribute("clubMatchInfo", matchService.selectClubMatch(matchVO));
 		return "match/clubmatchupdateregi";
+	}
+
+	@PostMapping("clubupdateregi")
+	public String clubupdateregiProcess(Model model, MatchVO matchVO) {
+		System.out.println(matchVO);
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		matchVO.setMemId(id);
+		int n = matchService.updateClubMatch(matchVO);
+		if (n > 0) {
+			return "redirect:/";
+		} else {
+			model.addAttribute("msg", "등록실패");
+			return "match/clubupdateregi";
+		}
 	}
 
 	// ----------대회----------//
@@ -220,10 +237,39 @@ public class MatchController {
 		List<MatchVO> list = matchService.selectAllContMatch(matchVO);
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("selectContCount", matchService.selectContCount(matchVO));
-		map.put("contMatchList", matchService.selectAllContMatch(matchVO));
+		map.put("contMatchList", list);
 		return map;
 	}
 
+	// 대회 매치 신청하기
+	@PostMapping("contDetailInsert")
+	@ResponseBody
+	public boolean contDetailInsertProcess(Model model, MatchHistVO matchHistVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		matchHistVO.setMemId(id);
+		int n = matchHistService.insertContMatchHist(matchHistVO);
+		if (n > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	// 대회 매치 삭제하기
+	@PostMapping("contDetailDelete")
+	@ResponseBody
+	public boolean contDetailDeleteProcess(MatchVO matchVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		matchVO.setMemId(id);
+		int n = matchService.deleteContMatch(matchVO);
+		if (n > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	// 대회 매치 등록
 	@GetMapping("contestmatchregi")
 	public String contmatchregiPage(Model model) {
 		return "match/contestmatchregi";
@@ -243,13 +289,12 @@ public class MatchController {
 	}
 
 	@GetMapping("contestmatchdetail")
-	public String contestmatchdetailPage(Model model, @RequestParam Integer matchNo) {
-		MatchVO matchVO = new MatchVO();
-		matchVO.setMatchNo(matchNo);
+	public String contestmatchdetailPage(Model model, MatchVO matchVO) {
 		model.addAttribute("contMatchInfo", matchService.selectContMatch(matchVO));
 		return "match/contestmatchdetail";
 	}
 
+	// 대회 매치 수정
 	@GetMapping("contmatchupdateregi")
 	public String contmatchupdateregiPage(Model model) {
 		return "match/contmatchupdateregi";
@@ -271,7 +316,7 @@ public class MatchController {
 		List<MatchVO> list = matchService.selectAllStarterMatch(matchVO);
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("selectStarterCount", matchService.selectStarterCount(matchVO));
-		map.put("starterMatchList", matchService.selectAllStarterMatch(matchVO));
+		map.put("starterMatchList", list);
 		return map;
 	}
 
@@ -289,10 +334,10 @@ public class MatchController {
 		}
 	}
 
-	// 스타터 디테일 페이지 삭제하기
+	// 스타터 매치 페이지 삭제하기
 	@PostMapping("starterDetailDelete")
 	@ResponseBody
-	public boolean starterDetailDeleteProcess(Model model, MatchVO matchVO) {
+	public boolean starterDetailDeleteProcess(MatchVO matchVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		matchVO.setMemId(id);
 		int n = matchService.deleteStarterMatch(matchVO);
@@ -304,9 +349,7 @@ public class MatchController {
 	}
 
 	@GetMapping("startermatchdetail")
-	public String startermatchdetailPage(Model model, @RequestParam Integer matchNo) {
-		MatchVO matchVO = new MatchVO();
-		matchVO.setMatchNo(matchNo);
+	public String startermatchdetailPage(Model model, MatchVO matchVO) {
 		model.addAttribute("starterMatchInfo", matchService.selectStarterMatch(matchVO));
 		return "match/startermatchdetail";
 	}

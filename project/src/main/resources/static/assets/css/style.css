@@ -3299,8 +3299,8 @@ h4 {
 }
 .shopping-card__image {
   position: relative;
-  width: 70px;
-  height: 70px;
+  width: 86px;
+  height: 86px;
   background: #f8f8f8;
   border-radius: 10px;
   -webkit-box-align: center;
@@ -3383,7 +3383,7 @@ h4 {
   line-height: 20px;
   color: #344054;
   margin-bottom: 0;
-  max-width: 70px;
+  /* max-width: 70px; */
 }
 @media screen and (max-width: 479px) {
   .shopping-card__content-top .product__price {

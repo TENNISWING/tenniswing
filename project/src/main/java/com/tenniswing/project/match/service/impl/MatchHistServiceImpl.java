@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tenniswing.project.club.mapper.ClubMapper;
-import com.tenniswing.project.club.service.ClubVO;
 import com.tenniswing.project.match.mapper.MatchHistMapper;
 import com.tenniswing.project.match.service.MatchHistService;
 import com.tenniswing.project.match.service.MatchHistVO;
@@ -60,6 +59,11 @@ public class MatchHistServiceImpl implements MatchHistService {
 	@Override
 	public int updateStarterMatchHist(MatchHistVO matchHistVO) {
 		return matchHistMapper.updateStarterMatchHist(matchHistVO);
+	}
+
+	@Override
+	public int insertContMatchHist(MatchHistVO matchHistVO) {
+		return matchHistMapper.insertContMatchHist(matchHistVO);
 	}
 
 	
