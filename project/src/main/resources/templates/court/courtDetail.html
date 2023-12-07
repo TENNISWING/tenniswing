@@ -12,6 +12,9 @@
     font-weight: normal;
     font-style: normal;
 }
+body{
+	font-family: 'NanumSquareNeo-Variable';
+}
 </style>
 
 <th:block layout:fragment="content">
@@ -88,7 +91,7 @@
 							th:value="${param.crtroomNo}">
 						<div class="col-md-6" style="margin-top: 20px; width: 30%">
 							<div class="product-detail__wrapper">
-								<h2 class="product-detail__title">[[
+								<h2 class="product-detail__title" style="font-family: 'NanumSquareNeo-Variable';">[[
 									${courtDetail.crtroomName} ]]</h2>
 								<input type="hidden" name="crtroomName"
 									th:value="${courtDetail.crtroomName}">
@@ -139,7 +142,7 @@
 										</ul>
 										</th:block>
 										<div class="total__rating">
-											<p style="font-size: 14px">([[${crtroomStar.countReview}]] ratings)</p>
+											<p style="font-size: 14px; font-family: 'NanumSquareNeo-Variable';">([[${crtroomStar.countReview}]] ratings)</p>
 										</div>
 									</div>
 									<ul class="right-meta">
@@ -162,14 +165,14 @@
 										</li>
 									</ul>
 								</div>
-								<h3 class="product-detail__price">[[
+								<h3 class="product-detail__price" style="font-family: 'NanumSquareNeo-Variable';">[[
 									${#numbers.formatInteger(courtDetail.minPrice, 3, 'COMMA') + '원'} ]] ~</h3>
-								<p class="product-detail__short_desc"> [[
+								<p class="product-detail__short_desc" style="font-family: 'NanumSquareNeo-Variable';"> [[
 									${courtDetail.crtroomExp} ]]</p>
 								<br>
 								<div class="product-detail__attr">
 									<div class="product__attr">
-										<span class="product-detail--stroke" style="font-weight: bold">운영시간</span>
+										<span class="product-detail--stroke" style="font-weight: bold; font-family: 'NanumSquareNeo-Variable';">운영시간</span>
 										<ul class="product__attr--color" style="margin: 0; padding: 0">
 											<li><input type="text"
 												style="width: 70px; border: 0; text-align: center" id="crtroomOperateStartTime"
@@ -205,7 +208,7 @@
 								</div>
 							</div> -->
 								<div class="product-detail__qty">
-									<span class="product-detail--stroke" style="font-weight: bold">코트장 위치</span>
+									<span class="product-detail--stroke" style="font-weight: bold; font-family: 'NanumSquareNeo-Variable';">코트장 위치</span>
 									<div>
 										<input type="text" style="border: 0; text-align: center"
 											th:value="${courtDetail.crtroomLocation}" disabled /> <input
@@ -241,9 +244,9 @@
 								<table style="display: none">
 									<tbody>
 										<tr>
-											<td class="crtIndoorOutdoorName">[[${courtDetail.crtIndoorOutdoorName}]]</td>
-											<td class="crtUsePrice">[[${courtDetail.crtUsePrice}]]</td>
-											<td class="useUnitTime">[[${courtDetail.useUnitTime}]]</td>
+											<td class="crtIndoorOutdoorName" style="font-family: 'NanumSquareNeo-Variable';">[[${courtDetail.crtIndoorOutdoorName}]]</td>
+											<td class="crtUsePrice" style="font-family: 'NanumSquareNeo-Variable';">[[${courtDetail.crtUsePrice}]]</td>
+											<td class="useUnitTime" style="font-family: 'NanumSquareNeo-Variable';">[[${courtDetail.useUnitTime}]]</td>
 										<tr>
 									</tbody>
 								</table>
@@ -251,7 +254,7 @@
 									id="success-outlined" th:attrappend="id=${stat.index}"
 									autocomplete="off" th:value="${courtDetail.crtDetailNo}">
 								<label class="btn btn-outline-success" for="success-outlined"
-									th:attrappend="for=${stat.index}">[[${stat.index}+1]]코트</label>
+									th:attrappend="for=${stat.index}" style="font-family: 'NanumSquareNeo-Variable';">[[${stat.index}+1]]코트</label>
 							</th:block>
 						</div>
 						<table class="table">
@@ -432,6 +435,9 @@
 													</th:block>
 													<script>
 													
+													
+													
+														
 													</script>
 													<!-- <div class="review__item">
 														<div class="avatar">
@@ -740,59 +746,6 @@
 		</div>
 		</form>
 		<script th:inline="javascript">
-			$('.reviewDel').on('click',function(e){
-				
-				Swal.fire({
-					  title: "",
-					  text: "정말 삭제하시겠습니까?",
-					  icon: "warning",
-					  showCancelButton: true,
-					  confirmButtonColor: "#3085d6",
-					  cancelButtonColor: "#d33",
-					  confirmButtonText: "Yes, delete it!"
-					}).then((result) => {
-					  if (result.isConfirmed) {
-					    console.log($(e.target));
-						let reviewNo = $(e.target).prop("id").replace("reviewDel","");
-						console.log(reviewNo);
-						$.ajax({
-							type: 'POST',
-							url: 'deleteReview',
-							data: {reviewNo},
-							dataType: 'json',
-							success: function(result){
-								if(result){
-									Swal.fire({
-										  icon: "success",
-										  title: "",
-										  text: "정상적으로 삭제되었습니다.",
-										}).then(function(){
-											//location.reload();
-											$('#review'+reviewNo).remove();
-										})
-								}else{
-									Swal.fire({
-										  icon: "error",
-										  title: "",
-										  text: "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다.",
-									})
-								}
-							}
-						})
-				  	}
-				});
-			})	
-		
-			$('.review__item').css('display','none');
-			$('.review__item').slice(0,3).show();
-			$('#reviewLoad').click(function(e){
-				e.preventDefault();
-				$('.review__item:hidden').slice(0,3).show();
-				if($(".review__item:hidden").length == 0){ // 컨텐츠 남아있는지 확인
-		            $('#reviewLoad').fadeOut(100); // 컨텐츠 없을 시 버튼 사라짐
-		        }
-			});
-			
 			$('#reviewRegi').on('click',function(e){
 				console.log(reviewCtt);
 				let form = $('#addReview')[0];
@@ -833,8 +786,7 @@
 							icon: "success",
 							text: "정상적으로 등록되었습니다.",
 						}).then(function(){
-							setTimeout(function(){
-								location.reload();
+								/* location.reload();
 								$('#home-tab').removeClass('active');
 								$('#home-tab-pane').removeClass('show active');
 								$('#home-tab').attr('aria-selected','false');
@@ -842,10 +794,61 @@
 								$('#women-tab-pane').addClass('active show');
 								$('#women-tab').attr('aria-selected','true');
 								let offset = $(".client__review").offset(); //해당 위치 반환
-								$("html, body").animate({scrollTop: offset.top},10); // 선택한 위치로 이동. 두번째 인자는 0.4초를 의미한다.
-							},100); // 3000밀리초 = 3초
+								$("html, body").animate({scrollTop: offset.top},10); // 선택한 위치로 이동. 두번째 인자는 0.4초를 의미한다. */
  							console.log(results.reviews);
+ 							let b = `
+								<div class="review__item" id="review${results.reviews.reviewNo}">
+								<div class="avatar">`;
+							if(results.reviews.attachPath != null){
+								b+= `<img src="${results.reviews.attachPath}" alt="avatar" style="overfit:cover"/>`;
+							}else{
+								b+= `<img src="/assets/img/default img.jpg" alt="avatar" style="overfit:cover"/>`;
+							}
+							b+= `</div>
+								 <div class="review__content">
+									<div class="review__desc">
+										<div class="review__wrap">
+											<h5>
+												<span>${results.reviews.memId}</span>
+											</h5>
+											<div class="rating">
+												<ul class="star">`;
+							let reviewStar = 0;
+							if(results.reviews.reviewStar != null){
+								reviewStar = Number(results.reviews.reviewStar);
+								console.log(reviewStar);
+							}
+							for(let i=0; i< reviewStar; i++){
+								b+= `<li><i class="fa-solid fa-star"></i></li>`;
+							}
+							for(let j=0; j<5-reviewStar; j++){
+								b+= `<li><i class="fa-regular fa-star"></i></li>`;
+							}
 							
+							b+= `</ul>
+								<input type="hidden" id="reviewNo" th:value="${results.reviews.reviewNo}">
+								<input type="hidden" id="reviewWriteMem" th:value="${results.reviews.memId}">
+											</div>
+										</div>`;
+							let reviewWriteDate = new Date(results.reviews.reviewWriteDate);
+							b+= `<div class="date">`+dateFormat(reviewWriteDate)+`</div>
+									</div>`;
+								if(results.reviews.memId == results.memId){
+									b+= `<button type="button" class="btn icon btn-danger reviewDel" id="reviewDel${results.reviews.reviewNo}" style="float: right;">삭제</button>`;
+								}
+							b+= `<div class="review__para">
+										<p>${results.reviews.reviewCtt}</p>
+									</div>
+								</div>
+							</div>
+							`;
+							console.log(b);
+							$('.review__wrapper').prepend(b);
+							$('.reviewDel').on('click',reviewDel);
+							moreBtn();
+							$('#reviewStar').val('5');
+							$('#reviewCtt').val('');
+							$('#files').val('');
 						})
 					} else {
 						Swal2.fire({
@@ -858,6 +861,72 @@
 				})
 				.fail(err => console.log(err));	
 			})
+			
+			function dateFormat(date) {
+			        let month = date.getMonth() + 1;
+			        let day = date.getDate();
+			
+			        month = month >= 10 ? month : '0' + month;
+			        day = day >= 10 ? day : '0' + day;
+			
+			        return date.getFullYear() + '년' + month + '월' + day + '일';
+			}
+			
+			$('.reviewDel').on('click',reviewDel);
+			moreBtn();
+			function reviewDel(e){
+				Swal.fire({
+					  title: "",
+					  text: "정말 삭제하시겠습니까?",
+					  icon: "warning",
+					  showCancelButton: true,
+					  confirmButtonColor: "#3085d6",
+					  cancelButtonColor: "#d33",
+					  confirmButtonText: "Yes, delete it!"
+					}).then((result) => {
+					  if (result.isConfirmed) {
+					    console.log($(e.target));
+						let reviewNo = $(e.target).prop("id").replace("reviewDel","");
+						console.log(reviewNo);
+						$.ajax({
+							type: 'POST',
+							url: 'deleteReview',
+							data: {reviewNo},
+							dataType: 'json',
+							success: function(result){
+								if(result){
+									Swal.fire({
+										  icon: "success",
+										  title: "",
+										  text: "정상적으로 삭제되었습니다.",
+										}).then(function(){
+											//location.reload();
+											$('#review'+reviewNo).remove();
+											moreBtn();
+										})
+								}else{
+									Swal.fire({
+										  icon: "error",
+										  title: "",
+										  text: "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다.",
+									})
+								}
+							}
+						})
+				  	}
+				});
+			}
+			function moreBtn(){
+				$('.review__item').css('display','none');
+				$('.review__item').slice(0,3).show();
+				$('#reviewLoad').click(function(e){
+					e.preventDefault();
+					$('.review__item:hidden').slice(0,3).show();
+					if($(".review__item:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+			            $('#reviewLoad').fadeOut(100); // 컨텐츠 없을 시 버튼 사라짐
+			        }
+				});
+			}
 		</script>
 	<!-- Trending Section End -->
 	<!-- End viewed history -->
@@ -966,7 +1035,6 @@
 								}
 							}).fail(err => console.log(err));
 							
-							
 							/* auto = [[${#authentication.name}]];
 							if($('#reviewWriteMem').val() == auto){
 								$('.reviewDel').css('display','inline-block');
@@ -1011,7 +1079,7 @@
 											}
 											
 											b = `
-												<tr class="navbar-brand">
+												<tr class="navbar-brand" style="font-family: 'NanumSquareNeo-Variable';">
 													<td class="text-center" style="width: 10%"><b>`+crtIndoorOutdoorName+`</b></td>
 													<td style="width: 50%; text-align: center;">`+reserveTimeCode[i][1]+`
 													<input type="hidden" class="reserveTime" value="`+reserveTimeCode[i][0]+`"></td>

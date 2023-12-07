@@ -97,7 +97,7 @@
 					</table>
 				</div>
 				<!-- Profile Card End -->
-
+				<button type="button" onclick="cancel11()">예약취소</button>
 				<div class="table-responsive mt-5">
 					<table class="table" id="table1">
 						<thead>
@@ -123,9 +123,10 @@
 		</div>
 	</div>
 
-
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 
 	<script>
+	
 	function myPageAjax(page) {
 		
 		$.ajax({
@@ -153,8 +154,47 @@
 			}
 		})
 	}
+	async function cancel11(){
+		//token 가져옴
+	    const accessToken = await _getIamportToken();
+		
+		console.log(accessToken)
+		$.ajax({
+			url : 'https://api.iamport.kr/payments/cancel', 
+		    method : 'POST',
+		    headers : { "Authorization": accessToken },
+		    data : { 
+		        imp_uid : 'imp_146787752646', 
+		        reason : '예약취소', 
+		        amount :20000,
+			}
+		})
+	}
+	
+	async function _getIamportToken() {
+		
+		$.ajax({
+		    url: "https://api.iamport.kr/users/getToken",
+		    // POST method
+		    method: "post", 
+		    // "Content-Type": "application/json"
+		    headers: { "Content-Type": "application/json",
+		    	"Authorization" : "imp30873503"}, 
+		    data: {
+		      // REST API키
+		      imp_key: "1400532585118642", 
+		      // REST API Secret
+		      imp_secret: "IlVyRYKzJ6Uby76JxBJ4tILjwg22tdaSW0DgDh3NXHQChzEbm5Xjnc0ynwmjyNmV7qB6YUUXOuxEc120" 
+		    },success: function (results) {
+		    	console.log(results)	
+		    	
+		    	 return results
+		    }		    
+		  })
+	}
+	
+	
 	</script>
-
 
 </th:block>
 

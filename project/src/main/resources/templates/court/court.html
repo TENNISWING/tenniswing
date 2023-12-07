@@ -14,6 +14,9 @@
 		   7px 7px 20px 0px #0002,
 		   4px 4px 5px 0px #0001;
 		}
+		body{
+			font-family: 'NanumSquareNeo-Variable';
+		}
 	</style>
 </head>
 	<th:block layout:fragment="content">
@@ -159,7 +162,7 @@
 								<!-- 카테고리 form-select select__style -->
 								<div class="select__style" id="firstDrop">
 									<select class="category-select" id="crtroomRegion" name="crtroomRegion">
-										<option value="none">지역 선택</option>
+										<option value="">지역 선택</option>
 										<option value="b1">서울</option>
                                         <option value="b2">경기</option>
                                         <option value="b3">인천</option>
@@ -318,7 +321,7 @@
 
             <!-- courtroom card -->
             <div class="container">
-            	<div class="justify-content-around text-center">
+            	<div class="" id="courtList">
                     <th:block th:each="courtList, stat: ${courtList}">
                     <div class="col-xl-4 col-md-6 col-sm-12"
                     style="display: inline-block; width: 270px; margin: 1.2%;
@@ -464,7 +467,7 @@
                 </div> -->
             <!-- End match table -->
             <!-- 페이징 시작 -->
-				<ul class="pagination justify-content-center">
+				<!-- <ul class="pagination justify-content-center">
 					<li class="page-item"
 						th:classappend="${paging.startPage} == 1 ? disabled"><a
 						class="page-link"
@@ -482,7 +485,11 @@
 						<a class="page-link"
 						th:href="|javascript:gopage(${paging.endPage})|">다음</a>
 					</li>
-				</ul>
+				</ul> -->
+				<div class="container mt-5 mb-5">
+					<ul class="pagination justify-content-center">
+					</ul>
+				</div>
 			<!-- 페이징 종료 -->
 
             <!-- viewed history -->
@@ -493,7 +500,7 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="section-title" style="margin: 50px 0 0 0">
-								<h2><span style="font-size: 25px">Recently Registered Court</span></h2>
+								<h2><span style="font-size: 25px; font-family: 'NanumSquareNeo-Variable';">Recently Registered Court</span></h2>
 							</div>
 						</div>
 					</div>
@@ -510,7 +517,7 @@
 													> <img
 														th:src="${recentCrt.attachPath}" alt="icon" style="overfit: cover;" />
 													</a>
-													<div class="badge">New</div>
+													<div class="badge" style="font-family: 'NanumSquareNeo-Variable';">New</div>
 													<!-- <div class="product__actions">
 														<a href="#" class="action__btn"> <svg width="16"
 																height="14" viewBox="0 0 16 14" fill="none"
@@ -564,7 +571,7 @@
 																<li><i class="fa-regular fa-star"></i></li>
 																<li><i class="fa-regular fa-star"></i></li>
 																<li><i class="fa-regular fa-star"></i></li>
-															</ul>
+															</ul> 
 															<ul th:case="2" class="star">
 																<li><i class="fa-solid fa-star"></i></li>
 																<li><i class="fa-solid fa-star"></i></li>
@@ -594,18 +601,21 @@
 																<li><i class="fa-solid fa-star"></i></li>
 															</ul>
 															</th:block>
-														<div class="total__rating">([[${recentCrt.countReview}]])</div>
+														<div class="total__rating" style="font-family: 'NanumSquareNeo-Variable';">([[${recentCrt.countReview}]])</div>
 													</div>
 													<div class="product__title">
 														<h5>
-															<a th:onclick="|location.href='@{/courtDetail(crtroomNo=${recentCrt.crtroomNo})}'|">[[${recentCrt.crtroomName}]]</a>
+															<a th:onclick="|location.href='@{/courtDetail(crtroomNo=${recentCrt.crtroomNo})}'|"
+															   style="font-family: 'NanumSquareNeo-Variable';">[[${recentCrt.crtroomName}]]</a>
 														</h5>
 													</div>
 													<div class="product__bottom">
-														<div class="product__price">
-															[[${recentCrt.minPrice}]]원 ~
+														<div class="product__price price" style="font-family: 'NanumSquareNeo-Variable';">
+															[[${#numbers.formatInteger(recentCrt.minPrice, 3, 'COMMA') + '원'}]] ~
 															<!-- <del>$22.00</del> -->
 														</div>
+														<script>
+														</script>
 														<div class="cart__action__btn">
 															<div class="cart__btn">
 																<button type="button" th:onclick="|location.href='@{/courtDetail(crtroomNo=${recentCrt.crtroomNo})}'|" class="btn btn-outline">상세보기</button>
@@ -661,158 +671,169 @@
 			<!-- Trending Section End -->
             <!-- End viewed history -->
 		<script>
-		prodPage(1);
-		//changePrice();
-		
+		courtAjax(1);
 		$('#crtroomRegion').on('change', function(e) {
 			pageNum = 1;
-			prodPage(1);
+			courtAjax(1);
 		});
 		$('#sortBy2').on('change', function(e) {
 			pageNum = 1;
-			prodPage(1);
+			courtAjax(1);
 		})
-		
-		/* $('#btnsearch').on('click', function(e) {
-			pageNum = 1;
-			prodPage(1);
-		}); */
 		
 		$('#btnreset').on('click', function(e) {
 			$('#firstDrop div span').text('지역 선택');
 			$('#firstDrop div ul li:first-child').addClass('selected','focus');
 			$('#firstDrop div ul li').not(':first').attr('class', 'option');
-			$('#crtroomRegion').val('none').prop('selected',true);
+			$('#crtroomRegion').val('').prop('selected',true);
 			pageNum = 1;
-			prodPage(1);
+			courtAjax(1);
 		});
 		
-		function prodPage(page) {
+		function courtAjax(page) {
 			let crtroomRegion = $('#crtroomRegion').val();
+			let sortBy2 = $('#sortBy2').val();
 			let sort = $('#sortBy2').val();
 			if(sort == 0)
-				sort = 'crtroom_regi_date DESC';
+				sort = 'c.crtroom_regi_date DESC';
 			else if(sort == 1)
-				sort = 'avg_star DESC';
+				sort = 'COUNT(r.review_no) DESC';
 			else if(sort == 2)
 				sort = 'min_price';
 			else if(sort == 3)
 				sort = 'min_price DESC';
-			//console.log('in?? '+cateProd+cateGen);
 			
 			$.ajax({
-				type : 'GET',
-				url : 'courtFSP',
-				data : {page, crtroomRegion, sort},
-				success : function(result) {
+				type: 'GET',
+				url: 'courtAjax',
+				data: {page, crtroomRegion, sort},
+				success: function(result){
 					console.log(result.courtList);
-					$('#shopList').empty();
-					for(let prod of result.shopList) {
-						//console.log(prod);
-						let prodData = `<div class="product-card">
-											<div class="product__image__wrapper">
-											<!-- 상품 이미지 -->
-											<a href="shopDetail?prodNo=${prod.prodNo}" class="product__image"> 
-												<img src="${prod.attachPath}" alt="icon" style="overflow: cover;"/>
-											</a>
-											<!-- <div class="badge">10%</div> -->
-											<div class="product__actions">
-												<a href="#" class="action__btn"> <svg width="16"
-														height="14" viewBox="0 0 16 14" fill="none"
-														xmlns="http://www.w3.org/2000/svg">
-				                                            <path
-															d="M13.8931 2.07333C13.5526 1.73267 13.1483 1.46243 12.7033 1.27805C12.2584 1.09368 11.7814 0.998779 11.2998 0.998779C10.8181 0.998779 10.3412 1.09368 9.89618 1.27805C9.45121 1.46243 9.04692 1.73267 8.70642 2.07333L7.99975 2.78L7.29309 2.07333C6.60529 1.38553 5.67244 0.999136 4.69975 0.999136C3.72706 0.999136 2.79422 1.38553 2.10642 2.07333C1.41863 2.76112 1.03223 3.69397 1.03223 4.66666C1.03223 5.63935 1.41863 6.5722 2.10642 7.26L2.81309 7.96666L7.99975 13.1533L13.1864 7.96666L13.8931 7.26C14.2337 6.91949 14.504 6.51521 14.6884 6.07023C14.8727 5.62526 14.9676 5.14832 14.9676 4.66666C14.9676 4.185 14.8727 3.70807 14.6884 3.26309C14.504 2.81812 14.2337 2.41383 13.8931 2.07333V2.07333Z"
-															stroke="#252522" stroke-linecap="round"
-															stroke-linejoin="round" />
-				                                        </svg>
-												</a> <a href="#" class="action__btn"> <svg width="16"
-														height="16" viewBox="0 0 16 16" fill="none"
-														xmlns="http://www.w3.org/2000/svg">
-				                                            <path
-															d="M0.666992 7.99996C0.666992 7.99996 3.33366 2.66663 8.00033 2.66663C12.667 2.66663 15.3337 7.99996 15.3337 7.99996C15.3337 7.99996 12.667 13.3333 8.00033 13.3333C3.33366 13.3333 0.666992 7.99996 0.666992 7.99996Z"
-															stroke="#252522" stroke-linecap="round"
-															stroke-linejoin="round" />
-				                                            <path
-															d="M8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z"
-															stroke="#252522" stroke-linecap="round"
-															stroke-linejoin="round" />
-				                                        </svg>
-												</a> <a href="#" class="action__btn"> <svg width="16"
-														height="16" viewBox="0 0 16 16" fill="none"
-														xmlns="http://www.w3.org/2000/svg">
-				                                            <path
-															d="M10 9.33329L13.3333 5.99996L10 2.66663" stroke="#252522"
-															stroke-linecap="round" stroke-linejoin="round" />
-				                                            <path
-															d="M2.66699 13.3333V8.66667C2.66699 7.95942 2.94794 7.28115 3.44804 6.78105C3.94814 6.28095 4.62641 6 5.33366 6H13.3337"
-															stroke="#252522" stroke-linecap="round"
-															stroke-linejoin="round" />
-				                                        </svg>
-												</a>
-											</div>
-										</div>
-										<div class="product__content">
-											<!-- 병점 -->
-											<div class="product__rating">
-												<ul style="padding-left: 3px">
-													<!-- 별 -->
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-solid fa-star"></i></li>
-													<!-- 비어있는 별 -->
-													<li><i class="fa-regular fa-star"></i></li>
-													<li><i class="fa-regular fa-star"></i></li>
-												</ul>
-												<!-- 후기 갯수 -->
-												<div class="total__rating">(321)</div>
-											</div>
-											<!-- 상품명 -->
-											<div class="product__title">
-												<h5>
-													<a href="shopDetail?prodNo=${prod.prodNo}">
-														${prod.prodName}
-													</a>
-												</h5>
-											</div>
-											<div class="product__bottom">
-												<!-- 상품가격 -->
-												<div class="product__price price" id="prodPrice${prod.prodNo}">
-													${prod.prodPrice}
-													<!-- <del>$22.00</del> -->
-												</div>
-												<!-- 장바구니 버튼(이벤트 주기) -->
-												<div class="cart__action__btn header__cart">
-													<div class="cart__btn">
-														<!-- 장바구니 이벤트 줄 버튼 -->
-														<a href="#" class="btn btn-outline">Add to Wish</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>`;
-						$('#shopList').append(prodData);
+					$('#courtList').empty();
+					for(let courtList of result.courtList){
+						let b = `
+							<div class="col-xl-4 col-md-6 col-sm-12"
+		                    style="display: inline-block; width: 270px; margin: 1.25%;
+		                    		border-radius: 10px; margin-bottom: 2.5%; cursor:pointer; box-shadow: 1px 1px 10px #eee">
+		                     <div class="card" onclick='location.href="courtDetail?crtroomNo=${courtList.crtroomNo}"'
+		                     	style="margin: 0">
+		                           	<img src="${courtList.attachPath}" class="card-img-top img-fluid"
+		                                alt="singleminded" style="height: 202px; over-fit: cover">
+		                         <ul class="list-group list-group-flush">
+		                       	 	 <li class="list-group-item" style="border: 0;"></li>
+		                         	 <li class="list-group-item rating" style="border: 0;">
+											<ul class="star" style="padding: 0; margin: 0;">`
+							let avgStarStar = 0;
+							if(courtList.avgStar != null){
+								avgStarStar = Number(courtList.avgStar);
+								console.log(avgStarStar);
+							}
+							for(let i=0; i< avgStarStar; i++){
+								b+= `<li><i class="fa-solid fa-star"></i></li>`;
+							}
+							for(let j=0; j<5-avgStarStar; j++){
+								b+= `<li><i class="fa-regular fa-star"></i></li>`;
+							}
+							
+							let minPrice = courtList.minPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+							//let minPriceFormat = minPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+							b+=	`</ul>
+								<div class="total__rating">(`+courtList.countReview+`)</div>
+		                         	 </li>
+		                         	 <li class="list-group-item" style="border: 0;"><span style="float: left;"><h5 class="card-title crtroomNameCss" style="font-family: 'NanumSquareNeo-Variable';">`+courtList.crtroomName+`</h5></span></li>
+		                             <li class="list-group-item" style="border: 0;"><span style="float: left; font-weight: bold; color: green" class="price">`+minPrice+`원 ~</span></li>
+		                             <li class="list-group-item" style="border: 0;"><span style="float: left;">`+courtList.crtroomLocation+`</span></li>
+		                             <li class="list-group-item" style="border: 0;"></li>
+		                         </ul>
+		                        </div>
+		                    </div>
+						`;
+						$('#courtList').append(b);
 					}
-					changePrice(); // 원화 표시
-					showPage(result.selectCount); // 필터 돌렸을때 나오는 개수
+					
+					showPage(result.selectCount);
 				}
-			}) */
+			})
 		}
-		/* let pageNum = 1;
-		let pageSize = 10.0; //페이지 번호 수
-		let pageUnit = 12;  //한페이지에 출력할 행의 수
+			
+		$('.pagination').on("click","li a", function(e) {
 		
-		$('.pagination').on('click', 'li a', function(e) {
 			e.preventDefault();
-			console.log('page click');
+			console.log("page click");
 			
-			let targetPage = $(this).attr('href');
-			console.log('targetPage: ' + targetPage);
+			var targetPageNum = $(this).attr("href");
 			
-			pageNum = targetPage;
-			prodPage(targetPage);
-			window.scrollTo(0,0);
-		}); */
+			console.log("targetPageNum: " + targetPageNum);
+			
+			pageNum = targetPageNum;
+			
+			courtAjax(targetPageNum);
 		
+		});
+		
+		pageNum = 1;
+		pageSize = 10.0; //페이지 번호 수
+		pageUnit = 12;  //한페이지에 출력할 행의 수
+		// 페이징
+		function showPage(replyCnt) {
+			
+			var endNum = Math.ceil(pageNum / pageSize) * pageSize;
+			var startNum = endNum > pageSize? endNum - pageSize : 1;
+			
+			var prev = startNum != 1;
+			var next = false;
+			
+			if(endNum * 10 >= replyCnt) {
+				endNum = Math.ceil(replyCnt/pageUnit);
+			}
+			
+			if(endNum * 10 < replyCnt) {
+				next = true;
+			}
+			
+			var str= "";
+			
+			if(prev) {
+				str+= "<li class='page-item'><a class='page-link' href='"+(startNum -1)+"'>Previous</a></li>";
+			}
+			
+			for(var i = startNum ; i <= endNum; i++) {
+				var active = pageNum == i? "active":"";
+				str+= "<li class='page-item "+active+"'> <a class='page-link' href='"+i+"'>"+i+"</a></li>";		
+			}
+			
+			if(next) {
+				str+= "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>Next</a><li>";
+			}
+			
+			str += "";
+			
+			console.log(str);
+			
+			$('.pagination').html(str);
+		}
+		
+		function changePrice() {		
+			let price = $('.price');
+			
+			//console.log($(price).attr('id'));
+			//console.log([[ ${newProd} ]]);
+			
+			price.each(function(){
+				//console.log($(this).text());
+				//console.log($(this).attr('id'));
+				priceId = $(this).attr('id');
+				// jQuery id 찾을 때 변수 넣어서 찾기
+				//console.log($('#'+priceId));
+				
+				let changePrice = $('#'+priceId).text();
+				changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				
+				changePrice = changePrice + '원';
+				$('#'+priceId).text(changePrice);
+			});
+		}
+	
 		new Swiper(".swiper-wrapper", {
 			/* loop : true, */
 			loopPreventsSliding : true,

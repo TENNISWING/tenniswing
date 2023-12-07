@@ -34,7 +34,6 @@
         WHERE a.attach_table_div = 'cd'
         AND a.attach_turn = 1
         <if test="crtroomRegion != null and crtroomRegion != ''">AND c.crtroom_region = #{crtroomRegion}</if>
-        <if test="minPrice != null and minPrice != ''">AND min_price <![CDATA[>]]> #{minPrice}</if>
         GROUP BY c.crtroom_no
                 , c.host_id
   				, c.crtroom_name
@@ -47,12 +46,7 @@
   				, c.crtroom_use_guide
   				, c.crtroom_regi_date
   				, a.attach_path
-  		<choose>
-	  		<when test="crtroomRegiDate != null and crtroomRegiDate != ''">ORDER BY c.crtroom_regi_date desc</when>
-	  		<when test="avgStar != null and avgStar != ''">ORDER BY avg_star desc</when>
-	  		<when test="countReview != null and countReview != ''">ORDER BY count_review desc</when>
-	  		<otherwise>ORDER BY 1</otherwise>
-  		</choose>
+  		ORDER BY ${sort}
   		
   		) A) b where rn between (#{page}-1)*#{pageUnit} + 1 and #{page} * #{pageUnit}
   	</select>
