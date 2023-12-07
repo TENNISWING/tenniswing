@@ -257,5 +257,35 @@
 		c.club_recruitment , c.mem_id , c.club_create_date , a.attach_path ORDER 
 		BY c.club_create_date DESC </select> -->
 
-
+	<!-- 마이페이지 클럽 목록 -->
+	<select id="selectAllMyClub" resultType="ClubVO">
+		SELECT club_no
+		, club_name
+		, FIND_CATEGORY_NAME (club_region)
+		club_region_name
+		, FIND_CATEGORY_NAME (club_gen) club_gen_name
+		,
+		FIND_CATEGORY_NAME (club_age) club_age_name
+		, FIND_CATEGORY_NAME
+		(club_day) club_day_name
+		, FIND_CATEGORY_NAME (club_time)
+		club_time_name
+		, club_intro
+		, club_crt
+		, club_mem_num
+		, FIND_CATEGORY_NAME
+		(club_recruitment) club_recruitment_name
+		, mem_id
+		, club_create_date
+		,
+		(SELECT ATTACH_PATH
+		FROM ATTACH
+		WHERE club_no = attach_table_pk
+		AND
+		attach_table_div = 'cl') as ATTACH_PATH
+		FROM club
+		where mem_id = #{memId}
+		ORDER BY
+		club_create_date DESC
+	</select>
 </mapper>

@@ -40,4 +40,9 @@ public class CrtReserveServiceImpl implements CrtReserveService {
 		return crtReserveMapper.reserveTimeCodeList();
 	}
 
+	@Override
+	public List<Map<String, Object>> selectMyCourtReverse(String id) {
+		return crtReserveMapper.selectMyCourtReverse(id);
+	}
+
 }

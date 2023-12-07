@@ -2,7 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/main-layout}">
-
+<head>
+<link rel="stylesheet"
+		href="assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+	<link rel="stylesheet"
+		href="./assets/compiled/css/table-datatable-jquery.css">
+</head>
 <th:block layout:fragment="content">
 	<h3 class="container p-3">매치 이력</h3>
 	<div class="container" id="mypage">
@@ -102,20 +107,21 @@
 					<table class="table" id="table1">
 						<thead>
 							<tr>
-								<th>일자</th>
+								<th>예약일자</th>
 								<th>코트장 이름</th>
-								<th>매치상대</th>
-								<th>코멘트</th>			
+								<th>금액</th>
+								<th>예약상태</th>			
 							</tr>
 						</thead>
 						<tbody>
+						<th:block th:each="crt : ${court}">
 							<tr>
-								<td>Graiden</td>
-								<td>vehicula.aliquet@semconsequat.co.uk</td>
-								<td>076 4820 8838</td>
-								<td>123</td>					
+								<td>[[${crt.PAY_DATE}]]</td>
+								<td>[[${crt.CRTROOM_NAME}]]</td>
+								<td>[[${crt.RESERVE_PRICE}]]</td>
+								<td>[[${crt.RESERVE_STATE}]]</td>					
 							</tr>
-							
+						</th:block>	
 						</tbody>
 					</table>
 				</div>
@@ -123,79 +129,11 @@
 		</div>
 	</div>
 
-<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-
-	<script>
-	
-	function myPageAjax(page) {
-		
-		$.ajax({
-			type: 'GET',
-			url: 'matchList',
-			data: {matchDate, page, gameWay, gen, location, ntrp},
-			success: function(result) {
-				//리스트
-				$('#matchList').empty();
-				for(let matchInfo of result.matchList){
-					let b = `<tr class="navbar-brand">					
-					<td class="text-center"><b>${dateFormat(matchInfo.matchDate)}</b></td>
-					<td>${matchInfo.time}시</td>
-					<td>${matchInfo.gameWayName}</td>
-					<td>${matchInfo.crtroomName}</td>
-					<td>${matchInfo.genName}</td>
-					<td class="text-end mtbt">
-						<a class="btn btn-primary matchbtn1" href="matchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>
-					</td>
-				</tr>`
-					$('#matchList').append(b)
-				}
-				
-				showPage(result.selectCount);
-			}
-		})
-	}
-	async function cancel11(){
-		//token 가져옴
-	    const accessToken = await _getIamportToken();
-		
-		console.log(accessToken)
-		$.ajax({
-			url : 'https://api.iamport.kr/payments/cancel', 
-		    method : 'POST',
-		    headers : { "Authorization": accessToken },
-		    data : { 
-		        imp_uid : 'imp_146787752646', 
-		        reason : '예약취소', 
-		        amount :20000,
-			}
-		})
-	}
-	
-	async function _getIamportToken() {
-		
-		$.ajax({
-		    url: "https://api.iamport.kr/users/getToken",
-		    // POST method
-		    method: "post", 
-		    // "Content-Type": "application/json"
-		    headers: { "Content-Type": "application/json",
-		    	"Authorization" : "imp30873503"}, 
-		    data: {
-		      // REST API키
-		      imp_key: "1400532585118642", 
-		      // REST API Secret
-		      imp_secret: "IlVyRYKzJ6Uby76JxBJ4tILjwg22tdaSW0DgDh3NXHQChzEbm5Xjnc0ynwmjyNmV7qB6YUUXOuxEc120" 
-		    },success: function (results) {
-		    	console.log(results)	
-		    	
-		    	 return results
-		    }		    
-		  })
-	}
-	
-	
-	</script>
-
+<script
+		src="assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script src="assets/static/js/pages/datatables.js"></script>
 </th:block>
 
 </html>

@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
+import com.tenniswing.project.club.service.ClubService;
 import com.tenniswing.project.common.FileUtils;
+import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.member.service.MemberService;
 import com.tenniswing.project.member.service.MemberVO;
 
@@ -28,6 +30,12 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	ClubService clubService;
+	
+	@Autowired
+	CrtReserveService crtReserveService;
 
 	@Autowired
 	HttpSession httpSession;
@@ -192,7 +200,8 @@ public class MemberController {
 	@GetMapping("mypage-club")
 	public String clubMyPage(Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-
+		
+		model.addAttribute("clublist", clubService.selectAllMyClub(null));
 		model.addAttribute("member", memberService.memberInfo(id));
 		model.addAttribute("nowpage", 1);
 		return "member/mypage-club";
@@ -202,7 +211,9 @@ public class MemberController {
 	@GetMapping("mypage-court")
 	public String courtMyPage(Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-
+		
+		model.addAttribute("court", crtReserveService.selectMyCourtReverse(id));
+		System.out.println( crtReserveService.selectMyCourtReverse(id));
 		model.addAttribute("member", memberService.memberInfo(id));
 		model.addAttribute("nowpage", 2);
 		return "member/mypage-court";
@@ -222,7 +233,8 @@ public class MemberController {
 	@GetMapping("mypage-shop")
 	public String shopMyPage(Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-
+		
+		
 		model.addAttribute("member", memberService.memberInfo(id));
 		model.addAttribute("nowpage", 4);
 		return "member/mypage-shop";
