@@ -14,6 +14,7 @@ public interface ClubService {
 	
 	//등록
 	public int insertClub(ClubVO clubVO);
+	//클럽 가입 승인 거절
 	public Map<String, Object> clubMemAdd(ClubVO clubVO);
 	
 	//삭제
@@ -29,6 +30,9 @@ public interface ClubService {
 	
 	//회원 리스트(전체조회)
     //public List<ClubVO> selectAllClubMem(ClubVO clubVO);
+	
+	//페이징
+	public int selectClubPaging(ClubVO clubVO);
 	
 
 	//재은

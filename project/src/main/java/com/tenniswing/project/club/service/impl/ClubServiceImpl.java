@@ -27,6 +27,12 @@ public class ClubServiceImpl implements ClubService {
 	public List<ClubVO> selectAllClub(ClubVO clubVO) {
 		return clubMapper.selectAllClub();
 	}
+	
+	//클럽 페이징
+	@Override
+	public int selectClubPaging(ClubVO clubVO) {
+		return clubMapper.selectClubPaging(clubVO);
+	}
 
 	//클럽 단건조회
 	@Override
@@ -125,6 +131,7 @@ public class ClubServiceImpl implements ClubService {
 	public ClubVO selectMatchClub(ClubVO clubVO) {
 		return clubMapper.selectMatchClub(clubVO);
 	}
+
 
 	
 

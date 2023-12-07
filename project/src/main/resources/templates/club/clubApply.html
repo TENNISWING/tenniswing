@@ -34,13 +34,13 @@
 		//신청 목록 리스트
 		function applyListAjax(){
 			let clubNo = [[${club.clubNo}]];
-			console.log("멤버구성에서 클럽번호" + clubNo);
+			//console.log("멤버구성에서 클럽번호" + clubNo);
 			$.ajax({
 				type: 'GET',
 				url: 'clubInquiryList',
 				data:  {clubNo},
 				success: function (data) {
-					console.log(data);
+					$('#memList').empty();
 					for (let rep of data) {
 						let List = `
 							<li>
@@ -79,11 +79,11 @@
 									<div class="modal-body" style="text-align: center;">
 										<p style="text-align: left;">${rep.clubJoinApplyWrt}</p>
 									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-light-secondary"
-											id="noBtn" data-bs-dismiss="modal">거절</button>
-										<button type="button" class="btn btn-primary ms-1" id="okBtn"
-											data-bs-dismiss="modal">승인</button>
+									<div class="modal-footer" data-club="${rep.clubNo}" data-mem="${rep.clubMemNo}">
+										<button type="button" class="btn btn-light-secondary" 
+											id="noBtn" data-bs-dismiss="modal" data-value="m1">거절</button>
+										<button type="button" class="btn btn-primary ms-1 okBtn" id="okBtn"
+											data-bs-dismiss="modal" data-value="m2">승인</button>
 									</div>
 								</div>
 							</div>
@@ -92,9 +92,52 @@
 						`
 						$('#memList').append(List)
 					} // 반복문 끝
-					$("#okBtn").on("click", function(e){
-						console.log("ddddd")
+					$(".okBtn").on("click", function(e){
+						console.log("승인버튼 클릭")
+						let clubApprove = $(event.currentTarget).attr('data-value');
+						let clubNo = $(this).parent().data('club');
+						let clubMemNo = $(this).parent().data('mem');
+						let memData = {clubApprove,clubNo,clubMemNo}
+						console.log(memData)
 						
+						 $.ajax({
+							url: 'memFormAjax',
+							type: 'post',
+							data : JSON.stringify(memData),
+							contentType : 'application/json',
+							success: function (result) {
+								alert("등록완료")
+								applyListAjax()
+							},
+							error: function () {
+								alert("승인 실패")
+
+							}
+						}) 
+					})
+					
+					$(".noBtn").on("click", function(e){
+						console.log("거절버튼 클릭")
+						let clubApprove = $(event.currentTarget).attr('data-value');
+						let clubNo = $(this).parent().data('club');
+						let clubMemNo = $(this).parent().data('mem');
+						let memNoData = {clubApprove,clubNo,clubMemNo}
+						console.log(memNoData)
+						
+						 $.ajax({
+							url: 'memFormAjax',
+							type: 'post',
+							data : JSON.stringify(memNoData),
+							contentType : 'application/json',
+							success: function (result) {
+								alert("거절완료")
+								applyListAjax()
+							},
+							error: function () {
+								alert("오류")
+
+							}
+						}) 
 					})
 				} //success 끝
 			})

@@ -60,5 +60,12 @@ public class ClubVO {
 	private String nick;
 	private String prImage;
 	
+	//페이징
+	private int page;
+	private int rn;
+	private int pageUnit=7;
+		
+	private String sort;
+	
 	
 }
