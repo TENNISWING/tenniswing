@@ -154,7 +154,7 @@
 	<section class="archive-category" style="padding-top: 30px">
 		<div class="container">
             <div class="row align-items-center">
-				<div class="col-12">
+				<div class="col-12" style="height: 50px;">
 					<div class="filter__area">
 						<div class="section-title__wrap">
 							<!-- 필터처리 -->
@@ -713,7 +713,7 @@
 					for(let courtList of result.courtList){
 						let b = `
 							<div class="col-xl-4 col-md-6 col-sm-12"
-		                    style="display: inline-block; width: 270px; margin: 1.25%;
+		                    style="display: inline-block; width: 270px; margin-left: 1.25%; margin-right: 1.25%;
 		                    		border-radius: 10px; margin-bottom: 2.5%; cursor:pointer; box-shadow: 1px 1px 10px #eee">
 		                     <div class="card" onclick='location.href="courtDetail?crtroomNo=${courtList.crtroomNo}"'
 		                     	style="margin: 0">
@@ -768,7 +768,7 @@
 			pageNum = targetPageNum;
 			
 			courtAjax(targetPageNum);
-		
+			window.scrollTo(0,0);
 		});
 		
 		pageNum = 1;
