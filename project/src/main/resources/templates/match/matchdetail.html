@@ -57,6 +57,9 @@
 						</div>
 						<div class="widget-body">
 							<div class="latest-post-aside media">
+								<p>경기 날짜 : [[${#dates.format(matchInfo.matchDate,'yyyy-MM-dd')}]]</p>
+							</div>
+							<div class="latest-post-aside media">
 								<p>경기 시간 : [[${matchInfo.time}]]시</p>
 							</div>
 							<div class="latest-post-aside media">
@@ -130,9 +133,11 @@
                       		      title: "신청 완료!",
                       		      text: "신청 되었습니다.",
                       		      icon: "success"
-                      		    });
+                      		    }).then((result) => {
+                        	 
                         	 location.href='/'
-                        	 }
+                        	 })
+                         }
                         })
            		    
            		  }

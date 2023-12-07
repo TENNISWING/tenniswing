@@ -117,7 +117,6 @@
 		  	 		match_hist_no
 	  				, match_no
 	  				, mem_id
-	  				, match_apply_date
 	  				, wrt_regi_date
 	  				, match_state	
   	 			)
@@ -126,7 +125,6 @@
   	 				#{matchHistNo}
   	 				,#{matchNo}
   	 				,#{memId}
-  	 				,sysdate
   	 				,sysdate
   	 				,'g1'
   	 			)
