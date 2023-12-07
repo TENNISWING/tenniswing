@@ -20,6 +20,7 @@ public class MemberVO {
 	private String memDiv;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date joinDate;
+	private String state;
 
 	// profile
 	private String nick;

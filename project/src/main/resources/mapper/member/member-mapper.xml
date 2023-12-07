@@ -248,4 +248,13 @@
 		DELETE FROM employees
 		WHERE employee_id = #{empid} <!-- 기본타입으로 한건만 넘어올 경우 #에 다 집어넣어서 일치하지 않아도 됨 -->
 	</delete>
+	
+	<update id="deleteMember" parameterType="MemberVO">
+		UPDATE MEM 
+		SET		
+			NAME = #{name}
+			<if test="pwdUpdate != null and !pwdUpdate.equals('')">, PWD = #{pwdUpdate}</if>
+			,PHONE_NO = #{phoneNo}			
+		WHERE mem_id = #{memId}
+	</update>
 </mapper>

@@ -40,8 +40,11 @@ public class MemberController {
 
 	// 로그인 폼 이동
 	@GetMapping("loginform")
-	public String loginPage(Model model) {
-		return "member/login";
+	public String loginPage(@RequestParam(value = "error", required = false) String error, 
+				@RequestParam(value = "exception", required = false)String exception, Model model) {
+				model.addAttribute("error", error);
+				model.addAttribute("message", exception);			
+		return "member/login";		
 	}
 
 	// 회원가입 폼 이동
@@ -169,13 +172,20 @@ public class MemberController {
 	// 프로필사진 업데이트
 	@PostMapping("profileupload")
 	@ResponseBody
-	public Boolean profileUploadAjax(MemberVO memberVO, Model model) {
+	public Boolean profileUploadAjax(MemberVO memberVO) {
 		int n = memberService.profileUpload(memberVO);
 
 		if (n > 0) {
 			return true;
 		}
 		return false;
+	}
+	
+	//회원탈퇴
+	@PostMapping("memberquit")
+	@ResponseBody
+	public Boolean memberQuitAjax(MemberVO memeberVO) {
+		return true;
 	}
 
 	// 나의 클럽 목록

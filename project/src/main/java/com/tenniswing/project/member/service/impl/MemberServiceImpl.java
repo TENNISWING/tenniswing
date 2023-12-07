@@ -185,8 +185,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean deleteMember(int memberNo) {
-		int result = memberMapper.deleteMember(memberNo);
+	public boolean deleteMember(MemberVO memberVO) {
+		int result = memberMapper.deleteMember(memberVO);
 
 		if (result == 1) {
 			return true;
