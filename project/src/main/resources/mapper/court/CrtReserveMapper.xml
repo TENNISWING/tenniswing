@@ -97,6 +97,7 @@
 			, rd.RESERVE_DATE
 			, rd.RESERVE_TIME
 			, rd.RESERVE_NO
+			, FIND_CATEGORY_NAME(rd.RESERVE_TIME) RESERVE_TIME_NAME
 			, c.crtroom_name
 	FROM reserve r JOIN crtroom c 
 					ON r.crtroom_no = c.crtroom_no

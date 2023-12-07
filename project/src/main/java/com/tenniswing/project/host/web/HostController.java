@@ -198,6 +198,7 @@ public class HostController {
 	@GetMapping("reserveList")
 	public String reserveListPage(Model model) {
 		String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println("=========================="+hostId);
 		// model.addAttribute("hostCalcList",
 		// courtroomService.selectAllCourtroom(hostId));
 		model.addAttribute("reserveList", crtReserveService.selectAllCrtReserve(hostId));
