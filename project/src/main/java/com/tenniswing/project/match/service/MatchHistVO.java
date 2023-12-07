@@ -8,6 +8,7 @@ import lombok.Data;
 public class MatchHistVO {
 	private int matchHistNo;
 	private int matchNo;
+	private int clubNo;
 	private String memId;
 	private Date matchApplyDate;
 	private Date wrtRegiDate;
