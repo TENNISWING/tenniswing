@@ -44,6 +44,12 @@ public class SnsServiceImpl implements SnsService {
 
 		return snsMapper.selectMyGroup(snsVO); // 그룹조회한 mapper where memId
 	}
+	
+	// 그룹이 NULL인 그룹 리스트 조회
+	@Override
+	public List<SnsVO> selectGrpNull(SnsVO snsVO) {
+		return snsMapper.selectGrpNull(snsVO);
+	}
 
 	// 단건 조회
 	@Override
@@ -215,6 +221,8 @@ public class SnsServiceImpl implements SnsService {
 		map.put("info", snsVO);
 		return map;
 	}
+
+
 
 	
 

@@ -24,7 +24,7 @@ public class SecurityConfig {
 		http.csrf().disable().authorizeRequests()
 
 
-				.antMatchers("/mypage/**","/clubform","/matchregi","/snsRegister","/reserveCourt").authenticated()
+				.antMatchers("/mypage/**","/clubform","/matchregi","/snsRegister","/reserveCourt","/snsEditForm","/snsMyList","/noticeForm").authenticated()
 				//.antMatchers("/admin**").hasRole("ADMIN")
 				//.antMatchers("/host**").hasRole("HOST")				
 

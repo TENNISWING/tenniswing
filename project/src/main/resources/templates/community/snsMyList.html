@@ -29,7 +29,8 @@
 						<div class="row">
 							<div class="col-12">
 								<div class="section-title">
-									<h5 class="card-title mtitle mtitle2">[[${grpList.get(0).name}]]님이 등록한 SNS 그룹</h5>
+									<h5 class="card-title mtitle mtitle2">[[${grpList.get(0).name}]]님이
+										등록한 SNS 그룹</h5>
 								</div>
 							</div>
 						</div>
@@ -43,28 +44,36 @@
 											<div class="card">
 												<div class="card-content">
 
-													<img class="img-fluid w-100" src="/assets/compiled/jpg/banana.jpg" style="border-radius: 10px 10px 0 0;" alt="Card image cap">
+													<img class="img-fluid w-100" src="/assets/compiled/jpg/banana.jpg"
+														style="border-radius: 10px 10px 0 0;" alt="Card image cap">
 												</div>
-												<div class="card-footer d-flex justify-content-between" style="flex-direction: column; border: 1px solid #ccc; gap: 15px;">
-													<span class="snsGrpName" id="snsGrpName" th:attrappend="id=${mg.snsGrpNo}">[[${mg.grpName}]]</span>
-														<div class="btn btn-light-primary edBtns d-flex" style="float: right; justify-content: space-between;">
-														<div class="gapBtn d-flex" style="gap: 15px; align-items: center;">
+												<div class="card-footer d-flex justify-content-between"
+													style="flex-direction: column; border: 1px solid #ccc; gap: 15px;">
+													<span class="snsGrpName" id="snsGrpName"
+														th:attrappend="id=${mg.snsGrpNo}">[[${mg.grpName}]]</span>
+													<div class="btn btn-light-primary edBtns d-flex"
+														style="float: right; justify-content: space-between;">
+														<div class="gapBtn d-flex"
+															style="gap: 15px; align-items: center;">
 															<!-- 모달열리게하는 수정아이콘 -->
 															<i type="button"
-																class="fa-regular fa-pen-to-square editBtnClass"																
-																 data-bs-toggle="modal" th:data-snsgrpno="${mg.snsGrpNo}" th:data-grpname="${mg.grpName}"
-																	data-bs-target="#inlineForm" th:attrappend="data-bs-target=${mg.snsGrpNo}"></i> 
+																class="fa-regular fa-pen-to-square editBtnClass"
+																data-bs-toggle="modal" th:data-snsgrpno="${mg.snsGrpNo}"
+																th:data-grpname="${mg.grpName}"
+																data-bs-target="#inlineForm"
+																th:attrappend="data-bs-target=${mg.snsGrpNo}"></i>
 															<!-- 삭제버튼 -->
-															<i type="button"
-																class="fa-regular fa-trash-can delBtnClass"
-																id="delSnsBtn" th:attrappend="id=${mg.snsGrpNo}" ></i>
+															<i type="button" class="fa-regular fa-trash-can delBtnClass"
+																id="delSnsBtn" th:attrappend="id=${mg.snsGrpNo}"></i>
 														</div>
-													<button class="btn btn-light-primary grpBtn" th:id="${mgStat.count}"
-														data-bs-toggle="collapse" th:data-snsgrpno="${mg.snsGrpNo}"
-														data-bs-target="#collapseExample" aria-expanded="false"
-														aria-controls="collapseExample"
-														th:attrappend="data-bs-target=${mgStat.count}">그룹 목록보기</button>
-														</div>
+														<button class="btn btn-light-primary grpBtn"
+															th:id="${mgStat.count}" data-bs-toggle="collapse"
+															th:data-snsgrpno="${mg.snsGrpNo}"
+															data-bs-target="#collapseExample" aria-expanded="false"
+															aria-controls="collapseExample"
+															th:attrappend="data-bs-target=${mgStat.count}">그룹
+															목록보기</button>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -72,16 +81,17 @@
 										<div class="swiper-slide banner">
 											<div class="card">
 												<div class="card-content">
-
 													<img class="img-fluid w-100" src="/assets/compiled/jpg/banana.jpg"
-														alt="Card image cap">
+														alt="Card image cap" style="border-radius: 10px 10px 0 0;">
 												</div>
-												<div class="card-footer d-flex justify-content-between">
+												<div class="card-footer d-flex justify-content-between" style="flex-direction: column; border: 1px solid #ccc; gap: 15px;">
 													<span>기타</span>
 													<button class="btn btn-light-primary" th:id="${100}"
 														data-bs-toggle="collapse" data-bs-target="#collapseExample"
-														aria-expanded="false" aria-controls="collapseExample100">그룹 
-														목록보기</button>
+														aria-expanded="false" aria-controls="collapseExample100" 
+														style="float: right; justify-content: space-between; height: 52px; 
+														text-align:right; padding-right: 27px;">
+														그룹 목록보기</button>
 												</div>
 											</div>
 										</div>
@@ -119,12 +129,14 @@
 				<!-- Trending Section End -->
 				<!-- 게시판 반복문 시작 -->
 				<div class="card-body shadow collapse Listbrd" th:each="gl : ${grpList}" id="collapseExample"
-					th:attrappend="id=${glStat.count}"><!-- 반복문 -->
+					th:attrappend="id=${glStat.count}">
+					<!-- 반복문 -->
 					<div class="table-responsive">
 						<table class="table dashboard__table order-list">
 							<thead>
 								<tr>
-									<th scope="col" class="text-start grpBrdName" id="grpBrdName" th:attrappend="id=${gl.snsGrpNo}" style="width: 300px;">[[${gl.grpName}]]</th>
+									<th scope="col" class="text-start grpBrdName" id="grpBrdName"
+										th:attrappend="id=${gl.snsGrpNo}" style="width: 300px;">[[${gl.grpName}]]</th>
 									<th scope="col" class="text-start">제목</th>
 									<th scope="col" class="text-center">Action</th>
 								</tr>
@@ -161,126 +173,130 @@
 									</td>
 								</tr> -->
 								<!-- 게시판 한행 반복문 END -->
-							<!-- </th:block> -->
-						</tbody>
-					</table>
+								<!-- </th:block> -->
+							</tbody>
+						</table>
+					</div>
+					<!-- pagination start  -->
+					<nav class="pagination__wrapper mt-0 py-10">
+						<ul class="pagination">
+							<li class="pagination__item"><a class="page-link" href="#"><i
+										class="fa-solid fa-angle-left"></i></a></li>
+							<li class="pagination__item active"><a class="page-link" href="#">1</a></li>
+							<li class="pagination__item"><a class="page-link" href="#">2</a></li>
+							<li class="pagination__item"><a class="page-link" href="#">3</a></li>
+							<li class="pagination__item"><a class="page-link dot" href="#">...</a></li>
+							<li class="pagination__item"><a class="page-link" href="#">8</a></li>
+							<li class="pagination__item"><a class="page-link" href="#">9</a></li>
+							<li class="pagination__item"><a class="page-link" href="#">10</a></li>
+							<li class="pagination__item"><a class="page-link" href="#"><i
+										class="fa-solid fa-angle-right"></i></a></li>
+						</ul>
+						<div class="pagination__jump">
+							<label class="junp__label" for="pageNumber">Go to Page</label> <input type="number"
+								name="page" id="pageNumber" class="jump__input" placeholder="02" />
+							<button class="btn btn-outline jump__btn" type="submit">
+								GO <i class="fa-solid fa-arrow-right"></i>
+							</button>
+						</div>
+					</nav>
+					<!-- pagination end -->
 				</div>
-<!-- pagination start  -->
-<nav class="pagination__wrapper mt-0 py-10">
-	<ul class="pagination">
-		<li class="pagination__item"><a class="page-link" href="#"><i class="fa-solid fa-angle-left"></i></a></li>
-		<li class="pagination__item active"><a class="page-link" href="#">1</a></li>
-		<li class="pagination__item"><a class="page-link" href="#">2</a></li>
-		<li class="pagination__item"><a class="page-link" href="#">3</a></li>
-		<li class="pagination__item"><a class="page-link dot" href="#">...</a></li>
-		<li class="pagination__item"><a class="page-link" href="#">8</a></li>
-		<li class="pagination__item"><a class="page-link" href="#">9</a></li>
-		<li class="pagination__item"><a class="page-link" href="#">10</a></li>
-		<li class="pagination__item"><a class="page-link" href="#"><i class="fa-solid fa-angle-right"></i></a></li>
-	</ul>
-	<div class="pagination__jump">
-		<label class="junp__label" for="pageNumber">Go to Page</label> <input type="number" name="page" id="pageNumber"
-			class="jump__input" placeholder="02" />
-		<button class="btn btn-outline jump__btn" type="submit">
-			GO <i class="fa-solid fa-arrow-right"></i>
-		</button>
+				<!-- 게시판 end -->
+
+
+
+				<!-- 기타게시판 -->
+				<div class="card-body shadow collapse Listbrd" id="collapseExample100">
+					<!-- 반복문 -->
+					<div class="table-responsive">
+						<table class="table dashboard__table order-list">
+							<thead>
+								<tr>
+									<th scope="col" class="text-start" style="width: 300px;">기타</th>
+									<th scope="col" class="text-start">제목</th>
+									<th scope="col" class="text-center">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- 게시판 한행 반복문 -->
+								<th:block th:each="ng : ${nullGrp}">
+									<tr>
+										<td class="text-start"><img class="rounded" src="assets/compiled/jpg/jump.jpg"
+												style="width: 150px;"></td>
+										<td class="text-start">[[${ng.snsTitle}]]</td>
+										<td>
+											<div class="card__action text-center">
+
+												<a href="#" class="lg-btn ml-10"> <svg width="20" height="20"
+														viewBox="0 0 20 20" fill="none"
+														xmlns="http://www.w3.org/2000/svg">
+														<path
+															d="M14.166 2.49999C14.3849 2.28112 14.6447 2.1075 14.9307 1.98905C15.2167 1.8706 15.5232 1.80963 15.8327 1.80963C16.1422 1.80963 16.4487 1.8706 16.7347 1.98905C17.0206 2.1075 17.2805 2.28112 17.4993 2.49999C17.7182 2.71886 17.8918 2.97869 18.0103 3.26466C18.1287 3.55063 18.1897 3.85713 18.1897 4.16665C18.1897 4.47618 18.1287 4.78268 18.0103 5.06865C17.8918 5.35461 17.7182 5.61445 17.4993 5.83332L6.24935 17.0833L1.66602 18.3333L2.91602 13.75L14.166 2.49999Z"
+															stroke="#667085" stroke-width="1.66667"
+															stroke-linecap="round" stroke-linejoin="round" />
+													</svg>
+												</a>
+												<button type="button" class="lg-btn ml-10 bg-light-subtle"
+													style="border: 0">
+													<svg width="18" height="20" viewBox="0 0 18 20" fill="none"
+														xmlns="http://www.w3.org/2000/svg">
+														<path
+															d="M1.5 5.00001H3.16667M3.16667 5.00001H16.5M3.16667 5.00001V16.6667C3.16667 17.1087 3.34226 17.5326 3.65482 17.8452C3.96738 18.1577 4.39131 18.3333 4.83333 18.3333H13.1667C13.6087 18.3333 14.0326 18.1577 14.3452 17.8452C14.6577 17.5326 14.8333 17.1087 14.8333 16.6667V5.00001H3.16667ZM5.66667 5.00001V3.33334C5.66667 2.89131 5.84226 2.46739 6.15482 2.15483C6.46738 1.84227 6.89131 1.66667 7.33333 1.66667H10.6667C11.1087 1.66667 11.5326 1.84227 11.8452 2.15483C12.1577 2.46739 12.3333 2.89131 12.3333 3.33334V5.00001M7.33333 9.16667V14.1667M10.6667 9.16667V14.1667"
+															stroke="#667085" stroke-width="1.66667"
+															stroke-linecap="round" stroke-linejoin="round" />
+													</svg>
+												</button>
+											</div>
+										</td>
+									</tr>
+								</th:block>
+								<!-- 게시판 한행 반복문 end-->
+
+							</tbody>
+						</table>
+					</div>
+					<!-- pagination start  -->
+					<nav class="pagination__wrapper mt-0 py-10">
+						<ul class="pagination">
+							<li class="pagination__item"><a class="page-link" href="#"><i
+										class="fa-solid fa-angle-left"></i></a></li>
+							<li class="pagination__item active"><a class="page-link" href="#">1</a></li>
+							<li class="pagination__item"><a class="page-link" href="#">2</a></li>
+							<li class="pagination__item"><a class="page-link" href="#">3</a></li>
+							<li class="pagination__item"><a class="page-link dot" href="#">...</a></li>
+							<li class="pagination__item"><a class="page-link" href="#">8</a></li>
+							<li class="pagination__item"><a class="page-link" href="#">9</a></li>
+							<li class="pagination__item"><a class="page-link" href="#">10</a></li>
+							<li class="pagination__item"><a class="page-link" href="#"><i
+										class="fa-solid fa-angle-right"></i></a></li>
+						</ul>
+						<div class="pagination__jump">
+							<label class="junp__label" for="pageNumber">Go to Page</label> <input type="number"
+								name="page" id="pageNumber" class="jump__input" placeholder="02" />
+							<button class="btn btn-outline jump__btn" type="submit">
+								GO <i class="fa-solid fa-arrow-right"></i>
+							</button>
+						</div>
+					</nav>
+					<!-- pagination end -->
+				</div>
+				<!-- 기타게시판 end -->
+			</div>
+
+		</section>
 	</div>
-</nav>
-<!-- pagination end -->
-</div>
-<!-- 게시판 end -->
 
-
-
-<!-- 기타게시판 -->
-<div class="card-body shadow collapse Listbrd" id="collapseExample100"><!-- 반복문 -->
-	<div class="table-responsive">
-		<table class="table dashboard__table order-list">
-			<thead>
-				<tr>
-					<th scope="col" class="text-start" style="width: 300px;">기타</th>
-					<th scope="col" class="text-start">제목</th>
-					<th scope="col" class="text-center">Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<!-- 게시판 한행 반복문 -->
-				<th:block th:each="num : ${#numbers.sequence(1,10)}">
-					<tr>
-						<td class="text-start"><img class="rounded" src="assets/compiled/jpg/jump.jpg"
-								style="width: 150px;"></td>
-						<td class="text-start">제목</td>
-						<td>
-							<div class="card__action text-center">
-
-								<a href="#" class="lg-btn ml-10"> <svg width="20" height="20" viewBox="0 0 20 20"
-										fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path
-											d="M14.166 2.49999C14.3849 2.28112 14.6447 2.1075 14.9307 1.98905C15.2167 1.8706 15.5232 1.80963 15.8327 1.80963C16.1422 1.80963 16.4487 1.8706 16.7347 1.98905C17.0206 2.1075 17.2805 2.28112 17.4993 2.49999C17.7182 2.71886 17.8918 2.97869 18.0103 3.26466C18.1287 3.55063 18.1897 3.85713 18.1897 4.16665C18.1897 4.47618 18.1287 4.78268 18.0103 5.06865C17.8918 5.35461 17.7182 5.61445 17.4993 5.83332L6.24935 17.0833L1.66602 18.3333L2.91602 13.75L14.166 2.49999Z"
-											stroke="#667085" stroke-width="1.66667" stroke-linecap="round"
-											stroke-linejoin="round" />
-									</svg>
-								</a>
-								<button type="button" class="lg-btn ml-10 bg-light-subtle" style="border: 0">
-									<svg width="18" height="20" viewBox="0 0 18 20" fill="none"
-										xmlns="http://www.w3.org/2000/svg">
-										<path
-											d="M1.5 5.00001H3.16667M3.16667 5.00001H16.5M3.16667 5.00001V16.6667C3.16667 17.1087 3.34226 17.5326 3.65482 17.8452C3.96738 18.1577 4.39131 18.3333 4.83333 18.3333H13.1667C13.6087 18.3333 14.0326 18.1577 14.3452 17.8452C14.6577 17.5326 14.8333 17.1087 14.8333 16.6667V5.00001H3.16667ZM5.66667 5.00001V3.33334C5.66667 2.89131 5.84226 2.46739 6.15482 2.15483C6.46738 1.84227 6.89131 1.66667 7.33333 1.66667H10.6667C11.1087 1.66667 11.5326 1.84227 11.8452 2.15483C12.1577 2.46739 12.3333 2.89131 12.3333 3.33334V5.00001M7.33333 9.16667V14.1667M10.6667 9.16667V14.1667"
-											stroke="#667085" stroke-width="1.66667" stroke-linecap="round"
-											stroke-linejoin="round" />
-									</svg>
-								</button>
-							</div>
-						</td>
-					</tr>
-				</th:block>
-				<!-- 게시판 한행 반복문 end-->
-
-			</tbody>
-		</table>
-	</div>
-	<!-- pagination start  -->
-	<nav class="pagination__wrapper mt-0 py-10">
-		<ul class="pagination">
-			<li class="pagination__item"><a class="page-link" href="#"><i class="fa-solid fa-angle-left"></i></a></li>
-			<li class="pagination__item active"><a class="page-link" href="#">1</a></li>
-			<li class="pagination__item"><a class="page-link" href="#">2</a></li>
-			<li class="pagination__item"><a class="page-link" href="#">3</a></li>
-			<li class="pagination__item"><a class="page-link dot" href="#">...</a></li>
-			<li class="pagination__item"><a class="page-link" href="#">8</a></li>
-			<li class="pagination__item"><a class="page-link" href="#">9</a></li>
-			<li class="pagination__item"><a class="page-link" href="#">10</a></li>
-			<li class="pagination__item"><a class="page-link" href="#"><i class="fa-solid fa-angle-right"></i></a></li>
-		</ul>
-		<div class="pagination__jump">
-			<label class="junp__label" for="pageNumber">Go to Page</label> <input type="number" name="page"
-				id="pageNumber" class="jump__input" placeholder="02" />
-			<button class="btn btn-outline jump__btn" type="submit">
-				GO <i class="fa-solid fa-arrow-right"></i>
-			</button>
-		</div>
-	</nav>
-	<!-- pagination end -->
-</div>
-<!-- 기타게시판 end -->
-</div>
-
-</section>
-</div>
-
-<!-- Basic Tables end -->
-<div th:each="mg : ${grpList}">
-	<!-- 그룹등록모달 -->
-			<div class="modal fade text-left editNameModal" id="inlineForm" th:attrappend="id=${mg.snsGrpNo}" tabindex="-1"
+	<!-- Basic Tables end -->
+	<div th:each="mg : ${grpList}">
+		<!-- 그룹등록모달 -->
+		<div class="modal fade text-left editNameModal" id="inlineForm" th:attrappend="id=${mg.snsGrpNo}" tabindex="-1"
 			role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-			<div
-				class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-				role="document">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title" id="myModalLabel33">그룹 이름 변경</h4>
-						<button type="button" class="close" data-bs-dismiss="modal"
-							aria-label="Close">
+						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
 							<i data-feather="x"></i>
 						</button>
 					</div>
@@ -293,15 +309,12 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-light-secondary"
-								data-bs-dismiss="modal">
-								<i class="bx bx-x d-block d-sm-none"></i> 
-								<span class="d-none d-sm-block">Close</span>
+							<button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+								<i class="bx bx-x d-block d-sm-none"></i> <span class="d-none d-sm-block">Close</span>
 							</button>
 							<button type="button" class="btn btn-primary ms-1 nameEditBtn" th:no="${mg.snsGrpNo}"
-								data-bs-dismiss="modal"  th:onclick="myfunction(this.getAttribute('no'))">
-								<i class="bx bx-check d-block d-sm-none"></i> 
-								<span class="d-none d-sm-block">수정</span>
+								data-bs-dismiss="modal" th:onclick="myfunction(this.getAttribute('no'))">
+								<i class="bx bx-check d-block d-sm-none"></i> <span class="d-none d-sm-block">수정</span>
 							</button>
 						</div>
 					</form>
@@ -310,87 +323,92 @@
 		</div>
 		<!-- 그룹등록모달 end -->
 
-</div>
+	</div>
 
-<script>
-	function myfunction(grpNo){
-		let grpName = event.target.closest('form').querySelector('input[name=grpName]').value; // 이렇게하면 이벤트타겟의 부모에 있는값 지정가능
-		let snsGrpNo = grpNo;
-		
-		$.ajax({
-			url:'editGrpName',
-			data:{grpName, snsGrpNo},
-			type: 'post',
-			success : function(data) {
-				if(data.result){
-					alert('그룹이름 수정성공');
-					$('#snsGrpName'+data.info.snsGrpNo).text(data.info.grpName);
-					$('#grpBrdName'+data.info.snsGrpNo).text(data.info.grpName);
-					$('input[name=grpName]').val('');
+	<script>
+		function myfunction(grpNo) {
+			let grpName = event.target.closest('form').querySelector('input[name=grpName]').value; // 이렇게하면 이벤트타겟의 부모에 있는값 지정가능
+			let snsGrpNo = grpNo;
+
+			$.ajax({
+				url: 'editGrpName',
+				data: { grpName, snsGrpNo },
+				type: 'post',
+				success: function (data) {
+					if (data.result) {
+						alert('그룹이름 수정성공');
+						$('#snsGrpName' + data.info.snsGrpNo).text(data.info.grpName);
+						$('#grpBrdName' + data.info.snsGrpNo).text(data.info.grpName);
+						$('input[name=grpName]').val('');
+					}
+
+				},
+				error: function () {
+					alert("수정 실패");
+
 				}
-				
-			},
-			error : function() {
-				alert("수정 실패");
-
-			}
-		}) 
-	} 
+			})
+		}
 
 
-	$('.btn.btn-light-primary').on('click', function (e) {
-		$(e.target).toggleClass('active');
-		//console.log($(e.target).prop('id'));
+		$('.btn.btn-light-primary').on('click', function (e) {
+			$(e.target).toggleClass('active');
+			//console.log($(e.target).prop('id'));
 
-		/* 	for(let i=1; i< $('.btn.btn-light-primary').length; i++){
-				if ($(e.target).hasClass('active')) {
-					$('#collapseExample'+i).attr('class',
-							'card-body shadow collapse show')
+			/* 	for(let i=1; i< $('.btn.btn-light-primary').length; i++){
+					if ($(e.target).hasClass('active')) {
+						$('#collapseExample'+i).attr('class',
+								'card-body shadow collapse show')
+					} else {
+						$('#collapseExample'+i).attr('class',
+								'card-body shadow collapse')
+					}
+				} */
+			for (let i = 1; i <= $('.btn.btn-light-primary').length; i++) {
+				if ($(e.target).hasClass('active') && $(e.target).attr('id') == i) {
+					$('#collapseExample' + i).attr('class',
+						'card-body shadow collapse show')
+
+					console.log($('#collapseExample' + i));
+
 				} else {
-					$('#collapseExample'+i).attr('class',
-							'card-body shadow collapse')
+					$('#collapseExample' + i).attr('class',
+						'card-body shadow collapse')
 				}
-			} */
-		for (let i = 1; i <= $('.btn.btn-light-primary').length; i++) {
-			if ($(e.target).hasClass('active') && $(e.target).attr('id') == i) {
-				$('#collapseExample' + i).attr('class',
+			}
+			// 기타 게시판 콜랩스
+			if ($(e.target).hasClass('active') && $(e.target).attr('id') == 100) {
+				$('#collapseExample' + 100).attr('class',
 					'card-body shadow collapse show')
 
-				console.log($('#collapseExample' + i));
-
+				console.log($('#collapseExample' + 100));
 			} else {
-				$('#collapseExample' + i).attr('class',
+				$('#collapseExample' + 100).attr('class',
 					'card-body shadow collapse')
 			}
-		}
-		// 기타 게시판 콜랩스
-		if ($(e.target).hasClass('active') && $(e.target).attr('id') == 100) {
-			$('#collapseExample' + 100).attr('class',
-				'card-body shadow collapse show')
-
-			console.log($('#collapseExample' + 100));
-		} else {
-			$('#collapseExample' + 100).attr('class',
-				'card-body shadow collapse')
-		}
 
 
-	});
+		});
 
-	// 그룹에 해당하는 sns 리스트
-	$('.grpBtn').on('click', function (e) {
-	
-		let snsGrpNo = $(e.target).attr('data-snsgrpno');
-	
-		$.ajax({
-			type: 'GET',
-			url: 'mySnsList',
-			data: {snsGrpNo},
-			success: function (data) {
-				$('.grpListTbody').empty();
+		// 그룹에 해당하는 sns 리스트
+		$('.grpBtn').on('click', function (e) {
 
-				for (let [index, grp] of data.entries()) {
-					let b = `
+			let snsGrpNo = $(e.target).attr('data-snsgrpno');
+			getSnsMyList(snsGrpNo);
+
+		})
+
+		//리스트 뿌리는 함수
+		function getSnsMyList(snsGrpNo) {
+			$.ajax({
+				type: 'GET',
+				url: 'mySnsList',
+				data: { snsGrpNo },
+				success: function (data) {
+					$('.grpListTbody').empty();
+
+					for (let [index, grp] of data.entries()) {
+						let b = `
 							<tr>
 								<td class="text-start">
 									<img class="rounded" src="assets/compiled/jpg/jump.jpg" style="width: 150px;">
@@ -404,62 +422,116 @@
 												id="editSnsBtn"></i> 
 											<i type="button"
 												class="fa-regular fa-trash-can delBtnClass"
-												id="delSnsBtn" ></i>
+												id="delSnsListBtn${grp.snsWrtNo}" ></i>
 										</div>
 									</div>
 								</td>
 							</tr> 
 							`
 						$('.grpListTbody').append(b);
+					}
+
+
+					//삭제
+					$('.delBtnClass').on('click', function (e) {
+						console.log("sns삭제 눌리나요");
+						//let snsWrtNo = $(e.target).prop("id").replace("delSnsListBtn","");
+						//console.log(snsWrtNo);
+
+
+						/* 삭제 */
+						Swal.fire({
+							title: "정말 삭제하시겠습니까?",
+							html: "그룹 삭제시 그룹 내 게시글도 삭제됩니다.<br> 정말 삭제하시겠습니까?",
+							icon: "warning",
+							showCancelButton: true,
+							confirmButtonColor: "#3085d6",
+							cancelButtonColor: "#d33",
+							confirmButtonText: "Yes, delete it!"
+						}).then((result) => {
+							if (result.isConfirmed) {
+								console.log($(e.target));
+								let snsWrtNo = $(e.target).prop("id").replace("delSnsListBtn", "");
+
+								$.ajax({
+									type: 'POST',
+									url: 'snsDel',
+									data: { snsWrtNo },
+									success: function (result) {
+										console.log(result)
+										if (result) {
+											alert("정상삭제");
+											location.reload();
+										} else {
+											alert("삭제실패. 재시도해주세요.");
+										}
+									},
+									error: function () {
+										alert("삭제 실패");
+
+									}
+								})
+							}
+						});
+
+						/* 삭제 end */
+
+
+					})
+
 				}
 
-			}
+			})
+		}
 
-		})
-	})
-	
-	// 그룹 sns 통으로 삭제
-	$('.delBtnClass').on('click', function(e){
-		Swal.fire({
-			  title: "정말 삭제하시겠습니까?",
-			  html: "그룹 삭제시 그룹 내 게시글도 삭제됩니다.<br> 정말 삭제하시겠습니까?",
-			  icon: "warning",
-			  showCancelButton: true,
-			  confirmButtonColor: "#3085d6",
-			  cancelButtonColor: "#d33",
-			  confirmButtonText: "Yes, delete it!"
+
+		// 그룹 sns 통으로 삭제
+		$('.delBtnClass').on('click', function (e) {
+			Swal.fire({
+				title: "정말 삭제하시겠습니까?",
+				html: "그룹 삭제시 그룹 내 게시글도 삭제됩니다.<br> 정말 삭제하시겠습니까?",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Yes, delete it!"
 			}).then((result) => {
-			  if (result.isConfirmed) {
-			    console.log($(e.target));
-				let snsGrpNo = $(e.target).prop("id").replace("delSnsBtn","");
-				console.log('딜리트그룹번호'+snsGrpNo);
-				$.ajax({
-					type: 'POST',
-					url: 'grpDel',
-					data: {snsGrpNo},
-					success: function(result){
-						if(result){
-							Swal.fire({
-								  icon: "success",
-								  title: "",
-								  text: "정상적으로 삭제되었습니다.",
-								}).then(function(){
+				if (result.isConfirmed) {
+					console.log($(e.target));
+					let snsGrpNo = $(e.target).prop("id").replace("delSnsBtn", "");
+					console.log('딜리트그룹번호' + snsGrpNo);
+					$.ajax({
+						type: 'POST',
+						url: 'grpDel',
+						data: { snsGrpNo },
+						success: function (result) {
+							if (result) {
+								Swal.fire({
+									icon: "success",
+									title: "",
+									text: "정상적으로 삭제되었습니다.",
+								}).then(function () {
 									location.reload();
 									//$('#review'+reviewNo).css('display','none');
 								})
-						}else{
-							Swal.fire({
-								  icon: "error",
-								  title: "",
-								  html: "정상적으로 삭제되지 않았습니다.<br>정보를 확인해주시기바랍니다.",
-							})
+							} else {
+								Swal.fire({
+									icon: "error",
+									title: "",
+									html: "정상적으로 삭제되지 않았습니다.<br>정보를 확인해주시기바랍니다.",
+								})
+							}
 						}
-					}
-				})
-		  	}
-		});
-	})
-</script>
+					})
+				}
+			});
+		})
+
+
+
+
+
+	</script>
 </th:block>
 
 </html>

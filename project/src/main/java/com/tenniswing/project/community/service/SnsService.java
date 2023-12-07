@@ -12,6 +12,8 @@ public interface SnsService {
 	public List<SnsVO> selectGroup(SnsVO snsVO);
 	// 내 그룹 리스트(sns, snsgroup, like 다 가지고 있음)
 	public List<SnsVO> selectMyGroup(SnsVO snsVO);
+	// 그룹 값이 NULL인 SNS 리스트 조회
+	public List<SnsVO> selectGrpNull(SnsVO snsVO);
 
 	// 단건조회
 	public SnsVO selectSnsInfo(SnsVO snsVO);

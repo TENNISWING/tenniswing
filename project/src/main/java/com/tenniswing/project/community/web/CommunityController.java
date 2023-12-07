@@ -126,7 +126,7 @@ public class CommunityController {
 //				attachService.deleteAttachSns(tablePk);
 //			}
 		int n = attachService.updateAttach("s", snsVO.getSnsWrtNo(), files);
-		return "redirect:/sns";
+		return "redirect:/snsMyList";
 
 
 	}
@@ -246,6 +246,9 @@ public class CommunityController {
 		
 		//그 그룹에 해당하는 sns 불러오기
 		model.addAttribute("myGrpList", snsService.selectMyGroup(snsVO));
+		
+		// 그룹이 Null인 sns 불러오기
+		model.addAttribute("nullGrp",snsService.selectGrpNull(snsVO));
 		return "community/snsMyList";
 	}
 
