@@ -51,7 +51,10 @@ public class MemberDetails implements UserDetails{
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
+		if(!memberVO.getState().equals("bh1")) {
+			return false;
+		}
+
 		return true;
 	}
 

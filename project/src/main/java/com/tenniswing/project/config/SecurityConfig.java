@@ -1,5 +1,6 @@
 package com.tenniswing.project.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,11 +8,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration // 스프링 환경 세팅을 돕는 어노테이션
 @EnableWebSecurity // 스프링 시큐리티 설정할 클래스라고 알려주는 어노테이션
 public class SecurityConfig {
+	
+	@Autowired
+	AuthenticationFailureHandler customFailureHandler;
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -21,7 +26,7 @@ public class SecurityConfig {
 
 				.antMatchers("/mypage/**","/clubform","/matchregi","/snsRegister","/reserveCourt").authenticated()
 				//.antMatchers("/admin**").hasRole("ADMIN")
-				//.antMatchers("/host**").hasRole("HOST")
+				//.antMatchers("/host**").hasRole("HOST")				
 
 				.anyRequest().permitAll()
 				
@@ -32,6 +37,7 @@ public class SecurityConfig {
 				.loginProcessingUrl("/loginProc")
 				.usernameParameter("memId")
 				.passwordParameter("pwd")
+				.failureHandler(customFailureHandler)
 				.defaultSuccessUrl("/")
 			
 				.and()
