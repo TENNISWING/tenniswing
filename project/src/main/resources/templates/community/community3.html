@@ -69,8 +69,8 @@
 															<i type="button"
 																class="fa-regular fa-pen-to-square editBtnClass"
 																th:onclick="|location.href='@{/snsEditForm(snsWrtNo=${s.snsWrtNo}, snsGrpNo=${s.snsGrpNo})}'|"
-																id="editSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i> <i
-																type="button"
+																id="editSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i> 
+															<i type="button"
 																class="fa-regular fa-trash-can delBtnClass"
 																id="delSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i>
 														</div>
@@ -599,10 +599,13 @@
 					type : 'post',
 					datatype : 'text',
 					success : function(result) {
+						if(result>0){
+							alert("등록성공");
+							
+						}else{
+							alert("등록 실패. 다시 시도해주세요.");
+						}
 
-							alert("등록성공")
-						//if (result == "success") {
-						//}
 						$('#replyContents').val('') //댓글 등록시 댓글 등록창 초기화
 						 getRepList(snsWrtNo); //등록후 댓글 목록 불러오기 함수 실행
 						//DOM 조작 함수호츨 등 가능
@@ -631,6 +634,8 @@
          			if(result){
          				alert("정상삭제");
          				location.reload();
+         			}else{
+         				alert("삭제실패. 재시도해주세요.");
          			}
          		},
          		error : function() {
