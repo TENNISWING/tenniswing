@@ -14,6 +14,7 @@ public class CrtReserveVO {
 	private int reserveNo;
 	private int reservePrice;
 	private int reserveState;
+	private String reserveStateName;
 	private String reservePayNo;
 	private int crtroomNo;
 	private int crtDetailNo;

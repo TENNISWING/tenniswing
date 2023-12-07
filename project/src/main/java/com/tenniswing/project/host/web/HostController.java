@@ -200,6 +200,7 @@ public class HostController {
 		String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
 		// model.addAttribute("hostCalcList",
 		// courtroomService.selectAllCourtroom(hostId));
+		model.addAttribute("reserveList", crtReserveService.selectAllCrtReserve(hostId));
 		return "host/reserveList";
 	}
 

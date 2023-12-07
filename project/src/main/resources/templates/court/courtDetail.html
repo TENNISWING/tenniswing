@@ -521,7 +521,7 @@ body{
 			<div class="row">
 				<div class="col-12">
 					<div class="section-title" style="margin: 50px 0 0 0">
-						<h2><span style="font-size: 25px">Nearby Court</span></h2>
+						<h2><span style="font-size: 25px; font-family: 'NanumSquareNeo-Variable';">Nearby Court</span></h2>
 					</div>
 				</div>
 			</div>
@@ -1102,7 +1102,7 @@ body{
 													console.log(reserve.reserveTime);
 													if(reserve.reserveTime === reserveTimeCode[i][0]){
 														b = `
-															<tr class="navbar-brand">
+															<tr class="navbar-brand" style="font-family: 'NanumSquareNeo-Variable';">
 																<td class="text-center" style="width: 10%"><b>`+crtIndoorOutdoorName+`</b></td>
 																<td style="width: 50%; text-align: center;">`+reserveTimeCode[i][1]+`
 																<input type="hidden" class="reserveTime" value="`+reserveTimeCode[i][0]+`"></td>
@@ -1125,7 +1125,7 @@ body{
 										console.log($("#matchList").length);	
 										if($(".navbar-brand").length == 0){
 											b = `<tr class="navbar-brand">
-												<td colspan="5">예약 가능한 시간이 없습니다.</td>
+												<td colspan="5" style="font-family: 'NanumSquareNeo-Variable';">예약 가능한 시간이 없습니다.</td>
 												</tr>`
 												$('#matchList').append(b);
 											return

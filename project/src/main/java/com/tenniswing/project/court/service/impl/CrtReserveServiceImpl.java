@@ -40,4 +40,9 @@ public class CrtReserveServiceImpl implements CrtReserveService {
 		return crtReserveMapper.reserveTimeCodeList();
 	}
 
+	@Override
+	public List<CrtReserveVO> selectAllCrtReserve(String hostId) {
+		return crtReserveMapper.selectAllCrtReserve(hostId);
+	}
+
 }

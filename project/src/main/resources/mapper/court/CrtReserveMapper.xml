@@ -79,4 +79,30 @@
 	 WHERE maincategory_code = 'BG'
 	 ORDER BY 2
 </select>
+
+<!-- 호스트 -->
+<!-- 호스트별 예약 전체 조회 -->
+<select id="selectAllCrtReserve" resultType="CrtReserveVO">
+	SELECT r.RESERVE_NO
+			, r.RESERVE_PRICE
+			, r.RESERVE_STATE
+			, FIND_CATEGORY_NAME(r.RESERVE_STATE) reserve_state_name
+			, r.RESERVE_PAY_NO
+			, r.CRTROOM_NO
+			, r.CRT_DETAIL_NO
+			, r.MEM_ID
+			, r.RESERVE_UID
+			, r.PAY_DATE
+			, rd.RESERVE_DETAIL_NO
+			, rd.RESERVE_DATE
+			, rd.RESERVE_TIME
+			, rd.RESERVE_NO
+			, c.crtroom_name
+	FROM reserve r JOIN crtroom c 
+					ON r.crtroom_no = c.crtroom_no
+				   JOIN reserve_detail_inf rd
+				    ON r.reserve_no = rd.reserve_no
+	WHERE c.host_id = #{hostId};
+</select>
+
 </mapper>
