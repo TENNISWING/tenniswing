@@ -165,22 +165,16 @@
   	 	INSERT INTO cont_match_hist
   	 			(
 			  	 	match_hist_no
+			  	 	, cont_match_no
 	  				, match_no
-	  				, match_apply_club_no
-	  				, match_apply_date
-	  				, wrt_regi_date
 	  				, match_state
-	  				, accept_state
   	 			)
   	 			VALUES
   	 			(
   	 				#{matchHistNo}
+  	 				,#{contMatchNo}
   	 				,#{matchNo}
-  	 				,#{matchApplyClubNo}
-  	 				,sysdate
-  	 				,sysdate
   	 				,'g1'
-  	 				,#{acceptState}
   	 			)
   	</insert> 
   	
