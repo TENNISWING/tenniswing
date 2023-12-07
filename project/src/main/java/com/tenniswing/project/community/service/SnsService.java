@@ -32,8 +32,11 @@ public interface SnsService {
 	public Map<String, Object> updateSns(SnsVO snsVO);
 	public Map<String, Object> updateGrp(SnsVO snsVO);
 	
-	// 삭제
-	public boolean deleteSns(int snsWrtNo );
+	// sns, 댓글, 좋아요 삭제 프로시저
+	public boolean deleteSns(int snsWrtNo);
+	
+	// sns, 그룹 삭제
+	public boolean deleteGrp(int snsGrpNo);
 	
 	// 좋아요 삭제
 	public boolean deleteLike(int likeNo);

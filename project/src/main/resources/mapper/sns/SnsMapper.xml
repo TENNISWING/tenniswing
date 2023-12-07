@@ -121,25 +121,25 @@
 		</selectKey>
 		INSERT INTO sns
 		(
-		sns_wrt_no
-		,sns_title
-		,sns_ctt
-		,sns_tag
-		,mem_id
-		,sns_hit
-		,sns_write_date
-		,sns_grp_no
+			sns_wrt_no
+			,sns_title
+			,sns_ctt
+			,sns_tag
+			,mem_id
+			,sns_hit
+			,sns_write_date
+			,sns_grp_no
 		)
 		VALUES
 		(
-		#{snsWrtNo}
-		,#{snsTitle}
-		,#{snsCtt}
-		,#{snsTag}
-		,#{memId}
-		,#{snsHit}
-		,sysdate
-		,#{snsGrpNo}
+			#{snsWrtNo}
+			,#{snsTitle}
+			,#{snsCtt}
+			,#{snsTag}
+			,#{memId}
+			,#{snsHit}
+			,sysdate
+			,#{snsGrpNo}
 		)
 		
 	</insert>
@@ -154,15 +154,15 @@
 		</selectKey>
 		INSERT INTO sns_like
 		(
-		like_no
-		,mem_id
-		,sns_wrt_no
+			like_no
+			,mem_id
+			,sns_wrt_no
 		)
 		VALUES
 		(
-		#{likeNo}
-		,#{memId}
-		,#{snsWrtNo}
+			#{likeNo}
+			,#{memId}
+			,#{snsWrtNo}
 		)
 		<!-- <selectKey keyProperty="likeCnt" resultType="int" order="AFTER"> SELECT 
 			COUNT(*) FROM sns_like where sns_wrt_no =#{snsWrtNo} </selectKey> -->
@@ -175,7 +175,7 @@
 		WHERE like_no = #{likeNo}
 	</delete>
 	
-
+ 
 	<!-- sns 그룹 등록 -->
 	<insert id="insertSnsGrp" parameterType="SnsVO">
 		<selectKey keyProperty="snsGrpNo" resultType="int"
@@ -203,16 +203,19 @@
 	<!-- 회원당 그룹 조회 -->
 	<select id="selectGroup" resultType="SnsVO">
 		select sns_grp_no
-			   ,grp_create_date
-			   ,post_num
-			   ,grp_name
-			   ,grp_edit_date
-			   ,mem_id
-		from sns_grp
-		where mem_id = #{memId}
+			   ,s.grp_create_date
+			   ,s.post_num
+			   ,s.grp_name
+			   ,s.grp_edit_date
+			   ,s.mem_id
+			   ,m.name
+		from sns_grp s, mem m
+		where s.mem_id = m.mem_id
+		and s.mem_id = #{memId}
+		order by s.grp_create_date desc
 	</select>
 	
-
+	
 	
 	
 	<!-- 수정 : 그룹업데이트 -->
@@ -231,10 +234,19 @@
 		        ,sns_grp_no = #{snsGrpNo}
 		  where sns_wrt_no = #{snsWrtNo}
 	</update>
-
-
-	<!-- 삭제 -->
 	
+	<!-- 그룹, sns 삭제 -->
+	<delete id="deleteGrp" statementType="CALLABLE" parameterType="map">
+		{ call DELETE_GRP(
+				#{snsGrpNo, mode=IN, jdbcType=DECIMAL},
+				#{delGrpResult, mode=OUT, jdbcType=DECIMAL, javaType=long}	
+			)
+		}
+	
+	</delete>
+	
+	
+	<!-- sns 리플 좋아요 한번에 삭제 -->
 	<delete id="deleteSns" statementType="CALLABLE" parameterType="map">
 	    {call DELETE_SNS(
             #{snsWrtNo, mode=IN, jdbcType=DECIMAL},

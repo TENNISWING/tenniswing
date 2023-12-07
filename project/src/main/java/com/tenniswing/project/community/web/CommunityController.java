@@ -140,6 +140,15 @@ public class CommunityController {
 		return result;
 	}
 	
+	// SNS, 그룹 삭제 처리
+	@PostMapping("grpDel")
+	@ResponseBody
+	public boolean snsDelGrpAjax(Integer snsGrpNo) {
+		boolean result = snsService.deleteGrp(snsGrpNo);
+		System.out.println("그룹삭제컨트롤러>>"+result);
+		return result;
+	}
+	
 	// 그룹에 매칭되는 sns List
 	@GetMapping("mySnsList")
 	@ResponseBody
@@ -158,6 +167,7 @@ public class CommunityController {
 		snsVO.setMemId(id);
 		
 		Map<String, Object> result = snsService.updateGrp(snsVO);
+	
 		return result;
 		
 	}
@@ -178,11 +188,9 @@ public class CommunityController {
 		System.out.println("repVO찍어봄" + snsRepVO);
 		int result = snsRepService.insertSnsRep(snsRepVO);
 
-//			if(result>0) {
-//				return "redirect:/sns";
-//			}else {
-//				return "member/singup";
-//			}
+		/*
+		 * if(result>0) { return "redirect:/sns"; }else { return "member/singup"; }
+		 */
 
 		return result;
 	}

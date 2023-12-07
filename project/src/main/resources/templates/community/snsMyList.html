@@ -29,7 +29,7 @@
 						<div class="row">
 							<div class="col-12">
 								<div class="section-title">
-									<h5 class="card-title mtitle mtitle2">작성자님이 등록한 SNS 그룹</h5>
+									<h5 class="card-title mtitle mtitle2">[[${grpList.get(0).name}]]님이 등록한 SNS 그룹</h5>
 								</div>
 							</div>
 						</div>
@@ -46,17 +46,18 @@
 													<img class="img-fluid w-100" src="/assets/compiled/jpg/banana.jpg" style="border-radius: 10px 10px 0 0;" alt="Card image cap">
 												</div>
 												<div class="card-footer d-flex justify-content-between" style="flex-direction: column; border: 1px solid #ccc; gap: 15px;">
-													<span>[[${mg.grpName}]]</span>
+													<span class="snsGrpName" id="snsGrpName" th:attrappend="id=${mg.snsGrpNo}">[[${mg.grpName}]]</span>
 														<div class="btn btn-light-primary edBtns d-flex" style="float: right; justify-content: space-between;">
 														<div class="gapBtn d-flex" style="gap: 15px; align-items: center;">
+															<!-- 모달열리게하는 수정아이콘 -->
 															<i type="button"
-																class="fa-regular fa-pen-to-square editBtnClass"
-																id="editSnsBtn" th:attrappend="id=${mgStat.count}"
+																class="fa-regular fa-pen-to-square editBtnClass"																
 																 data-bs-toggle="modal" th:data-snsgrpno="${mg.snsGrpNo}" th:data-grpname="${mg.grpName}"
-																	data-bs-target="#inlineForm"></i> 
+																	data-bs-target="#inlineForm" th:attrappend="data-bs-target=${mg.snsGrpNo}"></i> 
+															<!-- 삭제버튼 -->
 															<i type="button"
 																class="fa-regular fa-trash-can delBtnClass"
-																id="delSnsBtn"></i>
+																id="delSnsBtn" th:attrappend="id=${mg.snsGrpNo}" ></i>
 														</div>
 													<button class="btn btn-light-primary grpBtn" th:id="${mgStat.count}"
 														data-bs-toggle="collapse" th:data-snsgrpno="${mg.snsGrpNo}"
@@ -79,7 +80,7 @@
 													<span>기타</span>
 													<button class="btn btn-light-primary" th:id="${100}"
 														data-bs-toggle="collapse" data-bs-target="#collapseExample"
-														aria-expanded="false" aria-controls="collapseExample100">그룹
+														aria-expanded="false" aria-controls="collapseExample100">그룹 
 														목록보기</button>
 												</div>
 											</div>
@@ -123,7 +124,7 @@
 						<table class="table dashboard__table order-list">
 							<thead>
 								<tr>
-									<th scope="col" class="text-start" style="width: 300px;">[[${gl.grpName}]]</th>
+									<th scope="col" class="text-start grpBrdName" id="grpBrdName" th:attrappend="id=${gl.snsGrpNo}" style="width: 300px;">[[${gl.grpName}]]</th>
 									<th scope="col" class="text-start">제목</th>
 									<th scope="col" class="text-center">Action</th>
 								</tr>
@@ -268,74 +269,73 @@
 </div>
 
 <!-- Basic Tables end -->
-
+<div th:each="mg : ${grpList}">
 	<!-- 그룹등록모달 -->
-	<div class="modal fade text-left" id="inlineForm" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-		<div
-			class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-			role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel33">그룹 이름 변경</h4>
-					<button type="button" class="close" data-bs-dismiss="modal"
-						aria-label="Close">
-						<i data-feather="x"></i>
-					</button>
-				</div>
-				<form action="#">
-					<div class="modal-body">
-						<label for="email">그룹 이름</label>
-						<div class="form-group">
-							<input id="text" type="text" name="grpName" placeholder="변경할 그룹 이름을 입력하세요"
-								class="form-control grpInput">
+			<div class="modal fade text-left editNameModal" id="inlineForm" th:attrappend="id=${mg.snsGrpNo}" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+			<div
+				class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+				role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel33">그룹 이름 변경</h4>
+						<button type="button" class="close" data-bs-dismiss="modal"
+							aria-label="Close">
+							<i data-feather="x"></i>
+						</button>
+					</div>
+					<form action="#">
+						<div class="modal-body">
+							<label for="email">그룹 이름</label>
+							<div class="form-group">
+								<input id="text" type="text" name="grpName" placeholder="변경할 그룹 이름을 입력하세요"
+									class="form-control grpInput">
+							</div>
 						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-light-secondary"
-							data-bs-dismiss="modal">
-							<i class="bx bx-x d-block d-sm-none"></i> 
-							<span class="d-none d-sm-block">Close</span>
-						</button>
-						<button type="button" class="btn btn-primary ms-1 nameEditBtn"
-							data-bs-dismiss="modal">
-							<i class="bx bx-check d-block d-sm-none"></i> 
-							<span class="d-none d-sm-block">수정</span>
-						</button>
-					</div>
-				</form>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-light-secondary"
+								data-bs-dismiss="modal">
+								<i class="bx bx-x d-block d-sm-none"></i> 
+								<span class="d-none d-sm-block">Close</span>
+							</button>
+							<button type="button" class="btn btn-primary ms-1 nameEditBtn" th:no="${mg.snsGrpNo}"
+								data-bs-dismiss="modal"  th:onclick="myfunction(this.getAttribute('no'))">
+								<i class="bx bx-check d-block d-sm-none"></i> 
+								<span class="d-none d-sm-block">수정</span>
+							</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
-	<!-- 그룹등록모달 end -->
+		<!-- 그룹등록모달 end -->
+
+</div>
 
 <script>
-
-	// 그룹이름 수정 ajax
-	$('.nameEditBtn').on('click', function(e){
-		console.log(e.target);
-		/* let grpName = $('input[name=grpName]').val();
-		console.log(e.relatedTarget);
-		let snsGrpNo = $(e.relatedTarget).attr('data-snsgrpno');
-		 */
-		console.log(snsGrpNo);
+	function myfunction(grpNo){
+		let grpName = event.target.closest('form').querySelector('input[name=grpName]').value; // 이렇게하면 이벤트타겟의 부모에 있는값 지정가능
+		let snsGrpNo = grpNo;
 		
-	/* 	$.ajax({
+		$.ajax({
 			url:'editGrpName',
 			data:{grpName, snsGrpNo},
 			type: 'post',
-			datatype : 'text',
-			success : function(result) {
-				alert('그룹이름 수정성공');
+			success : function(data) {
+				if(data.result){
+					alert('그룹이름 수정성공');
+					$('#snsGrpName'+data.info.snsGrpNo).text(data.info.grpName);
+					$('#grpBrdName'+data.info.snsGrpNo).text(data.info.grpName);
+					$('input[name=grpName]').val('');
+				}
+				
 			},
 			error : function() {
 				alert("수정 실패");
 
 			}
-		}) */
-		
-	});
- 
+		}) 
+	} 
 
 
 	$('.btn.btn-light-primary').on('click', function (e) {
@@ -379,9 +379,9 @@
 
 	// 그룹에 해당하는 sns 리스트
 	$('.grpBtn').on('click', function (e) {
-		console.log(e.target);
+	
 		let snsGrpNo = $(e.target).attr('data-snsgrpno');
-		console.log(snsGrpNo);
+	
 		$.ajax({
 			type: 'GET',
 			url: 'mySnsList',
@@ -397,22 +397,15 @@
 								</td>
 								<td class="text-start">${grp.snsTitle}</td>
 								<td><div class="card__action text-center">
-									<a href="#" class="lg-btn ml-10"> 
-										<svg width="20" height="20"	viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path
-												d="M14.166 2.49999C14.3849 2.28112 14.6447 2.1075 14.9307 1.98905C15.2167 1.8706 15.5232 1.80963 15.8327 1.80963C16.1422 1.80963 16.4487 1.8706 16.7347 1.98905C17.0206 2.1075 17.2805 2.28112 17.4993 2.49999C17.7182 2.71886 17.8918 2.97869 18.0103 3.26466C18.1287 3.55063 18.1897 3.85713 18.1897 4.16665C18.1897 4.47618 18.1287 4.78268 18.0103 5.06865C17.8918 5.35461 17.7182 5.61445 17.4993 5.83332L6.24935 17.0833L1.66602 18.3333L2.91602 13.75L14.166 2.49999Z"
-												stroke="#667085" stroke-width="1.66667" stroke-linecap="round"
-												stroke-linejoin="round" />
-										</svg>
-									</a>
-									<button type="button" class="lg-btn ml-10 bg-light-subtle"
-										style="border: 0">
-										<svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M1.5 5.00001H3.16667M3.16667 5.00001H16.5M3.16667 5.00001V16.6667C3.16667 17.1087 3.34226 17.5326 3.65482 17.8452C3.96738 18.1577 4.39131 18.3333 4.83333 18.3333H13.1667C13.6087 18.3333 14.0326 18.1577 14.3452 17.8452C14.6577 17.5326 14.8333 17.1087 14.8333 16.6667V5.00001H3.16667ZM5.66667 5.00001V3.33334C5.66667 2.89131 5.84226 2.46739 6.15482 2.15483C6.46738 1.84227 6.89131 1.66667 7.33333 1.66667H10.6667C11.1087 1.66667 11.5326 1.84227 11.8452 2.15483C12.1577 2.46739 12.3333 2.89131 12.3333 3.33334V5.00001M7.33333 9.16667V14.1667M10.6667 9.16667V14.1667"
-											stroke="#667085" stroke-width="1.66667" stroke-linecap="round"
-											stroke-linejoin="round" />
-										</svg>
-									</button>
+										<div class="edBtns" style="float: right;">
+											<i type="button"
+												class="fa-regular fa-pen-to-square editBtnClass"
+												
+												id="editSnsBtn"></i> 
+											<i type="button"
+												class="fa-regular fa-trash-can delBtnClass"
+												id="delSnsBtn" ></i>
+										</div>
 									</div>
 								</td>
 							</tr> 
@@ -424,7 +417,48 @@
 
 		})
 	})
-
+	
+	// 그룹 sns 통으로 삭제
+	$('.delBtnClass').on('click', function(e){
+		Swal.fire({
+			  title: "정말 삭제하시겠습니까?",
+			  html: "그룹 삭제시 그룹 내 게시글도 삭제됩니다.<br> 정말 삭제하시겠습니까?",
+			  icon: "warning",
+			  showCancelButton: true,
+			  confirmButtonColor: "#3085d6",
+			  cancelButtonColor: "#d33",
+			  confirmButtonText: "Yes, delete it!"
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			    console.log($(e.target));
+				let snsGrpNo = $(e.target).prop("id").replace("delSnsBtn","");
+				console.log('딜리트그룹번호'+snsGrpNo);
+				$.ajax({
+					type: 'POST',
+					url: 'grpDel',
+					data: {snsGrpNo},
+					success: function(result){
+						if(result){
+							Swal.fire({
+								  icon: "success",
+								  title: "",
+								  text: "정상적으로 삭제되었습니다.",
+								}).then(function(){
+									location.reload();
+									//$('#review'+reviewNo).css('display','none');
+								})
+						}else{
+							Swal.fire({
+								  icon: "error",
+								  title: "",
+								  html: "정상적으로 삭제되지 않았습니다.<br>정보를 확인해주시기바랍니다.",
+							})
+						}
+					}
+				})
+		  	}
+		});
+	})
 </script>
 </th:block>
 

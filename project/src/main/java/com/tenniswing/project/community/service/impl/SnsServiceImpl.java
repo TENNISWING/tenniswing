@@ -147,7 +147,7 @@ public class SnsServiceImpl implements SnsService {
 
 	}
 
-	// 삭제
+	// sns, 댓글, 좋아요 삭제 프로시저
 	@Override
 	public boolean deleteSns(int snsWrtNo) {
 
@@ -163,7 +163,23 @@ public class SnsServiceImpl implements SnsService {
 			return false;
 		}
 	}
-
+	
+	// sns, 그룹 삭제 프로시저
+	@Override
+	public boolean deleteGrp(int snsGrpNo) {
+		HashMap<String, Long> map = new HashMap<String, Long>();
+		map.put("snsGrpNo", (long) snsGrpNo);
+		map.put("delGrpResult", (long) 0);
+		snsMapper.deleteGrp(map);
+		long result = (long) map.get("delGrpResult");
+		System.out.println("deleteGrp서비스임플" + result);
+		if (result >= 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	// 좋아요 삭제
 	@Override
 	public boolean deleteLike(int likeNo) {
@@ -199,6 +215,8 @@ public class SnsServiceImpl implements SnsService {
 		map.put("info", snsVO);
 		return map;
 	}
+
+	
 
 	/*
 	 * @Override public List<SnsVO> selectAllSnsInfo() { // TODO Auto-generated

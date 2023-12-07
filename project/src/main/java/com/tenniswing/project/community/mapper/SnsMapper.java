@@ -34,9 +34,11 @@ public interface SnsMapper {
 	public int updateSns(SnsVO snsVO);
 	public int updateGrp(SnsVO snsVO);
 	
-	// 삭제
+	// sns, 댓글, 좋아요 삭제 프로시저
 	public int deleteSns(Map<String, Long> map);
 	
+	// sns, 그룹 삭제
+	public int deleteGrp(Map<String, Long> map);
 
 	// 좋아요 삭제
 	public int deleteLike(int likeNo);
