@@ -32,7 +32,7 @@ public interface MemberService {
 	public Map<String, Object> updateMemberInfo(MemberVO memberVO);
 
 	// 삭제
-	public boolean deleteMember(int memId);
+	public boolean deleteMember(MemberVO memberVO);
 	
 	//매치이력
 	public Map<String, Object> myMatchHistory();

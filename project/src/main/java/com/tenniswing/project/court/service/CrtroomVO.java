@@ -48,6 +48,7 @@ public class CrtroomVO {
 	private String memId;
 	private String reviewCtt;
 	private int reviewStar;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date reviewWriteDate;
 	private Date reviewEditDate;
 	private int reserveNo;
@@ -57,6 +58,10 @@ public class CrtroomVO {
 	private int countReview;
 	
 	//페이징
-	private int page = 1;
+	private int page;
+	private int rn;
 	private int pageUnit = 12;
+	
+	//정렬
+	private String sort;
 }

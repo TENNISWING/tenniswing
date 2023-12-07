@@ -22,6 +22,13 @@ public class ProdDetailServiceImpl implements ProdDetailService{
 	public List<ProdDetailVO> selectAllProdDetail(ProdVO prodVO) {
 		return prodDetailMapper.selectAllProdDetail(prodVO);
 	}
+	
+	// 장바구니 등록시 한건 조회
+	@Override
+	public ProdDetailVO selectCartProd(ProdDetailVO prodDetailVO) {
+		return prodDetailMapper.selectCartProd(prodDetailVO);
+	}
+	
 	//등록
 	@Override
 	public Map<String, Object> insertProdDetail(ProdDetailVO prodDetailVO) {
@@ -83,5 +90,6 @@ public class ProdDetailServiceImpl implements ProdDetailService{
 		map.put("listDetailVO", prodDetailMapper.selectAllProdDetail(tempVO));
 		return map;	
 	}
+
 	
 }

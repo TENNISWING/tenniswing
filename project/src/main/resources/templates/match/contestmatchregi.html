@@ -40,9 +40,6 @@
 						<div class="col-5">
 								<label for="name">대회명</label><br>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control"
-										placeholder="대회명 입력" id="contName" name="contName" maxlength="10"
-										required>
 								</div>
 							</div>
 							</div>
@@ -113,24 +110,7 @@
 										</optgroup>
 									</select>
 								</div>
-							</div>
-							
-							<!-- <div class="row">
-							<div class="col-6">
-							<label for="gameWay">경기 방식</label><br>
-							<div class="form-group">
-								<select class="choices form-select" id="gameWay" name="gameWay">
-								<optgroup label="경기방식">
-									<option value="f1">단식</option>
-									<option value="f2">남복</option>
-									<option value="f3">여복</option>
-									<option value="f4">랠리</option>
-									<option value="f5">혼복</option>
-								</optgroup>
-								</select>
-							</div>
-						</div>
-						</div> -->
+							</div>							
 						
 						<div class="row">
 						<div class="col-5">
@@ -244,7 +224,7 @@
 						<button class="btn btn-success" type="submit">매치 등록</button>
 						<button class="btn btn-success" type="reset">취소</button>
 						<button class="btn btn-success" type="button"
-							th:onclick="|location.href='@{/}'|">돌아가기</button>
+							th:onclick="|location.href='@{/contestmatch}'|">돌아가기</button>
 
 					</div>
 					<!-- <div class="col-3 "></div> -->

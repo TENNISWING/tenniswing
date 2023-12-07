@@ -54,10 +54,22 @@ public class CourtController {
 			//페이징처리
 			pagingVO.setTotalRecord(courtroomService.selectCount(crtroomVO));
 			
-			model.addAttribute("courtList", courtroomService.selectAllCourtroomMain(crtroomVO));
+			//model.addAttribute("courtList", courtroomService.selectAllCourtroomMain(crtroomVO));
 			model.addAttribute("recentCrt", courtroomService.recentRegiCourt());
 			model.addAttribute("paging", pagingVO);
 			return "court/court";
+		}
+		
+		@GetMapping("courtAjax")
+		@ResponseBody
+		public Map<String, Object> courtAjax(CrtroomVO crtroomVO){
+			List<CrtroomVO> list = courtroomService.selectAllCourtroomMain(crtroomVO);
+			log.info("======="+list);
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("selectCount", courtroomService.selectCount(crtroomVO));
+			map.put("courtList", list);
+			
+			return map;
 		}
 		
 		@GetMapping("courtDetail")  
@@ -73,6 +85,15 @@ public class CourtController {
 			model.addAttribute("crtroomStar", courtroomService.crtroomStar(courtroom.getCrtroomNo()));
 			//System.out.println("--------------"+courtroom);
 			return "court/courtDetail";
+		}
+		
+		@GetMapping("courtFSP")
+		@ResponseBody
+		public Map<String, Object> courtFSP(CrtroomVO crtroomVO){
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("selectCount", courtroomService.selectCount(crtroomVO));
+			map.put("courtList", courtroomService.selectAllCourtroomMain(crtroomVO));
+			return map;
 		}
 		
 		@PostMapping("insertCourtReview")
@@ -107,6 +128,7 @@ public class CourtController {
 			CrtroomVO review = courtroomService.selectReview(reviewNo);
 			map.put("reviews", review);
 			map.put("result", isSuccessed);
+			map.put("memId", memId);
 			return map;
 		}
 		
@@ -201,5 +223,12 @@ public class CourtController {
 		// System.out.println(courtroomService.courtSearch(str));
 
 		return courtroomService.courtSearch(str);
+	}
+	
+	@PostMapping("cancel")
+	@ResponseBody
+	public boolean orderCancel(Model model, CrtReserveVO crtReserveVO) {
+		
+		return true;
 	}
 }
