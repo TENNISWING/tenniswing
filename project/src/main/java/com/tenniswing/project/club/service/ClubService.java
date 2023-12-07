@@ -31,8 +31,8 @@ public interface ClubService {
 	//회원 리스트(전체조회)
     //public List<ClubVO> selectAllClubMem(ClubVO clubVO);
 	
-	//페이징
-	public int selectClubPaging(ClubVO clubVO);
+	//페이징 전체 갯수
+	public int selectCount(ClubVO clubVO);
 	
 
 	//재은

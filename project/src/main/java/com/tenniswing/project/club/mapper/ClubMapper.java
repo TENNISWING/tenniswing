@@ -39,5 +39,5 @@ public interface ClubMapper {
 	//public List<ClubVO> selectAllClubMem(ClubVO clubVO);
 	
 	//페이징
-	public int selectClubPaging(ClubVO clubVO);
+	public int selectCount(ClubVO clubVO);
 }

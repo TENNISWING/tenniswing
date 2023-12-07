@@ -28,10 +28,10 @@ public class ClubServiceImpl implements ClubService {
 		return clubMapper.selectAllClub();
 	}
 	
-	//클럽 페이징
+	//클럽 페이징 전체 갯수 조회
 	@Override
-	public int selectClubPaging(ClubVO clubVO) {
-		return clubMapper.selectClubPaging(clubVO);
+	public int selectCount(ClubVO clubVO) {
+		return clubMapper.selectCount(clubVO);
 	}
 
 	//클럽 단건조회

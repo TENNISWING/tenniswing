@@ -64,10 +64,10 @@ public class ClubController {
 	 */
 	 @GetMapping("clubList")
 	 @ResponseBody 
-	 public HashMap<String, Object> clubPageAjax(ClubVO clubVO) {
+	 public Map<String, Object> clubListPage(ClubVO clubVO) {
 		 List<ClubVO> list = clubService.selectAllClub(clubVO);
 		 HashMap<String, Object> map = new HashMap<>();
-		 map.put("selectClubPaging", clubService.selectClubPaging(clubVO));
+		 map.put("selectCount", clubService.selectCount(clubVO));
 		 map.put("clubList", list);
 		 
 		 return map;
