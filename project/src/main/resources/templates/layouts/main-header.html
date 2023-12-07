@@ -269,7 +269,7 @@
 												</h5>
 												<h5 class="product__price cartPrice" id="cartPrice${cart.cartNo}">${cart.prodPrice}</h5>
 											</div>
-											<div class="shopping-card__content-top" id="soldOut">
+											<div class="shopping-card__content-top" id="soldOut${cart.cartNo}">
 												<p style="margin: 0 0 9px 3px; color: #344054;">[color]${cart.cateColor} [size]${cart.cateSize}</p>
 											</div>
 											<div class="shopping-card__content-bottom">
@@ -335,6 +335,7 @@
 		
 		allSto.each(function() {
 			let maxId = $(this).attr('id');
+			let prodNo = 
 			//console.log(maxId);
 			
 			$('#'+maxId).on('click', function(e) {

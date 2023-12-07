@@ -968,26 +968,34 @@
 					data : JSON.stringify(objData)
 				})
 				.done(result => {
-					
-				})
-				/* 장바구니 추가 ajax */
-				$.ajax('insertCart', {
-					type : 'post',
-					contentType : 'application/json',
-					data : JSON.stringify(objData)
-				})
-				.done(result => {
-					console.log('카트 등록 후'+result.result);
-					console.log('카트 등록 후'+result.cartVO);
-					if(result.result){
+					if(result){
 						Swal.fire({
-							  icon: "success",
+							  icon: "info",
 							  title: "장바구니",
-							  text: "장바구니가 추가되었습니다."
+							  text: "이미 존재하는 상품입니다."
+						});
+						return;
+					} else{
+						/* 장바구니 추가 ajax */
+						$.ajax('insertCart', {
+							type : 'post',
+							contentType : 'application/json',
+							data : JSON.stringify(objData)
 						})
+						.done(result => {
+							console.log('카트 등록 후'+result.result);
+							console.log('카트 등록 후'+result.cartVO);
+							if(result.result){
+								Swal.fire({
+									  icon: "success",
+									  title: "장바구니",
+									  text: "장바구니가 추가되었습니다."
+								})
+							}
+						})
+						.fail(err => console.log(err));
 					}
 				})
-				.fail(err => console.log(err));
 				
 			} else {
 				return;

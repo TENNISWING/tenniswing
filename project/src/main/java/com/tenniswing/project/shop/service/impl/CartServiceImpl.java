@@ -36,8 +36,12 @@ public class CartServiceImpl implements CartService{
 	
 	// 한건조회
 	@Override
-	public Map<String, Object> selectAllCart(CartVO cartvo) {
-		return null;
+	public boolean selectAllCart(CartVO cartvo) {
+		boolean isSucess = false;
+		if(cartMapper.selectCart(cartvo) != null) {
+			isSucess = true;
+		}
+		return isSucess;
 	}
 	
 	// 등록

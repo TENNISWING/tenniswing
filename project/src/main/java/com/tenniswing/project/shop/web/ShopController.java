@@ -99,7 +99,7 @@ public class ShopController {
 //	장바구니 한건조회
 	@PostMapping("selectCart")
 	@ResponseBody
-	public Map<String, Object> selectCart(@RequestBody CartVO cartvo){
+	public boolean selectCart(@RequestBody CartVO cartvo){
 		return cartService.selectAllCart(cartvo);
 	}
 	
