@@ -5,10 +5,11 @@ import java.util.Map;
 
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.club.service.ClubVO;
+import com.tenniswing.project.match.service.MatchVO;
 
 public interface ClubMapper {
 	//전체조회
-	public List<ClubVO> selectAllClub();
+	public List<ClubVO> selectAllClub(ClubVO clubVO);
 	
 	//단건조회
 	public ClubVO selectClub(ClubVO clubVO);
@@ -20,9 +21,11 @@ public interface ClubMapper {
 	
 	//수정
 	public int updateClub(ClubVO clubVO);
+	public int clubMemAdd(ClubVO clubVO);
 	
 	//삭제
 	public int deleteClub(int ClubNo);
+	public int clubMemDelete(int ClubVO);
 
 	//재은
 	public ClubVO selectMatchClub(ClubVO clubVO);
@@ -36,6 +39,11 @@ public interface ClubMapper {
 	//회원 리스트(전체조회)
 	//public List<ClubVO> selectAllClubMem(ClubVO clubVO);
 	
+
+	//페이징
+	public int selectCount(ClubVO clubVO);
+
 	//마이클럽 리스트
 	public List<Map<String, Object>> selectAllMyClub(String memId);
+
 }

@@ -5,6 +5,7 @@
 	<style>
 		.toggleBoard {
 			display: none;
+			
 		}
 
 		.boardContainer {
@@ -14,34 +15,11 @@
 		.toggleBoardTitle {
 			cursor: pointer;
 		}
-
-		/* 	.boardBody {
-	height: 0;
-	overflow: hidden;
-	transition: all 1s;
-}  */
-
-		/* #btn-all-close {
-	margin-bottom: 10px;
-	background-color: #726996;
-	border: none;
-	color: #fff;
-	cursor: pointer;
-	padding: 10px 25px;
-	float: right;
-}
-
-#btn-all-close:hover {
-	background-color: yellow;
-	color: #000;
-	transition: all 0.35s;
-} */
-		/* 		 .boardBody.active {
-			display: block;
-			 높이를 정해줘야지만 transition이 적용됨 fit-content 
-		height: 1200px;
-
-		} */
+		.boardBody{
+		box-shadow: 0px 9px 15px #d5d9db;
+   			margin: 3px;
+		}
+		
 	</style>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
@@ -60,10 +38,10 @@
 							</div>
 						</div>
 						<div class="shortBy-select select__style d-lg-flex d-none">
-							<label for="sortBy2">Sort by:</label> <select name="sortBy" id="sortBy2">
-								<option value="0">조회순</option>
-								<option value="0">인기순</option>
-								<option value="0">이름순</option>
+							<select name="sortBy" id="sortBy">
+								<option value="0">최신순</option>
+								<option value="1">조회순</option>
+								<option value="2">제목순</option>
 							</select>
 						</div>
 					</div>

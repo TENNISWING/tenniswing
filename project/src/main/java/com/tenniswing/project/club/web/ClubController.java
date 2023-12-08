@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,11 +56,15 @@ public class ClubController {
 	}
 
 	// 클럽리스트
-	@GetMapping("clubList")
-	@ResponseBody
-	public List<ClubVO> clubPageAjax(ClubVO clubVO) {
-		return clubService.selectAllClub(clubVO);
-	}
+	 @GetMapping("clubList")
+	 @ResponseBody 
+	 public Map<String, Object> clubListPage(ClubVO clubVO) {
+		 HashMap<String, Object> map = new HashMap<>();
+		 map.put("selectCount", clubService.selectCount(clubVO));
+		 map.put("clubList",clubService.selectAllClub(clubVO));
+		 
+		 return map;
+	 }
 
 	// 등록 페이지
 	@GetMapping("clubform")
@@ -85,16 +90,17 @@ public class ClubController {
 		return "redirect:club";
 
 	}
-
-	// 회원 클럽 가입신청(등록) 모달
-	@PostMapping("memFormAjax")
+	
+	//클럽 가입 신청
+	@PostMapping("insertClubMem")
 	@ResponseBody
-	public int clubMemFormAjax(ClubVO clubVO, Model model) {
+	public String insertClubMemAjax(ClubVO clubVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		clubVO.setMemId(id);
-		int result = clubService.insertClubMem(clubVO);
-		return result;
+		clubService.insertClubMem(clubVO);
+		return "redirect:club";
 	}
+
 
 // ---------------------------------------상세페이지
 
@@ -113,7 +119,7 @@ public class ClubController {
 	// 상세페이지 > 탭 > 클럽정보
 	@GetMapping("clubInfo")
 	public String infoTapPage(Model model, ClubVO clubVO) {
-		System.out.println("@@@@@@@@@@@@클럽정보탭에 들어왔는데"+clubVO);
+		//System.out.println("@@@@@@@@@@@@클럽정보탭에 들어왔는데"+clubVO);
 		//String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		//clubVO.setMemId(id);
 		model.addAttribute("club", clubService.selectClub(clubVO));
@@ -251,21 +257,53 @@ public class ClubController {
 
 	// 상세페이지 > 탭 > 멤버
 	@GetMapping("clubMember")
-	public String memberTapPage(Model model) {
-		return "club/clubMember";
+	public String memberTapPage(ClubVO clubVO ,Model model) {
+		model.addAttribute("club", clubService.selectClub(clubVO));
+		return "club/clubMember";	
 	}
+	
+	// 상세페이지 > 탭 > 진짜멤버 리스트
+		@GetMapping("clubMemList")
+		@ResponseBody
+		public List<ClubVO> memListAjax(ClubVO clubVO, Model model) {
+			clubVO.setClubApprove("m2");
+			model.addAttribute("realMem", clubService.selectclubMem(clubVO));
+			return clubService.selectclubMem(clubVO);
+		}
+		
+	// 상세페이지 > 탭 > 멤버 삭제
+	@PostMapping("clubMemDelete")
+	@ResponseBody
+	public boolean memberDeleteAjax(@RequestParam("paramMemNo") Integer clubMemNo) {
+		boolean result = clubService.clubMemDelete(clubMemNo);
+		return result;
+	}		
 
-	// 상세페이지 > 탭 > 클럽가입신청
+	// 상세페이지 > 탭 > 클럽가입 확인 페이지
 	@GetMapping("clubApply")
-	public String applyTapPage(Model model) {
+	public String applyTapPage(Model model, ClubVO clubVO) {
+		model.addAttribute("club", clubService.selectClub(clubVO));
 		return "club/clubApply";
 	}
 	
-	// 상세페이지 > 탭 > 클럽가입신청 리스트
+	// 상세페이지 > 탭 > 클럽가입 확인(신청) 리스트
 	@GetMapping("clubInquiryList")
 	@ResponseBody
-	public List<ClubVO> InquiryListAjax(ClubVO clubVO) {
+	public List<ClubVO> InquiryListAjax(ClubVO clubVO, Model model) {
+		clubVO.setClubApprove("m3");
+		model.addAttribute("mem", clubService.selectclubMem(clubVO));
 		return clubService.selectclubMem(clubVO);
 	}
+	
+	// 상세페이지 > 탭 > 클럽가입신청 (승인)모달
+		@PostMapping("memFormAjax")
+		@ResponseBody
+		public Map<String, Object> clubMemFormAjax(@RequestBody ClubVO clubVO) {
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			clubVO.setMemId(id);
+			Map<String, Object> result = clubService.clubMemAdd(clubVO);
+			System.out.println("@@@@@@@@@@@@@@@@승인했는데"+ result);
+			return result;
+		}
 
 }

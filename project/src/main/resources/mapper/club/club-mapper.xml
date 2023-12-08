@@ -2,260 +2,259 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tenniswing.project.club.mapper.ClubMapper">
-	<!-- 클럽 전체 조회 -->
-	<select id="selectAllClub" resultType="ClubVO">
-		SELECT club_no
-		, club_name
-		, FIND_CATEGORY_NAME (club_region)
-		club_region_name
-		, FIND_CATEGORY_NAME (club_gen) club_gen_name
-		,
-		FIND_CATEGORY_NAME (club_age) club_age_name
-		, FIND_CATEGORY_NAME
-		(club_day) club_day_name
-		, FIND_CATEGORY_NAME (club_time)
-		club_time_name
-		, club_intro
-		, club_crt
-		, club_mem_num
-		, FIND_CATEGORY_NAME
-		(club_recruitment) club_recruitment_name
-		, mem_id
-		, club_create_date
-		,
-		(SELECT ATTACH_PATH
+
+  <mapper namespace="com.tenniswing.project.club.mapper.ClubMapper">
+  <!-- 클럽 전체 조회 -->
+  
+  <select id = "selectAllClub" resultType="ClubVO">
+  SELECT * FROM ( SELECT A.* , rownum rn FROM (
+			SELECT  c.club_no
+					, c.club_name
+					, FIND_CATEGORY_NAME (c.club_region) club_region_name
+					, FIND_CATEGORY_NAME (c.club_gen) club_gen_name
+					, FIND_CATEGORY_NAME (c.club_age) club_age_name
+					, FIND_CATEGORY_NAME (c.club_day) club_day_name
+					, FIND_CATEGORY_NAME (c.club_time) club_time_name
+					, c.club_intro
+					, c.club_crt
+					, c.club_mem_num
+					, FIND_CATEGORY_NAME (c.club_recruitment) club_recruitment_name
+					, c.mem_id
+					, c.club_create_date
+					, a.attach_path
+			FROM club c JOIN attach a
+						  ON a.attach_table_pk = c.club_no
+			WHERE a.attach_table_div = 'cl'
+			<if test="clubRegion != null and clubRegion != ''">AND c.club_region = #{clubRegion}</if>
+      <if test="clubGen != null and clubGen != ''">AND c.club_gen = #{clubGen}</if>
+      <if test="clubName != null and clubName != ''">AND c.club_name LIKE '%'||#{clubName}||'%'</if>
+			<if test="sort != null and sort != ''">ORDER BY ${sort}</if>
+			<if test="!(sort != null and sort != '')">ORDER BY c.club_create_date DESC</if>
+			) A
+    ) B 
+  WHERE rn BETWEEN (#{page}-1)*#{pageUnit} + 1 and #{page} * #{pageUnit}
+  </select>
+  
+  <!-- 전체 갯수 -->
+  	<select id="selectCount" resultType="int">
+   		SELECT 	count(*)
+   		  FROM club c LEFT OUTER JOIN attach a
+						   		 ON a.attach_table_pk = c.club_no
+		 WHERE a.attach_table_div = 'cl'
+		 <if test="clubRegion != null and clubRegion != ''">AND c.club_region = #{clubRegion}</if>
+         <if test="clubGen != null and clubGen != ''">AND c.club_gen = #{clubGen}</if>
+         <if test="clubName != null and clubName != ''">AND c.club_name LIKE '%'||#{clubName}||'%'</if>
+	</select>	 
+  
+  <!-- 클럽 단건 조회 -->
+  <resultMap id="clubtResult" type="ClubVO">
+  <id column="club_no" property="clubNo"/>
+  		<collection property="clubMemList" javaType="ArrayList" column="club_no" ofType="clubVO" select="selectclubMem" />
+  	</resultMap>
+ <select id = "selectClub" resultType="clubVO">
+  	SELECT club_no
+  		   , club_name
+  		   , FIND_CATEGORY_NAME (club_region) club_region_name
+  		   , FIND_CATEGORY_NAME (club_gen) club_gen_name
+  		   , FIND_CATEGORY_NAME (club_age) club_age_name
+  		   , FIND_CATEGORY_NAME (club_day) club_day_name
+  		   , FIND_CATEGORY_NAME (club_time) club_time_name
+  		   , club_intro
+  		   , club_crt
+  		   , club_mem_num
+  		   , FIND_CATEGORY_NAME (club_recruitment) club_recruitment_name
+  		   , mem_id
+  		   , club_create_date
+  		   , (SELECT ATTACH_PATH
 		FROM ATTACH
-		WHERE club_no = attach_table_pk
-		AND
-		attach_table_div = 'cl') as ATTACH_PATH
-		FROM club
-		ORDER BY
-		club_create_date DESC
-		<!-- SELECT c.club_no , c.club_name , FIND_CATEGORY_NAME (c.club_region) 
-			club_region_name , FIND_CATEGORY_NAME (c.club_gen) club_gen_name , FIND_CATEGORY_NAME 
-			(c.club_age) club_age_name , FIND_CATEGORY_NAME (c.club_day) club_day_name 
-			, FIND_CATEGORY_NAME (c.club_time) club_time_name , c.club_intro , c.club_crt 
-			, c.club_mem_num , FIND_CATEGORY_NAME (c.club_recruitment) club_recruitment_name 
-			, c.mem_id , c.club_create_date , a.attach_path FROM club c JOIN attach a 
-			ON c.club_no = a.attach_table_pk WHERE a.attach_table_div = 'cl' GROUP BY 
-			c.club_no , c.club_name , c.club_region , c.club_gen , c.club_age , c.club_day 
-			, c.club_time , c.club_intro , c.club_crt , c.club_mem_num , c.club_recruitment 
-			, c.mem_id , c.club_create_date , a.attach_path ORDER BY c.club_create_date 
-			DESC -->
-	</select>
-
-	<!-- 클럽 단건 조회 -->
-	<resultMap id="clubtResult" type="ClubVO">
-		<id column="club_no" property="clubNo" />
-		<collection property="clubMemList" javaType="ArrayList"
-			column="club_no" ofType="clubVO" select="selectclubMem" />
-	</resultMap>
-	<!-- <select id = "selectClub" resultMap="clubtResult"> SELECT c.club_no 
-		, c.club_name , FIND_CATEGORY_NAME (c.club_region) club_region_name , FIND_CATEGORY_NAME 
-		(c.club_gen) club_gen_name , FIND_CATEGORY_NAME (c.club_age) club_age_name 
-		, FIND_CATEGORY_NAME (c.club_day) club_day_name , FIND_CATEGORY_NAME (c.club_time) 
-		club_time_name , c.club_intro , c.club_crt , c.club_mem_num , FIND_CATEGORY_NAME 
-		(c.club_recruitment) club_recruitment_name , c.mem_id , c.club_create_date 
-		, a.attach_path FROM club c JOIN attach a ON (c.club_no = a.attach_table_pk 
-		AND a.attach_table_div = 'cl') GROUP BY c.club_no , c.club_name , c.club_region 
-		, c.club_gen , c.club_age , c.club_day , c.club_time , c.club_intro , c.club_crt 
-		, c.club_mem_num , c.club_recruitment , c.mem_id , c.club_create_date , a.attach_path 
-		HAVING c.club_no = #{clubNo} </select> -->
-
-	<select id="selectClub" resultType="clubVO">
-		SELECT club_no
-		, club_name
-		,
-		FIND_CATEGORY_NAME (club_region) club_region_name
-		, FIND_CATEGORY_NAME
-		(club_gen) club_gen_name
-		, FIND_CATEGORY_NAME (club_age) club_age_name
-		, FIND_CATEGORY_NAME (club_day) club_day_name
-		, FIND_CATEGORY_NAME
-		(club_time) club_time_name
-		, club_intro
-		, club_crt
-		, club_mem_num
-		,
-		FIND_CATEGORY_NAME (club_recruitment) club_recruitment_name
-		, mem_id
-		,
-		club_create_date
-		, (SELECT ATTACH_PATH
-		FROM ATTACH
-		where club_no =
-		attach_table_pk
-		AND
-		attach_table_div = 'cl') as ATTACH_PATH
-		FROM club
-		WHERE club_no = #{clubNo}
-	</select>
-
-
-	<select id="selectclubMem" resultType="clubVO">
-		SELECT c.club_no
-		, p.nick
-		,
-		c.club_approve
-		, FIND_CATEGORY_NAME (p.age) mem_age
-		, FIND_CATEGORY_NAME
-		(p.gen) mem_gen
-		, FIND_CATEGORY_NAME (p.region)mem_region
-		,
-		FIND_CATEGORY_NAME (p.ntrp)mem_ntrp
-		, p.pr_image
-		FROM club_mem c LEFT
-		OUTER JOIN pr p
-		ON c.mem_id = p.mem_id
-		GROUP BY c.club_no
-		, p.nick
-		,
-		c.club_approve
-		, p.age
-		, p.gen
-		, p.region
-		, p.ntrp
-		, p.pr_image
-		HAVING
-		c.club_no = #{clubNo}
-	</select>
-
-
-	<!-- 클럽 등록 -->
-	<insert id="insertClub" parameterType="clubVO">
-		<selectKey keyProperty="clubNo" resultType="int"
-			order="BEFORE">
-			SELECT NVL(MAX(club_no),0)+1
-			FROM club
-		</selectKey>
-		INSERT INTO club
-		(
-		club_no
-		, club_name
-		, club_region
-		, club_gen
-		, club_age
-		,
-		club_day
-		, club_time
-		, club_intro
-		, club_crt
-		, club_mem_num
-		,
-		club_recruitment
-		, mem_Id
-		, club_create_date
-		)
-		VALUES
-		(
-		#{clubNo}
-		,
-		#{clubName}
-		, #{clubRegion}
-		, #{clubGen}
-		, #{clubAge}
-		, #{clubDay}
-		,
-		#{clubTime}
-		, #{clubIntro}
-		, #{clubCrt}
-		, 1
-		, #{clubRecruitment}
-		, #{memId}
-		, SYSDATE
-		)
-	</insert>
-
-
-	<!-- 클럽 수정 -->
-	<update id="updateClub" parameterType="clubVO">
+		where club_no = attach_table_pk
+		AND attach_table_div = 'cl') as ATTACH_PATH
+    		FROM club 
+    WHERE club_no = #{clubNo}
+  </select> 
+  
+ <!-- 신청 클럽 멤버 -->
+  <select id="selectclubMem" resultType="clubVO">
+  	    SELECT c.club_no
+  	    	, c.club_join_apply_wrt
+  	    	, c.club_mem_no
+            , p.nick
+            , FIND_CATEGORY_NAME (c.club_approve)club_approve_name
+            , FIND_CATEGORY_NAME (p.age) club_age_name
+            , FIND_CATEGORY_NAME (p.gen) club_gen_name
+            , FIND_CATEGORY_NAME (p.region)club_region_name
+            , FIND_CATEGORY_NAME (p.ntrp)mem_ntrp
+            , p.pr_image
+            , c.apply_date
+   FROM club_mem c LEFT OUTER JOIN pr p
+                                ON c.mem_id = p.mem_id
+   GROUP BY c.club_no  
+   			, c.club_join_apply_wrt
+   			, c.club_mem_no
+            , p.nick
+            , c.club_approve
+            , p.age
+            , p.gen
+            , p.region
+            , p.ntrp
+            , p.pr_image
+            , c.apply_date
+   HAVING c.club_no = #{clubNo} AND c.club_approve = #{clubApprove}
+  </select>
+  
+  
+  <!-- 클럽 등록 -->
+  <insert id="insertClub" parameterType="clubVO">
+  	<selectKey keyProperty="clubNo" resultType="int" order="BEFORE">
+  		SELECT NVL(MAX(club_no),0)+1
+  		FROM club
+  	</selectKey>
+  	INSERT INTO club
+  		(
+  		   club_no
+  		   , club_name
+  		   , club_region
+  		   , club_gen
+  		   , club_age
+  		   , club_day
+  		   , club_time
+  		   , club_intro
+  		   , club_crt
+  		   , club_mem_num
+  		   , club_recruitment
+  		   , mem_Id
+  		   , club_create_date
+  		)
+  		VALUES
+  		(
+  			#{clubNo}
+  			, #{clubName}
+  			, #{clubRegion}
+  			, #{clubGen}
+  			, #{clubAge}
+  			, #{clubDay}
+  			, #{clubTime}
+  			, #{clubIntro}
+  			, #{clubCrt}
+  			, 1
+  			, #{clubRecruitment}
+  			, #{memId}
+  			, SYSDATE
+  		)
+  </insert>
+  
+  
+  <!-- 클럽 수정 -->
+  <update id="updateClub" parameterType="clubVO">
 		UPDATE club
-		SET
-		club_name =
-		#{clubName}
-		, club_region = #{clubRegion}
-		, club_gen = #{clubGen}
-		,
-		club_age = #{clubAge}
-		, club_day = #{clubDay}
-		, club_time = #{clubTime}
-		, club_intro = #{clubIntro}
-		, club_crt = #{clubCrt}
-		, club_recruitment =
-		#{clubRecruitment}
+      SET
+        club_name = #{clubName}
+        , club_region = #{clubRegion}
+        , club_gen = #{clubGen}
+        , club_age = #{clubAge}
+        , club_day = #{clubDay}
+        , club_time = #{clubTime}
+        , club_intro = #{clubIntro}
+        , club_crt = #{clubCrt}
+        , club_recruitment = #{clubRecruitment}
 		WHERE club_no = #{clubNo}
 	</update>
-
-
-	<!-- 클럽 삭제 -->
-	<delete id="deleteClub" parameterType="int">
-		DELETE FROM club
-		WHERE
-		club_no = #{clubNo}
-	</delete>
-
-	<select id="selectMatchClub" resultType="ClubVO">
-		SELECT club_no
-		,
-		club_name
-		, FIND_CATEGORY_NAME (club_region) club_region_name
-		,
-		FIND_CATEGORY_NAME (club_gen) club_gen_name
-		, FIND_CATEGORY_NAME
-		(club_age) club_age_name
-		, FIND_CATEGORY_NAME (club_day) club_day_name
-		, FIND_CATEGORY_NAME (club_time) club_time_name
-		, club_intro
-		, club_crt
-		, club_mem_num
-		, FIND_CATEGORY_NAME (club_recruitment)
-		club_recruitment_name
-		, mem_id
-		, club_create_date
-		FROM club
-		WHERE club_no
-		= #{memId}
-	</select>
-
-	<!-- 회원 > 클럽 가입 등록 -->
-	<insert id="insertClubMem" parameterType="clubVO">
-		<selectKey keyProperty="clubMemNo" resultType="int"
-			order="BEFORE">
-			SELECT NVL(MAX(club_mem_no),0)+1
-			FROM club_mem
-		</selectKey>
-		INSERT INTO club_mem
-		(
-		club_mem_no
-		, club_join_apply_wrt
-		, club_approve
-		,
-		mem_id
-		, club_no
-		, apply_date
-		)
-		VALUES
-		(
-		#{clubMemNo}
-		, #{clubJoinApplyWrt}
-		,
-		'm3'
-		, #{memId}
-		, #{clubNo}
-		, SYSDATE
-		)
-	</insert>
-
-	<!-- 클럽 신청 목록 -->
-	<!-- <select id = "selectAllClub" resultType="ClubVO"> SELECT c.club_join_apply_wrt 
-		, c.club_name , FIND_CATEGORY_NAME (c.club_approve) club_approve_name , c.club_no 
-		, c.apply_date , c.mem_id , c.club_create_date , m.name , m. , a.attach_path 
-		FROM club c JOIN attach a ON c.club_no = a.attach_table_pk WHERE a.attach_table_div 
-		= 'cl' GROUP BY c.club_no , c.club_name , c.club_region , c.club_gen , c.club_age 
-		, c.club_day , c.club_time , c.club_intro , c.club_crt , c.club_mem_num , 
-		c.club_recruitment , c.mem_id , c.club_create_date , a.attach_path ORDER 
-		BY c.club_create_date DESC </select> -->
+  
+  <!-- 클럽 삭제 -->
+  <delete id="deleteClub" parameterType="int">
+  	DELETE FROM club
+  	WHERE club_no = #{clubNo}
+  </delete>
+  
+  <select id = "selectMatchClub" resultType="ClubVO">
+  	SELECT club_no
+  		   , club_name
+  		   , FIND_CATEGORY_NAME (club_region) club_region_name
+  		   , FIND_CATEGORY_NAME (club_gen) club_gen_name
+  		   , FIND_CATEGORY_NAME (club_age) club_age_name
+  		   , FIND_CATEGORY_NAME (club_day) club_day_name
+  		   , FIND_CATEGORY_NAME (club_time) club_time_name
+  		   , club_intro
+  		   , club_crt
+  		   , club_mem_num
+  		   , FIND_CATEGORY_NAME (club_recruitment) club_recruitment_name
+  		   , mem_id
+  		   , club_create_date
+    FROM club
+    WHERE club_no = #{memId}
+  </select>
+  
+  <!-- 회원 > 클럽 가입 등록 -->
+  <insert id="insertClubMem" parameterType="clubVO">
+  <selectKey keyProperty="clubMemNo" resultType="int" order="BEFORE">
+  		SELECT NVL(MAX(club_mem_no),0)+1
+  		FROM club_mem
+  	</selectKey>
+  	INSERT INTO club_mem
+  			(
+  				club_mem_no
+  				, club_join_apply_wrt
+  				, club_approve
+  				, mem_id
+  				, club_no
+  				, apply_date
+  			)
+  		   VALUES
+  		   (
+  		   	#{clubMemNo}
+  		   	, #{clubJoinApplyWrt}
+  		   	, 'm3'
+  		   	, #{memId}
+  		   	, #{clubNo}
+  		   	, SYSDATE
+  		   )
+  </insert>
+  
+  <!-- 멤버 승인/거절 -->
+  <update id = "clubMemAdd" parameterType="clubVO">
+  	UPDATE club_mem
+  	   SET club_approve = #{clubApprove}
+  	   	   , join_date = SYSDATE
+  	WHERE club_no = #{clubNo} AND club_mem_no = #{clubMemNo}   	   
+  </update>
+  
+   <!-- 멤버 삭제 -->
+  <delete id="clubMemDelete" parameterType="int">
+  	DELETE FROM club_mem
+  	WHERE club_mem_no = #{clubMemNo}
+  </delete>
+  
+   <!-- 클럽 신청 목록 -->
+  <!--  <select id = "selectAllClub" resultType="ClubVO">
+   		SELECT c.club_join_apply_wrt
+  		   , c.club_name
+  		   , FIND_CATEGORY_NAME (c.club_approve) club_approve_name
+  		   , c.club_no
+  		   , c.apply_date
+  		   , c.mem_id
+  		   , c.club_create_date
+  		   , m.name
+  		   , m.
+  		   , a.attach_path
+   		FROM club c JOIN attach a
+    			  ON c.club_no = a.attach_table_pk
+        WHERE a.attach_table_div = 'cl' 
+    	GROUP BY c.club_no
+   			 , c.club_name
+             , c.club_region
+             , c.club_gen
+             , c.club_age
+             , c.club_day
+             , c.club_time
+    	  	 , c.club_intro
+    	  	 , c.club_crt
+    	  	 , c.club_mem_num
+             , c.club_recruitment
+    	  	 , c.mem_id
+    	  	 , c.club_create_date
+    	  	 , a.attach_path
+    	ORDER BY c.club_create_date DESC
+   </select> -->
 
 	<!-- 마이페이지 클럽 목록 -->
 	<select id="selectAllMyClub" resultType="map">
@@ -277,3 +276,4 @@
 		cm.apply_date DESC
 	</select>
 </mapper>
+

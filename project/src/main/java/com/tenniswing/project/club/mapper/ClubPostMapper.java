@@ -23,4 +23,7 @@ public interface ClubPostMapper {
 	
 	//삭제
 	public int deletePost(int clubPostNo);
+	
+	//게시글 조회수
+	public void updatePostHit(int clubPostNo);
 }

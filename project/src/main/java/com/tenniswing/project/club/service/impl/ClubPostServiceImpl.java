@@ -63,6 +63,13 @@ public class ClubPostServiceImpl implements ClubPostService  {
 			return map;
 			
 		}
+
+		//조회수
+		@Override
+		public void updatePostHit(int clubPostNo) {
+			clubPostMapper.updatePostHit(clubPostNo);
+			
+		}
 		
 		
 
