@@ -90,7 +90,7 @@
 
 															<div class="input-group mb-3">
 																<select class="form-select" id="snsGrpNo" th:field="*{snsGrpNo}">
-																	<option selected value="1">그룹선택 안함</option>
+																	<option selected value="">그룹선택 안함</option>
 																	<th:block th:each="g : ${grpList}">
 																		<option th:value="${g.snsGrpNo}">[[${g.grpName}]]</option>
 																	</th:block>
@@ -120,13 +120,13 @@
                                             </div>
                                         </div>
                                                
-                                     <div class="col-12">
+                               <!--       <div class="col-12">
                                             <div class="form-group mandatory">
                                                 <label for="contact-info-vertical">사진 / 동영상 첨부하기</label>
                                                <input type="file" class="image-preview-filepond" id="files" name="files" multiple>
                                             </div>
                                         </div> 
-                                        
+                                         -->
                                         <div class="col-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
                                             <button type="reset"

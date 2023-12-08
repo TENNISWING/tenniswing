@@ -21,7 +21,7 @@ public interface SnsService {
 	public SnsVO selectLikeNo(SnsVO snsVO);
 	
 	// 등록
-		public int insertSns(SnsVO snsVO);
+		public int insertSns(SnsVO snsVO,  List<AttachVO> files );
 		// 그룹등록
 		public int insertSnsGrp(SnsVO snsVO);
 		// 좋아요 등록

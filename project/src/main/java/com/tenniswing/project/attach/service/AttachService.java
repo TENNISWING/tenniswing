@@ -16,9 +16,6 @@ public interface AttachService {
 	//업데이트
 	public int updateAttach(String tableDiv, int tablePk, List<AttachVO> files);
 	
-	// sns 삭제
-//	public boolean deleteAttachSns(int tablePk);
-	
 	//코트 첨부파일 순서
 	//public int saveAttachTurn(String tableDiv, int tablePK, List<AttachVO> files);
 }
