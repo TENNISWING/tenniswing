@@ -32,7 +32,7 @@ public class SnsVO {
 //	private Map<String, String> snsTag;
 	
 	//sns 좋아요
-	private int likeNo;
+	private Integer likeNo;
 	private int likeCnt; //좋아요 수 count
 	
 	//memId

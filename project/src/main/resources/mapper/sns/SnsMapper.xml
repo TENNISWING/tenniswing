@@ -20,8 +20,8 @@
 				, s.sns_hit
 				, m.name
 				, s.mem_id
-				, g.grp_name
-				, g.sns_grp_no
+				<!-- , g.grp_name
+				, g.sns_grp_no -->
 				,( SELECT COUNT(*)
 				     FROM sns_like l
 				    where l.sns_wrt_no = s.sns_wrt_no ) as like_cnt
@@ -32,8 +32,8 @@
 					and mem_id = #{memId}) as like_no
 				</if>    
 		from sns s
-				join sns_grp g
-		 			 on s.sns_grp_no = g.sns_grp_no
+		<!-- 		join sns_grp g
+		 			 on s.sns_grp_no = g.sns_grp_no -->
 				join mem m
 					 on s.mem_id = m.mem_id
 		  
@@ -74,17 +74,25 @@
 				    FROM sns_like l
 				    where l.sns_wrt_no = s.sns_wrt_no ) as like_cnt
 		from sns s
-			join sns_grp g
+			left outer join sns_grp g
 			  on s.sns_grp_no = g.sns_grp_no
 			join mem m
 			  on s.mem_id = m.mem_id
         where sns_wrt_no= #{snsWrtNo}
 	</select>
 
-	<!-- memId와 grpNo가 일치하는 그룹 조회 -->
-	<select id="selectSnsGrp" resultType = "SnsVO">
-		
-	
+	<!-- memId와 snsWrtNo가 일치하는 단건 조회 editform에서 쓸거임 -->
+	<select id="selectSnsOne" resultType = "SnsVO">
+		select sns_wrt_no
+			   , sns_title
+			   , sns_ctt
+			   , sns_write_date
+			   , sns_tag
+			   , mem_id
+			   , sns_grp_no
+		from sns
+		where sns_wrt_no = #{snsWrtNo}
+		and mem_id = #{memId}
 	</select>
 
 	<!-- 내가 등록한 그룹 리스트 sns, sns_grp 다 데려옴 -->
@@ -215,7 +223,23 @@
 		order by s.grp_create_date desc
 	</select>
 	
-	
+	<!-- sns 테이블에서 그룹번호가 null인 애들 조회 -->
+	<select id="selectGrpNull" parameterType="SnsVO">
+		select s.sns_wrt_no 
+			, s.sns_title
+			, s.sns_ctt
+			, s.sns_write_date
+			, s.sns_tag
+			, s.sns_hit
+			, m.name
+			, s.mem_id
+            , s.sns_grp_no
+		from sns s
+				join mem m
+				on s.mem_id = m.mem_id
+		where s.mem_id = #{memId}
+		and s.sns_grp_no is null
+	</select>
 	
 	
 	<!-- 수정 : 그룹업데이트 -->
@@ -235,7 +259,7 @@
 		  where sns_wrt_no = #{snsWrtNo}
 	</update>
 	
-	<!-- 그룹, sns 삭제 -->
+	<!-- 첨부파일, 좋아요, 댓글, 그룹, sns 삭제 -->
 	<delete id="deleteGrp" statementType="CALLABLE" parameterType="map">
 		{ call DELETE_GRP(
 				#{snsGrpNo, mode=IN, jdbcType=DECIMAL},

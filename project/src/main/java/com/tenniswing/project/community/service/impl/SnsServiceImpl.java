@@ -7,10 +7,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tenniswing.project.attach.mapper.AttachMapper;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.community.mapper.SnsMapper;
 import com.tenniswing.project.community.mapper.SnsRepMapper;
@@ -22,6 +24,9 @@ public class SnsServiceImpl implements SnsService {
 
 	@Autowired
 	SnsRepMapper snsRepMapper;
+	
+	@Autowired
+	AttachMapper attachMapper;
 
 	@Autowired
 	SnsMapper snsMapper;
@@ -44,6 +49,12 @@ public class SnsServiceImpl implements SnsService {
 
 		return snsMapper.selectMyGroup(snsVO); // 그룹조회한 mapper where memId
 	}
+	
+	// 그룹이 NULL인 그룹 리스트 조회
+	@Override
+	public List<SnsVO> selectGrpNull(SnsVO snsVO) {
+		return snsMapper.selectGrpNull(snsVO);
+	}
 
 	// 단건 조회
 	@Override
@@ -52,8 +63,10 @@ public class SnsServiceImpl implements SnsService {
 	}
 
 	// 등록
+	@Transactional
 	@Override
-	public int insertSns(SnsVO snsVO) {
+	public int insertSns(SnsVO snsVO, List<AttachVO> files ) {
+		//태그 value에 #붙이기
 		ObjectMapper obj = new ObjectMapper();
 		String tag = "";
 		try {
@@ -63,15 +76,24 @@ public class SnsServiceImpl implements SnsService {
 					tag += "#" + i.get("value") + ",";
 				}
 				snsVO.setSnsTag(tag);
-
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+		// sns등록
 		int result = snsMapper.insertSns(snsVO);
 
+		// 파일등록
+		if(! CollectionUtils.isEmpty(files)) {
+			for (AttachVO file : files) {
+				file.setAttachTableDiv("s");
+				file.setAttachTablePk(snsVO.getSnsWrtNo());
+			}
+			
+			attachMapper.saveAttachAll(files);
+		}
+		
 		if (result == 1) {
 			return snsVO.getSnsWrtNo();
 		} else {
@@ -215,6 +237,8 @@ public class SnsServiceImpl implements SnsService {
 		map.put("info", snsVO);
 		return map;
 	}
+
+
 
 	
 
