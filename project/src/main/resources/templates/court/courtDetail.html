@@ -433,12 +433,6 @@ body{
 														</div>
 													</div>
 													</th:block>
-													<script>
-													
-													
-													
-														
-													</script>
 													<!-- <div class="review__item">
 														<div class="avatar">
 															<img src="assets/img/shop/teni.jpg" alt="avatar" />
@@ -471,7 +465,7 @@ body{
 													</div> -->
 													<br>
 												<div style="display: flex; justify-content: center">
-												<button id="reviewLoad" class="btn btn-primary" style="width: 200px;">More</button>
+													<button id="reviewLoad" class="btn btn-primary" style="width: 200px;">More</button>
 												</div>
 												</div>
 											</div>
@@ -527,7 +521,7 @@ body{
 			<div class="row">
 				<div class="col-12">
 					<div class="section-title" style="margin: 50px 0 0 0">
-						<h2><span style="font-size: 25px">Nearby Court</span></h2>
+						<h2><span style="font-size: 25px; font-family: 'NanumSquareNeo-Variable';">Nearby Court</span></h2>
 					</div>
 				</div>
 			</div>
@@ -631,17 +625,19 @@ body{
 											</div>
 											<div class="product__title">
 												<h5>
-													<a th:onclick="|location.href='@{/courtDetail(crtroomNo=${nearCrt.crtroomNo})}'|">[[${nearCrt.crtroomName}]]</a>
+													<a th:onclick="|location.href='@{/courtDetail(crtroomNo=${nearCrt.crtroomNo})}'|"
+														style="font-family: 'NanumSquareNeo-Variable';">[[${nearCrt.crtroomName}]]</a>
 												</h5>
 											</div>
 											<div class="product__bottom">
-												<div class="product__price">
+												<div class="product__price" style="font-family: 'NanumSquareNeo-Variable';">
 													[[${#numbers.formatInteger(nearCrt.minPrice, 3, 'COMMA') + '원'}]] ~
 													<!-- <del>$22.00</del> -->
 												</div>
 												<div class="cart__action__btn">
 													<div class="cart__btn">
-														<button type="button" th:onclick="|location.href='@{/courtDetail(crtroomNo=${nearCrt.crtroomNo})}'|" class="btn btn-outline">상세보기</button>
+														<button type="button" th:onclick="|location.href='@{/courtDetail(crtroomNo=${nearCrt.crtroomNo})}'|" class="btn btn-outline"
+														style="font-family: 'NanumSquareNeo-Variable';">상세보기</button>
 													</div>
 													<!-- <div class="quantity cart__quantity">
 														<button type="button" class="decressQnt">
@@ -690,7 +686,7 @@ body{
 		<!--review form Modal -->
 		<form method="POST" th:object="${crtroomVO}" id="addReview" enctype="multipart/form-data">
 		<input type="hidden" name="crtroomNo" th:value="${param.crtroomNo}">
-		<div class="modal fade text-left" id="inlineForm"
+		<div class="modal fade text-left" id="inlineForm" style="font-family: 'NanumSquareNeo-Variable';"
 			tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
 			aria-hidden="true">
 			<div
@@ -924,8 +920,19 @@ body{
 					$('.review__item:hidden').slice(0,3).show();
 					if($(".review__item:hidden").length == 0){ // 컨텐츠 남아있는지 확인
 			            $('#reviewLoad').fadeOut(100); // 컨텐츠 없을 시 버튼 사라짐
+			            b = `<div style="text-align: center;">
+							마지막 페이지 입니다.
+							</div>`
+							$('.review__wrapper').append(b);
 			        }
 				});
+			}
+			if($('.review__item').length == 0){
+				b = `<div style="text-align: center;">
+					후기가 없습니다.
+					</div>`
+					$('.review__wrapper').append(b);
+					$('#reviewLoad').hide();
 			}
 		</script>
 	<!-- Trending Section End -->
@@ -1095,7 +1102,7 @@ body{
 													console.log(reserve.reserveTime);
 													if(reserve.reserveTime === reserveTimeCode[i][0]){
 														b = `
-															<tr class="navbar-brand">
+															<tr class="navbar-brand" style="font-family: 'NanumSquareNeo-Variable';">
 																<td class="text-center" style="width: 10%"><b>`+crtIndoorOutdoorName+`</b></td>
 																<td style="width: 50%; text-align: center;">`+reserveTimeCode[i][1]+`
 																<input type="hidden" class="reserveTime" value="`+reserveTimeCode[i][0]+`"></td>
@@ -1118,7 +1125,7 @@ body{
 										console.log($("#matchList").length);	
 										if($(".navbar-brand").length == 0){
 											b = `<tr class="navbar-brand">
-												<td colspan="5">예약 가능한 시간이 없습니다.</td>
+												<td colspan="5" style="font-family: 'NanumSquareNeo-Variable';">예약 가능한 시간이 없습니다.</td>
 												</tr>`
 												$('#matchList').append(b);
 											return

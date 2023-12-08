@@ -26,7 +26,7 @@
 						</div>
 
 						<div class="row">
-							<div class="col-8">
+							<div class="col-7">
 								<label for="crtroomNo">자주가는 코트</label><br>
 								<div class="input-group mb-3">
 									<input type="text" class="form-control" placeholder="코트 입력"
@@ -37,10 +37,11 @@
 						</div>
 						
 						<div class="row">
-						<div class="col-5">
+						<div class="col-6">
 								<label for="name">대회명</label><br>
 								<div class="input-group mb-3">
-								</div>
+								<input type="text" class="form-control" placeholder="대회명 입력"
+										aria-describedby="crtroomBtn" id="contName" name="contName">								</div>
 							</div>
 							</div>
 							
@@ -220,12 +221,11 @@
 									</div>
 								</div>
 							</div>
-						</div>
+							<div class="ctrgbtns"><br>
 						<button class="btn btn-success" type="submit">매치 등록</button>
-						<button class="btn btn-success" type="reset">취소</button>
-						<button class="btn btn-success" type="button"
-							th:onclick="|location.href='@{/contestmatch}'|">돌아가기</button>
-
+						<button class="btn btn-success" type="button" th:onclick="|location.href='@{/contestmatch}'|">취소</button>
+						</div>
+</div>
 					</div>
 					<!-- <div class="col-3 "></div> -->
 				</div>

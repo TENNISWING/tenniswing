@@ -5,6 +5,9 @@
 	svg, path, span {
 		pointer-events: none;
 	}
+	.swal2-popup {
+	 	z-index: 1000000 !important;
+	}
 </style>
 <th:block th:fragment="header">
 	<!-- header -->
@@ -201,11 +204,11 @@
 				</div>
 				<!-- Cart Items End -->
 				<!-- Cart SubTotal Start -->
-				<ul class="cart__subtotal" style="border-top: none;">
-					<!-- <li>
-						<span class="label">Subtotal</span> <span class="value">$45.00</span>
+				<ul class="cart__subtotal" >
+					<li>
+						<span class="label">총 수량</span> <span class="value" id="totalCartCount"></span>
 					</li>
-					<li><span class="label">Shipping:</span> <span class="value">$15.22</span>
+					<!-- <li><span class="label">Shipping:</span> <span class="value">$15.22</span>
 					</li> -->
 				</ul>
 				<!-- Cart SubTotal End -->
@@ -214,14 +217,14 @@
 					<h3>
 						결제금액 <span>(Incl. VAT)</span>
 					</h3>
-					<div class="total">$60.22</div>
+					<div class="total" id="totalCartPrice"></div>
 				</div>
 				<!-- Total End -->
 			</div>
 			<!-- Cart Button Start -->
 			<div class="cart__btns">
-				<a href="checkout" class="btn btn-primary">상품 주문</a> <a
-					href="#" class="btn btn-outline" style="border: 1px solid">쇼핑 하기</a>
+				<a href="checkout?type=cart" id="cartCheckout" class="btn btn-primary">상품 주문</a>
+				<a href="shop" class="btn btn-outline" style="border: 1px solid">쇼핑 하기</a>
 			</div>
 			<!-- Cart Button End -->
 		</div>
@@ -271,25 +274,25 @@
 												<h5 class="product__title">
 													<a href="shopDetail?prodNo=${cart.prodNo}"><b>${cart.prodName}</b></a>
 												</h5>
-												<h5 class="product__price cartPrice" id="cartPrice${cart.cartNo}">${cart.prodPrice}</h5>
+												<h5 class="product__price cartPrice" id="cartPrice_${cart.cartNo}" value="${cart.prodPrice}">${cart.prodPrice}</h5>
 											</div>
-											<div class="shopping-card__content-top" id="soldOut">
-												<p style="margin: 0 0 9px 3px; color: #344054;">[color]${cart.cateColor} [size]${cart.cateSize}</p>
+											<div class="shopping-card__content-top" id="soldOut${cart.cartNo}">
+												<p style="margin: 0 0 9px 3px; color: #344054;">Color: ${cart.cateColor}  Size: ${cart.cateSize}</p>
 											</div>
 											<div class="shopping-card__content-bottom">
 												<div class="quantity__wrapper">
 													<div class="quantity">
-														<button type="button" class="decressQnt" id="checkCartDown${cart.cartNo}">
+														<button type="button" class="decressQnt decressQntCart" id="checkCartDown_${cart.cartNo}">
 															<span class="bar"></span>
 														</button>
-														<input class="qnttinput" type="number" value="${cart.cartProdQt}" id="prodCartDetailSto${cart.cartNo}"
+														<input class="qnttinput qnttinputCart" type="number" value="${cart.cartProdQt}" id="prodCartDetailSto_${cart.cartNo}"
 															min="0" max="${cart.prodDetailSto}" readonly="readonly" />
-														<button type="button" class="incressQnt" id="checkCartCount${cart.cartNo}">
+														<button type="button" class="incressQnt incressQntCart" id="checkCartCount_${cart.cartNo}">
 															<span class="bar"></span>
 														</button>
 													</div>
 												</div>
-												<button type="button" class="action__btn" id="deleteCartBtn" style="padding-right: 0;">
+												<button type="button" class="action__btn deleteCartBtn" id="deleteCartBtn_${cart.cartNo}" style="padding-right: 0;">
 													<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
 														xmlns="http://www.w3.org/2000/svg">
 														<path
@@ -304,38 +307,115 @@
 									</div>`;
 					$('#cartList').append(cartData);
 				}
-				changeCartPrice();
-				$(".incressQnt").on("click", function () {
-			        var $qty = $(this).closest("div").find(".qnttinput");
+				// 가격 포멧 변경
+				//changeCartPrice();
+				
+				
+				$(".incressQntCart").on("click", function () {
+			        var $qty = $(this).closest("div").find(".qnttinputCart");
 			        var currentVal = parseInt($qty.val(), 10);
 			        if (!isNaN(currentVal)) {
 			            $qty.val(currentVal + 1);
 			        }
+			        //changeOrginPrice();
+			        cartProdPrice();
+			        
+			        // 수량 변경시 디비 업데이트
+			        let cartNo;
+			        let cartProdQt;
+			        
+			        let updateTempId = $(this).prev().attr('id');
+			        console.log($(this).prev().attr('id'));
+			        cartNo = updateTempId.split('_')[1];
+			        cartProdQt = $('#'+updateTempId).val();
+			        
+			        //console.log(cartNo+','+cartProdQt);
+			        
+			        let updateCartData = {};
+			        updateCartData.cartNo = cartNo;
+			        updateCartData.cartProdQt = cartProdQt;
+			        updateCartData.memId = cartMemId;
+			        
+			        $.ajax('updateCart', {
+			        	type : 'post',
+			        	contentType : 'application/json',
+						data : JSON.stringify(updateCartData)
+			        })
+			        .done(result => {
+			        	console.log(result);
+			        })
+								        
 			    });
-			    $(".decressQnt").on("click", function () {
-			        var $qty = $(this).closest("div").find(".qnttinput");
+			    $(".decressQntCart").on("click", function () {
+			        var $qty = $(this).closest("div").find(".qnttinputCart");
 			        var currentVal = parseInt($qty.val(), 10);
 			        if (!isNaN(currentVal) && currentVal > 0) {
 			            $qty.val(currentVal - 1);
 			        } else {
 			            $(this).parents(".cart__action__btn").find(".cart__quantity").css("display", "none");
 			        }
+			        //changeOrginPrice();
+			        cartProdPrice();
+			        
+			     // 수량 변경시 디비 업데이트
+			        let cartNo;
+			        let cartProdQt;
+			        
+			        let updateTempId = $(this).next().attr('id');
+			        console.log($(this).prev().attr('id'));
+			        cartNo = updateTempId.split('_')[1];
+			        cartProdQt = $('#'+updateTempId).val();
+			        
+			        //console.log(cartNo+','+cartProdQt);
+			        
+			        let updateCartData = {};
+			        updateCartData.cartNo = cartNo;
+			        updateCartData.cartProdQt = cartProdQt;
+			        updateCartData.memId = cartMemId;
+			        
+			        $.ajax('updateCart', {
+			        	type : 'post',
+			        	contentType : 'application/json',
+						data : JSON.stringify(updateCartData)
+			        })
+			        .done(result => {
+			        	console.log(result);
+			        })
 			    });
 			    
+			    // span 클릭 이벤트 안되게 막기
 			    $('span').css('pointer-events', 'none');
+			    
+			    // 스윗 모달
+			    $('.swal2-popup').css("z-index",'999999');
+			    
+			 	// 최대 재고 체크
 			    checkAllProd();
+			 	
+			 	// 삭제버튼 클릭 시
+			 	$('.deleteCartBtn').on('click', function() {
+			 		console.log('asdf'+$(this).attr('id'));
+			 		let delProdNo = $(this).attr('id').split('_')[1];
+			 		
+			 		$(".flyoutCart").toggleClass("active");
+			 		deleteCartItem(delProdNo, cartMemId);
+			 	});
 			})
 			.fail(err => console.log(err));
 			
+			// 장바구니 모달 나오게 처리
 			$(".flyoutCart").toggleClass("active");
 		}
 	});
 	
 	/* 최대 재고 체크 */
 	function checkAllProd() {
+		
+		// 품절된 상품 있는지 체크
 		checkCountProd();
-		let allSto = $('.incressQnt');
-		let downSto = $('.decressQnt');
+		
+		let allSto = $('.incressQntCart');
+		let downSto = $('.decressQntCart');
 		
 		allSto.each(function() {
 			let maxId = $(this).attr('id');
@@ -357,28 +437,53 @@
 				let upBtn = e.target.parentElement.children[2];
 				$(upBtn).attr('disabled', false);
 			})
-		})
+		});
+		
+		cartProdPrice();
 	}
 	
 	/* 재고 체크 */
 	function checkCountProd() {
-		let sto = $('.qnttinput');
-		//let allSto = $('.incressQnt');
+		let sto = $('.qnttinputCart');
+		//let allSto = $('.incressQntCart');
 		
 		sto.each(function() {
 			let stoInputId = $(this).attr('id');
+			
+			// cartNo 가져오기 
+			let cartProdNo = stoInputId.split('_');
+			//console.log('no ' + cartProdNo[1]);
+			
 			if($('#'+stoInputId).attr('max') == 0) {
 				$('#'+stoInputId).val('0');
 				$('#'+stoInputId).next().attr('disabled', true);
 				$('#'+stoInputId).prev().attr('disabled', true);
 				
+				// sold out 처리
 				let soldData = `<span class="badge bg-success"style="background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important">
 								 SOLD OUT</span>`
-				$('#soldOut').append(soldData);
+				$('#soldOut'+cartProdNo[1]).append(soldData);
 			}
 			
+		});	
+	}
+	/* 재고에 따라 가격 변경 */
+	function cartProdPrice() {
+		let price = $('.cartPrice');
+
+		price.each(function() {
+			let cartPriceId = $(this).attr('id');
+			
+			// cartNo 가져오기 
+			let cartProdNo = cartPriceId.split('_');
+			console.log($('#prodCartDetailSto_'+cartProdNo[1]).val());
+			console.log($('#'+cartPriceId).attr('value'));
+			let calCartProdPrice = Number($('#prodCartDetailSto_'+cartProdNo[1]).val()) * Number($('#'+cartPriceId).attr('value'));
+			//console.log(calCartProdPrice);
+			$('#'+cartPriceId).text(calCartProdPrice);
 		});
-		
+		totalCart();
+		changeCartPrice();
 	}
 	
 	/* 가격 */
@@ -397,7 +502,111 @@
 			$('#'+priceId).text(changePrice);
 		});
 	}
-    
+	
+	/* 원래가격 */
+	function changeOrginPrice() {
+		let price = $('.cartPrice');
+		
+		price.each(function(){
+			priceId = $(this).attr('id');
+			let changePrice = $('#'+priceId).text();
+			changePrice = changePrice.replace(/[^0-9]/g, '');
+			$('#'+priceId).text(changePrice);
+		});
+	}
+	
+	/* 총 수량 / 결제 금액 계산 */
+    function totalCart() {
+    	let price = $('.cartPrice');
+    	let count = $('.qnttinputCart');
+    	
+    	//console.log(count);
+    	let totalCount = 0;
+    	let totalPrice = 0;
+    	
+    	// 총 수량
+    	count.each(function(){
+    		totalCount += Number($(this).val());	
+    	})
+    	
+    	// 총 가격
+    	price.each(function(){
+			let cartPriceId = $(this).attr('id');
+			
+			// cartNo 가져오기 
+			let cartProdNo = cartPriceId.split('_');
+    		if($('#prodCartDetailSto_'+cartProdNo[1]).val() != 0)
+    			totalPrice += Number($(this).attr('value') * $('#prodCartDetailSto_'+cartProdNo[1]).val());	
+    	})
+    	totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원';
+    	
+    	//console.log(totalPrice);
+    	$('#totalCartCount').text(totalCount+' 개');
+    	$('#totalCartPrice').text(totalPrice);
+	}
+	
+	/* 석제 처리 */
+	function deleteCartItem(cartNo, memId) {
+		let deleteCartData = {};
+		
+		deleteCartData.cartNo = cartNo;
+		deleteCartData.memId = memId;
+		
+		Swal.fire({
+			title: "장바구니",
+			text: "상품을 삭제하시겠습니까?",
+			icon: "question",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "확인",
+			cancelButtonText: "취소"
+		}).then((result) => {
+			//console.log(result);
+			if (result.isConfirmed) {				
+				$.ajax('deleteCart', {
+					type : 'post',
+					contentType : 'application/json',
+					data : JSON.stringify(deleteCartData)	
+				})
+				.done(result => {
+					if(result){
+						Swal.fire({
+							  icon: "success",
+							  title: "삭제 완료",
+							  text: "장바구니에서 삭제되었습니다.",
+							  didClose: () => {
+								  //$(".flyoutCart").toggleClass("active");
+								  $('.myCart').trigger("click");
+							  }
+						})
+					} else {
+						Swal.fire({
+							  icon: "error",
+							  title: "삭제 실패",
+							  text: "시스템 확인중입니다.",
+						}).then(function(){
+							location.reload();
+						});
+					}
+				}) // end of done
+				.fail(err => {
+					console.log(err);
+					Swal.fire({
+						  icon: "error",
+						  title: "삭제 실패",
+						  text: "시스템 확인중입니다.",
+					});
+				})
+			}
+		});
+		/* end of then */
+	}
+	
+	/* 장바구니에서 결제 페이지 이동 */
+	/* $('#cartCheckout').on('click', function() {
+		
+	}) */
 	</script>
 </th:block>
 

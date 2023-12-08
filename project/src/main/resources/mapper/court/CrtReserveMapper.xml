@@ -80,6 +80,7 @@
 	 ORDER BY 2
 </select>
 
+
 <!-- 마이페이지 예약 목록  -->
 <select id="selectMyCourtReverse" resultType="map">
 	SELECT r.RESERVE_NO
@@ -96,4 +97,75 @@
 	WHERE r.mem_id = #{memId}
 	ORDER BY r.pay_date
 </select>
+
+<!-- 호스트 -->
+<!-- 호스트별 예약 전체 조회 -->
+<select id="selectAllCrtReserve" resultType="CrtReserveVO">
+	SELECT r.RESERVE_NO
+			, r.RESERVE_PRICE
+			, r.RESERVE_STATE
+			, FIND_CATEGORY_NAME(r.RESERVE_STATE) reserve_state_name
+			, r.RESERVE_PAY_NO
+			, r.CRTROOM_NO
+			, r.CRT_DETAIL_NO
+			, r.MEM_ID
+			, r.RESERVE_UID
+			, r.PAY_DATE
+			, rd.RESERVE_DETAIL_NO
+			, rd.RESERVE_DATE
+			, rd.RESERVE_TIME
+			, FIND_CATEGORY_NAME(rd.RESERVE_TIME) RESERVE_TIME_NAME
+			, c.crtroom_name
+	FROM reserve r JOIN crtroom c 
+					ON r.crtroom_no = c.crtroom_no
+				   JOIN reserve_detail_inf rd
+				    ON r.reserve_no = rd.reserve_no
+	WHERE c.host_id = #{hostId}
+</select>
+
+<!-- 호스트별 환불 전체 조회 -->
+<select id="selectAllCrtRefund" resultType="CrtReserveVO">
+	SELECT r.reserve_no
+			, c.crtroom_name
+			, r.mem_id
+			, r.reserve_price
+			, r.reserve_pay_no
+			, r.crtroom_no
+			, r.crt_detail_no
+			, r.reserve_uid
+			, r.pay_date
+			, rd.reserve_detail_no
+			, rd.reserve_date
+			, rd.reserve_time
+			, FIND_CATEGORY_NAME(rd.RESERVE_TIME) RESERVE_TIME_NAME
+			, r.crtroom_no
+			, rc.cancel_date
+			, rc.refund_price
+			, rc.refund_charge
+			, rc.reserve_cancel_no
+	FROM reserve r JOIN reserve_cancel rc
+							ON rc.reserve_no = r.reserve_no
+							JOIN reserve_detail_inf rd
+							ON rc.reserve_no = rd.reserve_no
+							JOIN crtroom c
+							ON r.crtroom_no = c.crtroom_no
+	WHERE c.host_id = #{hostId}
+</select>
+<!-- 호스트별 정산 전체 조회 -->
+<select id="selectAllCrtCalc" resultType="CrtReserveVO">
+	SELECT CALC_NO
+			, CALC_DATE
+			, CALC_PRICE
+			, PAY_PRICE
+			, CALC_STATE
+			, FIND_CATEGORY_NAME(calc_state) calc_state_name
+			, PAY_CASE
+			, CALC_START_DATE
+			, CALC_END_DATE
+	FROM crt_calc
+	WHERE host_id = #{hostId}
+</select>
+
+<!-- 환불 정보 입력 -->
+
 </mapper>

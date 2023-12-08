@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/admin/admin-layout}">
+<th:block layout:fragment="admincontent">
+	<!-- Main__container Start-->
+	<div class="main__container">
+		<!-- Main Inner Wrapper Start -->
+		<div class="main__inner--wrapper">
+			<!-- Product List Start -->
+			<div class="row">
+				<div class="col-12">
+					<div class="dashboard__breadcrumb">
+						<div class="breadcrumb__meta">
+							<ul style="padding: 0;">
+								<li><a onclick="history.back()" class="link"><i
+										class="fa-solid fa-arrow-left me-2"></i> Back</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="dashboard__header">
+						<div class="d__header--left">
+							<h2 class="title">Order details: #789262</h2>
+							<!-- <div class="danger__btn border-30">30 order</div> -->
+						</div>
+						<!-- <div class="add__btn">
+                                <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i>Add product</a>
+                            </div> -->
+					</div>
+					<!-- Address Wrapper Start -->
+					<div class="address__wrapper">
+						<div class="address__cards">
+							<div class="address__header">
+								<h5 class="title">Customer Info</h5>
+								<a href="#" class="danger__btn" data-bs-toggle="modal"
+									data-bs-target="#customer-info">edit</a>
+							</div>
+							<ul class="address__list">
+								<li>Name: <span>Mariya Debh</span></li>
+								<li>Order Date: <span>16/06/22 at 04:35Pm</span></li>
+								<li>Email: <span>Mariya@example.com</span></li>
+								<li>Contect: <span>+38 (094) 730-24-25</span></li>
+							</ul>
+						</div>
+						<div class="address__cards">
+							<div class="address__header">
+								<h5 class="title">Delivery Address</h5>
+								<!-- <a href="#" class="danger__btn">edit</a> -->
+								<a href="#" class="danger__btn" data-bs-toggle="modal"
+									data-bs-target="#delivery-address">edit</a>
+							</div>
+							<ul class="address__list">
+								<li>Block Number: <span>B-256</span></li>
+								<li>Address: <span>Random Federatio 12530</span></li>
+								<li>Pin Code: <span>259467</span></li>
+								<li>Phone: <span>+38 (094) 730-24-25</span></li>
+							</ul>
+						</div>
+
+						<div class="address__cards">
+							<div class="address__header">
+								<h5 class="title">Billing Address</h5>
+								<a href="#" class="danger__btn" data-bs-toggle="modal"
+									data-bs-target="#billing-address">edit</a>
+							</div>
+							<ul class="address__list">
+								<li>Block Number: <span>A-256</span></li>
+								<li>Address: <span>Random 115302</span></li>
+								<li>Pin Code: <span>025467</span></li>
+								<li>Phone: <span>+38 (254) 698-24-25</span></li>
+							</ul>
+						</div>
+					</div>
+					<!-- Address Wrapper End -->
+					<div class="form-padding">
+						<h3 class="card_title mb-15">Order Summery</h3>
+						<div class="table-responsive">
+							<div class="cart__form">
+								<table>
+									<thead>
+										<tr>
+											<th class="cart-pd__thumb">Product Name</th>
+											<th class="cart-pd__date text-start">Product Id</th>
+											<th class="cart-pd__qty">Quantity</th>
+											<th class="cart-pd__status">Status</th>
+											<th class="cart-pd__price">Price</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="cart-pd__thumb">
+												<div class="product-card--inline">
+													<a href="product-single.html" class="product__image"> <img
+														src="assets/images/cart/cart-01.png" alt="product" />
+													</a>
+													<div class="product__content">
+														<h5 class="product__title">
+															<a href="#">Italian Chicken Meatballs</a>
+														</h5>
+														<ul class="product__info">
+															<li class="info-item">Color: <span>Red</span></li>
+															<li class="info-item">Size: <span>M</span></li>
+														</ul>
+													</div>
+												</div>
+											</td>
+											<td class="cart-pd__date text-start" data-title="Date">794193231932</td>
+											<td class="cart-pd__qty" data-title="Quantity">2</td>
+											<td class="cart-pd__status" data-title="Status">
+												<div class="primary__btn border-30">Processing</div>
+											</td>
+											<td class="cart-pd__Price" data-title="Price">$12.59</td>
+										</tr>
+										<tr>
+											<td class="cart-pd__thumb">
+												<div class="product-card--inline">
+													<a href="product-single.html" class="product__image"> <img
+														src="assets/images/cart/cart-03.png" alt="product" />
+													</a>
+													<div class="product__content">
+														<h5 class="product__title">
+															<a href="#">Strawberry Fresh Ice-Cream</a>
+														</h5>
+														<ul class="product__info">
+															<li class="info-item">Flavor: <span>Berry</span></li>
+														</ul>
+													</div>
+												</div>
+											</td>
+											<td class="cart-pd__date text-start" data-title="Date">789753888828</td>
+											<td class="cart-pd__qty" data-title="Quantity">4</td>
+											<td class="cart-pd__status" data-title="Status">
+												<div class="info__btn border-30">Shipment</div>
+											</td>
+											<td class="cart-pd__Price" data-title="Price">$12.59</td>
+										</tr>
+										<tr>
+											<td class="cart-pd__thumb">
+												<div class="product-card--inline">
+													<a href="product-single.html" class="product__image"> <img
+														src="assets/images/cart/cart-02.png" alt="product" />
+													</a>
+													<div class="product__content">
+														<h5 class="product__title">
+															<a href="#">All Natural Blueberries </a>
+														</h5>
+														<ul class="product__info">
+															<li class="info-item">Weight: <span>5kg</span></li>
+														</ul>
+													</div>
+												</div>
+											</td>
+											<td class="cart-pd__date text-start" data-title="Date">784787505212</td>
+											<td class="cart-pd__qty" data-title="Quantity">1</td>
+											<td class="cart-pd__status" data-title="Status">
+												<div class="warning__btn border-30">Arrived</div>
+											</td>
+											<td class="cart-pd__Price" data-title="Price">$12.59</td>
+										</tr>
+										<tr>
+											<td class="border-none pt-10" style="border: 0">&nbsp;</td>
+											<td class="border-none pt-10" style="border: 0">&nbsp;</td>
+											<td class="border-none pt-10" style="border: 0">&nbsp;</td>
+											<td class="border-none pt-10 text-end"><strong>Total</strong></td>
+											<td class="border-none pt-10"><strong>$231.20</strong></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Product List End -->
+		</div>
+		<!-- Main Inner Wrapper End -->
+	</div>
+	<!-- Main__container End-->
+
+
+</th:block>
+
+</html>

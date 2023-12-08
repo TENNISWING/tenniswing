@@ -395,7 +395,6 @@
 		, FIND_CATEGORY_NAME (b.crtroom_location) crtroom_location_name
 		, a.attach_path
 		FROM cont_match c, crtroom b, attach a
-
 		WHERE c.crtroom_no = b.crtroom_no
 		AND c.crtroom_no = a.attach_table_pk
 		AND a.attach_table_div = 'cd'
@@ -505,7 +504,9 @@
 		VALUES
 		(
 		#{matchNo}
-		,#{clubName}
+		,(select club_name
+		  from club
+		  where club_no = #{clubNo})
 		,#{matchDate}
 		,#{time}
 		,#{gameWay}
@@ -638,10 +639,12 @@
 
 	<!-- 클럽 수정 -->
 	<update id="updateClubMatch" parameterType="MatchVO">
-		UPDATE club_match
+		UPDATE club_match 
 		SET
 		match_no = #{matchNo}
-		, club_name = #{clubNmae}
+		, club_name = (select club_name
+		  from club
+		  where club_no = #{clubNo})
 		, match_date = #{matchDate}
 		, time = #{time}
 		, game_way = #{gameWay}

@@ -51,8 +51,8 @@
 	                                <td>[[ ${#dates.format(courtList.crtroomRegiDate,'yyyy년MM월dd일')} ]]</td>
 	                                <td>
 	                                	<div th:onclick="|location.href='@{/hostCourtDetail(crtroomNo=${courtList.crtroomNo})}'|" class="btn icon btn-primary"><i class="icon dripicons dripicons-enter"></i></div>
-	                           			<div class="btn icon btn-success edit" th:onclick="|location.href='@{/editCourtroom(crtroomNo=${courtList.crtroomNo})}'|" id="courtroomEdit" th:attrappend="id=${stat.index}"><i class="icon dripicons dripicons-pencil"></i></div>
-										<div class="btn icon btn-danger courtroom" id="courtroomDelete" th:attrappend="id=${stat.index}"><i class="icon dripicons dripicons-trash"></i></div>
+	                           			<div class="btn icon btn-success edit" th:onclick="|location.href='@{/editCourtroom(crtroomNo=${courtList.crtroomNo})}'|" id="courtroomEdit" th:attrappend="id=${courtList.crtroomNo}"><i class="icon dripicons dripicons-pencil"></i></div>
+										<div class="btn icon btn-danger courtroom" id="courtroomDelete" th:attrappend="id=${courtList.crtroomNo}"><i class="icon dripicons dripicons-trash" style="pointer-event: none;"></i></div>
 	                                </td>
 	                            </tr>
 	                            <!-- Vertically Centered modal Modal -->
@@ -142,6 +142,8 @@
 		  	}
 		});
 	})
+	//pointer-event: none; => 버튼에만 클릭..
+	
 		/* let msg = [[${result}]]
 		if(msg != null) alert(msg); */
 	</script>
