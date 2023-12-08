@@ -227,7 +227,27 @@ public class CommunityController {
 		boolean result = snsService.deleteLike(likeNo);
 		return result;
 	}
-
+	
+	//스크랩 등록
+	@PostMapping("scrapInsert")
+	@ResponseBody
+	public int insertScrapAjax(SnsVO snsVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		snsVO.setMemId(id);
+		int result = snsService.insertScrap(snsVO);
+		
+		return result;
+	}
+	//스크랩 삭제 
+	@PostMapping("scrapDelete")
+	@ResponseBody
+	public boolean deleteScrapAjax(Integer scrapNo,SnsVO snsVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		snsVO.setMemId(id);
+		boolean result = snsService.deleteScrap(scrapNo);
+		return result;
+	}
+	
 	// sns 내가 등록한 게시글 보기
 	@GetMapping("snsMyList")
 	public String snsMyListPage(SnsVO snsVO, Model model) {

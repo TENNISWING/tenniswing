@@ -25,11 +25,13 @@ public interface SnsMapper {
 	// 좋아요 등록
 	public int insertLike(SnsVO snsVO);
 	// 스크랩 등록
-	public int insertSnsScrap(SnsVO snsVO);
+	public int insertScrap(SnsVO snsVO);
 	// 댓글 등록
 	public int insertSnsRep(SnsVO snsVO);
 	// 대댓글 등록
 	public int insertSnsRrep(SnsVO snsVO);
+	
+	
 	
 	// 수정
 	public int updateSns(SnsVO snsVO);
@@ -43,6 +45,9 @@ public interface SnsMapper {
 
 	// 좋아요 삭제
 	public int deleteLike(int likeNo);
+	
+	// 스크랩 삭제
+	public int deleteScrap(int scrapNo);
 	
 	// 회원별 게시글당 좋아요 번호 조회
 	public SnsVO selectLikeNo(SnsVO snsVO);

@@ -21,6 +21,6 @@ public class SnsRepVO {
 	private String memId;
 	// + 글번호, 멤버no
 	
-	private List<SnsRepVO> snsRRepList;
+	private List<SnsRepVO> snsRrepList;
 	
 }

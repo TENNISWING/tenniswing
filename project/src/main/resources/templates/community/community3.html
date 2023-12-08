@@ -8,6 +8,7 @@
 	width: 600px;
 	height: 1200px;
 }
+
 </style>
 <!-- tagify 소스 다운 -->
 <script src="https://unpkg.com/@yaireo/tagify"></script>
@@ -201,8 +202,11 @@
 														<!-- 스크랩 버튼 -->
 														<li class="d-flex flex-column">
 															<div>
-																<a class="btn icon btn-white bmark"> 
-																<i class="fa-regular fa-bookmark fs-5 text-secondary iBmark"></i>
+																<a th:if="${s.scrapNo>0}" class="btn icon btn-white bmark"> 
+																	<i class="fa-solid fa-bookmark fs-5 text-secondary iBmark" th:data-scrapno="${s.scrapNo}" th:data-snswrtno="${s.snsWrtNo}" id="scrapBtn" th:attrappend="id=${sStat.count}"></i>
+																</a>
+																<a th:unless="${s.scrapNo>0}" class="btn icon btn-white bmark"> 
+																	<i class="fa-regular fa-bookmark fs-5 text-secondary iBmark active" th:data-scrapno="${s.scrapNo}" th:data-snswrtno="${s.snsWrtNo}" id="scrapBtn" th:attrappend="id=${sStat.count}"></i>
 																</a>
 															</div>
 														</li>
@@ -266,7 +270,7 @@
 										<th></th>
 									</tr>
 								</thead>
-								<tbody id="replyList">
+								<tbody id="replyList" class="replyList">
 									<!-- 	<tr th:each="num : ${#numbers.sequence(1,5)}">
 												<td>Graiden</td>
 												<td>vehicula.aliquet@semconsequat.co.uk</td>
@@ -277,8 +281,8 @@
 											</tr> -->
 
 								</tbody>
-
 							</table>
+								<!-- <a href="#" id="load" class="load">MORE</a> -->
 
 						</div>
 					</div>
@@ -335,26 +339,17 @@
 	// sns 공유 버튼
 	$('.btn.icon.btn-white.snsBtns i').on('click', function(e) {
 		$(e.target).toggleClass('active');
-
 		let cnt = $(e.target).prop('id');
-
 			for(let i=1; i<= $('.btn.icon.btn-white.snsBtns').length; i++){
 				$('#collapseExample'+ i).attr('class', 'snsBtnsCol collapse')
-
 			}
-
-
 			if ($(e.target).hasClass('active')) {
-
 				$('#collapseExample'+ cnt).attr('class',
 						'snsBtnsCol collapse show')
-
 						//console.log($('#collapseExample'+i));
-
 			}else{
 				$('.btn.icon.btn-white.snsBtns i').attr("class", "fa-solid fa-share-from-square fs-5 text-secondary" );
 			}
-
 	});
 
 
@@ -410,7 +405,7 @@
 		}
 
 		// 스크랩버튼 클릭마다 모양바뀌게
-		$('.bmark').on('click', function(e) {
+	/* 	$('.bmark').on('click', function(e) {
 			event.stopPropagation();
 			console.log(e.target);
 			if ($(e.target).hasClass('fa-regular fa-bookmark fs-5 text-secondary iBmark')) {
@@ -418,95 +413,103 @@
 			} else if ($(e.target).hasClass('fa-solid fa-bookmark fs-5 text-secondary iBmark')) {
 				$(e.target).attr('class', 'fa-regular fa-bookmark fs-5 text-secondary iBmark')
 			}
-		});
+		}); */
 		
-			//좋아요 insert, delete
-			$('.likeBtnC').on('click', function(e){
+		// 스크랩 insert, delete
+	/* 		$('.bmark').on('click', function(e) {
+			event.stopPropagation();
+			console.log(e.target);
+			if ($(e.target).hasClass('fa-regular fa-bookmark fs-5 text-secondary iBmark')) {
+				//인서트
 				
-				let snsWrtNo = $(this).attr('data-snsWrtNo');
-			      if($(this).hasClass("active")){
-		                console.log('액티브있는거찍는중');
-						//인서트
-						$.ajax({
-								url : 'snsLikeInsert',
-								data : {snsWrtNo},
-								type : 'post',
-								datatype : 'text',
-								success : function(result) {
-										alert("좋아요성공")
-										
-										//location.href="/sns";
-										console.log($(e.target))
-										$(e.target).attr('class','fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC')
-										$(e.target).removeClass("active");
-								},
-								error : function() {
-									alert("좋아요 실패")
-			
-							}
-						
-		            })
-			      }else{
-		               //딜리트
-		               let likeNo = $(this).attr('data-likeno');
-		               $.ajax({
-		            	   url:'snsLikeDel',
-		            	   data:{likeNo},
-		            	   type:'post',
-		            	   datatype:'json',
-		            	   success: function(result){
-		            		   alert("delete 성공")
-		            		   $(e.target).attr('class','fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active')
-		            	   }
-		     
-		               })
-		            }
-			
+				$(e.target).attr('class','fa-solid fa-bookmark fs-5 text-secondary iBmark')
+			} else if ($(e.target).hasClass('fa-solid fa-bookmark fs-5 text-secondary iBmark')) {
+				$(e.target).attr('class', 'fa-regular fa-bookmark fs-5 text-secondary iBmark')
+			}
+		}); */
+		
+		$('.iBmark').on('click', function(e){
+			let snsWrtNo = $(this).attr('data-snswrtno');
+			if($(this).hasClass("active")){
+				console.log('액티브> 안눌린 스크랩버튼');
+				//인서트
+				$.ajax({
+					url : 'scrapInsert',
+					data : {snsWrtNo},
+					type : 'post',
+					datatype: 'text',
+					success : function(result){
+						alert("스크랩성공");
+						$(e.target).attr('class','fa-solid fa-bookmark fs-5 text-secondary iBmark');
+						$(e.target).removeClass("active");
+					},
+					error: function() {
+						alert("좋아요 실패")
+					}
+				})
+			}else{
+				//딜리트
+			      let scrapNo = $(this).attr('data-scrapno');
+	               $.ajax({
+	            	   url:'scrapDelete',
+	            	   data:{scrapNo},
+	            	   type:'post',
+	            	   datatype:'json',
+	            	   success: function(result){
+	            		   alert("스크랩 delete 성공")
+	            		   $(e.target).attr('class','fa-regular fa-bookmark fs-5 text-secondary iBmark active');
+	            	 }
+				})
+			}
 			})
-		// 좋아요 insert delete
-		 /* <a th:unless="${s.likeNo>0}" class="btn icon btn-white"
-			th:data-snslike="${s.snsWrtNo}">
-			<i class="fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active"
-			th:data-likeno="${s.likeNo}" id="likeBtn"
-			th:attrappend="id=${sStat.count}"> </i>
-		</a> */
 		
-	/* 	$('.fa-regular.fa-thumbs-up.fs-5.text-secondary.likeBtnC.active').on('click', function(e){
-		 	console.log('좋아요 눌리나요');
-		 	//좋아요 delete	
-			let likeno=$('.likeBtn').data('data-likeno');
-			console.log(likeno);
+		
+		
+		
+		//좋아요 insert, delete
+		$('.likeBtnC').on('click', function(e){
 			
-			if(likeno>0){
-				console.log('삭제할거임')
-			}else if(likeno=0){
-			//좋아요 인서트	
-			console.log('등록할거임')
-			}	 								
-			console.log('찍힘?');
+			let snsWrtNo = $(this).attr('data-snsWrtNo');
+		      if($(this).hasClass("active")){
+	                console.log('액티브있는거찍는중');
+					//인서트
+					$.ajax({
+							url : 'snsLikeInsert',
+							data : {snsWrtNo},
+							type : 'post',
+							datatype : 'text',
+							success : function(result) {
+									alert("좋아요성공")
+									
+									//location.href="/sns";
+									console.log($(e.target))
+									$(e.target).attr('class','fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC')
+									$(e.target).removeClass("active");
+							},
+							error : function() {
+								alert("좋아요 실패")
+						}
+	            })
+		      }else{
+	               //딜리트
+	               let likeNo = $(this).attr('data-likeno');
+	               $.ajax({
+	            	   url:'snsLikeDel',
+	            	   data:{likeNo},
+	            	   type:'post',
+	            	   datatype:'json',
+	            	   success: function(result){
+	            		   alert("delete 성공")
+	            		   $(e.target).attr('class','fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active')
+	            	   }
+	     
+	               })
+	           }
+		
 		})
-		
-		//fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active
 
 		
-		$('.fa-regular.fa-thumbs-up.fs-5.text-secondary.likeBtnC').on('click', function(e){
-			console.log('좋아요 눌리나요');
-		 	//좋아요 delete	
-			let likeno=$('.likeBtn').data('data-likeno');
-			console.log(likeno);
-			
-			if(likeno>0){
-				console.log('삭제할거임')
-			}else if(likeno=0){
-			//좋아요 인서트	
-			console.log('등록할거임')
-			}	 								
-			console.log('액티브없는거찍힘?');
-		}) */
-
-
-		let repList = 0;
-
+	let repList = 0;
 	// 댓글 모달창이 열릴때 이벤트
 	let snsWrtNo = 0;
 	var snsRepNo = 0;
@@ -542,7 +545,8 @@
 							<td><i type="button"
 								class="fa-regular fa-pen-to-square repEditBtn" id="editBtn`+index+`"></i>
 								<i type="button" class="fa-regular fa-trash-can repDelBtn" id="delBtn`+index+`"></i></td>
-						</tr>`
+						</tr>
+						`
 		               $('#replyList').append(b);
 		            }
 
@@ -681,8 +685,17 @@
          	})
 
 		})
+	//댓글 더보기 버튼
 
-
+/* 	$(".hidDiv").slice(0, 1).show();
+     $('.replyList > div').slice(0, 5).css("display", "block"); 
+    $(".load").click(function(e){
+        e.preventDefault();
+        $(".replyList >div:hidden").slice(0, 5).fadeIn(200).css('display', 'block'); // 클릭시 more 갯수 지저정
+        if($(".replyList >div:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+            $('.load').text('댓글 없음'); // 컨텐츠 없을 시 버튼 사라짐
+        }
+    }); */
 
 
 

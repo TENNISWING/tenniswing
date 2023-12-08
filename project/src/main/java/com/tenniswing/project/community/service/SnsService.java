@@ -21,13 +21,13 @@ public interface SnsService {
 	public SnsVO selectLikeNo(SnsVO snsVO);
 	
 	// 등록
-		public int insertSns(SnsVO snsVO,  List<AttachVO> files );
-		// 그룹등록
-		public int insertSnsGrp(SnsVO snsVO);
-		// 좋아요 등록
-		public int insertLike(SnsVO snsVO);
-		// 스크랩 등록
-		public int insertSnsScrap(SnsVO snsVO);
+	public int insertSns(SnsVO snsVO,  List<AttachVO> files );
+	// 그룹등록
+	public int insertSnsGrp(SnsVO snsVO);
+	// 좋아요 등록
+	public int insertLike(SnsVO snsVO);
+	// 스크랩 등록
+	public int insertScrap(SnsVO snsVO);
 		
 		
 	// 수정
@@ -42,6 +42,9 @@ public interface SnsService {
 	
 	// 좋아요 삭제
 	public boolean deleteLike(int likeNo);
+	
+	// 스크랩 삭제
+	public boolean deleteScrap(int scrapNo);
 	
 	//sns 첨부파일 조회
 	public List<AttachVO> attachListAllSns();

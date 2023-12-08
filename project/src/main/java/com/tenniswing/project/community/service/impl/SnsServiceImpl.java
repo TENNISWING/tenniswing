@@ -116,8 +116,19 @@ public class SnsServiceImpl implements SnsService {
 
 	// 스크랩 등록
 	@Override
-	public int insertSnsScrap(SnsVO snsVO) {
-		return 0;
+	public int insertScrap(SnsVO snsVO) {
+		return snsMapper.insertScrap(snsVO);
+	}
+	// 스크랩 삭제
+	@Override
+	public boolean deleteScrap(int scrapNo) {
+		int result =  snsMapper.deleteScrap(scrapNo);
+		if (result == 1) {
+			return true;
+		} else {
+			return false;
+
+		}
 	}
 
 	// SNS 수정
@@ -237,6 +248,8 @@ public class SnsServiceImpl implements SnsService {
 		map.put("info", snsVO);
 		return map;
 	}
+
+	
 
 
 
