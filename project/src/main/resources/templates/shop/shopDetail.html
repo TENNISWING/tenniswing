@@ -19,6 +19,19 @@
 		#mainImage img:hover {
 			transform: scale(1.2);
 		}
+		section a,
+		section span,
+		section button,
+		section input,
+		section h1,
+		section h2,
+		section h3,
+		section h4,
+		section h5,
+		section h6,
+		section pre{
+			font-family: 'Noto Sans KR', sans-serif !important;
+		}
 	</style>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -158,13 +171,16 @@
 							</ul>
 						</div>
 						<!-- 상품 가격 -->
-						<h3 class="product-detail__price" id="prodPrice">[[ ${prod.prodPrice} ]]</h3>
+						<h3 class="product-detail__price" id="prodPrice" style="color: #222222">[[ ${prod.prodPrice} ]]</h3>
 						<!-- <p class="product-detail__short_desc">There are many
 							variations of passages of Lorem Ipsum and available,majority have
 							suffered alteration in somey form, by injected humour, or
 							randomised words which don't look even slightly believable.</p> -->
+							
 						<form action="checkout" th:object="${prodDetail}" id="prodBuyForm">
 							<input name="prodNo" th:value="${prod.prodNo}" type="hidden">
+							<input name="type" value="direct" type="hidden">
+							<!--/* <input name="memId" th:value="${#authentication.name}" type="hidden"> */-->
 							<div class="product-detail__attr">
 								<div class="product__attr">
 									<!-- <span class="product-detail--stroke">Color</span> -->
@@ -185,13 +201,13 @@
 										<select class="form-select" th:field="*{cateColor}"
 												style="padding-left: 20px" onchange="changeSize()">
 											<option value="none" selected>Choose...</option>
-											<option value="be2">흰색</option>
-											<option value="be1">검은색</option>
-											<option value="be3">파란색</option>
-											<option value="be4">초록색</option>
-											<option value="be5">노란색</option>
-											<option value="be6">주황색</option>
-											<option value="be7">빨간색</option>
+											<option value="흰색">흰색</option>
+											<option value="검은색">검은색</option>
+											<option value="파란색">파란색</option>
+											<option value="초록색">초록색</option>
+											<option value="노란색">노란색</option>
+											<option value="주황색">주황색</option>
+											<option value="빨간색">빨간색</option>
 										</select>
 									</div>
 								</div>
@@ -222,11 +238,11 @@
 												style="margin: 0; padding: 10px 30px;">Size</label>
 											<select class="form-select" th:field="*{cateSize}" style="padding-left: 20px" onchange="changeCount()">
 												<option value="none" selected>Choose...</option>
-												<option value="o1">XS</option>
-												<option value="o2">S</option>
-												<option value="o3">M</option>
-												<option value="o4">L</option>
-												<option value="o5">XL</option>
+												<option value="XS">XS</option>
+												<option value="S">S</option>
+												<option value="M">M</option>
+												<option value="L">L</option>
+												<option value="XL">XL</option>
 											</select>
 										</th:block>
 										<!-- th:switch="${prod.cateProd}"  -->
@@ -236,14 +252,14 @@
 											<select class="form-select" th:field="*{cateSize}"
 												style="padding-left: 20px" onchange="changeCount()">
 												<option value="none" selected>Choose...</option>
-												<option value="o7">220</option>
-												<option value="o8">230</option>
-												<option value="o9">240</option>
-												<option value="o10">250</option>
-												<option value="o11">260</option>
-												<option value="o12">270</option>
-												<option value="o13">280</option>
-												<option value="o14">290</option>
+												<option value="220">220</option>
+												<option value="230">230</option>
+												<option value="240">240</option>
+												<option value="250">250</option>
+												<option value="260">260</option>
+												<option value="270">270</option>
+												<option value="280">280</option>
+												<option value="290">290</option>
 											</select>
 										</th:block>
 										<th:block th:case="*">
@@ -252,7 +268,7 @@
 											<select class="form-select" th:field="*{cateSize}"
 												onchange="changeCount()" style="padding-left: 20px">
 												<option value="none" selected>Choose...</option>
-												<option value="o6">FREE</option>
+												<option value="FREE">FREE</option>
 											</select>
 										</th:block>
 									</div>
@@ -279,12 +295,12 @@
 								<div class="item">
 									<div class="header__cart">
 										<div class="cart__btn">								
-											<a href="#" class="btn btn-primary btn-outline">Add to Cart</a>
+											<a href="#" class="btn btn-primary btn-outline" id="myCart">장바구니</a>
 										</div>
 									</div>
 								</div>
 								<div class="item">
-									<a type="button" id="goCheckout" class="btn btn-primary btn-filled">Buy Now</a>
+									<a type="button" id="goCheckout" class="btn btn-primary btn-filled">구매하기</a>
 								</div>
 							</div>
 						</form>
@@ -601,7 +617,7 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="section-title">
-						<h2>Related Product</h2>
+						<h2 style="color: #222222">Related Product</h2>
 					</div>
 				</div>
 			</div>
@@ -831,7 +847,7 @@
 			}
 		});
 		
-		/* 폼 초기화 함수 */
+		/* 폼 입력 확인 함수 */
 		function resetOrder() {
 			if($('#cateColor').val() == 'none'){
 				Swal.fire({
@@ -861,9 +877,33 @@
 		
 		/* 체크아웃 페이지로 이동 */
 		$('#goCheckout').on('click', function() {
-			if(resetOrder()){					
-				$('#prodBuyForm')[0].submit();
+			let shopMemId = [[${#authentication.name}]];
+			console.log(shopMemId);
+			
+			if(shopMemId == "anonymousUser"){
+				Swal.fire({
+					title: "로그인 확인",
+					html: `로그인이 필요한 서비스입니다.<br>
+						   로그인 페이지로 이동하시겠습니까?`,
+					icon: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#3085d6",
+					cancelButtonColor: "#d33",
+					confirmButtonText: "이동",
+					cancelButtonText: "취소"
+				}).then((result) => {
+					  if (result.isConfirmed) {
+					    location.href = '/loginform';
+					    return;
+					  }
+				})
+			} else {
+				if(resetOrder()){
+					// 체크아웃 페이지로 이동
+					$('#prodBuyForm')[0].submit();
+				}				
 			}
+			
 		});
 		
 	/*]]>*/
@@ -908,6 +948,94 @@
 				clickable : true,
 			},
 		});
+	</script>
+	
+	<!-- 장바구니 로그인 체크 -->
+	<script th:inline="javascript">
+	$('#myCart').on('click', function(event){
+		event.preventDefault();
+		$(".flyoutCart").toggleClass("active");
+		//$('.flyoutCart').removeClass('active');
+		let auto = [[${#authentication.name}]];
+		console.log(auto);
+		if(auto == "anonymousUser"){
+			Swal.fire({
+				title: "로그인 확인",
+				html: `로그인이 필요한 서비스입니다.<br>
+					   로그인 페이지로 이동하시겠습니까?`,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "이동",
+				cancelButtonText: "취소"
+			}).then((result) => {
+				  if (result.isConfirmed) {
+				    location.href = '/loginform';
+				    return;
+				  }
+			})
+		} else {
+			//$(".flyoutCart").toggleClass("active");
+			if(resetOrder()){
+				let formData = $('#prodBuyForm').serializeArray();
+				formData.push({name: 'memId', value: auto});
+				//formData.pust({name: 'type', value: 'direct'});
+				console.log(formData);
+				let objData = {};
+
+				$.each(formData, (idx, obj) => {
+					objData[obj.name] = obj.value;
+				});
+				// prodNO, cateColor, cateSize, memId
+				console.log(objData);
+				
+				$.ajax('selectCart', {
+					type : 'post',
+					contentType : 'application/json',
+					data : JSON.stringify(objData)
+				})
+				.done(result => {
+					if(result){
+						Swal.fire({
+							  icon: "info",
+							  title: "장바구니",
+							  text: "이미 존재하는 상품입니다."
+						});
+						return;
+					} else{
+						/* 장바구니 추가 ajax */
+						$.ajax('insertCart', {
+							type : 'post',
+							contentType : 'application/json',
+							data : JSON.stringify(objData)
+						})
+						.done(result => {
+							console.log('카트 등록 후'+result.result);
+							console.log('카트 등록 후'+result.cartVO);
+							if(result.result){
+								Swal.fire({
+									  icon: "success",
+									  title: "장바구니",
+									  text: "장바구니가 추가되었습니다.",
+									  didClose: () => {
+										  $('#cateColor').val('none').prop('selected',true);
+										  $('#cateSize').val('none').prop('selected',true);			
+										  $('#prodDetailSto').val('1');	
+										  $('.myCart').trigger("click");
+									  }
+								})
+							}
+						})
+						.fail(err => console.log(err));
+					}
+				})
+				
+			} else {
+				return;
+			}
+		}
+	});
 	</script>
 </th:block>
 

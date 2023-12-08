@@ -2,6 +2,7 @@ package com.tenniswing.project.match.mapper;
 
 import java.util.List;
 
+import com.tenniswing.project.club.service.ClubVO;
 import com.tenniswing.project.match.service.MatchVO;
 
 public interface MatchMapper {
@@ -52,4 +53,7 @@ public interface MatchMapper {
 	public List<MatchVO> clubRecentView();
 	public List<MatchVO> contRecentView();
 	public List<MatchVO> starterRecentView();
+	
+	public List<ClubVO> selectMyOwnerClub(String memId);
+	public List<ClubVO> selectMyClub(String memId);
 }

@@ -18,6 +18,19 @@
 	/* .information li {
 		font-weight: 400 !important;
 	} */
+	section a,
+	section span,
+	section button,
+	section input,
+	section h1,
+	section h2,
+	section h3,
+	section h4,
+	section h5,
+	section h6,
+	section pre{
+		font-family: 'Noto Sans KR', sans-serif !important;
+	}
 </style>
 </head>
 
@@ -33,7 +46,7 @@
 							<span class="step-num">1</span>
 							<h3 class="step-title">주문자 정보</h3>
 						</div>
-						<form action="#shipping_details" class="form__wrapper">
+						<form class="form__wrapper">
 							<div class="flex__form c-1">
 								<div class="form-group">
 									<label for="f_name">이름</label> <input type="text" name="f_name"
@@ -69,9 +82,9 @@
 						</div>
 							
 						<!-- <h5 class="sub-title">배송지 주소</h5> -->
-						<form action="#payment_details" class="form__wrapper">
+						<form class="form__wrapper">
 							<div class="form-group">
-								<label for="f2_name">배송지 확인</label> <input type="text" name="f2_name"
+								<label for="f2_name">받는분 정보</label> <input type="text" name="f2_name"
 									id="f2_name" class="form-control"
 									placeholder="(필수) 이름을 입력해 주세요." />
 									<br>
@@ -115,7 +128,7 @@
 									<span class="step-num">1</span>
 									<h3 class="step-title">주문자 정보</h3>
 								</div>
-								<a href="#" class="edit__btn">edit</a>
+								<a href="#" class="edit__btn" id="editMem">edit</a>
 							</div>
 							<ul class="information">
 								<li id="f_name_out">이름을 입력하세요.</li>
@@ -139,43 +152,94 @@
 							</ul>
 						</div>
 					</div>
+					
+					
 					<div class="cart-order cart-order__v2">
 						<h4 class="cart-order__title">결제 상세 정보</h4>
 						<div class="cart__items">
 							<!-- Shopping Cart Item Start -->
-							<th:block th:each="prodDetailVO : ${prodDetailVO}">
-							<div class="shopping-card shopping-card__v2">
-								<a href="#" class="shopping-card__image"> <img
-									src="assets/images/cart/cart-01.png" alt="cart-product" />
-								</a>
-								<div class="shopping-card__content">
-									<div class="shopping-card__content-top">
-										<!-- 상품명 -->
-										<!-- <th:block th:each="prodVO : ${prodVO}" th:if="${prodDetailVO.prodNo == prodVO.prodNo}"> -->
-											<h5 class="product__title">
-												<a th:onclick="|location.href='@{/shopDetail(prodNo=${prod.prodNo})}'|">
-													<b>[[ ${prod.prodName} ]]</b></a>
-											</h5>
-											<p class="product__price onePrice" id="prodPrice" th:value="${prod.prodPrice}">[[ ${prod.prodPrice} ]]</p>
-											<input >
-										<!-- </th:block> -->
-									</div>
-									<div class="shopping-card__content-bottom">
-										<h5 class="action__btn qty" style="padding: 0 3px;"><b>수량 </b>: [[ ${prodDetailVO.prodDetailSto} ]]</h5>
+							<th:block th:if="${cartList == null}">
+								<div class="shopping-card shopping-card__v2">
+									<a href="#" class="shopping-card__image"> 
+										<img th:src="${prod.attachPath}" alt="cart-product" />
+									</a>
+									<div class="shopping-card__content">
+										<div class="shopping-card__content-top">
+											<!-- 상품명 -->
+											<!-- <th:block th:each="prodVO : ${prodVO}" th:if="${prodDetailVO.prodNo == prodVO.prodNo}"> -->
+												<h5 class="product__title">
+													<a th:onclick="|location.href='@{/shopDetail(prodNo=${prod.prodNo})}'|">
+														<b>[[ ${prod.prodName} ]]</b></a>
+												</h5>
+												<p class="product__price onePrice" id="prodPrice" th:value="${prod.prodPrice}">[[ ${prod.prodPrice} ]]</p>
+											<!-- </th:block> -->
+										</div>
+										<div class="shopping-card__content-bottom">
+											<h6 style="padding: 0 3px; color: #667085; font-size: small; font-weight: 500;">색상 : [[ ${prodDetailVO.cateColor} ]] &nbsp&nbsp 사이즈 : [[ ${prodDetailVO.cateSize} ]]</h6>
+										</div>
+										<div class="shopping-card__content-bottom">
+											<h6 style="padding: 0 3px; color: #667085; font-size: small; font-weight: 500;">수량 : [[ ${prodDetailVO.prodDetailSto} ]]</h6>
+										</div>
 									</div>
 								</div>
-							</div>
+							</th:block>
+							
+							<th:block th:unless="${cartList == null}">
+								<th:block th:each="cartList : ${cartList}">								
+									<div class="shopping-card shopping-card__v2">
+										<a href="#" class="shopping-card__image"> 
+											<img th:src="${cartList.attachPath}" alt="cart-product" />
+										</a>
+										<div class="shopping-card__content">
+											<div class="shopping-card__content-top">
+												<!-- 상품명 -->
+												<!-- <th:block th:each="prodVO : ${prodVO}" th:if="${prodDetailVO.prodNo == prodVO.prodNo}"> -->
+													<h5 class="product__title">
+														<a th:onclick="|location.href='@{/shopDetail(prodNo=${cartList.prodNo})}'|">
+															<b>[[ ${cartList.prodName} ]]</b></a>
+													</h5>
+													<p class="product__price onePrice" id="prodPrice" th:value="${cartList.prodPrice}">[[ ${cartList.prodPrice} ]]</p>
+												<!-- </th:block> -->
+											</div>
+											<div class="shopping-card__content-bottom">
+												<h6 style="padding: 0 3px; color: #667085; font-size: small; font-weight: 500;">색상 : [[ ${cartList.cateColor} ]] &nbsp&nbsp 사이즈 : [[ ${cartList.cateSize} ]]</h6>
+											</div>
+											<div class="shopping-card__content-bottom">
+												<h6 style="padding: 0 3px; color: #667085; font-size: small; font-weight: 500;">수량 : [[ ${cartList.cartProdQt} ]]</h6>
+											</div>
+										</div>
+									</div>
+								</th:block>
 							</th:block>
 							<!-- Shopping Cart Item End -->
 							<div class="bar"></div>
 						</div>
 						<hr>
-						<div class="cart__total cart__total__v2">
-							<h3>
-								Total <span>(Incl. VAT)</span>
-							</h3>
-							<div class="total" id="totalPrice"></div>
-						</div>
+						<th:block th:if="${cartList == null}">						
+							<div class="cart__total cart__total__v2" style="padding: 0 0 0 10px;">
+								<h3>총 수량</h3> <span class="value" id="totalShopCount">[[ ${prodDetailVO.prodDetailSto} ]] 개</span>
+							</div>
+							<hr>
+							<div class="cart__total cart__total__v2" style="padding: 0 0 0 10px;">
+								<h3>
+									결제금액 <span>(Incl. VAT)</span>
+								</h3>
+								<span class="total" id="totaShopPrice" th:text="${prodDetailVO.prodDetailSto} * ${prod.prodPrice}"></span>
+							</div>
+						</th:block>
+						
+						<th:block th:unless="${cartList == null}">
+							<div class="cart__total cart__total__v2" style="padding: 0 0 0 10px;">
+								<h3>총 수량</h3> <span class="value" id="totalShopCount"></span>
+							</div>
+							<hr>
+							<div class="cart__total cart__total__v2" style="padding: 0 0 0 10px;">
+								<h3>
+									결제금액 <span>(Incl. VAT)</span>
+								</h3>
+								<span class="total" id="totaShopPrice"></span>
+							</div>
+						</th:block>
 					</div>
 				</div>
 			</div>
@@ -241,7 +305,34 @@
 					}).open();
 		}
 	</script>
-	<script type="text/javascript">
+	<script th:inline="javascript">
+		
+		let shopMemId = [[${#authentication.name}]];
+		$(document).ready(function(){	
+			console.log(shopMemId);
+			
+			let shopMemData = {};
+			shopMemData.memId = shopMemId; 
+			
+			$.ajax('findMemId', {
+				type : 'post',
+				contentType : 'application/json',
+				data : JSON.stringify(shopMemData)
+			})
+			.done(result => {
+				console.log(result);
+				$('#f_name').val(result.name);
+				$('#f_phone').val(result.phoneNo);
+				
+				printName();
+				printTel();
+			});
+
+			
+		})
+		
+		
+		
 		function printName() {
 			let name = document.getElementById('f_name').value;
 			document.getElementById("f_name_out").innerText = name;
@@ -274,12 +365,17 @@
 	<!--/* 가격부분 , 추가하는 기능 */-->
 	<script type="text/javascript">
 		let changePrice = $('#prodPrice').text();
+		let changeTotal = $('#totaShopPrice').text();
 		changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		changeTotal = changeTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		
 		changePrice = changePrice + '원';
+		changeTotal = changeTotal + '원'; 
+		
 		$('#prodPrice').text(changePrice);
-
-		$('#totalPrice')
+		
+		$('#totaShopPrice').text(changeTotal);
+		
 	</script>
 </th:block>
 

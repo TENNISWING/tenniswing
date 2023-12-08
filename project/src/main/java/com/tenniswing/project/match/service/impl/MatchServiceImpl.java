@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tenniswing.project.club.mapper.ClubMapper;
+import com.tenniswing.project.club.service.ClubVO;
 import com.tenniswing.project.court.service.CrtroomVO;
 import com.tenniswing.project.match.mapper.MatchMapper;
 import com.tenniswing.project.match.service.MatchService;
@@ -179,6 +181,16 @@ public class MatchServiceImpl implements MatchService {
 	@Override
 	public int insertStarterMatchHist(MatchVO matchVO) {
 		return matchMapper.insertStarterMatchHist(matchVO);
+	}
+
+	@Override
+	public List<ClubVO> selectMyOwnerClub(String memId) {
+		return matchMapper.selectMyOwnerClub(memId);
+	}
+
+	@Override
+	public List<ClubVO> selectMyClub(String memId) {
+		return matchMapper.selectMyClub(memId);
 	}
 	
 }

@@ -78,14 +78,12 @@ public class CommunityController {
 			return "redirect:loginform";
 		}
 
-		// sns 등록
-		snsService.insertSns(snsVO);
-
 		// 사진 등록
 		// 테이블 구분, 게시글 번호, 파일목록
 		List<AttachVO> files = fileUtils.uploadFiles(snsVO.getFiles());
-		int n = attachService.saveAttach("s", snsVO.getSnsWrtNo(), files);
-
+		
+		// sns 등록
+		snsService.insertSns(snsVO ,files);
 
 		// sns페이지로 이동
 		rttr.addFlashAttribute("message", "등록되었습니다"); //플래시는 한번만 뜸 휘발성.
@@ -102,6 +100,7 @@ public class CommunityController {
 
 		model.addAttribute("editList", snsService.selectSnsInfo(snsVO));
 		model.addAttribute("grpList", snsService.selectGroup(snsVO));
+		
 		return "community/snsEditForm";
 	}
 
@@ -110,36 +109,62 @@ public class CommunityController {
 	public String updateSnsForm(SnsVO snsVO, RedirectAttributes rttr, Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		snsVO.setMemId(id);
-		System.out.println("==수정VO찍어봄===" + snsVO);
 		if (id.equals("anonymousUser")) {
 			return "redirect:loginform";
 		}
 
 		snsService.updateSns(snsVO);
-
-		// 사진 등록
-		// 테이블 구분, 게시글 번호, 파일목록
-
-		List<AttachVO> files = fileUtils.uploadFiles(snsVO.getFiles());
-//			if(files!=null && files.size()>0) {
-//				//삭제로직
-//				attachService.deleteAttachSns(tablePk);
-//			}
-		int n = attachService.updateAttach("s", snsVO.getSnsWrtNo(), files);
-		return "redirect:/sns";
-
-
+		
+		return "redirect:/snsMyList";
 	}
 
 	// SNS 삭제 처리
 	@PostMapping("snsDel")
 	@ResponseBody
 	public boolean snsDelAjax(Integer snsWrtNo) {
+		//파일삭제 나중에 스케줄러 쓸때는 사용여부 컬럼 0 을 넘겨주면 됨
+		List<AttachVO> list = attachService.attachList("s", snsWrtNo);
+		//파일삭제할때 이 경로 사용
+		fileUtils.deleteFiles(list);
+		
+		//sns삭제
 		boolean result = snsService.deleteSns(snsWrtNo);
 		System.out.println("결과찍어봄" + result);
 		return result;
 	}
-
+	
+	// SNS, 그룹 삭제 처리
+	@PostMapping("grpDel")
+	@ResponseBody
+	public boolean snsDelGrpAjax(Integer snsGrpNo) {
+		boolean result = snsService.deleteGrp(snsGrpNo);
+		System.out.println("그룹삭제컨트롤러>>"+result);
+		return result;
+	}
+	
+	// 그룹에 매칭되는 sns List
+	@GetMapping("mySnsList")
+	@ResponseBody
+	public List<SnsVO> mySnsListAjax(SnsVO snsVO){
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		snsVO.setMemId(id);
+		
+		return snsService.selectMyGroup(snsVO);
+	}
+	
+	// 그룹 이름 수정
+	@PostMapping("editGrpName")
+	@ResponseBody
+	public Map<String, Object> editGrpNameAjax(SnsVO snsVO){
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		snsVO.setMemId(id);
+		
+		Map<String, Object> result = snsService.updateGrp(snsVO);
+	
+		return result;
+		
+	}
+	
 	// sns댓글List
 	@GetMapping("snsRep")
 	@ResponseBody
@@ -156,11 +181,9 @@ public class CommunityController {
 		System.out.println("repVO찍어봄" + snsRepVO);
 		int result = snsRepService.insertSnsRep(snsRepVO);
 
-//			if(result>0) {
-//				return "redirect:/sns";
-//			}else {
-//				return "member/singup";
-//			}
+		/*
+		 * if(result>0) { return "redirect:/sns"; }else { return "member/singup"; }
+		 */
 
 		return result;
 	}
@@ -200,7 +223,7 @@ public class CommunityController {
 	// sns 좋아요 삭제
 	@PostMapping("snsLikeDel")
 	@ResponseBody
-	public boolean deleteLikeAjax(@RequestParam("snsLikeNo") Integer likeNo) {
+	public boolean deleteLikeAjax(Integer likeNo) {
 		boolean result = snsService.deleteLike(likeNo);
 		return result;
 	}
@@ -210,8 +233,15 @@ public class CommunityController {
 	public String snsMyListPage(SnsVO snsVO, Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		snsVO.setMemId(id);
+		
+		//회원의 그룹 불러오기
 		model.addAttribute("grpList", snsService.selectGroup(snsVO));
-		model.addAttribute("snsMyG", snsService.selectMyGroup(snsVO));
+		
+		//그 그룹에 해당하는 sns 불러오기
+		model.addAttribute("myGrpList", snsService.selectMyGroup(snsVO));
+		
+		// 그룹이 Null인 sns 불러오기
+		model.addAttribute("nullGrp",snsService.selectGrpNull(snsVO));
 		return "community/snsMyList";
 	}
 
@@ -247,14 +277,6 @@ public class CommunityController {
 		model.addAttribute("notice", brdService.selectBrdAllInfo(brdVO));
 		model.addAttribute("paging", pagingVO);
 		return "community/noticeList";
-	}
-
-	// 공지사항 리스트 뿌려주는 ajax
-	@GetMapping("noticePage")
-	@ResponseBody
-	public List<BrdVO> noticeListAjax(BrdVO brdVO) {
-
-		return brdService.selectBrdAllInfo(brdVO);
 	}
 
 	// 공지사항 상세 페이지

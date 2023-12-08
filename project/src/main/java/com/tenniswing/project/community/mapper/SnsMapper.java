@@ -15,7 +15,8 @@ public interface SnsMapper {
 	public SnsVO selectSnsInfo(SnsVO snsVO);
 	// 내 그룹 리스트(sns, snsgroup, like 다 가지고 있음)
 	public List<SnsVO> selectMyGroup(SnsVO snsVO);
-	
+	// 그룹 값이 NULL인 SNS 리스트 조회
+	public List<SnsVO> selectGrpNull(SnsVO snsVO);
 	
 	// 등록
 	public int insertSns(SnsVO snsVO);
@@ -34,9 +35,11 @@ public interface SnsMapper {
 	public int updateSns(SnsVO snsVO);
 	public int updateGrp(SnsVO snsVO);
 	
-	// 삭제
+	// sns, 댓글, 좋아요 삭제 프로시저
 	public int deleteSns(Map<String, Long> map);
 	
+	// sns, 그룹 삭제
+	public int deleteGrp(Map<String, Long> map);
 
 	// 좋아요 삭제
 	public int deleteLike(int likeNo);

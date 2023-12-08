@@ -7,10 +7,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tenniswing.project.attach.mapper.AttachMapper;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.community.mapper.SnsMapper;
 import com.tenniswing.project.community.mapper.SnsRepMapper;
@@ -24,6 +26,9 @@ public class SnsServiceImpl implements SnsService {
 	SnsRepMapper snsRepMapper;
 	
 	@Autowired
+	AttachMapper attachMapper;
+
+	@Autowired
 	SnsMapper snsMapper;
 
 	// 전체조회(다건 조회)
@@ -31,22 +36,25 @@ public class SnsServiceImpl implements SnsService {
 	public List<SnsVO> selectAllSnsInfo(SnsVO snsVO) {
 		return snsMapper.selectAllSnsInfo(snsVO);
 	}
-	
+
 	// 회원당 그룹 조회
 	@Override
-	public List<SnsVO> selectGroup(SnsVO snsVO){
+	public List<SnsVO> selectGroup(SnsVO snsVO) {
 		return snsMapper.selectGroup(snsVO);
 	}
-	
+
 	// 내 그룹 리스트(sns, snsgroup, like 다 가지고 있음)
 	@Override
 	public List<SnsVO> selectMyGroup(SnsVO snsVO) {
-		
-		
-		
+
 		return snsMapper.selectMyGroup(snsVO); // 그룹조회한 mapper where memId
 	}
-
+	
+	// 그룹이 NULL인 그룹 리스트 조회
+	@Override
+	public List<SnsVO> selectGrpNull(SnsVO snsVO) {
+		return snsMapper.selectGrpNull(snsVO);
+	}
 
 	// 단건 조회
 	@Override
@@ -55,8 +63,10 @@ public class SnsServiceImpl implements SnsService {
 	}
 
 	// 등록
+	@Transactional
 	@Override
-	public int insertSns(SnsVO snsVO) {
+	public int insertSns(SnsVO snsVO, List<AttachVO> files ) {
+		//태그 value에 #붙이기
 		ObjectMapper obj = new ObjectMapper();
 		String tag = "";
 		try {
@@ -66,26 +76,35 @@ public class SnsServiceImpl implements SnsService {
 					tag += "#" + i.get("value") + ",";
 				}
 				snsVO.setSnsTag(tag);
-
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+		// sns등록
 		int result = snsMapper.insertSns(snsVO);
 
+		// 파일등록
+		if(! CollectionUtils.isEmpty(files)) {
+			for (AttachVO file : files) {
+				file.setAttachTableDiv("s");
+				file.setAttachTablePk(snsVO.getSnsWrtNo());
+			}
+			
+			attachMapper.saveAttachAll(files);
+		}
+		
 		if (result == 1) {
 			return snsVO.getSnsWrtNo();
 		} else {
 			return -1;
 		}
 	}
-	
+
 	// 그룹등록
 	@Override
 	public int insertSnsGrp(SnsVO snsVO) {
-		
+
 		return snsMapper.insertSnsGrp(snsVO);
 	}
 
@@ -102,11 +121,11 @@ public class SnsServiceImpl implements SnsService {
 	}
 
 	// SNS 수정
-	@Override	
+	@Override
 	public Map<String, Object> updateSns(SnsVO snsVO) {
 		Map<String, Object> map = new HashMap<>();
 		boolean isSuccessed = false;
-		
+
 		ObjectMapper obj = new ObjectMapper();
 		String tag = "";
 		try {
@@ -115,18 +134,18 @@ public class SnsServiceImpl implements SnsService {
 				for (Map i : list) {
 					String str = (String) i.get("value");
 					char charAt = str.charAt(0);
-				
-				if(charAt != '#') {
-					tag += "#" + i.get("value") + ",";
-				}else {
-					tag += i.get("value") + ",";
-				}
-				/* tag += "#" + i.get("value") + ","; */
-						/*
-						 * if(((List<SnsVO>) i.get("value")).contains("#")) { tag += i.get("value")+",";
-						 * }else { tag += "#" + i.get("value") + ","; }
-						 */
-					
+
+					if (charAt != '#') {
+						tag += "#" + i.get("value") + ",";
+					} else {
+						tag += i.get("value") + ",";
+					}
+					/* tag += "#" + i.get("value") + ","; */
+					/*
+					 * if(((List<SnsVO>) i.get("value")).contains("#")) { tag += i.get("value")+",";
+					 * }else { tag += "#" + i.get("value") + ","; }
+					 */
+
 				}
 
 				snsVO.setSnsTag(tag);
@@ -137,36 +156,52 @@ public class SnsServiceImpl implements SnsService {
 		}
 
 		int result = snsMapper.updateSns(snsVO);
-		if(result == 1) {
+		if (result == 1) {
 			isSuccessed = true;
 			// 그룹 업데이트 snsMapper.updateGrp(snsVO);
-			
+
 		}
 
 		map.put("result", isSuccessed);
 		map.put("info", snsVO);
-		
+
 		return map;
-	
+
 	}
 
-	// 삭제
+	// sns, 댓글, 좋아요 삭제 프로시저
 	@Override
 	public boolean deleteSns(int snsWrtNo) {
-		
+
 		HashMap<String, Long> map = new HashMap<String, Long>();
-		map.put("snsWrtNo", (long)snsWrtNo);
-		map.put("delResult", (long)0);
+		map.put("snsWrtNo", (long) snsWrtNo);
+		map.put("delResult", (long) 0);
 		snsMapper.deleteSns(map);
-		long result = (long)map.get("delResult");
-		System.out.println("서비스임플"+result);
-		if(result >= 1) {
+		long result = (long) map.get("delResult");
+		System.out.println("서비스임플" + result);
+		if (result >= 1) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
-
+	
+	// sns, 그룹 삭제 프로시저
+	@Override
+	public boolean deleteGrp(int snsGrpNo) {
+		HashMap<String, Long> map = new HashMap<String, Long>();
+		map.put("snsGrpNo", (long) snsGrpNo);
+		map.put("delGrpResult", (long) 0);
+		snsMapper.deleteGrp(map);
+		long result = (long) map.get("delGrpResult");
+		System.out.println("deleteGrp서비스임플" + result);
+		if (result >= 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	// 좋아요 삭제
 	@Override
 	public boolean deleteLike(int likeNo) {
@@ -188,12 +223,22 @@ public class SnsServiceImpl implements SnsService {
 	public List<AttachVO> attachListAllSns() {
 		return snsMapper.attachListAllSns();
 	}
+	// 그룹 이름 업데이트
+	@Override
+	public Map<String, Object> updateGrp(SnsVO snsVO) {
+		Map<String, Object> map = new HashMap<>();
+		boolean inSuccessed = false;
+		
+		int result = snsMapper.updateGrp(snsVO);
+		if(result == 1) {
+			inSuccessed = true;
+		}
+		map.put("result", inSuccessed);
+		map.put("info", snsVO);
+		return map;
+	}
 
 
-	/*
-	 * @Override public Map<String, Object> updateGrp(SnsVO snsVO) { // TODO
-	 * Auto-generated method stub return null; }
-	 */
 
 	
 

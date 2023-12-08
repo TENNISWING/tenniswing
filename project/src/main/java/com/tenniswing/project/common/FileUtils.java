@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +18,11 @@ import com.tenniswing.project.attach.service.AttachVO;
 
 @Component
 public class FileUtils {
-    private final String uploadPath = Paths.get("C:", "attach").toString();
+	@Value("${uploadPath}")
+    private String uploadPath; 
+	
+	@Value("${upload}")
+    private String upload; 
 
     /**
      * 다중 파일 업로드
@@ -49,7 +54,7 @@ public class FileUtils {
         String saveName = generateSaveFilename(multipartFile.getOriginalFilename());
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")).toString();
         String mapperPath = "/attach/" + today + "/" + saveName;
-        String uploadPath = getUploadPath(today) + File.separator + saveName;
+        String uploadPath = getUploadPath(today) + "/" + saveName;
         File uploadFile = new File(uploadPath);
 
         try {
@@ -66,7 +71,7 @@ public class FileUtils {
                 .ext(saveName.substring(saveName.lastIndexOf(".")))
                 .build();
     }
-
+    
     /**
      * 저장 파일명 생성
      * @param filename 원본 파일명
@@ -106,6 +111,21 @@ public class FileUtils {
             dir.mkdirs();
         }
         return dir.getPath();
+    }
+    
+    // 경로 삭제 기본키랑 구분코드 받아와서 패스 찾아서 삭제 
+    public int deleteFiles(List<AttachVO> list){
+         
+    	for(AttachVO d : list) {
+    		File file = new File(upload +"/" + d.getAttachPath());
+            
+        	if( file.exists() ){
+        		file.delete();
+        	} else {
+        		System.out.println("==="+ file.getAbsolutePath()); //현재 실행 중인 Workding directory에 File에 전달한 경로를 조합하여 절대 경로를 리턴
+        	}
+    	}
+    	return 0;
     }
 
 }

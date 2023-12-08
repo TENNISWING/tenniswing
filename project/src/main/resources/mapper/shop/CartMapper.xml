@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.tenniswing.project.shop.mapper.CartMapper">
+  	
+  	<!-- 카트 목록 -->
+  	<select id="selectAllCart" resultType="CartVO">
+  		SELECT  c.*,
+		        d.prod_detail_sto,
+		        FIND_CATEGORY_NAME(d.cate_color) AS cate_color,
+		        FIND_CATEGORY_NAME(d.cate_size) AS cate_size,
+		        p.prod_price,
+		        p.prod_name,
+		        p.prod_no,
+		        a.attach_path
+		FROM    cart c
+		        JOIN    prod_detail d
+		        ON      c.prod_detail_no = d.prod_detail_no
+		        JOIN    prod p
+		        ON      p.prod_no = d.prod_no
+		        JOIN    attach a
+		        ON      (a.attach_table_pk = p.prod_no
+		                AND a.attach_table_div = 'p'
+		                AND a.attach_turn = 1)
+		WHERE   mem_id = #{memId}
+		<if test="type == 'cart'">
+			AND	d.prod_detail_sto > 0
+		</if>
+  	</select>
+
+  	<!-- 카트 체크아웃 페이지 이동시 조회 -->
+  	
+  	<!-- 카트 한건 -->
+  	<select id="selectCart" resultType="CartVO">
+  		SELECT  c.*
+		FROM    cart c
+		        JOIN    prod_detail d
+		        ON      c.prod_detail_no = d.prod_detail_no
+		        JOIN    prod p
+		        ON      p.prod_no = d.prod_no
+		WHERE   mem_id = #{memId}
+		AND		d.cate_color = #{cateColor}
+		AND		d.cate_size = #{cateSize}
+  	</select>
+  	
+  	
+  	<!-- 카트 등록 -->
+  	<insert id="insertCart" parameterType="CartVO">
+		<selectKey keyProperty="cartNo" resultType="int" order="BEFORE">
+			SELECT 	NVL(MAX(cart_no), 0) + 1
+			FROM 	cart
+		</selectKey>
+		INSERT INTO cart
+		VALUES(
+				#{cartNo},
+				#{cartProdQt},
+				#{memId},
+				#{prodDetailNo}
+		)
+  	</insert>
+  	
+  	<!-- 카트 수정 -->
+  	<update id="updateCart" parameterType="CartVO">
+  		UPDATE 	cart
+		SET		cart_prod_qt = #{cartProdQt}
+  		WHERE 	cart_no = #{cartNo}
+  		AND		mem_id = #{memId}
+  	</update>
+  	
+  	<!-- 카트 삭제 -->
+  	<delete id="deleteCart" parameterType="CartVO">
+  		DELETE 	FROM cart
+  		WHERE	cart_no = #{cartNo}
+  		AND		mem_id = #{memId}
+  	</delete>
+  </mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
