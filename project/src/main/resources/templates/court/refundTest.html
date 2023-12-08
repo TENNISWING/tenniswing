@@ -15,10 +15,10 @@
 
 <button onclick="cancelPay()">환불하기</button>
 <script>
-	let data = {reservePayNo : "imp_860758223137",
-			reserveUid : "2023012303511404", 
-			refundPrice : 90,
-			refundReason : "test"};
+	let data = {imp_uid : "imp_903482638084",
+			merchant_uid : "20230127192121151", 
+			amount : 90,
+			reason : "test"};
 	
    function cancelPay() {
    	$.ajax({

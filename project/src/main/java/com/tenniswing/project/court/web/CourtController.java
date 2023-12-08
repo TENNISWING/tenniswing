@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.common.FileUtils;
 import com.tenniswing.project.common.PagingVO;
 import com.tenniswing.project.court.service.Api;
+import com.tenniswing.project.court.service.CancelApi;
 import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.court.service.CrtDetailService;
 import com.tenniswing.project.court.service.CrtRefundVO;
@@ -51,6 +57,9 @@ public class CourtController {
 	
 	@Autowired
 	Api api;
+	
+	@Autowired
+	CancelApi cancelapi;
 	
 	
 	// 메인
@@ -233,19 +242,18 @@ public class CourtController {
 	
 	@PostMapping("courtReserveCancel")
 	@ResponseBody
-	public String orderCancel(@RequestBody CrtReserveVO crtReserveVO) {
-		String impUid = crtReserveVO.getReservePayNo();
-		String merchantUid = crtReserveVO.getReserveUid();
-		int refundPrice = crtReserveVO.getRefundPrice();
-		String refundReason = crtReserveVO.getRefundReason();
-		
-		//RefundAppVO 생성
-		RefundAppVO app = new RefundAppVO(impUid,merchantUid, refundReason, refundPrice );
+	public String orderCancel(@RequestBody RefundAppVO crtReserveVO) {
+	
 		
 		//apiCall에 RefundAppVO넘겨줌
 		String token = api.apiCall();
 		System.out.println("토큰 >>>> "+token);
 		
+		System.out.println(crtReserveVO);
+		
+		Map<String, Object> map = cancelapi.CancelApiCall(crtReserveVO, token);
+		
+		System.out.println(map);
 		
 		return "";
 	}
