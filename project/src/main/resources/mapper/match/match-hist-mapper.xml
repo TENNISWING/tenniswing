@@ -33,8 +33,7 @@
   	<select id="selectAllContMatchHist" resultType="MatchHistVO">
   		SELECT match_hist_no
   				, match_no
-  				, cont_match_no
-  				, mem_id
+  				, match_apply_mem_id
   				, match_apply_date
   				, wrt_regi_date
   				, match_state
@@ -83,8 +82,7 @@
   	<select id="selectContMatchHist" resultType="MatchHistVO">
   		SELECT match_hist_no
   				, match_no
-  				, cont_match_no
-  				, mem_id
+  				, match_apply_mem_id
   				, match_apply_date
   				, wrt_regi_date
   				, match_state
@@ -117,7 +115,6 @@
 		  	 		match_hist_no
 	  				, match_no
 	  				, mem_id
-	  				, match_apply_date
 	  				, wrt_regi_date
 	  				, match_state	
   	 			)
@@ -127,8 +124,7 @@
   	 				,#{matchNo}
   	 				,#{memId}
   	 				,sysdate
-  	 				,sysdate
-  	 				,'g1'
+  	 				,'m3'
   	 			)
   	</insert>  	
   
@@ -144,14 +140,14 @@
   	 			(
 		  	 		match_hist_no
 	  				, match_no
-	  				, match_apply_club_no 
+	  				, match_apply_club_no
 	  				, match_state
   	 			)
   	 			VALUES
   	 			(
   	 				#{matchHistNo}
   	 				,#{matchNo}
-  	 				,#{matchApplyClubNo}
+  	 				,#{clubNo}
   	 				,'g1'
   	 			)
   	</insert> 
@@ -167,22 +163,16 @@
   	 	INSERT INTO cont_match_hist
   	 			(
 			  	 	match_hist_no
+			  	 	, match_apply_mem_id
 	  				, match_no
-	  				, match_apply_club_no
-	  				, match_apply_date
-	  				, wrt_regi_date
 	  				, match_state
-	  				, accept_state
   	 			)
   	 			VALUES
   	 			(
   	 				#{matchHistNo}
+  	 				,#{memId}
   	 				,#{matchNo}
-  	 				,#{matchApplyClubNo}
-  	 				,sysdate
-  	 				,sysdate
   	 				,'g1'
-  	 				,#{acceptState}
   	 			)
   	</insert> 
   	
@@ -247,8 +237,7 @@
   			SET
   				match_hist_no = #{matchHistNo}
   				, match_no = #{matchNo}
-  				, cont_match_no = #{contMatchNo}
-  				, match_applye_mem_no = #{memId}
+  				, match_applye_mem_id = #{memId}
   				, match_apply_date = #{matchApplyDate}
   				, wrt_regi_date = #{wrtRegiDate}
   				, match_state = #{matchState}
@@ -291,4 +280,27 @@
   		DELETE FROM starter_match_hist
   		WHERE match_hist_no = #{matchHistNo}
   	</delete>
+  	
+  	<!-- 마이페이지 매치 이력 리스트 -->
+  	<select id="selectAllMyMatchHist" resultType="map">
+  		SELECT  m.match_no
+  				, m.match_date
+        		,(select crtroom_name
+        			FROM crtroom
+       				WHERE crtroom_no = m.crtroom_no) as crtroom_name  				
+                , (select nick
+                	FROM pr
+                	WHERE mem_id = mh.mem_id) as opp_match
+  				, mh.match_apply_date
+  				, mh.wrt_regi_date
+  				, FIND_CATEGORY_NAME(mh.match_state) match_state
+                , mhr.MATCH_REP_NO
+                , mhr.REP_CTT
+  		FROM match m JOIN match_hist mh
+                ON m.match_no = mh.match_no
+                 LEFT OUTER JOIN match_hist_rep mhr
+                 ON m.match_no = mhr.match_no
+        where m.mem_id = #{memId}
+  		ORDER BY match_hist_no
+   	</select>   	
   </mapper>

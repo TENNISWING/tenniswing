@@ -18,12 +18,14 @@ import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.common.FileUtils;
 import com.tenniswing.project.common.PagingVO;
+import com.tenniswing.project.court.service.Api;
 import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.court.service.CrtDetailService;
 import com.tenniswing.project.court.service.CrtRefundVO;
 import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.court.service.CrtReserveVO;
 import com.tenniswing.project.court.service.CrtroomVO;
+import com.tenniswing.project.court.service.RefundAppVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class CourtController {
-
+	
 	@Autowired
 	CourtroomService courtroomService;
 
@@ -46,7 +48,11 @@ public class CourtController {
 
 	@Autowired
 	AttachService attachService;
-
+	
+	@Autowired
+	Api api;
+	
+	
 	// 메인
 
 		@GetMapping("court")  
@@ -54,10 +60,22 @@ public class CourtController {
 			//페이징처리
 			pagingVO.setTotalRecord(courtroomService.selectCount(crtroomVO));
 			
-			model.addAttribute("courtList", courtroomService.selectAllCourtroomMain(crtroomVO));
+			//model.addAttribute("courtList", courtroomService.selectAllCourtroomMain(crtroomVO));
 			model.addAttribute("recentCrt", courtroomService.recentRegiCourt());
 			model.addAttribute("paging", pagingVO);
 			return "court/court";
+		}
+		
+		@GetMapping("courtAjax")
+		@ResponseBody
+		public Map<String, Object> courtAjax(CrtroomVO crtroomVO){
+			List<CrtroomVO> list = courtroomService.selectAllCourtroomMain(crtroomVO);
+			log.info("======="+list);
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("selectCount", courtroomService.selectCount(crtroomVO));
+			map.put("courtList", list);
+			
+			return map;
 		}
 		
 		@GetMapping("courtDetail")  
@@ -73,6 +91,15 @@ public class CourtController {
 			model.addAttribute("crtroomStar", courtroomService.crtroomStar(courtroom.getCrtroomNo()));
 			//System.out.println("--------------"+courtroom);
 			return "court/courtDetail";
+		}
+		
+		@GetMapping("courtFSP")
+		@ResponseBody
+		public Map<String, Object> courtFSP(CrtroomVO crtroomVO){
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("selectCount", courtroomService.selectCount(crtroomVO));
+			map.put("courtList", courtroomService.selectAllCourtroomMain(crtroomVO));
+			return map;
 		}
 		
 		@PostMapping("insertCourtReview")
@@ -107,6 +134,7 @@ public class CourtController {
 			CrtroomVO review = courtroomService.selectReview(reviewNo);
 			map.put("reviews", review);
 			map.put("result", isSuccessed);
+			map.put("memId", memId);
 			return map;
 		}
 		
@@ -201,5 +229,23 @@ public class CourtController {
 		// System.out.println(courtroomService.courtSearch(str));
 
 		return courtroomService.courtSearch(str);
+	}
+	
+	@PostMapping("courtReserveCancel")
+	@ResponseBody
+	public String orderCancel(@RequestBody CrtReserveVO crtReserveVO) {
+		String impUid = crtReserveVO.getReservePayNo();
+		String merchantUid = crtReserveVO.getReserveUid();
+		int refundPrice = crtReserveVO.getRefundPrice();
+		String refundReason = crtReserveVO.getRefundReason();
+		
+		//RefundAppVO 생성
+		RefundAppVO app = new RefundAppVO(impUid,merchantUid, refundReason, refundPrice );
+		
+		//apiCall에 RefundAppVO넘겨줌
+		api.apiCall(app);
+		System.out.println(app);
+		
+		return "";
 	}
 }

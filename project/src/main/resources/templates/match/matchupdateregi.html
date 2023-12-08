@@ -132,8 +132,7 @@
 								<label for="name">코트비</label><br>
 								<div class="input-group mb-3">
 									<input type="text" class="form-control is-invalid" th:value="${matchInfo.crtUseAmt}" 
-										placeholder="코트비 입력" id="crtUseAmt" name="crtUseAmt" maxlength="10"
-										required>
+										placeholder="코트비 입력" id="crtUseAmt" name="crtUseAmt" maxlength="10">
 								</div>
 							</div>
 							</div>
@@ -236,7 +235,7 @@
 						<input type="number" th:value="${matchInfo.matchNo}" hidden="true" name="matchNo">
 						<button class="btn btn-success" type="submit">수정하기</button>
 						<button class="btn btn-success" type="button" th:onclick="|location.href='@{/}'|">취소</button>
-				</div>
+				</div></div></div>
 
 		</form>
 	</div>

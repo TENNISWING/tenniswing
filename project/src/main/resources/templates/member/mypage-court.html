@@ -2,7 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/main-layout}">
-
+<head>
+<link rel="stylesheet"
+		href="assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+	<link rel="stylesheet"
+		href="./assets/compiled/css/table-datatable-jquery.css">
+</head>
 <th:block layout:fragment="content">
 	<h3 class="container p-3">매치 이력</h3>
 	<div class="container" id="mypage">
@@ -10,112 +15,29 @@
 			<div class="col-lg-4 col-md-auto">
 				<div th:replace="/member/mypage-sidemenu :: sidemenu"></div>
 			</div>
-			<div class="col-lg-8 col-md-auto">
-				<!-- Profile Table Start -->
-				<div class="cart__form">
-					<table>
-						<thead>				
-							<tr>
-								<th class="cart-pd__thumb">일자</th>
-								<th class="cart-pd__qty">코트장이름</th>
-								<th class="cart-pd__price">매치상대</th>
-								<th class="cart-pd__status">코멘트</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="cart-pd__date text-start" data-title="Date">
-									Order on <br /> 25 April 2022
-								</td>
-								<td class="cart-pd__thumb">
-									<div class="product-card--inline">
-										<div class="product__content">
-											<h5 class="product__title">
-												<a href="#">All Natural Blueberries </a>
-											</h5>
-											<ul class="product__info">
-												<li class="info-item">Weight: <span>5kg</span></li>
-											</ul>
-										</div>
-									</div>
-								</td>
-								<td class="cart-pd__qty" data-title="Quantity">2</td>
-								<td>
-									<div class="accordion-item">
-										<h2 class="accordion-header" id="headingTwo">
-											<button class="collapsed btn btn-outline-success"
-												type="button" data-bs-toggle="collapse"
-												data-bs-target="#collapseTwo" aria-expanded="false"
-												aria-controls="collapseTwo">코멘트보기</button>
-										</h2>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="4" id="collapseTwo"
-									class="accordion-collapse collapse"
-									aria-labelledby="headingTwo" >
-									<div class="accordion-body">
-										<div class="input-group mb-3">
-											<input type="text" class="form-control"	placeholder="코멘트 입력" id="repCtt" name="repCtt">
-											<button class="btn btn-success regiBtn" type="button">등록</button>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="cart-pd__date text-start" data-title="Date">
-									Order on <br /> 25 April 2022
-								</td>
-								<td class="cart-pd__thumb">
-									<div class="product-card--inline">
-										<div class="product__content">
-											<h5 class="product__title">
-												<a href="#">All Natural Blueberries </a>
-											</h5>
-											<ul class="product__info">
-												<li class="info-item">Weight: <span>5kg</span></li>
-											</ul>
-										</div>
-									</div>
-								</td>
-								<td class="cart-pd__qty" data-title="Quantity">2</td>
-								<td>
-									<button class="collapsed btn btn-outline-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo1">코멘트보기</button>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="4" id="collapseTwo1" class="accordion-collapse collapse">								
-										<div class="input-group mb-3">
-											<input type="text" class="form-control"	placeholder="코멘트 입력" id="repCtt" name="repCtt">
-											<button class="btn btn-success regiBtn" type="button">등록</button>
-										</div>							
-								</td>
-							</tr>
-						
-						</tbody>
-					</table>
-				</div>
-				<!-- Profile Card End -->
-
+			<div class="col-lg-8 col-md-auto">				
 				<div class="table-responsive mt-5">
 					<table class="table" id="table1">
 						<thead>
 							<tr>
-								<th>일자</th>
+								<th>예약일자</th>
 								<th>코트장 이름</th>
-								<th>매치상대</th>
-								<th>코멘트</th>			
+								<th>금액</th>
+								<th>예약상태</th>
+								<th>예약취소</th>		
 							</tr>
 						</thead>
 						<tbody>
+						<th:block th:each="crt : ${court}">
 							<tr>
-								<td>Graiden</td>
-								<td>vehicula.aliquet@semconsequat.co.uk</td>
-								<td>076 4820 8838</td>
-								<td>123</td>					
+								<td>[[${crt.PAY_DATE}]]</td>
+								<td>[[${crt.CRTROOM_NAME}]]</td>
+								<td>[[${crt.RESERVE_PRICE}]]</td>
+								<td>[[${crt.RESERVE_STATE}]]</td>
+								<td th:if="${crt.RESERVE_STATE == '이용전'}"><button type="button" class="btn btn-success" th:onclick="cancel11()">예약취소</button>			
+								<td th:if="${crt.RESERVE_STATE == '이용후'}"><button type="button" class="btn btn-light" disabled>예약취소</button>			
 							</tr>
-							
+						</th:block>	
 						</tbody>
 					</table>
 				</div>
@@ -123,39 +45,11 @@
 		</div>
 	</div>
 
-
-
-	<script>
-	function myPageAjax(page) {
-		
-		$.ajax({
-			type: 'GET',
-			url: 'matchList',
-			data: {matchDate, page, gameWay, gen, location, ntrp},
-			success: function(result) {
-				//리스트
-				$('#matchList').empty();
-				for(let matchInfo of result.matchList){
-					let b = `<tr class="navbar-brand">					
-					<td class="text-center"><b>${dateFormat(matchInfo.matchDate)}</b></td>
-					<td>${matchInfo.time}시</td>
-					<td>${matchInfo.gameWayName}</td>
-					<td>${matchInfo.crtroomName}</td>
-					<td>${matchInfo.genName}</td>
-					<td class="text-end mtbt">
-						<a class="btn btn-primary matchbtn1" href="matchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>
-					</td>
-				</tr>`
-					$('#matchList').append(b)
-				}
-				
-				showPage(result.selectCount);
-			}
-		})
-	}
-	</script>
-
-
+<script
+		src="assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script src="assets/static/js/pages/datatables.js"></script>
 </th:block>
 
 </html>

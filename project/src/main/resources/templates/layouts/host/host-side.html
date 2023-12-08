@@ -56,5 +56,19 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		let liTag = document.querySelectorAll('.menu > li');
+       	liTag.forEach(item => {
+               item.addEventListener('click', function(e) {
+                   /* e.preventDefault(); */
+                   console.log(e.target.parentElement);
+                   e.target.parentElement.classList.add('active');
+               })
+           });
+       	
+       	/* if (window.location.pathname == '/adminProduct') {
+       		
+       	} */
+	</script>
 </th:block>
 </html>

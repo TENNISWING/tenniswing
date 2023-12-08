@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
   <mapper namespace="com.tenniswing.project.club.mapper.ClubMapper">
   <!-- 클럽 전체 조회 -->
   
@@ -25,8 +26,8 @@
 						  ON a.attach_table_pk = c.club_no
 			WHERE a.attach_table_div = 'cl'
 			<if test="clubRegion != null and clubRegion != ''">AND c.club_region = #{clubRegion}</if>
-            <if test="clubGen != null and clubGen != ''">AND c.club_gen = #{clubGen}</if>
-            <if test="clubName != null and clubName != ''">AND c.club_name LIKE '%'||#{clubName}||'%'</if>
+      <if test="clubGen != null and clubGen != ''">AND c.club_gen = #{clubGen}</if>
+      <if test="clubName != null and clubName != ''">AND c.club_name LIKE '%'||#{clubName}||'%'</if>
 			<if test="sort != null and sort != ''">ORDER BY ${sort}</if>
 			<if test="!(sort != null and sort != '')">ORDER BY c.club_create_date DESC</if>
 			) A
@@ -146,19 +147,18 @@
   <!-- 클럽 수정 -->
   <update id="updateClub" parameterType="clubVO">
 		UPDATE club
-			SET
-		      club_name = #{clubName}
-  		  	  , club_region = #{clubRegion}
-  		  	  , club_gen = #{clubGen}
-  		  	  , club_age = #{clubAge}
-  		  	  , club_day =  #{clubDay}
-  		  	  , club_time = #{clubTime}
-  		  	  , club_intro = #{clubIntro}
-  		  	  , club_crt = #{clubCrt}
-  		  	  , club_recruitment = #{clubRecruitment}
-			WHERE club_no = #{clubNo}
+      SET
+        club_name = #{clubName}
+        , club_region = #{clubRegion}
+        , club_gen = #{clubGen}
+        , club_age = #{clubAge}
+        , club_day = #{clubDay}
+        , club_time = #{clubTime}
+        , club_intro = #{clubIntro}
+        , club_crt = #{clubCrt}
+        , club_recruitment = #{clubRecruitment}
+		WHERE club_no = #{clubNo}
 	</update>
-  
   
   <!-- 클럽 삭제 -->
   <delete id="deleteClub" parameterType="int">
@@ -255,6 +255,25 @@
     	  	 , a.attach_path
     	ORDER BY c.club_create_date DESC
    </select> -->
-  
-  
-  </mapper>
+
+	<!-- 마이페이지 클럽 목록 -->
+	<select id="selectAllMyClub" resultType="map">
+		SELECT c.club_no
+		, c.club_name
+		, FIND_CATEGORY_NAME (c.club_region)
+		club_region		
+		, c.club_mem_num
+		, FIND_CATEGORY_NAME
+		(c.club_recruitment) club_recruitment
+		, c.club_create_date
+		, cm.join_date
+		, cm.apply_date
+		, FIND_CATEGORY_NAME (cm.club_approve) club_approve
+		FROM club c JOIN club_mem cm
+					ON c.club_no = cm.club_no
+		where cm.mem_id = #{memId}
+		ORDER BY
+		cm.apply_date DESC
+	</select>
+</mapper>
+

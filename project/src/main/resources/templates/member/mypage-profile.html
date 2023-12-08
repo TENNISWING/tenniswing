@@ -338,17 +338,49 @@
 			})
 		}
 		
+		//회원탈퇴 버튼
+		$('#quitBtn').on('click', function(e){
+			Swal2.fire({
+				icon: "info",
+				html: "회원을 탈퇴 하시겠습니까?",
+				showCancelButton: true,
+				confirmButtonText: "네",
+				cancelButtonText: "아니오"
+			}).then(result => {
+				if(result.isConfirmed){					
+				let memId = '[[${member.memId}]]'
+				$.ajax({
+		            type: 'POST',
+		            url: 'memberquit',
+		            contentType: 'application/json',
+		            data: JSON.stringify({ memId, div:'bh3' }),
+		            success: function (result) {   
+		                if (result > 0) {
+		                    Swal2.fire({
+		                        icon: "success",
+		                        title: "회원탈퇴를 완료하였습니다.",
+		                    }).then(result => {
+		                    	location.href="/logout";
+		                    })                   
+		                } else {
+		                    Swal2.fire({
+		                        icon: "error",
+		                        title: "회원탈퇴 실패",
+		                    })
+		                }
+		            },
+		            error: () => console.log(error)
+		        })
+				}
+            }) 
+		})
+		
 		//레벨값 바꾸기
 		$('#level').text('LV '+$('#ntrp option:checked').text());
 		
 		//프로필 사진 저장
 		$('#filesBtn').on('click', function(e){
-			let formData = new FormData($('#updateForm')[0]);
-			for(let files of formData){
-				console.log(files)
-			}
-				
-			
+			let formData = new FormData($('#updateForm')[0]);			
 			$.ajax({
 				url : 'profileupload',
 				type : 'post',

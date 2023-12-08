@@ -14,111 +14,69 @@
 				<!-- Profile Table Start -->
 				<div class="cart__form">
 					<table>
-						<thead>				
+						<thead>
+							<h3>매치 이력</h3>
 							<tr>
 								<th class="cart-pd__thumb">일자</th>
 								<th class="cart-pd__qty">코트장이름</th>
 								<th class="cart-pd__price">매치상대</th>
+								<th class="cart-pd__qty">매치상태</th>
 								<th class="cart-pd__status">코멘트</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td class="cart-pd__date text-start" data-title="Date">
-									Order on <br /> 25 April 2022
-								</td>
-								<td class="cart-pd__thumb">
-									<div class="product-card--inline">
-										<div class="product__content">
-											<h5 class="product__title">
-												<a href="#">All Natural Blueberries </a>
-											</h5>
-											<ul class="product__info">
-												<li class="info-item">Weight: <span>5kg</span></li>
-											</ul>
+							<tr th:if="${match.size == 0}">
+									<td colspan="5">매치 이력이 없습니다.</td>
+							</tr>
+							<th:block th:each="m : ${match}">
+								<tr>
+									<td class="cart-pd__date text-start" data-title="Date">
+										[[${m.MATCH_DATE}]]</td>
+									<td class="cart-pd__thumb">
+										<div class="product-card--inline">
+											<div class="product__content">
+												<h5 class="product__title">[[${m.CRTROOM_NAME}]]</h5>
+												<ul class="product__info">
+													<li class="info-item">Weight: <span>5kg</span></li>
+												</ul>
+											</div>
 										</div>
-									</div>
-								</td>
-								<td class="cart-pd__qty" data-title="Quantity">2</td>
-								<td>
-									<div class="accordion-item">
-										<h2 class="accordion-header" id="headingTwo">
-											<button class="collapsed btn btn-outline-success"
-												type="button" data-bs-toggle="collapse"
-												data-bs-target="#collapseTwo" aria-expanded="false"
-												aria-controls="collapseTwo">코멘트보기</button>
-										</h2>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="4" id="collapseTwo"
-									class="accordion-collapse collapse"
-									aria-labelledby="headingTwo" >
-									<div class="accordion-body">
-										<div class="input-group mb-3">
-											<input type="text" class="form-control"	placeholder="코멘트 입력" id="repCtt" name="repCtt">
-											<button class="btn btn-success regiBtn" type="button">등록</button>
+									</td>
+									<td class="cart-pd__qty" data-title="Quantity">[[${m.OPP_MATCH}]]</td>
+									<td class="cart-pd__qty" data-title="Quantity">[[${m.MATCH_STATE}]]</td>
+									<td>
+										<div class="accordion-item">
+											<h2 class="accordion-header" id="headingTwo">
+												<button class="collapsed btn btn-outline-success"
+													type="button" data-bs-toggle="collapse"
+													data-bs-target="#collapseTwo" aria-expanded="false"
+													aria-controls="collapseTwo">코멘트보기</button>
+											</h2>
 										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="cart-pd__date text-start" data-title="Date">
-									Order on <br /> 25 April 2022
-								</td>
-								<td class="cart-pd__thumb">
-									<div class="product-card--inline">
-										<div class="product__content">
-											<h5 class="product__title">
-												<a href="#">All Natural Blueberries </a>
-											</h5>
-											<ul class="product__info">
-												<li class="info-item">Weight: <span>5kg</span></li>
-											</ul>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="5" id="collapseTwo"
+										class="accordion-collapse collapse"
+										aria-labelledby="headingTwo">
+										<div class="accordion-body">
+											<div class="input-group mb-3">
+												<input type="text" class="form-control" placeholder="코멘트 입력"
+													id="repCtt" name="repCtt">
+												<button class="btn btn-success regiBtn" type="button">등록</button>
+											</div>
 										</div>
-									</div>
-								</td>
-								<td class="cart-pd__qty" data-title="Quantity">2</td>
-								<td>
-									<button class="collapsed btn btn-outline-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo1">코멘트보기</button>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="4" id="collapseTwo1" class="accordion-collapse collapse">								
-										<div class="input-group mb-3">
-											<input type="text" class="form-control"	placeholder="코멘트 입력" id="repCtt" name="repCtt">
-											<button class="btn btn-success regiBtn" type="button">등록</button>
-										</div>							
-								</td>
-							</tr>
-						
+									</td>
+								</tr>
+
+								
+							</th:block>
 						</tbody>
 					</table>
 				</div>
 				<!-- Profile Card End -->
 
-				<div class="table-responsive mt-5">
-					<table class="table" id="table1">
-						<thead>
-							<tr>
-								<th>일자</th>
-								<th>코트장 이름</th>
-								<th>매치상대</th>
-								<th>코멘트</th>			
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Graiden</td>
-								<td>vehicula.aliquet@semconsequat.co.uk</td>
-								<td>076 4820 8838</td>
-								<td>123</td>					
-							</tr>
-							
-						</tbody>
-					</table>
-				</div>
+
 			</div>
 		</div>
 	</div>

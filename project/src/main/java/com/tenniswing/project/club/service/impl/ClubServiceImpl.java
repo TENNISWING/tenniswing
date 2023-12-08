@@ -146,13 +146,10 @@ public class ClubServiceImpl implements ClubService {
 	}
 
 
-	
-
-	
-
-	
-
-	
+	@Override
+	public List<Map<String, Object>> selectAllMyClub(String memId){		
+		return clubMapper.selectAllMyClub(memId);
+	}
 	 
 	
 }

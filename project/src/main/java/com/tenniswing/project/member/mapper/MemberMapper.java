@@ -36,8 +36,8 @@ public interface MemberMapper {
 	// 수정 : Dynamic SQL
 	public int updateMemberInfoDynamic(MemberVO memberVO);
 
-	// 삭제 //@Param 여러건 보낼 경우 사용
-	public int deleteMember(@Param("empid") int employeeId);
+	// 삭제 
+	public int deleteMember(MemberVO memberVO);
 	
 	//매치이력
 	public Map<String, Object> myMatch(String memId);

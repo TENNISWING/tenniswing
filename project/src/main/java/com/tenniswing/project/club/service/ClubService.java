@@ -38,5 +38,8 @@ public interface ClubService {
 
 	//재은
 	public ClubVO selectMatchClub(ClubVO clubVO);
+	
+	//클럽 마이페이지
+	public List<Map<String, Object>> selectAllMyClub(String memId);
 
 }

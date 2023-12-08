@@ -66,13 +66,13 @@
 													<div class="card-body">
 														<span class="card-title" style="font-weight: bold;">[[${s.snsTitle}]]</span>
 														<div class="edBtns" style="float: right;">
-															<i type="button"
+														<!-- 	<i type="button"
 																class="fa-regular fa-pen-to-square editBtnClass"
 																th:onclick="|location.href='@{/snsEditForm(snsWrtNo=${s.snsWrtNo}, snsGrpNo=${s.snsGrpNo})}'|"
-																id="editSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i> <i
-																type="button"
+																id="editSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i>
+															<i type="button"
 																class="fa-regular fa-trash-can delBtnClass"
-																id="delSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i>
+																id="delSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i> -->
 														</div>
 														<br>
 
@@ -145,14 +145,16 @@
 																	</i>
 																</a> -->
 																<a th:if="${s.likeNo>0}" class="btn icon btn-white"
-																	th:data-snslike="${s.snsWrtNo}"> 
+																	>
 																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC "
+																	th:data-likeno="${s.likeNo}"
+																	th:data-snsWrtNo="${s.snsWrtNo}"
 																	id="likeBtn" th:attrappend="id=${sStat.count}"> </i>
-																</a> 
+																</a>
 																<a th:unless="${s.likeNo>0}" class="btn icon btn-white"
-																	th:data-snslike="${s.snsWrtNo}"> 
+																	>
 																	<i class="fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active"
-																	th:data-likeno="${s.likeNo}" id="likeBtn"
+																	th:data-likeno="${s.likeNo}" th:data-snsWrtNo="${s.snsWrtNo}" id="likeBtn"
 																	th:attrappend="id=${sStat.count}"> </i>
 																</a>
 															</div> <span>[[${s.likeCnt}]]</span>
@@ -199,8 +201,8 @@
 														<!-- 스크랩 버튼 -->
 														<li class="d-flex flex-column">
 															<div>
-																<a class="btn icon btn-white bmark"> <i
-																	class="fa-regular fa-bookmark fs-5 text-secondary iBmark"></i>
+																<a class="btn icon btn-white bmark"> 
+																<i class="fa-regular fa-bookmark fs-5 text-secondary iBmark"></i>
 																</a>
 															</div>
 														</li>
@@ -304,20 +306,20 @@
 
 	<!-- Initialize Swiper -->
 	<script th:inline="javascript">
-	
+
 	// scroll to element
 	const element = document.getElementById("content-types");
 	element.scrollIntoView();
-	
+
 	let message = [[${message}]]
 	if(message!= null){
 		alert(message)
 	}
-	
+
 	// Tagify
 	var input = document.querySelector('input[name=tags4]'),
     tagify = new Tagify(input);
-	
+
 	// 스와이퍼
 	const swiper = new Swiper('.swiper', {
 		  // Optional parameters
@@ -338,24 +340,24 @@
 
 			for(let i=1; i<= $('.btn.icon.btn-white.snsBtns').length; i++){
 				$('#collapseExample'+ i).attr('class', 'snsBtnsCol collapse')
-	
+
 			}
 
 
 			if ($(e.target).hasClass('active')) {
-	
+
 				$('#collapseExample'+ cnt).attr('class',
 						'snsBtnsCol collapse show')
-	
+
 						//console.log($('#collapseExample'+i));
-	
+
 			}else{
 				$('.btn.icon.btn-white.snsBtns i').attr("class", "fa-solid fa-share-from-square fs-5 text-secondary" );
 			}
 
 	});
 
-	
+
 		// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
 		Kakao.init('5cb79bd417ece35ea33fa7b756305a02');
 
@@ -418,56 +420,90 @@
 			}
 		});
 		
-		
-		// 좋아요 버튼 누르면 인서트!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		$('.likeBtnC').on('click', function(e){
+			//좋아요 insert, delete
+			$('.likeBtnC').on('click', function(e){
+				
+				let snsWrtNo = $(this).attr('data-snsWrtNo');
+			      if($(this).hasClass("active")){
+		                console.log('액티브있는거찍는중');
+						//인서트
+						$.ajax({
+								url : 'snsLikeInsert',
+								data : {snsWrtNo},
+								type : 'post',
+								datatype : 'text',
+								success : function(result) {
+										alert("좋아요성공")
+										
+										//location.href="/sns";
+										console.log($(e.target))
+										$(e.target).attr('class','fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC')
+										$(e.target).removeClass("active");
+								},
+								error : function() {
+									alert("좋아요 실패")
 			
-			if($(e.target).hasClass('active')){ //likeNo가 Null이 아니면 Class에 active => Delete
-				let snsLikeNo = $(e.target).attr('data-likeno');
-				console.log('삭제할 좋아요번호'+snsLikeNo);
-		/* 		$.ajax({
-					url : 'snsLikeDel',
-					data : {snsLikeNo},
-					type : 'post',
-					datatype : 'text',
-					success : function(result) {
-
-							alert("좋아요성공")
-							location.href="/sns";
-					},
-					error : function() {
-						alert("좋아요 실패")
-
-					}
-
-		}) */
-			}else{ //인서트
-				$.ajax({
-					url : 'snsLikeInsert',
-					data : {snsWrtNo},
-					type : 'post',
-					datatype : 'text',
-					success : function(result) {
-
-							alert("좋아요성공")
-							location.href="/sns";
-					},
-					error : function() {
-						alert("좋아요 실패")
-
-					}
-
+							}
+						
+		            })
+			      }else{
+		               //딜리트
+		               let likeNo = $(this).attr('data-likeno');
+		               $.ajax({
+		            	   url:'snsLikeDel',
+		            	   data:{likeNo},
+		            	   type:'post',
+		            	   datatype:'json',
+		            	   success: function(result){
+		            		   alert("delete 성공")
+		            		   $(e.target).attr('class','fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active')
+		            	   }
+		     
+		               })
+		            }
+			
+			})
+		// 좋아요 insert delete
+		 /* <a th:unless="${s.likeNo>0}" class="btn icon btn-white"
+			th:data-snslike="${s.snsWrtNo}">
+			<i class="fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active"
+			th:data-likeno="${s.likeNo}" id="likeBtn"
+			th:attrappend="id=${sStat.count}"> </i>
+		</a> */
+		
+	/* 	$('.fa-regular.fa-thumbs-up.fs-5.text-secondary.likeBtnC.active').on('click', function(e){
+		 	console.log('좋아요 눌리나요');
+		 	//좋아요 delete	
+			let likeno=$('.likeBtn').data('data-likeno');
+			console.log(likeno);
+			
+			if(likeno>0){
+				console.log('삭제할거임')
+			}else if(likeno=0){
+			//좋아요 인서트	
+			console.log('등록할거임')
+			}	 								
+			console.log('찍힘?');
 		})
-			}
-			/* console.log("좋아요버튼 찍힘");
-			let cnt = $(e.target).prop("id").replace("likeBtn","");
-			let snsWrtNo = $(e.target).closest('a').attr('data-snslike');
-			console.log("좋아요버튼 글번호"+snsWrtNo); */
-			
 		
-			
-		});
+		//fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active
+
 		
+		$('.fa-regular.fa-thumbs-up.fs-5.text-secondary.likeBtnC').on('click', function(e){
+			console.log('좋아요 눌리나요');
+		 	//좋아요 delete	
+			let likeno=$('.likeBtn').data('data-likeno');
+			console.log(likeno);
+			
+			if(likeno>0){
+				console.log('삭제할거임')
+			}else if(likeno=0){
+			//좋아요 인서트	
+			console.log('등록할거임')
+			}	 								
+			console.log('액티브없는거찍힘?');
+		}) */
+
 
 		let repList = 0;
 
@@ -487,7 +523,7 @@
     	ordering:false
     }); */
 
-	//댓글 리스트 
+	//댓글 리스트
 	function getRepList(snsWrtNo){
 		$.ajax({
 			type: 'GET',
@@ -509,8 +545,8 @@
 						</tr>`
 		               $('#replyList').append(b);
 		            }
-		            
-		            
+
+
 		            //수정 아이콘 눌렀을때 누른행 제외하고 사라지고 등록 버튼 수정버튼으로 변경
 		            $('.repEditBtn').on('click', function(e){
 		            	$('#replyList').empty();
@@ -533,9 +569,9 @@
 				               $('#replyList').append(b);
 								snsRepNo = $(e.target).closest('tr').prop('id');
 								$('#repSubmit').text('수정');
-	
+
 		            })
-		            
+
 		            $('.repDelBtn').on('click',function(e){
 		            	console.log("삭제클릭되나요");
 		            	console.log(e.target);
@@ -599,10 +635,13 @@
 					type : 'post',
 					datatype : 'text',
 					success : function(result) {
+						if(result>0){
+							alert("등록성공");
 
-							alert("등록성공")
-						//if (result == "success") {
-						//}
+						}else{
+							alert("등록 실패. 다시 시도해주세요.");
+						}
+
 						$('#replyContents').val('') //댓글 등록시 댓글 등록창 초기화
 						 getRepList(snsWrtNo); //등록후 댓글 목록 불러오기 함수 실행
 						//DOM 조작 함수호츨 등 가능
@@ -616,7 +655,7 @@
 			}
 	});
 
-		
+
 		// sns 삭제
 		$('.delBtnClass').on('click', function(e){
 			console.log("sns삭제 눌리나요");
@@ -631,6 +670,8 @@
          			if(result){
          				alert("정상삭제");
          				location.reload();
+         			}else{
+         				alert("삭제실패. 재시도해주세요.");
          			}
          		},
          		error : function() {
@@ -638,9 +679,9 @@
 
 					}
          	})
-			
+
 		})
-		
+
 
 
 

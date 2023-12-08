@@ -1,8 +1,11 @@
 package com.tenniswing.project.attach.service.Impl;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -12,7 +15,7 @@ import com.tenniswing.project.attach.service.AttachVO;
 
 @Service
 public class AttachServiceImpl implements AttachService {
-	
+
 	@Autowired
 	AttachMapper attachMapper;
 
@@ -35,6 +38,8 @@ public class AttachServiceImpl implements AttachService {
 		
 		return attachMapper.saveAttachAll(files);
 	}
+	
+
 	
 	/*
 	 * // 순서 추가 - 코트

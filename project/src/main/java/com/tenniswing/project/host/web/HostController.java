@@ -200,6 +200,7 @@ public class HostController {
 		String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
 		// model.addAttribute("hostCalcList",
 		// courtroomService.selectAllCourtroom(hostId));
+		model.addAttribute("reserveList", crtReserveService.selectAllCrtReserve(hostId));
 		return "host/reserveList";
 	}
 
@@ -209,6 +210,7 @@ public class HostController {
 		String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
 		// model.addAttribute("hostCalcList",
 		// courtroomService.selectAllCourtroom(hostId));
+		model.addAttribute("refundList", crtReserveService.selectAllCrtRefund(hostId));
 		return "host/reserveCancelList";
 	}
 
@@ -218,7 +220,7 @@ public class HostController {
 		String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
 		// model.addAttribute("hostCalcList",
 		// courtroomService.selectAllCourtroom(hostId));
+		model.addAttribute("calcList", crtReserveService.selectAllCrtCalc(hostId));
 		return "host/hostCalcList";
 	}
-
 }
