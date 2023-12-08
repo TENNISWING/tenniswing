@@ -242,19 +242,31 @@ public class CourtController {
 	
 	@PostMapping("courtReserveCancel")
 	@ResponseBody
-	public String orderCancel(@RequestBody RefundAppVO crtReserveVO) {
+	public Boolean orderCancel(@RequestBody RefundAppVO refundAppVO) {
 	
 		
 		//apiCall에 RefundAppVO넘겨줌
 		String token = api.apiCall();
 		System.out.println("토큰 >>>> "+token);
 		
-		System.out.println(crtReserveVO);
+		System.out.println(refundAppVO);
 		
-		Map<String, Object> map = cancelapi.CancelApiCall(crtReserveVO, token);
+		Map<String, Object> map = cancelapi.CancelApiCall(refundAppVO, token);
 		
 		System.out.println(map);
 		
-		return "";
+		CrtReserveVO crtReserveVO = new CrtReserveVO();
+		crtReserveVO.setRefundPrice(refundAppVO.getAmount());
+		crtReserveVO.setRefundCharge(refundAppVO.getCharge());
+		crtReserveVO.setReserveNo(refundAppVO.getReserveNo());
+		crtReserveVO.setRefundReason(refundAppVO.getReason());
+		
+		//DB 값 넣어주기
+		int result = crtReserveService.insertCrtRefund(crtReserveVO);
+		if(result > 0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

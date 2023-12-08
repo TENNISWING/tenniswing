@@ -89,11 +89,15 @@
 		, r.CRT_DETAIL_NO
 		, r.MEM_ID
 		, FIND_CATEGORY_NAME(r.RESERVE_STATE) as RESERVE_STATE
+		, rd.RESERVE_DATE
 		, r.RESERVE_PAY_NO
 		, r.PAY_DATE
 		, crt.crtroom_name
+		, r.RESERVE_UID
 	FROM reserve r JOIN crtroom crt
 		ON r.crtroom_no = crt.crtroom_no
+		JOIN reserve_detail_inf rd
+		ON r.reserve_no = rd.reserve_no
 	WHERE r.mem_id = #{memId}
 	ORDER BY r.pay_date
 </select>
@@ -167,5 +171,30 @@
 </select>
 
 <!-- 환불 정보 입력 -->
-
+<insert id="insertCrtRefund" parameterType="CrtReserveVO">
+	<selectKey keyProperty="reserveCancelNo"
+			   resultType="int"
+			   order="BEFORE">
+		SELECT NVL(MAX(reserve_cancel_no),0)+1
+	    FROM reserve_cancel
+	</selectKey>
+	INSERT INTO reserve_cancel
+	(
+		CANCEL_DATE
+		, REFUND_PRICE
+		, REFUND_CHARGE
+		, RESERVE_CANCEL_NO
+		, REFUND_REASON
+		, RESERVE_NO
+	)
+	VALUES
+	(
+		SYSDATE
+		, #{refundPrice}
+		, #{refundCharge}
+		, #{reserveCancelNo}
+		, #{refundReason}
+		, #{reserveNo}
+	)
+</insert>
 </mapper>

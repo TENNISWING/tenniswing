@@ -48,7 +48,6 @@ public class CancelApi {
 		 //응답의 body 빼옴
 		 String responseBody = responseEntity.getBody();
 		 
-		 
 		 //json을 객체로 바꿈
 		 JSONParser parser = new JSONParser();
 		 Object obj = null;

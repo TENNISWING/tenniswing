@@ -8,6 +8,8 @@ public class RefundAppVO {
 	String merchant_uid;
 	int amount;
 	String reason;
+	int charge;
+	int reserveNo;
 	
 	public RefundAppVO(String reservePayNo, String reserveUid, String reason, int refundPrice) {
 		this.imp_uid = reservePayNo;
