@@ -18,12 +18,14 @@ import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.common.FileUtils;
 import com.tenniswing.project.common.PagingVO;
+import com.tenniswing.project.court.service.Api;
 import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.court.service.CrtDetailService;
 import com.tenniswing.project.court.service.CrtRefundVO;
 import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.court.service.CrtReserveVO;
 import com.tenniswing.project.court.service.CrtroomVO;
+import com.tenniswing.project.court.service.RefundAppVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class CourtController {
-
+	
 	@Autowired
 	CourtroomService courtroomService;
 
@@ -46,7 +48,11 @@ public class CourtController {
 
 	@Autowired
 	AttachService attachService;
-
+	
+	@Autowired
+	Api api;
+	
+	
 	// 메인
 
 		@GetMapping("court")  
@@ -225,10 +231,21 @@ public class CourtController {
 		return courtroomService.courtSearch(str);
 	}
 	
-	@PostMapping("cancel")
+	@PostMapping("courtReserveCancel")
 	@ResponseBody
-	public boolean orderCancel(Model model, CrtReserveVO crtReserveVO) {
+	public String orderCancel(@RequestBody CrtReserveVO crtReserveVO) {
+		String impUid = crtReserveVO.getReservePayNo();
+		String merchantUid = crtReserveVO.getReserveUid();
+		int refundPrice = crtReserveVO.getRefundPrice();
+		String refundReason = crtReserveVO.getRefundReason();
 		
-		return true;
+		//RefundAppVO 생성
+		RefundAppVO app = new RefundAppVO(impUid,merchantUid, refundReason, refundPrice );
+		
+		//apiCall에 RefundAppVO넘겨줌
+		api.apiCall(app);
+		System.out.println(app);
+		
+		return "";
 	}
 }
