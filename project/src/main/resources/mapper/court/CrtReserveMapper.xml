@@ -80,6 +80,24 @@
 	 ORDER BY 2
 </select>
 
+
+<!-- 마이페이지 예약 목록  -->
+<select id="selectMyCourtReverse" resultType="map">
+	SELECT r.RESERVE_NO
+		, r.RESERVE_PRICE
+		, r.CRTROOM_NO
+		, r.CRT_DETAIL_NO
+		, r.MEM_ID
+		, FIND_CATEGORY_NAME(r.RESERVE_STATE) as RESERVE_STATE
+		, r.RESERVE_PAY_NO
+		, r.PAY_DATE
+		, crt.crtroom_name
+	FROM reserve r JOIN crtroom crt
+		ON r.crtroom_no = crt.crtroom_no
+	WHERE r.mem_id = #{memId}
+	ORDER BY r.pay_date
+</select>
+
 <!-- 호스트 -->
 <!-- 호스트별 예약 전체 조회 -->
 <select id="selectAllCrtReserve" resultType="CrtReserveVO">

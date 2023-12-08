@@ -257,5 +257,23 @@
 		c.club_recruitment , c.mem_id , c.club_create_date , a.attach_path ORDER 
 		BY c.club_create_date DESC </select> -->
 
-
+	<!-- 마이페이지 클럽 목록 -->
+	<select id="selectAllMyClub" resultType="map">
+		SELECT c.club_no
+		, c.club_name
+		, FIND_CATEGORY_NAME (c.club_region)
+		club_region		
+		, c.club_mem_num
+		, FIND_CATEGORY_NAME
+		(c.club_recruitment) club_recruitment
+		, c.club_create_date
+		, cm.join_date
+		, cm.apply_date
+		, FIND_CATEGORY_NAME (cm.club_approve) club_approve
+		FROM club c JOIN club_mem cm
+					ON c.club_no = cm.club_no
+		where cm.mem_id = #{memId}
+		ORDER BY
+		cm.apply_date DESC
+	</select>
 </mapper>

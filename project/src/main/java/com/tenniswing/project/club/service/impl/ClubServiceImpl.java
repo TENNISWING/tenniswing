@@ -110,6 +110,11 @@ public class ClubServiceImpl implements ClubService {
 		return clubMapper.selectMatchClub(clubVO);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectAllMyClub(String memId){		
+		return clubMapper.selectAllMyClub(memId);
+	}
+
 	
 
 	

@@ -1,6 +1,7 @@
 package com.tenniswing.project.match.service;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MatchHistService {
 		//전체
@@ -26,6 +27,7 @@ public interface MatchHistService {
 		public int deleteMatchHist(MatchHistVO matchHistVO);
 
 
-
+		//마이페이지
+		public List<Map<String, Object>> selectAllMyMatchHist(String memId);
 		
 }

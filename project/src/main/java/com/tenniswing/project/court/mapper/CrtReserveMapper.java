@@ -15,7 +15,11 @@ public interface CrtReserveMapper {
 	// 예약시간 구분코드 가져오기
 	public List<CrtReserveVO> reserveTimeCodeList();
 	
-	// 호스트
+
+	  //마이페이지 예약 리스트
+	  public List<Map<String, Object>> selectMyCourtReverse(String id);
+  
+	  // 호스트
 		// 호스트별 예약 리스트 조회
 		public List<CrtReserveVO> selectAllCrtReserve(String hostId);
 		
@@ -24,4 +28,5 @@ public interface CrtReserveMapper {
 		
 		// 호스트별 정산 리스트 조회
 		public List<CrtReserveVO> selectAllCrtCalc(String hostId);
+
 }

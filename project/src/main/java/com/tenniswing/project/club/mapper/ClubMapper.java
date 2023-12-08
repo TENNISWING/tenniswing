@@ -35,4 +35,7 @@ public interface ClubMapper {
 		
 	//회원 리스트(전체조회)
 	//public List<ClubVO> selectAllClubMem(ClubVO clubVO);
+	
+	//마이클럽 리스트
+	public List<Map<String, Object>> selectAllMyClub(String memId);
 }

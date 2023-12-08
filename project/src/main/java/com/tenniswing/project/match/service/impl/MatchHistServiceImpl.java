@@ -1,6 +1,7 @@
 package com.tenniswing.project.match.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,6 +65,12 @@ public class MatchHistServiceImpl implements MatchHistService {
 	@Override
 	public int insertContMatchHist(MatchHistVO matchHistVO) {
 		return matchHistMapper.insertContMatchHist(matchHistVO);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllMyMatchHist(String memId) {
+	
+		return matchHistMapper.selectAllMyMatchHist(memId);
 	}
 
 	

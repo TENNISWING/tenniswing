@@ -38,7 +38,7 @@ public class CustomAuthFailureHandler extends SimpleUrlAuthenticationFailureHand
 				
 		}else if (exception instanceof LockedException ) {
 			
-				errorMessage = "인증 요청이 거부되었습니다. \n 관리자에게 문의하세요.";
+				errorMessage = "탈퇴한 회원입니다.";
 				
 		}else {
 				errorMessage = "알 수 없는 이유로 로그인에 실패하였습니다 관리자에게 문의하세요.";
