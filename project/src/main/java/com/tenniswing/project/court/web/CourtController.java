@@ -243,8 +243,9 @@ public class CourtController {
 		RefundAppVO app = new RefundAppVO(impUid,merchantUid, refundReason, refundPrice );
 		
 		//apiCall에 RefundAppVO넘겨줌
-		api.apiCall(app);
-		System.out.println(app);
+		String token = api.apiCall();
+		System.out.println("토큰 >>>> "+token);
+		
 		
 		return "";
 	}
