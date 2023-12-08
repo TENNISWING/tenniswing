@@ -112,15 +112,6 @@
 		SELECT COUNT(MEM_ID) FROM MEM WHERE MEM_ID = #{memId}
 	</select>
 
-	<!-- <if> => 조건이 true인 경우 -->
-	<!-- <foreach> => 반복문 : 배열로 넘어온 데이터 처리 -->
-	<!-- <select id="selectPostIn" resultType="domain.blog.Post"> SELECT * FROM 
-		POST P <where> <foreach item="item"(임시변수) index="index" collection="list" 
-		(배열) (처음 시작 값)open="ID in (" separator="," close=")" nullable="true"> #{item} 
-		</foreach> </where> </select> -->
-	<!-- <choose> => 다중 if문 -->
-	<!-- <trim> => 문장 구성 -->
-
 	<!-- 등록 -->
 	<insert id="insertMember" parameterType="MemberVO">
 		<selectKey keyProperty="memNo" resultType="int"
@@ -227,34 +218,10 @@
 			WHERE mem_id = #{memId}
 	</update>
 
-	<!-- 수정 : 전제조건, 변경된 데이터만 올 경우 Dynamic Sql -->
-	<update id="updateEmpInfoDynamic" parameterType="MemberVO">
-		UPDATE employees	  <!-- prefixOverrides="AND |OR " 앞 부분에 대해 처리 -->
-		<trim prefix="set" suffixOverrides=","> <!-- 뒷부분에 대해 처리 -->
-			<if test="firstName != null and !firstName.equals('')">first_name = #{firstName},</if>
-			<if test="email != null and !email.equals('')">email = #{email},</if>
-			<if test="salary > 0">salary = #{salary},</if>
-		</trim>
-		WHERE employee_id = #{employeeId}
-
-		<!-- UPDATE employees <set> <if test="firstName != null and !firstName.equals('')">first_name 
-			= #{firstName},</if> <if test="email != null and !email.equals('')">email 
-			= #{email},</if> <if test="salary > 0">salary = #{salary},</if> </set> WHERE 
-			employee_id = #{employeeId} -->
-	</update>
-
-	<!-- 삭제 -->
-	<delete id="deleteEmpInfo" parameterType="int">
-		DELETE FROM employees
-		WHERE employee_id = #{empid} <!-- 기본타입으로 한건만 넘어올 경우 #에 다 집어넣어서 일치하지 않아도 됨 -->
-	</delete>
 	
 	<update id="deleteMember" parameterType="MemberVO">
 		UPDATE MEM 
-		SET		
-			NAME = #{name}
-			<if test="pwdUpdate != null and !pwdUpdate.equals('')">, PWD = #{pwdUpdate}</if>
-			,PHONE_NO = #{phoneNo}			
+		SET	STATE = #{div}			
 		WHERE mem_id = #{memId}
 	</update>
 </mapper>

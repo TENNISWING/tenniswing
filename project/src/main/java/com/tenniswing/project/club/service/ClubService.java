@@ -34,6 +34,6 @@ public interface ClubService {
 	public ClubVO selectMatchClub(ClubVO clubVO);
 	
 	//클럽 마이페이지
-	public List<ClubVO> selectAllMyClub(ClubVO clubVO);
+	public List<Map<String, Object>> selectAllMyClub(String memId);
 
 }

@@ -291,4 +291,27 @@
   		DELETE FROM starter_match_hist
   		WHERE match_hist_no = #{matchHistNo}
   	</delete>
+  	
+  	<!-- 마이페이지 매치 이력 리스트 -->
+  	<select id="selectAllMyMatchHist" resultType="map">
+  		SELECT  m.match_no
+  				, m.match_date
+        		,(select crtroom_name
+        			FROM crtroom
+       				WHERE crtroom_no = m.crtroom_no) as crtroom_name  				
+                , (select nick
+                	FROM pr
+                	WHERE mem_id = mh.mem_id) as opp_match
+  				, mh.match_apply_date
+  				, mh.wrt_regi_date
+  				, FIND_CATEGORY_NAME(mh.match_state) match_state
+                , mhr.MATCH_REP_NO
+                , mhr.REP_CTT
+  		FROM match m JOIN match_hist mh
+                ON m.match_no = mh.match_no
+                 LEFT OUTER JOIN match_hist_rep mhr
+                 ON m.match_no = mhr.match_no
+        where m.mem_id = #{memId}
+  		ORDER BY match_hist_no
+   	</select>   	
   </mapper>

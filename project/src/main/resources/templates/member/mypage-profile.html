@@ -342,17 +342,18 @@
 		$('#quitBtn').on('click', function(e){
 			Swal2.fire({
 				icon: "info",
-				title: "회원을 탈퇴 하시겠습니까?",
+				html: "회원을 탈퇴 하시겠습니까?",
 				showCancelButton: true,
 				confirmButtonText: "네",
 				cancelButtonText: "아니오"
 			}).then(result => {
+				if(result.isConfirmed){					
 				let memId = '[[${member.memId}]]'
 				$.ajax({
 		            type: 'POST',
 		            url: 'memberquit',
 		            contentType: 'application/json',
-		            data: JSON.stringify({ memId }),
+		            data: JSON.stringify({ memId, div:'bh3' }),
 		            success: function (result) {   
 		                if (result > 0) {
 		                    Swal2.fire({
@@ -370,6 +371,7 @@
 		            },
 		            error: () => console.log(error)
 		        })
+				}
             }) 
 		})
 		

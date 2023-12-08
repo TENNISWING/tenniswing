@@ -37,5 +37,5 @@ public interface ClubMapper {
 	//public List<ClubVO> selectAllClubMem(ClubVO clubVO);
 	
 	//마이클럽 리스트
-	public List<ClubVO> selectAllMyClub(ClubVO clubVO);
+	public List<Map<String, Object>> selectAllMyClub(String memId);
 }

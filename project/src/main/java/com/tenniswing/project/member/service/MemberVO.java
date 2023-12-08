@@ -21,6 +21,7 @@ public class MemberVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date joinDate;
 	private String state;
+	private String div;
 
 	// profile
 	private String nick;

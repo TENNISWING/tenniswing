@@ -33,7 +33,7 @@
 						<div class="collapse z-3 position-absolute mt-5" id="searchArea">
 							
 								<div class="form-group">
-                                        <select class="choices form-select" id="searchItem">
+                                        <select class="form-select" id="searchItem">
                                            
                                         </select>
                                     </div>
@@ -42,19 +42,16 @@
 					</div>
 					
 					<script>
-						$('#search').on('propertychange change keyup paste input', function(e){
-						
-								let inputVal = $(e.target).val();
-								
-								$('#searchArea').addClass('show');								
-				
+						$('#search').on('propertychange change keyup paste input', function(e){						
+								let inputVal = $(e.target).val();								
+								$('#searchArea').addClass('show');					
 								 $.ajax({
 								        type: 'get',
 								        url: 'searcharea',
 								        data: {inputVal},
 								        success: function (result) {
 								        	$('#searchItem').empty();
-								        	$('#searchItem').append('<optgroup label="코트">');
+								        	//$('#searchItem').append('<optgroup label="코트">');
 								        	$.each(result, function(index, data) { // 데이터 =item
 								        		let b = `													 
 					                                 <option value="${data.crtroomNo}">${data.crtroomName}</option>  `  										
@@ -69,9 +66,16 @@
 								if(inputVal == ''){
 									$('#searchArea').removeClass('show');
 								}
-							
-							
-						})
+								 
+								
+							})
+						
+						 $('#searchItem').on('change propertychange click', function(e){
+										console.log($(e.target).val())
+										let crtNo = $(e.target).val();
+										location.href = `courtDetail?crtroomNo=${crtNo}`
+									})
+					
 					</script>
 					<!-- <a href="cart" class="cart__btn">
 								<div class="icon dripicons dripicons-cart text fs-3"></div>

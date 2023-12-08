@@ -111,8 +111,8 @@ public class ClubServiceImpl implements ClubService {
 	}
 
 	@Override
-	public List<ClubVO> selectAllMyClub(ClubVO clubVO) {		
-		return clubMapper.selectAllMyClub(clubVO);
+	public List<Map<String, Object>> selectAllMyClub(String memId){		
+		return clubMapper.selectAllMyClub(memId);
 	}
 
 	

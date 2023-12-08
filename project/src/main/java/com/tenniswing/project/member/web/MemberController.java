@@ -22,29 +22,26 @@ import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.club.service.ClubService;
 import com.tenniswing.project.common.FileUtils;
 import com.tenniswing.project.court.service.CrtReserveService;
+import com.tenniswing.project.match.service.MatchHistService;
 import com.tenniswing.project.member.service.MemberService;
 import com.tenniswing.project.member.service.MemberVO;
 
 @Controller
 public class MemberController {
 
-	@Autowired
-	MemberService memberService;
+	@Autowired	MemberService memberService;
 	
-	@Autowired
-	ClubService clubService;
+	@Autowired	ClubService clubService;
 	
-	@Autowired
-	CrtReserveService crtReserveService;
+	@Autowired	CrtReserveService crtReserveService;
+	
+	@Autowired	MatchHistService matchHistService;	
 
-	@Autowired
-	HttpSession httpSession;
+	@Autowired	HttpSession httpSession;
 
-	@Autowired
-	FileUtils fileUtils;
+	@Autowired	FileUtils fileUtils;
 
-	@Autowired
-	AttachService attachService;
+	@Autowired	AttachService attachService;
 
 	// 로그인 폼 이동
 	@GetMapping("loginform")
@@ -139,7 +136,8 @@ public class MemberController {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 
 		MemberVO memberVO = memberService.memberInfo(id);
-
+		
+		model.addAttribute("match", matchHistService.selectAllMyMatchHist(id));
 		model.addAttribute("member", memberVO);
 		model.addAttribute("nowpage", 0);
 
@@ -192,8 +190,8 @@ public class MemberController {
 	//회원탈퇴
 	@PostMapping("memberquit")
 	@ResponseBody
-	public Boolean memberQuitAjax(MemberVO memeberVO) {
-		return true;
+	public Boolean memberQuitAjax(@RequestBody MemberVO memeberVO) {		
+		return memberService.deleteMember(memeberVO);
 	}
 
 	// 나의 클럽 목록
@@ -201,7 +199,7 @@ public class MemberController {
 	public String clubMyPage(Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		
-		model.addAttribute("clublist", clubService.selectAllMyClub(null));
+		model.addAttribute("clubList", clubService.selectAllMyClub(id));
 		model.addAttribute("member", memberService.memberInfo(id));
 		model.addAttribute("nowpage", 1);
 		return "member/mypage-club";
