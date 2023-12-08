@@ -13,13 +13,15 @@ public class CrtReserveVO {
 	// 예약 테이블
 	private int reserveNo;
 	private int reservePrice;
-	private int reserveState;
+	private String reserveState;
 	private String reserveStateName;
 	private String reservePayNo;
 	private int crtroomNo;
 	private int crtDetailNo;
 	private String memId;
 	private String reserveUid;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date payDate;
 	
 	// 예약 상세 테이블
 	private int reserveDetailNo;
@@ -41,4 +43,28 @@ public class CrtReserveVO {
 	// 예약 구분코드
 	private String subcategoryCode;
 	private String name;
+	
+	// 환불 테이블
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date cancelDate;
+	private int refundPrice;
+	private int reserveCancelNo;
+	private int refundCharge;
+	private String refundReason;
+	
+	// 정산 테이블
+	private int calcNo;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date calcDate;
+	private int calcPrice;
+	private int payPrice;
+	private String hostId;
+	private String calcState;
+	private String calcStateName;
+	private int calcComm;
+	private int payCase;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date calcStartDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date calcEndDate;
 }

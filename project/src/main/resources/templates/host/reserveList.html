@@ -10,15 +10,22 @@
 			<!-- Main Inner Wrapper Start -->
 			<div class="main__inner--wrapper" style="padding: 40px 0;">
 				<!-- Product List Start -->
-
+				<div class="row">
+					<div class="col-12">
+						<div class="dashboard__breadcrumb">
+							<div class="breadcrumb__meta">
+								<ul style="padding: 0">
+									<li><a href="dashboard.html" class="link">Dashboard</a></li>
+									<li>Reserve List</li>
+								</ul>
+							</div>
+						</div>
 
 				<!-- Basic Tables start -->
-				<section class="section">
-					<div class="card">
-
-						<div class="card-header" style="overflow: hidden">
-							<div class="page-heading">
-								<h3>예약 리스트</h3>
+						<div class="dashboard__header">
+							<div class="d__header--left">
+								<h2 class="title">예약 리스트</h2>
+								
 							</div>
 							<!-- <div style="float: right">
 								<button class="btn btn-primary"
@@ -26,61 +33,59 @@
 									등록하기</button>
 							</div> -->
 						</div>
-						<div class="card-body">
-							<div class="table-responsive">
-								<table class="table" id="table1">
-									<thead>
-										<tr>
-											<th>예약번호</th>
-											<th>코트명</th>
-											<th>예약자</th>
-											<th>결제금액</th>
-											<th>예약상태</th>
-											<th>예약날짜</th>
-											<th>예약시간</th>
-											<th>결제날짜</th>
-											<th>Button</th>
-										</tr>
-									</thead>
-									<tbody>
-										<th:block th:each="reserveList, stat : ${reserveList}">
-											<tr>
-												<td id="crtroomNo" th:attrappend="id=${reserveList.reserveNo}">[[
-													${reserveList.reserveNo} ]]</td>
-												<td></td>
-												<td>[[ ${reserveList.crtroomNo} ]]</td>
-												<td>[[ ${reserveList.memId} ]]</td>
-												<td>[[ ${reserveList.reservePrice} ]]</td>
-												<td>[[ ${reserveList.reserveState} ]]</td>
-												<td>[[ ${reserveList.reserveDate} ]]</td>
-												<td>[[ ${reserveList.reserveTime} ]]</td>
-												<td>[[
-													${#dates.format(courtList.crtroomRegiDate,'yyyy년MM월dd일')}
-													]]</td>
-												<td>
-													<div
-														th:onclick="|location.href='@{/hostCourtDetail(crtroomNo=${courtList.crtroomNo})}'|"
-														class="btn icon btn-primary">
-														<i class="icon dripicons dripicons-enter"></i>
-													</div>
-													<div class="btn icon btn-success edit"
-														th:onclick="|location.href='@{/hosteditCourtroom(crtroomNo=${courtList.crtroomNo})}'|"
-														id="courtroomEdit" th:attrappend="id=${stat.index}">
-														<i class="icon dripicons dripicons-pencil"></i>
-													</div>
-													<div class="btn icon btn-danger courtroom"
-														id="courtroomDelete" th:attrappend="id=${stat.index}">
-														<i class="icon dripicons dripicons-trash"></i>
-													</div>
-												</td>
-											</tr>
-										</th:block>
-									</tbody>
-								</table>
+						<section class="section">
+							<div class="card">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table" id="table1">
+											<thead>
+												<tr>
+													<th>예약번호</th>
+													<th>코트명</th>
+													<th>예약자</th>
+													<th>결제금액</th>
+													<th>예약날짜</th>
+													<th>예약시간</th>
+													<th>결제날짜</th>
+													<th>예약상태</th>
+													<th>Button</th>
+												</tr>
+											</thead>
+											<tbody>
+												<th:block th:each="reserveList, stat : ${reserveList}">
+													<tr>
+														<td id="crtroomNo" th:attrappend="id=${reserveList.reserveNo}">[[
+															${reserveList.reserveNo} ]]</td>
+														<td>[[ ${reserveList.crtroomName} ]]</td>
+														<td>[[ ${reserveList.memId} ]]</td>
+														<td>[[ ${reserveList.reservePrice} ]]</td>
+														<td>[[ ${#dates.format(reserveList.reserveDate,'yyyy-MM-dd')} ]]</td>
+														<td>[[ ${reserveList.reserveTimeName} ]]</td>
+														<td>[[
+															${#dates.format(reserveList.payDate,'yyyy-MM-dd')}
+															]]</td>
+														<th:block th:switch="${reserveList.reserveState}">
+															<td th:case="i1"><span class="badge bg-light-warning">[[ ${reserveList.reserveStateName} ]]</span></td>
+															<td th:case="i2"><span class="badge bg-light-success">[[ ${reserveList.reserveStateName} ]]</span></td>
+															<td th:case="i3"><span class="badge bg-light-danger">[[ ${reserveList.reserveStateName} ]]</span></td>
+														</th:block>
+														<td>
+															<div
+																th:onclick="|location.href='@{/hostCourtDetail(crtroomNo=${reserveList.crtroomNo})}'|"
+																class="btn icon btn-primary">
+																<i class="icon dripicons dripicons-enter"></i>
+															</div>
+														</td>
+													</tr>
+												</th:block>
+											</tbody>
+										</table>
+									</div>
+								</div>
 							</div>
-						</div>
+						</section>
 					</div>
-				</section>
+				</div>
 			</div>
 		</div>
 		<!-- Basic Tables end -->

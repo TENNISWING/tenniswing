@@ -45,4 +45,14 @@ public class CrtReserveServiceImpl implements CrtReserveService {
 		return crtReserveMapper.selectAllCrtReserve(hostId);
 	}
 
+	@Override
+	public List<CrtReserveVO> selectAllCrtRefund(String hostId) {
+		return crtReserveMapper.selectAllCrtRefund(hostId);
+	}
+
+	@Override
+	public List<CrtReserveVO> selectAllCrtCalc(String hostId) {
+		return crtReserveMapper.selectAllCrtCalc(hostId);
+	}
+
 }

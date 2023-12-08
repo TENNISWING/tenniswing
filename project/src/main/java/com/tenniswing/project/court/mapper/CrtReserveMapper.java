@@ -18,4 +18,10 @@ public interface CrtReserveMapper {
 	// 호스트
 		// 호스트별 예약 리스트 조회
 		public List<CrtReserveVO> selectAllCrtReserve(String hostId);
+		
+		// 호스트별 환불 리스트 조회
+		public List<CrtReserveVO> selectAllCrtRefund(String hostId);
+		
+		// 호스트별 정산 리스트 조회
+		public List<CrtReserveVO> selectAllCrtCalc(String hostId);
 }

@@ -198,7 +198,6 @@ public class HostController {
 	@GetMapping("reserveList")
 	public String reserveListPage(Model model) {
 		String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
-		System.out.println("=========================="+hostId);
 		// model.addAttribute("hostCalcList",
 		// courtroomService.selectAllCourtroom(hostId));
 		model.addAttribute("reserveList", crtReserveService.selectAllCrtReserve(hostId));
@@ -211,6 +210,7 @@ public class HostController {
 		String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
 		// model.addAttribute("hostCalcList",
 		// courtroomService.selectAllCourtroom(hostId));
+		model.addAttribute("refundList", crtReserveService.selectAllCrtRefund(hostId));
 		return "host/reserveCancelList";
 	}
 
@@ -220,7 +220,7 @@ public class HostController {
 		String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
 		// model.addAttribute("hostCalcList",
 		// courtroomService.selectAllCourtroom(hostId));
+		model.addAttribute("calcList", crtReserveService.selectAllCrtCalc(hostId));
 		return "host/hostCalcList";
 	}
-
 }
