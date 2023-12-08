@@ -33,8 +33,7 @@
   	<select id="selectAllContMatchHist" resultType="MatchHistVO">
   		SELECT match_hist_no
   				, match_no
-  				, cont_match_no
-  				, mem_id
+  				, match_apply_mem_id
   				, match_apply_date
   				, wrt_regi_date
   				, match_state
@@ -83,8 +82,7 @@
   	<select id="selectContMatchHist" resultType="MatchHistVO">
   		SELECT match_hist_no
   				, match_no
-  				, cont_match_no
-  				, mem_id
+  				, match_apply_mem_id
   				, match_apply_date
   				, wrt_regi_date
   				, match_state
@@ -126,7 +124,7 @@
   	 				,#{matchNo}
   	 				,#{memId}
   	 				,sysdate
-  	 				,'g1'
+  	 				,'m3'
   	 			)
   	</insert>  	
   
@@ -165,14 +163,14 @@
   	 	INSERT INTO cont_match_hist
   	 			(
 			  	 	match_hist_no
-			  	 	, cont_match_no
+			  	 	, match_apply_mem_id
 	  				, match_no
 	  				, match_state
   	 			)
   	 			VALUES
   	 			(
   	 				#{matchHistNo}
-  	 				,#{contMatchNo}
+  	 				,#{memId}
   	 				,#{matchNo}
   	 				,'g1'
   	 			)
@@ -239,8 +237,7 @@
   			SET
   				match_hist_no = #{matchHistNo}
   				, match_no = #{matchNo}
-  				, cont_match_no = #{contMatchNo}
-  				, match_applye_mem_no = #{memId}
+  				, match_applye_mem_id = #{memId}
   				, match_apply_date = #{matchApplyDate}
   				, wrt_regi_date = #{wrtRegiDate}
   				, match_state = #{matchState}

@@ -40,9 +40,9 @@
 							<div class="col-8">
 								<label for="crtroomNo">클럽명</label><br>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control" placeholder="클럽명 입력"
-										aria-describedby="crtroomBtn" id="clubName" name="clubName">
-									<button class="btn btn-success" type="button" id="crtroomBtn">찾기</button>
+										<select name="clubNo">
+											<option th:each="club : ${clubList}" th:value="${club.clubNo}" th:text="${club.clubName}">
+										</select>
 								</div>
 							</div>
 						</div>
@@ -236,7 +236,7 @@
 							</div><br>
 				<input type="number" th:value="${clubMatchInfo.matchNo}" hidden="true" name="matchNo">
 						<button class="btn btn-success" type="submit">수정하기</button>
-						<button class="btn btn-success" type="button" th:onclick="|location.href='@{/}'|">취소</button>
+						<button class="btn btn-success" type="button" th:onclick="|location.href='@{/clubmatch}'|">취소</button>
 				</div>
 	</div></div>
 		</form>
