@@ -45,17 +45,19 @@
 						let List = `
 							<li>
 							<div class="recent-message d-flex px-4 py-3"
-								style="border-bottom: 1px solid #e1e1e1; display: flex; justify-content: space-between;">
+								style="border-bottom: 1px solid #e1e1e1; display: flex; justify-content: space-between; align-items:center;">
 								<div class="d-flex-right">
 									<div class="avatar avatar-lg">
-										<img src="./assets/compiled/jpg/4.jpg">
+										<img src="./assets/compiled/jpg/4.jpg" style="width: 65px; height: 65px;">
 									</div>
-									<div class="name ms-4">
+									<div class="name ms-4" style="display: grid;">
 										<h5 class="mb-1">${rep.nick}</h5>
 										<h7 class="text-muted mb-0">${rep.clubGenName} / ${rep.clubAgeName}</h7>
+										<h7 class="text-muted mb-0">신청일: ${new Date(rep.applyDate).toLocaleDateString()}</h7>
 									</div>
 								</div>
 								<div>
+								
 									<button class="btn btn-outline-success" type="button" 
 											data-bs-toggle="modal" data-bs-target="#wrt${rep.clubMemNo}"
 											id="memApplyBtn" data-club-no="${rep.clubNo}">확인</button>

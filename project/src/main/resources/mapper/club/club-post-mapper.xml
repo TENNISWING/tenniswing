@@ -59,6 +59,13 @@
   		AND mem_id = #{memId}		
   	</update>
   	
+  	<!-- 조회수 -->
+  	<update id="updatePostHit" parameterType="int">
+  		UPDATE 	club_post
+  		SET		club_post_hit = club_post_hit + 1
+  		WHERE	club_post_no = #{clubPostNo}
+  	</update>
+  	
   	<!-- 게시글 삭제 -->
   	<delete id="deletePost" parameterType="int">
   		DELETE FROM club_post

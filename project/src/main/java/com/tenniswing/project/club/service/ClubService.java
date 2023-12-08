@@ -19,6 +19,7 @@ public interface ClubService {
 	
 	//삭제
 	public boolean deleteClub(int ClubNo);
+	public boolean clubMemDelete(int ClubNo);
 	
 	//수정
 	public Map<String, Object> updateClub(ClubVO clubVO);

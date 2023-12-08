@@ -5,7 +5,20 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
 	<div class="content__body">
+	<section class="archive-category">
+		<div class="col-12">
+			<div class="filter__area" style="margin: 0;">
+				<div class="email-fixed-search col-6 ">
+					<div class="form-group position-relative  mb-0 has-icon-left">
+						<button class="btn btn-outline-success" id="matchWrite"  data-bs-toggle="modal"
+							data-bs-target="#Modal">모집 추가</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 		<div class="recent-message d-flex-match px-4 py-3"
 			th:each="num : ${#numbers.sequence(1,5)}"
 			style="border-bottom: 1px solid #e1e1e1;">

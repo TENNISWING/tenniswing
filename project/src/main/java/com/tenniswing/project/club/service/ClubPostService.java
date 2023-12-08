@@ -23,5 +23,6 @@ public interface ClubPostService {
 	//게시글 수정
 	public Map<String, Object> updatePost(ClubPostVO clubPostVO);
 	
-	
+	//게시글 조회수
+	public void updatePostHit(int hit);
 }

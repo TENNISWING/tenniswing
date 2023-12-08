@@ -9,7 +9,7 @@ import com.tenniswing.project.match.service.MatchVO;
 
 public interface ClubMapper {
 	//전체조회
-	public List<ClubVO> selectAllClub();
+	public List<ClubVO> selectAllClub(ClubVO clubVO);
 	
 	//단건조회
 	public ClubVO selectClub(ClubVO clubVO);
@@ -25,6 +25,7 @@ public interface ClubMapper {
 	
 	//삭제
 	public int deleteClub(int ClubNo);
+	public int clubMemDelete(int ClubVO);
 
 	//재은
 	public ClubVO selectMatchClub(ClubVO clubVO);

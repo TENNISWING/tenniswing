@@ -56,19 +56,12 @@ public class ClubController {
 	}
 
 	// 클럽리스트
-	/*
-	 * @GetMapping("clubList")
-	 * 
-	 * @ResponseBody public List<ClubVO> clubPageAjax(ClubVO clubVO) { return
-	 * clubService.selectAllClub(clubVO); }
-	 */
 	 @GetMapping("clubList")
 	 @ResponseBody 
 	 public Map<String, Object> clubListPage(ClubVO clubVO) {
-		 List<ClubVO> list = clubService.selectAllClub(clubVO);
 		 HashMap<String, Object> map = new HashMap<>();
 		 map.put("selectCount", clubService.selectCount(clubVO));
-		 map.put("clubList", list);
+		 map.put("clubList",clubService.selectAllClub(clubVO));
 		 
 		 return map;
 	 }
@@ -96,6 +89,16 @@ public class ClubController {
 
 		return "redirect:club";
 
+	}
+	
+	//클럽 가입 신청
+	@PostMapping("insertClubMem")
+	@ResponseBody
+	public String insertClubMemAjax(ClubVO clubVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		clubVO.setMemId(id);
+		clubService.insertClubMem(clubVO);
+		return "redirect:club";
 	}
 
 
@@ -267,6 +270,14 @@ public class ClubController {
 			model.addAttribute("realMem", clubService.selectclubMem(clubVO));
 			return clubService.selectclubMem(clubVO);
 		}
+		
+	// 상세페이지 > 탭 > 멤버 삭제
+	@PostMapping("clubMemDelete")
+	@ResponseBody
+	public boolean memberDeleteAjax(@RequestParam("paramMemNo") Integer clubMemNo) {
+		boolean result = clubService.clubMemDelete(clubMemNo);
+		return result;
+	}		
 
 	// 상세페이지 > 탭 > 클럽가입 확인 페이지
 	@GetMapping("clubApply")

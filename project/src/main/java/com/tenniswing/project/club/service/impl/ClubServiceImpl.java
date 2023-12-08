@@ -25,7 +25,7 @@ public class ClubServiceImpl implements ClubService {
 	//클럽 전체조회
 	@Override
 	public List<ClubVO> selectAllClub(ClubVO clubVO) {
-		return clubMapper.selectAllClub();
+		return clubMapper.selectAllClub(clubVO);
 	}
 	
 	//클럽 페이징 전체 갯수 조회
@@ -125,6 +125,19 @@ public class ClubServiceImpl implements ClubService {
 		
 		return map;
 	}
+
+	//클럽 멤버 삭제
+	@Override
+	public boolean clubMemDelete(int ClubNo) {
+		int result = clubMapper.clubMemDelete(ClubNo);
+		
+		if(result ==1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
 
 	//재은
 	@Override

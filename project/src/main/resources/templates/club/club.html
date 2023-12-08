@@ -51,7 +51,7 @@
 								<!-- 카테고리 form-select select__style -->
 								<div class="select__style" id="firstDrop">
 									<select class="category-select" id="cateRegion" name="cateRegion">
-										<option value="none">지역</option>
+										<option value="">지역</option>
 										<option value="b1">서울</option>
 										<option value="b2">경기</option>
 										<option value="b3">인천</option>
@@ -65,7 +65,7 @@
 								<!-- 성별 -->
 								<div class="select__style" id="secondDrop">
 									<select class="category-select" id="cateGen" name="cateGen">
-										<option value="none">성별</option>
+										<option value="">성별</option>
 										<option value="c1">남성</option>
 										<option value="c2">여성</option>
 										<option value="c3">성별 무관</option>
@@ -105,7 +105,7 @@
 								style="height: 100% !important;">
 								
 								<!-- 여기에 클럽 리스트 어펜드 -->
-								<ul class="users-list-wrapper media-list pagination" id="clubList"></ul>
+								<ul class="users-list-wrapper media-list" id="clubList"></ul>
 								<!-- 여기에 클럽 리스트 어펜드 -->
 							</div>
 							<div class="email-action">
@@ -140,8 +140,8 @@
 			pageNum = 1;
 			clubListPage(1);
 		});
-		$('#prodName').on('input', function(e) {
-			console.log($('#prodName').val());
+		$('#clubName').on('input', function(e) {
+			console.log($('#clubName').val());
 			pageNum = 1;
 			clubListPage(1);
 		});
@@ -164,21 +164,20 @@
 			else if(sort == 2)
 				sort = 'club_name';
     		
-    		console.log('필터값 들어오나용'+clubGen+clubRegion);
+    		console.log('필터값 들어오나용'+clubGen+clubRegion+sort);
     		
     		 $.ajax({
  				type: 'GET',
  				url: 'clubList',
  				data: {page, clubRegion, clubGen, clubName, sort},
  				success: function (result) {
- 					console.log(result.clubList)
  					$('#clubList').empty();
- 					
  					for (let clubList of result.clubList) {
  						let List = `
  						<li class="media">
  						<div class="clubImg" style="width: 100px; height:100px; border-radius: 70%; overflow:hidden;" >
- 							<img src="${clubList.attachPath}" onerror="this.onerror=null; this.src='/assets/compiled/jpg/banana.jpg';" style="width: 100% ;height: 100%; object-fit:cover;">
+ 							<img src="${clubList.attachPath}" onerror="this.onerror=null; this.src='/assets/compiled/jpg/banana.jpg';" 
+ 							     style="width: 100% ;height: 100%; object-fit:cover;">
  						</div>
  						<div class="media-body" onclick="location.href='/clubdetail?clubNo=${clubList.clubNo}'">
  							<div class="mail-items">
@@ -279,6 +278,7 @@
  						let clubNo = $(this).data('value');
  						let clubJoinApplyWrt = $(e.target).parent().prev().children().val()
  						//console.log("글 내용은 들어오나여"+clubJoinApplyWrt)
+ 						//console.log("글 내용은 들어오나여"+clubNo)
  						clubMemFormAjax(clubNo,clubJoinApplyWrt)
  					}) 
  					
@@ -299,8 +299,7 @@
 			console.log('targetPage: ' + targetPage);
 			
 			pageNum = targetPage;
-			prodPage(targetPage);
-			window.scrollTo(0,0);
+			clubListPage(targetPage);
 		});
 	
 		function showPage(replyCnt) {
@@ -336,11 +335,11 @@
 			function clubMemFormAjax(clubNo,clubJoinApplyWrt){
 				$.ajax({
 					type:'POST',
-					url:'memFormAjax',
+					url:'insertClubMem',
 					data : {clubNo,clubJoinApplyWrt},
 					dataType:'text',
 					success:function(result){
-						$('#clubJoinApplyWrt').val('');
+						//$('#clubJoinApplyWrt').val('');
 						alert("신청이 완료되었습니다.")
 					},
 					error: function(){

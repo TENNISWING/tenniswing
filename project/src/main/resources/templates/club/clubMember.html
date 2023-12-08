@@ -50,7 +50,7 @@
 									</div>
 								</div>
 								<div>
-									<i class="fa-regular fa-trash-can" type="button" data-bs-target="#wrt${rep.clubMemNo}" id="memApplyBtn" data-club-no="${rep.clubNo}"></i>	
+									<i class="fa-regular fa-trash-can memNoBtn" type="button" data-mem-no="${rep.clubMemNo}"></i>	
 								</div>
 							</div>
 						</li>
@@ -58,9 +58,76 @@
 						$('#realMemList').append(List)
 					} // 반복문 끝
 					
+					//삭제 아이콘 클릭
+					$(".memNoBtn").on("click", function(e){
+						let clubMemNo = $(this).data('mem-no');
+						Swal.fire({
+							title: "멤버를 퇴출 하시겠습니까?",
+							text: "해당 멤버의 모든 클럽 활동이 삭제되며 삭제내역은 복구되지 않습니다.",
+							icon: "warning",
+							showCancelButton: true,
+							confirmButtonColor: "#3085d6",
+							cancelButtonColor: "#d33",
+							cancelButtonText: '취소',
+							confirmButtonText: "퇴출"
+						}).then((result) => {
+							if (result.isConfirmed) {
+								memberDeleteAjax(clubMemNo)
+							}
+						});
+					});
+						
 				} //success 끝
 			})
-		}
+		}//
+		
+		/* function memberDeleteAjax(clubMemNo){
+			$.ajax({
+				type: 'POST',
+				url: 'clubMemDelete',
+				data: { paramMemNo: clubMemNo },
+				dataType: 'JSON',
+				success: function (result) {
+					if (result) {
+						//삭제되면 리스트 다시 불러오기
+						realMemListAjax()
+					}
+				},
+				error: function () {
+					alert("삭제실패");
+				}
+			})
+		  }; */
+		  
+		  function memberDeleteAjax(clubMemNo){
+				$.ajax({
+					type: 'POST',
+					url: 'clubMemDelete',
+					data: { paramMemNo: clubMemNo },
+					dataType: 'JSON'
+			 	 })
+				.done(result => {
+					//console.log('JSON', result);
+					if(result > -1){
+						Swal.fire({
+							  icon: "success",
+							  title: "퇴출 완료",
+							  text: "멤버가 퇴출되었습니다.",
+							}).then(
+									realMemListAjax()
+						    )
+					} else {
+						Swal.fire({
+							  icon: "error",
+							  title: "퇴출 실패",
+							  text: "퇴출 중 문제 발생",
+						}).then(function(){
+							location.reload();
+						})
+					}
+					
+				})
+		  }
 		
 		$(document).ready(function () {
 			realMemListAjax()
