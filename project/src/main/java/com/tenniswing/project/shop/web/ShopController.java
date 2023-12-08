@@ -1,10 +1,12 @@
 package com.tenniswing.project.shop.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.common.FileUtils;
+import com.tenniswing.project.member.service.MemberService;
+import com.tenniswing.project.member.service.MemberVO;
 import com.tenniswing.project.shop.service.CartService;
 import com.tenniswing.project.shop.service.CartVO;
 import com.tenniswing.project.shop.service.ProdDetailService;
@@ -43,6 +47,10 @@ public class ShopController {
 	
 	@Autowired
 	AttachService attachService;
+	
+	@Autowired
+	MemberService memberService;
+	
 	// 상품 목록
 	@GetMapping("shop")
 	public String shopPage(Model model) {
@@ -116,14 +124,47 @@ public class ShopController {
 	public boolean updateCart(@RequestBody CartVO cartvo) {
 		return cartService.updateCart(cartvo);
 	}
+	
+//	장바구니 삭제 처리
+	@PostMapping("deleteCart")
+	@ResponseBody
+	public boolean deleteCart(@RequestBody CartVO cartvo) {
+		return cartService.deleteCart(cartvo);
+	}
 
 	@GetMapping("checkout")
-	public String checkoutPage(Model model, ProdDetailVO prodDetailVO, ProdVO prodVO) {
+	public String checkoutPage(Model model, ProdDetailVO prodDetailVO, ProdVO prodVO, @RequestParam String type) {
 		/*
 		 * ProdVO prodVO = new ProdVO(); prodVO.setProdNo(prodDetailVO.getProdNo());
 		 */
+		//MemberVO memberVO
 		//model.addAttribute("prodDetail", prodDetailVO);
-		model.addAttribute("prod", prodService.selectProd(prodVO));
+		//log.warn("asd"+type);
+		String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<CartVO> cartList = new ArrayList<CartVO>();
+		
+		if(type.equals("direct")) {
+			log.warn("=======prodVO==="+prodVO);
+			log.warn("=======prodDetailVO==="+prodDetailVO);
+			model.addAttribute("prod", prodService.selectProd(prodVO));
+			model.addAttribute("prodDetailVO", prodDetailVO);
+			//model.addAttribute("cartList", cartList);
+		} else {
+			//log.warn("asd"+type);
+			cartList = cartService.selectCheckCart(memId, type);
+			log.warn("=======cartList==="+cartList);
+			model.addAttribute("cartList", cartList);	
+		}
+		
+		//model.addAttribute("prodDetailVO", prodDetailService.selectProdDetail(prodDetailVO));
+		//model.addAttribute("mem", memberService.memberInfo(memberVO.getMemId()));
 		return "shop/checkout";
+	}
+	
+	@PostMapping("findMemId")
+	@ResponseBody
+	public MemberVO findMemId(@RequestBody MemberVO memberVO) {
+		log.warn("=========memID==="+memberVO.getMemId());
+		return memberService.memberInfo(memberVO.getMemId()); 
 	}
 }

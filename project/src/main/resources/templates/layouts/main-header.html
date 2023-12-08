@@ -5,6 +5,9 @@
 	svg, path, span {
 		pointer-events: none;
 	}
+	.swal2-popup {
+	 	z-index: 1000000 !important;
+	}
 </style>
 <th:block th:fragment="header">
 	<!-- header -->
@@ -216,8 +219,8 @@
 			</div>
 			<!-- Cart Button Start -->
 			<div class="cart__btns">
-				<a href="checkout" class="btn btn-primary">상품 주문</a> <a
-					href="#" class="btn btn-outline" style="border: 1px solid">쇼핑 하기</a>
+				<a href="checkout?type=cart" id="cartCheckout" class="btn btn-primary">상품 주문</a>
+				<a href="shop" class="btn btn-outline" style="border: 1px solid">쇼핑 하기</a>
 			</div>
 			<!-- Cart Button End -->
 		</div>
@@ -285,7 +288,7 @@
 														</button>
 													</div>
 												</div>
-												<button type="button" class="action__btn" id="deleteCartBtn" style="padding-right: 0;">
+												<button type="button" class="action__btn deleteCartBtn" id="deleteCartBtn_${cart.cartNo}" style="padding-right: 0;">
 													<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
 														xmlns="http://www.w3.org/2000/svg">
 														<path
@@ -379,8 +382,20 @@
 			    // span 클릭 이벤트 안되게 막기
 			    $('span').css('pointer-events', 'none');
 			    
+			    // 스윗 모달
+			    $('.swal2-popup').css("z-index",'999999');
+			    
 			 	// 최대 재고 체크
 			    checkAllProd();
+			 	
+			 	// 삭제버튼 클릭 시
+			 	$('.deleteCartBtn').on('click', function() {
+			 		console.log('asdf'+$(this).attr('id'));
+			 		let delProdNo = $(this).attr('id').split('_')[1];
+			 		
+			 		$(".flyoutCart").toggleClass("active");
+			 		deleteCartItem(delProdNo, cartMemId);
+			 	});
 			})
 			.fail(err => console.log(err));
 			
@@ -525,6 +540,69 @@
     	$('#totalCartCount').text(totalCount+' 개');
     	$('#totalCartPrice').text(totalPrice);
 	}
+	
+	/* 석제 처리 */
+	function deleteCartItem(cartNo, memId) {
+		let deleteCartData = {};
+		
+		deleteCartData.cartNo = cartNo;
+		deleteCartData.memId = memId;
+		
+		Swal.fire({
+			title: "장바구니",
+			text: "상품을 삭제하시겠습니까?",
+			icon: "question",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "확인",
+			cancelButtonText: "취소"
+		}).then((result) => {
+			//console.log(result);
+			if (result.isConfirmed) {				
+				$.ajax('deleteCart', {
+					type : 'post',
+					contentType : 'application/json',
+					data : JSON.stringify(deleteCartData)	
+				})
+				.done(result => {
+					if(result){
+						Swal.fire({
+							  icon: "success",
+							  title: "삭제 완료",
+							  text: "장바구니에서 삭제되었습니다.",
+							  didClose: () => {
+								  //$(".flyoutCart").toggleClass("active");
+								  $('.myCart').trigger("click");
+							  }
+						})
+					} else {
+						Swal.fire({
+							  icon: "error",
+							  title: "삭제 실패",
+							  text: "시스템 확인중입니다.",
+						}).then(function(){
+							location.reload();
+						});
+					}
+				}) // end of done
+				.fail(err => {
+					console.log(err);
+					Swal.fire({
+						  icon: "error",
+						  title: "삭제 실패",
+						  text: "시스템 확인중입니다.",
+					});
+				})
+			}
+		});
+		/* end of then */
+	}
+	
+	/* 장바구니에서 결제 페이지 이동 */
+	/* $('#cartCheckout').on('click', function() {
+		
+	}) */
 	</script>
 </th:block>
 

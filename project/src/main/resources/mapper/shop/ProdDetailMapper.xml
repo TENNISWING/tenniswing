@@ -13,6 +13,17 @@
   		ORDER BY prod_detail_no
   	</select>
   	
+  	<!-- 단건조회 -->
+  	<select id="selectProdDetail" resultType="ProdDetailVO">
+  		SELECT 	prod_detail_no,
+  				prod_detail_sto,
+  				FIND_CATEGORY_NAME(prod_detail_sale_sts) AS prod_detail_sale_sts, 
+  			   	FIND_CATEGORY_NAME(cate_color) AS cate_color,
+  			   	FIND_CATEGORY_NAME(cate_size) AS cate_size
+  		FROM   	prod_detail
+  		WHERE  	prod_detail_no = #{prodDetailNo}
+  	</select>
+  	
   	<!-- 카트 등록시 한건 조회 -->
   	<select id="selectCartProd" resultType="ProdDetailVO">
   		SELECT 	prod_detail_no

@@ -34,6 +34,15 @@ public class CartServiceImpl implements CartService{
 		return cartMapper.selectAllCart(cartVO);
 	}
 	
+	// 체크아웃 목록
+	@Override
+	public List<CartVO> selectCheckCart(String memId, String type) {
+		CartVO cartVO = new CartVO();
+		cartVO.setMemId(memId);
+		cartVO.setType(type);
+		return cartMapper.selectAllCart(cartVO);
+	}
+	
 	// 한건조회
 	@Override
 	public boolean selectAllCart(CartVO cartvo) {
@@ -79,6 +88,17 @@ public class CartServiceImpl implements CartService{
 		boolean isSucess = false;
 		
 		if(cartMapper.updateCart(cartvo) == 1) {
+			isSucess = true;
+		}
+		return isSucess;
+	}
+
+	// 삭제
+	@Override
+	public boolean deleteCart(CartVO cartvo) {
+		boolean isSucess = false;
+		
+		if(cartMapper.deleteCart(cartvo) == 1) {
 			isSucess = true;
 		}
 		return isSucess;
