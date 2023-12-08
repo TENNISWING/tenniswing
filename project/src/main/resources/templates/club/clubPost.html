@@ -40,8 +40,7 @@
 						<div class="shortBy-select select__style d-lg-flex d-none">
 							<select name="sortBy" id="sortBy">
 								<option value="0">최신순</option>
-								<option value="1">조회순</option>
-								<option value="2">제목순</option>
+								<option value="1">제목순</option>
 							</select>
 						</div>
 					</div>
@@ -66,14 +65,12 @@
 			</table>
 
 			<br>
-			<ul class="pagination justify-content-center">
-				<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
-				</li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">다음</a></li>
-			</ul>
+			<div class="action-right d-flex flex-grow-1 align-items-center justify-content-around">
+				<!-- 페이지 -->
+				<div class="container mt-5 mb-5">
+					<ul class="pagination justify-content-center"></ul>
+				</div>
+			</div>
 		</div>
 
 		<!-- 글작성 모달  -->
@@ -163,13 +160,6 @@
 
 		<script>
 
-			/* // 게시글 콜랩스 토글
-			document.querySelector(".boardContainer").addEventListener('click',
-					function() {
-						const toggleAnswer = document.querySelector(".boardBody")
-						console.log(toggleAnswer);
-						toggleAnswer.classList.toggle('active');
-					})   */
 
 
 			//게시글 등록
@@ -210,15 +200,29 @@
 				});
 
 			});
-
-			//게시글 전체 조회
-			function postListAjax() {
+			
+			//페이징
+	    	postListPage(1);
+			
+			$('#sortBy').on('change', function(e) {
+				pageNum = 1;
+				postListPage(1);
+			})
+			
+			function postListPage(page) {
+				let sort = $('#sortBy').val();
+				if(sort == 0)
+					sort = 'club_post_write_date DESC';
+				else if(sort == 1)
+					sort = 'club_post_title';
+				
 				let clubNo = $('#clubPostWrite').attr('data-club-no');
 				console.log("자유게시판에서 클럽번호" + clubNo)
+				
 				$.ajax({
 					type: 'GET',
 					url: 'postList',
-					data: { clubNo },
+					data: {page, clubNo, sort },
 					success: function (data) {
 						$('#postList').empty();
 						for (let [index, clubPost] of data.entries()) {
@@ -276,6 +280,7 @@
 						}
 						$('#postList tr.accordion-header').on("click", repListAjax);
 
+						
 						//삭제 아이콘 클릭할때
 						$(".postDelBtn").on("click", function (e) {
 							e.stopPropagation();
@@ -399,11 +404,51 @@
 							})
 						});
 					}//success 끝
-
-
-
-
 				})
+			}
+			
+			let pageNum = 1;
+			let pageSize = 10.0; //페이지 번호 수
+			let pageUnit = 7;  //한페이지에 출력할 행의 수
+			
+			$('.pagination').on('click', 'li a', function(e) {
+				e.preventDefault();
+				console.log('page click');
+				
+				let targetPage = $(this).attr('href');
+				console.log('targetPage: ' + targetPage);
+				
+				pageNum = targetPage;
+				postListPage(targetPage);
+			});
+		
+			function showPage(replyCnt) {
+				var endNum = Math.ceil(pageNum / pageSize) * pageSize;
+				var startNum = endNum > pageSize? endNum - pageSize : 1;
+				
+				var prev = startNum != 1;
+				var next = false;
+				
+				if(endNum * 10 >= replyCnt) {
+					endNum = Math.ceil(replyCnt/pageUnit);
+				}
+				
+				if(endNum * 10 < replyCnt) {
+					next = true;
+				}
+				
+				var str= "";
+				
+				for(var i = startNum ; i <= endNum; i++) {
+					var active = pageNum == i? "active":"";
+					str+= "<li class='page-item "+active+"'> <a class='page-link' href='"+i+"'>"+i+"</a></li>";		
+				}
+				
+				str += "";
+				
+				console.log(str);
+				
+				$('.pagination').html(str);
 			}
 
 			//댓글 등록 아작스
@@ -442,7 +487,8 @@
 				})
 			};
 
-
+			
+			
 
 			//게시글 삭제 아작스
 			function postDeleteAjax(clubPostNo) {
@@ -467,7 +513,7 @@
 
 
 			$(document).ready(function () {
-				postListAjax()
+				//postListAjax()
 			});
 
 

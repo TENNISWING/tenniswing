@@ -19,6 +19,7 @@ public class ClubPostServiceImpl implements ClubPostService  {
 	//게시글 전체조회
 	@Override
 	public List<ClubPostVO> selectAllPost(ClubPostVO clubPostVO) {
+		clubPostMapper.updatePostHit(clubPostVO.getClubPostNo());
 		return clubPostMapper.selectAllPost(clubPostVO);
 	}
 
@@ -64,12 +65,17 @@ public class ClubPostServiceImpl implements ClubPostService  {
 			
 		}
 
-		//조회수
-		@Override
-		public void updatePostHit(int clubPostNo) {
-			clubPostMapper.updatePostHit(clubPostNo);
+	//조회수
+	@Override
+	public void updatePostHit(int clubPostNo) {
+		clubPostMapper.updatePostHit(clubPostNo);
 			
-		}
+	}
+
+	@Override
+	public int selectCount(ClubPostVO clubPostVO) {
+		return clubPostMapper.selectCount(clubPostVO);
+	}
 		
 		
 

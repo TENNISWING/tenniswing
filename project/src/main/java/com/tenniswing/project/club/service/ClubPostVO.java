@@ -32,5 +32,12 @@ public class ClubPostVO {
 	private List<AttachVO> attachList;
 	private String attachPath;
 	
+	//페이징
+	private int page;
+	private int rn;
+	private int pageUnit=7;
+		
+	private String sort;
+	
 	
 }

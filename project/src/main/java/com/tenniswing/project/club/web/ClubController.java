@@ -62,7 +62,7 @@ public class ClubController {
 		 HashMap<String, Object> map = new HashMap<>();
 		 map.put("selectCount", clubService.selectCount(clubVO));
 		 map.put("clubList",clubService.selectAllClub(clubVO));
-		 
+		 System.out.println("aaaaaaaaaaaaaaaaaaaaaaa"+clubService.selectAllClub(clubVO).size());
 		 return map;
 	 }
 
