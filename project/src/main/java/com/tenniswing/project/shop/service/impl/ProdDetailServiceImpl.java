@@ -23,6 +23,12 @@ public class ProdDetailServiceImpl implements ProdDetailService{
 		return prodDetailMapper.selectAllProdDetail(prodVO);
 	}
 	
+	//한건
+	@Override
+	public ProdDetailVO selectProdDetail(ProdDetailVO prodDetailVO) {
+		return prodDetailMapper.selectProdDetail(prodDetailVO);
+	}
+	
 	// 장바구니 등록시 한건 조회
 	@Override
 	public ProdDetailVO selectCartProd(ProdDetailVO prodDetailVO) {

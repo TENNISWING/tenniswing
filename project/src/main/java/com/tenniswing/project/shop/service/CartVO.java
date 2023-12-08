@@ -29,5 +29,7 @@ public class CartVO {
 	private int prodDetailSto;
 	private String cateColor;
 	private String cateSize;
+	
+	private String type;
 
 }

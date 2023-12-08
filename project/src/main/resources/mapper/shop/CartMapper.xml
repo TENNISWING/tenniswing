@@ -25,7 +25,12 @@
 		                AND a.attach_table_div = 'p'
 		                AND a.attach_turn = 1)
 		WHERE   mem_id = #{memId}
+		<if test="type == 'cart'">
+			AND	d.prod_detail_sto > 0
+		</if>
   	</select>
+
+  	<!-- 카트 체크아웃 페이지 이동시 조회 -->
   	
   	<!-- 카트 한건 -->
   	<select id="selectCart" resultType="CartVO">
@@ -39,6 +44,7 @@
 		AND		d.cate_color = #{cateColor}
 		AND		d.cate_size = #{cateSize}
   	</select>
+  	
   	
   	<!-- 카트 등록 -->
   	<insert id="insertCart" parameterType="CartVO">
@@ -54,5 +60,31 @@
 				#{prodDetailNo}
 		)
   	</insert>
-  
+  	
+  	<!-- 카트 수정 -->
+  	<update id="updateCart" parameterType="CartVO">
+  		UPDATE 	cart
+		SET		cart_prod_qt = #{cartProdQt}
+  		WHERE 	cart_no = #{cartNo}
+  		AND		mem_id = #{memId}
+  	</update>
+  	
+  	<!-- 카트 삭제 -->
+  	<delete id="deleteCart" parameterType="CartVO">
+  		DELETE 	FROM cart
+  		WHERE	cart_no = #{cartNo}
+  		AND		mem_id = #{memId}
+  	</delete>
   </mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
