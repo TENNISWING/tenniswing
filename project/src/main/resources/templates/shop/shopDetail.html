@@ -998,7 +998,7 @@
 					data : JSON.stringify(objData)
 				})
 				.done(result => {
-					console.log(result);
+					console.log('이미 존재하는가'+result);
 					if(result){
 						Swal.fire({
 							  icon: "info",

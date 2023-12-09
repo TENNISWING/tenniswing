@@ -43,6 +43,7 @@
 		WHERE   mem_id = #{memId}
 		AND		d.cate_color = FIND_CATEGORY_CODE(#{cateColor})
 		AND		d.cate_size = FIND_CATEGORY_CODE(#{cateSize})
+		AND     p.prod_no = #{prodNo}
   	</select>
   	
   	
