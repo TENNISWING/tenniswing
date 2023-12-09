@@ -543,6 +543,7 @@
 			url:'snsRep',
 			data: {snsWrtNo},
 			   success: function(data) {
+				   console.log('data');
 				   console.log(data);
 					$('#replyList').empty();
 		            for(let [index, repList] of data.entries()){
@@ -565,7 +566,6 @@
         //수정 아이콘 눌렀을때 누른행 제외하고 사라지고 등록 버튼 수정버튼으로 변경
         $('.repEditBtn').on('click', function(e){
         	$('#replyList').empty();
-
         	let num = $(e.target).prop('id').replace('editBtn','');
          	let b = `
 	               <tr>
@@ -573,10 +573,8 @@
 						<td class = "editCtt" id="">${data[num].snsRepCtt}</td>
 						<td>${new Date(data[num].snsRepWriteDate).toLocaleDateString()}</td>
 						<td><i type="button"
-							class="fa-regular fa-pen-to-square repEditBtn" id="editBtn`+data[num].snsRepNo+`"
-
-							></i> <i type="button"
-							class="fa-regular fa-trash-can"></i></td>
+							class="fa-regular fa-pen-to-square repEditBtn" id="editBtn`+data[num].snsRepNo+`"></i> 
+							<i type="button" class="fa-regular fa-trash-can"></i></td>
 					</tr>`
 	   		$('#replyList').append(b);
 			snsRepNo = $(e.target).closest('tr').prop('id');
@@ -588,8 +586,8 @@
 
         // 댓글 삭제
 		$('.repDelBtn').on('click',function(e){
-        	console.log("삭제클릭되나요");
-        	console.log(e.target);
+        	//console.log("삭제클릭되나요");
+        	//console.log(e.target);
         	let cnt = $(e.target).prop("id").replace("delBtn","");
         	console.log(cnt);
 
@@ -615,8 +613,8 @@
         // 대댓글 등록 이벤트
 		$('.reWrtBtn').on('click', function(e){
 			snsRepNo = $(e.target).closest('tr').prop('id');
-			console.log(snsRepNo);
-			console.log('대댓글 작성버튼 잘뜨는지');
+			//console.log(snsRepNo);
+			//console.log('대댓글 작성버튼 잘뜨는지');
 			//let snsRrepCtt = $("#replyContents").val();
 			$('#replyList').empty();
 	
@@ -639,9 +637,12 @@
  		
 		})
 		
+		
+		
+		
 		// 대댓글 삭제 이벤트
 		$('.rrepDelBtn').on('click', function(e){
-        	console.log("대댓글삭제클릭되나요");
+        	//console.log("대댓글삭제클릭되나요");
 			let snsRrepNo = $(e.target).closest('tr').prop('id');
 		 	 $.ajax({
 		        		type:'POST',
@@ -659,6 +660,29 @@
 	
 						}
 				})
+		})
+		
+		//대댓글 수정 이벤트
+		$('.rrepEditBtn').on('click', function(e){
+			$('#replyList').empty();
+			let repnum = $(e.target).parents().siblings('td')
+			let rrepnum =$(e.target).closest('tr').prop('id');
+	
+			let rep1 = $(repnum[0]).text().replace('ㄴ','').trim();
+			let rep2 = $(repnum[1]).text()
+			let rep3 = $(repnum[2]).text()
+	
+			let b = `
+				<tr id = ${rrepnum}>
+				<td> ${rep1}</td>
+				<td class = "editCtt">${rep2}</td>
+				<td>${new Date(rep3).toLocaleDateString()}</td>
+				<td></td>
+			</tr>
+			`
+		 $('#replyList').append(b);		
+		 $('#repSubmit').text('대댓글 수정');
+		 $('#replyContents').val(rep2);
 		})
 
 		
