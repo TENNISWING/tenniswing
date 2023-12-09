@@ -410,8 +410,9 @@
 				objData[obj.name] = obj.value;
 			});
 			// 필요한 전체 데이터 담기
-			//console.log(objData.orderTPayAmt);
+			console.log(objData);
 			
+			//return;
 			// IMP.reuest_pay 결제창 호출
 			let uid = '';
 			IMP.init('imp36847353');
@@ -440,8 +441,8 @@
 						data: JSON.stringify(objData)
 					})
 					.done(function(result) {
-						console.log(orderTableVO);
-						if (results.result) {
+						console.log(result.orderTableVO);
+						if (result.result) {
 							Swal2.fire({
 								title: "상품 주문",
 								text: "상품 주문이 완료되었습니다.",
@@ -459,7 +460,16 @@
 							})
 						}
 					})
-					.fail(err => console.log(err))
+					.fail(function(err) {
+						console.log(err);
+						Swal2.fire({
+							title: "상품 주문",
+							text: "상품 주문 시스템 문제 발생",
+							icon: "error",
+						}).then(function(){
+							location.reload();
+						})
+					})
 				}
 				else {
 					Swal2.fire({
@@ -486,8 +496,6 @@
 			}
 			return orderNum;
 		}
-		
-		
 	</script>
 	
 	<!--/* 가격부분 , 추가하는 기능 */-->

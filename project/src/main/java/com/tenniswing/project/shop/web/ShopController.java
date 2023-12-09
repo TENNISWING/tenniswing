@@ -179,15 +179,22 @@ public class ShopController {
 		return memberService.memberInfo(memberVO.getMemId()); 
 	}
 	
+	// 결제 요청
 	@PostMapping("orderPay")
 	@ResponseBody
 	public Map<String, Object> orderPay(@RequestBody OrderTableVO orderTableVO) {
 		Map<String, Object> result = new HashMap<String, Object>();
+		List<CartVO> cartList = new ArrayList<CartVO>();
+		// 바로 결제 들어올 때
 		if((orderTableVO.getType()).equals("direct")) {
 			log.warn("===== 결제가 성공해서 들어오면===="+orderTableVO);
 			result = orderService.insertOrder(orderTableVO);
+		} else { // 장바구니에서 결제 들어올 때
+			cartList = cartService.selectCheckCart(orderTableVO.getMemId(), orderTableVO.getType());
+			log.warn("=======cartList==="+cartList);
+			result = orderService.insertCartOrder(orderTableVO, cartList);
 		}
-		return result;
+		return null;
 	}
 	
 	
