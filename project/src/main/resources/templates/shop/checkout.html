@@ -32,6 +32,10 @@
 		font-family: 'Noto Sans KR', sans-serif !important;
 	}
 </style>
+
+<!-- 아임포트 라이브러리 -->
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 
 <th:block layout:fragment="content">
@@ -51,7 +55,7 @@
 								<div class="form-group">
 									<label for="f_name">이름</label> <input type="text" name="f_name"
 										id="f_name" class="form-control"
-										placeholder="(필수) 이름을 입력해 주세요." onkeyup='printName()'/>
+										placeholder="(필수) 이름을 입력해 주세요." onkeyup='printName()' readonly="readonly"/>
 								</div>
 							</div>
 							<div class="flex__form c-1">
@@ -59,7 +63,7 @@
 									<label for="f_phone">전화번호</label>
 									<div class="input-group">
 										<input type="tel" name="f_phone" id="f_phone" class="form-control"
-											placeholder="(필수) 휴대폰 번호를 입력해 주세요." onkeyup='printTel()'/>
+											placeholder="(필수) 휴대폰 번호를 입력해 주세요." onkeyup='printTel()' readonly="readonly"/>
 									</div>
 								</div>
 							</div>
@@ -82,14 +86,31 @@
 						</div>
 							
 						<!-- <h5 class="sub-title">배송지 주소</h5> -->
-						<form class="form__wrapper">
+						<!-- 결제시 담아갈 정보들 -->
+						<form class="form__wrapper" id="checkOutForm">
+							<th:block th:if="${cartList == null}">
+								<input name="prodNo" th:value="${prod.prodNo}" type="hidden">
+								<input type="hidden" th:value="${prodDetailVO.prodDetailSto}" id="orderOneProdCnt" name="orderProdCnt">
+								<input type="hidden" th:value="${prodDetailVO.prodDetailSto} * ${prod.prodPrice}" id="orderOneTPayAmt" name="orderTPayAmt">
+								<input type="hidden" th:value="${prodDetailNo}" name="prodDetailNo">							
+								<input type="hidden" th:value="${prod.prodPrice}" name="prodPrice">							
+								<input type="hidden" th:value="${prodDetailVO.prodDetailSto}" name="prodDetailSto">							
+								<input type="hidden" th:value="${prod.prodName}" name="prodName">							
+								<input type="hidden" value="direct" name="type">							
+							</th:block>
+							<th:block th:unless="${cartList == null}">
+								<input type="hidden" value="cart" name="type">							
+								<input type="hidden" id="orderCartprodName" name="prodName">
+								<input type="hidden" id="orderCartProdCnt" name="orderProdCnt">
+								<input type="hidden" id="orderCartTPayAmt" name="orderTPayAmt">
+							</th:block>
 							<div class="form-group">
-								<label for="f2_name">받는분 정보</label> <input type="text" name="f2_name"
-									id="f2_name" class="form-control"
+								<label for="orderRptName">받는분 정보</label> <input type="text" name="orderRptName"
+									id="orderRptName" class="form-control"
 									placeholder="(필수) 이름을 입력해 주세요." />
 									<br>
 								
-									<input type="tel" name="f2_phone" id="f2_phone" class="form-control"
+									<input type="tel" name="orderRptTel" id="orderRptTel" class="form-control"
 										placeholder="(필수) 휴대폰 번호를 입력해 주세요." />
 
 							</div>
@@ -97,23 +118,23 @@
 							<div class="cta__form justify-content-start align-items-end mt-15" style="margin-top: 40px">
 								<div class="form-group" style="margin: 0;">
 									<label>받으실 곳</label>
-									<input type="text" id="sample6_postcode" class="form-control border" placeholder="우편번호">								
+									<input type="text" id="sample6_postcode" name="orderAdr1" class="form-control border" placeholder="우편번호" readonly="readonly">								
 								</div>							
 								<input type="button" onclick="sample6_execDaumPostcode()" class="btn btn-primary" style="margin-top: 0;" value="우편번호 찾기">
 							</div>
 							<br>
-							<input type="text" id="sample6_address" class="form-control" placeholder="주소">
+							<input type="text" id="sample6_address" name="orderAdr2" class="form-control" placeholder="주소" readonly="readonly">
 							<br>
-							<input type="text" id="sample6_detailAddress" class="form-control" placeholder="상세주소" onkeyup="printAdd3()">
+							<input type="text" id="sample6_detailAddress" name="orderAdr3" class="form-control" placeholder="상세주소" onkeyup="printAdd3()">
 							<br>
 							<div class="form-group">
-								<input type="text" name="requ" id="requ" class="form-control"
+								<input type="text" name="orderReq" id="orderReq" class="form-control"
 									   placeholder="요청사항을 입력해주세요." />
 							</div>
 							<br />
 							
 							<div class="cta__form justify-content align-items-end mt-15" style="margin: 0; justify-content: space-around;">							
-								<button type="submit" class="btn btn-primary mt-10" style="border-radius: 20px;">결제하기</button>
+								<button type="button" class="btn btn-primary mt-10" style="border-radius: 20px;" id="iamportPayment">결제하기</button>
 								<a class="btn btn-transparent mt-10" onclick="history.back()" style="border: 1px solid; border-radius: 20px">취소하기</a>
 							</div>
 						</form>
@@ -128,7 +149,7 @@
 									<span class="step-num">1</span>
 									<h3 class="step-title">주문자 정보</h3>
 								</div>
-								<a href="#" class="edit__btn" id="editMem">edit</a>
+								<!-- <a href="#" class="edit__btn" id="editMem">edit</a> -->
 							</div>
 							<ul class="information">
 								<li id="f_name_out">이름을 입력하세요.</li>
@@ -142,7 +163,7 @@
 									<span class="step-num">2</span>
 									<h3 class="step-title">배송 정보</h3>
 								</div>
-								<a href="#" class="edit__btn">edit</a>
+								<a onclick="sample6_execDaumPostcode()" class="edit__btn" style="cursor:pointer;">edit</a>
 							</div>
 							<ul class="information" style="margin-bottom: 0">
 								<li id="addr1">우편번호</li>
@@ -160,7 +181,7 @@
 							<!-- Shopping Cart Item Start -->
 							<th:block th:if="${cartList == null}">
 								<div class="shopping-card shopping-card__v2">
-									<a href="#" class="shopping-card__image"> 
+									<a th:onclick="|location.href='@{/shopDetail(prodNo=${prod.prodNo})}'|" class="shopping-card__image" style="cursor:pointer;"> 
 										<img th:src="${prod.attachPath}" alt="cart-product" />
 									</a>
 									<div class="shopping-card__content">
@@ -168,10 +189,10 @@
 											<!-- 상품명 -->
 											<!-- <th:block th:each="prodVO : ${prodVO}" th:if="${prodDetailVO.prodNo == prodVO.prodNo}"> -->
 												<h5 class="product__title">
-													<a th:onclick="|location.href='@{/shopDetail(prodNo=${prod.prodNo})}'|">
+													<a th:onclick="|location.href='@{/shopDetail(prodNo=${prod.prodNo})}'|" style="cursor:pointer;">
 														<b>[[ ${prod.prodName} ]]</b></a>
 												</h5>
-												<p class="product__price onePrice" id="prodPrice" th:value="${prod.prodPrice}">[[ ${prod.prodPrice} ]]</p>
+												<p class="product__price onePrice" id="prodOnePrice" th:value="${prod.prodPrice} * ${prodDetailVO.prodDetailSto}">[[ ${prod.prodPrice} ]]</p>
 											<!-- </th:block> -->
 										</div>
 										<div class="shopping-card__content-bottom">
@@ -187,7 +208,7 @@
 							<th:block th:unless="${cartList == null}">
 								<th:block th:each="cartList : ${cartList}">								
 									<div class="shopping-card shopping-card__v2">
-										<a href="#" class="shopping-card__image"> 
+										<a th:onclick="|location.href='@{/shopDetail(prodNo=${cartList.prodNo})}'|" class="shopping-card__image" style="cursor:pointer;"> 
 											<img th:src="${cartList.attachPath}" alt="cart-product" />
 										</a>
 										<div class="shopping-card__content">
@@ -195,17 +216,18 @@
 												<!-- 상품명 -->
 												<!-- <th:block th:each="prodVO : ${prodVO}" th:if="${prodDetailVO.prodNo == prodVO.prodNo}"> -->
 													<h5 class="product__title">
-														<a th:onclick="|location.href='@{/shopDetail(prodNo=${cartList.prodNo})}'|">
-															<b>[[ ${cartList.prodName} ]]</b></a>
+														<a th:onclick="|location.href='@{/shopDetail(prodNo=${cartList.prodNo})}'|" style="cursor:pointer;">
+															<b id="cartProdName">[[ ${cartList.prodName} ]]</b></a>
 													</h5>
-													<p class="product__price onePrice" id="prodPrice" th:value="${cartList.prodPrice}">[[ ${cartList.prodPrice} ]]</p>
+													<p class="product__price onePrice" th:id="prodPrice+${cartList.prodDetailNo}" th:value="${cartList.prodPrice} * ${cartList.cartProdQt}">[[ ${cartList.prodPrice} ]]</p>
 												<!-- </th:block> -->
 											</div>
 											<div class="shopping-card__content-bottom">
 												<h6 style="padding: 0 3px; color: #667085; font-size: small; font-weight: 500;">색상 : [[ ${cartList.cateColor} ]] &nbsp&nbsp 사이즈 : [[ ${cartList.cateSize} ]]</h6>
 											</div>
 											<div class="shopping-card__content-bottom">
-												<h6 style="padding: 0 3px; color: #667085; font-size: small; font-weight: 500;">수량 : [[ ${cartList.cartProdQt} ]]</h6>
+												<h6 style="padding: 0 3px; color: #667085; font-size: small; font-weight: 500;" th:value="${cartList.cartProdQt}" class="checkProdQt">
+													수량 : [[ ${cartList.cartProdQt} ]]</h6>
 											</div>
 										</div>
 									</div>
@@ -224,20 +246,22 @@
 								<h3>
 									결제금액 <span>(Incl. VAT)</span>
 								</h3>
-								<span class="total" id="totaShopPrice" th:text="${prodDetailVO.prodDetailSto} * ${prod.prodPrice}"></span>
+								<span class="total" id="totalShopPrice" 
+									  th:text="${prodDetailVO.prodDetailSto} * ${prod.prodPrice}"
+									  th:value="${prodDetailVO.prodDetailSto} * ${prod.prodPrice}"></span>
 							</div>
 						</th:block>
 						
 						<th:block th:unless="${cartList == null}">
 							<div class="cart__total cart__total__v2" style="padding: 0 0 0 10px;">
-								<h3>총 수량</h3> <span class="value" id="totalShopCount"></span>
+								<h3>총 수량</h3> <span class="value" id="totalCheckShopCount"></span>
 							</div>
 							<hr>
 							<div class="cart__total cart__total__v2" style="padding: 0 0 0 10px;">
 								<h3>
 									결제금액 <span>(Incl. VAT)</span>
 								</h3>
-								<span class="total" id="totaShopPrice"></span>
+								<span class="total" id="totalCheckShopPrice"></span>
 							</div>
 						</th:block>
 					</div>
@@ -327,11 +351,7 @@
 				printName();
 				printTel();
 			});
-
-			
 		})
-		
-		
 		
 		function printName() {
 			let name = document.getElementById('f_name').value;
@@ -344,38 +364,185 @@
 		}
 		
 		function printBoth() {
-			document.querySelector('#f2_phone').value = document.querySelector('#f_phone').value;
-			document.querySelector('#f2_name').value = document.querySelector('#f_name').value;
+			document.querySelector('#orderRptTel').value = document.querySelector('#f_phone').value;
+			document.querySelector('#orderRptName').value = document.querySelector('#f_name').value;
 		}
 
 		function printDel() {
-			document.querySelector('#f2_phone').value = '';
-			document.querySelector('#f2_name').value = '';
+			document.querySelector('#orderRptTel').value = '';
+			document.querySelector('#orderRptName').value = '';
 
-			document.querySelector('#f2_name').focus();
+			document.querySelector('#orderRptName').focus();
 		}
 
 		function printAdd3() {
 			let add3 = document.querySelector('#sample6_detailAddress').value;
 			document.querySelector('#addr3').innerText = add3;
 		}
+		
+		
+		/* 결제하기 */
+		$('#iamportPayment').on('click', function() {
+			requestPay();
+		})
+		
+		
+		/* 결제 함수 */
+		function requestPay() {
+			/* let orderTPayAmt;
+			let orderProdCnt;
+			let orderAdr1;
+			let orderAdr2;
+			let orderAdr3;
+			let orderPrtName;
+			let orderPrtTel;
+			let orderReq;
+			let memId; */
+			let orderNo = createOrderNum()
+			let formData = $('#checkOutForm').serializeArray();
+			formData.push({name: 'memId', value: shopMemId});
+			formData.push({name: 'merchantUid', value: orderNo});
+			//formData.pust({name: 'type', value: 'direct'});
+			console.log(formData);
+			let objData = {};
 
+			$.each(formData, (idx, obj) => {
+				objData[obj.name] = obj.value;
+			});
+			// 필요한 전체 데이터 담기
+			//console.log(objData.orderTPayAmt);
+			
+			// IMP.reuest_pay 결제창 호출
+			let uid = '';
+			IMP.init('imp36847353');
+			IMP.request_pay({
+				pg: 'kakaopay',
+		        pay_method: "card",
+		        merchant_uid: orderNo, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
+		        name: objData.prodName, //결제창에 노출될 상품명
+		        amount: objData.orderTPayAmt, //금액
+		        buyer_email : objData.memId, 
+		        buyer_name : objData.orderPrtName,
+		        buyer_tel : objData.orderPrtTel,
+		        display: {
+					card_quota: [6]  // 할부개월 6개월까지 활성화
+				}
+			}, function(rsp) { // callback
+				if(rsp.success) { // 결제 성공 시
+					uid = rsp.imp_uid;
+					console.log('rsp '+uid+' , '+rsp.merchant_uid); // uid와 주문번호
+					objData.impUid = uid;
+					
+					$.ajax({
+						url: 'orderPay',
+						type: 'post',
+						contentType : 'application/json',
+						data: JSON.stringify(objData)
+					})
+					.done(function(result) {
+						console.log(orderTableVO);
+						if (results.result) {
+							Swal2.fire({
+								title: "상품 주문",
+								text: "상품 주문이 완료되었습니다.",
+								icon: "success",
+							}).then(function(){
+								location.href = "/shop";
+							})
+						} else {
+							Swal2.fire({
+								title: "상품 주문",
+								text: "상품 주문이 실패되었습니다.",
+								icon: "error",
+							}).then(function(){
+								location.reload();
+							})
+						}
+					})
+					.fail(err => console.log(err))
+				}
+				else {
+					Swal2.fire({
+						title: "결제 실패",
+						text: "결제가 실패되었습니다.",
+						icon: "error",
+					}).then(function(){
+						console.log(rsp.error_msg);
+					}) 
+				}			
+			})
+		}
+		
+		// 주문번호 만들기
+		function createOrderNum(){
+			const date = new Date();
+			const year = date.getFullYear();
+			const month = String(date.getMonth() + 1).padStart(2, "0");
+			const day = String(date.getDate()).padStart(2, "0");
+			
+			let orderNum = year + month + day;
+			for(let i=0;i<10;i++) {
+				orderNum += Math.floor(Math.random() * 8);	
+			}
+			return orderNum;
+		}
+		
+		
 	</script>
 	
 	<!--/* 가격부분 , 추가하는 기능 */-->
 	<script type="text/javascript">
-		let changePrice = $('#prodPrice').text();
-		let changeTotal = $('#totaShopPrice').text();
-		changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		let onePrice = $('.onePrice');
+		let totalPrice = 0;
+		
+		onePrice.each(function() {
+			let checkPriceId = $(this).attr('id');
+			
+			let changeCheckPrice = $('#'+checkPriceId).attr('value');
+			totalPrice += Number(changeCheckPrice);
+			changeCheckPrice = changeCheckPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			changeCheckPrice = changeCheckPrice + '원';
+			
+			$('#'+checkPriceId).text(changeCheckPrice);
+		})
+		
+		if($('#orderCartTPayAmt').length > 0) {
+			$('#orderCartTPayAmt').val(totalPrice);	
+		}
+		
+		let changeTotal = $('#totalShopPrice').text();
 		changeTotal = changeTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		
-		changePrice = changePrice + '원';
+		totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		changeTotal = changeTotal + '원'; 
+		totalPrice = totalPrice + '원'; 
 		
-		$('#prodPrice').text(changePrice);
+		$('#totalShopPrice').text(changeTotal);
+		$('#totalCheckShopPrice').text(totalPrice);
 		
-		$('#totaShopPrice').text(changeTotal);
+		/*  */
+		let checkProdQt = $('.checkProdQt');
+		let totalProdQt = 0;
 		
+		checkProdQt.each(function() {
+			totalProdQt += Number($(this).attr('value'));
+		})
+		
+		/*  */
+		if($('#orderCartProdCnt').length > 0) {
+			$('#orderCartProdCnt').val(totalProdQt);		
+		};
+		
+		
+		totalProdQt = totalProdQt + '개'
+		
+		$('#totalCheckShopCount').text(totalProdQt);
+		
+		/*  */
+		if($('#orderCartprodName').length > 0) {
+			console.log($('#cartProdName').text());
+			let prodName = $('#cartProdName').text() + ' 외 ' + totalProdQt;
+			$('#orderCartprodName').val(prodName);
+		}
 	</script>
 </th:block>
 
