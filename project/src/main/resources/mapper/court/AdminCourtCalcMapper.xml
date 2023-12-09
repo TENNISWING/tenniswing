@@ -21,7 +21,9 @@
 				   ON r.crtroom_no = c.crtroom_no
                    LEFT OUTER JOIN reserve_cancel rc
                    ON r.reserve_no = rc.reserve_no	
-    Where r.reserve_state != 'i1'    
+    Where r.reserve_state != 'i1' 
+    AND c.host_id = #{hostId}  
+    <!-- AND r.pay_date BETWEEN '23/11/01' AND '23/11/30' -->
     AND r.pay_date BETWEEN #{calcStartDate} AND #{calcEndDate}
 </select>
 </mapper>

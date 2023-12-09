@@ -239,7 +239,14 @@
 		WHERE mem_id = #{memId}
 	</update>
 	
-	<select id="searchHost" resultMap="MemberVO">
-		select mem_id from mem where mem_div = 'ROLE_HOST'
+	<select id="searchHost" resultType="MemberVO">
+		select m.mem_id
+		,m.name
+		,h.host_bank
+		,h.host_act_no
+		,h.HOST_DEPOSITOR
+		,h.HOST_BUSINESS_REGI_NO
+		from mem m JOIN CRTROOM_HOST h
+			ON m.mem_id = h.mem_id
 	</select>
 </mapper>
