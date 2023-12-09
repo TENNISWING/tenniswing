@@ -8,6 +8,9 @@
 	width: 600px;
 	height: 1200px;
 }
+.repTr{
+	background-color: #ECF8E0;
+}
 
 </style>
 <!-- tagify 소스 다운 -->
@@ -504,15 +507,16 @@
     
     function makeReply(index, repList){
         let b = `
-            <tr id = ${repList.snsRepNo}>
+            <tr class = "repTr" id = ${repList.snsRepNo}>
 					<td>${repList.name}</td>
 					<td class = "editCtt">${repList.snsRepCtt}</td>
 					<td>${new Date(repList.snsRepWriteDate).toLocaleDateString()}</td>
-					<td><i type="button"
-						class="fa-regular fa-pen-to-square repEditBtn" id="editBtn${index}"></i>
+					<td>
+						<i type="button" class="fa-regular fa-comment reWrtBtn" id="reWrtBtn${index}"></i>
+						<i type="button" class="fa-regular fa-pen-to-square repEditBtn" id="editBtn${index}"></i>
 						<i type="button" class="fa-regular fa-trash-can repDelBtn" id="delBtn${index}"></i></td>
 				</tr>`
-
+				
             $('#replyList').append(b);
     }
     
@@ -524,8 +528,8 @@
 				<td class = "editCtt">${rrep.snsRrepCtt}</td>
 				<td>${new Date(rrep.snsRrepWriteDate).toLocaleDateString()}</td>
 				<td><i type="button"
-					class="fa-regular fa-pen-to-square repEditBtn" id="editBtn`+index+`"></i>
-					<i type="button" class="fa-regular fa-trash-can repDelBtn" id="delBtn`+index+`"></i></td>
+					class="fa-regular fa-pen-to-square rrepEditBtn" id="rreditBtn`+index+`"></i>
+					<i type="button" class="fa-regular fa-trash-can rrepDelBtn" id="rrdelBtn`+index+`"></i></td>
 			</tr>
 			`
 		 $('#replyList').append(b);
@@ -566,7 +570,7 @@
          	let b = `
 	               <tr>
 						<td>${data[num].name}</td>
-						<td class = "editCtt">${data[num].snsRepCtt}</td>
+						<td class = "editCtt" id="">${data[num].snsRepCtt}</td>
 						<td>${new Date(data[num].snsRepWriteDate).toLocaleDateString()}</td>
 						<td><i type="button"
 							class="fa-regular fa-pen-to-square repEditBtn" id="editBtn`+data[num].snsRepNo+`"
@@ -607,13 +611,64 @@
 				}
         	})
         });
+        
+        // 대댓글 등록 이벤트
+		$('.reWrtBtn').on('click', function(e){
+			snsRepNo = $(e.target).closest('tr').prop('id');
+			console.log(snsRepNo);
+			console.log('대댓글 작성버튼 잘뜨는지');
+			//let snsRrepCtt = $("#replyContents").val();
+			$('#replyList').empty();
+	
+	    	let num = $(e.target).prop('id').replace('reWrtBtn','');
+	     	let b = `
+	               <tr>
+						<td>${data[num].name}</td>
+						<td class = "editCtt" id="">${data[num].snsRepCtt}</td>
+						<td>${new Date(data[num].snsRepWriteDate).toLocaleDateString()}</td>
+						<td><i type="button"
+							class="fa-regular fa-pen-to-square repEditBtn" id="editBtn`+data[num].snsRepNo+`"
+							></i> <i type="button"
+							class="fa-regular fa-trash-can"></i></td>
+					</tr>`
+	   		$('#replyList').append(b);
+			//snsRepNo = $(e.target).closest('tr').prop('id');
+			
+			$('#repSubmit').text('대댓글 등록');
+			//$('#replyContents').val(data[num].snsRepCtt);
+ 		
+		})
+		
+		// 대댓글 삭제 이벤트
+		$('.rrepDelBtn').on('click', function(e){
+        	console.log("대댓글삭제클릭되나요");
+			let snsRrepNo = $(e.target).closest('tr').prop('id');
+		 	 $.ajax({
+		        		type:'POST',
+		        		url: 'snsRreDel',
+		        		data:{snsRrepNo},
+		        		dataType:'json',
+		        		success:function(result){
+		        			if(result){
+		        				alert("정상삭제");
+		        				getRepList(snsWrtNo)
+		        			}
+		        		},
+		        		error : function() {
+							alert("삭제 실패");
+	
+						}
+				})
+		})
+
+		
 	} //댓글 이벤트 등록 end
 	
 
 	// 댓글 등록 처리
 	$('#repSubmit').on("click", function(e) {
 			let snsRepCtt = $("#replyContents").val();
-
+			
 		//댓글 수정
 		if($(e.target).text() == '수정'){
 				$.ajax({
@@ -635,7 +690,7 @@
 
 					}
 				})
-		} else {
+		} else if($(e.target).text() == '등록') {
 				$.ajax({
 					url : 'snsReplyInsert',
 					data : {snsWrtNo, snsRepCtt},
@@ -659,29 +714,60 @@
 				}
 
 			})
+		}else if($(e.target).text() == '대댓글 등록'){
+			//snsRepNo = $(e.target).closest('tr').prop('id');
+			console.log(snsRepNo);
+			console.log('대댓글 작성버튼 잘뜨는지');
+			let snsRrepCtt = $("#replyContents").val();
+	 		$.ajax({
+				url: 'snsRreInsert',
+				data: {snsRepNo,snsRrepCtt},
+				type : 'post',
+				datatype : 'text',
+				success : function(result){
+					if(result > 0){
+						alert("대댓글 등록 성공");
+						$(e.target).text('등록')
+						$('#replyContents').val(''); //댓글 등록시 댓글 등록창 초기화
+						getRepList(snsWrtNo);
+					}else{
+						alert("대댓글 등록실패, 다시 시도해주세요.")
+						$('#replyContents').val('');
+					}
+					
+				},
+				error : function(){
+					alert("에러 등록실패.");
+				}
+			}) 
 		}
 	});
 
 	//대댓글 등록 처리
-	$('.editCtt').on('click', function(e){
+	/* $('.reWrtBtn').on('click', function(e){
 		snsRepNo = $(e.target).closest('tr').prop('id');
-		$.ajax({
+		console.log(snsRepNo);
+		console.log('대댓글 작성버튼 잘뜨는지');
+		let snsRrepCtt = $("#replyContents").val(); */
+/* 		$.ajax({
 			url: 'snsRreInsert',
-			data: {snsRepNo},
+			data: {snsRepNo,snsRrepCtt},
 			datatype : 'text',
 			success : function(result){
 				if(result > 0){
 					alert("대댓글 등록 성공");
+					getRepList(snsWrtNo);
 				}else{
 					alert("대댓글 등록실패, 다시 시도해주세요.")
 				}
 				$('#replyContents').val('');
+				
 			},
 			error : function(){
 				alert("에러 등록실패.");
 			}
-		})
-	})
+		}) 
+	})*/
 	// sns 삭제
 /* 	$('.delBtnClass').on('click', function(e){
 		
