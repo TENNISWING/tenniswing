@@ -732,5 +732,109 @@
 		DELETE FROM starter_match
 		WHERE match_no = #{matchNo}
 	</delete>
-
+	
+	<!-- 어드민 매치 리스트 -->
+	<select id="matchAll" resultType="MatchVO">
+		SELECT m.match_no,
+			m.mem_id,
+			m.match_date,
+			m.time,
+			m.game_way,
+			FIND_CATEGORY_NAME (m.game_way) game_way_name,
+			m.prog_state,
+			FIND_CATEGORY_NAME (m.prog_state) prog_state_name,
+			m.ntrp,
+			m.lv,
+			m.gen,
+			FIND_CATEGORY_NAME (m.gen) gen_name,
+			m.crt_use_amt,
+			m.recruit_psn_num,
+			m.detail_ctt,
+			m.age,
+			m.in_date,
+			m.update_date,
+			c.crtroom_no,
+			c.crtroom_name,
+			c.crtroom_location,
+			FIND_CATEGORY_NAME (c.crtroom_location) crtroom_location_name
+			FROM match m, crtroom c
+			WHERE m.crtroom_no = c.crtroom_no
+		ORDER BY m.match_no
+	</select>
+	<!-- 어드민 클럽매치 리스트 -->
+	<select id="matchClubAll" resultType="MatchVO">
+		SELECT m.match_no
+			, m.club_name
+			, m.match_date
+			, m.time
+			, m.game_way
+			, FIND_CATEGORY_NAME (m.game_way) game_way_name
+			, m.prog_state
+			, FIND_CATEGORY_NAME (m.prog_state) prog_state_name
+			, m.recruit_psn_num
+			, m.club_no
+			, m.ntrp
+			, FIND_CATEGORY_NAME (m.ntrp) ntrp_name
+			, m.lv
+			, FIND_CATEGORY_NAME (m.lv) lv_name
+			, m.crt_use_amt
+			, m.detail_ctt
+			, m.crtroom_no
+			, m.age
+			, c.crtroom_name
+			, c.crtroom_location
+			, FIND_CATEGORY_NAME (c.crtroom_location) crtroom_location_name
+			FROM club_match m, crtroom c
+			WHERE m.crtroom_no = c.crtroom_no
+			ORDER BY m.match_no
+	</select>
+	<!-- 어드민 대회매치 리스트 -->
+	<select id="matchConstAll" resultType="MatchVO">
+		SELECT m.match_no
+		, m.cont_name
+		, m.start_date
+		, m.end_date
+		, m.time
+		, m.prog_state
+		, FIND_CATEGORY_NAME (m.prog_state) prog_state_name
+		, m.recruit_psn_num
+		, m.ntrp
+		, FIND_CATEGORY_NAME (m.ntrp) ntrp_name
+		, m.lv
+		, m.cont_attend_cost
+		, m.detail_ctt
+		, m.crtroom_no
+		, m.age
+		, c.crtroom_name
+		, c.crtroom_location
+		, FIND_CATEGORY_NAME (c.crtroom_location) crtroom_location_name
+		FROM cont_match m, crtroom c
+		WHERE m.crtroom_no = c.crtroom_no
+		ORDER BY m.match_no
+	</select>
+	<!-- 어드민 스타터매치 리스트 -->
+	<select id="matchStarterAll" resultType="MatchVO">
+		SELECT m.match_no
+		, m.mem_id
+		, m.match_date
+		, m.time
+		, m.prog_state
+		, FIND_CATEGORY_NAME (m.prog_state) prog_state_name
+		, m.ntrp
+		, FIND_CATEGORY_NAME (m.ntrp) ntrp_name
+		, m.lv
+		, m.gen
+		, FIND_CATEGORY_NAME (m.gen) gen_name
+		, m.rsprice
+		, m.recruit_psn_num
+		, m.detail_ctt
+		, m.crtroom_no
+		, m.age
+		, c.crtroom_name
+		, c.crtroom_location
+		, FIND_CATEGORY_NAME (c.crtroom_location) crtroom_location_name
+		FROM starter_match m, crtroom c
+		WHERE m.crtroom_no = c.crtroom_no
+		ORDER BY m.match_no
+	</select>
 </mapper>

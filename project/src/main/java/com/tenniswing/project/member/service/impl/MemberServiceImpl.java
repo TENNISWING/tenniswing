@@ -47,16 +47,22 @@ public class MemberServiceImpl implements MemberService {
 		 
 		 memberVO = memberMapper.memberLogin(memberVO);
 		 
-		 if(memberVO.getMemDiv().equals("ROLE_MEMBER")) {
+		 if(memberVO.getMemDiv().equals("ROLE_MEMBER") || memberVO.getMemDiv().equals("ROLE_HOST")) {
 			 memberVO = memberMapper.memberInfo(memId);
 		 }else {
 			 return memberVO;
 		}		 		
 
 		if (memberVO.getAttachPath() == null) {
+			
+			if(memberVO.getGen() == null) {
+				memberVO.setAttachPath("/assets/compiled/jpg/architecture1.jpg");	
+				return memberVO;
+			}
+			
 			if (memberVO.getGen().equals("남성")) {
 				memberVO.setAttachPath("/assets/compiled/jpg/2.jpg");		
-			} else {
+			}else {
 				memberVO.setAttachPath("/assets/compiled/jpg/3.jpg");		
 			}
 		} 

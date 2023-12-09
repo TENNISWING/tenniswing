@@ -6,20 +6,32 @@
 <mapper
 	namespace="com.tenniswing.project.member.mapper.MemberMapper">
 	<!-- 전체 조회 -->
-	<select id="selectAllEmpInfo" resultType="MemberVO">
-		SELECT employee_id
-		, first_name
-		, last_name
-		, email
-		, phone_number
-		, hire_date
-		, job_id
-		, salary
-		, commission_pct
-		, manager_id
-		, department_id
-		FROM employees
-		ORDER BY employee_id
+	<select id="selectAllMemberInfo" resultType="MemberVO">
+		SELECT m.MEM_NO
+			,m.MEM_ID
+			,m.NAME
+			,m.MEM_DIV
+			,m.PHONE_NO
+			,m.JOIN_DATE
+			,FIND_CATEGORY_NAME (m.state) state
+			,p.NICK	
+			,FIND_CATEGORY_NAME (p.AGE) AGE
+			,FIND_CATEGORY_NAME (p.LV) LV
+			,FIND_CATEGORY_NAME (p.REGION) REGION
+			,FIND_CATEGORY_NAME (p.GEN) GEN
+			,FIND_CATEGORY_NAME (p.NTRP) NTRP
+			,FIND_CATEGORY_NAME (p.PREFER_GAME_WAY) PREFER_GAME_WAY
+			,FIND_CATEGORY_NAME (p.PREFER_AGE) PREFER_AGE
+			,p.CRTROOM_NO
+			,p.PR_IMAGE
+			,p.MANNER_POINT
+			, (SELECT ATTACH_PATH
+			FROM ATTACH
+			where  m.mem_no = attach_table_pk
+			AND attach_table_div = 'm') as ATTACH_PATH
+			FROM MEM m JOIN PR p
+			ON m.mem_id = p.mem_id
+			ORDER BY MEM_NO
 	</select>
 
 	<!-- 로그인 -->
@@ -59,6 +71,8 @@
 		,m.NAME
 		,m.MEM_DIV
 		,m.PHONE_NO
+		,m.JOIN_DATE
+		,FIND_CATEGORY_NAME (m.state) state
 		,p.NICK
 		,FIND_CATEGORY_NAME (p.AGE) AGE
 		,FIND_CATEGORY_NAME (p.LV) LV

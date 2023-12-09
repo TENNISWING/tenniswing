@@ -2,9 +2,8 @@ package com.tenniswing.project.member.mapper;
 
 import java.util.List;
 import java.util.Map;
-
-import org.apache.ibatis.annotations.Param;
 import com.tenniswing.project.member.service.MemberVO;
+
 public interface MemberMapper {
 	// 전체 조회 (다건조회)
 	public List<MemberVO> selectAllMemberInfo();

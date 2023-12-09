@@ -56,4 +56,10 @@ public interface MatchMapper {
 	
 	public List<ClubVO> selectMyOwnerClub(String memId);
 	public List<ClubVO> selectMyClub(String memId);
+	
+	//어드민페이지
+	public List<MatchVO> matchAll();
+	public List<MatchVO> matchClubAll();
+	public List<MatchVO> matchConstAll();
+	public List<MatchVO> matchStarterAll();	
 }

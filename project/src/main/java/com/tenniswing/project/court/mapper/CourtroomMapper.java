@@ -68,4 +68,7 @@ public interface CourtroomMapper {
 	
 	// 전체페이지수 count
 	public int selectCount(CrtroomVO crtroomVO);
+	
+	// 어드민페이지
+	public List<CrtroomVO> courtAdminAll();
 }

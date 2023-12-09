@@ -171,4 +171,9 @@ public class CourtroomServiceImpl implements CourtroomService {
 	public int selectCount(CrtroomVO crtroomVO) {
 		return courtroomMapper.selectCount(crtroomVO);
 	}
+
+	@Override
+	public List<CrtroomVO> courtAdminAll() {
+		return courtroomMapper.courtAdminAll();
+	}
 }

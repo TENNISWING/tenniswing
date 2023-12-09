@@ -12,13 +12,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.common.FileUtils;
+import com.tenniswing.project.court.service.CourtroomService;
+import com.tenniswing.project.match.service.MatchService;
+import com.tenniswing.project.match.service.MatchVO;
+import com.tenniswing.project.member.service.MemberService;
 import com.tenniswing.project.shop.service.ProdDetailService;
 import com.tenniswing.project.shop.service.ProdDetailVO;
 import com.tenniswing.project.shop.service.ProdService;
@@ -41,6 +43,15 @@ public class AdminController {
 	
 	@Autowired
 	AttachService attachService;
+	
+	@Autowired
+	MemberService memberService;
+	
+	@Autowired
+	MatchService matchService;
+	
+	@Autowired
+	CourtroomService courtroomService;
 
 	// 상품 목록
 	@GetMapping("admin_Product")
@@ -153,5 +164,83 @@ public class AdminController {
 	@GetMapping("adminDetail_Order")
 	public String adminDetailOrderPage(Model model) {
 		return "admin/adminDetail_Order";
+	}
+	
+	//회원목록
+	@GetMapping("admin_member")
+	public String adminMemberPage(Model model) {
+		model.addAttribute("memberList", memberService.getMemberAll());
+		return "admin/admin_Member";	
+	}
+	
+	//회원 상세페이지
+	@GetMapping("adminDetail_Member")
+	public String adminMemberDetailPage(Model model, String memId) {
+		
+		model.addAttribute("member", memberService.memberInfo(memId));
+		
+		return "admin/adminDetail_Member";
+	}
+	
+	//매치목록
+	@GetMapping("admin_match")
+	public String adminMatchPage(Model model) {
+		model.addAttribute("matchList", matchService.matchAll());
+		return "admin/admin_Match";	
+	}
+	
+	//매치 상세페이지
+	@GetMapping("adminDetail_Match")
+	public String adminMatchDetailPage(Model model, Integer matchNo) {
+		
+		MatchVO matchVO = new MatchVO();
+		matchVO.setMatchNo(matchNo);
+		model.addAttribute("match", matchService.selectMatch(matchVO));
+		
+		return "admin/adminDetail_Match";
+	}
+	
+	//클럽 목록
+	@GetMapping("admin_club")
+	public String adminClubPage(Model model) {
+		model.addAttribute("matchList", matchService.matchAll());
+		return "admin/admin_Club";	
+	}
+	
+	//클럽 상세페이지
+	@GetMapping("adminDetail_Club")
+	public String adminClubDetailPage(Model model, Integer matchNo) {
+		
+		MatchVO matchVO = new MatchVO();
+		matchVO.setMatchNo(matchNo);
+		model.addAttribute("match", matchService.selectMatch(matchVO));
+		
+		return "admin/adminDetail_Club";
+	}
+	
+	//코트 목록
+	@GetMapping("admin_court")
+	public String adminCourtPage(Model model) {
+		model.addAttribute("courtList", courtroomService.courtAdminAll());
+		return "admin/admin_Court";	
+	}
+	
+	//코트 승인 필요 목록
+	
+	@GetMapping("admin_court_apply")
+	public String adminCourtApplyPage(Model model) {
+		model.addAttribute("matchList", matchService.matchAll());
+		return "admin/admin_CourtApply";	
+	}
+	
+	//코트 상세페이지
+	@GetMapping("adminDetail_Court")
+	public String adminCourtDetailPage(Model model, Integer matchNo) {
+		
+		MatchVO matchVO = new MatchVO();
+		matchVO.setMatchNo(matchNo);
+		model.addAttribute("match", matchService.selectMatch(matchVO));
+		
+		return "admin/adminDetail_Court";
 	}
 }
