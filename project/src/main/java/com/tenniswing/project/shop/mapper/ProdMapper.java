@@ -34,4 +34,7 @@ public interface ProdMapper {
 	
 	// 삭제
 	public int deleteProd(int prodNo);
+	
+	// 주문시 재고 처리
+	public int updateOrderProd(int prodNo, int prodDetailSto);
 }
