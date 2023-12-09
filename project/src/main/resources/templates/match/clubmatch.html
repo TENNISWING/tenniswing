@@ -4,7 +4,6 @@
 	layout:decorate="~{/layouts/main-layout}">
 
 <th:block layout:fragment="content">
-<div class="mctdeall">
 	<!-- match sub menu -->
 	<div class="container mb-4">
 		<ul class="nav d-flex justify-content-around text-center matchsidevar">
@@ -35,7 +34,7 @@
 				<div class="swiper-pagination banner"></div>
 			</div>
 		</div>
-		
+
 	</div>
 	<!-- End slide banner -->
 
@@ -48,22 +47,22 @@
 			</div>
 			<div class="swiper-button-next dateslide text-green"></div>
 			<div class="swiper-button-prev dateslide text-green"></div>
-			
+
 		</div>
 	</div>
 	<!-- End date slide -->
 
 	<!-- match table -->
-		<div class="container">
-			<div class="card-body mcardbody">
-				<div class="row mcfilter">
-					<div class="col-lg-2 col-md-6">
-						<h5 class="card-title mtitle text-center">매치</h5>
-					</div>
-					<div class="col-lg-8">
-						<form action="#" class="matfilter">
-							<div class="custom__dropdown custom__dropdown__v2">
-								<select id="gameWay" name="gameWay">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-12">
+				<div class="filter__area">
+					<div class="section-title__wrap">
+						<!-- 필터처리 -->
+						<form action="#" class="product-filter">
+							<!-- 카테고리 form-select select__style -->
+							<div class="select__style" id="firstDrop">
+								<select class="category-select" id="gameWay" name="gameWay">
 									<option value="">게임방식</option>
 									<option value="f1">단식</option>
 									<option value="f2">남복</option>
@@ -72,8 +71,9 @@
 									<option value="f5">혼복</option>
 								</select>
 							</div>
-							<div class="custom__dropdown custom__dropdown__v2">
-								<select id="ntrp" name="ntrp">
+							<!-- 성별 -->
+							<div class="select__style" id="secondDrop">
+								<select id="ntrp" name="ntrp" class="category-select">
 									<option value="">NTPR</option>
 									<option value="e1">1.0</option>
 									<option value="e2">1.5</option>
@@ -84,8 +84,8 @@
 									<option value="e7">4.0</option>
 								</select>
 							</div>
-							<div class="custom__dropdown custom__dropdown__v2">
-								<select id="crtroomLocation" name="crtroomLocation">
+							<div class="select__style" id="secondDrop">
+								<select id="crtroomLocation" name="crtroomLocation" class="category-select">
 									<option value="">지역</option>
 									<option value="b1">서울</option>
 									<option value="b2">경기</option>
@@ -97,91 +97,132 @@
 									<option value="b8">제주도</option>
 								</select>
 							</div>
-						<button type="button" id="btnsearch">검색</button>
+							<button type="button" id="btnreset" class="danger__btn border-30"
+								style="background: rgba(18, 183, 106, 0.1) !important; color: #12b76a !important;">초기화</button>
 						</form>
 					</div>
 					<div class="col-lg-2 text-end">
-						<button type="button" class="btn btn-primary matchregibtn"
+						<button type="button" class="btn btn-primary"
 							th:onclick="|location.href='@{clubmatchregi}'|">매치 등록</button>
 					</div>
 				</div>
-
-				<!-- Default Table -->
-				<table class="table">
-					<thead>
-						<tr>
-							<th>날짜</th>
-							<th>경기 시간</th>
-							<th>클럽 이름</th>
-							<th>모집 인원</th>
-							<th>NTRP</th>
-							<th>코트장 이름</th>
-							<th>지역</th>
-							<th>모집 상태</th>
-						</tr>
-					</thead>
-					<tbody id="matchList">
-				
-					</tbody>
-				</table>
-				<div class="container mt-5 mb-5">
-					<ul class="pagination justify-content-center">
-					</ul>
-				</div>
 			</div>
 		</div>
-		<!-- End match table -->
+		
+		<!-- Default Table -->
+		<table class="table">
+			<thead>
+				<tr>
+					<th>날짜</th>
+					<th>경기 시간</th>
+					<th>클럽 이름</th>
+					<th>모집 인원</th>
+					<th>NTRP</th>
+					<th>코트장 이름</th>
+					<th>지역</th>
+					<th>모집 상태</th>
+				</tr>
+			</thead>
+			<tbody id="matchList">
 
-	<!-- End community sub menu  -->
+			</tbody>
+		</table>
+		<div class="container mt-5 mb-5">
+			<ul class="pagination justify-content-center">
+			</ul>
+		</div>
+	</div>
+	<!-- End match table -->
+
+	<!-- 하단 상품 슬라이드 -->
+	<section class="trending__section pt-0">
 		<div class="container">
-			<!-- Basic Tables start -->
-			<section class="section">
-				<div class="card">
-					<!-- Trending Section Start -->
-					<section class="trending__section pt-0">
-						<div class="container">
-							<div class="row">
-								<div class="col-12">
-									<div class="section-title">
-										<h5 class="card-title mtitle mtitle2">최근 등록된 매치</h5>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-12 msection">
-									<!-- Swiper -->
-									<div class="swiper mySwiper mtbanner" data-aos="fade-up">
-										<div class="swiper-wrapper mtbanner">
-											<th:block th:each="v : ${viewList}">
-											<div class="swiper-slide mtbanner"	>
-												<!-- 여기서 반복문 th:each="" -->
-												<div class="card">
-													<div class="card-content">
+			<div class="row">
+				<div class="col-12">
+					<div class="section-title">
+						<h5 style="color: black">최근 등록된 매치</h5>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="product__wrapper swiper__pagination">
+						<div class="swiper trending__Swiper">
+							<div class="swiper-wrapper">
 
-														<img class="img-fluid w-100"
-															th:src="${v.attachPath}"
-															alt="Card image cap">
-													</div>
-													<div class="card-footer d-flex justify-content-between">
-														<span>[[ ${v.crtroomName} ]]</span>
-														<button class="btn btn-light-primary" th:onclick="|location.href='@{clubmatchdetail(matchNo=${v.matchNo})}'|"
-															>매치 보러가기</button>
+								<div th:block th:each="v : ${viewList}" class="swiper-slide">
+									<div class="product-card">
+										<div class="product__image__wrapper">
+											<a
+												th:onclick="|location.href='@{clubmatchdetail(matchNo=${v.matchNo})}'|"
+												class="product__image"> <img th:src="${v.attachPath}"
+												alt="icon" />
+											</a>
+										</div>
+										<div class="product__content">
+											<!-- <div class="product__rating">
+												<ul style="padding: 0">
+													<li><i class="fa-solid fa-star"></i></li>
+													<li><i class="fa-solid fa-star"></i></li>
+													<li><i class="fa-solid fa-star"></i></li>
+													<li><i class="fa-solid fa-star"></i></li>
+													<li><i class="fa-regular fa-star"></i></li>
+												</ul>
+												<div class="total__rating">(321)</div>
+											</div> -->
+											<!-- 상품명 -->
+											<div class="product__title">
+												<h5>
+													<a href="product-single.html">[[ ${v.crtroomName} ]]</a>
+												</h5>
+											</div>
+											<div class="product__bottom">
+												<div class="cart__action__btn">
+													<div class="cart__btn">
+														<a
+															th:onclick="|location.href='@{clubmatchdetail(matchNo=${v.matchNo})}'|"
+															class="btn btn-outline"> 상세보기</a>
 													</div>
 												</div>
 											</div>
-												</th:block>
 										</div>
-										<div class="swiper-pagination mtbanner"></div>
 									</div>
 								</div>
+
 							</div>
+
+							<div class="swiper-button-next">
+								<svg width="35" height="16" viewBox="0 0 35 16" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+                                           <path d="M1 8L34 8"
+										stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" />
+                                           <path d="M27 1L34 8L27 15"
+										stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" />
+                                       </svg>
+							</div>
+							<div class="swiper-button-prev">
+								<svg width="23" height="16" viewBox="0 0 23 16" fill="none"
+									xmlns="http://www.w3.org/2000/svg" style="width: 85%">
+                                        <path d="M22 8H1"
+										stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" />
+                                        <path d="M8 15L1 8L8 1"
+										stroke="#D0D5DD" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" />
+                                    </svg>
+							</div>
+							<!-- <div class="swiper-slide"></div> -->
+							<div class="swiper-pagination"></div>
 						</div>
-						<!-- Initialize Swiper -->
-					</section>
-					<!-- Trending Section End -->
-</div></section></div>
+					</div>
 				</div>
-		<script>
+			</div>
+		</div>
+	</section>
+	<!-- 슬라이드 닫히는 곳 -->
+	<script>
 	$('#btnsearch').on("click", function(e) {
 		let matchDate = $('.matchdate .active').data('day');
 		clubMatchAjax(matchDate,1) 
