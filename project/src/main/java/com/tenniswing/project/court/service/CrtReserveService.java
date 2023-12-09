@@ -24,7 +24,13 @@ public interface CrtReserveService {
 		// 호스트별 환불 리스트 조회
 		public List<CrtReserveVO> selectAllCrtRefund(String hostId);
 		
+		// 환불 등록
+		public int insertCrtRefund(CrtReserveVO crtReserveVO);
+		
 		// 호스트별 정산 리스트 조회
 		public List<CrtReserveVO> selectAllCrtCalc(String hostId);
+		
+		// 환불 상태 변경
+		public int updateCrtReserveState(CrtReserveVO crtReserveVO);
 
 }

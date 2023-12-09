@@ -4,16 +4,18 @@ import lombok.Data;
 
 @Data
 public class RefundAppVO {
-	String impUid;
-	String merchantUid;
+	String imp_uid;
+	String merchant_uid;
 	int amount;
-	String refundReason;
+	String reason;
+	int charge;
+	int reserveNo;
 	
 	public RefundAppVO(String reservePayNo, String reserveUid, String reason, int refundPrice) {
-		this.impUid = reservePayNo;
-		this.merchantUid = reserveUid;
+		this.imp_uid = reservePayNo;
+		this.merchant_uid = reserveUid;
 		this.amount = refundPrice;
-		this.refundReason = reason;
+		this.reason = reason;
 		
 	};
 }
