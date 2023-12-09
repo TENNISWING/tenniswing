@@ -216,18 +216,17 @@ public class CourtController {
 		}
 		
 		// 환불 테스트
-		@GetMapping("refundTest")
-		public String refundCourt(CrtRefundVO crtRefundVO){
-			return "court/refundTest";
-		}
-		
-		@PostMapping("refundTestPost")
-		@ResponseBody
-		public boolean refundCourtProccess(@RequestBody CrtRefundVO crtRefundVO){
-			boolean result = true;
-			
-			return result;
-		}
+		/*
+		 * @GetMapping("refundTest") public String refundCourt(CrtRefundVO crtRefundVO){
+		 * return "court/refundTest"; }
+		 * 
+		 * @PostMapping("refundTestPost")
+		 * 
+		 * @ResponseBody public boolean refundCourtProccess(@RequestBody CrtRefundVO
+		 * crtRefundVO){ boolean result = true;
+		 * 
+		 * return result; }
+		 */
 
 	// 검색
 	@GetMapping("searcharea")
@@ -260,10 +259,10 @@ public class CourtController {
 		crtReserveVO.setRefundCharge(refundAppVO.getCharge());
 		crtReserveVO.setReserveNo(refundAppVO.getReserveNo());
 		crtReserveVO.setRefundReason(refundAppVO.getReason());
-		
 		//DB 값 넣어주기
 		int result = crtReserveService.insertCrtRefund(crtReserveVO);
 		if(result > 0) {
+			crtReserveService.updateCrtReserveState(crtReserveVO);
 			return true;
 		}else {
 			return false;

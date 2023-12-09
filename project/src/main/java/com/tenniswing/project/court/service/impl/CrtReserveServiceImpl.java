@@ -66,4 +66,9 @@ public class CrtReserveServiceImpl implements CrtReserveService {
 		return crtReserveMapper.insertCrtRefund(crtReserveVO);
 	}
 
+	@Override
+	public int updateCrtReserveState(CrtReserveVO crtReserveVO) {
+		return crtReserveMapper.updateCrtReserveState(crtReserveVO);
+	}
+
 }

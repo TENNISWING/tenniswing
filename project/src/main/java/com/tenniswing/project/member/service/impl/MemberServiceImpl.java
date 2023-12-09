@@ -260,6 +260,11 @@ public class MemberServiceImpl implements MemberService {
 		return -1;
 	}
 
+	@Override
+	public List<MemberVO> searchHost() {
+		return memberMapper.searchHost();
+	}
+
 
 
 	

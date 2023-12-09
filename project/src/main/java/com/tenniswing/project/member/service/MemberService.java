@@ -48,4 +48,7 @@ public interface MemberService {
 	
 	//쇼핑
 	public Map<String, Object> myShopHistory();
+	
+	//호스트멤버
+	public List<MemberVO> searchHost();
 }

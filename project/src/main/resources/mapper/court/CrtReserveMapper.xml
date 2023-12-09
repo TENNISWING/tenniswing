@@ -41,7 +41,6 @@
 		, RESERVE_DATE
 		, RESERVE_TIME
 		, RESERVE_NO
-		, T_RESERVE_TIME
 	)
 	VALUES
 	(
@@ -49,7 +48,6 @@
 		, #{reserveDate}
 		, #{reserveTime}
 		, #{reserveNo}
-		, #{tReserveTime}
 	)
 	SELECT * FROM dual
 </insert>
@@ -197,4 +195,10 @@
 		, #{reserveNo}
 	)
 </insert>
+<!-- 환불 후 상태 변경 -->
+<update id="updateCrtReserveState" parameterType="CrtReserveVO">
+	UPDATE reserve
+		SET reserve_state = 'i3'
+		WHERE reserve_no = #{reserveNo}
+</update>
 </mapper>

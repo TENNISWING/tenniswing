@@ -83,24 +83,33 @@
 			charge : refundCharge,
 			reserveNo : reserveNo};
    	 $.ajax({
-      // 예: http://www.myservice.com/payments/cancel
       url: 'courtReserveCancel', 
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(data),
       dataType: 'json',
-      success: function(e) {
-			/* if (e == 'Success') {
-				alert("환불 성공");
+      success: function(result) {
+			if (result) {
+				//alert("환불 성공");
+				Swal2.fire({
+					icon: "success",
+					text: "환불 성공"
+				}).then(function(){
+					location.reload();
+				})
 			} else {
-				alert("환불 실패, 다시 시도해 주세요.");
-			} */
-			 console.log(e);
+				//alert("환불 실패, 다시 시도해 주세요.");
+				Swal2.fire({
+					icon: "error",
+					text: "환불 실패, 다시 시도해 주세요."
+				})
+			}
+			console.log(result);
 		},
 	  error: function(e) {
 			console.log(e);
 	  }
-    }); 
+    });
   }
 </script>
 <script

@@ -52,15 +52,15 @@
 												</tr>
 											</thead>
 											<tbody>
-												<th:block th:each="reserveList, stat : ${reserveList}">
+												<th:block th:each="refundList, stat : ${refundList}">
 													<tr>
-														<td id="crtroomNo" th:attrappend="id=${reserveList.reserveNo}">[[
+														<td id="crtroomNo" th:attrappend="id=${refundList.reserveNo}">[[
 															${refundList.reserveNo} ]]</td>
 														<td>[[ ${refundList.crtroomName} ]]</td>
 														<td>[[ ${refundList.memId} ]]</td>
 														<td>[[ ${refundList.reservePrice} ]]</td>
 														<td>[[ ${refundList.refundPrice} ]]</td>
-														<td>[[ ${refundList.refundCharge} ]]</td>
+														<td>[[ 100-${#numbers.formatInteger(refundList.refundCharge,0)} ]]</td>
 														<td>[[
 															${#dates.format(refundList.reserveDate,'yyyy-MM-dd')}
 															]]</td>
@@ -70,7 +70,7 @@
 														<td>[[ ${#dates.format(refundList.cancelDate,'yyyy-MM-dd')} ]]</td>
 														<td>
 															<div
-																th:onclick="|location.href='@{/hostCourtDetail(crtroomNo=${reserveList.crtroomNo})}'|"
+																th:onclick="|location.href='@{/hostCourtDetail(crtroomNo=${refundList.crtroomNo})}'|"
 																class="btn icon btn-primary">
 																<i class="icon dripicons dripicons-enter"></i>
 															</div>
