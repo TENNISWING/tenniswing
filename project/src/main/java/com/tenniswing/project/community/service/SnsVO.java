@@ -53,6 +53,11 @@ public class SnsVO {
 	
 	//sns 스크랩
 	private Integer scrapNo;
+	
+	//페이지
+	private int page;
+	private int rn;
+	private int pageUnit=5;
 
 
 }

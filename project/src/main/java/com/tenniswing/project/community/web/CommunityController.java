@@ -1,5 +1,6 @@
 package com.tenniswing.project.community.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,8 @@ import com.tenniswing.project.community.service.BrdService;
 import com.tenniswing.project.community.service.BrdVO;
 import com.tenniswing.project.community.service.SnsRepService;
 import com.tenniswing.project.community.service.SnsRepVO;
+import com.tenniswing.project.community.service.SnsRrepService;
+import com.tenniswing.project.community.service.SnsRrepVO;
 import com.tenniswing.project.community.service.SnsService;
 import com.tenniswing.project.community.service.SnsVO;
 
@@ -44,6 +47,9 @@ public class CommunityController {
 
 	@Autowired
 	AttachService attachService;
+	
+	@Autowired
+	SnsRrepService snsRrepService;
 
 	// SNS
 	// SNS 메인
@@ -145,11 +151,15 @@ public class CommunityController {
 	// 그룹에 매칭되는 sns List
 	@GetMapping("mySnsList")
 	@ResponseBody
-	public List<SnsVO> mySnsListAjax(SnsVO snsVO){
+	public Map<String, Object> mySnsListAjax(SnsVO snsVO){
+		HashMap<String, Object> map = new HashMap<>();
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		snsVO.setMemId(id);
+	
+		 map.put("selectCount", snsService.selectCount(snsVO));
+		 map.put("mySnsGroupList",snsService.selectMyGroup(snsVO));
 		
-		return snsService.selectMyGroup(snsVO);
+		return map;
 	}
 	
 	// 그룹 이름 수정
@@ -171,6 +181,12 @@ public class CommunityController {
 	public List<SnsRepVO> snsRepPageAjax(SnsRepVO snsRepVO) {
 		return snsRepService.selectAllSnsRep(snsRepVO);
 	}
+	// sns 대댓글 List
+//	@GetMapping("snsRrep")
+//	@ResponseBody
+//	public List<SnsRepVO> snsRrepPageAjax(SnsRrepVO snsRrepVO) {
+//		return snsRepService.selectAllSnsRep(snsRrepVO);
+//	}
 
 	// sns댓글 등록
 	@PostMapping("snsReplyInsert")
@@ -205,6 +221,38 @@ public class CommunityController {
 	@ResponseBody
 	public boolean deleteRepAjax(@RequestParam("repNo") Integer snsRepNo) {
 		boolean result = snsRepService.deleteSnsRep(snsRepNo);
+		return result;
+	}
+	
+	// sns 대댓글 등록
+	@PostMapping("snsRreInsert")
+	@ResponseBody
+	public int insertSnsRrepAjax(SnsRrepVO snsRrepVO, Model model) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		snsRrepVO.setMemId(id);
+		System.out.println("rrepVO찍어봄" + snsRrepVO);
+		int result = snsRrepService.insertSnsRrep(snsRrepVO);
+
+		return result;
+	}
+	
+	// sns 대댓글 수정
+	@PostMapping("snsRreEdit")
+	@ResponseBody
+	public Map<String, Object> EditSnsRrepAjax(SnsRrepVO snsRrepVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		snsRrepVO.setMemId(id);
+		System.out.println("수정아작스컨트롤러 repVO찍어봄" + snsRrepVO);
+		Map<String, Object> result = snsRrepService.updateSnsRrep(snsRrepVO);
+
+		return result;
+	}
+	
+	// sns 대댓글 삭제
+	@PostMapping("snsRreDel")
+	@ResponseBody
+	public boolean deleteRrepAjax(Integer snsRrepNo) {
+		boolean result = snsRrepService.deleteSnsRrep(snsRrepNo);
 		return result;
 	}
 
@@ -258,10 +306,10 @@ public class CommunityController {
 		model.addAttribute("grpList", snsService.selectGroup(snsVO));
 		
 		//그 그룹에 해당하는 sns 불러오기
-		model.addAttribute("myGrpList", snsService.selectMyGroup(snsVO));
+		//model.addAttribute("myGrpList", snsService.selectMyGroup(snsVO));
 		
 		// 그룹이 Null인 sns 불러오기
-		model.addAttribute("nullGrp",snsService.selectGrpNull(snsVO));
+		//model.addAttribute("nullGrp",snsService.selectGrpNull(snsVO));
 		return "community/snsMyList";
 	}
 

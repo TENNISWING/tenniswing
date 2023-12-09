@@ -32,12 +32,12 @@ public class SnsRepServiceImpl implements SnsRepService {
 		return snsRepMapper.insertSnsRep(snsRepVO);
 	}
 	
-	// 대댓글 등록
-	@Override
-	public int insertSnsRrep(SnsRepVO snsRepVO) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	/*
+	 * // 대댓글 등록
+	 * 
+	 * @Override public int insertSnsRrep(SnsRepVO snsRepVO) { // TODO
+	 * Auto-generated method stub return 0; }
+	 */
 	
 	// 댓글 수정
 	@Override

@@ -11,7 +11,7 @@ public interface SnsRepService {
 	// 댓글 등록
 	public int insertSnsRep(SnsRepVO snsRepVO);
 	// 대댓글 등록
-	public int insertSnsRrep(SnsRepVO snsRepVO);
+//	public int insertSnsRrep(SnsRepVO snsRepVO);
 	
 	// 댓글 수정
 	public Map<String, Object> updateSnsRep(SnsRepVO snsRepVO);

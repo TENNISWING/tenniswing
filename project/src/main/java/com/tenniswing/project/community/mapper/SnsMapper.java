@@ -54,4 +54,7 @@ public interface SnsMapper {
 	
 	//sns 첨부파일 
 	public List<AttachVO> attachListAllSns();
+	
+	//페이징 전체 갯수
+	public int selectCount(SnsVO snsVO);
 }
