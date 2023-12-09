@@ -171,6 +171,7 @@
  				url: 'clubList',
  				data: {page, clubRegion, clubGen, clubName, sort},
  				success: function (result) {
+ 					console.log(result.clubList.length)
  					$('#clubList').empty();
  					for (let clubList of result.clubList) {
  						let List = `

@@ -26,4 +26,7 @@ public interface ClubPostMapper {
 	
 	//게시글 조회수
 	public void updatePostHit(int clubPostNo);
+	
+	//페이징 전체 갯수
+	public int selectCount(ClubPostVO clubPostVO);
 }

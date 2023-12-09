@@ -20,11 +20,12 @@
 					<table class="table" id="table1">
 						<thead>
 							<tr>
-								<th>예약일자</th>
+								<th>결제일자</th>
 								<th>코트장 이름</th>
 								<th>금액</th>
+								<th>예약날짜</th>
 								<th>예약상태</th>
-								<th>예약취소</th>		
+								<th>예약취소</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -32,10 +33,12 @@
 							<tr>
 								<td>[[${crt.PAY_DATE}]]</td>
 								<td>[[${crt.CRTROOM_NAME}]]</td>
-								<td>[[${crt.RESERVE_PRICE}]]</td>
-								<td>[[${crt.RESERVE_STATE}]]</td>
-								<td th:if="${crt.RESERVE_STATE == '이용전'}"><button type="button" class="btn btn-success" th:onclick="cancel11()">예약취소</button>			
-								<td th:if="${crt.RESERVE_STATE == '이용후'}"><button type="button" class="btn btn-light" disabled>예약취소</button>			
+								<td class="reservePrice">[[${crt.RESERVE_PRICE}]]</td>
+								<td class="reserveDate" id="reserveNo" th:attrappend="id=${crt.RESERVE_NO}">[[${crt.RESERVE_DATE}]]</td>
+								<td class="reserveState" id="reserveUid" th:attrappend="id=${crt.RESERVE_UID}">[[${crt.RESERVE_STATE}]]</td>
+								<td th:if="${crt.RESERVE_STATE == '이용전'}"><button type="button" class="btn btn-success reserveCancel" id="reservePayNo" th:attrappend="id=${crt.RESERVE_PAY_NO}">예약취소</button></td>	
+								<td th:if="${crt.RESERVE_STATE == '이용후'}"><button type="button" class="btn btn-light" disabled>예약취소</button></td>
+								<td th:if="${crt.RESERVE_STATE == '취소'}"><button type="button" class="btn btn-light" disabled>예약취소</button></td>			
 							</tr>
 						</th:block>	
 						</tbody>
@@ -44,7 +47,71 @@
 			</div>
 		</div>
 	</div>
-
+<script>
+	$('.reserveCancel').on('click',cancelPay);
+	
+   function cancelPay(e) {
+	let reservePayNo = $(e.target).prop("id").replace("reservePayNo","");
+	let reserveUid = $(e.target).closest('tr').find('.reserveState').prop("id").replace("reserveUid","");
+	let reserveNo = $(e.target).closest('tr').find('.reserveDate').prop("id").replace("reserveNo","");
+	console.log(reserveNo+' '+ reservePayNo+' '+reserveUid);
+	
+	let today = new Date();
+	let reserveDate = $(e.target).closest('tr').find('.reserveDate').text();
+	let typeChange = new Date(reserveDate);
+	let diff = typeChange.getTime() - today.getTime();
+	diff = Math.ceil(diff / (1000*60*60*24));
+	console.log(diff);
+	
+	let reservePrice = $(e.target).closest('tr').find('.reservePrice').text();
+	let refundCharge = 0;
+	if(diff >= 7){
+		refundCharge = 100;
+	}else if(diff >= 5){
+		refundCharge = 80;
+	}else if(diff >= 3){
+		refundCharge = 50;
+	}else if(diff <= 2 ){
+		refundCharge = 0;
+	}
+	let refundPrice = reservePrice * (refundCharge/100);
+	console.log(refundPrice);
+	let data = {imp_uid : reservePayNo,
+			merchant_uid : reserveUid, 
+			amount : refundPrice,
+			reason : "reserve cancel",
+			charge : refundCharge,
+			reserveNo : reserveNo};
+   	 $.ajax({
+      url: 'courtReserveCancel', 
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data),
+      dataType: 'json',
+      success: function(result) {
+			if (result) {
+				//alert("환불 성공");
+				Swal2.fire({
+					icon: "success",
+					text: "환불 성공"
+				}).then(function(){
+					location.reload();
+				})
+			} else {
+				//alert("환불 실패, 다시 시도해 주세요.");
+				Swal2.fire({
+					icon: "error",
+					text: "환불 실패, 다시 시도해 주세요."
+				})
+			}
+			console.log(result);
+		},
+	  error: function(e) {
+			console.log(e);
+	  }
+    });
+  }
+</script>
 <script
 		src="assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
 	<script

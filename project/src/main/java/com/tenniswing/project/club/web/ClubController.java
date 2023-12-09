@@ -18,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
+import com.tenniswing.project.club.service.ClubMatchService;
+import com.tenniswing.project.club.service.ClubMatchVO;
 import com.tenniswing.project.club.service.ClubPostService;
 import com.tenniswing.project.club.service.ClubPostVO;
 import com.tenniswing.project.club.service.ClubRepService;
@@ -39,6 +41,9 @@ public class ClubController {
 
 	@Autowired
 	ClubRepService clubRepService;
+	
+	@Autowired
+	ClubMatchService clubMatchService;
 
 	@Autowired
 	FileUtils fileUtils;
@@ -51,7 +56,7 @@ public class ClubController {
 	@GetMapping("club")
 	public String clubPage(Model model) {
 		// model.addAttribute("clubList", clubService.selectAllClub());
-		log.debug("clubList---------------");
+		//log.debug("clubList---------------");
 		return "club/club";
 	}
 
@@ -62,7 +67,7 @@ public class ClubController {
 		 HashMap<String, Object> map = new HashMap<>();
 		 map.put("selectCount", clubService.selectCount(clubVO));
 		 map.put("clubList",clubService.selectAllClub(clubVO));
-		 
+		 System.out.println("aaaaaaaaaaaaaaaaaaaaaaa"+clubService.selectAllClub(clubVO).size());
 		 return map;
 	 }
 
@@ -153,24 +158,47 @@ public class ClubController {
 		return map;
 	}
 
+	
+	// --------------------------------------- 매치 모집
+	
+	
 	// 상세페이지 > 탭 > 매치모집
 	@GetMapping("clubMatchJoin")
-	public String joinTapPage(Model model) {
+	public String joinTapPage(Model model, ClubVO clubVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		clubVO.setMemId(id);
 		return "club/clubMatchJoin";
 	}
+	
+	// 매치 모집 등록
+	@PostMapping("MatchRecruitInsert")
+	@ResponseBody
+	public int MatchRecruitInsertAjax(ClubMatchVO clubMatchVO) {
+		int result = clubMatchService.insertMatchRecruit(clubMatchVO);
+		return result;
+	}
+	
+	
+	// --------------------------------------- 매치 일정
 
 	// 상세페이지 > 탭 > 매치일정
 	@GetMapping("clubMatchDate")
 	public String DateTapPage(Model model) {
 		return "club/clubMatchDate";
 	}
+	
+	// --------------------------------------- 매치 결과
 
 	// 상세페이지 > 탭 > 매치결과
 	@GetMapping("clubMatchEnd")
 	public String EndTapPage(Model model) {
 		return "club/clubMatchEnd";
 	}
-
+	
+	
+	
+	// --------------------------------------- 자유게시판
+	
 	// 상세페이지 > 탭 > 자유게시판
 	@GetMapping("clubPost")
 	public String boardTapPage(Model model, ClubVO clubVO) {
@@ -184,8 +212,11 @@ public class ClubController {
 	//자유게시판 리스트
 	@GetMapping("postList")
 	@ResponseBody
-	public List<ClubPostVO> postListAjax(ClubPostVO clubPostVO) {
-		return clubPostService.selectAllPost(clubPostVO);
+	public Map<String, Object> postListPage(ClubPostVO clubPostVO) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("selectCount", clubPostService.selectCount(clubPostVO));
+		map.put("clubPost",clubPostService.selectAllPost(clubPostVO));
+		return map;
 	}
 
 	//자유게시판 등록
@@ -232,6 +263,8 @@ public class ClubController {
 	@GetMapping("repList")
 	@ResponseBody
 	public List<ClubRepVO> repListAjax(ClubRepVO clubRepVO) {
+		//업데이트
+		clubPostService.updatePostHit(clubRepVO.getClubPostNo());
 		return clubRepService.selectAllRep(clubRepVO);
 	}
 
@@ -254,6 +287,12 @@ public class ClubController {
 		boolean result = clubRepService.deleteRep(clubRepNo);
 		return result;
 	}
+	
+	
+	
+	
+	// --------------------------------------- 멤버
+	
 
 	// 상세페이지 > 탭 > 멤버
 	@GetMapping("clubMember")
@@ -277,7 +316,10 @@ public class ClubController {
 	public boolean memberDeleteAjax(@RequestParam("paramMemNo") Integer clubMemNo) {
 		boolean result = clubService.clubMemDelete(clubMemNo);
 		return result;
-	}		
+	}	
+	
+	
+	// --------------------------------------- 가입 수락 페이지(클럽장만)	
 
 	// 상세페이지 > 탭 > 클럽가입 확인 페이지
 	@GetMapping("clubApply")

@@ -25,4 +25,7 @@ public interface ClubPostService {
 	
 	//게시글 조회수
 	public void updatePostHit(int hit);
+	
+	//페이징 전체 갯수
+	public int selectCount(ClubPostVO clubPostVO);
 }

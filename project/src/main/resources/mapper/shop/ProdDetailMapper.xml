@@ -13,6 +13,13 @@
   		ORDER BY prod_detail_no
   	</select>
   	
+  	<!-- prodNo 기준 상품 갯수 -->
+  	<select id="selectSumOrderProdNo" resultType="int">
+  		SELECT 	SUM(prod_detail_sto)
+  		FROM	prod_detail
+  		WHERE	prod_no = #{prodNo}
+  	</select>
+  	
   	<!-- 단건조회 -->
   	<select id="selectProdDetail" resultType="ProdDetailVO">
   		SELECT 	prod_detail_no,
@@ -24,13 +31,14 @@
   		WHERE  	prod_detail_no = #{prodDetailNo}
   	</select>
   	
+  	
   	<!-- 카트 등록시 한건 조회 -->
   	<select id="selectCartProd" resultType="ProdDetailVO">
   		SELECT 	prod_detail_no
   		FROM	prod_detail
   		WHERE	prod_no = #{prodNo}
-  		AND		cate_color = #{cateColor}
-  		AND		cate_size = #{cateSize}
+  		AND		cate_color = FIND_CATEGORY_CODE(#{cateColor})
+  		AND		cate_size = FIND_CATEGORY_CODE(#{cateSize})
   	</select>
   	
   	<!-- 등록 -->
@@ -69,6 +77,13 @@
 				</if>
   			</set>
   		WHERE prod_detail_no = #{prodDetailNo}
+  	</update>
+  	
+  	<!-- 상품 주문 후 재고 처리 -->
+  	<update id="updateOrderProdDetail" parameterType="int">
+  		UPDATE	prod_detail
+  		SET		prod_detail_sto = prod_detail_sto - #{prodDetailSto}
+  		WHERE	prod_detail_no = #{prodDetailNo}
   	</update>
   	
   	<!-- 삭제 -->

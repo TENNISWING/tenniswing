@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.common.FileUtils;
 import com.tenniswing.project.common.PagingVO;
 import com.tenniswing.project.court.service.Api;
+import com.tenniswing.project.court.service.CancelApi;
 import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.court.service.CrtDetailService;
 import com.tenniswing.project.court.service.CrtRefundVO;
@@ -51,6 +57,9 @@ public class CourtController {
 	
 	@Autowired
 	Api api;
+	
+	@Autowired
+	CancelApi cancelapi;
 	
 	
 	// 메인
@@ -207,18 +216,17 @@ public class CourtController {
 		}
 		
 		// 환불 테스트
-		@GetMapping("refundTest")
-		public String refundCourt(CrtRefundVO crtRefundVO){
-			return "court/refundTest";
-		}
-		
-		@PostMapping("refundTestPost")
-		@ResponseBody
-		public boolean refundCourtProccess(@RequestBody CrtRefundVO crtRefundVO){
-			boolean result = true;
-			
-			return result;
-		}
+		/*
+		 * @GetMapping("refundTest") public String refundCourt(CrtRefundVO crtRefundVO){
+		 * return "court/refundTest"; }
+		 * 
+		 * @PostMapping("refundTestPost")
+		 * 
+		 * @ResponseBody public boolean refundCourtProccess(@RequestBody CrtRefundVO
+		 * crtRefundVO){ boolean result = true;
+		 * 
+		 * return result; }
+		 */
 
 	// 검색
 	@GetMapping("searcharea")
@@ -233,19 +241,31 @@ public class CourtController {
 	
 	@PostMapping("courtReserveCancel")
 	@ResponseBody
-	public String orderCancel(@RequestBody CrtReserveVO crtReserveVO) {
-		String impUid = crtReserveVO.getReservePayNo();
-		String merchantUid = crtReserveVO.getReserveUid();
-		int refundPrice = crtReserveVO.getRefundPrice();
-		String refundReason = crtReserveVO.getRefundReason();
-		
-		//RefundAppVO 생성
-		RefundAppVO app = new RefundAppVO(impUid,merchantUid, refundReason, refundPrice );
+	public Boolean orderCancel(@RequestBody RefundAppVO refundAppVO) {
+	
 		
 		//apiCall에 RefundAppVO넘겨줌
-		api.apiCall(app);
-		System.out.println(app);
+		String token = api.apiCall();
+		System.out.println("토큰 >>>> "+token);
 		
-		return "";
+		System.out.println(refundAppVO);
+		
+		Map<String, Object> map = cancelapi.CancelApiCall(refundAppVO, token);
+		
+		System.out.println(map);
+		
+		CrtReserveVO crtReserveVO = new CrtReserveVO();
+		crtReserveVO.setRefundPrice(refundAppVO.getAmount());
+		crtReserveVO.setRefundCharge(refundAppVO.getCharge());
+		crtReserveVO.setReserveNo(refundAppVO.getReserveNo());
+		crtReserveVO.setRefundReason(refundAppVO.getReason());
+		//DB 값 넣어주기
+		int result = crtReserveService.insertCrtRefund(crtReserveVO);
+		if(result > 0) {
+			crtReserveService.updateCrtReserveState(crtReserveVO);
+			return true;
+		}else {
+			return false;
+		}
 	}
 }
