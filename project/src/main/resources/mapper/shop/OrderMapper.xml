@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.tenniswing.project.shop.mapper.OrderMapper">
+  	
+  	<!-- 상품 주문 후 등록 -->
+  	<insert id="insertOrder" parameterType="OrderTableVO">
+  		<selectKey keyProperty="orderNo,orderDetailNo" resultType="OrderTableVO" order="BEFORE">
+			SELECT  (SELECT NVL(MAX(order_no), 0) + 1
+					  FROM order_table) order_no,
+					(SELECT NVL(MAX(order_detail_no), 0) + 1
+					   FROM order_detail) order_detail_no,
+					(SELECT NVL(MAX(pay_no), 0) + 1
+					  FROM pay) pay_no
+			FROM dual
+		</selectKey>
+		INSERT ALL
+		INTO order_table (
+			 	order_no,
+			 	order_t_pay_amt,
+			 	order_date,
+			 	order_state,
+			 	order_adr1,
+			 	order_adr2,
+			 	order_adr3,
+			 	order_req,
+			 	order_rpt_tel,
+			 	order_rpt_name,
+			 	order_prod_cnt,
+			 	imp_uid,
+			 	merchant_uid,
+			 	mem_id
+			 )
+		VALUES (
+			 	#{orderNo},
+			 	#{orderTPayAmt},
+			 	SYSDATE,
+			 	's1',
+			 	#{orderAdr1},
+			 	#{orderAdr2},
+			 	#{orderAdr3},
+			 	#{orderReq},
+			 	#{orderRptTel},
+			 	#{orderRptName},
+			 	#{orderProdCnt},
+			 	#{impUid},
+			 	#{merchantUid},
+			 	#{memId},
+			 )
+		INTO order_detail (
+				order_detail_no,
+				order_detail_price,
+				order_detail_cnt,
+				order_detail_ant,
+				prod_detail_no,
+				order_no,
+			)
+		VALUES (
+				#{orderDetailNo},
+				#{prodPrice},
+				#{prodDetailSto},
+				(#{prodPrice} * #{prodDetailSto}),
+				#{prodDetailNo},
+				#{orderNo},
+			)
+		SELECT * FROM dual
+  	</insert>
+  </mapper>

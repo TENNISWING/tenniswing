@@ -22,4 +22,10 @@ public interface ProdDetailMapper {
 	public int updateProdDetail(ProdDetailVO prodDetailVO);
 //	삭제
 	public int deleteProdDetail(ProdDetailVO prodDetailVO);
+	
+	// 주문시 재고 처리
+	public int updateOrderProdDetail(int prodDetailNo, int prodDetailSto);
+	
+	// 주문후 prodNo별 전체 재고
+	public int selectSumOrderProdNo(int prodNo);
 }

@@ -45,7 +45,7 @@ public class CartServiceImpl implements CartService{
 	
 	// 한건조회
 	@Override
-	public boolean selectAllCart(CartVO cartvo) {
+	public boolean selectOneCart(CartVO cartvo) {
 		boolean isSucess = false;
 		if(cartMapper.selectCart(cartvo) != null) {
 			isSucess = true;
@@ -66,7 +66,7 @@ public class CartServiceImpl implements CartService{
 		cartVO.setMemId(memId);
 		
 		prodDetailVO = prodDetailMapper.selectCartProd(prodDetailVO);
-		log.warn("========cart"+prodDetailVO);
+		log.warn("========cart===="+prodDetailVO);
 		
 		// 카트 상품 디테일 번호
 		cartVO.setProdDetailNo(prodDetailVO.getProdDetailNo());

@@ -22,6 +22,9 @@ import com.tenniswing.project.member.service.MemberService;
 import com.tenniswing.project.member.service.MemberVO;
 import com.tenniswing.project.shop.service.CartService;
 import com.tenniswing.project.shop.service.CartVO;
+import com.tenniswing.project.shop.service.OrderDetailVO;
+import com.tenniswing.project.shop.service.OrderService;
+import com.tenniswing.project.shop.service.OrderTableVO;
 import com.tenniswing.project.shop.service.ProdDetailService;
 import com.tenniswing.project.shop.service.ProdDetailVO;
 import com.tenniswing.project.shop.service.ProdService;
@@ -50,6 +53,9 @@ public class ShopController {
 	
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	OrderService orderService;
 	
 	// 상품 목록
 	@GetMapping("shop")
@@ -108,13 +114,14 @@ public class ShopController {
 	@PostMapping("selectCart")
 	@ResponseBody
 	public boolean selectCart(@RequestBody CartVO cartvo){
-		return cartService.selectAllCart(cartvo);
+		return cartService.selectOneCart(cartvo);
 	}
 	
 //	장바구니 추가 처리
 	@PostMapping("insertCart")
 	@ResponseBody
 	public Map<String, Object> insertCart(@RequestBody ProdDetailVO prodDetailVO){
+		log.warn("======추가====="+prodDetailVO);
 		return cartService.insertCart(prodDetailVO);
 	}
 	
@@ -142,12 +149,16 @@ public class ShopController {
 		//log.warn("asd"+type);
 		String memId = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<CartVO> cartList = new ArrayList<CartVO>();
+		ProdDetailVO detailVO = new ProdDetailVO();
+		detailVO = prodDetailService.selectCartProd(prodDetailVO);
 		
 		if(type.equals("direct")) {
 			log.warn("=======prodVO==="+prodVO);
 			log.warn("=======prodDetailVO==="+prodDetailVO);
 			model.addAttribute("prod", prodService.selectProd(prodVO));
 			model.addAttribute("prodDetailVO", prodDetailVO);
+			model.addAttribute("prodDetailNo", detailVO.getProdDetailNo());
+			log.warn("=======prodDetailNo==="+detailVO.getProdDetailNo());
 			//model.addAttribute("cartList", cartList);
 		} else {
 			//log.warn("asd"+type);
@@ -167,4 +178,25 @@ public class ShopController {
 		log.warn("=========memID==="+memberVO.getMemId());
 		return memberService.memberInfo(memberVO.getMemId()); 
 	}
+	
+	@PostMapping("orderPay")
+	@ResponseBody
+	public Map<String, Object> orderPay(@RequestBody OrderTableVO orderTableVO) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		if((orderTableVO.getType()).equals("direct")) {
+			log.warn("===== 결제가 성공해서 들어오면===="+orderTableVO);
+			result = orderService.insertOrder(orderTableVO);
+		}
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
