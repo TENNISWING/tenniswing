@@ -51,7 +51,7 @@
 								<div class="form-group">
 									<label for="f_name">이름</label> <input type="text" name="f_name"
 										id="f_name" class="form-control"
-										placeholder="(필수) 이름을 입력해 주세요." onkeyup='printName()'/>
+										placeholder="(필수) 이름을 입력해 주세요." onkeyup='printName()' readonly="readonly"/>
 								</div>
 							</div>
 							<div class="flex__form c-1">
@@ -59,7 +59,7 @@
 									<label for="f_phone">전화번호</label>
 									<div class="input-group">
 										<input type="tel" name="f_phone" id="f_phone" class="form-control"
-											placeholder="(필수) 휴대폰 번호를 입력해 주세요." onkeyup='printTel()'/>
+											placeholder="(필수) 휴대폰 번호를 입력해 주세요." onkeyup='printTel()' readonly="readonly"/>
 									</div>
 								</div>
 							</div>
@@ -97,12 +97,12 @@
 							<div class="cta__form justify-content-start align-items-end mt-15" style="margin-top: 40px">
 								<div class="form-group" style="margin: 0;">
 									<label>받으실 곳</label>
-									<input type="text" id="sample6_postcode" class="form-control border" placeholder="우편번호">								
+									<input type="text" id="sample6_postcode" class="form-control border" placeholder="우편번호" readonly="readonly">								
 								</div>							
 								<input type="button" onclick="sample6_execDaumPostcode()" class="btn btn-primary" style="margin-top: 0;" value="우편번호 찾기">
 							</div>
 							<br>
-							<input type="text" id="sample6_address" class="form-control" placeholder="주소">
+							<input type="text" id="sample6_address" class="form-control" placeholder="주소" readonly="readonly">
 							<br>
 							<input type="text" id="sample6_detailAddress" class="form-control" placeholder="상세주소" onkeyup="printAdd3()">
 							<br>
@@ -171,7 +171,7 @@
 													<a th:onclick="|location.href='@{/shopDetail(prodNo=${prod.prodNo})}'|">
 														<b>[[ ${prod.prodName} ]]</b></a>
 												</h5>
-												<p class="product__price onePrice" id="prodPrice" th:value="${prod.prodPrice}">[[ ${prod.prodPrice} ]]</p>
+												<p class="product__price onePrice" id="prodOnePrice" th:value="${prod.prodPrice} * ${prodDetailVO.prodDetailSto}">[[ ${prod.prodPrice} ]]</p>
 											<!-- </th:block> -->
 										</div>
 										<div class="shopping-card__content-bottom">
@@ -198,14 +198,15 @@
 														<a th:onclick="|location.href='@{/shopDetail(prodNo=${cartList.prodNo})}'|">
 															<b>[[ ${cartList.prodName} ]]</b></a>
 													</h5>
-													<p class="product__price onePrice" id="prodPrice" th:value="${cartList.prodPrice}">[[ ${cartList.prodPrice} ]]</p>
+													<p class="product__price onePrice" th:id="prodPrice+${cartList.prodDetailNo}" th:value="${cartList.prodPrice} * ${cartList.cartProdQt}">[[ ${cartList.prodPrice} ]]</p>
 												<!-- </th:block> -->
 											</div>
 											<div class="shopping-card__content-bottom">
 												<h6 style="padding: 0 3px; color: #667085; font-size: small; font-weight: 500;">색상 : [[ ${cartList.cateColor} ]] &nbsp&nbsp 사이즈 : [[ ${cartList.cateSize} ]]</h6>
 											</div>
 											<div class="shopping-card__content-bottom">
-												<h6 style="padding: 0 3px; color: #667085; font-size: small; font-weight: 500;">수량 : [[ ${cartList.cartProdQt} ]]</h6>
+												<h6 style="padding: 0 3px; color: #667085; font-size: small; font-weight: 500;" th:value="${cartList.cartProdQt}" class="checkProdQt">
+													수량 : [[ ${cartList.cartProdQt} ]]</h6>
 											</div>
 										</div>
 									</div>
@@ -224,20 +225,20 @@
 								<h3>
 									결제금액 <span>(Incl. VAT)</span>
 								</h3>
-								<span class="total" id="totaShopPrice" th:text="${prodDetailVO.prodDetailSto} * ${prod.prodPrice}"></span>
+								<span class="total" id="totalShopPrice" th:text="${prodDetailVO.prodDetailSto} * ${prod.prodPrice}"></span>
 							</div>
 						</th:block>
 						
 						<th:block th:unless="${cartList == null}">
 							<div class="cart__total cart__total__v2" style="padding: 0 0 0 10px;">
-								<h3>총 수량</h3> <span class="value" id="totalShopCount"></span>
+								<h3>총 수량</h3> <span class="value" id="totalCheckShopCount"></span>
 							</div>
 							<hr>
 							<div class="cart__total cart__total__v2" style="padding: 0 0 0 10px;">
 								<h3>
 									결제금액 <span>(Incl. VAT)</span>
 								</h3>
-								<span class="total" id="totaShopPrice"></span>
+								<span class="total" id="totalCheckShopPrice"></span>
 							</div>
 						</th:block>
 					</div>
@@ -327,11 +328,7 @@
 				printName();
 				printTel();
 			});
-
-			
 		})
-		
-		
 		
 		function printName() {
 			let name = document.getElementById('f_name').value;
@@ -364,18 +361,38 @@
 	
 	<!--/* 가격부분 , 추가하는 기능 */-->
 	<script type="text/javascript">
-		let changePrice = $('#prodPrice').text();
-		let changeTotal = $('#totaShopPrice').text();
-		changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		let onePrice = $('.onePrice');
+		let totalPrice = 0;
+		
+		onePrice.each(function() {
+			let checkPriceId = $(this).attr('id');
+			
+			let changeCheckPrice = $('#'+checkPriceId).attr('value');
+			totalPrice += Number(changeCheckPrice);
+			changeCheckPrice = changeCheckPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			changeCheckPrice = changeCheckPrice + '원';
+			
+			$('#'+checkPriceId).text(changeCheckPrice);
+		})
+		
+		let changeTotal = $('#totalShopPrice').text();
 		changeTotal = changeTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		changeTotal = changeTotal + ' 원'; 
+		totalPrice = totalPrice + ' 원'; 
 		
-		changePrice = changePrice + '원';
-		changeTotal = changeTotal + '원'; 
+		$('#totalShopPrice').text(changeTotal);
+		$('#totalCheckShopPrice').text(totalPrice);
 		
-		$('#prodPrice').text(changePrice);
+		let checkProdQt = $('.checkProdQt');
+		let totalProdQt = 0;
 		
-		$('#totaShopPrice').text(changeTotal);
+		checkProdQt.each(function() {
+			totalProdQt += Number($(this).attr('value'));
+		})
+		totalProdQt = totalProdQt + ' 개'
 		
+		$('#totalCheckShopCount').text(totalProdQt);
 	</script>
 </th:block>
 

@@ -34,6 +34,7 @@
 		}
 	</style>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 </head>
 <th:block layout:fragment="content">
 <script type="text/javascript">
@@ -929,8 +930,9 @@
 		});
 	</script>
 	
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 	<script>
-		new Swiper(".swiper-wrapper", {
+		let swiper = new Swiper(".swiper-wrapper", {
 			/* loop : true, */
 			loopPreventsSliding : true,
 			grabCursor : true,
@@ -943,7 +945,7 @@
 				disableOnInteraction : false
 			}, */
 			pagination : {
-				el : ".swiper-pagination",
+				el : ".swiper-slider",
 				dynamicBullets : true,
 				clickable : true,
 			},
@@ -996,6 +998,7 @@
 					data : JSON.stringify(objData)
 				})
 				.done(result => {
+					console.log(result);
 					if(result){
 						Swal.fire({
 							  icon: "info",

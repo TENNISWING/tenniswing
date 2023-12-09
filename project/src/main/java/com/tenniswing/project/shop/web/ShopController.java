@@ -108,13 +108,14 @@ public class ShopController {
 	@PostMapping("selectCart")
 	@ResponseBody
 	public boolean selectCart(@RequestBody CartVO cartvo){
-		return cartService.selectAllCart(cartvo);
+		return cartService.selectOneCart(cartvo);
 	}
 	
 //	장바구니 추가 처리
 	@PostMapping("insertCart")
 	@ResponseBody
 	public Map<String, Object> insertCart(@RequestBody ProdDetailVO prodDetailVO){
+		log.warn("======추가====="+prodDetailVO);
 		return cartService.insertCart(prodDetailVO);
 	}
 	

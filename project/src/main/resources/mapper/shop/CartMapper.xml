@@ -41,8 +41,8 @@
 		        JOIN    prod p
 		        ON      p.prod_no = d.prod_no
 		WHERE   mem_id = #{memId}
-		AND		d.cate_color = #{cateColor}
-		AND		d.cate_size = #{cateSize}
+		AND		d.cate_color = FIND_CATEGORY_CODE(#{cateColor})
+		AND		d.cate_size = FIND_CATEGORY_CODE(#{cateSize})
   	</select>
   	
   	
