@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<th:block layout:fragment="content">
 <body>
 	
 	<div class="content__body">
@@ -12,8 +13,8 @@
 			<div class="filter__area" style="margin: 0;">
 				<div class="email-fixed-search col-6 ">
 					<div class="form-group position-relative  mb-0 has-icon-left">
-						<button class="btn btn-outline-success" id="matchWrite"  data-bs-toggle="modal"
-							data-bs-target="#Modal">모집 추가</button>
+						<button class="btn btn-outline-success" id="matchWrite"  data-bs-toggle="modal" th:data-club-no="${clubVO.clubNo}" 
+							data-bs-target="#addMatchModal">모집 추가</button>
 					</div>
 				</div>
 			</div>
@@ -33,8 +34,58 @@
 					<p class="text-muted mb-0">작성일 : 2023-11-24</p>
 				</div>
 			</div>
+			
+				<!-- 매치작성 모달  -->
+			<div class="modal fade text-left clubEditModal" id="addMatchModal"
+				tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 
-			<!-- 모달 -->
+				<div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel1">매치 모집</h5>
+							<button type="button" class="close rounded-pill"
+								data-bs-dismiss="modal" aria-label="Close">
+								<i data-feather="x"></i>
+							</button>
+						</div>
+							<form class="form__wrapper matchModalForm" id="postForm" th:action="@{/clubMatchRecruit}" method="POST"
+						th:object="${clubMatchVO}" enctype="multipart/form-data" data-parsley-validate>
+						<div class="modal-body">
+							<div class="input-group mb-3">
+								<label for="clubMatchDate">매치 일자</label><br>
+									<input type="date" id ="clubMatchDate" name="clubMatchDate" class="form-control flatpickr-always-open" placeholder="Select date..">
+							</div>
+							<div class="product-detail__qty">
+								<span class="product-detail--stroke">모집 인원 수</span>
+								<div class="quantity quantity--outline">
+									<button type="button" class="decressQnt">
+										<span class="bar"></span>
+									</button>
+									<input id="clubMatchRecruitPsnNum" name="clubMatchRecruitPsnNum" class="qnttinput" type="number"
+										readonly="readonly" value="1" min="1" max="10" />
+									<button type="button" class="incressQnt" id="checkCount">
+										<span class="bar"></span>
+									</button>
+								</div>
+							</div>
+							
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-light-secondary cancleBtn" data-bs-dismiss="modal">
+								<i class="bx bx-x d-block d-sm-none"></i> <span class="d-none d-sm-block">취소</span>
+							</button>
+							<button type="button" class="btn btn-primary ms-1 insertBtn" data-bs-dismiss="modal">
+								<i class="bx bx-check d-block d-sm-none"></i> <span class="d-none d-sm-block">작성</span>
+							</button>
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+			<!-- /매치작성 모달  -->
+
+			<!-- 참여모달 -->
 			<div class="modal-success me-1 mb-1 d-inline-block">
 
 				<button type="button" class="btn btn-outline-success"
@@ -55,10 +106,7 @@
 									<i data-feather="x"></i>
 								</button>
 							</div>
-							<div class="modal-body">Tart lemon drops macaroon oat cake
-								chocolate toffee chocolate bar icing. Pudding jelly beans carrot
-								cake pastry gummies cheesecake lollipop. I love cookie lollipop
-								cake I love sweet gummi bears cupcake dessert.</div>
+							<div class="modal-body">매치에 참여하시겠습니까?</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-light-secondary"
 									data-bs-dismiss="modal">
@@ -76,7 +124,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- /모달 -->
+			<!-- /참여모달 -->
 		</div>
 		<br>
 		<ul class="pagination justify-content-center">
@@ -88,5 +136,47 @@
 			<li class="page-item"><a class="page-link" href="#">다음</a></li>
 		</ul>
 	</div>
+	
+	
+	<script type="text/javascript">
+	
+	//매치모집 추가
+	//버튼 클릭했을때 클럽넘버 값 가지고가기
+	$('#addMatchModal').on('show.bs.modal', function (e) {
+
+		let clubNo = $(e.relatedTarget).data('club-no');
+		console.log("모달열림"+clubNo)
+
+		$('.insertBtn').on("click", function (e) {
+
+			let clubMatchDate = $('#clubMatchDate').value;
+			let clubMatchRecruitPsnNum = 0
+			
+			console.log("클럽데이트:"+clubMatchDate)
+			console.log("모집인원수:"+clubMatchRecruitPsnNum)
+
+			$.ajax({
+				url: 'MatchRecruitInsert',
+				data:{ clubNo, clubMatchDate, clubMatchRecruitPsnNum}
+				type: 'post',
+				success: function (result) {
+					alert("등록성공")
+					//postListAjax(); //등록후 리스트 불러오기
+					//$('#postForm')[0].reset();	//폼값 초기화
+
+				},
+				error: function () {
+					alert("등록 실패")
+
+				}
+
+			})
+		});
+
+	});
+	
+	
+	</script>
 </body>
+</th:block>
 </html>

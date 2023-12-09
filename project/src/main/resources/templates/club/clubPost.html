@@ -64,14 +64,14 @@
 				</tbody>
 			</table>
 
-			<br>
-			<div class="action-right d-flex flex-grow-1 align-items-center justify-content-around">
-				<!-- 페이지 -->
-				<div class="container mt-5 mb-5">
-					<ul class="pagination justify-content-center"></ul>
+			<!-- 페이지 -->
+				<div class="action-right d-flex flex-grow-1 align-items-center justify-content-around">
+					
+					<div class="container mt-5 mb-5">
+						<ul class="pagination justify-content-center"></ul>
+					</div>
 				</div>
 			</div>
-		</div>
 
 		<!-- 글작성 모달  -->
 		<div class="modal fade text-left" id="WriteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
@@ -160,46 +160,6 @@
 
 		<script>
 
-
-
-			//게시글 등록
-			//글쓰기 버튼 클릭했을때 클럽넘버 값 가지고가기
-			$('#WriteModal').on('show.bs.modal', function (e) {
-
-
-				//for(let value of postInfo.values())
-
-				let clubNo = $(e.relatedTarget).data('club-no');
-
-				$('.insertBtn').on("click", function (e) {
-
-					//폼데이터 가져오기(사진받으려면 FormData)
-					let form = $('#postForm')[0]
-					let postInfo = new FormData(form)
-					postInfo.append('clubNo', clubNo); //클럽넘버 추가
-
-					$.ajax({
-						url: 'postInsert',
-						data: postInfo,
-						type: 'post',
-						enctype: 'multipart/form-data',
-						contentType: false,
-						processData: false,
-						success: function (result) {
-							alert("등록성공")
-							postListAjax(); //등록후 리스트 불러오기
-							$('#postForm')[0].reset();	//폼값 초기화
-
-						},
-						error: function () {
-							alert("등록 실패")
-
-						}
-
-					})
-				});
-
-			});
 			
 			//페이징
 	    	postListPage(1);
@@ -225,7 +185,7 @@
 					data: {page, clubNo, sort },
 					success: function (data) {
 						$('#postList').empty();
-						for (let [index, clubPost] of data.entries()) {
+						for (let clubPost of data.clubPost) {
 							let List = `
 							<tr class="accordion-header" style="height: 70px;" 
 								data-bs-target="${clubPost.clubPostNo}" aria-expanded="false"	>
@@ -236,7 +196,7 @@
 								    </div>
 								</td>
 								<td  style="text-align: left;">${clubPost.name}</td>
-								<td>${clubPost.clubPostHit}</td>
+								<td class="postHit">${clubPost.clubPostHit}</td>
 								<td>
 								<i type="button" class="fa-regular fa-pen-to-square postEditBtn" data-value="${clubPost.clubPostNo}"
 														data-bs-toggle="modal" data-bs-target="#editModal" ></i>
@@ -278,8 +238,16 @@
 							`
 							$('#postList').append(List)
 						}
-						$('#postList tr.accordion-header').on("click", repListAjax);
-
+						showPage(data.selectCount);
+					$('#postList tr.accordion-header').on("click", repListAjax);
+						
+						//조회수 추가
+						
+						/* 	$('#postList tr.toggleBoard').css("display", "table-row;")
+								console.log("게시글 제목 클릭") */
+					
+							
+						
 						
 						//삭제 아이콘 클릭할때
 						$(".postDelBtn").on("click", function (e) {
@@ -360,9 +328,21 @@
 
 			//댓글 리스트 아작스
 			function repListAjax() {
-				$(event.currentTarget).next().toggle();
-				let clubPostNo = $(event.currentTarget).attr('data-bs-target')
-				repList(clubPostNo);
+				if( $(event.currentTarget).next().is(':visible')){
+					$(event.currentTarget).next().hide();
+				}else{
+					$(event.currentTarget).next().show();
+					let clubPostNo = $(event.currentTarget).attr('data-bs-target');
+					repList(clubPostNo);
+					
+					//조회수 증가
+					let postHit  =$(`[data-bs-target="${clubPostNo}"]`).find('.postHit')
+					let n=postHit.text()*1
+					postHit.text(n+1)
+				}
+				
+				
+				
 			};
 
 
@@ -487,7 +467,44 @@
 				})
 			};
 
-			
+			//게시글 등록
+			//글쓰기 버튼 클릭했을때 클럽넘버 값 가지고가기
+			$('#WriteModal').on('show.bs.modal', function (e) {
+
+
+				//for(let value of postInfo.values())
+
+				let clubNo = $(e.relatedTarget).data('club-no');
+
+				$('.insertBtn').on("click", function (e) {
+
+					//폼데이터 가져오기(사진받으려면 FormData)
+					let form = $('#postForm')[0]
+					let postInfo = new FormData(form)
+					postInfo.append('clubNo', clubNo); //클럽넘버 추가
+
+					$.ajax({
+						url: 'postInsert',
+						data: postInfo,
+						type: 'post',
+						enctype: 'multipart/form-data',
+						contentType: false,
+						processData: false,
+						success: function (result) {
+							alert("등록성공")
+							postListAjax(); //등록후 리스트 불러오기
+							$('#postForm')[0].reset();	//폼값 초기화
+
+						},
+						error: function () {
+							alert("등록 실패")
+
+						}
+
+					})
+				});
+
+			});
 			
 
 			//게시글 삭제 아작스

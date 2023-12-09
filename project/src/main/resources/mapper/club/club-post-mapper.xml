@@ -74,7 +74,7 @@
   	<!-- 조회수 -->
   	<update id="updatePostHit" parameterType="int">
   		UPDATE 	club_post
-  		SET		club_post_hit = club_post_hit + 1
+  		SET		club_post_hit = nvl(club_post_hit,0) + 1
   		WHERE	club_post_no = #{clubPostNo}
   	</update>
   	

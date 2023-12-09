@@ -46,10 +46,13 @@
 					, FIND_CATEGORY_NAME (c.club_time) club_time_name
 					, c.club_intro
 					, c.club_crt
-					,(SELECT COUNT(*) FROM club_mem WHERE club_no = ${clubNo}) AS club_mem_num 
 					, FIND_CATEGORY_NAME (c.club_recruitment) club_recruitment_name
 					, c.mem_id
 					, c.club_create_date
+					,(SELECT COUNT(m.club_no) FROM club cl LEFT OUTER JOIN club_mem m
+                                                    ON cl.club_no = m.club_no
+                                              GROUP BY cl.club_no
+                                              HAVING cl.club_no = c.club_no ) club_mem_num
 					, a.attach_path
 			FROM club c LEFT OUTER JOIN attach a
 						  ON a.attach_table_pk = c.club_no
@@ -195,6 +198,8 @@
   	WHERE club_no = #{clubNo}
   </delete>
   
+  
+  <!-- 매치클럽 단건조회(재은) -->
   <select id = "selectMatchClub" resultType="ClubVO">
   	SELECT club_no
   		   , club_name
