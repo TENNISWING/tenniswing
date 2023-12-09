@@ -8,7 +8,7 @@
 	<!-- 전체 조회 -->
 	<select id="selectAllMatch" resultType="MatchVO">
 		select * from ( select A.* , rownum rn from (
-
+		
 		SELECT m.match_no,
 		m.mem_id,
 		m.match_date,
@@ -39,7 +39,6 @@
 		<if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
 		<if test="progState != null and progState != ''">and progState = #{progState}</if>
 		ORDER BY time
-
 		) A) b where rn between (#{page}-1)*#{pageUnit} + 1 and #{page} *
 		#{pageUnit}
 	</select>
@@ -89,6 +88,8 @@
 		, m.club_name
 		, m.match_date
 		, m.time
+		, m.in_date
+		, m.update_date
 		, m.game_way
 		, FIND_CATEGORY_NAME (m.game_way) game_way_name
 		, m.prog_state
@@ -136,22 +137,21 @@
 	<select id="clubRecentView" resultType="MatchVO">
 		select * from (
 		SELECT m.match_no,
-		m.mem_id,
 		m.match_date,
-		m.prog_state,
-		FIND_CATEGORY_NAME (m.prog_state) prog_state_name,
 		m.in_date,
 		m.update_date,
+		m.prog_state,		
+		FIND_CATEGORY_NAME (m.prog_state) prog_state_name,
 		c.crtroom_no,
 		c.crtroom_name,
 		c.crtroom_location,
 		FIND_CATEGORY_NAME (c.crtroom_location) crtroom_location_name
-		, (select attach_path
+		,(select attach_path
 		from attach a
 		where c.crtroom_no = a.attach_table_pk
 		AND a.attach_table_div = 'cd'
 		AND a.attach_turn = 1) attach_path
-		FROM match m, crtroom c
+		FROM club_match m, crtroom c
 		WHERE m.crtroom_no = c.crtroom_no
 		ORDER BY m.in_date desc
 		) where rownum  <![CDATA[<=]]>
@@ -175,6 +175,8 @@
 		, m.start_date
 		, m.end_date
 		, m.time
+		, m.in_date
+		, m.update_date
 		, m.prog_state
 		, FIND_CATEGORY_NAME (m.prog_state) prog_state_name
 		, m.recruit_psn_num
@@ -214,12 +216,12 @@
 	<select id="contRecentView" resultType="MatchVO">
 		select * from (
 		SELECT m.match_no,
-		m.mem_id,
-		m.match_date,
+		m.start_date,
+		m.end_date,
+		m.in_date, 
+		m.update_date, 
 		m.prog_state,
 		FIND_CATEGORY_NAME (m.prog_state) prog_state_name,
-		m.in_date,
-		m.update_date,
 		c.crtroom_no,
 		c.crtroom_name,
 		c.crtroom_location,
@@ -229,7 +231,7 @@
 		where c.crtroom_no = a.attach_table_pk
 		AND a.attach_table_div = 'cd'
 		AND a.attach_turn = 1) attach_path
-		FROM match m, crtroom c
+		FROM cont_match m, crtroom c
 		WHERE m.crtroom_no = c.crtroom_no
 		ORDER BY m.in_date desc
 		) where rownum  <![CDATA[<=]]>
@@ -244,6 +246,8 @@
 		, m.mem_id
 		, m.match_date
 		, m.time
+		, m.in_date
+		, m.update_date
 		, m.prog_state
 		, FIND_CATEGORY_NAME (m.prog_state) prog_state_name
 		, m.ntrp
@@ -289,10 +293,10 @@
 		SELECT m.match_no,
 		m.mem_id,
 		m.match_date,
-		m.prog_state,
-		FIND_CATEGORY_NAME (m.prog_state) prog_state_name,
 		m.in_date,
 		m.update_date,
+		m.prog_state,
+		FIND_CATEGORY_NAME (m.prog_state) prog_state_name,
 		c.crtroom_no,
 		c.crtroom_name,
 		c.crtroom_location,
@@ -302,7 +306,7 @@
 		where c.crtroom_no = a.attach_table_pk
 		AND a.attach_table_div = 'cd'
 		AND a.attach_turn = 1) attach_path
-		FROM match m, crtroom c
+		FROM starter_match m, crtroom c
 		WHERE m.crtroom_no = c.crtroom_no
 		ORDER BY m.in_date desc
 		) where rownum  <![CDATA[<=]]>
@@ -355,6 +359,10 @@
 		, FIND_CATEGORY_NAME (m.game_way) game_way_name
 		, m.prog_state
 		, m.ntrp
+		, m.in_date
+		, m.update_date
+		, m.in_date
+		, m.update_date
 		, m.lv
 		, FIND_CATEGORY_NAME (m.lv) lv_name
 		, m.crt_use_amt
@@ -382,6 +390,8 @@
 		, c.end_date
 		, c.time
 		, c.prog_state
+		, c.in_date
+		, c.update_date
 		, c.recruit_psn_num
 		, c.ntrp
 		, c.lv
@@ -409,6 +419,8 @@
 		, s.match_date
 		, s.time
 		, s.prog_state
+		, s.in_date
+		, s.update_date
 		, s.ntrp
 		, s.lv
 		, FIND_CATEGORY_NAME (s.lv) lv_name
