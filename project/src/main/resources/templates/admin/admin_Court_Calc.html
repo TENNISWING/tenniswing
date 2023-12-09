@@ -69,8 +69,51 @@
 												<th style="text-align: center;">Action</th>
 											</tr>
 										</thead>
-										<tbody>
-											
+										<tbody id="calcTable">
+											<th:block th:each="result : ${result}">
+											<tr>
+												<td>${result.calcNo}</td>
+												<td>${result.hostId}</td>
+												<td>${result.hostName}</td>
+												<td>${result.totalPayPrice}</td>
+												<td>${result.cancelPrice}</td>
+												<td>${result.calcPrice}</td>
+												<td>${result.depositor}</td>
+												<td>${result.bank}</td>
+												<td>${result.accountNo}</td>
+												<th:block th:if="${result.calcState} == 'bi1'")>
+													<td><span class="badge bg-success" >정산예정</span></td>
+												</th:block>
+												<th:block th:unless="${result.calcState} == 'bi1'")>
+													<td><span class="badge bg-success" >정산완료</span></td>
+												</th:block>
+												<td>
+												<div class="card__action">
+														<svg width="20"
+															height="20" viewBox="0 0 20 20" fill="none"
+															xmlns="http://www.w3.org/2000/svg">
+						                                    <g
+																clip-path="url(#)">
+						                                        <path
+																d="M0.833984 10C0.833984 10 4.16732 3.33334 10.0007 3.33334C15.834 3.33334 19.1673 10 19.1673 10C19.1673 10 15.834 16.6667 10.0007 16.6667C4.16732 16.6667 0.833984 10 0.833984 10Z"
+																stroke="#667085" stroke-width="2"
+																stroke-linecap="round" stroke-linejoin="round" />
+						                                        <path
+																d="M10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5Z"
+																stroke="#667085" stroke-width="2"
+																stroke-linecap="round" stroke-linejoin="round" />
+						                                    </g>
+						                                    <defs>
+						                                        <clipPath>
+						                                            <rect
+																width="20" height="20" fill="white" />
+						                                        </clipPath>
+						                                    </defs>
+						                                </svg>
+													</div>
+												</td>
+											</tr>
+											</th:block>
 										</tbody>
 									</table>
 								</div>
@@ -111,28 +154,28 @@
 			method: 'get',
 			data: {calcStartDate,
 				   calcEndDate},
-			success: function(result){
-				console.log(result)
+			success: function(results){
+				for(let result of results){
+				console.log(result.calcNo);
 				let b = `
 					<tr>
-					<td>[[ ${calcList.calcNo} ]]</td>
-					<td>[[ ${calcList.hostId} ]]</td>
-					<td>[[ ${calcList.hostName} ]]</td>
-					<td>[[ ${calcList.totalPayPrice} ]]</td>
-					<td>[[ ${calcList.cancelPrice} ]]</td>
-					<td>[[ ${calcList.calcPrice} ]]</td>
-					<td>[[ ${calcList.depositor} ]]</td>
-					<td>[[ ${calcList.bank} ]]</td>
-					<td>[[ ${calcList.accountNo} ]]</td>
-					<th:block th:if="${calcList.calcState} == 'bi1'">
-						<td><span class="badge bg-success" >정산예정</span></td>
-					</th:block>
-					<th:block th:unless="${calcList.calcState} == 'bi1'">
-						<td><span class="badge bg-success" >정산완료</span></td>
-					</th:block>
-					<td>
+						<td>`+result.calcNo+`</td>
+						<td>`+result.hostId+`</td>
+						<td>`+result.hostName+`</td>
+						<td>`+result.totalPayPrice+`</td>
+						<td>`+result.cancelPrice+`</td>
+						<td>`+result.calcPrice+`</td>
+						<td>`+result.depositor+`</td>
+						<td>`+result.bank+`</td>
+						<td>`+result.accountNo+`</td>`
+						if(result.calcState == 'bi1'){
+							b+=`<td><span class="badge bg-success" >정산예정</span></td>`
+						}
+						else{
+							b+=`<td><span class="badge bg-success" >정산완료</span></td>`
+						}
+						b+=`<td>
 						<div class="card__action">
-							<!-- <a th:onclick="|location.href='@{/adminDetail_Product(prodNo=${prodList.prodNo})}'|" class="action__btn ml-10">  -->
 								<svg width="20"
 									height="20" viewBox="0 0 20 20" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
@@ -153,14 +196,15 @@
 										width="20" height="20" fill="white" />
                                         </clipPath>
                                     </defs>
-                                </svg>				
-						</div>
-					</td>
-				</tr>`
-				
-			}
+                                </svg>
+							</div>
+						</td>
+					</tr>`
+					$('#calcTable').append(b);
+					}
+				}
+			})
 		})
-	})
 		/* function deleteProd(prodNo){
 			console.log(prodNo);
 			

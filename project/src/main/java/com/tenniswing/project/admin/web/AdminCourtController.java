@@ -22,6 +22,7 @@ public class AdminCourtController {
 	
 	@GetMapping("admin_Court_Calc")
 	public String adminCourtCalcPage(Model model, AdminCourtCalcVO adminCourtCalcVO){
+		model.addAttribute("result", adminCalcService.selectAllAdminCourtCalc(adminCourtCalcVO));
 		return "admin/admin_Court_Calc";
 	}
 	
