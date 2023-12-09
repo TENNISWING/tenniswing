@@ -73,8 +73,10 @@
 					<div class="user__profile text-center"
 						style="padding: 20px 10px 40px 10px;">
 						<div class="club__avatar">
-							<img th:src="${club.attachPath}" alt="profile-pic" />
-
+							<!-- <img th:src="${club.attachPath}" alt="profile-pic" /> -->
+							<!-- <img src="${club.attachPath}" onerror="this.onerror=null; this.src='/assets/compiled/jpg/banana.jpg';"> -->
+						<img th:if="${club.attachPath} != 'null'" th:src="${club.attachPath}" />
+						<img th:unless="${club.attachPath} != 'null'" th:src="/assets/compiled/jpg/banana.jpg"  alt="default-pic"/>
 						</div>
 						<div class="user__content">
 							<h3 style="line-height: 80px; color: #668585;"

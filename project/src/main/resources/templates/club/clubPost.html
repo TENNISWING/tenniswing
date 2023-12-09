@@ -40,8 +40,7 @@
 						<div class="shortBy-select select__style d-lg-flex d-none">
 							<select name="sortBy" id="sortBy">
 								<option value="0">최신순</option>
-								<option value="1">조회순</option>
-								<option value="2">제목순</option>
+								<option value="1">제목순</option>
 							</select>
 						</div>
 					</div>
@@ -65,16 +64,14 @@
 				</tbody>
 			</table>
 
-			<br>
-			<ul class="pagination justify-content-center">
-				<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
-				</li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">다음</a></li>
-			</ul>
-		</div>
+			<!-- 페이지 -->
+				<div class="action-right d-flex flex-grow-1 align-items-center justify-content-around">
+					
+					<div class="container mt-5 mb-5">
+						<ul class="pagination justify-content-center"></ul>
+					</div>
+				</div>
+			</div>
 
 		<!-- 글작성 모달  -->
 		<div class="modal fade text-left" id="WriteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
@@ -163,65 +160,32 @@
 
 		<script>
 
-			/* // 게시글 콜랩스 토글
-			document.querySelector(".boardContainer").addEventListener('click',
-					function() {
-						const toggleAnswer = document.querySelector(".boardBody")
-						console.log(toggleAnswer);
-						toggleAnswer.classList.toggle('active');
-					})   */
-
-
-			//게시글 등록
-			//글쓰기 버튼 클릭했을때 클럽넘버 값 가지고가기
-			$('#WriteModal').on('show.bs.modal', function (e) {
-
-
-				//for(let value of postInfo.values())
-
-				let clubNo = $(e.relatedTarget).data('club-no');
-
-				$('.insertBtn').on("click", function (e) {
-
-					//폼데이터 가져오기(사진받으려면 FormData)
-					let form = $('#postForm')[0]
-					let postInfo = new FormData(form)
-					postInfo.append('clubNo', clubNo); //클럽넘버 추가
-
-					$.ajax({
-						url: 'postInsert',
-						data: postInfo,
-						type: 'post',
-						enctype: 'multipart/form-data',
-						contentType: false,
-						processData: false,
-						success: function (result) {
-							alert("등록성공")
-							postListAjax(); //등록후 리스트 불러오기
-							$('#postForm')[0].reset();	//폼값 초기화
-
-						},
-						error: function () {
-							alert("등록 실패")
-
-						}
-
-					})
-				});
-
-			});
-
-			//게시글 전체 조회
-			function postListAjax() {
+			
+			//페이징
+	    	postListPage(1);
+			
+			$('#sortBy').on('change', function(e) {
+				pageNum = 1;
+				postListPage(1);
+			})
+			
+			function postListPage(page) {
+				let sort = $('#sortBy').val();
+				if(sort == 0)
+					sort = 'club_post_write_date DESC';
+				else if(sort == 1)
+					sort = 'club_post_title';
+				
 				let clubNo = $('#clubPostWrite').attr('data-club-no');
 				console.log("자유게시판에서 클럽번호" + clubNo)
+				
 				$.ajax({
 					type: 'GET',
 					url: 'postList',
-					data: { clubNo },
+					data: {page, clubNo, sort },
 					success: function (data) {
 						$('#postList').empty();
-						for (let [index, clubPost] of data.entries()) {
+						for (let clubPost of data.clubPost) {
 							let List = `
 							<tr class="accordion-header" style="height: 70px;" 
 								data-bs-target="${clubPost.clubPostNo}" aria-expanded="false"	>
@@ -232,7 +196,7 @@
 								    </div>
 								</td>
 								<td  style="text-align: left;">${clubPost.name}</td>
-								<td>${clubPost.clubPostHit}</td>
+								<td class="postHit">${clubPost.clubPostHit}</td>
 								<td>
 								<i type="button" class="fa-regular fa-pen-to-square postEditBtn" data-value="${clubPost.clubPostNo}"
 														data-bs-toggle="modal" data-bs-target="#editModal" ></i>
@@ -274,8 +238,17 @@
 							`
 							$('#postList').append(List)
 						}
-						$('#postList tr.accordion-header').on("click", repListAjax);
-
+						showPage(data.selectCount);
+					$('#postList tr.accordion-header').on("click", repListAjax);
+						
+						//조회수 추가
+						
+						/* 	$('#postList tr.toggleBoard').css("display", "table-row;")
+								console.log("게시글 제목 클릭") */
+					
+							
+						
+						
 						//삭제 아이콘 클릭할때
 						$(".postDelBtn").on("click", function (e) {
 							e.stopPropagation();
@@ -355,9 +328,21 @@
 
 			//댓글 리스트 아작스
 			function repListAjax() {
-				$(event.currentTarget).next().toggle();
-				let clubPostNo = $(event.currentTarget).attr('data-bs-target')
-				repList(clubPostNo);
+				if( $(event.currentTarget).next().is(':visible')){
+					$(event.currentTarget).next().hide();
+				}else{
+					$(event.currentTarget).next().show();
+					let clubPostNo = $(event.currentTarget).attr('data-bs-target');
+					repList(clubPostNo);
+					
+					//조회수 증가
+					let postHit  =$(`[data-bs-target="${clubPostNo}"]`).find('.postHit')
+					let n=postHit.text()*1
+					postHit.text(n+1)
+				}
+				
+				
+				
 			};
 
 
@@ -399,11 +384,51 @@
 							})
 						});
 					}//success 끝
-
-
-
-
 				})
+			}
+			
+			let pageNum = 1;
+			let pageSize = 10.0; //페이지 번호 수
+			let pageUnit = 7;  //한페이지에 출력할 행의 수
+			
+			$('.pagination').on('click', 'li a', function(e) {
+				e.preventDefault();
+				console.log('page click');
+				
+				let targetPage = $(this).attr('href');
+				console.log('targetPage: ' + targetPage);
+				
+				pageNum = targetPage;
+				postListPage(targetPage);
+			});
+		
+			function showPage(replyCnt) {
+				var endNum = Math.ceil(pageNum / pageSize) * pageSize;
+				var startNum = endNum > pageSize? endNum - pageSize : 1;
+				
+				var prev = startNum != 1;
+				var next = false;
+				
+				if(endNum * 10 >= replyCnt) {
+					endNum = Math.ceil(replyCnt/pageUnit);
+				}
+				
+				if(endNum * 10 < replyCnt) {
+					next = true;
+				}
+				
+				var str= "";
+				
+				for(var i = startNum ; i <= endNum; i++) {
+					var active = pageNum == i? "active":"";
+					str+= "<li class='page-item "+active+"'> <a class='page-link' href='"+i+"'>"+i+"</a></li>";		
+				}
+				
+				str += "";
+				
+				console.log(str);
+				
+				$('.pagination').html(str);
 			}
 
 			//댓글 등록 아작스
@@ -442,7 +467,45 @@
 				})
 			};
 
+			//게시글 등록
+			//글쓰기 버튼 클릭했을때 클럽넘버 값 가지고가기
+			$('#WriteModal').on('show.bs.modal', function (e) {
 
+
+				//for(let value of postInfo.values())
+
+				let clubNo = $(e.relatedTarget).data('club-no');
+
+				$('.insertBtn').on("click", function (e) {
+
+					//폼데이터 가져오기(사진받으려면 FormData)
+					let form = $('#postForm')[0]
+					let postInfo = new FormData(form)
+					postInfo.append('clubNo', clubNo); //클럽넘버 추가
+
+					$.ajax({
+						url: 'postInsert',
+						data: postInfo,
+						type: 'post',
+						enctype: 'multipart/form-data',
+						contentType: false,
+						processData: false,
+						success: function (result) {
+							alert("등록성공")
+							postListAjax(); //등록후 리스트 불러오기
+							$('#postForm')[0].reset();	//폼값 초기화
+
+						},
+						error: function () {
+							alert("등록 실패")
+
+						}
+
+					})
+				});
+
+			});
+			
 
 			//게시글 삭제 아작스
 			function postDeleteAjax(clubPostNo) {
@@ -467,7 +530,7 @@
 
 
 			$(document).ready(function () {
-				postListAjax()
+				//postListAjax()
 			});
 
 

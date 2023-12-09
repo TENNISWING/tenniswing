@@ -30,6 +30,9 @@ public interface ClubMapper {
 	//재은
 	public ClubVO selectMatchClub(ClubVO clubVO);
 	
+	
+	
+	
 	//첨부파일
 	public List<AttachVO> attachListALllClub();
 	
