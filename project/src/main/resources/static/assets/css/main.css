@@ -267,6 +267,10 @@ margin-bottom: 1px;
 	text-align-last: center;
 }
 
+.nice-select {
+	border-style: none !important;
+}
+
 .matchregibtn {
     --bs-btn-color: #fff;
     --bs-btn-bg: #3E444B;
@@ -284,7 +288,7 @@ margin-bottom: 1px;
     --bs-btn-disabled-border-color: #3E444B;
     font-size:13px;
     border-radius: 8px;
-    margin-right: 75px;
+    margin-right: 35px;
 }
 
 .matchbtn2 {

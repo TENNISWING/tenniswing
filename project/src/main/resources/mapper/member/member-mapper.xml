@@ -224,4 +224,8 @@
 		SET	STATE = #{div}			
 		WHERE mem_id = #{memId}
 	</update>
+	
+	<select id="searchHost" resultMap="MemberVO">
+		select mem_id from mem where mem_div = 'ROLE_HOST'
+	</select>
 </mapper>

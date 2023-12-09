@@ -53,4 +53,7 @@ public interface MemberMapper {
 	
 	//쇼핑
 	public Map<String, Object> myShopping(String memId);
+	
+	//호스트멤버
+	public List<MemberVO> searchHost();
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tenniswing.project.court.mapper.CrtReserveMapper;
+import com.tenniswing.project.court.service.CrtRefundVO;
 import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.court.service.CrtReserveVO;
 
@@ -44,7 +45,7 @@ public class CrtReserveServiceImpl implements CrtReserveService {
 	public List<Map<String, Object>> selectMyCourtReverse(String id) {
 		return crtReserveMapper.selectMyCourtReverse(id);
 	}
-	
+
 	@Override
 	public List<CrtReserveVO> selectAllCrtReserve(String hostId) {
 		return crtReserveMapper.selectAllCrtReserve(hostId);
@@ -58,6 +59,16 @@ public class CrtReserveServiceImpl implements CrtReserveService {
 	@Override
 	public List<CrtReserveVO> selectAllCrtCalc(String hostId) {
 		return crtReserveMapper.selectAllCrtCalc(hostId);
+	}
+
+	@Override
+	public int insertCrtRefund(CrtReserveVO crtReserveVO) {
+		return crtReserveMapper.insertCrtRefund(crtReserveVO);
+	}
+
+	@Override
+	public int updateCrtReserveState(CrtReserveVO crtReserveVO) {
+		return crtReserveMapper.updateCrtReserveState(crtReserveVO);
 	}
 
 }
