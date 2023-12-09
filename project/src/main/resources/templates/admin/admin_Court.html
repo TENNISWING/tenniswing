@@ -33,13 +33,13 @@
 						<div class="breadcrumb__meta">
 							<ul style="padding: 0">
 								<li><a href="dashboard.html" class="link">Dashboard</a></li>
-								<li>Product</li>
+								<li>코트목록</li>
 							</ul>
 						</div>
 					</div>
 					<div class="dashboard__header">
 						<div class="d__header--left">
-							<h2 class="title">회원 목록</h2>
+							<h2 class="title">코트 목록</h2>
 							<div class="danger__btn border-30">500 products</div>
 						</div>
 						<div class="add__btn" style="margin-right: 1.5rem">
@@ -55,33 +55,27 @@
 									<table class="table" id="table1">
 										<thead>
 											<tr>
-												<th>회원 번호</th>
-												<th>아이디</th>
-												<th>이름</th>
-												<th>폰 번호</th>
-												<th>닉네임</th>
-												<th>회원상태</th>
-												<th>가입일</th>
-												<th>회원구분</th>												
+												<th>코트 번호</th>
+												<th>지역</th>
+												<th>코트이름</th>
+												<th>호스트아이디</th>
+												<th>코트상태</th>
+												<th>등록일</th>
 												<th style="text-align: center;">Action</th>
 											</tr>
 										</thead>
 										<tbody>
-											<th:block th:each="m : ${memberList}">
+											<th:block th:each="c : ${courtList}">
 												<tr>
-													<td>[[ ${m.memNo} ]]</td>
-													<td>[[ ${m.memId} ]]</td>
-													<td>[[ ${m.name} ]]</td>
-													<td>[[ ${m.phoneNo} ]]</td>
-													<td>[[ ${m.nick} ]]</td>
-													<td>[[ ${m.state} ]]</td>
-													<td>[[ ${#dates.format(m.joinDate, 'yyyy-MM-dd')} ]]</td>
-													<td th:if="${m.memDiv == 'ROLE_MEMBER'}"><span class="badge bg-success">회원</span></td>
-													<td th:if="${m.memDiv == 'ROLE_HOST'}"><span class="badge bg-success">호스트</span></td>
-													<td th:if="${m.memDiv == 'ROLE_ADMIN'}"><span class="badge bg-success">관리자</span></td>
+													<td>[[ ${c.crtroomNo} ]]</td>
+													<td>[[ ${c.crtroomRegion} ]]</td>
+													<td>[[ ${c.crtroomName} ]]</td>
+													<td>[[ ${c.hostId} ]]</td>
+													<td><span class="badge bg-success">[[ ${c.crtroomState} ]]</span></td>
+													<td>[[ ${#dates.format(c.crtroomRegiDate, 'yyyy-MM-dd')} ]]</td>
 													<td>
 														<div class="card__action">
-															<a th:onclick="|location.href='@{/adminDetail_Member(memId=${m.memId})}'|" class="action__btn ml-10"> 
+															<a th:onclick="|location.href='@{/adminDetail_Court(crtroomNo=${c.crtroomNo})}'|" class="action__btn ml-10"> 
 																<svg width="20"
 																	height="20" viewBox="0 0 20 20" fill="none"
 																	xmlns="http://www.w3.org/2000/svg">

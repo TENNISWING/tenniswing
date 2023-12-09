@@ -192,5 +192,25 @@ public class MatchServiceImpl implements MatchService {
 	public List<ClubVO> selectMyClub(String memId) {
 		return matchMapper.selectMyClub(memId);
 	}
+
+	@Override
+	public List<MatchVO> matchAll() {
+		return matchMapper.matchAll();
+	}
+
+	@Override
+	public List<MatchVO> matchClubAll() {
+		return matchMapper.matchClubAll();
+	}
+
+	@Override
+	public List<MatchVO> matchConstAll() {
+		return matchMapper.matchConstAll();
+	}
+
+	@Override
+	public List<MatchVO> matchStarterAll() {
+		return matchMapper.matchStarterAll();
+	}
 	
 }

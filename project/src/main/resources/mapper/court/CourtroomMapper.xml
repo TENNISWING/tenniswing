@@ -378,4 +378,30 @@
   		WHERE attach_table_div = 'cr'
   		AND attach_table_pk = #{reviewNo}
   	</delete>
+  	
+  	<!-- 어드민 페이지 코트 목록 -->
+  	<select id="courtAdminAll" resultType="crtroomVO">
+  		SELECT c.crtroom_no
+  				, c.host_id
+  				, c.crtroom_name
+  				, c.crtroom_exp
+  				, c.crtroom_region
+  				, c.crtroom_location
+  				, c.crtroom_operate_start_time
+  				, c.crtroom_operate_end_time
+  				, c.crtroom_caution
+  				, c.crtroom_use_guide
+  				, c.crtroom_regi_date
+  				, FIND_CATEGORY_NAME(c.crtroom_state) crtroom_state
+  				, FIND_CATEGORY_NAME(c.crtroom_region) crtroom_region_name
+                , a.attach_path
+  		FROM crtroom c JOIN crt_detail_inf d
+                       ON c.crtroom_no = d.crtroom_no
+                       JOIN attach a
+                       ON c.crtroom_no = a.attach_table_pk
+                       LEFT OUTER JOIN review r
+					   ON c.crtroom_no = r.crtroom_no
+        WHERE a.attach_table_div = 'cd'
+  		ORDER BY c.crtroom_no
+  	</select>
   </mapper>

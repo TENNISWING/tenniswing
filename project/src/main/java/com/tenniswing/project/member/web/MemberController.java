@@ -210,8 +210,7 @@ public class MemberController {
 	public String courtMyPage(Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		
-		model.addAttribute("court", crtReserveService.selectMyCourtReverse(id));
-		System.out.println( crtReserveService.selectMyCourtReverse(id));
+		model.addAttribute("court", crtReserveService.selectMyCourtReverse(id));		
 		model.addAttribute("member", memberService.memberInfo(id));
 		model.addAttribute("nowpage", 2);
 		return "member/mypage-court";

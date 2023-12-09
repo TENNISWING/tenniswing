@@ -25,6 +25,7 @@ public class CrtroomVO {
 	private String crtroomOperateEndTime;
 	private String crtroomCaution;
 	private String crtroomUseGuide;
+	private String crtroomState;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date crtroomRegiDate;
