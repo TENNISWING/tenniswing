@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.tenniswing.project.attach.service.AttachVO;
+import com.tenniswing.project.club.service.ClubVO;
 
 public interface SnsService {
 	// 전체조회
@@ -21,13 +22,13 @@ public interface SnsService {
 	public SnsVO selectLikeNo(SnsVO snsVO);
 	
 	// 등록
-		public int insertSns(SnsVO snsVO,  List<AttachVO> files );
-		// 그룹등록
-		public int insertSnsGrp(SnsVO snsVO);
-		// 좋아요 등록
-		public int insertLike(SnsVO snsVO);
-		// 스크랩 등록
-		public int insertSnsScrap(SnsVO snsVO);
+	public int insertSns(SnsVO snsVO,  List<AttachVO> files );
+	// 그룹등록
+	public int insertSnsGrp(SnsVO snsVO);
+	// 좋아요 등록
+	public int insertLike(SnsVO snsVO);
+	// 스크랩 등록
+	public int insertScrap(SnsVO snsVO);
 		
 		
 	// 수정
@@ -43,8 +44,14 @@ public interface SnsService {
 	// 좋아요 삭제
 	public boolean deleteLike(int likeNo);
 	
+	// 스크랩 삭제
+	public boolean deleteScrap(int scrapNo);
+	
 	//sns 첨부파일 조회
 	public List<AttachVO> attachListAllSns();
+	
+	//페이징 전체 갯수
+	public int selectCount(SnsVO snsVO);
 
 	//public List<SnsVO> selectAllSnsInfo(SnsVO snsVO);
 

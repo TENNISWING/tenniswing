@@ -55,6 +55,7 @@
 														style="float: right; justify-content: space-between;">
 														<div class="gapBtn d-flex"
 															style="gap: 15px; align-items: center;">
+															<th:block  th:if="${mg.snsGrpNo!=null}">
 															<!-- 모달열리게하는 수정아이콘 -->
 															<i type="button"
 																class="fa-regular fa-pen-to-square editBtnClass"
@@ -65,6 +66,7 @@
 															<!-- 삭제버튼 -->
 															<i type="button" class="fa-regular fa-trash-can delBtnClass"
 																id="delSnsListBtn" th:no="${mg.snsGrpNo}"></i>
+															</th:block>
 														</div>
 														<button class="btn btn-light-primary grpBtn"
 															th:id="${mgStat.count}" data-bs-toggle="collapse"
@@ -78,7 +80,7 @@
 											</div>
 										</div>
 										<!-- 여기서 기타 그룹-->
-										<div class="swiper-slide banner">
+									<!-- 	<div class="swiper-slide banner">
 											<div class="card">
 												<div class="card-content">
 													<img class="img-fluid w-100" src="/assets/compiled/jpg/banana.jpg"
@@ -94,7 +96,7 @@
 														그룹 목록보기</button>
 												</div>
 											</div>
-										</div>
+										</div> -->
 										<!-- 여기서 기타 그룹 END-->
 									</div>
 									<div class="swiper-pagination banner"></div>
@@ -147,28 +149,12 @@
 						</table>
 					</div>
 					<!-- pagination start  -->
-					<nav class="pagination__wrapper mt-0 py-10">
-						<ul class="pagination">
-							<li class="pagination__item"><a class="page-link" href="#"><i
-										class="fa-solid fa-angle-left"></i></a></li>
-							<li class="pagination__item active"><a class="page-link" href="#">1</a></li>
-							<li class="pagination__item"><a class="page-link" href="#">2</a></li>
-							<li class="pagination__item"><a class="page-link" href="#">3</a></li>
-							<li class="pagination__item"><a class="page-link dot" href="#">...</a></li>
-							<li class="pagination__item"><a class="page-link" href="#">8</a></li>
-							<li class="pagination__item"><a class="page-link" href="#">9</a></li>
-							<li class="pagination__item"><a class="page-link" href="#">10</a></li>
-							<li class="pagination__item"><a class="page-link" href="#"><i
-										class="fa-solid fa-angle-right"></i></a></li>
-						</ul>
-						<div class="pagination__jump">
-							<label class="junp__label" for="pageNumber">Go to Page</label> <input type="number"
-								name="page" id="pageNumber" class="jump__input" placeholder="02" />
-							<button class="btn btn-outline jump__btn" type="submit">
-								GO <i class="fa-solid fa-arrow-right"></i>
-							</button>
+					<div class="action-right d-flex flex-grow-1 align-items-center justify-content-around">
+						<!-- 페이지 -->
+						<div class="container mt-5 mb-5">
+							<ul class="pagination justify-content-center"></ul>
 						</div>
-					</nav>
+					</div>
 					<!-- pagination end -->
 				</div>
 				<!-- 게시판 end -->
@@ -188,31 +174,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<!-- 게시판 한행 반복문 -->
-								<th:block th:each="ng : ${nullGrp}">
-									<tr>
-										<td class="text-start"><img class="rounded" src="assets/compiled/jpg/jump.jpg"
-												style="width: 150px;"></td>
-										<td class="text-start">[[${ng.snsTitle}]]</td>
-										<td>
-											<div class="card__action text-center">
-												<div class="edBtns" style="float: right;">
-													<i type="button"
-														class="fa-regular fa-pen-to-square editBtnClass"
-														th:onclick="|location.href='@{/snsEditForm(snsWrtNo=${ng.snsWrtNo})}'|"
-														id="editNullListBtn" th:attrappend="id=${ng.snsWrtNo}"></i>
-													<!-- 기타삭제버튼 -->	
-													<i type="button"
-														class="fa-regular fa-trash-can nullDelBtnClass"
-														id="nullDelBtn" th:no="${ng.snsWrtNo}" ></i>
-													<!-- 기타삭제버튼 END -->
-												</div>
-											</div>
-									   </td>
-								  </tr>
-								</th:block>
-								<!-- 게시판 한행 반복문 end-->
-
+		
 							</tbody>
 						</table>
 					</div>
@@ -286,6 +248,22 @@
 	</div>
 
 	<script>
+
+	
+	 	let pageNum = 1;
+		let pageSize = 10.0; //페이지 번호 수
+		let pageUnit = 5;  //한페이지에 출력할 행의 수
+		let snsGrpNo = 0;
+		
+		$('.grpBtn').on('click', function (e) {
+
+			pageNum=1;
+			snsGrpNo = $(e.target).attr('data-snsgrpno');
+			getSnsMyList(snsGrpNo,1);
+
+		})
+
+	
 		function myfunction(grpNo) {
 			let grpName = event.target.closest('form').querySelector('input[name=grpName]').value; // 이렇게하면 이벤트타겟의 부모에 있는값 지정가능
 			let snsGrpNo = grpNo;
@@ -350,47 +328,103 @@
 
 		});
 
-		// 그룹에 해당하는 sns 리스트
-		$('.grpBtn').on('click', function (e) {
-
-			let snsGrpNo = $(e.target).attr('data-snsgrpno');
-			getSnsMyList(snsGrpNo);
-
-		})
+		
+		
+		$('.pagination').on('click','li a',function(e) {
+			e.preventDefault();
+			console.log('page click');
+			
+			let targetPage = $(this).attr('href');
+			console.log('targetPage: ' + targetPage);
+			
+			pageNum = targetPage;
+			getSnsMyList(snsGrpNo,pageNum);
+		});
 
 		//리스트 뿌리는 함수
-		function getSnsMyList(snsGrpNo) {
+		function getSnsMyList(snsGrpNo,page) {
 			$.ajax({
 				type: 'GET',
 				url: 'mySnsList',
-				data: { snsGrpNo },
-				success: function (data) {
+				data: { snsGrpNo, page },
+				success: function (result) {
 					$('.grpListTbody').empty();
 
-					for (let [index, grp] of data.entries()) {
+					for (let grp of result.mySnsGroupList) {
 						let b = `
 							<tr>
 								<td class="text-start">
 									<img class="rounded" src="assets/compiled/jpg/jump.jpg" style="width: 150px;">
 								</td>
 								<td class="text-start">${grp.snsTitle}</td>
-								<td><div class="card__action text-center">
+								<td>`
+								if(grp.snsGrpNo != null){
+									b += `	<div class="card__action text-center">
 										<div class="edBtns" style="float: right;">
-											<i type="button"
-												class="fa-regular fa-pen-to-square editBtnClass"
-												onclick="location.href='/snsEditForm?snsWrtNo=${grp.snsWrtNo}&snsGrpNo=${grp.snsGrpNo}'"
-												id="editSnsBtn"></i>
-											<i type="button"
-												class="fa-regular fa-trash-can delBtnClass"
-												id="delSnsListBtn${grp.snsWrtNo}" ></i>
-										</div>
+										<i type="button"
+											class="fa-regular fa-pen-to-square editBtnClass"
+											onclick="location.href='/snsEditForm?snsWrtNo=${grp.snsWrtNo}&snsGrpNo=${grp.snsGrpNo}'"
+											id="editSnsBtn"></i>
+										<i type="button"
+											class="fa-regular fa-trash-can delBtnClass"
+											id="delSnsListBtn${grp.snsWrtNo}" ></i>
 									</div>
+								</div>`
+								}else{
+									b+= `	<div class="card__action text-center">
+										<div class="edBtns" style="float: right;">
+										<i type="button"
+											class="fa-regular fa-pen-to-square editBtnClass"
+											onclick="location.href='/snsEditForm?snsWrtNo=${grp.snsWrtNo}'"
+											id="editSnsBtn"></i>
+										<i type="button"
+											class="fa-regular fa-trash-can delBtnClass"
+											id="delSnsListBtn${grp.snsWrtNo}" ></i>
+									</div>
+								</div>`
+								}
+							b+= `		
 								</td>
 							</tr>
 							`
 						$('.grpListTbody').append(b);
 					}
+					//페이지 숫자
+					showPage(result.selectCount);
+					
+			
+				
+					function showPage(replyCnt) {
+						var endNum = Math.ceil(pageNum / pageSize) * pageSize;
+						var startNum = endNum > pageSize? endNum - pageSize : 1;
+						
+						var prev = startNum != 1;
+						var next = false;
+						
+						if(endNum * 10 >= replyCnt) {
+							endNum = Math.ceil(replyCnt/pageUnit);
+						}
+						
+						if(endNum * 10 < replyCnt) {
+							next = true;
+						}
+						
+						var str= "";
+						
+						for(var i = startNum ; i <= endNum; i++) {
+							var active = pageNum == i? "active":"";
+							str+= "<li class='page-item "+active+"'> <a class='page-link' href='"+i+"'>"+i+"</a></li>";		
+						}
+						
+						str += "";
+						
+						console.log(str);
+						
+						$('.pagination').html(str);
+						
 
+					
+					}//여기까지는 똑같이 쌔비지
 
 					//그룹 안의 리스트 각각 삭제
 					$('.delBtnClass').on('click', function (e) {

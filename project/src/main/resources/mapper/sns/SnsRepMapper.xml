@@ -5,7 +5,12 @@
 
   <mapper namespace="com.tenniswing.project.community.mapper.SnsRepMapper">
   	<!-- 게시글당 댓글 전체 조회  -->
- 	<select id="selectAllSnsRep" resultType="SnsRepVO">
+  	<resultMap type="SnsRepVO" id="repResult">
+	    <id column="sns_rep_no" property="snsRepNo"/>
+		<collection property="snsRrepList" javaType="ArrayList"
+			column="sns_rep_no" ofType="SnsRrepVO" select="selectAllSnsRrep"></collection>
+	</resultMap>
+ 	<select id="selectAllSnsRep" resultMap="repResult">
   				select sns_rep_no
  			   , sns_rep_ctt
  			   , sns_rep_write_date
@@ -19,15 +24,29 @@
  		order by sns_rep_no
   	</select>
   	
+  	<select id="selectAllSnsRrep" resultType="SnsRrepVO">
+  		select rr.sns_rep_no
+  			   ,sns_rrep_no
+ 			   , sns_rrep_ctt
+ 			   , sns_rrep_write_date
+ 			   , sns_rrep_edit_date
+ 			   , m.mem_id
+ 			   , m.name
+ 		from sns_rrep rr, mem m
+ 		where rr.mem_id = m.mem_id
+        and rr.sns_rep_no = #{snsRepNo}
+ 		order by sns_rrep_no
+  	</select>
+  	
   	
   	<!-- 단건조회 필요한가..-->
   	<select id="selectSnsRep" resultType="SnsVO">
-<!-- 			select sns_rep_no
- 			   , sns_rep_ctt
- 			   , sns_rep_write_date
- 			   , sns_rep_edit_date
- 			   , sns_wrt_no
- 			   , mem_no
+<!-- 			select sns_rrep_no
+ 			   , sns_rrep_ctt
+ 			   , sns_rrep_write_date
+ 			   , sns_rrep_edit_date
+ 			   , sns_rep_no
+ 			   , mem_id
  		from sns_rep
         where mem_no = #{memNo} -->
   

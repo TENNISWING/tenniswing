@@ -1,26 +1,21 @@
 package com.tenniswing.project.community.service;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 @Data
-public class SnsRepVO {
-	//sns 댓글
+public class SnsRrepVO {
+	//대댓글
 	private int snsRepNo;
-	private String snsRepCtt;
+	private int snsRrepNo;
+	private String snsRrepCtt;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date snsRepWriteDate;
+	private Date snsRrepWriteDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date snsRepEditDate;
-	private int snsWrtNo;
-	private String memNo;
-	private String name;
+	private Date snsRrepEditDate;
 	private String memId;
-	// + 글번호, 멤버no
-	
-	private List<SnsRepVO> snsRrepList;
+	private String name;
 	
 }

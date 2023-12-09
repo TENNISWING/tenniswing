@@ -29,13 +29,9 @@ public class SnsVO {
 	private Integer snsGrpNo;
 	private int test;
 	
-//	private Map<String, String> snsTag;
-	
 	//sns 좋아요
 	private Integer likeNo;
 	private int likeCnt; //좋아요 수 count
-	
-	//memId
 	
 	//sns 그룹
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -44,7 +40,6 @@ public class SnsVO {
 	private String grpName;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date grpEditDate;
-	
 
 	//sns 이미지 리스트
 	private List<AttachVO> attachList;
@@ -56,7 +51,13 @@ public class SnsVO {
 	//attach
 	private List<MultipartFile> files = new ArrayList<>();
 	
+	//sns 스크랩
+	private Integer scrapNo;
 	
+	//페이지
+	private int page;
+	private int rn;
+	private int pageUnit=5;
 
 
 }
