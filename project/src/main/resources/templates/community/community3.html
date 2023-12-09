@@ -658,7 +658,7 @@
 		        		error : function() {
 							alert("삭제 실패");
 	
-						}
+					}
 				})
 		})
 		
@@ -673,7 +673,7 @@
 			let rep3 = $(repnum[2]).text()
 	
 			let b = `
-				<tr id = ${rrepnum}>
+				<tr class ="editRrep" id = ${rrepnum}>
 				<td> ${rep1}</td>
 				<td class = "editCtt">${rep2}</td>
 				<td>${new Date(rep3).toLocaleDateString()}</td>
@@ -764,6 +764,25 @@
 					alert("에러 등록실패.");
 				}
 			}) 
+		}else if($(e.target).text() == '대댓글 수정'){
+			let snsRrepCtt = $("#replyContents").val();
+			let snsRrepNo = $('.editRrep').prop('id');
+				$.ajax({
+					url: 'snsRreEdit',
+					data: {snsRrepNo, snsRrepCtt},
+					type: 'post',
+					datatype: 'text',
+					success: function(result){
+						if(result){
+							$(e.target).text('등록')
+							alert("수정성공")
+						$('#replyContents').val('') //댓글 등록시 댓글 등록창 초기화
+						 getRepList(snsWrtNo);
+						}
+					},error: function(){
+						alert('에러 수정 실패');
+					}
+				})
 		}
 	});
 

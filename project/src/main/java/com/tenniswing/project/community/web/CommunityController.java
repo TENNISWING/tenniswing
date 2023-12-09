@@ -244,11 +244,11 @@ public class CommunityController {
 		snsRrepVO.setMemId(id);
 		System.out.println("수정아작스컨트롤러 repVO찍어봄" + snsRrepVO);
 		Map<String, Object> result = snsRrepService.updateSnsRrep(snsRrepVO);
-
+		System.out.println("대댓수정리절트"+result);
 		return result;
 	}
 	
-	// sns 대댓글 삭제
+	// sns 대댓글 삭제 부모랑 자식 불러오기
 	@PostMapping("snsRreDel")
 	@ResponseBody
 	public boolean deleteRrepAjax(Integer snsRrepNo) {

@@ -67,7 +67,7 @@
   	<update id="updateSnsRrep" parameterType="SnsRrepVO">
   		UPDATE sns_rrep
   			SET
-  				sns_rrep_ctt = #{snsRepCtt}
+  				sns_rrep_ctt = #{snsRrepCtt}
   			  , sns_rrep_edit_date = sysdate
   		WHERE sns_rrep_no = #{snsRrepNo}
   	</update>
