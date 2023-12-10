@@ -1,7 +1,11 @@
 package com.tenniswing.project.court.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +42,31 @@ public class AdminCourtCalcServiceImpl implements AdminCourtCalcService {
 		for(MemberVO host: hostList) {
 			AdminCourtCalcVO vo = new AdminCourtCalcVO();
 			vo.setHostId(host.getMemId());
+			
+			LocalDate date = LocalDate.now();
+			int year = date.getYear();
+			int monthValue = date.getMonthValue()-1;
+			int lastDay = 0;
+			Calendar cal = Calendar.getInstance();
+			cal.set(year,monthValue-1,1);
+			lastDay = cal.getActualMaximum(Calendar.DATE);
+			
+			//System.out.println("날짜계산 >>>> "+year+'-'+monthValue+'-'+lastDay);
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			String start = year+"-"+monthValue+"-"+"01";
+			String end = year+"-"+monthValue+"-"+lastDay;
+			Date startPar = null;
+			Date endPar = null;
+			try {
+				startPar = format.parse(start);
+				endPar = format.parse(end);
+				System.out.println("날짜 찍힘?"+startPar+endPar);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			} 
+			vo.setCalcStartDate(start);
+			vo.setCalcEndDate(end);
+			System.out.println("날짜 >>>>>>>>>>> "+start+end);
 			List<AdminCourtCalcVO> list = adminCourtCalcMapper.selectAllAdminCourtCalc(vo);
 			CalcTableVO calcT = new CalcTableVO();
 			
@@ -54,16 +83,20 @@ public class AdminCourtCalcServiceImpl implements AdminCourtCalcService {
 			Integer calcTotal = total - (int) comm;
 			
 			System.out.println(host.getMemId());
-			calcT.setCalcNo(i+1);
+			//calcT.setCalcNo(i+1);
 			calcT.setHostId(host.getMemId());
 			calcT.setHostName(host.getName());
-			calcT.setTotalPayPrice(total);
+			calcT.setPayPrice(total);
 			calcT.setCancelPrice(cancelTotal);
 			calcT.setCalcPrice(calcTotal);
+			calcT.setCalcComm(comm);
 			calcT.setDepositor(host.getHostDepositor());
 			calcT.setBank(host.getHostBank());
 			calcT.setAccountNo(host.getHostActNo());
 			calcT.setCalcState("bi1");
+			calcT.setPayCase(list.size());
+			calcT.setCalcStartDate(startPar);
+			calcT.setCalcEndDate(endPar);
 			calcList.add(i, calcT);
 			
 			
@@ -74,5 +107,10 @@ public class AdminCourtCalcServiceImpl implements AdminCourtCalcService {
 		}
 		System.out.println("정산리스트 >>>> "+calcList);
 		return calcList;
+	}
+
+	@Override
+	public int insertAdminCourtCalc(List<CalcTableVO> list) {
+		return adminCourtCalcMapper.insertAdminCourtCalc(list);
 	}
 }

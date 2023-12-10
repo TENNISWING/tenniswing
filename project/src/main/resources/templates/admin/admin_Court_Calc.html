@@ -43,8 +43,8 @@
 							<div class="danger__btn border-30">500 products</div>
 						</div>
 						<div class="add__btn" style="margin-right: 1.5rem">
-							<a href="adminAdd_Product" class="shop-btn shop-btn-primary"><i
-								class="fas fa-plus"></i>정산하기</a>
+							<button type="button" id="calcBtn" class="shop-btn shop-btn-primary"><i
+								class="fas fa-plus"></i>정산하기</button>
 						</div>
 					</div>
 					
@@ -72,15 +72,15 @@
 										<tbody id="calcTable">
 											<th:block th:each="result : ${result}">
 											<tr>
-												<td>${result.calcNo}</td>
-												<td>${result.hostId}</td>
-												<td>${result.hostName}</td>
-												<td>${result.totalPayPrice}</td>
-												<td>${result.cancelPrice}</td>
-												<td>${result.calcPrice}</td>
-												<td>${result.depositor}</td>
-												<td>${result.bank}</td>
-												<td>${result.accountNo}</td>
+												<td>[[${result.calcNo}]]</td>
+												<td>[[${result.hostId}]]</td>
+												<td>[[${result.hostName}]]</td>
+												<td>[[${result.payPrice}]]</td>
+												<td>[[${result.cancelPrice}]]</td>
+												<td>[[${result.calcPrice}]]</td>
+												<td>[[${result.depositor}]]</td>
+												<td>[[${result.bank}]]</td>
+												<td>[[${result.accountNo}]]</td>
 												<th:block th:if="${result.calcState} == 'bi1'")>
 													<td><span class="badge bg-success" >정산예정</span></td>
 												</th:block>
@@ -89,7 +89,7 @@
 												</th:block>
 												<td>
 												<div class="card__action">
-														<svg width="20"
+														<!-- <svg width="20"
 															height="20" viewBox="0 0 20 20" fill="none"
 															xmlns="http://www.w3.org/2000/svg">
 						                                    <g
@@ -109,7 +109,8 @@
 																width="20" height="20" fill="white" />
 						                                        </clipPath>
 						                                    </defs>
-						                                </svg>
+						                                </svg> -->
+						                                <button type="button">정산하기</button>
 													</div>
 												</td>
 											</tr>
@@ -131,8 +132,23 @@
 	</div>
 	<!-- Main__container End-->
 	
-	<script type="text/javascript">
-	$(function(){
+	<script th:inline="javascript">
+	$('#calcBtn').on('click',function(e){
+		let results = `[[${result}]]`;
+		//results = JSON.parse(results)
+		console.log(results);
+		$.ajax({
+			url: 'admin_Calc_proccess',
+			type: 'POST',
+			contentType : 'application/json',
+			data : results,
+			success: function(result){
+				console.log(result)
+			},
+			error: function(err) {console.log(err)}
+		})
+	})
+	/* $(function(){
 		let today = new Date();
 
 		let year = today.getFullYear();
@@ -147,9 +163,9 @@
 		
 		let calcEndDate = year + '-' + month + '-' + day;
 		
-		console.log(calcEndDate);
+		console.log(calcEndDate); */
 		
-		$.ajax({
+		/* $.ajax({
 			url: 'admin_Court_Calc_Ajax',
 			method: 'get',
 			data: {calcStartDate,
@@ -204,7 +220,7 @@
 					}
 				}
 			})
-		})
+		}) */
 		/* function deleteProd(prodNo){
 			console.log(prodNo);
 			
