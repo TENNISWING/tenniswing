@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface OrderService {
-	// 전체 조회
-	
+	// 전체 조회 어드민
+	public List<OrderTableVO> selectAdminAllOrder(OrderTableVO orderTableVO);
 	// 한건 조회
 	
 	// 등록

@@ -5,6 +5,19 @@
   
   <mapper namespace="com.tenniswing.project.shop.mapper.OrderMapper">
   	
+  	<!-- 전체 조회 어드민 -->
+  	<select id="selectAdminAllOrder" resultType="OrderTableVO">
+		SELECT	order_no,
+				merchant_uid,
+				mem_id,
+				order_prod_cnt,
+				order_t_pay_amt,
+				order_date,
+				FIND_CATEGORY_NAME(order_state) AS order_state
+		FROM	order_table
+		ORDER BY order_no			 	
+  	</select>
+  	
   	<!-- 상품 주문 후 등록 -->
   	<insert id="insertOrder" parameterType="OrderTableVO">
   		<selectKey keyProperty="orderNo,orderDetailNo,payNo" resultType="int" order="BEFORE">
@@ -83,8 +96,8 @@
   	</insert>
   	
   	<!-- 카트 상품 주문 후 등록 -->
-  	<insert id="insertCartOrder" parameterType="list">
-  		<selectKey keyProperty="orderDetailNo" resultType="int" order="BEFORE">
+  	<insert id="insertCartOrder" parameterType="OrderTableVO">
+  		<selectKey keyProperty="orderNo,payNo" resultType="int" order="BEFORE">
 			SELECT  (SELECT NVL(MAX(order_no), 0) + 1
 					  FROM order_table) order_no,
 					(SELECT NVL(MAX(pay_no), 0) + 1
@@ -139,5 +152,32 @@
 				#{orderNo}
 			)
 		SELECT * FROM dual
+  	</insert>
+  	
+  	<!-- 카트 상품 주문 상세 등록 -->
+  	<insert id="insertCartDetailOrder" parameterType="list">
+  		<selectKey keyProperty="orderDetailNo" resultType="int" order="BEFORE">
+			SELECT  (SELECT NVL(MAX(order_detail_no), 0) + 1
+					   FROM order_detail) order_detail_no
+			FROM dual
+		</selectKey>
+		INSERT INTO order_detail (
+				order_detail_no,
+				order_detail_price,
+				order_detail_cnt,
+				order_detail_amt,
+				prod_detail_no,
+				order_no
+		)
+		<foreach item="cartList" collection="list" index="idx" separator="UNION ALL">		
+		SELECT
+				#{orderDetailNo} + #{idx},
+				#{cartList.prodPrice},
+				#{cartList.prodDetailSto},
+				(#{cartList.prodPrice} * #{cartList.prodDetailSto}),
+				#{cartList.prodDetailNo},
+				#{cartList.orderNo}
+		FROM dual
+		</foreach>
   	</insert>
   </mapper>

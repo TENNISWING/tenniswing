@@ -194,7 +194,7 @@ public class ShopController {
 			log.warn("=======cartList==="+cartList);
 			result = orderService.insertCartOrder(orderTableVO, cartList);
 		}
-		return null;
+		return result;
 	}
 	
 	

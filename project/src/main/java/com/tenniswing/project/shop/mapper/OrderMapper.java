@@ -6,6 +6,9 @@ import com.tenniswing.project.shop.service.CartVO;
 import com.tenniswing.project.shop.service.OrderTableVO;
 
 public interface OrderMapper {
+	// 전체 조회 어드민
+	public List<OrderTableVO> selectAdminAllOrder(OrderTableVO orderTableVO);
+	
 	// 등록
 	public int insertOrder(OrderTableVO orderTableVO);
 	

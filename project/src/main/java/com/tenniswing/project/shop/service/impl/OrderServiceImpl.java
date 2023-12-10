@@ -1,5 +1,6 @@
 package com.tenniswing.project.shop.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tenniswing.project.shop.mapper.CartMapper;
 import com.tenniswing.project.shop.mapper.OrderMapper;
 import com.tenniswing.project.shop.mapper.ProdDetailMapper;
 import com.tenniswing.project.shop.mapper.ProdMapper;
@@ -23,6 +25,9 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	OrderMapper orderMapper; 
+	
+	@Autowired
+	CartMapper cartMapper;
 	
 	@Autowired
 	ProdMapper prodMapper;
@@ -73,26 +78,31 @@ public class OrderServiceImpl implements OrderService {
 	public Map<String, Object> insertCartOrder(OrderTableVO orderTableVO, List<CartVO> cartList) {
 		Map<String, Object> map = new HashMap<>();
 		ProdVO prodVO = new ProdVO();
+		List<CartVO> tempCartVO = new ArrayList<CartVO>();
 		boolean isSuccessed = false;
 		
 		int prodNo = orderTableVO.getProdNo();
 		int prodDetailNo = orderTableVO.getProdDetailNo();
 		int prodDetailSto = orderTableVO.getProdDetailSto();
 		log.warn("===주문 들어오고 3개 변수==="+prodNo+"==="+prodDetailNo+"==="+prodDetailSto);
-		
+		log.warn("===주문 들어오고 3개 변수==="+orderTableVO);
 		// 주문이 들어오면 order_table, order_detail, pay에 insert 발생
 		int result = orderMapper.insertCartOrder(orderTableVO);
+		log.warn("===주문 들어오고 2개 테이블 insert==="+result);
+		log.warn("===주문 들어오고 2개 테이블 insert==="+orderTableVO);
 		
-		for (CartVO file : cartList) {
-			file.setOrderNo(orderTableVO.getOrderNo());
+		for (CartVO vo : cartList) {
+			vo.setOrderNo(orderTableVO.getOrderNo());
 		}
+		tempCartVO = cartList;
 		log.warn("====cartList=====", cartList);
 		result += orderMapper.insertCartDetailOrder(cartList);
-		log.warn("===주문 들어오고 3개 테이블 insert==="+result);
-		log.warn("===주문 들어오고 3개 테이블 insert==="+orderTableVO);
+		log.warn("===주문 들어오고 1개 테이블 insert==="+result);
 		
 		// 장바구니 비워주기
-		
+		for (CartVO delVO : tempCartVO) {
+			cartMapper.deleteCart(delVO);
+		}
 		
 		// prod_detail에서 재고 마이너스, prod에서 재고 마이너스
 		result += prodDetailMapper.updateOrderProdDetail(prodDetailNo, prodDetailSto);
@@ -112,6 +122,12 @@ public class OrderServiceImpl implements OrderService {
 		map.put("orderTableVO", orderTableVO);
 		
 		return map;
+	}
+
+	// 전체 조회 어드민
+	@Override
+	public List<OrderTableVO> selectAdminAllOrder(OrderTableVO orderTableVO) {
+		return orderMapper.selectAdminAllOrder(orderTableVO);
 	}
 	
 
