@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.club.service.ClubMatchService;
-import com.tenniswing.project.club.service.ClubMatchVO;
 import com.tenniswing.project.club.service.ClubPostService;
 import com.tenniswing.project.club.service.ClubPostVO;
 import com.tenniswing.project.club.service.ClubRepService;
@@ -67,7 +66,7 @@ public class ClubController {
 		 HashMap<String, Object> map = new HashMap<>();
 		 map.put("selectCount", clubService.selectCount(clubVO));
 		 map.put("clubList",clubService.selectAllClub(clubVO));
-		 System.out.println("aaaaaaaaaaaaaaaaaaaaaaa"+clubService.selectAllClub(clubVO).size());
+		 //System.out.println("aaaaaaaaaaaaaaaaaaaaaaa"+clubService.selectAllClub(clubVO).size());
 		 return map;
 	 }
 
@@ -167,17 +166,36 @@ public class ClubController {
 	public String joinTapPage(Model model, ClubVO clubVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		clubVO.setMemId(id);
+		model.addAttribute("mem", clubService.selectclubMem(clubVO));
 		return "club/clubMatchJoin";
 	}
 	
-	// 매치 모집 등록
-	@PostMapping("MatchRecruitInsert")
+	//매치 모집 리스트
+	@GetMapping("recruitList")
 	@ResponseBody
-	public int MatchRecruitInsertAjax(ClubMatchVO clubMatchVO) {
-		int result = clubMatchService.insertMatchRecruit(clubMatchVO);
-		return result;
+	public List<ClubVO> recruitListAjax(ClubVO clubVO, Model model) {
+		model.addAttribute("list", clubMatchService.selectAllMatchRecruit(clubVO));
+		return clubMatchService.selectAllMatchRecruit(clubVO);
 	}
 	
+	// 매치 모집 등록
+	@PostMapping("recruitInsert")
+	@ResponseBody
+	public String MatchRecruitInsertAjax(ClubVO clubVO) {
+		//String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		clubMatchService.insertMatchRecruit(clubVO);
+		return "redirect:clubMatchJoin";
+	}
+	
+	//매치 모집 신청(참여멤 추가)
+	@PostMapping("insertRecruitMem")
+	@ResponseBody
+	public String insertRecruitMemAjax(ClubVO clubVO, Model model) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		clubVO.setMemId(id);
+		clubMatchService.insertRecruitMem(clubVO);
+		return "redirect:clubMatchJoin";
+	}
 	
 	// --------------------------------------- 매치 일정
 
@@ -307,6 +325,7 @@ public class ClubController {
 		public List<ClubVO> memListAjax(ClubVO clubVO, Model model) {
 			clubVO.setClubApprove("m2");
 			model.addAttribute("realMem", clubService.selectclubMem(clubVO));
+			System.out.println(">>>>>>>"+clubService.selectclubMem(clubVO));
 			return clubService.selectclubMem(clubVO);
 		}
 		

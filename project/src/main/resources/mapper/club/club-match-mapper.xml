@@ -5,9 +5,35 @@
   
 <mapper namespace="com.tenniswing.project.club.mapper.ClubMatchMapper">
 
+<!-- 인원모집 리스트 전체조회 -->
+<select id="selectAllMatchRecruit" resultType="ClubVO">
+SELECT c.club_match_recruit_no
+		   , c.club_match_date
+           , c.club_match_recruit_psn_num
+           , c.club_no
+           , c.match_recruit_write_date
+           , c.recruit_state
+           , c.div
+           , c.match_opponent_no
+           , c.match_no
+ 		   ,count(m.CLUB_MATCH_RECRUIT_NO) as join_mem
+FROM club_match_recruit c LEFT JOIN club_match_recruit_mem m	 
+                          ON c.club_match_recruit_no = m.club_match_recruit_no
+	                      GROUP BY  c.club_match_recruit_no
+	                              , c.club_match_date
+	                              , c.club_match_recruit_psn_num
+	                              , c.club_no
+	                              , c.match_recruit_write_date
+	                              , c.recruit_state
+	                              , c.div
+	                              , c.match_opponent_no
+	                              , c.match_no
+HAVING c.club_no=#{clubNo}
+
+</select>
 
 <!-- 클럽매치 인원모집 등록 -->
-  <insert id="insertMatchRecruit" parameterType="clubMatchVO">
+  <insert id="insertMatchRecruit" parameterType="ClubVO">
   	<selectKey keyProperty="clubMatchRecruitNo" resultType="int" order="BEFORE">
   		SELECT NVL(MAX(CLUB_MATCH_RECRUIT_NO),0)+1
   		FROM club_match_recruit
@@ -33,4 +59,25 @@
   			, 'bf1'
    		)
   </insert>
+  
+<!-- 인원모집 신청(참여멤버 추가) -->  
+<insert id="insertRecruitMem" parameterType="ClubVO">
+  	<selectKey keyProperty="clubMatchRecruitNo" resultType="int" order="BEFORE">
+  		SELECT NVL(MAX(recruit_no),0)+1
+  		FROM club_match_recruit_mem
+  	</selectKey>
+  	INSERT INTO club_match_recruit_mem
+  			(
+  				mem_no
+  				, club_match_recruit_no
+  				, recruit_no
+ 			)
+  		   VALUES
+  		   (
+  		   	#{memNo}
+  		   	, #{clubMatchRecruitNo}
+  		   	, #{recruitNo}
+  		   )
+</insert>
+
 </mapper>
