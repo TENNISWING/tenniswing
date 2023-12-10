@@ -8,40 +8,51 @@
 </head>
 <body>
 	<div class="content__body">
-		<div>
-			<div class="recent-message d-flex-match px-4 py-3"
-				style="border-bottom: 1px solid #e1e1e1;">
-				<div class="d-flex-right clubMatchTitle" >
-					<div class="match-box">
-						<p>매치1</p>
-					</div>
-					<div class="name ms-4" style="padding: 10px 0;">
-						<h5 class="mb-1 club-match-title">2023년 12월 24일 매치</h5>
-						<h6 class="text-muted mb-0">참가 인원 : 6명</h6>
-					</div>
-				</div>
-			</div>
-			<div id="collapseOne" style="height:0px; overflow:hidden;">
-				<p>나와라얍</p>
-			</div>
-		</div>
-		<br>
-		<ul class="pagination justify-content-center">
-			<li class="page-item disabled"><a class="page-link" href="#"
-				tabindex="-1" aria-disabled="true">이전</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">다음</a></li>
+		<ul style="list-style: none;" id="matchList">
+			<!-- 여기에 매치 리스트 -->
 		</ul>
 	</div>
-	<script>
-	$('.clubMatchTitle').on('click',function(e) {
-		$('#collapseOne').slideToggle();
+	
+	
+	<script type="text/javascript">
+	
+	matchListAjax()
+	
+	function matchListAjax(){
+		let clubNo = [[${ clubVO.clubNo }]];
+		console.log("클럽번호" + clubNo)
 		
-	})
+		$.ajax({
+			type: 'GET',
+			url: 'selectClubList',
+			data: { clubNo },
+			success: function (data) {
+				$('#matchList').empty();
+				for (let match of data) {
+					let List = `
+						<li>
+						<div class="recent-message d-flex px-4 py-3"
+						style="border-bottom: 1px solid #e1e1e1; display: flex; justify-content: space-between; align-items: center;">
+						<div class="d-flex-right">
+							<div class="match-box">
+								<p>매치1</p>
+							</div>
+							<div class="name ms-4" style="padding: 10px 0;">
+								<h5 class="mb-1">${new Date(match.matchDate).toLocaleDateString(
+								'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치</h5>
+								<h6 class="text-muted mb-0">참가 인원 : ${match.recruitPsnNum}명</h6>
+								<h6 class="text-muted mb-0">게임 방식 : ${match.gameWayName}</h6>
+							</div>
+						</div>
+						</div>
+						</li>
+					`
+						$('#matchList').append(List);
+				}
+			}
+		})
+	}
+	
 	</script>
 </body>
-
-
 </html>

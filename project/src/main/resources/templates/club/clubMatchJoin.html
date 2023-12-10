@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
 </head>
 <th:block layout:fragment="content">
+
 	<body>
 
 		<div class="content__body">
@@ -13,16 +15,15 @@
 					<div class="filter__area" style="margin: 0;">
 						<div class="email-fixed-search col-6 ">
 							<div class="form-group position-relative  mb-0 has-icon-left">
-								<button class="btn btn-outline-success" id="matchWrite"
-									data-bs-toggle="modal" th:data-club-no="${clubVO.clubNo}"
-									data-bs-target="#addMatchModal">모집 추가</button>
+								<button class="btn btn-outline-success" id="matchWrite" data-bs-toggle="modal"
+									th:data-club-no="${clubVO.clubNo}" data-bs-target="#addMatchModal">모집 추가</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
 			<!--  <div class="recent-message d-flex-match px-4 py-3" style="border-bottom: 1px solid #e1e1e1;"> -->
-				<!-- <div class="d-flex-right">
+			<!-- <div class="d-flex-right">
 					<div class="match-box">
 						<p>매치1</p>
 					</div>
@@ -35,40 +36,35 @@
 				</div>
 				<button type="button" class="btn btn-outline-success"
 					data-bs-toggle="modal" data-bs-target="#joinModal">참여하기</button> -->
-				<div class="content__body">
-					<ul style="list-style: none;" id="recruitList">
+			<div class="content__body">
+				<ul style="list-style: none;" id="recruitList">
 					<!-- 여기에 모집 리스트 -->
-					</ul>
-				</div>
-		<!-- 	</div> -->
+				</ul>
+			</div>
+			<!-- 	</div> -->
 
-			
+
 
 			<!-- 매치작성 모달  -->
-			<div class="modal fade text-left clubEditModal" id="addMatchModal"
-				tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
-				aria-hidden="true">
+			<div class="modal fade text-left clubEditModal" id="addMatchModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel1" aria-hidden="true">
 
-				<div class="modal-dialog modal-dialog-scrollable modal-lg"
-					role="document">
+				<div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
 
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="myModalLabel1">매치 모집</h5>
-							<button type="button" class="close rounded-pill"
-								data-bs-dismiss="modal" aria-label="Close">
+							<button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
 								<i data-feather="x"></i>
 							</button>
 						</div>
-						<form class="form__wrapper matchModalForm" id="postForm"
-							th:action="@{/clubMatchRecruit}" method="POST"
-							th:object="${clubMatchVO}" enctype="multipart/form-data"
+						<form class="form__wrapper matchModalForm" id="postForm" th:action="@{/clubMatchRecruit}"
+							method="POST" th:object="${clubMatchVO}" enctype="multipart/form-data"
 							data-parsley-validate>
 							<div class="modal-body">
 								<div class="input-group mb-3">
-									<label for="clubMatchDate">매치 일자</label><br> <input
-										type="date" id="clubMatchDate" name="clubMatchDate"
-										class="form-control flatpickr-always-open"
+									<label for="clubMatchDate">매치 일자</label><br> <input type="date" id="clubMatchDate"
+										name="clubMatchDate" class="form-control flatpickr-always-open"
 										placeholder="Select date..">
 								</div>
 
@@ -79,11 +75,9 @@
 											onclick='count("minus")'>
 											<span class="bar"></span>
 										</button>
-										<input id="clubMatchRecruitPsnNum"
-											name="clubMatchRecruitPsnNum" class="qnttinput" type="number"
-											readonly="readonly" value="1" />
-										<button type="button" class="incressQnt" id="plusCount"
-											onclick='count("plus")'>
+										<input id="clubMatchRecruitPsnNum" name="clubMatchRecruitPsnNum"
+											class="qnttinput" type="number" readonly="readonly" value="1" />
+										<button type="button" class="incressQnt" id="plusCount" onclick='count("plus")'>
 											<span class="bar"></span>
 										</button>
 									</div>
@@ -91,13 +85,10 @@
 
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-light-secondary cancleBtn"
-									data-bs-dismiss="modal">
-									<i class="bx bx-x d-block d-sm-none"></i> <span
-										class="d-none d-sm-block">취소</span>
+								<button type="button" class="btn btn-light-secondary cancleBtn" data-bs-dismiss="modal">
+									<i class="bx bx-x d-block d-sm-none"></i> <span class="d-none d-sm-block">취소</span>
 								</button>
-								<button type="button" class="btn btn-primary ms-1 insertBtn"
-									data-bs-dismiss="modal">
+								<button type="button" class="btn btn-primary ms-1 insertBtn" data-bs-dismiss="modal">
 									<i class="bx bx-check d-block d-sm-none"></i> <span
 										class="d-none d-sm-block">작성</span>
 								</button>
@@ -108,28 +99,33 @@
 			</div>
 			<!-- /매치작성 모달  -->
 
-			
+
 
 		</div>
 
 
 		<script type="text/javascript">
-	
-	//매치모집 리스트
-	
-		let clubNo = [[${clubVO.clubNo}]];
-		let clubMemNo = [[${mem.clubMemNo}]];
-		
-		console.log("멤버번호"+clubMemNo)
-		
-		$.ajax({
-			type:'GET',
-			url:'recruitList',
-			data: {clubNo},
-			success: function (data) {
-				$('#recruitList').empty();
-				for (let rec of data) {
-					let List = `
+
+			recruitListAjax()
+
+			//매치모집 리스트
+
+			//let clubNo = [[${clubVO.clubNo}]];
+			//let clubMemNo = [[${clubVO.clubMemNo}]];
+
+			//console.log("멤버번호"+clubMemNo)
+			function recruitListAjax() {
+
+				let clubNo = [[${ clubVO.clubNo }]];
+				console.log("클럽번호" + clubNo)
+				$.ajax({
+					type: 'GET',
+					url: 'recruitList',
+					data: { clubNo },
+					success: function (data) {
+						$('#recruitList').empty();
+						for (let rec of data) {
+							let List = `
 						<li>
 						<div class="recent-message d-flex px-4 py-3"
 						style="border-bottom: 1px solid #e1e1e1; display: flex; justify-content: space-between; align-items: center;">
@@ -139,7 +135,7 @@
 							</div>
 							<div class="name ms-4" style="padding: 10px 0;">
 								<h5 class="mb-1">${new Date(rec.clubMatchDate).toLocaleDateString(
-													'ko-KR', { year: 'numeric', month: 'long', day: 'numeric'})} 매치인원 모집</h5>
+								'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치인원 모집</h5>
 								<h6 class="text-muted mb-0">모집 인원 : ${rec.clubMatchRecruitPsnNum}명</h6>
 								<h6 class="text-muted mb-0">참가 인원 : ${rec.joinMem}명</h6>
 								<p class="text-muted mb-0">작성일 : ${new Date(rec.matchRecruitWriteDate).toLocaleDateString()}</p>
@@ -161,7 +157,7 @@
 									<div class="modal-content">
 										<div class="modal-header bg-success">
 											<h5 class="modal-title white" id="myModalLabel110">${new Date(rec.clubMatchDate).toLocaleDateString(
-													'ko-KR', { year: 'numeric', month: 'long', day: 'numeric'})} 매치인원 모집</h5>
+									'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치인원 모집</h5>
 											<button type="button" class="close" data-bs-dismiss="modal"
 												aria-label="Close">
 												<i data-feather="x"></i>
@@ -181,78 +177,83 @@
 						</div>
 						<!-- /참여모달 -->
 					`
-					$('#recruitList').append(List)
-					
-					$('.joinBtn').on("click", function(e){
-						
-						let clubMatchRecruitNo = $(this).data('match-no')
-						//console.log("신청시 멤버번호"+memNo)
-						//console.log("신청시 모집번호"+clubMatchRecruitNo)
-						
-					})
-				}//반복문
-			}//success
-		})//ajax
-	
-	
-	//매치모집 추가
-     $('.insertBtn').on("click", function (e) {
-		
-		let clubNo = $('#matchWrite').data('club-no');
-		let clubMatchDate = $('#clubMatchDate').val();
-		let clubMatchRecruitPsnNum = $('.qnttinput').val();
-		console.log("확인버튼"+clubNo)
-		
-		console.log("클럽데이트:"+clubMatchDate)
-		console.log("모집인원수:"+clubMatchRecruitPsnNum)
+							$('#recruitList').append(List)
 
-		$.ajax({
-			url: 'recruitInsert',
-			data:{ clubNo, clubMatchDate, clubMatchRecruitPsnNum},
-			type: 'POST',
-			dataType:'text',
-			success: function (result) {
-				alert("등록성공")
-				//postListAjax(); //등록후 리스트 불러오기
-				//$('#postForm')[0].reset();	//폼값 초기화
+						}//반복문
 
-			},
-			error: function () {
-				alert("등록 실패")
+						$('.joinBtn').on("click", function (e) {
+
+							let clubMatchRecruitNo = $(this).data('match-no')
+							//console.log("신청시 멤버번호"+memNo)
+							//console.log("신청시 모집번호"+clubMatchRecruitNo)
+
+						})
+					}//success
+				})//ajax
 
 			}
 
-		})
-	});
 
-	
-	// 이거 안되는데 왜 안되는지..?
-	function count(type)  {
-		  // 현재 화면에 표시된 값
-		  let number = $('.qnttinput').val();
-		  console.log("넘버:" + number)
-		  
-		  // 더하기/빼기
-		  if(type === 'plus') {
-		    number = number*1 + 1;
-		    if(number >= 8){
-		    	$('#checkCount').attr("disabled",true);
-		    }
-		    
-		  }else if(type === 'minus')  {
-		    number = number*1  - 1;
-		    if(number <= 1){
-		    	$('#minusCount').attr("disabled",true);
-		   		 }
-		    }
-		  
-		  $('.qnttinput').val(number)
-		}
-	
-	
-	
-	
-	</script>
+
+			//매치모집 등록
+			$('.insertBtn').on("click", function (e) {
+
+				let clubNo = $('#matchWrite').data('club-no');
+				let clubMatchDate = $('#clubMatchDate').val();
+				let clubMatchRecruitPsnNum = $('.qnttinput').val();
+				console.log("확인버튼" + clubNo)
+
+				console.log("클럽데이트:" + clubMatchDate)
+				console.log("모집인원수:" + clubMatchRecruitPsnNum)
+
+				$.ajax({
+					url: 'recruitInsert',
+					data: { clubNo, clubMatchDate, clubMatchRecruitPsnNum },
+					type: 'POST',
+					dataType: 'text',
+					success: function (result) {
+						alert("등록성공")
+						//postListAjax(); //등록후 리스트 불러오기
+						//$('#postForm')[0].reset();	//폼값 초기화
+
+					},
+					error: function () {
+						alert("등록 실패")
+
+					}
+
+				})
+			});
+
+
+			// 이거 안되는데 왜 안되는지..?
+			function count(type) {
+				// 현재 화면에 표시된 값
+				let number = $('.qnttinput').val();
+				console.log("넘버:" + number)
+
+				// 더하기/빼기
+				if (type === 'plus') {
+					number = number * 1 + 1;
+					if (number >= 8) {
+						$('#checkCount').attr("disabled", true);
+					}
+
+				} else if (type === 'minus') {
+					number = number * 1 - 1;
+					if (number <= 1) {
+						$('#minusCount').attr("disabled", true);
+					}
+				}
+
+				$('.qnttinput').val(number)
+			}
+
+
+
+
+		</script>
 	</body>
 </th:block>
+
 </html>

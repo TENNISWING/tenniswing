@@ -29,6 +29,7 @@ FROM club_match_recruit c LEFT JOIN club_match_recruit_mem m
 	                              , c.match_opponent_no
 	                              , c.match_no
 HAVING c.club_no=#{clubNo}
+AND c.RECRUIT_STATE = #{recruitState}
 
 </select>
 
@@ -79,5 +80,7 @@ HAVING c.club_no=#{clubNo}
   		   	, #{recruitNo}
   		   )
 </insert>
+
+
 
 </mapper>
