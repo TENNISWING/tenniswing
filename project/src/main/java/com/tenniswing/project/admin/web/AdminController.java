@@ -165,13 +165,16 @@ public class AdminController {
 	@GetMapping("admin_Order")
 	public String adminOrderPage(Model model, OrderTableVO orderTableVO) {
 		model.addAttribute("orderList", orderService.selectAdminAllOrder(orderTableVO));
-		log.warn("=====주문목록===="+orderService.selectAdminAllOrder(orderTableVO));
+		//log.warn("=====주문목록===="+orderService.selectAdminAllOrder(orderTableVO));
 		return "admin/admin_Order";
 	}
 
 	// 주문 상세
 	@GetMapping("adminDetail_Order")
-	public String adminDetailOrderPage(Model model) {
+	public String adminDetailOrderPage(int orderNo, Model model) {
+		model.addAttribute("orderSelect", orderService.selectAdminOrder(orderNo));
+		model.addAttribute("orderPay", orderService.selectAdminOrderPay(orderNo));
+		model.addAttribute("orderProd", orderService.selectAdminOrderProd(orderNo));
 		return "admin/adminDetail_Order";
 	}
 	

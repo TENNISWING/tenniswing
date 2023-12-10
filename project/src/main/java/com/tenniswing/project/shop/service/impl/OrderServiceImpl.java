@@ -129,6 +129,26 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderTableVO> selectAdminAllOrder(OrderTableVO orderTableVO) {
 		return orderMapper.selectAdminAllOrder(orderTableVO);
 	}
-	
 
+
+	// 한건 조회 어드민
+	@Override
+	public OrderTableVO selectAdminOrder(int orderNo) {
+		//log.warn("=====한건 조회====="+orderMapper.selectAdminOrder(orderNo));
+		return orderMapper.selectAdminOrder(orderNo);
+	}
+
+
+	@Override
+	public OrderTableVO selectAdminOrderPay(int orderNo) {
+		return orderMapper.selectAdminOrderPay(orderNo);
+	}
+
+
+	@Override
+	public List<OrderTableVO> selectAdminOrderProd(int orderNo) {
+		return orderMapper.selectAdminOrderProd(orderNo);
+	}
+	
+	
 }

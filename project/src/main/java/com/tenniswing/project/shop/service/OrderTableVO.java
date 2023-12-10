@@ -35,6 +35,19 @@ public class OrderTableVO {
 	private String memId;
 	
 	////////////////////////
+	// 주문 상세 조회
+	private String name;
+	private String phoneNo;
+	private String payMethod;
+	private int payAmt;
+	private Date payDate;
+	private int orderDetailCnt;
+	private int orderDetailAmt;
+	private String prodName;
+	private String cateColor;
+	private String cateSize;
+	private String attachPath;
+	////////////////////////
 	// 상품 주문시
 	private int prodNo;
 	private int prodPrice;
