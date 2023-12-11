@@ -28,6 +28,7 @@ import com.tenniswing.project.club.service.ClubVO;
 import com.tenniswing.project.common.FileUtils;
 import com.tenniswing.project.match.service.MatchService;
 import com.tenniswing.project.match.service.MatchVO;
+import com.tenniswing.project.member.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -48,6 +49,9 @@ public class ClubController {
 	
 	@Autowired
 	MatchService matchService;
+	
+	@Autowired
+	MemberService memberService;
 	
 
 	@Autowired
@@ -171,15 +175,17 @@ public class ClubController {
 	public String joinTapPage(Model model, ClubVO clubVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		clubVO.setMemId(id);
+		model.addAttribute("member", memberService.memberInfo(id));
 		return "club/clubMatchJoin";
 	}
 	
 	//매치 모집 리스트
 	@GetMapping("recruitList")
 	@ResponseBody
-	public List<ClubVO> recruitListAjax(ClubVO clubVO, Model model) {
+	public List<ClubVO> recruitListAjax(ClubVO clubVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		clubVO.setMemId(id);
 		clubVO.setRecruitState("l2");
-		model.addAttribute("list", clubMatchService.selectAllMatchRecruit(clubVO));
 		return clubMatchService.selectAllMatchRecruit(clubVO);
 	}
 	
@@ -187,7 +193,6 @@ public class ClubController {
 	@PostMapping("recruitInsert")
 	@ResponseBody
 	public String MatchRecruitInsertAjax(ClubVO clubVO) {
-		//String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		clubMatchService.insertMatchRecruit(clubVO);
 		return "redirect:clubMatchJoin";
 	}
@@ -196,8 +201,6 @@ public class ClubController {
 	@PostMapping("insertRecruitMem")
 	@ResponseBody
 	public String insertRecruitMemAjax(ClubVO clubVO) {
-		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		clubVO.setMemId(id);
 		clubMatchService.insertRecruitMem(clubVO);
 		return "redirect:clubMatchJoin";
 	}
@@ -283,12 +286,11 @@ public class ClubController {
 	public Map<String, Object> postUpdateFormAjax(ClubPostVO clubPostVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		clubPostVO.setMemId(id);
+		Map<String, Object> result = clubPostService.updatePost(clubPostVO);
 
 		List<AttachVO> files = fileUtils.uploadFiles(clubPostVO.getFiles());
 		attachService.updateAttach("cp", clubPostVO.getClubPostNo(), files);
-		
-		
-		Map<String, Object> result = clubPostService.updatePost(clubPostVO);
+	
 		return result;
 	}
 
@@ -300,7 +302,7 @@ public class ClubController {
 		clubPostService.updatePostHit(clubRepVO.getClubPostNo());
 		return clubRepService.selectAllRep(clubRepVO);
 	}
-
+ 
 	// 자유게시판 댓글 등록
 	@PostMapping("repInsert")
 	@ResponseBody
