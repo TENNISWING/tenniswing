@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class PayVO {
 	// 결제 번호
-	private String payNo;
+	private int payNo;
 	// 결제 수단
 	private String payMathod = "t1";
 	// 결제 일자

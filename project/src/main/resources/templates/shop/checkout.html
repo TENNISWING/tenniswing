@@ -398,10 +398,10 @@
 			let orderPrtTel;
 			let orderReq;
 			let memId; */
-			let orderNo = createOrderNum()
+			let orderNum = createOrderNum()
 			let formData = $('#checkOutForm').serializeArray();
 			formData.push({name: 'memId', value: shopMemId});
-			formData.push({name: 'merchantUid', value: orderNo});
+			formData.push({name: 'merchantUid', value: orderNum});
 			//formData.pust({name: 'type', value: 'direct'});
 			console.log(formData);
 			let objData = {};
@@ -410,15 +410,16 @@
 				objData[obj.name] = obj.value;
 			});
 			// 필요한 전체 데이터 담기
-			//console.log(objData.orderTPayAmt);
+			console.log(objData);
 			
+			//return;
 			// IMP.reuest_pay 결제창 호출
 			let uid = '';
 			IMP.init('imp36847353');
 			IMP.request_pay({
 				pg: 'kakaopay',
 		        pay_method: "card",
-		        merchant_uid: orderNo, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
+		        merchant_uid: orderNum, //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
 		        name: objData.prodName, //결제창에 노출될 상품명
 		        amount: objData.orderTPayAmt, //금액
 		        buyer_email : objData.memId, 
@@ -440,8 +441,8 @@
 						data: JSON.stringify(objData)
 					})
 					.done(function(result) {
-						console.log(orderTableVO);
-						if (results.result) {
+						console.log(result.orderTableVO);
+						if (result.result) {
 							Swal2.fire({
 								title: "상품 주문",
 								text: "상품 주문이 완료되었습니다.",
@@ -459,7 +460,16 @@
 							})
 						}
 					})
-					.fail(err => console.log(err))
+					.fail(function(err) {
+						console.log(err);
+						Swal2.fire({
+							title: "상품 주문",
+							text: "상품 주문 시스템 문제 발생",
+							icon: "error",
+						}).then(function(){
+							location.reload();
+						})
+					})
 				}
 				else {
 					Swal2.fire({
@@ -486,8 +496,6 @@
 			}
 			return orderNum;
 		}
-		
-		
 	</script>
 	
 	<!--/* 가격부분 , 추가하는 기능 */-->
