@@ -21,6 +21,8 @@ import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.match.service.MatchService;
 import com.tenniswing.project.match.service.MatchVO;
 import com.tenniswing.project.member.service.MemberService;
+import com.tenniswing.project.shop.service.OrderService;
+import com.tenniswing.project.shop.service.OrderTableVO;
 import com.tenniswing.project.shop.service.ProdDetailService;
 import com.tenniswing.project.shop.service.ProdDetailVO;
 import com.tenniswing.project.shop.service.ProdService;
@@ -34,6 +36,9 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminController {
 	@Autowired
 	ProdService prodService;
+	
+	@Autowired
+	OrderService orderService;
 	
 	@Autowired
 	ProdDetailService prodDetailService;
@@ -156,13 +161,20 @@ public class AdminController {
 		return prodDetailService.deleteProdDetail(prodDetailVO);
 	}
 	
+	// 주문 목록
 	@GetMapping("admin_Order")
-	public String adminOrderPage(Model model) {
+	public String adminOrderPage(Model model, OrderTableVO orderTableVO) {
+		model.addAttribute("orderList", orderService.selectAdminAllOrder(orderTableVO));
+		//log.warn("=====주문목록===="+orderService.selectAdminAllOrder(orderTableVO));
 		return "admin/admin_Order";
 	}
 
+	// 주문 상세
 	@GetMapping("adminDetail_Order")
-	public String adminDetailOrderPage(Model model) {
+	public String adminDetailOrderPage(int orderNo, Model model) {
+		model.addAttribute("orderSelect", orderService.selectAdminOrder(orderNo));
+		model.addAttribute("orderPay", orderService.selectAdminOrderPay(orderNo));
+		model.addAttribute("orderProd", orderService.selectAdminOrderProd(orderNo));
 		return "admin/adminDetail_Order";
 	}
 	

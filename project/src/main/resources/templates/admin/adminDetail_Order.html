@@ -2,6 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/admin/admin-layout}">
+<head>
+<style type="text/css">
+	* {
+		font-family: 'Noto Sans KR', sans-serif !important;
+	}
+</style>
+</head>
 <th:block layout:fragment="admincontent">
 	<!-- Main__container Start-->
 	<div class="main__container">
@@ -20,7 +27,7 @@
 					</div>
 					<div class="dashboard__header">
 						<div class="d__header--left">
-							<h2 class="title">Order details: #789262</h2>
+							<h2 class="title">Order details: [[ ${orderSelect.merchantUid} ]]</h2>
 							<!-- <div class="danger__btn border-30">30 order</div> -->
 						</div>
 						<!-- <div class="add__btn">
@@ -31,138 +38,94 @@
 					<div class="address__wrapper">
 						<div class="address__cards">
 							<div class="address__header">
-								<h5 class="title">Customer Info</h5>
-								<a href="#" class="danger__btn" data-bs-toggle="modal"
-									data-bs-target="#customer-info">edit</a>
+								<h5 class="title">주문자 정보</h5>
+								<!-- <a href="#" class="danger__btn" data-bs-toggle="modal"
+									data-bs-target="#customer-info">edit</a> -->
 							</div>
 							<ul class="address__list">
-								<li>Name: <span>Mariya Debh</span></li>
-								<li>Order Date: <span>16/06/22 at 04:35Pm</span></li>
-								<li>Email: <span>Mariya@example.com</span></li>
-								<li>Contect: <span>+38 (094) 730-24-25</span></li>
+								<li>이름: <span>[[ ${orderSelect.name} ]]</span></li>
+								<li>이메일: <span>[[ ${orderSelect.memId} ]]</span></li>
+								<li>전화번호: <span>[[ ${orderSelect.phoneNo} ]]</span></li>
+								<li>주문 일자: <span>[[ ${#dates.format(orderSelect.orderDate, 'yyyy-MM-dd')} ]]</span></li>
 							</ul>
 						</div>
 						<div class="address__cards">
 							<div class="address__header">
-								<h5 class="title">Delivery Address</h5>
+								<h5 class="title">배송지 정보</h5>
 								<!-- <a href="#" class="danger__btn">edit</a> -->
-								<a href="#" class="danger__btn" data-bs-toggle="modal"
-									data-bs-target="#delivery-address">edit</a>
+								<!-- <a href="#" class="danger__btn" data-bs-toggle="modal"
+									data-bs-target="#delivery-address">edit</a> -->
 							</div>
 							<ul class="address__list">
-								<li>Block Number: <span>B-256</span></li>
-								<li>Address: <span>Random Federatio 12530</span></li>
-								<li>Pin Code: <span>259467</span></li>
-								<li>Phone: <span>+38 (094) 730-24-25</span></li>
+								<li>주소: <span>[[ ${orderSelect.orderAdr2} ]]</span></li>
+								<li>상세주소: <span>[[ ${orderSelect.orderAdr3} ]]</span></li>
+								<li>우편번호: <span>[[ ${orderSelect.orderAdr1} ]]</span></li>
+								<li>요청사항: <span>[[ ${orderSelect.orderReq} ]]</span></li>
 							</ul>
 						</div>
 
 						<div class="address__cards">
 							<div class="address__header">
-								<h5 class="title">Billing Address</h5>
-								<a href="#" class="danger__btn" data-bs-toggle="modal"
-									data-bs-target="#billing-address">edit</a>
+								<h5 class="title">결제 정보</h5>
+								<!-- <a href="#" class="danger__btn" data-bs-toggle="modal"
+									data-bs-target="#billing-address">edit</a> -->
 							</div>
 							<ul class="address__list">
-								<li>Block Number: <span>A-256</span></li>
-								<li>Address: <span>Random 115302</span></li>
-								<li>Pin Code: <span>025467</span></li>
-								<li>Phone: <span>+38 (254) 698-24-25</span></li>
+								<li>결제 번호: <span>[[ ${orderSelect.impUid} ]]</span></li>
+								<li>결제 수단: <span>[[ ${orderPay.payMethod} ]]</span></li>
+								<li>결제 금액: <span>[[ ${orderPay.payAmt} ]]</span></li>
+								<li>결제 일자: <span>[[ ${#dates.format(orderPay.payDate, 'yyyy-MM-dd')} ]]</span></li>
 							</ul>
 						</div>
 					</div>
 					<!-- Address Wrapper End -->
 					<div class="form-padding">
-						<h3 class="card_title mb-15">Order Summery</h3>
+						<h3 class="card_title mb-15">주문 상세 정보</h3>
 						<div class="table-responsive">
 							<div class="cart__form">
 								<table>
 									<thead>
 										<tr>
-											<th class="cart-pd__thumb">Product Name</th>
-											<th class="cart-pd__date text-start">Product Id</th>
-											<th class="cart-pd__qty">Quantity</th>
-											<th class="cart-pd__status">Status</th>
-											<th class="cart-pd__price">Price</th>
+											<th class="cart-pd__thumb">상품 정보</th>
+											<th class="cart-pd__date text-start" style="padding: 15px;">상품 상세 번호</th>
+											<th class="cart-pd__qty">주문 수량</th>
+											<th class="cart-pd__status">주문 상태</th>
+											<th class="cart-pd__price">주문 가격</th>
 										</tr>
 									</thead>
 									<tbody>
+									<th:block th:each="orderProd : ${orderProd}">
 										<tr>
 											<td class="cart-pd__thumb">
 												<div class="product-card--inline">
-													<a href="product-single.html" class="product__image"> <img
-														src="assets/images/cart/cart-01.png" alt="product" />
+													<a href="#" class="product__image"> <img
+														th:src="${orderProd.attachPath}" alt="product" />
 													</a>
 													<div class="product__content">
 														<h5 class="product__title">
-															<a href="#">Italian Chicken Meatballs</a>
+															<a href="#">[[ ${orderProd.prodName} ]]</a>
 														</h5>
-														<ul class="product__info">
-															<li class="info-item">Color: <span>Red</span></li>
-															<li class="info-item">Size: <span>M</span></li>
+														<ul class="product__info" style="padding: 0;">
+															<li class="info-item">Color: <span>[[ ${orderProd.cateColor} ]]</span></li>
+															<li class="info-item">Size: <span>[[ ${orderProd.cateSize} ]]</span></li>
 														</ul>
 													</div>
 												</div>
 											</td>
-											<td class="cart-pd__date text-start" data-title="Date">794193231932</td>
-											<td class="cart-pd__qty" data-title="Quantity">2</td>
+											<td class="cart-pd__date text-start" data-title="Date">[[ ${orderProd.prodDetailNo} ]]</td>
+											<td class="cart-pd__qty" data-title="Quantity">[[ ${orderProd.orderDetailCnt} ]]</td>
 											<td class="cart-pd__status" data-title="Status">
-												<div class="primary__btn border-30">Processing</div>
+												<div class="primary__btn border-30">[[ ${orderSelect.orderState} ]]</div>
 											</td>
-											<td class="cart-pd__Price" data-title="Price">$12.59</td>
+											<td class="cart-pd__Price" data-title="Price">[[ ${orderProd.orderDetailAmt} ]]</td>
 										</tr>
-										<tr>
-											<td class="cart-pd__thumb">
-												<div class="product-card--inline">
-													<a href="product-single.html" class="product__image"> <img
-														src="assets/images/cart/cart-03.png" alt="product" />
-													</a>
-													<div class="product__content">
-														<h5 class="product__title">
-															<a href="#">Strawberry Fresh Ice-Cream</a>
-														</h5>
-														<ul class="product__info">
-															<li class="info-item">Flavor: <span>Berry</span></li>
-														</ul>
-													</div>
-												</div>
-											</td>
-											<td class="cart-pd__date text-start" data-title="Date">789753888828</td>
-											<td class="cart-pd__qty" data-title="Quantity">4</td>
-											<td class="cart-pd__status" data-title="Status">
-												<div class="info__btn border-30">Shipment</div>
-											</td>
-											<td class="cart-pd__Price" data-title="Price">$12.59</td>
-										</tr>
-										<tr>
-											<td class="cart-pd__thumb">
-												<div class="product-card--inline">
-													<a href="product-single.html" class="product__image"> <img
-														src="assets/images/cart/cart-02.png" alt="product" />
-													</a>
-													<div class="product__content">
-														<h5 class="product__title">
-															<a href="#">All Natural Blueberries </a>
-														</h5>
-														<ul class="product__info">
-															<li class="info-item">Weight: <span>5kg</span></li>
-														</ul>
-													</div>
-												</div>
-											</td>
-											<td class="cart-pd__date text-start" data-title="Date">784787505212</td>
-											<td class="cart-pd__qty" data-title="Quantity">1</td>
-											<td class="cart-pd__status" data-title="Status">
-												<div class="warning__btn border-30">Arrived</div>
-											</td>
-											<td class="cart-pd__Price" data-title="Price">$12.59</td>
-										</tr>
+									</th:block>	
 										<tr>
 											<td class="border-none pt-10" style="border: 0">&nbsp;</td>
 											<td class="border-none pt-10" style="border: 0">&nbsp;</td>
 											<td class="border-none pt-10" style="border: 0">&nbsp;</td>
 											<td class="border-none pt-10 text-end"><strong>Total</strong></td>
-											<td class="border-none pt-10"><strong>$231.20</strong></td>
+											<td class="border-none pt-10"><strong>[[ ${orderSelect.orderTPayAmt} ]]</strong></td>
 										</tr>
 									</tbody>
 								</table>

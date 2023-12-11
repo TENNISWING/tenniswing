@@ -239,7 +239,7 @@
 		WHERE mem_id = #{memId}
 	</update>
 	
-	<select id="searchHost" resultMap="MemberVO">
+	<select id="searchHost" resultType="MemberVO">
 		select mem_id from mem where mem_div = 'ROLE_HOST'
 	</select>
 </mapper>
