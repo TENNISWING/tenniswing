@@ -33,6 +33,7 @@
 					   ON c.crtroom_no = r.crtroom_no
         WHERE a.attach_table_div = 'cd'
         AND a.attach_turn = 1
+        AND c.crtroom_state = 'm2'
         <if test="crtroomRegion != null and crtroomRegion != ''">AND c.crtroom_region = #{crtroomRegion}</if>
         GROUP BY c.crtroom_no
                 , c.host_id
@@ -239,6 +240,7 @@
   				, crtroom_caution
   				, crtroom_use_guide
   				, crtroom_regi_date
+  				, crtroom_state
   			)
   			VALUES
   			(
@@ -253,6 +255,7 @@
   				, #{crtroomCaution}
   				, #{crtroomUseGuide}
   				, SYSDATE
+  				, 'm3'
   			)
   	</insert>
 
@@ -404,4 +407,18 @@
         WHERE a.attach_table_div = 'cd'
   		ORDER BY c.crtroom_no
   	</select>
+  	
+  	<!-- 코트 승인 -->
+  	<update id="courtStatePermit" parameterType="crtroomVO">
+  		UPDATE crtroom
+  			SET crtroom_state = 'm2'
+  		WHERE crtroom_no = #{crtroomNo}
+  	</update>
+  	
+  	<!-- 코트 거절 -->
+  	<update id="courtStateNotPermit" parameterType="crtroomVO">
+  		UPDATE crtroom
+  			SET crtroom_state = 'm1'
+  		WHERE crtroom_no = #{crtroomNo}
+  	</update>
   </mapper>

@@ -61,4 +61,10 @@ public interface CourtroomService {
 	
 	// 어드민페이지
 	public List<CrtroomVO> courtAdminAll();
+	
+	// 코트 승인
+	public int courtStatePermit(CrtroomVO crtroomVO);
+	
+	// 코트 거절
+	public int courtStateNotPermit(CrtroomVO crtroomVO);
 }

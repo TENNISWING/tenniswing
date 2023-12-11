@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tenniswing.project.court.service.AdminCourtCalcService;
 import com.tenniswing.project.court.service.AdminCourtCalcVO;
 import com.tenniswing.project.court.service.CalcTableVO;
+import com.tenniswing.project.court.service.CourtroomService;
+import com.tenniswing.project.court.service.CrtroomVO;
 
 @Controller
 public class AdminCourtController {
 	@Autowired
 	AdminCourtCalcService adminCalcService;
+	@Autowired
+	CourtroomService courtroomService;
 	
 	@GetMapping("admin_Court_Calc")
 	public String adminCourtCalcPage(Model model, AdminCourtCalcVO adminCourtCalcVO){
@@ -49,5 +53,20 @@ public class AdminCourtController {
 	 * }
 	 */
 	
-	
+	@PostMapping("")
+	@ResponseBody
+	public boolean courtStateProccess(CrtroomVO crtroomVO, int number) {
+		int result = 0;
+		if(number == 1) {
+			result = courtroomService.courtStatePermit(crtroomVO);
+		}else {
+			result = courtroomService.courtStateNotPermit(crtroomVO);
+		}
+		
+		if(result > 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }
