@@ -20,10 +20,16 @@
   	
   	<!-- 한건 조회 어드민 -->
 	<select id="selectAdminOrder" resultType="OrderTableVO">
-		SELECT  m.name, m.mem_id, m.phone_no, o.order_date,
+		SELECT  m.name, 
+				m.mem_id, 
+				m.phone_no, 
+				o.order_date,
 		        o.order_adr2, o.order_adr3, o.order_adr1, o.order_req,
-		        o.imp_uid, od.prod_detail_no, o.order_state,
-		        o.order_t_pay_amt, o.merchant_uid
+		        o.imp_uid, 
+		        FIND_CATEGORY_NAME(o.order_state),
+		        o.order_t_pay_amt, 
+		        o.merchant_uid
+		        od.prod_detail_no, 
 		FROM    mem m, order_table o, order_detail od
 		WHERE   o.mem_id = m.mem_id
 		AND     o.order_no = od.order_no
@@ -31,7 +37,9 @@
 	</select>
 	
 	<select id="selectAdminOrderPay" resultType="OrderTableVO">
-		SELECT  p.pay_method, p.pay_amt, p.pay_date
+		SELECT  FIND_CATEGORY_NAME(p.pay_method), 
+				p.pay_amt, 
+				p.pay_date
 		FROM    order_table o, pay p
 		WHERE	o.order_no = p.order_no
 		AND     o.order_no = #{orderNo}
@@ -58,7 +66,7 @@
   	
   	<!-- 상품 주문 후 등록 -->
   	<insert id="insertOrder" parameterType="OrderTableVO">
-  		<selectKey keyProperty="orderNo,orderDetailNo,payNo" resultType="int" order="BEFORE">
+  		<selectKey keyProperty="orderNo,orderDetailNo,payNo" resultType="OrderTableVO" order="BEFORE">
 			SELECT  (SELECT NVL(MAX(order_no), 0) + 1
 					  FROM order_table) order_no,
 					(SELECT NVL(MAX(order_detail_no), 0) + 1
