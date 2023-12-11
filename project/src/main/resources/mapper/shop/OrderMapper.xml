@@ -70,6 +70,41 @@
 		AND		od.order_no = #{orderNo}
 	</select>
 	
+	<!-- 상품 한건 조회(결제 취소) -->
+	<select id="selectOrder" resultType="OrderTableVO">
+		SELECT 	*
+		FROM	order_table
+		WHERE	order_no = #{orderNo}
+	</select>
+	
+	<!-- 상품 주문 취소(결제 취소) -->
+	<insert id="insertPayCancel" parameterType="PayCancelVO">
+		<selectKey keyProperty="payCancelNo" resultType="int" order="BEFORE">
+			SELECT 	NVL(MAX(pay_cancel_no), 0) + 1
+			FROM	pay_cancel
+		</selectKey>
+		INSERT INTO pay_cancel (
+				pay_cancel_no,
+				pay_cancel_date,
+				pay_cancel_amt,
+				pay_cancel_apply_part,
+				order_no
+		)
+		VALUES (
+				#{payCancelNo},
+				SYSDATE,
+				#{payCancelAMt},
+				#{payCancelApplyPart},
+				#{orderNo}
+		)
+	</insert>
+	
+	<!-- 상품 주문 수정(취소 후 상태 변경) -->
+	<update id="updateOrderState" parameterType="OrderTableVO">
+		UPDATE	order_table
+		SET		order_state = #{orderState}
+		WHERE	order_no = #{orderNo}
+	</update>
   	
   	<!-- 상품 주문 후 등록 -->
   	<insert id="insertOrder" parameterType="OrderTableVO">

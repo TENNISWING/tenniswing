@@ -23,10 +23,12 @@ import com.tenniswing.project.match.service.MatchVO;
 import com.tenniswing.project.member.service.MemberService;
 import com.tenniswing.project.shop.service.OrderService;
 import com.tenniswing.project.shop.service.OrderTableVO;
+import com.tenniswing.project.shop.service.PayCancelVO;
 import com.tenniswing.project.shop.service.ProdDetailService;
 import com.tenniswing.project.shop.service.ProdDetailVO;
 import com.tenniswing.project.shop.service.ProdService;
 import com.tenniswing.project.shop.service.ProdVO;
+import com.tenniswing.project.shop.web.PayService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,6 +59,9 @@ public class AdminController {
 	
 	@Autowired
 	CourtroomService courtroomService;
+	
+	@Autowired
+	PayService payService;
 
 	// 상품 목록
 	@GetMapping("admin_Product")
@@ -177,6 +182,40 @@ public class AdminController {
 		model.addAttribute("orderProd", orderService.selectAdminOrderProd(orderNo));
 		log.warn("");
 		return "admin/adminDetail_Order";
+	}
+	
+	// 주문 취소 (환불)
+	@PostMapping("adminOrderCancel")
+	@ResponseBody
+	public Boolean adminOrderCancel(@RequestBody OrderTableVO vo) throws Exception {
+		OrderTableVO orderTableVO = new OrderTableVO();
+		orderTableVO = orderService.selectOrder(vo.getOrderNo());
+		PayCancelVO payCancelVO = new PayCancelVO();
+		OrderTableVO updateOrderTableVO = new OrderTableVO();
+		
+		String token = payService.getToken();
+		String refundPrice = String.valueOf(orderTableVO.getOrderTPayAmt());
+		String imp_uid = orderTableVO.getImpUid();
+		
+		payService.payMentCancle(token, imp_uid, refundPrice, "주문취소");
+		
+		// 결제 취소 테이블에 insert
+		payCancelVO.setOrderNo(vo.getOrderNo());
+		payCancelVO.setPayCancelAMt(orderTableVO.getOrderTPayAmt());
+		payCancelVO.setPayCancelApplyPart("v2");
+		int result = orderService.insertPayCancel(payCancelVO);
+		
+		if(result > 0) {
+			// order_table update - orderState
+			updateOrderTableVO.setOrderState("s7");
+			updateOrderTableVO.setOrderNo(vo.getOrderNo());
+			orderService.updateOrderState(updateOrderTableVO);
+			
+			// 상품 재고 다시 추가
+			return true;
+		} else {			
+			return false;
+		}
 	}
 	
 	//회원목록
