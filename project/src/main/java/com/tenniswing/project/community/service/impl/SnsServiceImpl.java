@@ -73,7 +73,7 @@ public class SnsServiceImpl implements SnsService {
 			Map<String, String>[] list = obj.readValue(snsVO.getSnsTag(), Map[].class);
 			if (list != null) {
 				for (Map i : list) {
-					tag += "#" + i.get("value") + ",";
+					tag += i.get("value") + ",";
 				}
 				snsVO.setSnsTag(tag);
 			}
@@ -147,7 +147,7 @@ public class SnsServiceImpl implements SnsService {
 					char charAt = str.charAt(0);
 
 					if (charAt != '#') {
-						tag += "#" + i.get("value") + ",";
+						tag += i.get("value") + ",";
 					} else {
 						tag += i.get("value") + ",";
 					}

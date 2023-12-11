@@ -56,6 +56,7 @@ public class CommunityController {
 	@GetMapping("sns")
 	public String snsListPage(SnsVO snsVO, Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+	
 		snsVO.setMemId(id);
 		model.addAttribute("snsList", snsService.selectAllSnsInfo(snsVO));
 		return "community/community3";
@@ -274,6 +275,7 @@ public class CommunityController {
 		snsVO.setMemId(id);
 		System.out.println(snsVO);
 		int result = snsService.insertLike(snsVO);
+		//map으로 바꾸고 좋아요 counting 가져오기...
 
 		return result;
 	}
@@ -309,8 +311,10 @@ public class CommunityController {
 	// sns 내가 등록한 게시글 보기
 	@GetMapping("snsMyList")
 	public String snsMyListPage(SnsVO snsVO, Model model) {
-		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		snsVO.setMemId(id);
+		if(snsVO.getMemId()==null) {
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			snsVO.setMemId(id);			
+		}
 		
 		//회원의 그룹 불러오기
 		model.addAttribute("grpList", snsService.selectGroup(snsVO));
