@@ -160,6 +160,9 @@
 
 		<script>
 
+		let pageNum = 1;
+		let pageSize = 10.0; //페이지 번호 수
+		let pageUnit = 7;  //한페이지에 출력할 행의 수
 			
 			//페이징
 	    	postListPage(1);
@@ -387,9 +390,9 @@
 				})
 			}
 			
-			let pageNum = 1;
+			/* let pageNum = 1;
 			let pageSize = 10.0; //페이지 번호 수
-			let pageUnit = 7;  //한페이지에 출력할 행의 수
+			let pageUnit = 7;  //한페이지에 출력할 행의 수 */
 			
 			$('.pagination').on('click', 'li a', function(e) {
 				e.preventDefault();

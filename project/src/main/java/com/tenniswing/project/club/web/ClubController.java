@@ -213,6 +213,7 @@ public class ClubController {
 		return "club/clubMatchDate";
 	}
 	
+	//매치 일정 리스트
 	@GetMapping("selectClubList")
 	@ResponseBody
 	public List<MatchVO> MatchListAjax(MatchVO matchVO) {
@@ -223,10 +224,15 @@ public class ClubController {
 
 	// 상세페이지 > 탭 > 매치결과
 	@GetMapping("clubMatchEnd")
-	public String EndTapPage(Model model) {
+	public String EndTapPage(Model model, ClubVO clubVO ) {
 		return "club/clubMatchEnd";
 	}
-	
+	//매치 결과 리스트
+		@GetMapping("selectClubEndList")
+		@ResponseBody
+		public List<MatchVO> MatchEndListAjax(MatchVO matchVO) {
+			return matchService.selectClubList(matchVO);
+		}
 	
 	
 	// --------------------------------------- 자유게시판
@@ -288,8 +294,8 @@ public class ClubController {
 		clubPostVO.setMemId(id);
 		Map<String, Object> result = clubPostService.updatePost(clubPostVO);
 
-		List<AttachVO> files = fileUtils.uploadFiles(clubPostVO.getFiles());
-		attachService.updateAttach("cp", clubPostVO.getClubPostNo(), files);
+		//List<AttachVO> files = fileUtils.uploadFiles(clubPostVO.getFiles());
+		//attachService.updateAttach("cp", clubPostVO.getClubPostNo(), files);
 	
 		return result;
 	}
