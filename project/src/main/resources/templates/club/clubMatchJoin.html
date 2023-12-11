@@ -109,15 +109,18 @@
 			recruitListAjax()
 
 			//매치모집 리스트
-
+			
+			
 			//let clubNo = [[${clubVO.clubNo}]];
 			//let clubMemNo = [[${clubVO.clubMemNo}]];
 
-			//console.log("멤버번호"+clubMemNo)
+			
 			function recruitListAjax() {
+				
+				
 
 				let clubNo = [[${ clubVO.clubNo }]];
-				console.log("클럽번호" + clubNo)
+				
 				$.ajax({
 					type: 'GET',
 					url: 'recruitList',
@@ -168,7 +171,7 @@
 											<button type="button" class="btn btn-light-secondary"
 												data-bs-dismiss="modal">Close</button>
 
-											<button type="button" class="btn btn-success ms-1 joinBtn" data-match-no="${rec.clubMatchRecruitNo}"
+											<button type="button" class="btn btn-success ms-1 joinBtn" data-match-no="${rec.clubMatchRecruitNo}" 
 												data-bs-dismiss="modal">Accept</button>
 										</div>
 									</div>
@@ -184,13 +187,39 @@
 						$('.joinBtn').on("click", function (e) {
 
 							let clubMatchRecruitNo = $(this).data('match-no')
+							let clubMemNo = [[${member.memNo}]]
+				             console.log("멤버번호"+clubMemNo)
+				             console.log("모집번호"+clubMatchRecruitNo)
+							
 							//console.log("신청시 멤버번호"+memNo)
 							//console.log("신청시 모집번호"+clubMatchRecruitNo)
+							
+							isertRecruitMem(clubMatchRecruitNo,clubMemNo )
 
 						})
 					}//success
 				})//ajax
 
+			}
+			
+			function isertRecruitMem(clubMatchRecruitNo,memNo){
+				$.ajax({
+					url: 'insertRecruitMem',
+					data: { clubMatchRecruitNo, memNo },
+					type: 'POST',
+					dataType: 'text',
+					success: function (result) {
+						alert("등록성공")
+						//postListAjax(); //등록후 리스트 불러오기
+						//$('#postForm')[0].reset();	//폼값 초기화
+
+					},
+					error: function () {
+						alert("등록 실패")
+
+					}
+
+				})
 			}
 
 
