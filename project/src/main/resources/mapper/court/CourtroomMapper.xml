@@ -78,6 +78,8 @@
   				, cr.crtroom_caution
   				, cr.crtroom_use_guide
   				, cr.crtroom_regi_date
+  				, cr.crtroom_state
+  				, FIND_CATEGORY_NAME(cr.crtroom_state) crtroom_state_name
                 , count(cdi.crt_detail_no) crt_count
   		FROM crtroom cr LEFT OUTER JOIN crt_detail_inf cdi
   						ON cr.crtroom_no = cdi.crtroom_no
@@ -92,6 +94,7 @@
   				, cr.crtroom_caution
   				, cr.crtroom_use_guide
   				, cr.crtroom_regi_date
+  				, cr.crtroom_state
   		HAVING cr.host_id = #{hostId}
   		ORDER BY crtroom_no
   	</select>
@@ -414,4 +417,11 @@
   			SET crtroom_state = 'm1'
   		WHERE crtroom_no = #{crtroomNo}
   	</update>
+  	
+  	<!-- 코트 예약건수 조회 -->
+  	<select id="courtReserveCount" resultType="crtroomVO">
+  		SELECT count(*)
+  		FROM reserve
+  		WHERE crtroom_no = #{crtroomNo}
+  	</select>
   </mapper>

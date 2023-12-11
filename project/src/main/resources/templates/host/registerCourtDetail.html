@@ -58,7 +58,7 @@
 									</div>
 									<div class="col-md-7 form-group">
 										<input type="number" class="form-control" name="useUnitTime"
-											value="1" disabled
+											value="1" readonly
 											data-parsley-required="true">
 									</div>
 									<div class="col-md-3">
@@ -122,6 +122,7 @@
 			let crtOutdoor = document.getElementsByName('crtIndoorOutdoor')[1];
 			let crtUsePrice = document.getElementsByName('crtUsePrice')[0];
 			let useUnitTime = document.getElementsByName('useUnitTime')[0];
+			let crtAttech = document.getElementsByName('files')[0];
 			
 			if(!crtIndoor.checked && !crtOutdoor.checked){
 				Swal.fire({
@@ -133,14 +134,14 @@
 				return false;
 			}
 			
-			let list = [crtUsePrice,useUnitTime];
-			let listExp = ['이용 가격','이용 단위 시간'];
+			let list = [crtUsePrice,useUnitTime,crtAttech];
+			let listExp = ['이용 가격','이용 단위 시간','이미지'];
 			for(let i=0; i < list.length; i++){
 				if(list[i].value == ''){
 					Swal.fire({
 						  icon: "error",
 						  title: "",
-						  text: "코트 "+listExp[i]+"이 입력되지 않았습니다.",
+						  text: "코트 "+listExp[i]+"이(가) 입력되지 않았습니다.",
 						});
 					list[i].focus();
 					return false;
