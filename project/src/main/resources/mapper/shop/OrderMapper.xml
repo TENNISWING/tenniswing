@@ -5,9 +5,68 @@
   
   <mapper namespace="com.tenniswing.project.shop.mapper.OrderMapper">
   	
+  	<!-- 전체 조회 어드민 -->
+  	<select id="selectAdminAllOrder" resultType="OrderTableVO">
+		SELECT	order_no,
+				merchant_uid,
+				mem_id,
+				order_prod_cnt,
+				order_t_pay_amt,
+				order_date,
+				FIND_CATEGORY_NAME(order_state) AS order_state
+		FROM	order_table
+		ORDER BY order_no			 	
+  	</select>
+  	
+  	<!-- 한건 조회 어드민 -->
+	<select id="selectAdminOrder" resultType="OrderTableVO">
+		SELECT  m.name, 
+				m.mem_id, 
+				m.phone_no, 
+				o.order_date,
+		        o.order_adr2, o.order_adr3, o.order_adr1, o.order_req,
+		        o.imp_uid, 
+		        FIND_CATEGORY_NAME(o.order_state),
+		        o.order_t_pay_amt, 
+		        o.merchant_uid
+		        od.prod_detail_no, 
+		FROM    mem m, order_table o, order_detail od
+		WHERE   o.mem_id = m.mem_id
+		AND     o.order_no = od.order_no
+		AND     o.order_no = #{orderNo}
+	</select>
+	
+	<select id="selectAdminOrderPay" resultType="OrderTableVO">
+		SELECT  FIND_CATEGORY_NAME(p.pay_method), 
+				p.pay_amt, 
+				p.pay_date
+		FROM    order_table o, pay p
+		WHERE	o.order_no = p.order_no
+		AND     o.order_no = #{orderNo}
+	</select>
+
+	<select id="selectAdminOrderProd" resultType="OrderTableVO">
+		SELECT  pd.cate_color, pd.cate_size, 
+				        p.prod_name, a.attach_path,
+				        od.order_detail_cnt, od.order_detail_amt
+				FROM    order_detail od
+		                JOIN prod_detail pd
+		                ON pd.prod_detail_no = od.prod_detail_no 
+				        JOIN prod p
+				        ON   pd.prod_no = p.prod_no
+				        JOIN attach a
+				        ON   (a.attach_table_pk = p.prod_no
+				              AND a.attach_table_div = 'p'
+				              AND a.attach_turn = 1)
+				WHERE   pd.prod_detail_no = (SELECT prod_detail_no
+				                             FROM order_detail od
+				                             WHERE od.order_no = #{orderNo})
+	</select>
+	
+  	
   	<!-- 상품 주문 후 등록 -->
   	<insert id="insertOrder" parameterType="OrderTableVO">
-  		<selectKey keyProperty="orderNo,orderDetailNo" resultType="OrderTableVO" order="BEFORE">
+  		<selectKey keyProperty="orderNo,orderDetailNo,payNo" resultType="OrderTableVO" order="BEFORE">
 			SELECT  (SELECT NVL(MAX(order_no), 0) + 1
 					  FROM order_table) order_no,
 					(SELECT NVL(MAX(order_detail_no), 0) + 1
@@ -47,15 +106,15 @@
 			 	#{orderProdCnt},
 			 	#{impUid},
 			 	#{merchantUid},
-			 	#{memId},
+			 	#{memId}
 			 )
 		INTO order_detail (
 				order_detail_no,
 				order_detail_price,
 				order_detail_cnt,
-				order_detail_ant,
+				order_detail_amt,
 				prod_detail_no,
-				order_no,
+				order_no
 			)
 		VALUES (
 				#{orderDetailNo},
@@ -63,8 +122,108 @@
 				#{prodDetailSto},
 				(#{prodPrice} * #{prodDetailSto}),
 				#{prodDetailNo},
-				#{orderNo},
+				#{orderNo}
+			)
+		INTO pay (
+				pay_no,
+				pay_method,
+				pay_date,
+				pay_amt,
+				order_no
+			)
+		VALUES (
+				#{payNo},
+				't1',
+				SYSDATE,
+				#{orderTPayAmt},
+				#{orderNo}
 			)
 		SELECT * FROM dual
+  	</insert>
+  	
+  	<!-- 카트 상품 주문 후 등록 -->
+  	<insert id="insertCartOrder" parameterType="OrderTableVO">
+  		<selectKey keyProperty="orderNo,payNo" resultType="int" order="BEFORE">
+			SELECT  (SELECT NVL(MAX(order_no), 0) + 1
+					  FROM order_table) order_no,
+					(SELECT NVL(MAX(pay_no), 0) + 1
+					  FROM pay) pay_no
+			FROM dual
+		</selectKey>
+		INSERT ALL
+		INTO order_table (
+			 	order_no,
+			 	order_t_pay_amt,
+			 	order_date,
+			 	order_state,
+			 	order_adr1,
+			 	order_adr2,
+			 	order_adr3,
+			 	order_req,
+			 	order_rpt_tel,
+			 	order_rpt_name,
+			 	order_prod_cnt,
+			 	imp_uid,
+			 	merchant_uid,
+			 	mem_id
+			 )
+		VALUES (
+			 	#{orderNo},
+			 	#{orderTPayAmt},
+			 	SYSDATE,
+			 	's1',
+			 	#{orderAdr1},
+			 	#{orderAdr2},
+			 	#{orderAdr3},
+			 	#{orderReq},
+			 	#{orderRptTel},
+			 	#{orderRptName},
+			 	#{orderProdCnt},
+			 	#{impUid},
+			 	#{merchantUid},
+			 	#{memId}
+			 )
+		INTO pay (
+				pay_no,
+				pay_method,
+				pay_date,
+				pay_amt,
+				order_no
+			)
+		VALUES (
+				#{payNo},
+				't1',
+				SYSDATE,
+				#{orderTPayAmt},
+				#{orderNo}
+			)
+		SELECT * FROM dual
+  	</insert>
+  	
+  	<!-- 카트 상품 주문 상세 등록 -->
+  	<insert id="insertCartDetailOrder" parameterType="list">
+  		<selectKey keyProperty="orderDetailNo" resultType="int" order="BEFORE">
+			SELECT  (SELECT NVL(MAX(order_detail_no), 0) + 1
+					   FROM order_detail) order_detail_no
+			FROM dual
+		</selectKey>
+		INSERT INTO order_detail (
+				order_detail_no,
+				order_detail_price,
+				order_detail_cnt,
+				order_detail_amt,
+				prod_detail_no,
+				order_no
+		)
+		<foreach item="cartList" collection="list" index="idx" separator="UNION ALL">		
+		SELECT
+				#{orderDetailNo} + #{idx},
+				#{cartList.prodPrice},
+				#{cartList.prodDetailSto},
+				(#{cartList.prodPrice} * #{cartList.prodDetailSto}),
+				#{cartList.prodDetailNo},
+				#{cartList.orderNo}
+		FROM dual
+		</foreach>
   	</insert>
   </mapper>
