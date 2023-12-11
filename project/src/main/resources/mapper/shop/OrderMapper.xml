@@ -20,16 +20,18 @@
   	
   	<!-- 한건 조회 어드민 -->
 	<select id="selectAdminOrder" resultType="OrderTableVO">
-		SELECT  m.name, 
+		SELECT  DISTINCT m.name, 
 				m.mem_id, 
 				m.phone_no, 
 				o.order_date,
-		        o.order_adr2, o.order_adr3, o.order_adr1, o.order_req,
+		        o.order_adr2, 
+		        o.order_adr3, 
+		        o.order_adr1, 
+		        o.order_req,
 		        o.imp_uid, 
-		        FIND_CATEGORY_NAME(o.order_state),
+		        FIND_CATEGORY_NAME(o.order_state) AS order_state,
 		        o.order_t_pay_amt, 
 		        o.merchant_uid
-		        od.prod_detail_no, 
 		FROM    mem m, order_table o, order_detail od
 		WHERE   o.mem_id = m.mem_id
 		AND     o.order_no = od.order_no
@@ -37,7 +39,7 @@
 	</select>
 	
 	<select id="selectAdminOrderPay" resultType="OrderTableVO">
-		SELECT  FIND_CATEGORY_NAME(p.pay_method), 
+		SELECT  FIND_CATEGORY_NAME(p.pay_method) AS pay_method, 
 				p.pay_amt, 
 				p.pay_date
 		FROM    order_table o, pay p
@@ -46,21 +48,26 @@
 	</select>
 
 	<select id="selectAdminOrderProd" resultType="OrderTableVO">
-		SELECT  pd.cate_color, pd.cate_size, 
-				        p.prod_name, a.attach_path,
-				        od.order_detail_cnt, od.order_detail_amt
-				FROM    order_detail od
-		                JOIN prod_detail pd
-		                ON pd.prod_detail_no = od.prod_detail_no 
-				        JOIN prod p
-				        ON   pd.prod_no = p.prod_no
-				        JOIN attach a
-				        ON   (a.attach_table_pk = p.prod_no
-				              AND a.attach_table_div = 'p'
-				              AND a.attach_turn = 1)
-				WHERE   pd.prod_detail_no = (SELECT prod_detail_no
-				                             FROM order_detail od
-				                             WHERE od.order_no = #{orderNo})
+		SELECT  FIND_CATEGORY_NAME(pd.cate_color) AS cate_color, 
+				FIND_CATEGORY_NAME(pd.cate_size) AS cate_size, 
+		        p.prod_name,
+		        a.attach_path,
+		        od.order_detail_cnt,
+		        od.order_detail_amt,
+		        pd.prod_detail_no
+		FROM    order_detail od
+                JOIN prod_detail pd
+                ON pd.prod_detail_no = od.prod_detail_no 
+		        JOIN prod p
+		        ON   pd.prod_no = p.prod_no
+		        JOIN attach a
+		        ON   (a.attach_table_pk = p.prod_no
+		              AND a.attach_table_div = 'p'
+		              AND a.attach_turn = 1)
+		WHERE   pd.prod_detail_no IN (SELECT prod_detail_no
+		                              FROM order_detail od
+		                              WHERE od.order_no = #{orderNo})
+		AND		od.order_no = #{orderNo}
 	</select>
 	
   	
@@ -143,7 +150,7 @@
   	
   	<!-- 카트 상품 주문 후 등록 -->
   	<insert id="insertCartOrder" parameterType="OrderTableVO">
-  		<selectKey keyProperty="orderNo,payNo" resultType="int" order="BEFORE">
+  		<selectKey keyProperty="orderNo,payNo" resultType="OrderTableVO" order="BEFORE">
 			SELECT  (SELECT NVL(MAX(order_no), 0) + 1
 					  FROM order_table) order_no,
 					(SELECT NVL(MAX(pay_no), 0) + 1
@@ -219,8 +226,8 @@
 		SELECT
 				#{orderDetailNo} + #{idx},
 				#{cartList.prodPrice},
-				#{cartList.prodDetailSto},
-				(#{cartList.prodPrice} * #{cartList.prodDetailSto}),
+				#{cartList.cartProdQt},
+				(#{cartList.prodPrice} * #{cartList.cartProdQt}),
 				#{cartList.prodDetailNo},
 				#{cartList.orderNo}
 		FROM dual
