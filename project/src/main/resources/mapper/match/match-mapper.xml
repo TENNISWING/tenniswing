@@ -39,8 +39,7 @@
 		<if test="crtroomLocation != null and crtroomLocation != ''">and crtroom_location = #{crtroomLocation}</if>
 		<if test="progState != null and progState != ''">and progState = #{progState}</if>
 		ORDER BY time
-		) A) b where rn between (#{page}-1)*#{pageUnit} + 1 and #{page} *
-		#{pageUnit}
+		) A) b where rn between (#{page}-1)*#{pageUnit} + 1 and #{page} * #{pageUnit}
 	</select>
 
 	<select id="selectCount" resultType="int">
@@ -314,7 +313,10 @@
 	</select>
 
 	<!-- 단건조회 -->
-	<select id="selectMatch" resultType="MatchVO">
+	<resultMap id="matchCourtResult" type="matchVO">
+  		<collection property="attachList" javaType="ArrayList" column="crtroom_no" ofType="AttachVO" select="matchAttachListAllCourt" />
+  	</resultMap>
+	<select id="selectMatch" resultMap="matchCourtResult">
 		SELECT m.match_no
 		, m.mem_id
 		, m.match_date
@@ -336,16 +338,24 @@
 		, m.update_date
 		, c.crtroom_name
 		, c.crtroom_location
-		, FIND_CATEGORY_NAME (c.crtroom_location) crtroom_location_name
-		, a.attach_path
+		, FIND_CATEGORY_NAME (c.crtroom_region) crtroom_region_name
 		, b.NAME
-		FROM match m, crtroom c, attach a, mem b
+		FROM match m, crtroom c, mem b
 		WHERE m.crtroom_no = c.crtroom_no
-		AND c.crtroom_no = a.attach_table_pk
-		AND a.attach_table_div = 'cd'
-		AND a.attach_turn = 1
 		AND m.mem_id = b.mem_id
 		AND m.match_no = #{matchNo}
+	</select>
+  	<select id="matchAttachListAllCourt" resultType="AttachVO">
+		select a.attach_origin_name
+		, a.attach_save_name
+		, a.attach_path
+		, a.attach_ext
+		, a.attach_table_div
+		, a.attach_table_pk
+		FROM attach a JOIN crt_detail_inf c
+		ON a.attach_table_pk = c.crtroom_no
+		WHERE a.attach_table_div= 'cd'
+		AND c.crtroom_no = #{crtroomNo}
 	</select>
 
 	<!-- 클럽 단건조회 -->

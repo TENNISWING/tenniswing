@@ -217,5 +217,10 @@ public class MatchServiceImpl implements MatchService {
 	public List<MatchVO> selectClubList(MatchVO matchVO) {
 		return matchMapper.selectClubList(matchVO);
 	}
+
+	/*
+	 * @Override public MatchVO matchSelectCourtroom(MatchVO matchVO) { return
+	 * matchMapper.matchSelectCourtroom(matchVO); }
+	 */
 	
 }
