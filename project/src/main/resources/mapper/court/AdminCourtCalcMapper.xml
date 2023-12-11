@@ -21,7 +21,83 @@
 				   ON r.crtroom_no = c.crtroom_no
                    LEFT OUTER JOIN reserve_cancel rc
                    ON r.reserve_no = rc.reserve_no	
-    Where r.reserve_state != 'i1'    
-    AND r.pay_date BETWEEN #{calcStartDate} AND #{calcEndDate}
+    Where r.reserve_state != 'i1' 
+    AND c.host_id = #{hostId}  
+    <!-- AND r.pay_date BETWEEN '23/11/01' AND '23/11/30' -->
+    AND r.pay_date BETWEEN TO_DATE(#{calcStartDate},'YYYY-MM-DD') AND TO_DATE(#{calcEndDate},'YYYY-MM-DD')
 </select>
+<!-- 관리자 정산하기 -->
+<!-- <insert id="insertAdminCourtCalc" parameterType="List">
+	<selectKey keyProperty="calcNo"
+				resultType="int"
+				order="BEFORE">
+			SELECT NVL(MAX(calc_no), 0) + 1
+			FROM crt_calc
+	</selectKey>
+	INSERT INTO crt_calc
+	(
+		CALC_NO
+		, CALC_DATE
+		, CALC_PRICE
+		, PAY_PRICE
+		, HOST_ID
+		, CALC_STATE
+		, CALC_COMM
+		, PAY_CASE
+		, CALC_START_DATE
+		, CALC_END_DATE
+	)
+	VALUES
+	<foreach collection="list" item="CalcTableVO" separator=" , ">
+		(
+			#{calcNo}
+			, SYSDATE
+			, #{calcPrice}
+			, #{totalPayPrice}
+			, #{hostId}
+			, 'bi2'
+			, #{calcComm}
+			, #{payCase}
+			, #{calcStartDate}
+			, #{calcEndDate}
+		)
+	</foreach>
+</insert> -->
+
+<update id="insertAdminCourtCalc" parameterType="list">
+	<selectKey keyProperty="calcNo"
+				resultType="int"
+				order="BEFORE">
+			SELECT NVL(MAX(calc_no), 0) + 1
+			FROM crt_calc
+	</selectKey>
+	<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+	INTO crt_calc
+	(
+		CALC_NO
+		, CALC_DATE
+		, CALC_PRICE
+		, PAY_PRICE
+		, HOST_ID
+		, CALC_STATE
+		, CALC_COMM
+		, PAY_CASE
+		, CALC_START_DATE
+		, CALC_END_DATE
+	)
+	VALUES
+		(
+			#{item.calcNo}
+			, SYSDATE
+			, #{item.calcPrice}
+			, #{item.payPrice}
+			, #{item.hostId}
+			, 'bi2'
+			, #{item.calcComm}
+			, #{item.payCase}
+			, #{item.calcStartDate}
+			, #{item.calcEndDate}
+		)
+	</foreach>
+</update>
 </mapper>

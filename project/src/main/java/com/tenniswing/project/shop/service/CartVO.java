@@ -30,6 +30,7 @@ public class CartVO {
 	private String cateColor;
 	private String cateSize;
 	
+	private int orderNo;
 	private String type;
 
 }
