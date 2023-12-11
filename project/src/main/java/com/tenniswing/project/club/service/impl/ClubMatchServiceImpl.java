@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.tenniswing.project.club.mapper.ClubMatchMapper;
 import com.tenniswing.project.club.service.ClubMatchService;
-import com.tenniswing.project.club.service.ClubMatchVO;
+import com.tenniswing.project.club.service.ClubVO;
 
 @Service
 public class ClubMatchServiceImpl implements ClubMatchService {
@@ -17,14 +17,20 @@ public class ClubMatchServiceImpl implements ClubMatchService {
 
 	//매치 모집 등록
 	@Override
-	public int insertMatchRecruit(ClubMatchVO clubMatchVO) {
-		return clubMatchMapper.insertMatchRecruit(clubMatchVO);
+	public int insertMatchRecruit(ClubVO clubVO) {
+		return clubMatchMapper.insertMatchRecruit(clubVO);
 	}
 
 	//매치 모집 전체조회
 	@Override
-	public List<ClubMatchVO> selectAllMatchRecruit(ClubMatchVO clubMatchVO) {
-		return clubMatchMapper.selectAllMatchRecruit(clubMatchVO);
+	public List<ClubVO> selectAllMatchRecruit(ClubVO clubVO) {
+		return clubMatchMapper.selectAllMatchRecruit(clubVO);
+	}
+
+	//매치 모집 멤버추가
+	@Override
+	public int insertRecruitMem(ClubVO clubVO) {
+		return clubMatchMapper.insertRecruitMem(clubVO);
 	}
 
 }

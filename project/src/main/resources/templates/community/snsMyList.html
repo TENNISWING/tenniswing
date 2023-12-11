@@ -361,6 +361,7 @@
 								if(grp.snsGrpNo != null){
 									b += `	<div class="card__action text-center">
 										<div class="edBtns" style="float: right;">
+										<i type="button" class="fa-solid fa-magnifying-glass" onclick="location.href='/snsDetail?snsWrtNo=${grp.snsWrtNo}'"></i>
 										<i type="button"
 											class="fa-regular fa-pen-to-square editBtnClass"
 											onclick="location.href='/snsEditForm?snsWrtNo=${grp.snsWrtNo}&snsGrpNo=${grp.snsGrpNo}'"
@@ -373,6 +374,7 @@
 								}else{
 									b+= `	<div class="card__action text-center">
 										<div class="edBtns" style="float: right;">
+										<i type="button" class="fa-solid fa-magnifying-glass" onclick="location.href='/snsDetail?snsWrtNo=${grp.snsWrtNo}'"></i>
 										<i type="button"
 											class="fa-regular fa-pen-to-square editBtnClass"
 											onclick="location.href='/snsEditForm?snsWrtNo=${grp.snsWrtNo}'"

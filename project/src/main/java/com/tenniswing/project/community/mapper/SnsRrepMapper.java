@@ -19,4 +19,7 @@ public interface SnsRrepMapper {
 		
 		// 댓글 삭제
 		public int deleteSnsRrep(int snsRrepNo);
+		
+		//부모있는 자식 댓글 삭제
+		public int deleteAllRrep(int snsRepNo);
 }

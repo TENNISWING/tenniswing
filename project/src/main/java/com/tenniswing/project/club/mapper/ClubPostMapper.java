@@ -1,5 +1,6 @@
 package com.tenniswing.project.club.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.tenniswing.project.club.service.ClubPostVO;
@@ -22,7 +23,7 @@ public interface ClubPostMapper {
 	public int updatePost(ClubPostVO clubPostVO);
 	
 	//삭제
-	public int deletePost(int clubPostNo);
+	public int deletePost(HashMap<String, Long> map);
 	
 	//게시글 조회수
 	public void updatePostHit(int clubPostNo);

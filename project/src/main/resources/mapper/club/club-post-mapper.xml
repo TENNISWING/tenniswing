@@ -79,9 +79,12 @@
   	</update>
   	
   	<!-- 게시글 삭제 -->
-  	<delete id="deletePost" parameterType="int">
-  		DELETE FROM club_post
-  		WHERE club_post_no = #{clubPostNo}
+  	<delete id="deletePost" statementType="CALLABLE" parameterType="map">
+	{call DELETE_CLUB_POST(
+	 	#{clubPostNo, mode=IN, jdbcType=DECIMAL},
+        #{delResult, mode=OUT, jdbcType=DECIMAL, javaType=long}
+		)
+	}
   	</delete>
   
   </mapper>

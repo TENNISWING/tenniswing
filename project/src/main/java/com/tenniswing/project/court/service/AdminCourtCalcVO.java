@@ -23,8 +23,6 @@ public class AdminCourtCalcVO {
 	
 	private int totalCalcPrice;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date calcStartDate;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date calcEndDate;
+	private String calcStartDate;
+	private String calcEndDate;
 }

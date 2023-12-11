@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class OrderTableVO {
 	// 주문번호
-	private String orderNo;
+	private int orderNo;
 	// 주문 총 결제 금액
 	private int orderTPayAmt;
 	// 주문 총 갯수
@@ -35,12 +35,26 @@ public class OrderTableVO {
 	private String memId;
 	
 	////////////////////////
+	// 주문 상세 조회
+	private String name;
+	private String phoneNo;
+	private String payMethod;
+	private int payAmt;
+	private Date payDate;
+	private int orderDetailCnt;
+	private int orderDetailAmt;
+	private String prodName;
+	private String cateColor;
+	private String cateSize;
+	private String attachPath;
+	////////////////////////
 	// 상품 주문시
 	private int prodNo;
 	private int prodPrice;
 	private int prodDetailNo;
 	private int prodDetailSto;
 	private int orderDetailNo;
+	private int payNo;
 	private String type;
 	
 	private String impUid;
