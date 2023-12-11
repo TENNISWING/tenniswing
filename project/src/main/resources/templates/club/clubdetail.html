@@ -81,7 +81,7 @@
 						<div class="user__content">
 							<h3 style="line-height: 80px; color: #668585;"
 								th:text="${club.clubName}"></h3>
-							<h6 style="color: gray;">멤버수 : [[ ${club.clubMemNum} ]]명</h6>
+							<h6 style="color: gray;" >멤버수 : [[${club.clubMemNum}]]명</h6>
 							<div>
 							<th:block th:if="${#strings.equals(club.memId,loginId)}">
 								<button class="btn btn-outline-success" id="clubEdit"

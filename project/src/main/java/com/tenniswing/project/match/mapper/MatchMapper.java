@@ -1,6 +1,7 @@
 package com.tenniswing.project.match.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tenniswing.project.club.service.ClubVO;
 import com.tenniswing.project.match.service.MatchVO;
@@ -62,4 +63,7 @@ public interface MatchMapper {
 	public List<MatchVO> matchClubAll();
 	public List<MatchVO> matchConstAll();
 	public List<MatchVO> matchStarterAll();	
+	
+	//클럽 매치 리스트(클럽페이지 내)
+	public List<MatchVO> selectClubList(MatchVO matchVO);
 }

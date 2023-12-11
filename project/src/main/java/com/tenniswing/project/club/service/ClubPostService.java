@@ -17,7 +17,7 @@ public interface ClubPostService {
 	//게시글 등록
 	public int insertPost(ClubPostVO clubPostVO);
 	
-	//게시글 삭제
+	//게시글 삭제(댓글, 첨부파일 삭제 프로시저)
 	public boolean deletePost(int clubPostNo);
 	
 	//게시글 수정

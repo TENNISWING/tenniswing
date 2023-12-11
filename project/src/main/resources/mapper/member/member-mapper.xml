@@ -249,6 +249,7 @@
 		,h.HOST_BUSINESS_REGI_NO
 		from mem m JOIN CRTROOM_HOST h
 			ON m.mem_id = h.mem_id
+
 		select mem_id from mem where mem_div = 'ROLE_HOST'
 
 	</select>
