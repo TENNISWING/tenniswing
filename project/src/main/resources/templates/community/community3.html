@@ -82,7 +82,7 @@
 
 														<th:block
 															th:each=" lang : ${#strings.arraySplit(s.snsTag,',')}">
-															<span class="card-title tagVal">[[${lang}]]</span>
+															<a class="text-primary" th:href="@{sns(snsTag=${lang})}"> <span class="card-title tagVal">#[[${lang}]]</span></a>
 															<!-- <input th:each="tagg:${#strings.arraySplit(s.snsTag,',')}" type="text" class="tags4" name="tags4" th:value="${lang}" readonly> -->
 
 														</th:block>
@@ -127,7 +127,8 @@
 														</th:block>
 													</div>
 													<div class="card-body">
-														<h6 class="card-subtitle">[[${s.name}]]</h6>
+														<h6 class="card-subtitle"><a href="#" class="btn btn-secondary rounded-pill"
+						th:onclick="|location.href='@{snsMyList(memId=${s.memId})}'|" >[[${s.name}]]</a></h6>
 														<p class="card-text">[[${s.snsCtt}]]</p>
 													</div>
 
@@ -164,7 +165,9 @@
 																	th:data-likeno="${s.likeNo}" th:data-snsWrtNo="${s.snsWrtNo}" id="likeBtn"
 																	th:attrappend="id=${sStat.count}"> </i>
 																</a>
-															</div> <span>[[${s.likeCnt}]]</span>
+																
+															</div> 
+															<span class="likeCnt">[[${s.likeCnt}]]</span>
 														</li>
 
 														<!-- 댓글 버튼 -->
@@ -423,6 +426,7 @@
 						alert("스크랩성공");
 						$(e.target).attr('class','fa-solid fa-bookmark fs-5 text-secondary iBmark');
 						$(e.target).removeClass("active");
+						
 					},
 					error: function() {
 						alert("좋아요 실패")
@@ -466,6 +470,7 @@
 									console.log($(e.target))
 									$(e.target).attr('class','fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC')
 									$(e.target).removeClass("active");
+									//$('.likeCnt').text(result.count);
 							},
 							error : function() {
 								alert("좋아요 실패")
