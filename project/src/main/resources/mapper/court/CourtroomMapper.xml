@@ -394,14 +394,7 @@
   				, c.crtroom_regi_date
   				, FIND_CATEGORY_NAME(c.crtroom_state) crtroom_state
   				, FIND_CATEGORY_NAME(c.crtroom_region) crtroom_region_name
-                , a.attach_path
-  		FROM crtroom c JOIN crt_detail_inf d
-                       ON c.crtroom_no = d.crtroom_no
-                       JOIN attach a
-                       ON c.crtroom_no = a.attach_table_pk
-                       LEFT OUTER JOIN review r
-					   ON c.crtroom_no = r.crtroom_no
-        WHERE a.attach_table_div = 'cd'
+  		FROM crtroom c 
   		ORDER BY c.crtroom_no
   	</select>
   </mapper>

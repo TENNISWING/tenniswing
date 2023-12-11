@@ -238,11 +238,10 @@ public class AdminController {
 		return "admin/admin_Court";	
 	}
 	
-	//코트 승인 필요 목록
-	
+	//코트 승인 필요 목록	
 	@GetMapping("admin_court_apply")
 	public String adminCourtApplyPage(Model model) {
-		model.addAttribute("matchList", matchService.matchAll());
+		model.addAttribute("courtList", courtroomService.courtAdminAll());
 		return "admin/admin_CourtApply";	
 	}
 	
