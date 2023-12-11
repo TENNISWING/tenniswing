@@ -11,8 +11,8 @@
 					src="assets/img/match/icon/icon1.png" class=" miconimg">매치</a></li>
 			<li class="d-flex flex-column"><a href="clubmatch"><img
 					src="assets/img/match/icon/icon2.png" class=" miconimg">클럽</a></li>
-			<li class="d-flex flex-column"><a href="contestmatch"><img
-					src="assets/img/match/icon/icon3.png" class=" miconimg">대회</a></li>
+			<!-- <li class="d-flex flex-column"><a href="contestmatch"><img
+					src="assets/img/match/icon/icon3.png" class=" miconimg">대회</a></li> -->
 			<li class="d-flex flex-column"><a href="startermatch"><img
 					src="assets/img/match/icon/icon4.png" class=" miconimg">스타터</a></li>
 		</ul>
@@ -60,19 +60,8 @@
 					<div class="section-title__wrap">
 						<!-- 필터처리 -->
 						<form action="#" class="product-filter">
-							<!-- 카테고리 form-select select__style -->
-							<div class="select__style" id="firstDrop">
-								<select class="category-select" id="gameWay" name="gameWay">
-									<option value="">게임방식</option>
-									<option value="f1">단식</option>
-									<option value="f2">남복</option>
-									<option value="f3">여복</option>
-									<option value="f4">랠리</option>
-									<option value="f5">혼복</option>
-								</select>
-							</div>
 							<!-- 성별 -->
-							<div class="select__style" id="secondDrop">
+							<div class="select__style" id="firstDrop">
 								<select id="ntrp" name="ntrp" class="category-select">
 									<option value="">NTPR</option>
 									<option value="e1">1.0</option>
@@ -222,11 +211,29 @@
 		</div>
 	</section>
 	<!-- 슬라이드 닫히는 곳 -->
+	
 	<script>
 	$('#btnsearch').on("click", function(e) {
 		let matchDate = $('.matchdate .active').data('day');
 		clubMatchAjax(matchDate,1) 
 	})
+	
+	$('#ntrp').on("change", function(e) {
+		let matchDate = $('.matchdate .active').data('day');
+		clubMatchAjax(matchDate,1)
+	})
+	
+	$('#crtroomLocation').on("change", function(e) {
+		let matchDate = $('.matchdate .active').data('day');
+		clubMatchAjax(matchDate,1)
+	})
+	
+	$('#btnreset').on('click', function(e) {
+		let matchDate = $('.matchdate .active').data('day');
+		$('#ntrp').val('');
+		$('#crtroomLocation').val('');
+		clubMatchAjax(matchDate,1)
+	});
 	
 	function dateFormat(dd) {
 		let date = new Date(dd);

@@ -10,8 +10,8 @@
 					src="assets/img/match/icon/icon1.png" class=" miconimg">매치</a></li>
 			<li class="d-flex flex-column"><a href="clubmatch"><img
 					src="assets/img/match/icon/icon2.png" class=" miconimg">클럽</a></li>
-			<li class="d-flex flex-column"><a href="contestmatch"><img
-					src="assets/img/match/icon/icon3.png" class=" miconimg">대회</a></li>
+			<!-- <li class="d-flex flex-column"><a href="contestmatch"><img
+					src="assets/img/match/icon/icon3.png" class=" miconimg">대회</a></li> -->
 			<li class="d-flex flex-column"><a href="startermatch"><img
 					src="assets/img/match/icon/icon4.png" class=" miconimg">스타터</a></li>
 		</ul>
@@ -68,7 +68,6 @@
 									<option value="f5">혼복</option>
 								</select>
 							</div>
-							<!-- 성별 -->
 							<div class="select__style" id="secondDrop">
 								<select id="gen" name="gen" class="category-select">
 									<option value="">성별</option>
@@ -76,7 +75,7 @@
 									<option value="c2">여자</option>
 								</select>
 							</div>
-							<div class="select__style" id="secondDrop">
+							<div class="select__style" id="thirdDrop">
 								<select id="crtroomLocation" name="crtroomLocation"
 									class="category-select">
 									<option value="">지역</option>
@@ -221,6 +220,29 @@
 		matchAjax(matchDate,1)
 	})
 	
+	$('#gameWay').on("change", function(e) {
+		let matchDate = $('.matchdate .active').data('day');
+		matchAjax(matchDate,1)
+	})
+	
+	$('#gen').on("change", function(e) {
+		let matchDate = $('.matchdate .active').data('day');
+		matchAjax(matchDate,1)
+	})
+	
+	$('#crtroomLocation').on("change", function(e) {
+		let matchDate = $('.matchdate .active').data('day');
+		matchAjax(matchDate,1)
+	})
+	
+	$('#btnreset').on('click', function(e) {
+		let matchDate = $('.matchdate .active').data('day');
+		$('#gameWay').val('');		
+		$('#gen').val('');
+		$('#crtroomLocation').val('');
+		matchAjax(matchDate,1)
+	});
+	
 	function dateFormat(dd) {
 		let date = new Date(dd);
         let month = date.getMonth() + 1;
@@ -289,6 +311,7 @@
 		matchAjax(matchDate,targetPageNum);
 	
 	});
+	
 	
 	pageNum = 1;
 	pageSize = 10.0; //페이지 번호 수

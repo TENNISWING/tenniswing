@@ -66,4 +66,6 @@ public interface MatchMapper {
 	
 	//클럽 매치 리스트(클럽페이지 내)
 	public List<MatchVO> selectClubList(MatchVO matchVO);
+	
+	//public MatchVO matchSelectCourtroom(MatchVO matchVO);
 }

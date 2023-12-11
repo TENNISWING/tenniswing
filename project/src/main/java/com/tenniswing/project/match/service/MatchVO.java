@@ -1,8 +1,13 @@
 package com.tenniswing.project.match.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.tenniswing.project.attach.service.AttachVO;
 
 import lombok.Data;
 
@@ -63,5 +68,8 @@ public class MatchVO {
 	private Date updateDate;
 	
 	private String name;
+	
+	// attach
+	private List<AttachVO> attachList;
 	
 }
