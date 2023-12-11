@@ -70,4 +70,29 @@ public class ClubVO {
 	private String sort;
 	
 	
+	//매치
+	private int clubMatchRecruitNo;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date clubMatchDate;
+	private int clubMatchRecruitPsnNum;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date matchRecruitWriteDate;
+	private String recruitState;
+	private String div;
+	private int matchOpponentNo;
+	private int matchNo;
+	
+	private String memNo;
+	private int recruitNo;
+	private String pvtMatchRst;
+	
+	private int clubMatchNo;
+	private String clubMatchRst;
+	private int clubMatchAttendNum;
+	
+	//참여인원 카운트
+	private int joinMem;
+	
+	
+	
 }

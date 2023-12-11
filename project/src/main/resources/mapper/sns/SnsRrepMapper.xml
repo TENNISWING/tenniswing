@@ -34,31 +34,29 @@
   	</select>
   	
   	
-  	<!-- 댓글 등록 -->
+  	<!-- 대댓글 등록 -->
   	<insert id="insertSnsRrep" parameterType="SnsRrepVO">
   	 	<selectKey keyProperty="snsRrepNo" 
   	 			   resultType="int" 
   	 			   order="BEFORE">
-  	 		<!-- primarykey가 숫자일 경우 사용 -->
-  	 		SELECT NVL(MAX(sns_rrep_no), 0) + 1 
+	 		SELECT NVL(MAX(sns_rrep_no), 0) + 1 
 			FROM sns_rrep
   	 	</selectKey>
-  	 	INSERT INTO sns_rrep
-  	 			(
-  	 				sns_rrep_no
+  	 	
+  	 	INSERT INTO sns_rrep(
+	 				 sns_rrep_no
 	 			   , sns_rrep_ctt
 	 			   , sns_rrep_write_date
 	 			   , sns_rep_no
 	 			   , mem_id
-  	 			)
-  	 			VALUES
-  	 			(
-  	 				#{snsRrepNo}
-  	 				,#{snsRrepCtt}
- 					,sysdate  	 
-  	 				,#{snsRepNo}
-  	 				,#{memId}
-  	 			)
+  	 		  )
+  	 		  VALUES(
+	 				#{snsRrepNo}
+	 				,#{snsRrepCtt}
+					,sysdate  	 
+	 				,#{snsRepNo}
+	 				,#{memId}
+ 			 )
 
   	</insert>
   
@@ -67,7 +65,7 @@
   	<update id="updateSnsRrep" parameterType="SnsRrepVO">
   		UPDATE sns_rrep
   			SET
-  				sns_rrep_ctt = #{snsRepCtt}
+  				sns_rrep_ctt = #{snsRrepCtt}
   			  , sns_rrep_edit_date = sysdate
   		WHERE sns_rrep_no = #{snsRrepNo}
   	</update>
@@ -79,5 +77,10 @@
   		WHERE sns_rrep_no = #{snsRrepNo} <!-- 기본타입으로 한건만 넘어올 경우 #에 다 집어넣어서 일치하지 않아도 됨 -->
   	</delete>
   	
+  	<!-- 부모댓글에 포함된 대댓글 한번에 삭제 -->
+  	<delete id="deleteAllRrep" parameterType="int">
+  		DELETE FROM sns_rrep
+  		WHERE sns_rep_no = #{snsRepNo}
+  	</delete>
   
   </mapper>

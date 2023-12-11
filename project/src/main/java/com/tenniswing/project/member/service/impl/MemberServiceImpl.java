@@ -47,7 +47,7 @@ public class MemberServiceImpl implements MemberService {
 		 
 		 memberVO = memberMapper.memberLogin(memberVO);
 		 
-		 if(memberVO.getMemDiv().equals("ROLE_MEMBER") || memberVO.getMemDiv().equals("ROLE_HOST")) {
+		 if(memberVO.getMemDiv().equals("ROLE_MEMBER")) {
 			 memberVO = memberMapper.memberInfo(memId);
 		 }else {
 			 return memberVO;

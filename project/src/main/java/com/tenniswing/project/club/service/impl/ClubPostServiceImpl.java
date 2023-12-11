@@ -36,12 +36,16 @@ public class ClubPostServiceImpl implements ClubPostService  {
 			return clubPostMapper.insertPost(clubPostVO);
 		}
 		
-	//게시글 삭제	
+	//게시글 삭제(댓글,첨부파일 삭제 프로시저)
 		@Override
 		public boolean deletePost(int clubPostNo) {
-			int result = clubPostMapper.deletePost(clubPostNo);
+			HashMap<String, Long> map = new HashMap<String, Long>();
+			map.put("clubPostNo", (long) clubPostNo);
+			map.put("delPostResult", (long) 0);
+			clubPostMapper.deletePost(map);
+			long result = (long)map.get("delPostResult");
 			
-			if(result == 1) {
+			if(result >= 1) {
 				return true;
 			}else {
 				return false;
@@ -61,6 +65,8 @@ public class ClubPostServiceImpl implements ClubPostService  {
 			}
 			map.put("result", isSuccessed);
 			map.put("post", clubPostVO);
+			
+			
 			return map;
 			
 		}

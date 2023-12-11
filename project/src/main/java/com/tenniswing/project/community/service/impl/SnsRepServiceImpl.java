@@ -8,12 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tenniswing.project.community.mapper.SnsRepMapper;
+import com.tenniswing.project.community.mapper.SnsRrepMapper;
 import com.tenniswing.project.community.service.SnsRepService;
 import com.tenniswing.project.community.service.SnsRepVO;
 @Service
 public class SnsRepServiceImpl implements SnsRepService {
 	@Autowired
 	SnsRepMapper snsRepMapper;
+	@Autowired
+	SnsRrepMapper snsRrepMapper;
 	
 	// 댓글전체조회
 	@Override
@@ -59,13 +62,17 @@ public class SnsRepServiceImpl implements SnsRepService {
 	
 	//댓글 삭제
 	@Override
-	public boolean deleteSnsRep(int snsRepNo) {
-		int result = snsRepMapper.deleteSnsRep(snsRepNo);
+	public int deleteSnsRep(int snsRepNo) {
+		//부모댓글번호로 자식댓글 삭제
+		int result2 = snsRrepMapper.deleteAllRrep(snsRepNo);
 		
-		if(result == 1) {
-			return true;
-		}else {
-			return false;
+		if(result2 == 1) {//자식이 삭제되면 부모를 삭제
+			int result = snsRepMapper.deleteSnsRep(snsRepNo);
+			
+			return result;
+		}else {			  //자식댓글이 없는 경우
+			int result = snsRepMapper.deleteSnsRep(snsRepNo);
+			return result;
 		}
 	}
 
