@@ -1,182 +1,259 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
 </head>
 <th:block layout:fragment="content">
-<body>
-	
-	<div class="content__body">
-	<section class="archive-category">
-		<div class="col-12">
-			<div class="filter__area" style="margin: 0;">
-				<div class="email-fixed-search col-6 ">
-					<div class="form-group position-relative  mb-0 has-icon-left">
-						<button class="btn btn-outline-success" id="matchWrite"  data-bs-toggle="modal" th:data-club-no="${clubVO.clubNo}" 
-							data-bs-target="#addMatchModal">모집 추가</button>
+
+	<body>
+
+		<div class="content__body">
+			<section class="archive-category">
+				<div class="col-12">
+					<div class="filter__area" style="margin: 0;">
+						<div class="email-fixed-search col-6 ">
+							<div class="form-group position-relative  mb-0 has-icon-left">
+								<button class="btn btn-outline-success" id="matchWrite" data-bs-toggle="modal"
+									th:data-club-no="${clubVO.clubNo}" data-bs-target="#addMatchModal">모집 추가</button>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</section>
-		<div class="recent-message d-flex-match px-4 py-3"
-			th:each="num : ${#numbers.sequence(1,5)}"
-			style="border-bottom: 1px solid #e1e1e1;">
-			<div class="d-flex-right">
-				<div class="match-box">
-					<p>매치1</p>
+			</section>
+			<!--  <div class="recent-message d-flex-match px-4 py-3" style="border-bottom: 1px solid #e1e1e1;"> -->
+			<!-- <div class="d-flex-right">
+					<div class="match-box">
+						<p>매치1</p>
+					</div>
+					<div class="name ms-4" style="padding: 10px 0;">
+						<h5 class="mb-1">2023년 12월 24일 매치인원 모집</h5>
+						<h6 class="text-muted mb-0">모집 인원 : 5명</h6>
+						<h6 class="text-muted mb-0">참가 인원 : 3명</h6>
+						<p class="text-muted mb-0">작성일 : 2023-11-24</p>
+					</div>
 				</div>
-				<div class="name ms-4" style="padding: 10px 0;">
-					<h5 class="mb-1">2023년 12월 24일 매치인원 모집</h5>
-					<h6 class="text-muted mb-0">모집 인원 : 5명</h6>
-					<h6 class="text-muted mb-0">참가 인원 : 3명</h6>
-					<p class="text-muted mb-0">작성일 : 2023-11-24</p>
-				</div>
+				<button type="button" class="btn btn-outline-success"
+					data-bs-toggle="modal" data-bs-target="#joinModal">참여하기</button> -->
+			<div class="content__body">
+				<ul style="list-style: none;" id="recruitList">
+					<!-- 여기에 모집 리스트 -->
+				</ul>
 			</div>
-			
-				<!-- 매치작성 모달  -->
-			<div class="modal fade text-left clubEditModal" id="addMatchModal"
-				tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+			<!-- 	</div> -->
+
+
+
+			<!-- 매치작성 모달  -->
+			<div class="modal fade text-left clubEditModal" id="addMatchModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel1" aria-hidden="true">
 
 				<div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
 
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="myModalLabel1">매치 모집</h5>
-							<button type="button" class="close rounded-pill"
-								data-bs-dismiss="modal" aria-label="Close">
+							<button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
 								<i data-feather="x"></i>
 							</button>
 						</div>
-							<form class="form__wrapper matchModalForm" id="postForm" th:action="@{/clubMatchRecruit}" method="POST"
-						th:object="${clubMatchVO}" enctype="multipart/form-data" data-parsley-validate>
-						<div class="modal-body">
-							<div class="input-group mb-3">
-								<label for="clubMatchDate">매치 일자</label><br>
-									<input type="date" id ="clubMatchDate" name="clubMatchDate" class="form-control flatpickr-always-open" placeholder="Select date..">
-							</div>
-							<div class="product-detail__qty">
-								<span class="product-detail--stroke">모집 인원 수</span>
-								<div class="quantity quantity--outline">
-									<button type="button" class="decressQnt">
-										<span class="bar"></span>
-									</button>
-									<input id="clubMatchRecruitPsnNum" name="clubMatchRecruitPsnNum" class="qnttinput" type="number"
-										readonly="readonly" value="1" min="1" max="10" />
-									<button type="button" class="incressQnt" id="checkCount">
-										<span class="bar"></span>
-									</button>
+						<form class="form__wrapper matchModalForm" id="postForm" th:action="@{/clubMatchRecruit}"
+							method="POST" th:object="${clubMatchVO}" enctype="multipart/form-data"
+							data-parsley-validate>
+							<div class="modal-body">
+								<div class="input-group mb-3">
+									<label for="clubMatchDate">매치 일자</label><br> <input type="date" id="clubMatchDate"
+										name="clubMatchDate" class="form-control flatpickr-always-open"
+										placeholder="Select date..">
 								</div>
+
+								<div class="product-detail__qty">
+									<span class="product-detail--stroke">모집 인원 수</span>
+									<div class="quantity quantity--outline">
+										<button type="button" class="decressQnt" id="minusCount"
+											onclick='count("minus")'>
+											<span class="bar"></span>
+										</button>
+										<input id="clubMatchRecruitPsnNum" name="clubMatchRecruitPsnNum"
+											class="qnttinput" type="number" readonly="readonly" value="1" />
+										<button type="button" class="incressQnt" id="plusCount" onclick='count("plus")'>
+											<span class="bar"></span>
+										</button>
+									</div>
+								</div>
+
 							</div>
-							
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-light-secondary cancleBtn" data-bs-dismiss="modal">
-								<i class="bx bx-x d-block d-sm-none"></i> <span class="d-none d-sm-block">취소</span>
-							</button>
-							<button type="button" class="btn btn-primary ms-1 insertBtn" data-bs-dismiss="modal">
-								<i class="bx bx-check d-block d-sm-none"></i> <span class="d-none d-sm-block">작성</span>
-							</button>
-						</div>
-					</form>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-light-secondary cancleBtn" data-bs-dismiss="modal">
+									<i class="bx bx-x d-block d-sm-none"></i> <span class="d-none d-sm-block">취소</span>
+								</button>
+								<button type="button" class="btn btn-primary ms-1 insertBtn" data-bs-dismiss="modal">
+									<i class="bx bx-check d-block d-sm-none"></i> <span
+										class="d-none d-sm-block">작성</span>
+								</button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 			<!-- /매치작성 모달  -->
 
-			<!-- 참여모달 -->
-			<div class="modal-success me-1 mb-1 d-inline-block">
 
-				<button type="button" class="btn btn-outline-success"
-					data-bs-toggle="modal" data-bs-target="#joinModal">참여하기</button>
 
-				<!-- 참여완료 모달창 -->
-				<div class="modal fade text-left" id="joinModal" tabindex="-1"
-					role="dialog" aria-labelledby="myModalLabel110" aria-hidden="true">
-					<div
-						class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-						role="document">
-						<div class="modal-content">
-							<div class="modal-header bg-success">
-								<h5 class="modal-title white" id="myModalLabel110">Success
-									Modal</h5>
-								<button type="button" class="close" data-bs-dismiss="modal"
-									aria-label="Close">
-									<i data-feather="x"></i>
-								</button>
+		</div>
+
+
+		<script type="text/javascript">
+
+			recruitListAjax()
+
+			//매치모집 리스트
+
+			//let clubNo = [[${clubVO.clubNo}]];
+			//let clubMemNo = [[${clubVO.clubMemNo}]];
+
+			//console.log("멤버번호"+clubMemNo)
+			function recruitListAjax() {
+
+				let clubNo = [[${ clubVO.clubNo }]];
+				console.log("클럽번호" + clubNo)
+				$.ajax({
+					type: 'GET',
+					url: 'recruitList',
+					data: { clubNo },
+					success: function (data) {
+						$('#recruitList').empty();
+						for (let rec of data) {
+							let List = `
+						<li>
+						<div class="recent-message d-flex px-4 py-3"
+						style="border-bottom: 1px solid #e1e1e1; display: flex; justify-content: space-between; align-items: center;">
+						<div class="d-flex-right">
+							<div class="match-box">
+								<p>매치1</p>
 							</div>
-							<div class="modal-body">매치에 참여하시겠습니까?</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-light-secondary"
-									data-bs-dismiss="modal">
-									<i class="bx bx-x d-block d-sm-none"></i> <span
-										class="d-none d-sm-block">Close</span>
-								</button>
-
-								<button type="button" class="btn btn-success ms-1"
-									data-bs-dismiss="modal">
-									<i class="bx bx-check d-block d-sm-none"></i> <span
-										class="d-none d-sm-block">Accept</span>
-								</button>
+							<div class="name ms-4" style="padding: 10px 0;">
+								<h5 class="mb-1">${new Date(rec.clubMatchDate).toLocaleDateString(
+								'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치인원 모집</h5>
+								<h6 class="text-muted mb-0">모집 인원 : ${rec.clubMatchRecruitPsnNum}명</h6>
+								<h6 class="text-muted mb-0">참가 인원 : ${rec.joinMem}명</h6>
+								<p class="text-muted mb-0">작성일 : ${new Date(rec.matchRecruitWriteDate).toLocaleDateString()}</p>
 							</div>
 						</div>
-					</div>
-				</div>
-			</div>
-			<!-- /참여모달 -->
-		</div>
-		<br>
-		<ul class="pagination justify-content-center">
-			<li class="page-item disabled"><a class="page-link" href="#"
-				tabindex="-1" aria-disabled="true">이전</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">다음</a></li>
-		</ul>
-	</div>
-	
-	
-	<script type="text/javascript">
-	
-	//매치모집 추가
-	//버튼 클릭했을때 클럽넘버 값 가지고가기
-	$('#addMatchModal').on('show.bs.modal', function (e) {
+						<div>
+								<button type="button" class="btn btn-outline-success"
+								 data-bs-toggle="modal" data-bs-target="#join${rec.clubMatchRecruitNo}">참여하기</button>
+						</div>
+						</div>
+						</li>
+						<!-- 참여모달 -->
+						<div class="modal-success me-1 mb-1 d-inline-block">
+							<div class="modal fade text-left" id="join${rec.clubMatchRecruitNo}" tabindex="-1"
+								role="dialog" aria-labelledby="myModalLabel110" aria-hidden="true">
+								<div
+									class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+									role="document">
+									<div class="modal-content">
+										<div class="modal-header bg-success">
+											<h5 class="modal-title white" id="myModalLabel110">${new Date(rec.clubMatchDate).toLocaleDateString(
+									'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치인원 모집</h5>
+											<button type="button" class="close" data-bs-dismiss="modal"
+												aria-label="Close">
+												<i data-feather="x"></i>
+											</button>
+										</div>
+										<div class="modal-body">매치에 참여하시겠습니까?</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-light-secondary"
+												data-bs-dismiss="modal">Close</button>
 
-		let clubNo = $(e.relatedTarget).data('club-no');
-		console.log("모달열림"+clubNo)
+											<button type="button" class="btn btn-success ms-1 joinBtn" data-match-no="${rec.clubMatchRecruitNo}"
+												data-bs-dismiss="modal">Accept</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /참여모달 -->
+					`
+							$('#recruitList').append(List)
 
-		$('.insertBtn').on("click", function (e) {
+						}//반복문
 
-			let clubMatchDate = $('#clubMatchDate').value;
-			let clubMatchRecruitPsnNum = 0
-			
-			console.log("클럽데이트:"+clubMatchDate)
-			console.log("모집인원수:"+clubMatchRecruitPsnNum)
+						$('.joinBtn').on("click", function (e) {
 
-			$.ajax({
-				url: 'MatchRecruitInsert',
-				data:{ clubNo, clubMatchDate, clubMatchRecruitPsnNum}
-				type: 'post',
-				success: function (result) {
-					alert("등록성공")
-					//postListAjax(); //등록후 리스트 불러오기
-					//$('#postForm')[0].reset();	//폼값 초기화
+							let clubMatchRecruitNo = $(this).data('match-no')
+							//console.log("신청시 멤버번호"+memNo)
+							//console.log("신청시 모집번호"+clubMatchRecruitNo)
 
-				},
-				error: function () {
-					alert("등록 실패")
+						})
+					}//success
+				})//ajax
 
+			}
+
+
+
+			//매치모집 등록
+			$('.insertBtn').on("click", function (e) {
+
+				let clubNo = $('#matchWrite').data('club-no');
+				let clubMatchDate = $('#clubMatchDate').val();
+				let clubMatchRecruitPsnNum = $('.qnttinput').val();
+				console.log("확인버튼" + clubNo)
+
+				console.log("클럽데이트:" + clubMatchDate)
+				console.log("모집인원수:" + clubMatchRecruitPsnNum)
+
+				$.ajax({
+					url: 'recruitInsert',
+					data: { clubNo, clubMatchDate, clubMatchRecruitPsnNum },
+					type: 'POST',
+					dataType: 'text',
+					success: function (result) {
+						alert("등록성공")
+						//postListAjax(); //등록후 리스트 불러오기
+						//$('#postForm')[0].reset();	//폼값 초기화
+
+					},
+					error: function () {
+						alert("등록 실패")
+
+					}
+
+				})
+			});
+
+
+			// 이거 안되는데 왜 안되는지..?
+			function count(type) {
+				// 현재 화면에 표시된 값
+				let number = $('.qnttinput').val();
+				console.log("넘버:" + number)
+
+				// 더하기/빼기
+				if (type === 'plus') {
+					number = number * 1 + 1;
+					if (number >= 8) {
+						$('#checkCount').attr("disabled", true);
+					}
+
+				} else if (type === 'minus') {
+					number = number * 1 - 1;
+					if (number <= 1) {
+						$('#minusCount').attr("disabled", true);
+					}
 				}
 
-			})
-		});
+				$('.qnttinput').val(number)
+			}
 
-	});
-	
-	
-	</script>
-</body>
+
+
+
+		</script>
+	</body>
 </th:block>
+
 </html>

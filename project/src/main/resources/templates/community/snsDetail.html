@@ -37,38 +37,22 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-3"></div>
-			<div class="col-6">
-
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="">
-					<button type="button" class="input-group-text">
-						<i class="icon dripicons dripicons-search fs-3"></i>
-					</button>
-				</div>
-				<div class="insertBtn">
-					<a href="#" class="btn btn-secondary rounded-pill"
-						th:onclick="|location.href='@{snsMyList}'|">내가 등록한 sns 보기</a> <a
-						class="btn btn-secondary rounded-pill"
-						th:onclick="|location.href='@{snsRegister}'|">등록</a>
-				</div>
+			<div class="col-2"></div>
+			<div class="col-8">
 
 				<!-- Basic card section start -->
 
-				<!-- Slider main container -->
-				<div class="swiper">
-					<!-- Additional required wrapper -->
-					<div class="swiper-wrapper">
+			
 						<!-- Slides -->
-						<th:block th:each="s : ${snsList}">
-							<div class="swiper-slide" id="${s.snsWrtNo}">
+						<th:block>
+							<div class="detailSns" id="${sDetail.snsWrtNo}">
 								<section id="content-types" style="height: 900px">
 									<div class="row">
-										<div class="snsdiv col-xl-12 border border-1 rounded-4">
-											<div class="card snsimg">
+										<div class="snsdiv col-xl-12 rounded-4">
+											<div class="card dSnsimg border border-1">
 												<div class="card-content">
 													<div class="card-body">
-														<span class="card-title" style="font-weight: bold;">[[${s.snsTitle}]]</span>
+														<span class="card-title" style="font-weight: bold;">[[${sDetail.snsTitle}]]</span>
 														<div class="edBtns" style="float: right;">
 														<!-- 	<i type="button"
 																class="fa-regular fa-pen-to-square editBtnClass"
@@ -81,18 +65,20 @@
 														<br>
 
 														<th:block
-															th:each=" lang : ${#strings.arraySplit(s.snsTag,',')}">
+															th:each=" lang : ${#strings.arraySplit(sDetail.snsTag,',')}">
 															<span class="card-title tagVal">[[${lang}]]</span>
 															<!-- <input th:each="tagg:${#strings.arraySplit(s.snsTag,',')}" type="text" class="tags4" name="tags4" th:value="${lang}" readonly> -->
 
 														</th:block>
-														<h6 class="card-subtitle" style="font-weight: 300;">[[${s.grpName}]]</h6>
+														<h6 class="card-subtitle" style="font-weight: 300;">[[${sDetail.grpName}]]</h6>
 													</div>
-													<div id="myCarousel" th:attrappend="id=${sStat.count}"
+													
+													<div id="myCarousel"
 														class="carousel slide" data-ride="carousel">
+													
 														<div class="carousel-inner">
 															<!-- 사진 / 동영상 반복문 -->
-															<th:block th:each="simg : ${s.attachList}">
+															<th:block th:each="simg : ${sDetail.attachList}">
 																<div class="carousel-item"
 																	th:if="${simg.attachExt=='.mp4'}"
 																	th:classappend="${simgStat.count==1}?active:_">
@@ -110,15 +96,16 @@
 															</th:block>
 															<!-- 사진 / 동영상 반복문 end -->
 														</div>
-														<th:block th:each="simg : ${s.attachList}">
-														<th:block th:if="${simg.attachExt!='.mp4'} and ${simgStat.count == 1} and ${#arrays.length(s.attachList) != 1}">
+														<th:block th:each="simg : ${sDetail.attachList}">
+														<th:block th:if="${simg.attachExt!='.mp4'} and ${simgStat.count == 1} and ${#arrays.length(sDetail.attachList) != 1}">
 														<a class="carousel-control-prev" href="#myCarousel"
-															th:attrappend="href=${sStat.count}" role="button"
+															role="button"
 															data-bs-slide="prev"> <span
 															class="carousel-control-prev-icon" aria-hidden="true"></span>
 															<span class="visually-hidden">Previous</span>
-														</a> <a class="carousel-control-next" href="#myCarousel"
-															th:attrappend="href=${sStat.count}" role="button"
+														</a> 
+														<a class="carousel-control-next" href="#myCarousel"
+															 role="button"
 															data-bs-slide="next"> <span
 															class="carousel-control-next-icon" aria-hidden="true"></span>
 															<span class="visually-hidden">Next</span>
@@ -126,9 +113,11 @@
 														</th:block>
 														</th:block>
 													</div>
+													
 													<div class="card-body">
-														<h6 class="card-subtitle">[[${s.name}]]</h6>
-														<p class="card-text">[[${s.snsCtt}]]</p>
+														<h6 class="card-subtitle">[[${sDetail.name}]]</h6>
+														<p class="card-text">[[${sDetail.snsCtt}]]</p>
+														<p class="card-text"></p>
 													</div>
 
 												</div>
@@ -141,38 +130,27 @@
 														<!-- 좋아요 버튼 -->
 														<li class="d-flex flex-column">
 															<div>
-																<!-- <a th:if="${#strings.isEmpty(s.likeNo)}" class="btn icon btn-white" th:data-snslike="${s.snsWrtNo}">
-																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC" id="likeBtn"
-																		th:attrappend="id=${sStat.count}">
-																	</i>
-																</a>
-																<a th:if="${not #strings.isEmpty(s.likeNo)}" class="btn icon btn-white" th:data-snslike="${s.snsWrtNo}">
-																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC active"  th:data-likeno="${s.likeNo}" id="likeBtn"
-																		th:attrappend="id=${sStat.count}">
-																	</i>
-																</a> -->
-																<a th:if="${s.likeNo>0}" class="btn icon btn-white"
+																<a th:if="${sDetail.likeNo>0}" class="btn icon btn-white"
 																	>
 																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC "
-																	th:data-likeno="${s.likeNo}"
-																	th:data-snsWrtNo="${s.snsWrtNo}"
-																	id="likeBtn" th:attrappend="id=${sStat.count}"> </i>
+																	th:data-likeno="${sDetail.likeNo}"
+																	th:data-snsWrtNo="${sDetail.snsWrtNo}"
+																	id="likeBtn" > </i>
 																</a>
-																<a th:unless="${s.likeNo>0}" class="btn icon btn-white"
+																<a th:unless="${sDetail.likeNo>0}" class="btn icon btn-white"
 																	>
 																	<i class="fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active"
-																	th:data-likeno="${s.likeNo}" th:data-snsWrtNo="${s.snsWrtNo}" id="likeBtn"
-																	th:attrappend="id=${sStat.count}"> </i>
+																	th:data-likeno="${sDetail.likeNo}" th:data-snsWrtNo="${sDetail.snsWrtNo}" id="likeBtn"
+																	> </i>
 																</a>
-															</div> <span>[[${s.likeCnt}]]</span>
+															</div> <span>[[${sDetail.likeCnt}]]</span>
 														</li>
 
 														<!-- 댓글 버튼 -->
 														<li class="d-flex flex-column ss"><div>
 																<a class="btn icon btn-white" data-bs-toggle="modal"
-																	data-bs-target="#large" th:data-snsid="${s.snsWrtNo}">
-																	<i class="fa-solid fa-comment fs-5 text-secondary"
-																	th:id="${sStat.count}"></i>
+																	data-bs-target="#large" th:data-snsid="${sDetail.snsWrtNo}">
+																	<i class="fa-solid fa-comment fs-5 text-secondary"></i>
 																</a>
 															</div></li>
 
@@ -182,13 +160,12 @@
 																<a class="btn icon btn-white snsBtns"
 																	data-bs-toggle="collapse"
 																	data-bs-target="#collapseExample"
-																	th:attrappend="aria-controls=${sStat.count}"
 																	aria-expanded="false" aria-controls="collapseExample"><i
 																	class="fa-solid fa-share-from-square fs-5 text-secondary"
-																	th:id="${sStat.count}"></i></a>
+																	></i></a>
 															</div> <!-- 콜랩스 추가 -->
 															<div class="collapse snsBtnsCol" id="collapseExample"
-																th:attrappend="id=${sStat.count}">
+																>
 																<span onclick="shareNaver()"> <script
 																		type="text/javascript"
 																		src="https://ssl.pstatic.net/share/js/naver_sharebutton.js">
@@ -208,11 +185,11 @@
 														<!-- 스크랩 버튼 -->
 														<li class="d-flex flex-column">
 															<div>
-																<a th:if="${s.scrapNo>0}" class="btn icon btn-white bmark"> 
-																	<i class="fa-solid fa-bookmark fs-5 text-secondary iBmark" th:data-scrapno="${s.scrapNo}" th:data-snswrtno="${s.snsWrtNo}" id="scrapBtn" th:attrappend="id=${sStat.count}"></i>
+																<a th:if="${sDetail.scrapNo>0}" class="btn icon btn-white bmark"> 
+																	<i class="fa-solid fa-bookmark fs-5 text-secondary iBmark" th:data-scrapno="${sDetail.scrapNo}" th:data-snswrtno="${sDetail.snsWrtNo}" id="scrapBtn" ></i>
 																</a>
-																<a th:unless="${s.scrapNo>0}" class="btn icon btn-white bmark"> 
-																	<i class="fa-regular fa-bookmark fs-5 text-secondary iBmark active" th:data-scrapno="${s.scrapNo}" th:data-snswrtno="${s.snsWrtNo}" id="scrapBtn" th:attrappend="id=${sStat.count}"></i>
+																<a th:unless="${sDetail.scrapNo>0}" class="btn icon btn-white bmark"> 
+																	<i class="fa-regular fa-bookmark fs-5 text-secondary iBmark active" th:data-scrapno="${sDetail.scrapNo}" th:data-snswrtno="${sDetail.snsWrtNo}" id="scrapBtn" ></i>
 																</a>
 															</div>
 														</li>
@@ -232,17 +209,14 @@
 						</th:block>
 
 
-					</div>
-
-
-				</div>
+				
 			</div>
 			<!-- col6 end -->
 
 		</div>
 		<!-- div row end -->
 
-		<div class="col-3"></div>
+		<div class="col-2"></div>
 
 	</div>
 	<!-- div container end -->
@@ -329,15 +303,6 @@
 	// Tagify
 	var input = document.querySelector('input[name=tags4]'),
     tagify = new Tagify(input);
-
-	// 스와이퍼
-	const swiper = new Swiper('.swiper', {
-		  // Optional parameters
-		  direction: 'vertical',
-		  loop: false,
-		  mousewheel : true,
-		  centeredSlides: true, // 1번 슬라이드가 가운데 보이기
-	});
 
 
 	// sns 공유 버튼

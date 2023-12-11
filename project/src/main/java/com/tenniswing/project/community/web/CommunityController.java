@@ -60,6 +60,15 @@ public class CommunityController {
 		model.addAttribute("snsList", snsService.selectAllSnsInfo(snsVO));
 		return "community/community3";
 	}
+	
+	// SNS 상세페이지
+	@GetMapping("snsDetail")
+	public String snsDatailPage(SnsVO snsVO, Model model) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		snsVO.setMemId(id);
+		model.addAttribute("sDetail", snsService.selectSnsInfo(snsVO));
+		return "community/snsDetail";
+	}
 
 	// sns 등록폼 페이지
 	@GetMapping("snsRegister")
@@ -72,6 +81,7 @@ public class CommunityController {
 		model.addAttribute("grpList", snsService.selectGroup(snsVO));
 		return "community/snsRegister";
 	}
+	
 
 	// sns 등록 처리
 	@PostMapping("snsRegister")
@@ -219,8 +229,8 @@ public class CommunityController {
 	// sns 댓글 삭제
 	@PostMapping("snsReplyDel")
 	@ResponseBody
-	public boolean deleteRepAjax(@RequestParam("repNo") Integer snsRepNo) {
-		boolean result = snsRepService.deleteSnsRep(snsRepNo);
+	public int deleteRepAjax(@RequestParam("repNo") Integer snsRepNo) {
+		int result = snsRepService.deleteSnsRep(snsRepNo);
 		return result;
 	}
 	
@@ -244,11 +254,11 @@ public class CommunityController {
 		snsRrepVO.setMemId(id);
 		System.out.println("수정아작스컨트롤러 repVO찍어봄" + snsRrepVO);
 		Map<String, Object> result = snsRrepService.updateSnsRrep(snsRrepVO);
-
+		System.out.println("대댓수정리절트"+result);
 		return result;
 	}
 	
-	// sns 대댓글 삭제
+	// sns 대댓글 삭제 부모랑 자식 불러오기
 	@PostMapping("snsRreDel")
 	@ResponseBody
 	public boolean deleteRrepAjax(Integer snsRrepNo) {

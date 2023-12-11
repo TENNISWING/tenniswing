@@ -837,4 +837,35 @@
 		WHERE m.crtroom_no = c.crtroom_no
 		ORDER BY m.match_no
 	</select>
+	
+	
+	
+	
+	
+	<!-- 클럽매치 클럽별 리스트 조회 -->
+	<select id="selectClubList" resultType="MatchVO">
+		SELECT m.match_no
+		, c.club_name
+		, m.match_date
+		, m.time
+		, m.in_date
+		, m.update_date
+		, m.game_way
+		, FIND_CATEGORY_NAME (m.game_way) game_way_name
+		, m.prog_state
+		, FIND_CATEGORY_NAME (m.prog_state) prog_state_name
+		, m.recruit_psn_num
+		, m.club_no
+		, m.ntrp
+		, FIND_CATEGORY_NAME (m.ntrp) ntrp_name
+		, m.lv
+		, FIND_CATEGORY_NAME (m.lv) lv_name
+		, m.crt_use_amt
+		, m.detail_ctt
+		, m.crtroom_no
+		, FIND_CATEGORY_NAME (m.age) age_name
+		FROM club_match m JOIN club c
+		                    ON m.club_no = c.club_no
+		WHERE c.club_no=#{clubNo}
+	</select>
 </mapper>

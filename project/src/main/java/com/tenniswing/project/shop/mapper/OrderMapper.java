@@ -9,6 +9,11 @@ public interface OrderMapper {
 	// 전체 조회 어드민
 	public List<OrderTableVO> selectAdminAllOrder(OrderTableVO orderTableVO);
 	
+	// 한건 조회 어드민
+	public OrderTableVO selectAdminOrder(int orderNo);
+	public OrderTableVO selectAdminOrderPay(int orderNo);
+	public List<OrderTableVO> selectAdminOrderProd(int orderNo);
+	
 	// 등록
 	public int insertOrder(OrderTableVO orderTableVO);
 	
