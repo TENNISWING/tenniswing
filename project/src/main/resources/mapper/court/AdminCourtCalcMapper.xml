@@ -65,12 +65,6 @@
 </insert> -->
 
 <update id="insertAdminCourtCalc" parameterType="list">
-	<selectKey keyProperty="calcNo"
-				resultType="int"
-				order="BEFORE">
-			SELECT NVL(MAX(calc_no), 0) + 1
-			FROM crt_calc
-	</selectKey>
 	<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
 	INTO crt_calc
 	(
@@ -87,7 +81,8 @@
 	)
 	VALUES
 		(
-			#{item.calcNo}
+			(SELECT NVL(MAX(calc_no), 0) + #{index} + 1
+			FROM crt_calc)
 			, SYSDATE
 			, #{item.calcPrice}
 			, #{item.payPrice}

@@ -176,4 +176,14 @@ public class CourtroomServiceImpl implements CourtroomService {
 	public List<CrtroomVO> courtAdminAll() {
 		return courtroomMapper.courtAdminAll();
 	}
+
+	@Override
+	public int courtStatePermit(CrtroomVO crtroomVO) {
+		return courtroomMapper.courtStatePermit(crtroomVO);
+	}
+
+	@Override
+	public int courtStateNotPermit(CrtroomVO crtroomVO) {
+		return courtroomMapper.courtStateNotPermit(crtroomVO);
+	}
 }
