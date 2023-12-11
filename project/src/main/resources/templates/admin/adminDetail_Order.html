@@ -20,7 +20,7 @@
 					<div class="dashboard__breadcrumb">
 						<div class="breadcrumb__meta">
 							<ul style="padding: 0;">
-								<li><a onclick="history.back()" class="link"><i
+								<li><a onclick="history.back()" class="link"><i style="font-family: 'Font Awesome 6 Free' !important;"
 										class="fa-solid fa-arrow-left me-2"></i> Back</a></li>
 							</ul>
 						</div>
@@ -140,7 +140,17 @@
 	</div>
 	<!-- Main__container End-->
 
-
+	<script type="text/javascript">
+		$('.orderPrice').each(function(){
+			priceId = $(this).attr('id');
+			
+			let changePrice = $('#'+priceId).text();
+			changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			
+			changePrice = changePrice + '원';
+			$('#'+priceId).text(changePrice);
+		});
+	</script>
 </th:block>
 
 </html>

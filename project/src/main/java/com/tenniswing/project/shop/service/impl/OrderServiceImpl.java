@@ -78,13 +78,13 @@ public class OrderServiceImpl implements OrderService {
 	public Map<String, Object> insertCartOrder(OrderTableVO orderTableVO, List<CartVO> cartList) {
 		Map<String, Object> map = new HashMap<>();
 		ProdVO prodVO = new ProdVO();
-		List<CartVO> tempCartVO = new ArrayList<CartVO>();
+		//List<CartVO> tempCartVO = new ArrayList<CartVO>();
 		boolean isSuccessed = false;
 		
-		int prodNo = orderTableVO.getProdNo();
-		int prodDetailNo = orderTableVO.getProdDetailNo();
-		int prodDetailSto = orderTableVO.getProdDetailSto();
-		log.warn("===주문 들어오고 3개 변수==="+prodNo+"==="+prodDetailNo+"==="+prodDetailSto);
+		//int prodNo = orderTableVO.getProdNo();
+		//int prodDetailNo = orderTableVO.getProdDetailNo();
+		//int prodDetailSto = orderTableVO.getProdDetailSto();
+		//log.warn("===주문 들어오고 3개 변수==="+prodNo+"==="+prodDetailNo+"==="+prodDetailSto);
 		log.warn("===주문 들어오고 3개 변수==="+orderTableVO);
 		// 주문이 들어오면 order_table, order_detail, pay에 insert 발생
 		int result = orderMapper.insertCartOrder(orderTableVO);
@@ -94,26 +94,37 @@ public class OrderServiceImpl implements OrderService {
 		for (CartVO vo : cartList) {
 			vo.setOrderNo(orderTableVO.getOrderNo());
 		}
-		tempCartVO = cartList;
-		log.warn("====cartList=====", cartList);
+		/*tempCartVO = cartList;*/
 		result += orderMapper.insertCartDetailOrder(cartList);
 		log.warn("===주문 들어오고 1개 테이블 insert==="+result);
+		for (CartVO vo : cartList) {
+			log.warn("====cartList=====", vo);
+		}		
 		
 		// 장바구니 비워주기
-		for (CartVO delVO : tempCartVO) {
+		for (CartVO delVO : cartList) {
 			cartMapper.deleteCart(delVO);
+			int prodNo = delVO.getProdNo();
+			int prodDetailNo = delVO.getProdDetailNo();
+			int prodDetailSto = delVO.getCartProdQt();
+			
+			prodDetailMapper.updateOrderProdDetail(prodDetailNo, prodDetailSto);
+			int prodTSto = prodDetailMapper.selectSumOrderProdNo(prodNo);
+			
+			prodVO.setProdNo(prodNo);
+			prodVO.setProdTSto(prodTSto);
+			prodMapper.updateProd(prodVO);
 		}
 		
 		// prod_detail에서 재고 마이너스, prod에서 재고 마이너스
-		result += prodDetailMapper.updateOrderProdDetail(prodDetailNo, prodDetailSto);
-		log.warn("===주문 들어오고 1개 테이블 updateOrderProdDetail==="+result);
 		
-		int prodTSto = prodDetailMapper.selectSumOrderProdNo(prodNo);
-		log.warn("===주문 들어오고 selectSumOrderProdNo==="+prodTSto);
-		prodVO.setProdNo(prodNo);
-		prodVO.setProdTSto(prodTSto);
-		result += prodMapper.updateProd(prodVO);
-		log.warn("===주문 들어오고 1개 테이블 updateProd==="+result);
+		/*
+		 * log.warn("===주문 들어오고 1개 테이블 updateOrderProdDetail==="+result);
+		 * 
+		 * log.warn("===주문 들어오고 selectSumOrderProdNo==="+prodTSto);
+		 * 
+		 * log.warn("===주문 들어오고 1개 테이블 updateProd==="+result);
+		 */
 		
 		if(result > 0) {
 			isSuccessed = true;

@@ -175,6 +175,7 @@ public class AdminController {
 		model.addAttribute("orderSelect", orderService.selectAdminOrder(orderNo));
 		model.addAttribute("orderPay", orderService.selectAdminOrderPay(orderNo));
 		model.addAttribute("orderProd", orderService.selectAdminOrderProd(orderNo));
+		log.warn("");
 		return "admin/adminDetail_Order";
 	}
 	

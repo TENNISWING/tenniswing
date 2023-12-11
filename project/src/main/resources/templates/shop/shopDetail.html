@@ -278,7 +278,7 @@
 							<div class="product-detail__qty">
 								<span class="product-detail--stroke">quantity</span>
 								<div class="quantity quantity--outline">
-									<button type="button" class="decressQnt">
+									<button type="button" class="decressQnt" id="decressCount">
 										<span class="bar"></span>
 									</button>
 									<input id="prodDetailSto" name="prodDetailSto" class="qnttinput" type="number"
@@ -842,9 +842,18 @@
 				console.log($('#prodDetailSto').val());
 				if($('#prodDetailSto').val() == (selectNum - 1)) {
 					$('#checkCount').attr("disabled", true);
+					Swal.fire({
+						title: "상품 재고",
+						text: "추가 주문 가능한 수량이 없습니다.",
+						icon: "info",
+					})		
 				}
 			}
 		});
+		
+		$('#decressCount').on('click', function(e){
+			$('#checkCount').attr("disabled", false);
+		})
 		
 		/* 폼 입력 확인 함수 */
 		function resetOrder() {
