@@ -40,17 +40,18 @@
 			<div class="col-3"></div>
 			<div class="col-6">
 
-				<div class="input-group">
+			<!-- 	<div class="input-group">
 					<input type="text" class="form-control" placeholder="">
 					<button type="button" class="input-group-text">
 						<i class="icon dripicons dripicons-search fs-3"></i>
 					</button>
-				</div>
+				</div> -->
 				<div class="insertBtn">
 					<a href="#" class="btn btn-secondary rounded-pill"
-						th:onclick="|location.href='@{snsMyList}'|">내가 등록한 sns 보기</a> <a
-						class="btn btn-secondary rounded-pill"
+						th:onclick="|location.href='@{snsMyList}'|">내가 등록한 sns 보기</a> 
+					<a class="btn btn-secondary rounded-pill"
 						th:onclick="|location.href='@{snsRegister}'|">등록</a>
+					<a class="btn btn-secondary rounded-pill" th:onclick="|location.href='@{sns}'|">목록으로</a>	
 				</div>
 
 				<!-- Basic card section start -->
@@ -291,7 +292,8 @@
 
 								</tbody>
 							</table>
-								<!-- <a href="#" id="load" class="load">MORE</a> -->
+							<div id="lastDiv" style="display: flex; justify-content: center;"></div>
+							<div id="loadDiv" style="display: flex; justify-content: center"></div>
 
 						</div>
 					</div>
@@ -529,6 +531,9 @@
     }
     
     function makeRreply(snsRrepList){
+    	
+    	$('#loadDiv').empty();
+    	$('#lastDiv').empty();
     	for(let[index, rrep] of snsRrepList.entries()){
 			b = `
 			    <tr id = ${rrep.snsRrepNo}>
@@ -542,6 +547,22 @@
 			`
 		 $('#replyList').append(b);
 		}
+		$('#loadDiv').append(`
+				<button id="load" class="btn btn-primary" style="width: 200px;">More</button>
+				`)
+		$('#replyList td').css('display','none');
+		$('#replyList td').slice(0,16).show();
+		$('#load').click(function(e){
+			e.preventDefault();
+			$('#replyList td:hidden').slice(0,16).show();
+			if($("#replyList td:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+				$('#lastDiv').append(`
+											<div>마지막 행입니다.</div>
+									   `);
+	            $('#load').fadeOut(100); // 컨텐츠 없을 시 버튼 사라짐
+	        }
+		})
+    
     }
     
 	//댓글 리스트
@@ -570,7 +591,6 @@
 	
 	//댓글 이벤트 등록
 	function replyEvent(data){
-
         //수정 아이콘 눌렀을때 누른행 제외하고 사라지고 등록 버튼 수정버튼으로 변경
         $('.repEditBtn').on('click', function(e){
         	$('#replyList').empty();
@@ -620,6 +640,8 @@
         
         // 대댓글 등록 이벤트
 		$('.reWrtBtn').on('click', function(e){
+			$('#loadDiv').empty();
+			$('#lastDiv').empty();
 			snsRepNo = $(e.target).closest('tr').prop('id');
 			//console.log(snsRepNo);
 			//console.log('대댓글 작성버튼 잘뜨는지');
