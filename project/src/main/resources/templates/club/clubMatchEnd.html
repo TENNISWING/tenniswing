@@ -5,6 +5,56 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>매치끝</h2>
+<div class="content__body">
+		<ul style="list-style: none;" id="matchEndList">
+			<!-- 여기에 매치 리스트 -->
+		</ul>
+	</div>
+	
+	
+	<script type="text/javascript">
+	
+	matchListAjax()
+	
+	function matchListAjax(){
+		let clubNo = [[${ clubVO.clubNo }]];
+		console.log("클럽번호" + clubNo)
+		
+		$.ajax({
+			type: 'GET',
+			url: 'selectClubEndList',
+			data: { clubNo },
+			success: function (data) {
+				$('#matchEndList').empty();
+				for (let match of data) {
+					let List = `
+						<li>
+						<div class="recent-message d-flex px-4 py-3"
+						style="border-bottom: 1px solid #e1e1e1; display: flex; justify-content: space-between; align-items: center;">
+						<div class="d-flex-right">
+							<div class="match-box">
+								<p>매치1</p>
+							</div>
+							<div class="name ms-4" style="padding: 10px 0;">
+								<h5 class="mb-1">${new Date(match.matchDate).toLocaleDateString(
+								'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치</h5>
+								<h6 class="text-muted mb-0">참가 인원 : ${match.recruitPsnNum}명</h6>
+								<h6 class="text-muted mb-0">게임 방식 : ${match.gameWayName}</h6>
+							</div>
+						</div>
+						<div>
+						<button type="button" class="btn btn-outline-success"
+							 data-bs-toggle="modal" >결과입력</button>
+						</div>
+						</div>
+						</li>
+					`
+						$('#matchEndList').append(List);
+				}
+			}
+		})
+	}
+	
+	</script>
 </body>
 </html>

@@ -21,4 +21,7 @@ public interface BrdService {
 		
 		// 전체페이지수 count
 		public int selectCount(BrdVO brdVO);
+		
+		// 조회수
+		public void updateBrdHit(int hit);
 }

@@ -60,7 +60,7 @@ HAVING c.club_no= #{clubNo}
   			, #{clubNo}
   			, SYSDATE
   			, 'l2'
-  			, 'bf1'
+  			, 'bj1'
    		)
   </insert>
   
