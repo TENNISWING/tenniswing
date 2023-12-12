@@ -51,6 +51,7 @@
 					, c.club_create_date
 					,(SELECT COUNT(m.club_no) FROM club cl LEFT OUTER JOIN club_mem m
                                                     ON cl.club_no = m.club_no
+                                              WHERE m.club_approve = 'm2'      
                                               GROUP BY cl.club_no
                                               HAVING cl.club_no = c.club_no ) club_mem_num
 					, a.attach_path

@@ -10,16 +10,12 @@
 			<ul style="list-style: none;" id="realMemList">
 				<!-- 여기에 멤버 리스트 -->
 			</ul>
+			<div id="lastDiv" style="display: flex; justify-content: center;"></div>
+			<div id="loadDiv" style="display: flex; justify-content: center"></div>
 		</div>
+		
 		<br>
-		<ul class="pagination justify-content-center">
-			<li class="page-item disabled"><a class="page-link" href="#"
-				tabindex="-1" aria-disabled="true">이전</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">다음</a></li>
-		</ul>
+		
 
 		<script th:inline="javascript">
 		
@@ -35,6 +31,8 @@
 				data:  {clubNo},
 				success: function (data) {
 					$('#realMemList').empty();
+					$('#loadDiv').empty();
+					$('#lastDiv').empty();
 					for (let rep of data) {
 						let List = `
 							<li>
@@ -76,7 +74,21 @@
 							}
 						});
 					});
-						
+					$('#loadDiv').append(`
+							<button id="load" class="btn btn-primary" style="width: 200px;">More</button>
+							`)
+					$('#realMemList li').css('display','none');
+					$('#realMemList li').slice(0,2).show();
+					$('#load').click(function(e){
+						e.preventDefault();
+						$('#realMemList li:hidden').slice(0,2).show();
+						if($("#realMemList li:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+							$('#lastDiv').append(`
+														<div>마지막 행입니다.</div>
+												   `);
+				            $('#load').fadeOut(100); // 컨텐츠 없을 시 버튼 사라짐
+				        }
+					})	
 				} //success 끝
 			})
 		}//
