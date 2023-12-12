@@ -79,7 +79,7 @@
 													<td class="orderPrice" id="price">[[ ${orderList.orderProdCnt} ]]</td>
 													<td>[[ ${orderList.orderTPayAmt} ]]</td>
 													<td>[[ ${#dates.format(orderList.orderDate, 'yyyy-MM-dd')} ]]</td>
-													<td><span class="badge bg-success">[[ ${orderList.orderState} ]]</span></td>
+													<td><span class="badge bg-success orderStateClass">[[ ${orderList.orderState} ]]</span></td>
 													<td>
 														<div class="card__action">
 															<a th:onclick="|location.href='@{/adminDetail_Order(orderNo=${orderList.orderNo})}'|" class="action__btn ml-10"> <svg width="20"
@@ -104,7 +104,7 @@
 	                                                                </defs>
 	                                                            </svg>
 															</a>
-															<a class="action__btn ml-10" data-bs-toggle="modal" data-bs-target="#editStateModal">
+															<a class="action__btn ml-10 orderEditBnt" data-bs-toggle="modal" data-bs-target="#editStateModal">
 																<svg width="20" height="20" viewBox="0 0 20 20"
 																	fill="none" xmlns="http://www.w3.org/2000/svg">
 	                                                                <path
@@ -234,6 +234,12 @@
 				$('#shipNum').hide();
 			}
 		}
+		
+		$('.orderStateClass').each((idx, item) => {
+			if($(item).text() == '취소완료') {
+				console.log(item.parentElement.parentElement);
+			}
+		})
 	
 	/* 상태 변경시 */	
 		$('tbody tr td a:nth-child(2)').on('click', function(e){
@@ -243,7 +249,7 @@
 		
 		/* 모달 폼에 주문번호 넣어두기 */
 		function editOrderState(e) {
-			console.log(e.target.parentElement.parentElement.parentElement.children[0]);
+			console.log($(e.target.parentElement.parentElement).prev().text());
 			$('#orderNO').val($(e.target.parentElement.parentElement.parentElement.children[0]).text());
 			//console.log($('#orderNO').val());
 		}
@@ -280,6 +286,7 @@
 				.fail(err => console.log(err));
 			}
 		})
+
 	</script>
 	
 	<!-- Main__container End-->

@@ -9,7 +9,7 @@ public class OrderDetailVO {
 	// 주문 상세 가격
 	private int orderDetailPrice;
 	// 주문 상세 개수
-	private int orderDetailCtn;
+	private int orderDetailCnt;
 	// 주문 상세 금액
 	private int orderDetailAmt;
 	// 주문번호

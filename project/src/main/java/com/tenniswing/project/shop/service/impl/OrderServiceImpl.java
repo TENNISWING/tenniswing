@@ -13,6 +13,7 @@ import com.tenniswing.project.shop.mapper.OrderMapper;
 import com.tenniswing.project.shop.mapper.ProdDetailMapper;
 import com.tenniswing.project.shop.mapper.ProdMapper;
 import com.tenniswing.project.shop.service.CartVO;
+import com.tenniswing.project.shop.service.OrderDetailVO;
 import com.tenniswing.project.shop.service.OrderService;
 import com.tenniswing.project.shop.service.OrderTableVO;
 import com.tenniswing.project.shop.service.PayCancelVO;
@@ -150,7 +151,6 @@ public class OrderServiceImpl implements OrderService {
 		return orderMapper.selectAdminOrder(orderNo);
 	}
 
-
 	@Override
 	public OrderTableVO selectAdminOrderPay(int orderNo) {
 		return orderMapper.selectAdminOrderPay(orderNo);
@@ -179,6 +179,12 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public int updateOrderState(OrderTableVO orderTable) {
 		return orderMapper.updateOrderState(orderTable);
+	}
+	
+	// 주문 취소 order_detail 한건 조회
+	@Override
+	public List<OrderDetailVO> selectOrderDetail(int orderNo) {
+		return orderMapper.selectOrderDetail(orderNo);
 	}
 	
 	

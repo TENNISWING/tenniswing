@@ -28,4 +28,7 @@ public interface ProdDetailMapper {
 	
 	// 주문후 prodNo별 전체 재고
 	public int selectSumOrderProdNo(int prodNo);
+	
+	// 주문 취소시 재고 추가 update
+	public int updateProdDetailCancel(ProdDetailVO prodDetailVO);
 }

@@ -21,6 +21,13 @@ public interface OrderService {
 	// 주문 취소시 수정 (상태 변경)
 	public int updateOrderState(OrderTableVO orderTable);
 	
+	// 주문 취소시 order_detail 한건 조회
+	public List<OrderDetailVO> selectOrderDetail(int orderNo);
+	
+	// 주문 취소시 prod_detail 재고 업데이트
+	
+	// 주문 취소시 prod 재고 업데이트
+	
 	// 등록
 	public Map<String, Object> insertOrder(OrderTableVO orderTableVO);
 	

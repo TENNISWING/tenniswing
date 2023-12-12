@@ -1,5 +1,6 @@
 package com.tenniswing.project.admin.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,9 @@ import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.match.service.MatchService;
 import com.tenniswing.project.match.service.MatchVO;
 import com.tenniswing.project.member.service.MemberService;
+import com.tenniswing.project.shop.mapper.ProdDetailMapper;
+import com.tenniswing.project.shop.mapper.ProdMapper;
+import com.tenniswing.project.shop.service.OrderDetailVO;
 import com.tenniswing.project.shop.service.OrderService;
 import com.tenniswing.project.shop.service.OrderTableVO;
 import com.tenniswing.project.shop.service.PayCancelVO;
@@ -62,6 +66,12 @@ public class AdminController {
 	
 	@Autowired
 	PayService payService;
+	
+	@Autowired
+	ProdDetailMapper prodDetailMapper;
+	
+	@Autowired
+	ProdMapper prodMapper;
 
 	// 상품 목록
 	@GetMapping("admin_Product")
@@ -193,6 +203,9 @@ public class AdminController {
 		PayCancelVO payCancelVO = new PayCancelVO();
 		OrderTableVO updateOrderTableVO = new OrderTableVO();
 		
+		List<OrderDetailVO> orderDetailList = new ArrayList<OrderDetailVO>();
+		int orderNo = vo.getOrderNo();
+		
 		String token = payService.getToken();
 		String refundPrice = String.valueOf(orderTableVO.getOrderTPayAmt());
 		String imp_uid = orderTableVO.getImpUid();
@@ -205,6 +218,7 @@ public class AdminController {
 		payCancelVO.setPayCancelApplyPart("v2");
 		int result = orderService.insertPayCancel(payCancelVO);
 		
+		ProdDetailVO prodDetailVO = new ProdDetailVO();
 		if(result > 0) {
 			// order_table update - orderState
 			updateOrderTableVO.setOrderState("s7");
@@ -212,6 +226,28 @@ public class AdminController {
 			orderService.updateOrderState(updateOrderTableVO);
 			
 			// 상품 재고 다시 추가
+			// prod_detail_no별 판매 재고를 가져온다
+			// prod_detail_no의 재고를 추가한다.
+			orderDetailList = orderService.selectOrderDetail(orderNo);
+			log.warn("===orderDetailVO==="+orderDetailList);
+			for(OrderDetailVO detVO : orderDetailList) {
+				prodDetailVO.setProdDetailNo(detVO.getProdDetailNo());
+				prodDetailVO.setProdDetailSto(detVO.getOrderDetailCnt());
+				
+				log.warn("====prodDetailVO===="+prodDetailVO);
+				// 상품 상세 재고 추가
+				prodDetailMapper.updateProdDetailCancel(prodDetailVO);
+				
+				// 상품 번호 가져오기
+				ProdDetailVO prodDetail = new ProdDetailVO(); 
+				prodDetail = prodDetailMapper.selectProdDetail(prodDetailVO);
+				
+				int prodTSto = prodDetailMapper.selectSumOrderProdNo(prodDetail.getProdNo());
+				ProdVO prodVO = new ProdVO();
+				prodVO.setProdNo(prodDetail.getProdNo());
+				prodVO.setProdTSto(prodTSto);
+				prodMapper.updateProd(prodVO);
+			}
 			return true;
 		} else {			
 			return false;

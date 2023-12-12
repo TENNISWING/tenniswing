@@ -3,6 +3,7 @@ package com.tenniswing.project.shop.mapper;
 import java.util.List;
 
 import com.tenniswing.project.shop.service.CartVO;
+import com.tenniswing.project.shop.service.OrderDetailVO;
 import com.tenniswing.project.shop.service.OrderTableVO;
 import com.tenniswing.project.shop.service.PayCancelVO;
 
@@ -23,6 +24,9 @@ public interface OrderMapper {
 	
 	// 주문 취소시 수정 (상태 변경)
 	public int updateOrderState(OrderTableVO orderTable);
+	
+	// 주문 취소시 order_detail 한건 조회
+	public List<OrderDetailVO> selectOrderDetail(int orderNo);
 	
 	// 등록
 	public int insertOrder(OrderTableVO orderTableVO);
