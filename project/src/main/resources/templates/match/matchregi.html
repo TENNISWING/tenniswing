@@ -26,53 +26,55 @@
 						</div>
 
 						<!-- 코트 찾기 -->
+						<div class="col-6">
 						<div class="input-group">
 							<input type="text" class="form-control" autocomplete="off"
 								placeholder="코트 찾기" data-bs-toggle="collapse"
 								data-bs-target="#collapseExample" aria-expanded="false"
-								aria-controls="collapseExample" id="search">
+								aria-controls="collapseExample" id="search1">
 
 							<button type="button" class="input-group-text">
 								<i class="icon dripicons dripicons-search fs-3"></i>
 							</button>
-							<div class="collapse z-3 position-absolute mt-5" id="searchArea">
+							<div class="collapse z-3 position-absolute mt-5" id="searchArea1">
 
 								<div class="form-group">
-									<select class="form-select" id="searchItem">
+									<select class="form-select" id="searchItem1">
 									</select>
 								</div>
 							</div>
 						</div>
+						</div>
 						<script>
-						$('#search').on('propertychange change keyup paste input', function(e){						
+						$('#search1').on('propertychange change keyup paste input', function(e){						
 								let inputVal = $(e.target).val();								
-								$('#searchArea').addClass('show');					
+								$('#searchArea1').addClass('show');					
 								 $.ajax({
 								        type: 'get',
 								        url: 'searcharea',
 								        data: {inputVal},
 								        success: function (result) {
-								        	$('#searchItem').empty();
+								        	$('#searchItem1').empty();
 								        	//$('#searchItem').append('<optgroup label="코트">');
 								        	$.each(result, function(index, data) { // 데이터 =item
 								        		let b = `													 
 					                                 <option value="${data.crtroomNo}">${data.crtroomName}</option>  `  										
-					                                 $('#searchItem').append(b)												
+					                                 $('#searchItem1').append(b)												
 											});								        	
 												b = '</optgroup>'
-											$('#searchItem').append(b)
+											$('#searchItem1').append(b)
 								        },
 								        error: () => console.log(error)
 								    })
 								
 								if(inputVal == ''){
-									$('#searchArea').removeClass('show');
+									$('#searchArea1').removeClass('show');
 								}
 								 
 								
 							})
 						
-						 $('#searchItem').on('change propertychange click', function(e){
+						 $('#searchItem1').on('change propertychange click', function(e){
 										console.log($(e.target).val())
 										let crtNo = $(e.target).val();
 										location.href = `courtDetail?crtroomNo=${crtNo}`

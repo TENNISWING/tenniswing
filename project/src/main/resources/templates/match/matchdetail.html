@@ -95,7 +95,7 @@
 							<h3 class="product-detail__price"
 								style="font-family: 'NanumSquareNeo-Variable';">
 								[[${#numbers.formatInteger(matchInfo.crtUseAmt, 3, 'COMMA') +
-								'원'}]] ~</h3>
+								' 원'}]]</h3>
 							<p class="product-detail__short_desc"
 								style="font-family: 'NanumSquareNeo-Variable';">♦ 코멘트 영역
 								[[${matchInfo.detailCtt}]]</p>
@@ -111,6 +111,7 @@
 											style="width: 70px; border: 0; text-align: center"
 											id="crtroomOperateStartTime" th:value="${matchInfo.time}"
 											disabled /></li>
+										<!-- <li>~</li> -->
 									</ul>
 								</div>
 							</div>
@@ -127,64 +128,62 @@
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-			</div>
+						<br><br>
 
-			
-			<div class="row product-info">
-				<div class="col-12">
-					<div class="tabs__wrapper tabs__wrapper--v3">
-						<div class="tabs__filter">
-							<ul class="nav nav-tabs" id="myTab" role="tablist">
-								<li class="nav-item" role="presentation">
-									<button class="nav-link" id="women-tab" data-bs-toggle="tab"
-										data-bs-target="#women-tab-pane" type="button" role="tab"
-										aria-controls="women-tab-pane" aria-selected="false">작성자 정보</button>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-
-					<div class="tab-content" id="myTabContent">
-						<div class="tab-pane fade" id="women-tab-pane" role="tabpanel"
-							aria-labelledby="women-tab" tabindex="0">
-							<!--review form Modal -->
-
-							<div class="client__review">
-								<div class="outline" style="margin: 30px 0 30px 0;">
-									<h3 class="sec__title" style="font-size:20px; margin: 0;">작성자 정보</h3>
+						<div class="review__wrapper">
+							<div class="review__item">
+								<div class="matchimg">
+									<img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+										alt="avatar" />
 								</div>
-								<div class="review__wrapper">
-									<div class="review__item">
-										<div class="avatar">
-											<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" />
+								<div class="review__content">
+									<div class="review__desc">
+										<div class="review__wrap">
+											<h5>
+												<a href="#">[[${matchInfo.nick}]]</a>
+											</h5>
 										</div>
-										<div class="review__content">
-											<div class="review__desc">
-												<div class="review__wrap">
-													<h5>
-														<a href="#">[[${matchInfo.name}]]</a>
-													</h5>
-												</div>
-											</div>
-											<div class="review__para">
-												<p>[[${matchInfo.gen}]]</p>
-												<p>[[${matchInfo.lv}]]</p>
-												<p>매너레벨</p>
-											</div>
-										</div>
+									</div>
+									<div class="review__para">
+										<p>성별 : [[${matchInfo.genName}]]</p>
+										<p>레벨 : [[${matchInfo.lvName}]]</p>
 									</div>
 								</div>
 							</div>
-						</div>
+						</div><br>
 
+						<!-- button -->
+						<div class="product-detail__qty">
+							<div class="product__bottom mtdbtn">
+								<div class="cart__action__btn">
+									<button type="button" class="btn btn-primary matchbtn4"
+										id="applyBtn" style="font-size: 12.5px">신청하기</button>
+								</div>
+								<div class="cart__action__btn">
+									<button type="button" class="btn btn-primary matchbtn4"
+										style="font-size: 12.5px"
+										th:onclick="|location.href='@{/matchupdateregi(matchNo=${matchInfo.matchNo})}'|">
+										수정하기</a>
+									</button>
+								</div>
+								<div class="cart__action__btn">
+									<button type="button" class="btn btn-primary matchbtn4"
+										style="font-size: 12.5px" id="deleteBtn">삭제하기</button>
+								</div>
+								<div class="cart__action__btn">
+									<button type="button" class="btn btn-primary matchbtn4"
+										style="font-size: 12.5px" th:onclick="|location.href='@{/}'|">
+										목록으로</a>
+									</button>
+								</div>
+							</div>
+						</div>
+						<!-- button close -->
 					</div>
 				</div>
 			</div>
-		</section>
 	</div>
+	<br><br>
 
 	<script th:inline='javascript'>
             let matchNo = [[${matchInfo.matchNo}]]

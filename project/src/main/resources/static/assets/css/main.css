@@ -90,6 +90,13 @@
 # Match
 --------------------------------------------------------------*/
 
+.matchimg img {
+	height: 80px;
+	width: 80px;
+ 	border-radius: 50%;
+ 	margin-right:20px;
+}
+
 .mtntrpbtn {
 	background-color: white;
     border: none;
