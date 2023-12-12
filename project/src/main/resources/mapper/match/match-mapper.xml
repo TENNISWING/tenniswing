@@ -861,7 +861,7 @@
 		SELECT m.match_no
 		, c.club_name
 		, m.match_date
-		, m.time
+		, FIND_CATEGORY_NAME (m.time) time_name
 		, m.in_date
 		, m.update_date
 		, m.game_way

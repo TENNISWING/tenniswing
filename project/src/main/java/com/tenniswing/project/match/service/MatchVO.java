@@ -74,4 +74,10 @@ public class MatchVO {
 	
 	private String nick;
 	
+	
+	
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date today;
+	
 }
