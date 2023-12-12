@@ -217,7 +217,8 @@ public class ClubController {
 	@GetMapping("selectClubList")
 	@ResponseBody
 	public List<MatchVO> MatchListAjax(MatchVO matchVO) {
-		return matchService.selectClubList(matchVO);
+		
+		return matchService.selectClubList(matchVO).get("before");
 	}
 	
 	// --------------------------------------- 매치 결과
@@ -231,9 +232,17 @@ public class ClubController {
 		@GetMapping("selectClubEndList")
 		@ResponseBody
 		public List<MatchVO> MatchEndListAjax(MatchVO matchVO) {
-			return matchService.selectClubList(matchVO);
+			return matchService.selectClubList(matchVO).get("after");
 		}
-	
+		
+
+	//매치 결과 입력
+		@PostMapping("insertResult")
+		@ResponseBody
+		public String resultAjax(MatchVO matchVO) {
+			clubMatchService.insertResult(matchVO);
+			return "redirect:clubMatchEnd";
+		}
 	
 	// --------------------------------------- 자유게시판
 	
@@ -291,6 +300,7 @@ public class ClubController {
 	@ResponseBody
 	public Map<String, Object> postUpdateFormAjax(ClubPostVO clubPostVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println("55555555555555555555555555"+clubPostVO);
 		clubPostVO.setMemId(id);
 		Map<String, Object> result = clubPostService.updatePost(clubPostVO);
 

@@ -84,6 +84,20 @@ HAVING c.club_no= #{clubNo}
   		   )
 </insert>
 
+<!-- 매치 결과 입력 -->  
+<insert id="insertResult" parameterType="ClubVO">
+  	INSERT INTO club_match_rst
+  			(
+  				club_match_no
+  				, club_match_rst
+ 			)
+  		   VALUES
+  		   (
+  		   	#{clubMatchNo}
+  		   	, #{clubMatchRst}
+  		   )
+</insert>
+
 
 
 </mapper>

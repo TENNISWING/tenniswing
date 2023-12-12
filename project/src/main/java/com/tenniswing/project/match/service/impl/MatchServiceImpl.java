@@ -1,8 +1,11 @@
 package com.tenniswing.project.match.service.impl;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -217,16 +220,25 @@ public class MatchServiceImpl implements MatchService {
 	
 	//클럽내 매치 리스트
 	@Override
-	public List<MatchVO> selectClubList(MatchVO matchVO) {
-		
-		/*
-		 * LocalDate today = LocalDate.now(); DateTimeFormatter dateFormat =
-		 * DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		 * 
-		 * System.out.println(today.format(dateFormat));
-		 */
-		
-		return matchMapper.selectClubList(matchVO);
+	public Map<String, List<MatchVO>> selectClubList(MatchVO matchVO) {
+		Map<String, List<MatchVO>> map = new HashMap<>();
+		 List<MatchVO> before = new ArrayList<>();
+		 List<MatchVO> after = new ArrayList<>();
+		 
+		  Date today = new Date();
+		  
+		  List<MatchVO> list= matchMapper.selectClubList(matchVO);
+		  for(MatchVO vo :list) {
+			  if(vo.getMatchDate().after(today)) {
+				  before.add(vo);
+			  }else {
+				  after.add(vo);
+			  }
+		  }
+		  map.put("before", before);
+		  map.put("after", after);
+		  
+		return map;
 	}
 
 	/*

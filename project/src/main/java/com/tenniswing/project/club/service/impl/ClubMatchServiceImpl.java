@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tenniswing.project.club.mapper.ClubMapper;
 import com.tenniswing.project.club.mapper.ClubMatchMapper;
 import com.tenniswing.project.club.service.ClubMatchService;
 import com.tenniswing.project.club.service.ClubVO;
+import com.tenniswing.project.match.service.MatchVO;
 
 @Service
 public class ClubMatchServiceImpl implements ClubMatchService {
@@ -31,6 +33,12 @@ public class ClubMatchServiceImpl implements ClubMatchService {
 	@Override
 	public int insertRecruitMem(ClubVO clubVO) {
 		return clubMatchMapper.insertRecruitMem(clubVO);
+	}
+	
+	//매치 결과 입력
+	@Override
+	public int insertResult(MatchVO matchVO) {
+		return clubMatchMapper.insertResult(matchVO);
 	}
 
 }
