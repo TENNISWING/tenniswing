@@ -1,5 +1,6 @@
 package com.tenniswing.project.admin.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,17 +17,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
+import com.tenniswing.project.club.service.ClubService;
 import com.tenniswing.project.common.FileUtils;
+import com.tenniswing.project.community.service.SnsService;
 import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.match.service.MatchService;
 import com.tenniswing.project.match.service.MatchVO;
 import com.tenniswing.project.member.service.MemberService;
+import com.tenniswing.project.shop.mapper.ProdDetailMapper;
+import com.tenniswing.project.shop.mapper.ProdMapper;
+import com.tenniswing.project.shop.service.OrderDetailVO;
 import com.tenniswing.project.shop.service.OrderService;
 import com.tenniswing.project.shop.service.OrderTableVO;
+import com.tenniswing.project.shop.service.PayCancelVO;
 import com.tenniswing.project.shop.service.ProdDetailService;
 import com.tenniswing.project.shop.service.ProdDetailVO;
 import com.tenniswing.project.shop.service.ProdService;
 import com.tenniswing.project.shop.service.ProdVO;
+import com.tenniswing.project.shop.web.PayService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,6 +65,21 @@ public class AdminController {
 	
 	@Autowired
 	CourtroomService courtroomService;
+	
+	@Autowired
+
+	ClubService clubService;
+	
+	@Autowired
+	SnsService snsService;
+  
+	PayService payService;
+	
+	@Autowired
+	ProdDetailMapper prodDetailMapper;
+	
+	@Autowired
+	ProdMapper prodMapper;
 
 	// 상품 목록
 	@GetMapping("admin_Product")
@@ -179,6 +202,66 @@ public class AdminController {
 		return "admin/adminDetail_Order";
 	}
 	
+	// 주문 취소 (환불)
+	@PostMapping("adminOrderCancel")
+	@ResponseBody
+	public Boolean adminOrderCancel(@RequestBody OrderTableVO vo) throws Exception {
+		OrderTableVO orderTableVO = new OrderTableVO();
+		orderTableVO = orderService.selectOrder(vo.getOrderNo());
+		PayCancelVO payCancelVO = new PayCancelVO();
+		OrderTableVO updateOrderTableVO = new OrderTableVO();
+		
+		List<OrderDetailVO> orderDetailList = new ArrayList<OrderDetailVO>();
+		int orderNo = vo.getOrderNo();
+		
+		String token = payService.getToken();
+		String refundPrice = String.valueOf(orderTableVO.getOrderTPayAmt());
+		String imp_uid = orderTableVO.getImpUid();
+		
+		payService.payMentCancle(token, imp_uid, refundPrice, "주문취소");
+		
+		// 결제 취소 테이블에 insert
+		payCancelVO.setOrderNo(vo.getOrderNo());
+		payCancelVO.setPayCancelAMt(orderTableVO.getOrderTPayAmt());
+		payCancelVO.setPayCancelApplyPart("v2");
+		int result = orderService.insertPayCancel(payCancelVO);
+		
+		ProdDetailVO prodDetailVO = new ProdDetailVO();
+		if(result > 0) {
+			// order_table update - orderState
+			updateOrderTableVO.setOrderState("s7");
+			updateOrderTableVO.setOrderNo(vo.getOrderNo());
+			orderService.updateOrderState(updateOrderTableVO);
+			
+			// 상품 재고 다시 추가
+			// prod_detail_no별 판매 재고를 가져온다
+			// prod_detail_no의 재고를 추가한다.
+			orderDetailList = orderService.selectOrderDetail(orderNo);
+			log.warn("===orderDetailVO==="+orderDetailList);
+			for(OrderDetailVO detVO : orderDetailList) {
+				prodDetailVO.setProdDetailNo(detVO.getProdDetailNo());
+				prodDetailVO.setProdDetailSto(detVO.getOrderDetailCnt());
+				
+				log.warn("====prodDetailVO===="+prodDetailVO);
+				// 상품 상세 재고 추가
+				prodDetailMapper.updateProdDetailCancel(prodDetailVO);
+				
+				// 상품 번호 가져오기
+				ProdDetailVO prodDetail = new ProdDetailVO(); 
+				prodDetail = prodDetailMapper.selectProdDetail(prodDetailVO);
+				
+				int prodTSto = prodDetailMapper.selectSumOrderProdNo(prodDetail.getProdNo());
+				ProdVO prodVO = new ProdVO();
+				prodVO.setProdNo(prodDetail.getProdNo());
+				prodVO.setProdTSto(prodTSto);
+				prodMapper.updateProd(prodVO);
+			}
+			return true;
+		} else {			
+			return false;
+		}
+	}
+	
 	//회원목록
 	@GetMapping("admin_member")
 	public String adminMemberPage(Model model) {
@@ -216,17 +299,17 @@ public class AdminController {
 	//클럽 목록
 	@GetMapping("admin_club")
 	public String adminClubPage(Model model) {
-		model.addAttribute("matchList", matchService.matchAll());
+		model.addAttribute("clubList", clubService.selectAllClub() );
 		return "admin/admin_Club";	
 	}
 	
 	//클럽 상세페이지
 	@GetMapping("adminDetail_Club")
-	public String adminClubDetailPage(Model model, Integer matchNo) {
+	public String adminClubDetailPage(Model model, Integer clubNo) {
 		
 		MatchVO matchVO = new MatchVO();
-		matchVO.setMatchNo(matchNo);
-		model.addAttribute("match", matchService.selectMatch(matchVO));
+		matchVO.setMatchNo(clubNo);
+		model.addAttribute("club", matchService.selectMatch(matchVO));
 		
 		return "admin/adminDetail_Club";
 	}

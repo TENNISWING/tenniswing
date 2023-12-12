@@ -1,115 +1,188 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layouts/main-layout}">
+	layout:decorate="~{layouts/main-layout}">
 
 <th:block layout:fragment="content">
-	<!-- match sub menu -->
+	<!-- match sub menu
 	<div class="container mb-4">
 		<ul class="nav d-flex justify-content-around text-center matchsidevar">
 			<li class="d-flex flex-column"><a href="/"><img
 					src="assets/img/match/icon/icon1.png" class=" miconimg">매치</a></li>
 			<li class="d-flex flex-column"><a href="clubmatch"><img
 					src="assets/img/match/icon/icon2.png" class=" miconimg">클럽</a></li>
-			<li class="d-flex flex-column"><a href="contestmatch"><img
+			<!-- <li class="d-flex flex-column"><a href="contestmatch"><img
 					src="assets/img/match/icon/icon3.png" class=" miconimg">대회</a></li>
 			<li class="d-flex flex-column"><a href="startermatch"><img
 					src="assets/img/match/icon/icon4.png" class=" miconimg">스타터</a></li>
 		</ul>
 	</div>
-	<!-- End match sub menu  -->
+	End match sub menu  -->
 
-	<div class="blog-single gray-bg mctdeall">
-		<div class="container">
-			<div class="row align-items-start">
-				<div class="col-lg-8 m-15px-tb">
-					<article class="article">
-						<div class="article-img">
-							<img th:src="${clubMatchInfo.attachPath}" title="" alt=""
-								style="width: 850px; height: 350px;">
+
+	<div class="container">
+		<section class="product-main">
+			<div class="container">
+				<div class="row product-detail">
+					<div class="col-md-6" style="width: 70%">
+						<div class="product-gallery">
+							<div
+								class="product-gallery__thumb swiper productGallerySwiperThumb">
+								<div class="swiper-wrapper">
+									<th:block th:each="clubMatchDetail, stat : ${clubMatchInfo.attachList}">
+										<div class="swiper-slide">
+											<div class="gallery-item">
+												<img th:src="${clubMatchDetail.attachPath}" alt="product iamge" />
+											</div>
+										</div>
+									</th:block>
+									<!-- <div class="swiper-slide">
+											<div class="gallery-item">
+												<img src="/assets/img/card.jpg" alt="product iamge" />
+											</div>
+										</div>
+										<div class="swiper-slide">
+											<div class="gallery-item">
+												<img src="/assets/img/card.jpg" alt="product iamge" />
+											</div>
+										</div>
+										<div class="swiper-slide">
+											<div class="gallery-item">
+												<img src="/assets/img/card.jpg" alt="product iamge" />
+											</div>
+										</div> -->
+								</div>
+							</div>
+							<div class="product-gallery__main swiper productGallerySwiper">
+								<div class="swiper-wrapper">
+									<th:block th:each="clubMatchDetail, stat : ${clubMatchInfo.attachList}">
+										<div class="swiper-slide">
+											<div class="gallery-item">
+												<img th:src="${clubMatchDetail.attachPath}" alt="product iamge" />
+											</div>
+										</div>
+									</th:block>
+									<!-- <div class="swiper-slide">
+											<div class="gallery-item">
+												<img src="/assets/img/card.jpg" alt="product iamge" />
+											</div>
+										</div>
+										<div class="swiper-slide">
+											<div class="gallery-item">
+												<img src="/assets/img/card.jpg" alt="product iamge" />
+											</div>
+										</div>
+										<div class="swiper-slide">
+											<div class="gallery-item">
+												<img src="/assets/img/card.jpg" alt="product iamge" />
+											</div>
+										</div> -->
+								</div>
+							</div>
 						</div>
-						<div class="article-title">
-							<div class="media">
-								<div class="avatar">
+					</div>
+
+					<!-- ============= 코트장 정보 ============= -->
+
+					<div class="col-md-6" style="margin-top: 20px; width: 30%">
+						<div class="product-detail__wrapper">
+							<h2 class="product-detail__title"
+								style="font-family: 'NanumSquareNeo-Variable';">[[ ${clubMatchInfo.crtroomName} ]]</h2>
+							<input type="hidden" name="crtroomName"
+								th:value="${clubMatchInfo.crtroomName}">
+							<div class="product-detail__meta"></div>
+							<h3 class="product-detail__price"
+								style="font-family: 'NanumSquareNeo-Variable';">
+								[[${#numbers.formatInteger(clubMatchInfo.crtUseAmt, 3, 'COMMA') +
+								' 원'}]]</h3>
+							<p class="product-detail__short_desc"
+								style="font-family: 'NanumSquareNeo-Variable';">♦ 코멘트 영역
+								[[${clubMatchInfo.detailCtt}]]</p>
+							<br>
+
+							<div class="product-detail__attr">
+								<div class="product__attr">
+									<span class="product-detail--stroke"
+										style="font-weight: bold; font-family: 'NanumSquareNeo-Variable';">경기
+										시간</span>
+									<ul class="product__attr--color" style="margin: 0; padding: 0">
+										<li><input type="text"
+											style="width: 70px; border: 0; text-align: center"
+											id="crtroomOperateStartTime" th:value="${clubMatchInfo.time}"
+											disabled /></li>
+										<!-- <li>~</li> -->
+									</ul>
+								</div>
+							</div>
+
+							<div class="product-detail__qty">
+								<span class="product-detail--stroke"
+									style="font-weight: bold; font-family: 'NanumSquareNeo-Variable';">코트장
+									위치</span>
+								<div>
+									<input type="text" style="border: 0; text-align: center"
+										th:value="${clubMatchInfo.crtroomLocation}" disabled /> <input
+										type="hidden" style="border: 0; text-align: center"
+										name="crtroomLocation" th:value="${clubMatchInfo.crtroomLocation}">
+								</div>
+							</div>
+						</div>
+						<br><br>
+
+						<div class="review__wrapper">
+							<div class="review__item">
+								<div class="matchimg">
 									<img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-										title="" alt="">
+										alt="avatar" />
 								</div>
-								<div class="media-body">
-									<label>닉네임</label> <span>성별</span><span>레벨</span><span>매너점수</span>
+								<div class="review__content">
+									<div class="review__desc">
+										<div class="review__wrap">
+											<h5>
+												<a href="#">[[${clubMatchInfo.nick}]]</a>
+											</h5>
+										</div>
+									</div>
+									<div class="review__para">
+										<p>성별 : [[${clubMatchInfo.genName}]]</p>
+										<p>레벨 : [[${clubMatchInfo.lvName}]]</p>
+									</div>
+								</div>
+							</div>
+						</div><br>
+
+						<!-- button -->
+						<div class="product-detail__qty">
+							<div class="product__bottom mtdbtn">
+								<div class="cart__action__btn">
+									<button type="button" class="btn btn-primary matchbtn4"
+										id="applyBtn" style="font-size: 12.5px">신청하기</button>
+								</div>
+								<div class="cart__action__btn">
+									<button type="button" class="btn btn-primary matchbtn4"
+										style="font-size: 12.5px"
+										th:onclick="|location.href='@{/clubmatchupdateregi(matchNo=${clubMatchInfo.matchNo})}'|">
+										수정하기</a>
+									</button>
+								</div>
+								<div class="cart__action__btn">
+									<button type="button" class="btn btn-primary matchbtn4"
+										style="font-size: 12.5epx" id="deleteBtn">삭제하기</button>
+								</div>
+								<div class="cart__action__btn">
+									<button type="button" class="btn btn-primary matchbtn4"
+										style="font-size: 12.5px" th:onclick="|location.href='@{/clubmatch}'|">
+										목록으로</a>
+									</button>
 								</div>
 							</div>
 						</div>
-						<div class="article-content">
-							<p>경기 방식 : [[${clubMatchInfo.gameWayName}]]</p>
-							<p>모집 인원 수 : [[${clubMatchInfo.recruitPsnNum}]]명</p>
-							<p>구력 : [[${clubMatchInfo.lvName}]]</p>
-						</div>
-					</article>
-				</div>
-
-
-				<div class="col-lg-4 m-15px-tb blog-aside">
-					<!-- Latest Post -->
-					<div class="widget widget-latest-post">
-						<div class="widget-title">
-							<h3 class="mdttitle">장소 안내</h3>
-						</div>
-						<div class="widget-body">
-							<div class="latest-post-aside media">
-								<p>경기 시간 : [[${clubMatchInfo.time}]]시</p>
-							</div>
-							<div class="latest-post-aside media">
-								<p>코트장 이름 [[${clubMatchInfo.crtroomName}]]</p>
-								<div class="lpa-right"></div>
-							</div>
-							<div class="latest-post-aside media">
-								<p>코트장 위치 [[${clubMatchInfo.crtroomLocationName}]]</p>
-							</div>
-						</div>
+						<!-- button close -->
 					</div>
-					<!-- End Latest Post -->
-
-					<!-- Author -->
-					<div class="widget widget-author">
-						<div class="widget-title">
-							<h3 class="mdttitle">인당 요금</h3>
-						</div>
-						<div class="widget-body">
-							<p>코트 사용 요금 : [[${clubMatchInfo.crtUseAmt}]]원</p>
-						</div>
-						<!-- End Author -->
-					</div>
-					<!-- button -->
-					<div class="product__bottom mtdbtn">
-						<div class="cart__action__btn">
-							<select name="clubNo">
-								<option th:each="club : ${clubList}" th:value="${club.clubNo}"
-									th:text="${club.clubName}">
-							</select>
-
-							<button type="button" class="btn btn-primary matchbtn4"
-								id="applyBtn">신청하기</button>
-						</div>
-						<div class="cart__action__btn">
-							<button type="button" class="btn btn-primary matchbtn4"
-								th:onclick="|location.href='@{/clubmatchupdateregi(matchNo=${clubMatchInfo.matchNo})}'|">
-								수정하기</button>
-						</div>
-						<div class="cart__action__btn">
-							<button type="button" class="btn btn-primary matchbtn4"
-								id="deleteBtn">삭제하기</button>
-						</div>
-						<div class="cart__action__btn">
-							<button type="button" class="btn btn-primary matchbtn4"
-								th:onclick="|location.href='@{/clubmatch}'|">목록으로</button>
-						</div>
-					</div>
-					<!-- button close -->
 				</div>
 			</div>
-		</div>
 	</div>
-
+	<br><br>
 	<script th:inline='javascript'>
             let matchNo = [[${clubMatchInfo.matchNo}]]
             $('#applyBtn').on("click", function(e) {

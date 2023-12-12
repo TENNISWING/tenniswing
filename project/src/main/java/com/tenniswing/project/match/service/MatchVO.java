@@ -18,7 +18,7 @@ public class MatchVO {
 	private String memId;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date matchDate;
-	private int time;
+	private String time;
 	private String age;
 	private String gameWay;
 	private String gameWayName;
@@ -71,5 +71,7 @@ public class MatchVO {
 	
 	// attach
 	private List<AttachVO> attachList;
+	
+	private String nick;
 	
 }

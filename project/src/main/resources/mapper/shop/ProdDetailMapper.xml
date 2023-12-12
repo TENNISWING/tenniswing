@@ -24,6 +24,7 @@
   	<select id="selectProdDetail" resultType="ProdDetailVO">
   		SELECT 	prod_detail_no,
   				prod_detail_sto,
+  				prod_no,
   				FIND_CATEGORY_NAME(prod_detail_sale_sts) AS prod_detail_sale_sts, 
   			   	FIND_CATEGORY_NAME(cate_color) AS cate_color,
   			   	FIND_CATEGORY_NAME(cate_size) AS cate_size
@@ -83,6 +84,13 @@
   	<update id="updateOrderProdDetail" parameterType="int">
   		UPDATE	prod_detail
   		SET		prod_detail_sto = prod_detail_sto - #{prodDetailSto}
+  		WHERE	prod_detail_no = #{prodDetailNo}
+  	</update>
+  	
+  	<!-- 상품 주문 취소 후 재고 처리 -->
+  	<update id="updateProdDetailCancel" parameterType="int">
+  		UPDATE	prod_detail
+  		SET		prod_detail_sto = prod_detail_sto + #{prodDetailSto}
   		WHERE	prod_detail_no = #{prodDetailNo}
   	</update>
   	
