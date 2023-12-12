@@ -160,17 +160,35 @@
 
 		<script>
 
+		
+		$(document).ready(function () {
+			postListPage(1);
+		});
+		
 		let pageNum = 1;
 		let pageSize = 10.0; //페이지 번호 수
 		let pageUnit = 7;  //한페이지에 출력할 행의 수
 			
 			//페이징
-	    	postListPage(1);
+	    	
 			
 			$('#sortBy').on('change', function(e) {
 				pageNum = 1;
 				postListPage(1);
 			})
+			
+			
+			$('.pagination').on('click', 'li a', function(e) {
+				e.preventDefault();
+				console.log('page click');
+				
+				let targetPage = $(this).attr('href');
+				console.log('targetPage: ' + targetPage);
+				
+				pageNum = targetPage;
+				postListPage(pageNum);
+			});
+			
 			
 			function postListPage(page) {
 				let sort = $('#sortBy').val();
@@ -242,6 +260,37 @@
 							$('#postList').append(List)
 						}
 						showPage(data.selectCount);
+						
+						function showPage(replyCnt) {
+							var endNum = Math.ceil(pageNum / pageSize) * pageSize;
+							var startNum = endNum > pageSize? endNum - pageSize : 1;
+							
+							var prev = startNum != 1;
+							var next = false;
+							
+							if(endNum * 10 >= replyCnt) {
+								endNum = Math.ceil(replyCnt/pageUnit);
+							}
+							
+							if(endNum * 10 < replyCnt) {
+								next = true;
+							}
+							
+							var str= "";
+							
+							for(var i = startNum ; i <= endNum; i++) {
+								var active = pageNum == i? "active":"";
+								str+= "<li class='page-item "+active+"'> <a class='page-link' href='"+i+"'>"+i+"</a></li>";		
+							}
+							
+							str += "";
+							
+							console.log(str);
+							
+							$('.pagination').html(str);
+						}
+						
+						
 					$('#postList tr.accordion-header').on("click", repListAjax);
 						
 						//조회수 추가
@@ -367,6 +416,7 @@
 							`
 							$('#r' + clubPostNo).append(List)
 						}
+						
 						//댓글 삭제 버튼 클릭
 						$('.repDelBtn').on("click", function (e) {
 							let clubRepNo = $(this).data('value');
@@ -386,53 +436,14 @@
 								}
 							})
 						});
+						
 					}//success 끝
 				})
 			}
 			
-			/* let pageNum = 1;
-			let pageSize = 10.0; //페이지 번호 수
-			let pageUnit = 7;  //한페이지에 출력할 행의 수 */
 			
-			$('.pagination').on('click', 'li a', function(e) {
-				e.preventDefault();
-				console.log('page click');
-				
-				let targetPage = $(this).attr('href');
-				console.log('targetPage: ' + targetPage);
-				
-				pageNum = targetPage;
-				postListPage(targetPage);
-			});
 		
-			function showPage(replyCnt) {
-				var endNum = Math.ceil(pageNum / pageSize) * pageSize;
-				var startNum = endNum > pageSize? endNum - pageSize : 1;
-				
-				var prev = startNum != 1;
-				var next = false;
-				
-				if(endNum * 10 >= replyCnt) {
-					endNum = Math.ceil(replyCnt/pageUnit);
-				}
-				
-				if(endNum * 10 < replyCnt) {
-					next = true;
-				}
-				
-				var str= "";
-				
-				for(var i = startNum ; i <= endNum; i++) {
-					var active = pageNum == i? "active":"";
-					str+= "<li class='page-item "+active+"'> <a class='page-link' href='"+i+"'>"+i+"</a></li>";		
-				}
-				
-				str += "";
-				
-				console.log(str);
-				
-				$('.pagination').html(str);
-			}
+		
 
 			//댓글 등록 아작스
 			function repInsertAjax(clubPostNo, clubRepCtt) {
@@ -532,9 +543,7 @@
 
 
 
-			$(document).ready(function () {
-				//postListAjax()
-			});
+			
 
 
 		</script>
