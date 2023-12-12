@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
+import com.tenniswing.project.club.service.ClubService;
 import com.tenniswing.project.common.FileUtils;
+import com.tenniswing.project.community.service.SnsService;
 import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.match.service.MatchService;
 import com.tenniswing.project.match.service.MatchVO;
@@ -65,6 +67,12 @@ public class AdminController {
 	CourtroomService courtroomService;
 	
 	@Autowired
+
+	ClubService clubService;
+	
+	@Autowired
+	SnsService snsService;
+  
 	PayService payService;
 	
 	@Autowired
@@ -291,17 +299,17 @@ public class AdminController {
 	//클럽 목록
 	@GetMapping("admin_club")
 	public String adminClubPage(Model model) {
-		model.addAttribute("matchList", matchService.matchAll());
+		model.addAttribute("clubList", clubService.selectAllClub() );
 		return "admin/admin_Club";	
 	}
 	
 	//클럽 상세페이지
 	@GetMapping("adminDetail_Club")
-	public String adminClubDetailPage(Model model, Integer matchNo) {
+	public String adminClubDetailPage(Model model, Integer clubNo) {
 		
 		MatchVO matchVO = new MatchVO();
-		matchVO.setMatchNo(matchNo);
-		model.addAttribute("match", matchService.selectMatch(matchVO));
+		matchVO.setMatchNo(clubNo);
+		model.addAttribute("club", matchService.selectMatch(matchVO));
 		
 		return "admin/adminDetail_Club";
 	}
