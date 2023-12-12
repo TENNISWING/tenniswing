@@ -282,6 +282,7 @@
 				,grp_create_date
 				,grp_name
 				,mem_id
+				,attach_path
 			)
 		VALUES
 			(
@@ -289,6 +290,7 @@
 				,sysdate
 				,#{grpName}
 				,#{memId}
+				,#{attachPath}
 			)
 	</insert>
 	
@@ -302,6 +304,7 @@
 			   ,s.grp_edit_date
 			   ,s.mem_id
 			   ,m.name
+			   ,s.attach_path
 		from sns_grp s, mem m
 		where s.mem_id = m.mem_id
 		and s.mem_id = #{memId}
@@ -310,6 +313,7 @@
            to_date('1970/01/01','yyyy/MM/dd'),
            null,
            '기타',
+           null,
            null,
            null,
            null

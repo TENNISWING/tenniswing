@@ -402,5 +402,35 @@ public class CommunityController {
 
 
 	}
-
-}
+	
+	//공지사항 수정 페이지
+	@GetMapping("noticeEditForm")
+	public String noticeEditFormPage(BrdVO brdVO, Model model) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		brdVO.setMemId(id);
+		model.addAttribute("nbrd", brdService.selectBrdInfo(brdVO));
+		
+		return "community/noticeEditForm";
+	}
+	
+	//공지사항 수정 처리
+	@PostMapping("noticeEditForm")
+	public String noticeEdit(BrdVO brdVO, Model model) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName(); // 로그인 아닌 권한체크로 변경 
+		brdVO.setMemId(id);
+		brdService.updateBrd(brdVO);
+		int brdWrtNo = brdService.selectBrdInfo(brdVO).getBrdWrtNo();
+		
+		return "redirect:noticeDetail?brdWrtNo="+brdWrtNo;
+	}
+	
+	// 공지사항 삭제 처리
+	@PostMapping("brdDelete")
+	@ResponseBody
+	public boolean brdDeleteAjax(Integer brdWrtNo) {
+		boolean result = brdService.deleteBrd(brdWrtNo);
+		
+		return result;
+	}
+	
+}	

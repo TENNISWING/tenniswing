@@ -3,7 +3,11 @@
 	layout:decorate="~{layouts/main-layout}">
 
 <head>
-
+<style>
+.grpImg{
+	height: 400px;
+}	
+</style>
 </head>
 
 <th:block layout:fragment="content">
@@ -43,9 +47,15 @@
 											<!-- 여기서 반복문 th:each="" -->
 											<div class="card">
 												<div class="card-content">
-
-													<img class="img-fluid w-100" src="/assets/compiled/jpg/banana.jpg"
+													<th:block th:if="${mg.snsGrpNo != null}">
+													<img class="img-fluid w-100 grpImg" th:src="${mg.attachPath}"
 														style="border-radius: 10px 10px 0 0;" alt="Card image cap">
+													</th:block>
+													<th:block th:unless="${mg.snsGrpNo != null}">
+													<img class="img-fluid w-100 grpImg" src="assets/img/sns/Tennis1.jpg"
+														style="border-radius: 10px 10px 0 0;" alt="Card image cap">
+													</th:block>
+													
 												</div>
 												<div class="card-footer d-flex justify-content-between"
 													style="flex-direction: column; border: 1px solid #ccc; gap: 15px;">
