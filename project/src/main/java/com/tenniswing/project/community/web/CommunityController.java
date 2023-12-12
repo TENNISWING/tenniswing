@@ -364,6 +364,7 @@ public class CommunityController {
 	// 공지사항 상세 페이지
 	@GetMapping("noticeDetail")
 	public String noticeDetailPage(BrdVO brdVO, Model model) {
+		//brdService.updateBrdHit(brdVO.getBrdWrtNo());
 		model.addAttribute("nbrd", brdService.selectBrdInfo(brdVO));
 		return "community/noticeDetail";
 	}

@@ -35,6 +35,12 @@ public class ProdDetailServiceImpl implements ProdDetailService{
 		return prodDetailMapper.selectCartProd(prodDetailVO);
 	}
 	
+	// 주문 취소시 재고 추가 update
+	@Override
+	public int updateProdDetailCancel(ProdDetailVO prodDetailVO) {
+		return prodDetailMapper.updateProdDetailCancel(prodDetailVO);
+	}
+	
 	//등록
 	@Override
 	public Map<String, Object> insertProdDetail(ProdDetailVO prodDetailVO) {
@@ -96,6 +102,5 @@ public class ProdDetailServiceImpl implements ProdDetailService{
 		map.put("listDetailVO", prodDetailMapper.selectAllProdDetail(tempVO));
 		return map;	
 	}
-
 	
 }

@@ -200,6 +200,7 @@
   		SET		prod_t_sto = prod_t_sto - #{prodDetailSto}
   		WHERE	prod_no = #{prodNo}
   	</update>
+
   	
   	<!-- 상품 삭제 -->
   	<delete id="deleteProd" parameterType="int">

@@ -24,6 +24,8 @@ public class BrdServiceImpl implements BrdService {
 	// 단건조회
 	@Override
 	public BrdVO selectBrdInfo(BrdVO brdVO) {
+		 brdMapper.updateBrdHit(brdVO.getBrdWrtNo());
+
 		return brdMapper.selectBrdInfo(brdVO);
 	}
 
@@ -65,6 +67,11 @@ public class BrdServiceImpl implements BrdService {
 	@Override
 	public int selectCount(BrdVO brdVO) {
 		return brdMapper.selectCount(brdVO);
+	}
+
+	@Override
+	public void updateBrdHit(int brdWrtNo) {
+		 brdMapper.updateBrdHit(brdWrtNo);
 	}
 
 }
