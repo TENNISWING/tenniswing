@@ -99,7 +99,7 @@
 					</div>
 						<div class="col-lg-2 text-end">
 							<button type="button" class="btn btn-primary"
-								th:onclick="|location.href='@{startermatchmatchregi}'|">매치 등록</button>
+								th:onclick="|location.href='@{startermatchregi}'|">매치 등록</button>
 						</div>
 				</div>
 			</div>
@@ -281,7 +281,7 @@
 				for(let matchInfo of result.starterMatchList){
 					let b = `<tr class="navbar-brand">					
 					<td class="text-center"><b>${dateFormat(matchInfo.matchDate)}</b></td>
-					<td>${matchInfo.time}시</td>
+					<td>${matchInfo.time}</td>
 					<td>${matchInfo.genName}</td>
 					<td>${matchInfo.ntrpName}</td>
 					<td>${matchInfo.crtroomName}</td>
