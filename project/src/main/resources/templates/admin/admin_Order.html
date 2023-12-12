@@ -237,9 +237,9 @@
 		}
 		
 		$('.orderStateClass').each((idx, item) => {
-			if($(item).text() == '취소완료') {
+			/* if($(item).text() == '취소완료') {
 				console.log(item.parentElement.parentElement);
-			}
+			} */
 		})
 	
 	/* 상태 변경시 */	
@@ -253,11 +253,15 @@
 			console.log($(e.target.parentElement.parentElement).prev().text());
 			$('#orderNO').val($(e.target.parentElement.parentElement.parentElement.children[0]).text());
 			//console.log($('#orderNO').val());
+			$('#orderState option:contains('+$(e.target.parentElement.parentElement).prev().text()+')').prop("selected", true);
 		}
 		
 		/* 수정 버튼 클릭시 ajax */
 		$('#editOrderBnt').on('click', function() {
 			let orderNo = {orderNo : $('#orderNO').val()};
+			let state = $('#orderState').val();
+			let shipWaybillNo = $('#shipWaybillNo').val();
+			//console.log(state);
 			
 			if($('#orderState').val() == 's7') {
 				$.ajax('adminOrderCancel', {
@@ -285,6 +289,34 @@
 					}
 				})
 				.fail(err => console.log(err));
+			} else {
+				orderNo.orderState = state;
+				orderNo.shipWaybillNo = shipWaybillNo;
+				
+				$.ajax('adminOrderUpdate', {
+					type : 'post',
+					contentType: 'application/json',
+				    data: JSON.stringify(orderNo)
+				})
+				.done(result => {
+					if(result) {
+						Swal.fire({
+							  icon: "success",
+							  title: "상태 변경 완료",
+							  text: "주문 상태가 변경되었습니다.",
+						}).then(function(){
+							location.reload();
+						})		
+					} else {
+						Swal.fire({
+							  icon: "error",
+							  title: "상태 변경 실패",
+							  text: "상태 변경가 변경되지 않았습니다.",
+						}).then(function(){
+							location.reload();
+						})
+					}
+				})
 			}
 		})
 
