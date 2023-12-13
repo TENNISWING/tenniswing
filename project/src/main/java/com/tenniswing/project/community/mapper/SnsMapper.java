@@ -17,6 +17,8 @@ public interface SnsMapper {
 	public List<SnsVO> selectMyGroup(SnsVO snsVO);
 	// 그룹 값이 NULL인 SNS 리스트 조회
 	public List<SnsVO> selectGrpNull(SnsVO snsVO);
+	// sns 마이페이지
+	public List<SnsVO> selectSnsMyPage(SnsVO snsVO);
 	
 	// 등록
 	public int insertSns(SnsVO snsVO);
@@ -57,4 +59,6 @@ public interface SnsMapper {
 	
 	//페이징 전체 갯수
 	public int selectCount(SnsVO snsVO);
+	
+
 }

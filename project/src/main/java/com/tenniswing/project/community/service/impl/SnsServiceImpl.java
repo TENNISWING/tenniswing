@@ -259,6 +259,11 @@ public class SnsServiceImpl implements SnsService {
 		return snsMapper.selectCount(snsVO);
 	}
 
+	@Override
+	public List<SnsVO> selectSnsMyPage(SnsVO snsVO) {
+		return snsMapper.selectSnsMyPage(snsVO);
+	}
+
 	
 
 

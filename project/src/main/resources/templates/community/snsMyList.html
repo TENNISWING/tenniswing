@@ -6,7 +6,14 @@
 <style>
 .grpImg{
 	height: 400px;
-}	
+}
+.videoSize{
+	height: 150px;
+	/* width: 150px; */
+}
+.thumbImg{
+	height : 150px;
+}
 </style>
 </head>
 
@@ -362,11 +369,20 @@
 
 					for (let grp of result.mySnsGroupList) {
 						let b = `
-							<tr>
-								<td class="text-start">
-									<img class="rounded" src="assets/compiled/jpg/jump.jpg" style="width: 150px;">
-								</td>
-								<td class="text-start">${grp.snsTitle}</td>
+							<tr>`
+								if(grp.attachList[0].attachExt!=".mp4"){
+								 b+= `<td class="text-start">
+									<img class="rounded thumbImg" src="${grp.attachList[0].attachPath}" style="width: 150px;">
+								</td>`	
+								}else{
+								b+=`<td class="text-start">
+								<video class="main-top-promotion-video videoSize"
+									autoplay="autoplay" loop="loop" muted="muted">
+									<source src="${grp.attachList[0].attachPath}" type="video/mp4">
+								</video>
+								</td>`	
+								}
+								b +=` <td class="text-start">${grp.snsTitle}</td>
 								<td>`
 								if(grp.snsGrpNo != null){
 									b += `	<div class="card__action text-center">
@@ -436,7 +452,7 @@
 						
 
 					
-					}//여기까지는 똑같이 쌔비지
+					}
 
 					//그룹 안의 리스트 각각 삭제
 					$('.delBtnClass').on('click', function (e) {

@@ -59,7 +59,7 @@ public class CommunityController {
 	
 		snsVO.setMemId(id);
 		model.addAttribute("snsList", snsService.selectAllSnsInfo(snsVO));
-		return "community/community3";
+		return "community/community";
 	}
 	
 	// SNS 상세페이지
@@ -190,6 +190,8 @@ public class CommunityController {
 	@GetMapping("snsRep")
 	@ResponseBody
 	public List<SnsRepVO> snsRepPageAjax(SnsRepVO snsRepVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		snsRepVO.setMemId(id);
 		return snsRepService.selectAllSnsRep(snsRepVO);
 	}
 	// sns 대댓글 List

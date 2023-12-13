@@ -28,6 +28,10 @@ public class SnsVO {
 	private String name;
 	private Integer snsGrpNo;
 	private int test;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date likeInDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date scrapInDate;
 	
 	//sns 좋아요
 	private Integer likeNo;
