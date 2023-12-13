@@ -47,14 +47,15 @@
 					<script>
 						$('#search').on('propertychange change keyup paste input', function(e){						
 								let inputVal = $(e.target).val();								
-								$('#searchArea').addClass('show');					
+								$('#searchArea').addClass('show');				
 								 $.ajax({
 								        type: 'get',
 								        url: 'searcharea',
 								        data: {inputVal},
 								        success: function (result) {
 								        	$('#searchItem').empty();
-								        	//$('#searchItem').append('<optgroup label="코트">');
+								        	$('#searchItem').append('<option selected="">코트선택</option>')
+								        	
 								        	$.each(result, function(index, data) { // 데이터 =item
 								        		let b = `													 
 					                                 <option value="${data.crtroomNo}">${data.crtroomName}</option>  `  										
@@ -73,10 +74,11 @@
 								
 							})
 						
-						 $('#searchItem').on('change propertychange click', function(e){
-										console.log($(e.target).val())
+						 $('#searchItem').on('change', function(e){							 		
 										let crtNo = $(e.target).val();
-										location.href = `courtDetail?crtroomNo=${crtNo}`
+										if(crtNo != null){											
+											location.href = `courtDetail?crtroomNo=${crtNo}`
+										}
 									})
 					
 					</script>
@@ -125,37 +127,15 @@
 					<li class="menu-item"><a href="court" class='menu-link'> <span>코트예약</span></a>
 					</li>
 
-					<li class="menu-item has-sub"><a href="club" class="menu-link">
+					<li class="menu-item"><a href="club" class="menu-link">
 							<span>클럽</span>
 					</a>
-						<div class="submenu">
-							<div class="submenu-group-wrapper">
-								<ul class="submenu-group">
-									<li class="submenu-item"><a href="club"
-										class='submenu-link'>클럽목록</a></li>
-									<li class="submenu-item"><a href="clubform"
-										class='submenu-link'>클럽창설</a></li>
-									<li class="submenu-item"><a href="myclub"
-										class='submenu-link'>마이클럽</a></li>
-								</ul>
-							</div>
-						</div></li>
+				</li>
 
-					<li class="menu-item has-sub"><a href="sns" class="menu-link">
+					<li class="menu-item"><a href="sns" class="menu-link">
 							<span>커뮤니티</span>
 					</a>
-						<div class="submenu">
-							<div class="submenu-group-wrapper">
-								<ul class="submenu-group">
-									<li class="submenu-item"><a href="sns"
-										class='submenu-link'>SNS</a></li>
-									<li class="submenu-item"><a href="freeboardList"
-										class='submenu-link'>자유게시판</a></li>
-									<li class="submenu-item"><a href="noticeList"
-										class='submenu-link'>공지사항</a></li>
-								</ul>
-							</div>
-						</div></li>
+					</li>
 
 					<li class="menu-item"><a href="shop" class="menu-link"> <span>쇼핑</span>
 					</a> <!-- <div class="submenu">

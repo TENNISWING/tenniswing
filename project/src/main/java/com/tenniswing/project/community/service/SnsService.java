@@ -53,6 +53,7 @@ public interface SnsService {
 	//페이징 전체 갯수
 	public int selectCount(SnsVO snsVO);
 
-	//public List<SnsVO> selectAllSnsInfo(SnsVO snsVO);
+	//어드민페이지
+	public List<SnsVO> snsAllList();
 
 }

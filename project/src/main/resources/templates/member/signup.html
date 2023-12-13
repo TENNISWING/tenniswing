@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/main-layout}">
 
 <th:block layout:fragment="content">
@@ -7,7 +8,8 @@
 	<!-- signup form -->
 	<div class="container justify-content-center" id="signupForm">
 
-		<form class="form form-vertical" action="signup" method="POST" enctype="multipart/form-data">
+		<form class="form form-vertical" action="signup" method="POST"
+			enctype="multipart/form-data">
 			<div class="form-body">
 				<div class="text-center">
 					<h3 class="my-4">회원가입</h3>
@@ -16,12 +18,14 @@
 				<div class="container my-3 p-2">
 					<div class="d-flex justify-content-center">
 						<div class="form-check mx-4">
-							<input class="form-check-input" type="radio" name="memDiv" id="member" value="h1" checked>
-							<label class="form-check-label" for="member">일반회원</label>
+							<input class="form-check-input" type="radio" name="memDiv"
+								id="member" value="h1" checked> <label
+								class="form-check-label" for="member">일반회원</label>
 						</div>
 						<div class="form-check mx-4">
-							<input class="form-check-input" type="radio" name="memDiv" id="host" value="h3"> <label
-								class="form-check-label" for="host">호스트회원</label>
+							<input class="form-check-input" type="radio" name="memDiv"
+								id="host" value="h3"> <label class="form-check-label"
+								for="host">호스트회원</label>
 						</div>
 					</div>
 				</div>
@@ -35,15 +39,16 @@
 					<div class="col-lg-7 p-5 text-start shadow mb-5">
 						<div class="container card text-center w-50">
 							<!-- File uploader with image preview -->
-							<input type="file" class="image-preview-filepond" id="files" name="files" multiple>
+							<input type="file" class="image-preview-filepond" id="files"
+								name="files" multiple>
 							<h5 class=text-dark>프로필 사진</h5>
 						</div>
 
 						<label for="memId">아이디(이메일)</label><br>
 						<div class="input-group mb-3">
-							<input type="text" class="form-control is-invalid" placeholder="영문 | 숫자만 입력 가능"
-								aria-describedby="duplicateBtn" id="memId" name="memId" maxlength="40" autofocus
-								required>
+							<input type="text" class="form-control is-invalid"
+								placeholder="영문 | 숫자만 입력 가능" aria-describedby="duplicateBtn"
+								id="memId" name="memId" maxlength="40" autofocus required>
 							<button class="btn btn-success" type="button" id="duplicateBtn">중복확인</button>
 							<div class="invalid-feedback" id="memIdFeedback"></div>
 							<input type="checkbox" id="idck" hidden="true">
@@ -52,9 +57,9 @@
 						<div class="col-8">
 							<label for="pwd">비밀번호</label><br>
 							<div class="input-group mb-3">
-								<input type="password" class="form-control is-invalid" placeholder="비밀번호 8자리이상"
-									aria-describedby=pwview id="pwd" name="pwd" pattern=".{8,50}" title="최소8자리입력해주세요"
-									required>
+								<input type="password" class="form-control is-invalid"
+									placeholder="비밀번호 8자리이상" aria-describedby=pwview id="pwd"
+									name="pwd" pattern=".{8,50}" title="최소8자리입력해주세요" required>
 								<button class="btn btn-success" type="button" id="pwview">
 									<i class="fa-regular fa-eye-slash"></i>
 								</button>
@@ -64,28 +69,31 @@
 							<div class="col-5">
 								<label for="name">이름</label><br>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control is-invalid" placeholder="한글만 입력 가능" id="name"
-										name="name" maxlength="10" required>
+									<input type="text" class="form-control is-invalid"
+										placeholder="한글만 입력 가능" id="name" name="name" maxlength="10"
+										required>
 								</div>
 							</div>
 							<div class="col-7">
 								<label for="phoneNo">휴대폰 번호</label><br>
 								<div class="input-group mb-3">
-									
-										<input class="form-check-input" type="checkbox" name="phoneCk" id="phoneCk"	hidden="true">
-								
-									<input type="text" class="form-control is-invalid" placeholder="숫자만 입력 해주세요"
-										aria-describedby="phoneNoBtn" id="phoneNo" name="phoneNo" maxlength="11"
-										aria-label="Text input with checkbox" required>
-									<button class="btn btn-success" type="button" id="phoneNoBtn">인증하기 </button>
+
+									<input class="form-check-input" type="checkbox" name="phoneCk"
+										id="phoneCk" hidden="true"> <input type="text"
+										class="form-control is-invalid" placeholder="숫자만 입력 해주세요"
+										aria-describedby="phoneNoBtn" id="phoneNo" name="phoneNo"
+										maxlength="11" aria-label="Text input with checkbox" required>
+									<button class="btn btn-success" type="button" id="phoneNoBtn">인증하기
+									</button>
 								</div>
 							</div>
 						</div>
 						<div class="col-6">
 							<label for="nick">닉네임</label><br>
 							<div class="input-group mb-3">
-								<input type="text" class="form-control is-invalid" placeholder="닉네임입력" id="nick"
-									name="nick" maxlength="20" required>
+								<input type="text" class="form-control is-invalid"
+									placeholder="닉네임입력" id="nick" name="nick" maxlength="20"
+									required>
 							</div>
 						</div>
 						<div class="row">
@@ -169,13 +177,16 @@
 							<div class="col-4">
 								<br>
 								<h5>
-									<button type="button" class="btn btn-success" id="ntrpQ" href="javascript:void(0)"
-										data-bs-toggle="modal" data-bs-target="#ntrpModal">NTRP이란?</button>
+									<button type="button" class="btn btn-success" id="ntrpQ"
+										href="javascript:void(0)" data-bs-toggle="modal"
+										data-bs-target="#ntrpModal">NTRP이란?</button>
 								</h5>
 							</div>
-							<div class="modal fade" id="ntrpModal" tabindex="-1" role="dialog"
-								aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-								<div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable modal-lg"
+							<div class="modal fade" id="ntrpModal" tabindex="-1"
+								role="dialog" aria-labelledby="exampleModalCenterTitle"
+								aria-hidden="true">
+								<div
+									class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable modal-lg"
 									role="document">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -236,7 +247,8 @@
 											</table>
 										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+											<button type="button" class="btn btn-primary ms-1"
+												data-bs-dismiss="modal">
 												<i class="bx bx-check d-block d-sm-none"></i> <span
 													class="d-none d-sm-block">닫기</span>
 											</button>
@@ -249,7 +261,8 @@
 							<div class="col-6">
 								<label for="preferAge">선호 연령대</label><br>
 								<div class="form-group">
-									<select class="choices form-select" name="preferAge" id="preferAge">
+									<select class="choices form-select" name="preferAge"
+										id="preferAge">
 										<optgroup label="연령대">
 											<option value="a1">10대</option>
 											<option value="a2">20대</option>
@@ -264,7 +277,8 @@
 							<div class="col-6">
 								<label for="preferGameWay">선호 게임 방식</label><br>
 								<div class="form-group">
-									<select class="choices form-select" name="preferGameWay" id="preferGameWay">
+									<select class="choices form-select" name="preferGameWay"
+										id="preferGameWay">
 										<optgroup label="선호 게임 방식">
 											<option value="f1">단식</option>
 											<option value="f2">남복</option>
@@ -281,12 +295,25 @@
 								<label for="crtroomNo">자주가는코트</label><br>
 								<div class="input-group mb-3">
 									<input type="text" class="form-control" placeholder="코트 입력"
-										aria-describedby="crtroomBtn" id="crtroomNo" name="crtroomNo">
+										aria-describedby="crtroomBtn" id="crtroomName"
+										name="crtroomName">
 									<button class="btn btn-success" type="button" id="crtroomBtn">찾기</button>
+
+									<input type="text" class="form-control" placeholder="코트 입력"
+										aria-describedby="crtroomBtn" id="crtroomNo" name="crtroomNo"
+										hidden="true">
+								</div>
+								<div class="collapse z-3 position-absolute" id="searchcrt">
+									<div class="form-group">
+										<select class="form-select" id="searchCrtItem">
+
+										</select>
+									</div>
 								</div>
 							</div>
 						</div>
-						<button class="btn btn-success" type="submit" id="submitBtn">회원 가입</button>
+						<button class="btn btn-success" type="submit" id="submitBtn">회원
+							가입</button>
 						<button class="btn btn-success" type="reset">취소</button>
 						<button class="btn btn-success" type="button"
 							th:onclick="|location.href='@{/loginform}'|">돌아가기</button>

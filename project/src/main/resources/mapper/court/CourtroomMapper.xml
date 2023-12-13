@@ -388,7 +388,7 @@
   				, c.host_id
   				, c.crtroom_name
   				, c.crtroom_exp
-  				, c.crtroom_region
+  				, FIND_CATEGORY_NAME(c.crtroom_region) crtroom_region
   				, c.crtroom_location
   				, c.crtroom_operate_start_time
   				, c.crtroom_operate_end_time
