@@ -22,27 +22,28 @@
 			let clubNo = [[${ clubVO.clubNo }]];
 			console.log("클럽번호" + clubNo)
 
-			$.ajax(
+			$.ajax({
 				type: 'GET',
 				url: 'selectClubEndList',
 				data: { clubNo },
 				success: function (data) {
 					$('#matchEndList').empty();
 					for (let match of data) {
-						let result;
-						if(${match.clubMatchRstName} != null){
-							result = ${match.clubMatchRstName}
-						}else{
-							result="대기";
-						}
 						let List = `
 						<li>
 						<div class="recent-message d-flex px-4 py-3"
 						style="border-bottom: 1px solid #e1e1e1; display: flex; justify-content: space-between; align-items: center;">
-						<div class="d-flex-right">
-							<div class="match-box">`+
-							result
-							+`</div>
+						<div class="d-flex-right">`
+						if(match.clubMatchRstName == null){
+							List+=`
+								<div class="match-box">대기</div>
+							`
+						}else{
+							List+=`
+								<div class="match-box"> ${match.clubMatchRstName}</div>
+							`
+						}
+					List+=	`
 							<div class="name ms-4" style="padding: 10px 0;">
 								<h5 class="mb-1">${new Date(match.matchDate).toLocaleDateString(
 							'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치</h5>
@@ -97,9 +98,7 @@
 						$('#matchEndList').append(List);
 					}
 					
-					let rst = $('p.rst').text();
-					console.log(rst);
-					checkRst(rst)
+					
 					
 					$('.saveBtn').on("click", function (e) {
 						let clubMatchNo = $(this).data('match-no');
