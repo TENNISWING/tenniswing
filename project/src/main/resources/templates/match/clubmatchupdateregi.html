@@ -25,220 +25,228 @@
 							<!-- File uploader with image preview -->
 						</div>
 
-						<div class="row">
-							<div class="col-8">
-								<label for="crtroomNo">자주가는 코트</label><br>
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" placeholder="코트 입력"
-										aria-describedby="crtroomBtn" id="crtroomNo" name="crtroomNo" th:value="${clubMatchInfo.crtroomNo}">
-									<button class="btn btn-success" type="button" id="crtroomBtn">찾기</button>
+						<!-- 코트 찾기 -->
+						<div class="row mb-3">
+							<div class="col-6" style="margin-left: 55px;">
+								<label for="name">코트 선택</label>
+								<div class="input-group">
+									<input type="text" class="form-control" autocomplete="off"
+										placeholder="코트 찾기" data-bs-toggle="collapse"
+										data-bs-target="#collapseExample" aria-expanded="false"
+										aria-controls="collapseExample" id="search1"> <input
+										type="hidden" name="crtroomNo" id="crtroomNo">
+									<button type="button" class="input-group-text">
+										<i class="icon dripicons dripicons-search fs-3"></i>
+									</button>
 								</div>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-8">
-								<label for="crtroomNo">클럽명</label><br>
-								<div class="input-group mb-3">
-										<select name="clubNo">
-											<option th:each="club : ${clubList}" th:value="${club.clubNo}" th:text="${club.clubName}">
+								<div class="collapse z-3 position-absolute" id="searchArea1">
+									<div class="form-group">
+										<select class="form-select" id="searchItem1">
 										</select>
+									</div>
 								</div>
 							</div>
 						</div>
-							
-							<div class="row">
-								<div class="col-6">
-									<label for="region">매치 일자</label><br>
-										<input type="date" id="matchDate" name="matchDate" th:value="${#dates.format(clubMatchInfo.matchDate,'yyyy-MM-dd')}" class="form-control flatpickr-always-open" placeholder="예약 일자 선택">
-								</div>				
+						<!-- <div class="col-6">
+						<label for="age">코트 선택</label>
+						<div class="input-group">
+							<input type="text" class="form-control" autocomplete="off"
+								placeholder="코트 찾기" data-bs-toggle="collapse"
+								data-bs-target="#collapseExample" aria-expanded="false"
+								aria-controls="collapseExample" id="search1">
+
+							<button type="button" class="input-group-text">
+								<i class="icon dripicons dripicons-search fs-3"></i>
+							</button>
+							<div class="collapse z-3 position-absolute mt-5" id="searchArea1">
+
+								<div class="form-group">
+									<select class="form-select" id="searchItem1">
+									</select>
+								</div>
 							</div>
+						</div>
+						</div> -->
+						<script>
+						$('#search1').on('propertychange change keyup paste input', function(e){						
+								let inputVal = $(e.target).val();								
+								$('#searchArea1').addClass('show');					
+								 $.ajax({
+								        type: 'get',
+								        url: 'searcharea',
+								        data: {inputVal},
+								        success: function (result) {
+								        	$('#searchItem1').empty();
+								        	//$('#searchItem').append('<optgroup label="코트">');
+								        	$.each(result, function(index, data) { // 데이터 =item
+								        		let b = `													 
+					                                 <option value="${data.crtroomNo}">${data.crtroomName}</option>  `  										
+					                                 $('#searchItem1').append(b)												
+											});								        	
+												b = '</optgroup>'
+											$('#searchItem1').append(b)
+								        },
+								        error: () => console.log(error)
+								    })
+								
+								if(inputVal == ''){
+									$('#searchArea1').removeClass('show');
+								}
+								 
+								
+							})
 						
+						 $('#searchItem1').on('change propertychange click', function(e){
+										console.log($(e.target).val())
+										let crtNo = $(e.target).val();
+										$('#crtroomNo').val(crtNo);
+										$('#search1').val(e.target.options[e.target.selectedIndex].text);
+										//location.href = `courtDetail?crtroomNo=${crtNo}`
+									})
+					
+					</script>
+
 						<div class="row">
-							<div class="col-8">
-								<label for="region">예약 시간 선택</label><br>
-								<p>지원이가 아직 완성 안함</p>
+							<div class="col-6" style="margin-left: 55px;">
+								<label for="crtroomNo">클럽명</label>
+								<div class="form-group ">
+									<select class="choices form-select" id="clubNo" name="clubNo">
+										<option th:each="club : ${clubList}" th:value="${club.clubNo}"
+											th:text="${club.clubName}">
+									</select>
+								</div>
 							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-6" style="margin-left: 55px;">
+								<label for="region">매치 일자</label><br> <input type="date"
+									id="matchDate" name="matchDate"
+									class="form-control flatpickr-always-open"
+									placeholder="예약 일자 선택">
 							</div>
-							
-							<div class="row">
-							<div class="col-6">
-								<label for="age">연령대</label><br>
+						</div>
+						<br>
+
+						<div class="row">
+							<div class="col-6" style="margin-left: 55px;">
+								<label for="time">경기 시작 시간</label>
+								<div class="form-group ">
+									<select class="choices form-select" id="time" name="time">
+										<optgroup label="경기시간">
+											<option>12:00</option>
+											<option>13:00</option>
+											<option>14:00</option>
+											<option>15:00</option>
+											<option>16:00</option>
+											<option>17:00</option>
+											<option>18:00</option>
+											<option>19:00</option>
+											<option>20:00</option>
+											<option>21:00</option>
+											<option>22:00</option>
+										</optgroup>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="row mmmttt">
+							<div class="col-4">
+								<label for="age">연령대</label>
 								<div class="form-group">
 									<select class="choices form-select" name="age" id="age">
 										<optgroup label="연령대">
-											<option value="a1" th:selected="'a1' == ${clubMatchInfo.age}">10대</option>
-											<option value="a2" th:selected="'a2' == ${clubMatchInfo.age}">20대</option>
-											<option value="a3" th:selected="'a3' == ${clubMatchInfo.age}">30대</option>
-											<option value="a4" th:selected="'a4' == ${clubMatchInfo.age}">40대</option>
-											<option value="a5" th:selected="'a5' == ${clubMatchInfo.age}">50대</option>
-											<option value="a6" th:selected="'a6' == ${clubMatchInfo.age}">60대이상</option>
+											<option value="a1">10대</option>
+											<option value="a2">20대</option>
+											<option value="a3">30대</option>
+											<option value="a4">40대</option>
+											<option value="a5">50대</option>
+											<option value="a6">60대이상</option>
 										</optgroup>
 									</select>
 								</div>
 							</div>
-							
-							<div class="col-6">
-								<label for="lv">구력</label><br>
+							<div class="col-4">
+								<label for="lv">구력</label>
 								<div class="form-group">
 									<select class="choices form-select" name="lv" id="lv">
 										<optgroup label="구력">
-											<option value="d1" th:selected="'d1' == ${clubMatchInfo.lv}">입문</option>
-											<option value="d2" th:selected="'d2' == ${clubMatchInfo.lv}">2~5년</option>
-											<option value="d3" th:selected="'d3' == ${clubMatchInfo.lv}">5년이상</option>
+											<option value="d1">입문</option>
+											<option value="d2">2~5년</option>
+											<option value="d3">5년이상</option>
 										</optgroup>
 									</select>
 								</div>
 							</div>
-						
-							<div class="col-6">
-								<label for="ntrp">ntrp</label><br>
+						</div>
+
+							<div class="row mmmttt">
+							<div class="col-4">
+								<label for="gameWay">경기 방식</label>
 								<div class="form-group">
-									<select class="choices form-select" id="ntrp" name="ntrp">
-										<optgroup label="ntpr">
-											<option value="e1" th:selected="'e1' == ${clubMatchInfo.ntrp}">1.0</option>
-											<option value="e2" th:selected="'e2' == ${clubMatchInfo.ntrp}">1.5</option>
-											<option value="e3" th:selected="'e3' == ${clubMatchInfo.ntrp}">2.0</option>
-											<option value="e4" th:selected="'e4' == ${clubMatchInfo.ntrp}">2.5</option>
-											<option value="e5" th:selected="'e5' == ${clubMatchInfo.ntrp}">3.0</option>
-											<option value="e6" th:selected="'e6' == ${clubMatchInfo.ntrp}">3.5</option>
-											<option value="e7" th:selected="'e7' == ${clubMatchInfo.ntrp}">4.0이상</option>
+									<select class="choices form-select" id="gameWay" name="gameWay">
+										<optgroup label="경기방식">
+											<option value="f1">단식</option>
+											<option value="f2">남복</option>
+											<option value="f3">여복</option>
+											<option value="f4">랠리</option>
+											<option value="f5">혼복</option>
 										</optgroup>
 									</select>
 								</div>
-							</div>
-							</div>
-							
-							<div class="row">
-							<div class="col-6">
-							<label for="gameWay">경기 방식</label><br>
-							<div class="form-group">
-								<select class="choices form-select" id="gameWay" name="gameWay">
-								<optgroup label="경기방식">
-									<option value="f1" th:selected="'f1' == ${clubMatchInfo.gameWay}">단식</option>
-									<option value="f2" th:selected="'f2' == ${clubMatchInfo.gameWay}">남복</option>
-									<option value="f3" th:selected="'f3' == ${clubMatchInfo.gameWay}">여복</option>
-									<option value="f4" th:selected="'f4' == ${clubMatchInfo.gameWay}">랠리</option>
-									<option value="f5" th:selected="'f5' == ${clubMatchInfo.gameWay}">혼복</option>
-								</optgroup>
-								</select>
-							</div>
-						</div>
-						</div>
-						
-						<div class="row">
-						<div class="col-5">
-								<label for="name">코트비</label><br>
-								<div class="input-group mb-3">
-									<input type="text" class="form-control is-invalid" th:value="${clubMatchInfo.crtUseAmt}"
-										placeholder="코트비 입력" id="crtUseAmt" name="crtUseAmt" maxlength="10">
-								</div>
-							</div>
-							</div>
-							
-							<div class="row">
-						<div class="col-6">
-								<label for="name">코멘트</label><br>
-								<div class="input-group mb-3">
-									<input type="text" class="form-control is-invalid"  th:value="${clubMatchInfo.detailCtt}"
-										placeholder="코멘트 입력" id="detailCtt" name="detailCtt">
-								</div>
-							</div>
 							</div>
 							
 							<div class="col-4">
-								<br>
-								<h5>
-									<button type="button" class="btn btn-success" id="ntrpQ"
-										data-bs-toggle="modal"
-										data-bs-target="#ntrpModal">NTRP이란?</button>
-								</h5>
-							</div>
-							<div class="modal fade" id="ntrpModal" tabindex="-1"
-								role="dialog" aria-labelledby="exampleModalCenterTitle"
-								aria-hidden="true">
-								<div
-									class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable modal-lg"
-									role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalCenterTitle">ntrp이란?
-											</h5>
-											<button type="button" class="close" data-bs-dismiss="modal"
-												aria-label="Close">
-												<i data-feather="x"></i>
-											</button>
-										</div>
-										<div class="modal-body">
-											<p>
-												NTRP란 National Tennis Rating Program의 약자입니다.<br> 이는 미국
-												테니스 협회(USTA)에서 개인의 테니스 실력을 평가하기 위해 만든 기준으로,<br> 세계에서 가장
-												널리 통용되는 테니스 실력의 기준입니다.
-											</p>
-											<table class="table">
-												<thead>
-													<tr>
-														<th>ntrp rating</th>
-														<th>설명</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>1.0</td>
-														<td>테니스 라켓을 이제 막 들어 시작한 상태</td>
-													</tr>
-													<tr>
-														<td>1.5</td>
-														<td>테니스 경험이 있으나 게임을 하기엔 아직 미숙한 상태</td>
-													</tr>
-													<tr>
-														<td>2.0</td>
-														<td>랠리는 어느정도 가능하나 플레이를 지속하기엔 어려운 상태</td>
-													</tr>
-													<tr>
-														<td>2.5</td>
-														<td>일관성이 있는 랠리가 가능한 상태</td>
-													</tr>
-													<tr>
-														<td>3.0</td>
-														<td>코트 인식이 좋고, 스핀 및 고급 기술 사용가능한 상태</td>
-													</tr>
-													<tr>
-														<td>3.5</td>
-														<td>일관된 방향으로 공을 칠수 있는 레벨</td>
-													</tr>
-													<tr>
-														<td>4.0</td>
-														<td>정밀하고 지속적인 샷 랠리 가능한 레벨</td>
-													</tr>
-													<tr>
-														<td>4.5이상</td>
-														<td>대회 참가 가능 레벨</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-light-secondary"
-												data-bs-dismiss="modal">
-												<i class="bx bx-x d-block d-sm-none"></i> <span
-													class="d-none d-sm-block">닫기</span>
-											</button>
-											<button type="button" class="btn btn-primary ms-1"
-												data-bs-dismiss="modal">
-												<i class="bx bx-check d-block d-sm-none"></i> <span
-													class="d-none d-sm-block">확인</span>
-											</button>
-										</div>
-
-									</div>
+								<label for="ntrp">ntrp</label>
+								<div class="form-group">
+									<select class="choices form-select" id="ntrp" name="ntrp">
+										<optgroup label="ntpr">
+											<option value="e1">1.0</option>
+											<option value="e2">1.5</option>
+											<option value="e3">2.0</option>
+											<option value="e4">2.5</option>
+											<option value="e5">3.0</option>
+											<option value="e6">3.5</option>
+											<option value="e7">4.0이상</option>
+										</optgroup>
+									</select>
 								</div>
-							</div><br>
-				<input type="number" th:value="${clubMatchInfo.matchNo}" hidden="true" name="matchNo">
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-4" style="margin-left: 55px;">
+								<label for="name">코트비</label><br>
+								<div class="input-group mb-3">
+									<input type="text" class="form-control is-invalid"
+										placeholder="코트비 입력" id="crtUseAmt" name="crtUseAmt"
+										maxlength="10" required>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-6" style="margin-left: 55px;">
+								<label for="name">코멘트</label><br>
+								<div class="input-group mb-3">
+									<input type="text" class="form-control is-invalid"
+										placeholder="코멘트 입력" id="detailCtt" name="detailCtt">
+								</div>
+							</div>
+						</div>
+
+						<div class="ctrgbtns">
+								<br>
+								<input type="number" th:value="${clubMatchInfo.matchNo}" hidden="true" name="matchNo">
 						<button class="btn btn-success" type="submit">수정하기</button>
 						<button class="btn btn-success" type="button" th:onclick="|location.href='@{/clubmatch}'|">취소</button>
+							</div>
+					</div>
+
 				</div>
-	</div></div>
+				<!-- <div class="col-3 "></div> -->
+			</div>
 		</form>
 	</div>
 	
