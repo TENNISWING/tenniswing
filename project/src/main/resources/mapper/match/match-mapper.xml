@@ -532,6 +532,7 @@
 		, detail_ctt
 		, crtroom_no
 		, age
+		, div
 		)
 		VALUES
 		(
@@ -551,6 +552,7 @@
 		,#{detailCtt}
 		,#{crtroomNo}
 		,#{age}
+		,'bj1'
 		)
 	</insert>
 
@@ -883,12 +885,39 @@
 		, m.crt_use_amt
 		, m.detail_ctt
 		, m.crtroom_no
+		, m.div
 		, FIND_CATEGORY_NAME (m.age) age_name
         , FIND_CATEGORY_NAME (r.club_match_rst) club_match_rst_name
 		FROM club_match m JOIN club c
 		                    ON m.club_no = c.club_no
                            LEFT JOIN club_match_rst r
                              ON r.club_match_no = m.match_no
-		WHERE c.club_no=#{clubNo}
+		WHERE c.club_no=#{clubNo} 
+	</select>
+	
+	<!-- 클럽매치 신청 리스트 -->
+	<select id="selectHistList" resultType="MatchVO">
+	SELECT h.match_apply_club_no
+			, c.club_name
+		    , c.club_age
+		    , c.club_gen
+		    , c.mem_id
+		    , m.club_no
+		    , FIND_CATEGORY_NAME (m.game_way) game_way_name
+		    , m.recruit_psn_num
+		    , m.match_date
+		    , m.match_no
+	FROM club_match_hist h JOIN club c
+							 ON h.match_apply_club_no = c.club_no
+						   JOIN club_match m
+							 ON h.match_no = m.match_no
+	WHERE h.match_apply_club_no = #{clubNo} 				 
+	</select>
+	
+	<!-- 클럽매치 신청 체크 -->
+	<select id="checkHist" resultType="MatchVO">
+		select match_apply_club_no
+		FROM club_match_hist
+		WHERE match_no = #{matchNo};
 	</select>
 </mapper>
