@@ -21,6 +21,8 @@ import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.club.service.ClubService;
 import com.tenniswing.project.common.FileUtils;
+import com.tenniswing.project.community.service.SnsService;
+import com.tenniswing.project.community.service.SnsVO;
 import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.match.service.MatchHistService;
 import com.tenniswing.project.member.service.MemberService;
@@ -42,6 +44,8 @@ public class MemberController {
 	@Autowired	FileUtils fileUtils;
 
 	@Autowired	AttachService attachService;
+	
+	@Autowired SnsService snsService;
 
 	// 로그인 폼 이동
 	@GetMapping("loginform")
@@ -217,13 +221,13 @@ public class MemberController {
 	}
 
 	// 내 작성 글 목록
-	@GetMapping("mypage-write")
-	public String writeMyPage(Model model) {
+	@GetMapping("mypage-sns")
+	public String writeMyPage(SnsVO snsVO, Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-
+		model.addAttribute("sns", snsService.selectSnsMyPage(snsVO));
 		model.addAttribute("member", memberService.memberInfo(id));
 		model.addAttribute("nowpage", 3);
-		return "member/mypage-write";
+		return "member/mypage-sns";
 	}
 
 	// 내 주문 내역 목록

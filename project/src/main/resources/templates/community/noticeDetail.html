@@ -1,113 +1,120 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/main-layout}">
-<head>
-	<!-- tagify 소스 다운 -->
-	<script src="https://unpkg.com/@yaireo/tagify"></script>
-	<!-- 폴리필 (구버젼 브라우저 지원) -->
-	<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
-	
-   <style type="text/css">
-   
-   .editDelBtn {
-   
-    margin-top: 20px;
-    margin-bottom: 20px;
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/main-layout}">
 
-}
-   </style>
+<head>
+    <!-- tagify 소스 다운 -->
+    <script src="https://unpkg.com/@yaireo/tagify"></script>
+    <!-- 폴리필 (구버젼 브라우저 지원) -->
+    <script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+
+    <style type="text/css">
+        .editDelBtn {
+
+            margin-top: 20px;
+            margin-bottom: 20px;
+
+        }
+    </style>
 </head>
 <th:block layout:fragment="content">
 
 
-	<!-- club sub menu -->
-	<div class="container mb-4">
-		<ul class="nav d-flex justify-content-around text-center">
-			<li class="d-flex flex-column"><a href="sns">
-					<div>
-						<i class="fa-solid fa-photo-film fs-3 text-info"></i>
-					</div>SNS
-			</a></li>
-			<li class="d-flex flex-column"><a href="freeboardList">
-					<div>
-						<i class="fa-solid fa-chalkboard-teacher fs-3 text-primary"></i>
-					</div>자유게시판
-			</a></li>
-			<li class="d-flex flex-column"><a href="noticeList">
-					<div>
-						<i class="fa-solid fa-clipboard-list fs-3 text-warning"></i>
-					</div>공지사항
-			</a></li>
-		</ul>
-	</div>
-	<!-- End club sub menu  -->
+    <!-- club sub menu -->
+    <div class="container mb-4">
+        <ul class="nav d-flex justify-content-around text-center">
+            <li class="d-flex flex-column"><a href="sns">
+                    <div>
+                        <i class="fa-solid fa-photo-film fs-3 text-info"></i>
+                    </div>SNS
+                </a></li>
+            <li class="d-flex flex-column"><a href="freeboardList">
+                    <div>
+                        <i class="fa-solid fa-chalkboard-teacher fs-3 text-primary"></i>
+                    </div>자유게시판
+                </a></li>
+            <li class="d-flex flex-column"><a href="noticeList">
+                    <div>
+                        <i class="fa-solid fa-clipboard-list fs-3 text-warning"></i>
+                    </div>공지사항
+                </a></li>
+        </ul>
+    </div>
+    <!-- End club sub menu  -->
 
-	<div class="container">
-		<!-- 테이블시작  -->
-			    <div class="col-xxl-12">
-                                        <div class="dashboard-block">
-                                            <div class="dashboard-block__title">
-                                                <h4>공지사항 게시글 </h4>
-                                            </div>
-                                            <div class="form__wrapper form-padding">
-                                                <div class="flex__form c-3">
-                                                    <div class="form-group">
-                                                        <label for="product_name">제목</label>
-                                                        <div th:text="${nbrd.brdTitle}"></div>
-                                                    </div>
-                                          
-                                                    <div class="form-group">
-                                                        <label for="stock">작성 일자</label>
-                                                        <div  th:text="${#dates.format(nbrd.brdWriteDate,'yyyy-MM-dd')}"></div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="slug">작성자</label>
-                                                        <div th:text="${nbrd.name}"></div>
-                                                    </div>
-       
-                                                </div>
-                                       			<hr>
-                                                <div class="form-group" style="height:200px;">
-                                                    <label for="description">내용</label>
-                                                    <div th:utext="${nbrd.brdCtt}"></div>
-                                                </div>
-                                
-                                            </div>
-                                        </div>
-                                  
-                                            <div class="editDelBtn">
-                                           
-                                                <div class="btn__group flex-wrap">
-                                                    <button type="button" class="btn btn-primary -o me-auto" th:onclick="|location.href='@{noticeList}'|" >목록으로</button>
-                                                    <button type="button" class="btn btn-outline">삭제</button>
-                                                    <button type="submit" class="btn btn-gray-filled" style="margin-left:20px;">수정</button>
-                                                </div>
-                                            </div>
-                                       
-                                    </div>
-	    <!-- 테이블 end -->
+    <div class="container">
+        <!-- 테이블시작  -->
+        <div class="col-xxl-12">
+            <div class="dashboard-block">
+                <div class="dashboard-block__title">
+                    <h4>공지사항 게시글 </h4>
+                </div>
+                <div class="form__wrapper form-padding">
+                    <div class="flex__form c-3">
+                        <div class="form-group">
+                            <label for="product_name">제목</label>
+                            <div th:text="${nbrd.brdTitle}"></div>
+                        </div>
 
-	</div>
-	
-	<script>
+                        <div class="form-group">
+                            <label for="stock">작성 일자</label>
+                            <div th:text="${#dates.format(nbrd.brdWriteDate,'yyyy-MM-dd')}"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="slug">작성자</label>
+                            <div th:text="${nbrd.name}"></div>
+                        </div>
 
-    /* const input = document.querySelector('input[name=snsTag]');
-    console.log(input);
-    let tagify = new Tagify(input); // initialize Tagify
-    
-    // 태그가 추가되면 이벤트 발생
-    tagify.on('add', onAddTag)
-    function onAddTag(e){
-        console.log("onAddTag: ", e.detail.tagify.value);
-        console.log("original input value: ", input.value)
-        //console.log(data.value)
-        //loadOriginalValues
-    } */
+                    </div>
+                    <hr>
+                    <div class="form-group" style="height:200px;">
+                        <label for="description">내용</label>
+                        <div th:utext="${nbrd.brdCtt}"></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="editDelBtn">
+
+                <div class="btn__group flex-wrap">
+                    <button type="button" class="btn btn-primary -o me-auto"
+                        th:onclick="|location.href='@{noticeList}'|">목록으로</button>
+                    <button type="button" class="btn btn-outline brdDelBtn" th:id="${nbrd.brdWrtNo}">삭제</button>
+                    <button type="submit" class="btn btn-gray-filled" style="margin-left:20px;"
+                    th:onclick="|location.href='@{/noticeEditForm(brdWrtNo=${nbrd.brdWrtNo})}'|">수정</button>
+                </div>
+            </div>
+
+        </div>
+        <!-- 테이블 end -->
+
+    </div>
+
+    <script>
+	$('.brdDelBtn').on('click', function(e){
+		let brdWrtNo = $(e.target).attr("id");
+       	$.ajax({
+        		type:'POST',
+        		url: 'brdDelete',
+        		data:{brdWrtNo},
+        		success:function(result){
+        			console.log(result)
+        			if(result){
+        				alert("게시글 정상삭제");
+        				location.href="/noticeList";
+        			}else{
+        				alert("삭제실패. 재시도해주세요.");
+        			}
+        		},
+        		error : function() {
+					alert("삭제 실패");
+				}
+		})
+	})
 
 
-
-</script>
+    </script>
 
 
 </th:block>

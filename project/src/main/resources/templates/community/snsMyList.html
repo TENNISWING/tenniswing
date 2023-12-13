@@ -3,7 +3,18 @@
 	layout:decorate="~{layouts/main-layout}">
 
 <head>
-
+<style>
+.grpImg{
+	height: 400px;
+}
+.videoSize{
+	height: 150px;
+	/* width: 150px; */
+}
+.thumbImg{
+	height : 150px;
+}
+</style>
 </head>
 
 <th:block layout:fragment="content">
@@ -43,9 +54,15 @@
 											<!-- 여기서 반복문 th:each="" -->
 											<div class="card">
 												<div class="card-content">
-
-													<img class="img-fluid w-100" src="/assets/compiled/jpg/banana.jpg"
+													<th:block th:if="${mg.snsGrpNo != null}">
+													<img class="img-fluid w-100 grpImg" th:src="${mg.attachPath}"
 														style="border-radius: 10px 10px 0 0;" alt="Card image cap">
+													</th:block>
+													<th:block th:unless="${mg.snsGrpNo != null}">
+													<img class="img-fluid w-100 grpImg" src="assets/img/sns/Tennis1.jpg"
+														style="border-radius: 10px 10px 0 0;" alt="Card image cap">
+													</th:block>
+													
 												</div>
 												<div class="card-footer d-flex justify-content-between"
 													style="flex-direction: column; border: 1px solid #ccc; gap: 15px;">
@@ -352,11 +369,20 @@
 
 					for (let grp of result.mySnsGroupList) {
 						let b = `
-							<tr>
-								<td class="text-start">
-									<img class="rounded" src="assets/compiled/jpg/jump.jpg" style="width: 150px;">
-								</td>
-								<td class="text-start">${grp.snsTitle}</td>
+							<tr>`
+								if(grp.attachList[0].attachExt!=".mp4"){
+								 b+= `<td class="text-start">
+									<img class="rounded thumbImg" src="${grp.attachList[0].attachPath}" style="width: 150px;">
+								</td>`	
+								}else{
+								b+=`<td class="text-start">
+								<video class="main-top-promotion-video videoSize"
+									autoplay="autoplay" loop="loop" muted="muted">
+									<source src="${grp.attachList[0].attachPath}" type="video/mp4">
+								</video>
+								</td>`	
+								}
+								b +=` <td class="text-start">${grp.snsTitle}</td>
 								<td>`
 								if(grp.snsGrpNo != null){
 									b += `	<div class="card__action text-center">
@@ -426,7 +452,7 @@
 						
 
 					
-					}//여기까지는 똑같이 쌔비지
+					}
 
 					//그룹 안의 리스트 각각 삭제
 					$('.delBtnClass').on('click', function (e) {
