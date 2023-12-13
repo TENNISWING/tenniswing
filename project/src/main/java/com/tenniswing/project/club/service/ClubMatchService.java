@@ -16,8 +16,9 @@ public interface ClubMatchService {
 	public int insertRecruitMem(ClubVO clubVO);
 	
 	//매치 결과 입력
-	public int insertResult(MatchVO matchVO);
+	public int insertResult(ClubVO clubVO);
 	
-	
+	//매치 모집 삭제
+	public boolean clubRecDelete(int clubMatchRstNo);
 	
 }

@@ -7,7 +7,7 @@
 
 <!-- 인원모집 리스트 전체조회 -->
 <select id="selectAllMatchRecruit" resultType="ClubVO">
-SELECT c.club_match_recruit_no
+<!-- SELECT c.club_match_recruit_no
 		   , c.club_match_date
            , c.club_match_recruit_psn_num
            , c.club_no
@@ -32,6 +32,29 @@ GROUP BY  c.club_match_recruit_no
       , c.match_opponent_no
       , c.match_no
       , mem.mem_no
+HAVING c.club_no= #{clubNo} -->
+SELECT c.club_match_recruit_no
+		   , c.club_match_date
+           , c.club_match_recruit_psn_num
+           , c.club_no
+           , c.match_recruit_write_date
+           , c.recruit_state
+           , c.div
+           , c.match_opponent_no
+           , c.match_no          
+ 		   ,count(m.CLUB_MATCH_RECRUIT_NO) as join_mem
+FROM club_match_recruit c LEFT JOIN club_match_recruit_mem m	 
+                          ON c.club_match_recruit_no = m.club_match_recruit_no                          
+WHERE c.RECRUIT_STATE = 'l2'                     
+GROUP BY  c.club_match_recruit_no
+      , c.club_match_date
+      , c.club_match_recruit_psn_num
+      , c.club_no
+      , c.match_recruit_write_date
+      , c.recruit_state
+      , c.div
+      , c.match_opponent_no
+      , c.match_no
 HAVING c.club_no= #{clubNo}
 
 </select>
@@ -86,18 +109,32 @@ HAVING c.club_no= #{clubNo}
 
 <!-- 매치 결과 입력 -->  
 <insert id="insertResult" parameterType="ClubVO">
+<selectKey keyProperty="clubMatchRstNo" resultType="int" order="BEFORE">
+  		SELECT NVL(MAX(club_match_rst_no),0)+1
+  		FROM club_match_rst
+  	</selectKey>
   	INSERT INTO club_match_rst
   			(
-  				club_match_no
+  			    club_match_rst_no
+  				, club_match_no
   				, club_match_rst
  			)
   		   VALUES
   		   (
-  		   	#{clubMatchNo}
+  		    #{clubMatchRstNo}
+  		   	, #{clubMatchNo}
   		   	, #{clubMatchRst}
   		   )
 </insert>
 
+<!-- 모집 삭제 -->
+  	<delete id="clubRecDelete" statementType="CALLABLE" parameterType="map">
+	{call DELETE_REC (
+	 	#{clubMatchRecruitNo, mode=IN, jdbcType=DECIMAL},
+        #{delResult, mode=OUT, jdbcType=DECIMAL, javaType=long}
+		)
+	}
+  	</delete>
 
 
 </mapper>

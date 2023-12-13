@@ -24,8 +24,6 @@ public interface ClubService {
 	//수정
 	public Map<String, Object> updateClub(ClubVO clubVO);
 	
-	
-	
 	//회원 가입 신청(등록)
 	public int insertClubMem(ClubVO clubVO);
 	

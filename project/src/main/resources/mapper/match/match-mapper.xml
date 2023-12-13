@@ -878,8 +878,11 @@
 		, m.detail_ctt
 		, m.crtroom_no
 		, FIND_CATEGORY_NAME (m.age) age_name
+        , FIND_CATEGORY_NAME (r.club_match_rst) club_match_rst_name
 		FROM club_match m JOIN club c
 		                    ON m.club_no = c.club_no
+                           LEFT JOIN club_match_rst r
+                             ON r.club_match_no = m.match_no
 		WHERE c.club_no=#{clubNo}
 	</select>
 </mapper>

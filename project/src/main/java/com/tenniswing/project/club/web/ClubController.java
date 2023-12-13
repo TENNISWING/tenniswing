@@ -205,6 +205,14 @@ public class ClubController {
 		return "redirect:clubMatchJoin";
 	}
 	
+	//매치 모집 삭제
+		@PostMapping("recDelete")
+		@ResponseBody
+		public boolean deleteRecAjax(@RequestParam("paramRecNo") Integer clubMatchRecruitNo) {
+			boolean result = clubMatchService.clubRecDelete(clubMatchRecruitNo);
+			return result;
+		}
+	
 	// --------------------------------------- 매치 일정
 
 	// 상세페이지 > 탭 > 매치일정
@@ -225,9 +233,10 @@ public class ClubController {
 
 	// 상세페이지 > 탭 > 매치결과
 	@GetMapping("clubMatchEnd")
-	public String EndTapPage(Model model, ClubVO clubVO ) {
+	public String EndTapPage(ClubVO clubVO ) {
 		return "club/clubMatchEnd";
 	}
+	
 	//매치 결과 리스트
 		@GetMapping("selectClubEndList")
 		@ResponseBody
@@ -239,8 +248,8 @@ public class ClubController {
 	//매치 결과 입력
 		@PostMapping("insertResult")
 		@ResponseBody
-		public String resultAjax(MatchVO matchVO) {
-			clubMatchService.insertResult(matchVO);
+		public String resultAjax(ClubVO clubVO) {
+			clubMatchService.insertResult(clubVO);
 			return "redirect:clubMatchEnd";
 		}
 	
