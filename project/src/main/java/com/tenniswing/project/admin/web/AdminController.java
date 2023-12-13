@@ -262,6 +262,14 @@ public class AdminController {
 		}
 	}
 	
+	// 주문 상태 수정
+	@PostMapping("adminOrderUpdate")
+	@ResponseBody
+	public Boolean adminOrderUpdate(@RequestBody OrderTableVO vo) {
+		
+		return orderService.updateOrderState(vo);
+	}
+	
 	//회원목록
 	@GetMapping("admin_member")
 	public String adminMemberPage(Model model) {

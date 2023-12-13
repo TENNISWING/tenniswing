@@ -19,7 +19,7 @@ public interface OrderService {
 	public int insertPayCancel(PayCancelVO payCancelVO);
 	
 	// 주문 취소시 수정 (상태 변경)
-	public int updateOrderState(OrderTableVO orderTable);
+	public boolean updateOrderState(OrderTableVO orderTable);
 	
 	// 주문 취소시 order_detail 한건 조회
 	public List<OrderDetailVO> selectOrderDetail(int orderNo);
@@ -33,5 +33,6 @@ public interface OrderService {
 	
 	// 등록 카트에서
 	public Map<String, Object> insertCartOrder(OrderTableVO orderTableVO, List<CartVO> cartList);
+	
 	
 }
