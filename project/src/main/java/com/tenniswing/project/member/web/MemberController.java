@@ -224,7 +224,9 @@ public class MemberController {
 	@GetMapping("mypage-sns")
 	public String writeMyPage(SnsVO snsVO, Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		model.addAttribute("sns", snsService.selectSnsMyPage(snsVO));
+		snsVO.setMemId(id);
+		model.addAttribute("like", snsService.selectMyLike(snsVO));
+		model.addAttribute("scrap", snsService.selectMyScrap(snsVO));
 		model.addAttribute("member", memberService.memberInfo(id));
 		model.addAttribute("nowpage", 3);
 		return "member/mypage-sns";

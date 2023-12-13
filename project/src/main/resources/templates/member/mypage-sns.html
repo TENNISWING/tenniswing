@@ -20,24 +20,50 @@
 					<table class="table" id="table1">
 						<thead>
 							<tr>
-								<th>일자</th>
-								<th>코트장 이름</th>
-								<th>매치상대</th>
-								<th>코멘트</th>			
+								<th>번호</th>
+								<th>제목</th>
+								<th>생성일자</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>Graiden</td>
-								<td>vehicula.aliquet@semconsequat.co.uk</td>
-								<td>076 4820 8838</td>
-								<td>123</td>					
+						<th:block th:each="l : ${like}">
+							<tr class="snsLIke" th:onclick="|location.href='@{/snsDetail(snsWrtNo=${l.snsWrtNo})}'|">
+								<td>[[${lStat.count}]]</td>
+								<td>[[${l.snsTitle}]]</td>
+								<td>[[${#dates.format(l.likeInDate,'yyyy-MM-dd')}]]</td>
+								
 							</tr>
-							
+						</th:block>	
 						</tbody>
+						
+					</table>
+				</div>
+			<div class="col-lg-8 col-md-auto mx-auto">
+				<div class="table-responsive mt-5">
+					<table class="table" id="table1">
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>생성일자</th>
+							</tr>
+						</thead>
+						<tbody>
+						<th:block th:each="s : ${scrap}">
+							<tr class="snsScrap"  th:onclick="|location.href='@{/snsDetail(snsWrtNo=${s.snsWrtNo})}'|">
+								<td>[[${sStat.count}]]</td>
+								<td>[[${s.snsTitle}]]</td>
+								<td>[[${#dates.format(s.scrapInDate,'yyyy-MM-dd')}]]</td>
+								
+							</tr>
+						</th:block>	
+						</tbody>
+						
 					</table>
 				</div>
 			</div>
+			</div>
+		
 		</div>
 	</div>
 

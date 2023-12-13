@@ -151,22 +151,24 @@
 	</select>
 	
 	
-	<!-- 마이페이지 sns 좋아요 스크랩 -->
-	<select id="selectSnsMyPage" resultType = "SnsVO">
-		SELECT s.sns_wrt_no
-			   , s.sns_title
-			   , s.sns_write_date
-			   , s.mem_id
-			   , l.like_no
-			   , l.like_in_date
-			   , s.scrap_no
-			   , s.scrap_in_date
-		FROM sns s, sns_like l, sns_scrap s
-		WHERE s.sns_wrt_no = l.sns_wrt_no
-		AND s.sns_wrt_no = s.sns_wrt_no
-		AND mem_id = #{memId}
+	<!-- 마이페이지 스크랩 -->
+	<select id="selectMyScrap" resultType = "SnsVO">
+		SELECT p.sns_wrt_no, p.scrap_no, p.mem_id, s.sns_title, p.scrap_in_date
+		FROM sns_scrap p,  sns s
+		WHERE p.sns_wrt_no = s.sns_wrt_no
+		AND p.mem_id = #{memId}
 	</select>
 
+
+	<!-- 마이페이지 좋아요 -->
+	<select id="selectMyLike" resultType = "SnsVO">
+		SELECT l.sns_wrt_no, l.like_no, s.sns_title, l.like_in_date
+		FROM sns s, sns_like l
+		WHERE s.sns_wrt_no = l.sns_wrt_no
+		AND l.mem_id = #{memId}
+	</select>
+	
+	
 	<!-- 내가 등록한 그룹 리스트 sns, sns_grp 다 데려옴 -->
 <!-- 	<select id="selectMyGroup" resultType="SnsVO">
 	 	SELECT * FROM ( SELECT A.* , rownum rn FROM (	
