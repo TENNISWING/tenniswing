@@ -176,7 +176,7 @@
 								</div>
 							</div>
 							<div class="form-group" id="shipNum" style="display: none;">
-								<label for="prodNo">송장 번호</label> <input type="text"
+								<label for="shipWaybillNo">송장 번호</label> <input type="text"
 									name="shipWaybillNo" id="shipWaybillNo" class="form-control"
 									placeholder="상품 번호"/>
 							</div>
@@ -208,13 +208,15 @@
 				//console.log(item);
 				if($(item).text() == '결제완료'){
 					$(item).attr('style', 'background: rgba(18, 183, 106, 0.1) !important; color: #12b76a !important;');				
+				} else if($(item).text() == '상품준비중' || $(item).text() == '배송중' || $(item).text() == '배송완료') {
+					$(item).attr('style', 'background: rgba(105, 65, 198, 0.1) !important; color: #6941c6 !important;');
 				} else {
 					$(item).attr('style', 'background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important');
 				}
 			})
 		}
 	</script>
-	<script type="text/javascript">
+	<script th:inline="javascript">
 		/* $('.orderPrice').each(function(){
 			priceId = $(this).attr('id');
 			
@@ -225,15 +227,19 @@
 			$('#'+priceId).text(changePrice);
 		}); */
 		
-		function showShip() {
+		
+		function shippingBill() {
 			console.log($('#orderState').val());
-			
+					
 			let state = $('#orderState').val();
 			if(state == 's4' || state == 's5') {
 				$('#shipNum').show();
 			} else {
 				$('#shipNum').hide();
 			}
+		}
+		function showShip() {
+			shippingBill();
 		}
 		
 		$('.orderStateClass').each((idx, item) => {
@@ -246,14 +252,32 @@
 		$('tbody tr td a:nth-child(2)').on('click', function(e){
 			//console.log(e.target);
 			editOrderState(e);
+			shippingBill();
+			
+			
 		});
 		
 		/* 모달 폼에 주문번호 넣어두기 */
 		function editOrderState(e) {
+			let temp = $(e.target.parentElement.parentElement.parentElement.children[0]).text();
 			console.log($(e.target.parentElement.parentElement).prev().text());
 			$('#orderNO').val($(e.target.parentElement.parentElement.parentElement.children[0]).text());
 			//console.log($('#orderNO').val());
 			$('#orderState option:contains('+$(e.target.parentElement.parentElement).prev().text()+')').prop("selected", true);
+			
+			let orderList = [[ ${orderList} ]];
+			
+			orderList.forEach((item, idx) => {
+				//console.log(item.orderNo);
+				
+				if(item.orderNo == temp) {
+					//console.log(item);
+					if(item.shipWaybillNo != null || item.shipWaybillNo != ''){
+						$('#shipWaybillNo').val(item.shipWaybillNo);
+						$('#shipWaybillNo').attr("readonly",true);
+					}
+				}
+			})
 		}
 		
 		/* 수정 버튼 클릭시 ajax */
@@ -292,6 +316,7 @@
 			} else {
 				orderNo.orderState = state;
 				orderNo.shipWaybillNo = shipWaybillNo;
+				console.log(orderNo);
 				
 				$.ajax('adminOrderUpdate', {
 					type : 'post',
@@ -318,7 +343,7 @@
 					}
 				})
 			}
-		})
+		});
 
 	</script>
 	

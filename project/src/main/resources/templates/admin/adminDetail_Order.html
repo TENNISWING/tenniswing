@@ -121,7 +121,12 @@
 										</tr>
 									</th:block>	
 										<tr>
-											<td class="border-none pt-10" style="border: 0">&nbsp;</td>
+											<th:block th:if="${orderSelect.shipWaybillNo != null}">											
+												<td class="border-none pt-10" style="border: 0; text-align: left;">송장 번호: [[ ${orderSelect.shipWaybillNo} ]]</td>
+											</th:block>
+											<th:block th:unless="${orderSelect.shipWaybillNo != null}">											
+												<td class="border-none pt-10" style="border: 0; text-align: left;">&nbsp;</td>
+											</th:block>
 											<td class="border-none pt-10" style="border: 0">&nbsp;</td>
 											<td class="border-none pt-10" style="border: 0">&nbsp;</td>
 											<td class="border-none pt-10 text-end"><strong>Total</strong></td>

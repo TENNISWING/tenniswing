@@ -267,7 +267,7 @@ public class AdminController {
 	@ResponseBody
 	public Boolean adminOrderUpdate(@RequestBody OrderTableVO vo) {
 		
-		return null;
+		return orderService.updateOrderState(vo);
 	}
 	
 	//회원목록
