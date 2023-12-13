@@ -7,14 +7,24 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tenniswing.project.attach.service.AttachService;
+import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.club.mapper.ClubPostMapper;
 import com.tenniswing.project.club.service.ClubPostService;
 import com.tenniswing.project.club.service.ClubPostVO;
+import com.tenniswing.project.common.FileUtils;
 
 @Service
 public class ClubPostServiceImpl implements ClubPostService  {
 	@Autowired
 	ClubPostMapper clubPostMapper;
+	
+	@Autowired
+	AttachService attachService;
+	
+	@Autowired
+	FileUtils fileUtils;
+	
 	
 	//게시글 전체조회
 	@Override
@@ -56,6 +66,10 @@ public class ClubPostServiceImpl implements ClubPostService  {
 		@Override
 		public Map<String, Object> updatePost(ClubPostVO clubPostVO) {
 			Map<String, Object> map = new HashMap<>();
+			
+			List<AttachVO> files = fileUtils.uploadFiles(clubPostVO.getFiles());
+			attachService.updateAttach("cp", clubPostVO.getClubNo(), files);
+			
 			boolean isSuccessed = false;
 			
 			int result = clubPostMapper.updatePost(clubPostVO);

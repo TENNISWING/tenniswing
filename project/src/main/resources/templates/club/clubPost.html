@@ -132,7 +132,7 @@
 						<div class="modal-body">
 							<input type="hidden" name="clubNo" th:value="${clubVO.clubNo}">
 							<div class="input-group mb-3">
-								<input type="file" class="form-control" id="inputGroupFile01" style="padding: 0.375rem 0.75rem">
+								<input type="file" class="form-control" name="files" id="inputGroupFile01" style="padding: 0.375rem 0.75rem">
 							</div>
 							<div class="form-group">
 								<label for=clubPostTitle>제목</label>
@@ -165,9 +165,9 @@
 			postListPage(1);
 		});
 		
-		let pageNum = 1;
-		let pageSize = 10.0; //페이지 번호 수
-		let pageUnit = 7;  //한페이지에 출력할 행의 수
+		var pageNum = 1;
+		var pageSize = 10.0; //페이지 번호 수
+		var pageUnit = 7;  //한페이지에 출력할 행의 수
 			
 			//페이징
 	    	
@@ -328,17 +328,25 @@
 							let no = $(this).data('value');
 							//console.log("이거 클럽 포스트 번호인데" + no);
 							$('#postUpdateBtn').on("click", function (e) { //수정 버튼 눌렀을때
-								console.log("수정 버튼 눌렀을때");
+								/* console.log("수정 버튼 눌렀을때");
 								let postClubData = $("#postEditForm").serialize() + "&clubPostNo=" + no;
-								console.log(postClubData);
+								console.log(postClubData); */
+								
+								let form = $('#postEditForm')[0]
+								let postEditInfo = new FormData(form)
+								postEditInfo.append('clubPostNo', no); //클럽포스트넘버 추가
+								
 								$.ajax({
 									url: 'postUpdate',  //컨트롤러에 맵핑에 있는 경로
-									data: postClubData,
+									data: postEditInfo,
 									type: 'post',
-									datatype: 'JSON',
+									enctype: 'multipart/form-data',
+									contentType: false,
+									processData: false,
 									success: function (result) {
 										alert("수정성공")
-										postListAjax()
+										postListPage();
+										$('#postEditForm')[0].reset();	//폼값 초기화
 										// getRepList(snsWrtNo); //다시 메인 페이지 보여줘야하나요?
 										//DOM 조작 함수호츨 등 가능
 									},
@@ -506,7 +514,7 @@
 						processData: false,
 						success: function (result) {
 							alert("등록성공")
-							postListAjax(); //등록후 리스트 불러오기
+							postListPage(); //등록후 리스트 불러오기
 							$('#postForm')[0].reset();	//폼값 초기화
 
 						},
