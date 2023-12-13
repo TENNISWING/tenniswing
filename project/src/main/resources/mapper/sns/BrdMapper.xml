@@ -106,4 +106,20 @@
 		DELETE FROM brd
 		WHERE brd_wrt_no = #{brdWrtNo}
 	</delete>
+	
+	<!-- 어드민페이지 -->
+	<select id="noticeAllList" resultType="BrdVO">
+			select brd_wrt_no
+		, brd_title
+		, brd_ctt
+		, brd_write_date
+		, brd_hit
+		, FIND_CATEGORY_NAME(brd_div) brd_div_name
+		, m.mem_id
+		, m.name
+		from brd b, mem m
+		where b.mem_id = m.mem_id
+		and brd_div ='bc2'
+		order by brd_wrt_no DESC
+	</select>
 </mapper>

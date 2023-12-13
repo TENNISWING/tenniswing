@@ -15,31 +15,11 @@
 				<div class="dashboard-block__title">
 					<h4>회원정보</h4>
 				</div>
-				<div class="container">
-
-					<div class="d-flex justify-content-between p-3">
-						<div
-							class="col-4 d-flex justify-content-between p-3 bg-light-subtle me-1 fw-semibold rounded-3">
-							<div>매치횟수</div>
-							<div>0</div>
-						</div>
-						<div
-							class="col-4 d-flex justify-content-between p-3 bg-light-subtle mx-1 fw-semibold rounded-3">
-							<div>스마일카드</div>
-							<div>0</div>
-						</div>
-						<div
-							class="col-4 d-flex justify-content-between p-3 bg-light-subtle ms-1 fw-semibold rounded-3">
-							<div>레드카드</div>
-							<div>0</div>
-						</div>
-					</div>
-				</div>
-
 
 
 				<form class="form form-vertical form-padding mb-5"
-					action="profileUpdate" method="POST" enctype="multipart/form-data" id="updateForm">
+					action="profileUpdate" method="POST" enctype="multipart/form-data"
+					id="updateForm">
 					<div class="form-body">
 						<input type="text" id="message" hidden="true"
 							th:value="${message}">
@@ -48,11 +28,11 @@
 					<div class="justify-content-center">
 						<div class="row justify-content-center" id="memberForm">
 							<div class="text-start mb-5">
-								<div class="text-center ">						
+								<div class="text-center ">
 
 									<img th:src="${member.attachPath}" class="rounded-circle"
-										style="height: 15rem; cursor: pointer;" 
-											id="profileBtn" data-bs-toggle="modal" data-bs-target="#profileImg">
+										style="height: 15rem; cursor: pointer;" id="profileBtn"
+										data-bs-toggle="modal" data-bs-target="#profileImg">
 									<!-- <h5>
 										<button type="button" href="javascript:void(0)" >사진변경</button>
 									</h5> -->
@@ -78,7 +58,7 @@
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-info ms-1"
-													 id="filesBtn" data-bs-dismiss="modal">
+													id="filesBtn" data-bs-dismiss="modal">
 													<i class="bx bx-check d-block d-sm-none"></i> <span
 														class="d-none d-sm-block">저장하기</span>
 												</button>
@@ -114,8 +94,9 @@
 									<label for="pwd">비밀번호 변경</label><br>
 									<div class="input-group mb-3">
 										<input type="password" class="form-control"
-											placeholder="비밀번호변경을 원하시면 입력해주세요" aria-describedby=pwview id="pwdUpdate"
-											name="pwdUpdate" pattern=".{8,50}" title="최소8자리입력해주세요">
+											placeholder="비밀번호변경을 원하시면 입력해주세요" aria-describedby=pwview
+											id="pwdUpdate" name="pwdUpdate" pattern=".{8,50}"
+											title="최소8자리입력해주세요">
 										<button class="btn btn-success" type="button" id="pwview1">
 											<i class="fa-regular fa-eye-slash"></i>
 										</button>
@@ -273,17 +254,29 @@
 										<label for="crtroomNo">자주가는코트</label><br>
 										<div class="input-group mb-3">
 											<input type="text" class="form-control" placeholder="코트 입력"
-												aria-describedby="crtroomBtn" id="crtroomNo"
-												name="crtroomNo" th:value="${member.crtroomNo}">
+												aria-describedby="crtroomBtn" id="crtroomName"
+												name="crtroomName" th:value="${member.crtroomName}">
 											<button class="btn btn-success" type="button" id="crtroomBtn">찾기</button>
+
+											<input type="text" class="form-control" placeholder="코트 입력"
+												aria-describedby="crtroomBtn" id="crtroomNo"
+												name="crtroomNo" hidden="true" th:value=${member.crtroomNo}>
+										</div>
+										<div class="collapse z-3 position-absolute" id="searchcrt">
+											<div class="form-group">
+												<select class="form-select" id="searchCrtItem">
+
+												</select>
+											</div>
 										</div>
 									</div>
 								</div>
 								<div class="d-flex justify-content-between">
-								<button class="btn btn-success" type="submit">수정하기</button>
-								<button class="btn btn-danger" type="button" id="quitBtn">회원 탈퇴</button>
+									<button class="btn btn-success" type="submit">수정하기</button>
+									<button class="btn btn-danger" type="button" id="quitBtn">회원
+										탈퇴</button>
 								</div>
-							</div>				
+							</div>
 						</div>
 
 					</div>
@@ -407,9 +400,56 @@
 			
 	});
 	
-	//본인인증
-	IMP.init("imp48072683");
+     
+    
+    $('#crtroomBtn').on('click', function (e) {
+    let inputVal = $('#crtroomName').val();
+    $('#searchcrt').addClass('show');
+    $.ajax({
+        type: 'get',
+        url: 'searcharea',
+        data: { inputVal },
+        success: function (result) {
+            $('#searchCrtItem').empty();
+            $('#searchCrtItem').append('<option selected="">코트선택</option>')
+            $.each(result, function (index, data) { // 데이터 =item
+                let b = `													 
+					<option value="${data.crtroomNo}">${data.crtroomName}</option>`
+                $('#searchCrtItem').append(b)
+            });
+            b = '</optgroup>'
+            $('#searchCrtItem').append(b)
+        },
+        error: () => console.log(error)
+    })
+
+    if (inputVal == '') {
+        $('#searchcrt').removeClass('show');
+    }
+
+
+})
+
+$('#searchCrtItem').on('change', function (e) {
+    let crtNo = $('#searchCrtItem option:selected').val();
+    let crtName = $('#searchCrtItem option:selected').text();
+    console.log(crtName)
+    if (crtNo != null) {
+        $('#crtroomNo').val(crtNo);
+        $('#crtroomName').val(crtName);
+        $('#searchcrt').removeClass('show');
+    }
+})
+
+  IMP.init("imp48072683");
     $('#phoneNoBtn').on('click', function (e) {
+        if ($('#phoneNo').val() == '') {
+            Swal2.fire({
+                icon: "error",
+                title: "번호를 입력 해 주세요.",
+            })
+            return;
+        }
         IMP.certification({
         }, function (rsp) {
             if (rsp.success) {
@@ -423,7 +463,7 @@
                 console.log("실패")
             }
         });
-    })                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+    })
 	</script>
 
 

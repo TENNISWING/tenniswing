@@ -23,6 +23,9 @@
 			,FIND_CATEGORY_NAME (p.PREFER_GAME_WAY) PREFER_GAME_WAY
 			,FIND_CATEGORY_NAME (p.PREFER_AGE) PREFER_AGE
 			,p.CRTROOM_NO
+			,(SELECT crtroom_name
+				FROM crtroom
+				where crtroom_no = p.CRTROOM_NO) as crtroom_name
 			,p.PR_IMAGE
 			,p.MANNER_POINT
 			, (SELECT ATTACH_PATH
@@ -82,6 +85,9 @@
 		,FIND_CATEGORY_NAME (p.PREFER_GAME_WAY) PREFER_GAME_WAY
 		,FIND_CATEGORY_NAME (p.PREFER_AGE) PREFER_AGE
 		,p.CRTROOM_NO
+		,(SELECT crtroom_name
+				FROM crtroom
+				where crtroom_no = p.CRTROOM_NO) as crtroom_name
 		,p.PR_IMAGE
 		,p.MANNER_POINT
 		, (SELECT ATTACH_PATH
@@ -109,6 +115,9 @@
 		,p.PREFER_GAME_WAY
 		,p.PREFER_AGE
 		,p.CRTROOM_NO
+		,(SELECT crtroom_name
+				FROM crtroom
+				where crtroom_no = p.CRTROOM_NO) as crtroom_name
 		,p.PR_IMAGE
 		,p.MANNER_POINT
 		, (SELECT ATTACH_PATH

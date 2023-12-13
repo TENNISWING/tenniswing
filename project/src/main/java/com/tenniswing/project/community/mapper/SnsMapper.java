@@ -60,5 +60,6 @@ public interface SnsMapper {
 	//페이징 전체 갯수
 	public int selectCount(SnsVO snsVO);
 	
-
+	//어드민페이지
+	public List<SnsVO> snsAllList();
 }

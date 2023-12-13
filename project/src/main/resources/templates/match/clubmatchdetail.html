@@ -29,10 +29,12 @@
 							<div
 								class="product-gallery__thumb swiper productGallerySwiperThumb">
 								<div class="swiper-wrapper">
-									<th:block th:each="clubMatchDetail, stat : ${clubMatchInfo.attachList}">
+									<th:block
+										th:each="clubMatchDetail, stat : ${clubMatchInfo.attachList}">
 										<div class="swiper-slide">
 											<div class="gallery-item">
-												<img th:src="${clubMatchDetail.attachPath}" alt="product iamge" />
+												<img th:src="${clubMatchDetail.attachPath}"
+													alt="product iamge" />
 											</div>
 										</div>
 									</th:block>
@@ -55,10 +57,12 @@
 							</div>
 							<div class="product-gallery__main swiper productGallerySwiper">
 								<div class="swiper-wrapper">
-									<th:block th:each="clubMatchDetail, stat : ${clubMatchInfo.attachList}">
+									<th:block
+										th:each="clubMatchDetail, stat : ${clubMatchInfo.attachList}">
 										<div class="swiper-slide">
 											<div class="gallery-item">
-												<img th:src="${clubMatchDetail.attachPath}" alt="product iamge" />
+												<img th:src="${clubMatchDetail.attachPath}"
+													alt="product iamge" />
 											</div>
 										</div>
 									</th:block>
@@ -87,14 +91,15 @@
 					<div class="col-md-6" style="margin-top: 20px; width: 30%">
 						<div class="product-detail__wrapper">
 							<h2 class="product-detail__title"
-								style="font-family: 'NanumSquareNeo-Variable';">[[ ${clubMatchInfo.crtroomName} ]]</h2>
+								style="font-family: 'NanumSquareNeo-Variable';">[[
+								${clubMatchInfo.crtroomName} ]]</h2>
 							<input type="hidden" name="crtroomName"
 								th:value="${clubMatchInfo.crtroomName}">
 							<div class="product-detail__meta"></div>
 							<h3 class="product-detail__price"
 								style="font-family: 'NanumSquareNeo-Variable';">
-								[[${#numbers.formatInteger(clubMatchInfo.crtUseAmt, 3, 'COMMA') +
-								' 원'}]]</h3>
+								[[${#numbers.formatInteger(clubMatchInfo.crtUseAmt, 3, 'COMMA')
+								+ ' 원'}]]</h3>
 							<p class="product-detail__short_desc"
 								style="font-family: 'NanumSquareNeo-Variable';">♦ 코멘트 영역
 								[[${clubMatchInfo.detailCtt}]]</p>
@@ -123,11 +128,13 @@
 									<input type="text" style="border: 0; text-align: center"
 										th:value="${clubMatchInfo.crtroomLocation}" disabled /> <input
 										type="hidden" style="border: 0; text-align: center"
-										name="crtroomLocation" th:value="${clubMatchInfo.crtroomLocation}">
+										name="crtroomLocation"
+										th:value="${clubMatchInfo.crtroomLocation}">
 								</div>
 							</div>
 						</div>
-						<br><br>
+						<br>
+						<br>
 
 						<div class="review__wrapper">
 							<div class="review__item">
@@ -149,9 +156,14 @@
 									</div>
 								</div>
 							</div>
-						</div><br>
+						</div>
+						<br>
 
 						<!-- button -->
+									<select name="clubNo">
+										<option th:each="club : ${clubList}" th:value="${club.clubNo}"
+											th:text="${club.clubName}">
+									</select>
 						<div class="product-detail__qty">
 							<div class="product__bottom mtdbtn">
 								<div class="cart__action__btn">
@@ -171,7 +183,8 @@
 								</div>
 								<div class="cart__action__btn">
 									<button type="button" class="btn btn-primary matchbtn4"
-										style="font-size: 12.5px" th:onclick="|location.href='@{/clubmatch}'|">
+										style="font-size: 12.5px"
+										th:onclick="|location.href='@{/clubmatch}'|">
 										목록으로</a>
 									</button>
 								</div>
@@ -182,7 +195,8 @@
 				</div>
 			</div>
 	</div>
-	<br><br>
+	<br>
+	<br>
 	<script th:inline='javascript'>
             let matchNo = [[${clubMatchInfo.matchNo}]]
             $('#applyBtn').on("click", function(e) {

@@ -263,16 +263,11 @@ public class SnsServiceImpl implements SnsService {
 	public List<SnsVO> selectSnsMyPage(SnsVO snsVO) {
 		return snsMapper.selectSnsMyPage(snsVO);
 	}
+  
+	@Override
+	public List<SnsVO> snsAllList() {
+		return snsMapper.snsAllList();
+	}
 
-	
-
-
-
-	
-
-	/*
-	 * @Override public List<SnsVO> selectAllSnsInfo() { // TODO Auto-generated
-	 * method stub return null; }
-	 */
 
 }

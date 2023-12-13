@@ -39,7 +39,7 @@
 					</div>
 					<div class="dashboard__header">
 						<div class="d__header--left">
-							<h2 class="title">클럽 목록</h2>
+							<h2 class="title">SNS 목록</h2>
 							<div class="danger__btn border-30">500 products</div>
 						</div>
 						<div class="add__btn" style="margin-right: 1.5rem">
@@ -55,27 +55,25 @@
 									<table class="table" id="table1">
 										<thead>
 											<tr>
-												<th>클럽 번호</th>
-												<th>클럽명</th>
-												<th>클럽장</th>
-												<th>지역</th>
-												<th>클럽상태</th>
-												<th>개설일</th>
+												<th>글 번호</th>
+												<th>제목</th>
+												<th>작성자</th>
+												<th>게시상태</th>
+												<th>게시일</th>
 												<th style="text-align: center;">Action</th>
 											</tr>
 										</thead>
 										<tbody>
-											<th:block th:each="c : ${clubList}">
+											<th:block th:each="n : ${noticeList}">
 												<tr>
-													<td>[[ ${c.clubNo} ]]</td>
-													<td>[[ ${c.clubName} ]]</td>
-													<td>[[ ${c.memId} ]]</td>
-													<td>[[ ${c.clubRegion} ]]</td>
-													<td>[[ ${c.clubState} ]]</td>
-													<td>[[ ${#dates.format(c.clubCreateDate, 'yyyy-MM-dd')} ]]</td>
+													<td>[[ ${n.brdWrtNo} ]]</td>
+													<td>[[ ${n.brdTitle} ]]</td>
+													<td>[[ ${n.memId} ]]</td>
+													<td>[[ ${n.brdState} ]]</td>
+													<td>[[ ${#dates.format(n.brdWriteDate, 'yyyy-MM-dd')} ]]</td>
 													<td>
 														<div class="card__action">
-															<a th:onclick="|location.href='@{/adminDetail_Club(clubNo=${c.clubNo})}'|" class="action__btn ml-10"> 
+															<a th:onclick="|location.href='@{/adminDetail_notice(brdWrtNo=${n.brdWrtNo})}'|" class="action__btn ml-10"> 
 																<svg width="20"
 																	height="20" viewBox="0 0 20 20" fill="none"
 																	xmlns="http://www.w3.org/2000/svg">

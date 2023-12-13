@@ -33,6 +33,8 @@ public class OrderTableVO {
 	private String orderReq;
 	// 주문 회원 아이디
 	private String memId;
+	// 배송
+	private String shipWaybillNo;
 	
 	////////////////////////
 	// 주문 상세 조회

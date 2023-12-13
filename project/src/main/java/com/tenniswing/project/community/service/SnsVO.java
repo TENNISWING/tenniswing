@@ -32,6 +32,8 @@ public class SnsVO {
 	private Date likeInDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date scrapInDate;
+	private String snsState;
+
 	
 	//sns 좋아요
 	private Integer likeNo;

@@ -1,11 +1,9 @@
 package com.tenniswing.project.match.service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.tenniswing.project.attach.service.AttachVO;
 
@@ -39,6 +37,9 @@ public class MatchVO {
 	
 	private String clubName;
 	private int clubNo;
+	private String clubMatchRst;
+	private String clubMatchRstName;
+	
 	
 	private String contName;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -73,5 +74,11 @@ public class MatchVO {
 	private List<AttachVO> attachList;
 	
 	private String nick;
+	
+	
+	
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date today;
 	
 }

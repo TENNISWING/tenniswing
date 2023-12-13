@@ -360,8 +360,11 @@
 		AND c.crtroom_no = #{crtroomNo}
 	</select>
 
+	<resultMap id="clubMatchCourtResult" type="matchVO">
+  		<collection property="attachList" javaType="ArrayList" column="crtroom_no" ofType="AttachVO" select="matchAttachListAllCourt" />
+  	</resultMap>
 	<!-- 클럽 단건조회 -->
-	<select id="selectClubMatch" resultType="MatchVO">
+	<select id="selectClubMatch" resultMap="clubMatchCourtResult">
 		SELECT m.match_no
 		, m.club_name
 		, m.match_date
@@ -427,7 +430,10 @@
 	</select>
 
 	<!-- 스타터 단건조회 -->
-	<select id="selectStarterMatch" resultType="MatchVO">
+	<resultMap id="starterMatchCourtResult" type="matchVO">
+  		<collection property="attachList" javaType="ArrayList" column="crtroom_no" ofType="AttachVO" select="matchAttachListAllCourt" />
+  	</resultMap>
+	<select id="selectStarterMatch" resultMap="starterMatchCourtResult">
 		SELECT s.match_no
 		, s.mem_id
 		, s.match_date
@@ -861,7 +867,7 @@
 		SELECT m.match_no
 		, c.club_name
 		, m.match_date
-		, m.time
+		, FIND_CATEGORY_NAME (m.time) time_name
 		, m.in_date
 		, m.update_date
 		, m.game_way
@@ -878,8 +884,11 @@
 		, m.detail_ctt
 		, m.crtroom_no
 		, FIND_CATEGORY_NAME (m.age) age_name
+        , FIND_CATEGORY_NAME (r.club_match_rst) club_match_rst_name
 		FROM club_match m JOIN club c
 		                    ON m.club_no = c.club_no
+                           LEFT JOIN club_match_rst r
+                             ON r.club_match_no = m.match_no
 		WHERE c.club_no=#{clubNo}
 	</select>
 </mapper>
