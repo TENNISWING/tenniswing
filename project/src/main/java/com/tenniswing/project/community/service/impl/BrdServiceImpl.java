@@ -74,4 +74,9 @@ public class BrdServiceImpl implements BrdService {
 		 brdMapper.updateBrdHit(brdWrtNo);
 	}
 
+	@Override
+	public List<BrdVO> noticeAllList() {
+		return brdMapper.noticeAllList();
+	}
+
 }

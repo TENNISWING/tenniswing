@@ -1073,6 +1073,10 @@ body{
 									$('#matchList').empty();
 									$('#loadDiv').empty();
 									$('#lastDiv').empty();
+									if(crtroomOperateEndTime == '00:00'){
+										crtroomOperateEndTime = '24:00';
+									}
+									
 										for(let i=0; i<reserveTimeCode.length; i++){
 											let b = ``;
 											if( crtroomOperateStartTime > reserveTimeCode[i][1].substr(0,5)){

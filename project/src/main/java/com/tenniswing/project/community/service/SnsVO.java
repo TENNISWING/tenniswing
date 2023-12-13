@@ -28,6 +28,7 @@ public class SnsVO {
 	private String name;
 	private Integer snsGrpNo;
 	private int test;
+	private String snsState;
 	
 	//sns 좋아요
 	private Integer likeNo;

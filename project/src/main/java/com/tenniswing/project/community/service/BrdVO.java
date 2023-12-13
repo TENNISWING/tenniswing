@@ -23,6 +23,7 @@ public class BrdVO {
 	private String memId;
 	private String name;
 	private String brdDiv;
+	private String brdState;
 	
 	//페이징
 	private int page = 1;

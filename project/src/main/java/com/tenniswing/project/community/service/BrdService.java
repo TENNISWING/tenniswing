@@ -24,4 +24,7 @@ public interface BrdService {
 		
 		// 조회수
 		public void updateBrdHit(int hit);
+		
+		// 어드민 공지사항
+		public List<BrdVO> noticeAllList();
 }

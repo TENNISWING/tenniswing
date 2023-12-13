@@ -127,7 +127,7 @@ $('#pwd').on('propertychange change keyup paste input', function (e) {
 
 //폰넘버 숫자만 입력, 공백 막음
 $('#phoneNo').on('propertychange change keyup paste input', function (e) {
-	
+
     $(e.target).val($(e.target).val().replace(onlyNum, ''));
 
     let intext = $(e.target).val();
@@ -181,6 +181,13 @@ $(document).ready(function () {
 
     IMP.init("imp48072683");
     $('#phoneNoBtn').on('click', function (e) {
+        if ($('#phoneNo').val() == '') {
+            Swal2.fire({
+                icon: "error",
+                title: "번호를 입력 해 주세요.",
+            })
+            return;
+        }
         IMP.certification({
         }, function (rsp) {
             if (rsp.success) {
@@ -281,14 +288,14 @@ $(document).ready(function () {
             url: 'forgotpw',
             contentType: 'application/json',
             data: JSON.stringify({ phoneNo, memId, pwd }),
-            success: function (result) {   
+            success: function (result) {
                 if (result > 0) {
                     Swal2.fire({
                         icon: "success",
                         title: "비밀번호 수정 완료",
                     }).then(result => {
-                    	location.href="/loginform";
-                    })                   
+                        location.href = "/loginform";
+                    })
                 } else {
                     Swal2.fire({
                         icon: "error",
@@ -314,3 +321,45 @@ $('input:radio[name=memDiv]').on("change", function (e) {
         location.href = "hostsignup";
     }
 });
+
+
+$('#crtroomBtn').on('click', function (e) {
+    let inputVal = $('#crtroomName').val();
+    $('#searchcrt').addClass('show');
+    $.ajax({
+        type: 'get',
+        url: 'searcharea',
+        data: { inputVal },
+        success: function (result) {
+            $('#searchCrtItem').empty();
+            $('#searchCrtItem').append('<option selected="">코트선택</option>')
+            $.each(result, function (index, data) { // 데이터 =item
+                let b = `													 
+					<option value="${data.crtroomNo}">${data.crtroomName}</option>`
+                $('#searchCrtItem').append(b)
+            });
+            b = '</optgroup>'
+            $('#searchCrtItem').append(b)
+        },
+        error: () => console.log(error)
+    })
+
+    if (inputVal == '') {
+        $('#searchcrt').removeClass('show');
+    }
+
+
+})
+
+$('#searchCrtItem').on('change', function (e) {
+    let crtNo = $('#searchCrtItem option:selected').val();
+    let crtName = $('#searchCrtItem option:selected').text();
+    console.log(crtName)
+    if (crtNo != null) {
+        $('#crtroomNo').val(crtNo);
+        $('#crtroomName').val(crtName);
+        $('#searchcrt').removeClass('show');
+    }
+})
+
+

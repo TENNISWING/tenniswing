@@ -32,7 +32,8 @@ public class MemberVO {
 	private String ntrp;
 	private String preferGameWay;
 	private String preferAge;
-	private Integer crtroomNo;
+	private int crtroomNo;
+	private String crtroomName;
 	private String prImage;
 	private int mannerPoint;
 		
