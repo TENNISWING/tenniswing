@@ -13,6 +13,7 @@
 				order_prod_cnt,
 				order_t_pay_amt,
 				order_date,
+				ship_waybill_no,
 				FIND_CATEGORY_NAME(order_state) AS order_state
 		FROM	order_table
 		ORDER BY order_no			 	
@@ -28,7 +29,8 @@
 		        o.order_adr3, 
 		        o.order_adr1, 
 		        o.order_req,
-		        o.imp_uid, 
+		        o.imp_uid,
+		        ship_waybill_no,
 		        FIND_CATEGORY_NAME(o.order_state) AS order_state,
 		        o.order_t_pay_amt, 
 		        o.merchant_uid
@@ -102,7 +104,14 @@
 	<!-- 상품 주문 수정(취소 후 상태 변경) -->
 	<update id="updateOrderState" parameterType="OrderTableVO">
 		UPDATE	order_table
-		SET		order_state = #{orderState}
+		<set>
+			<if test="orderState != null and !orderState.equals('')">
+				order_state = #{orderState},
+			</if>
+			<if test="shipWaybillNo != null and !shipWaybillNo.equals('')">
+				ship_waybill_no = #{shipWaybillNo},
+			</if>
+		</set>
 		WHERE	order_no = #{orderNo}
 	</update>
   	

@@ -177,8 +177,13 @@ public class OrderServiceImpl implements OrderService {
 
 	// 주문 취소 주문 상태 update
 	@Override
-	public int updateOrderState(OrderTableVO orderTable) {
-		return orderMapper.updateOrderState(orderTable);
+	public boolean updateOrderState(OrderTableVO orderTable) {
+		boolean isSucess = false;
+		int result = orderMapper.updateOrderState(orderTable);
+		if(result > 0) {
+			isSucess = true;
+		}
+		return isSucess;  
 	}
 	
 	// 주문 취소 order_detail 한건 조회
