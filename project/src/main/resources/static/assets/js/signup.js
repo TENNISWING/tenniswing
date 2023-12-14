@@ -163,20 +163,20 @@ $(document).ready(function () {
 
 
     $('#submitBtn').on('click', function (e) {
-        e.preventDefault();
-        if ($('#phoneCk').is(':checked') && $('#idck').is(':checked')) {
-            $('form').submit();
-        } else if (!$('#idck').is(':checked')) {
-            Swal2.fire({
-                icon: "error",
-                title: "아이디 중복 확인이 필요합니다.",
-            })
-        } else {
-            Swal2.fire({
-                icon: "error",
-                title: "본인 인증이 필요합니다.",
-            })
-        }
+        // e.preventDefault();
+        // if ($('#phoneCk').is(':checked') && $('#idck').is(':checked')) {
+        //     $('form').submit();
+        // } else if (!$('#idck').is(':checked')) {
+        //     Swal2.fire({
+        //         icon: "error",
+        //         title: "아이디 중복 확인이 필요합니다.",
+        //     })
+        // } else {
+        //     Swal2.fire({
+        //         icon: "error",
+        //         title: "본인 인증이 필요합니다.",
+        //     })
+        // }
     })
 
     IMP.init("imp48072683");
