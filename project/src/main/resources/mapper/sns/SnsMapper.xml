@@ -153,18 +153,17 @@
 	
 	<!-- 마이페이지 sns 좋아요 스크랩 -->
 	<select id="selectSnsMyPage" resultType = "SnsVO">
-		SELECT s.sns_wrt_no
-			   , s.sns_title
-			   , s.sns_write_date
-			   , s.mem_id
-			   , l.like_no
-			   , l.like_in_date
-			   , s.scrap_no
-			   , s.scrap_in_date
-		FROM sns s, sns_like l, sns_scrap s
-		WHERE s.sns_wrt_no = l.sns_wrt_no
-		AND s.sns_wrt_no = s.sns_wrt_no
-		AND mem_id = #{memId}
+		select p.sns_wrt_no, p.scrap_no, p.mem_id, s.sns_title, p.scrap_in_date
+		from sns_scrap p,  sns s
+		where p.sns_wrt_no = s.sns_wrt_no
+		and p.mem_id = #{memId}
+	</select>
+	
+	<select id="selectMyScrap" resultType = "SnsVO">
+		select l.like_no, s.sns_title, l.like_in_date
+		from sns s, sns_like l
+		where s.sns_wrt_no = l.sns_wrt_no
+		and l.mem_id = #{memId}
 	</select>
 
 	<!-- 내가 등록한 그룹 리스트 sns, sns_grp 다 데려옴 -->

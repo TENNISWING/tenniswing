@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.tenniswing.project.attach.service.AttachVO;
-import com.tenniswing.project.club.service.ClubVO;
 
 public interface SnsService {
 	// 전체조회
@@ -55,7 +54,7 @@ public interface SnsService {
 	//페이징 전체 갯수
 	public int selectCount(SnsVO snsVO);
 
+	//public List<SnsVO> selectAllSnsInfo(SnsVO snsVO);
 	//어드민페이지
 	public List<SnsVO> snsAllList();
-
 }
