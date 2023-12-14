@@ -187,6 +187,7 @@
 	  		AND a.attach_turn = 1
 	  		AND cr.crtroom_region = #{crtroomRegion}
 	  		AND cr.crtroom_no <![CDATA[<>]]> #{crtroomNo}
+	  		AND cr.crtroom_state = 'm2'
 	  		GROUP BY cr.crtroom_no
 	  				, cr.crtroom_name
 	  				, cr.crtroom_location
@@ -212,7 +213,7 @@
 	  							ON cr.crtroom_no = r.crtroom_no
 		  		WHERE a.attach_table_div = 'cd'
 		  		AND a.attach_turn = 1
-		  		
+		  		AND cr.crtroom_state = 'm2'
 		  		GROUP BY cr.crtroom_no
 		  				, cr.crtroom_name
 		  				, cr.crtroom_location
@@ -419,7 +420,7 @@
   	</update>
   	
   	<!-- 코트 예약건수 조회 -->
-  	<select id="courtReserveCount" resultType="crtroomVO">
+  	<select id="courtReserveCount" resultType="int">
   		SELECT count(*)
   		FROM reserve
   		WHERE crtroom_no = #{crtroomNo}

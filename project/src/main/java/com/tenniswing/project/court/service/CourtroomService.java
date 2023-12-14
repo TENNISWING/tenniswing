@@ -33,7 +33,7 @@ public interface CourtroomService {
 	public Map<String, Object> updateCourtroom(CrtroomVO crtroomVO);
 	
 	// 삭제
-	public boolean deleteCourtroom(int crtroomNo);
+	public Map<String, Object> deleteCourtroom(int crtroomNo);
 	
 	// 코트검색	
 	public List<CrtroomVO> courtSearch(String str);

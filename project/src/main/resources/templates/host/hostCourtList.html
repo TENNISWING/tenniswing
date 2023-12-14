@@ -58,7 +58,7 @@
 										<tbody>
 											<th:block th:each="courtList, stat : ${courtList}">
 												<tr>
-													<td id="crtroomNo" th:attrappend="id=${stat.index}">[[
+													<td id="crtroomNo" th:attrappend="id=${courtList.crtroomNo}">[[
                             ${courtList.crtroomNo} ]]</td>
                           <td>[[ ${courtList.crtroomName} ]]</td>
                           <td>[[ ${courtList.crtroomLocation} ]]</td>
@@ -157,7 +157,7 @@
 					data: {crtNo: courtroomNo},
 					dataType: 'json',
 					success: function(result){
-						if(result){
+						if(result.result){
 							Swal.fire({
 								  icon: "success",
 								  title: "",
@@ -169,7 +169,7 @@
 							Swal.fire({
 								  icon: "error",
 								  title: "",
-								  text: "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다.",
+								  html: "정상적으로 삭제되지 않았습니다."+"\n예약 건수: "+result.reserveCount+"건",
 							})
 						}
 					}
