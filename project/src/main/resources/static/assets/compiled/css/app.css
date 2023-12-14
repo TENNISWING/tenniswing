@@ -90,6 +90,12 @@
         overflow: auto !important;
     }
 }
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 :root,
 [data-bs-theme='light'] {
     --bs-blue: #435ebe;
@@ -18574,7 +18580,7 @@ body .bi:before,
 }
 .layout-horizontal .main-navbar {
     background-color: #ffffff;
-    padding: 1rem;
+    /* padding: 1rem; */
 }
 .layout-horizontal .main-navbar ul {
     list-style: none;
@@ -18593,7 +18599,7 @@ body .bi:before,
     align-items: center;
 }
 .layout-horizontal .main-navbar ul .menu-link span {
-    height: 20px;
+    /* height: 20px; */
 }
 .layout-horizontal .main-navbar ul .menu-link span > i {
     margin-right: 3px;
@@ -18602,8 +18608,9 @@ body .bi:before,
     position: relative;
 }
 .layout-horizontal .main-navbar ul > .menu-item .menu-link {
-    color: black;
-    font-family: yg-jalnan;
+    color: #3c3c3c;
+    /* font-family: yg-jalnan; */
+    font-family: 'SBAggroB';
     font-size: 1.5rem;
 }
 .layout-horizontal .main-navbar ul > .menu-item.active a {
