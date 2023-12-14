@@ -569,7 +569,7 @@
 			
 			pageNum = targetPage;
 			prodPage(targetPage);
-			window.scrollTo(0,50);
+			window.scrollTo(0,0);
 		});
 		
 		
@@ -590,9 +590,17 @@
 			
 			var str= "";
 			
+			if(prev) {
+				str+= "<li class='page-item'><a class='page-link' href='"+(startNum -1)+"'>Previous</a></li>";
+			}
+			
 			for(var i = startNum ; i <= endNum; i++) {
 				var active = pageNum == i? "active":"";
 				str+= "<li class='page-item "+active+"'> <a class='page-link' href='"+i+"'>"+i+"</a></li>";		
+			}
+			
+			if(next) {
+				str+= "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>Next</a><li>";
 			}
 			
 			str += "";
@@ -601,7 +609,7 @@
 			
 			$('.pagination').html(str);
 		}
-		//showPage(12);
+		/* showPage(12); */
 		
 		function changePrice() {		
 			let price = $('.price');

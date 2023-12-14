@@ -8,7 +8,17 @@
 	.swal2-popup {
 	 	z-index: 1000000 !important;
 	}
+	span {
+		font-family: 'Noto Sans KR', sans-serif !important;
+	}
 </style>
+<head>
+	<style type="text/css">
+		span {
+			font-family: 'Noto Sans KR', sans-serif !important;
+		}
+	</style>
+</head>
 <th:block th:fragment="header">
 	<!-- header -->
 	<header class="mb-4">
@@ -108,10 +118,11 @@
 		<nav class="main-navbar">
 			<div class="container">
 				<ul>
-					<li class="menu-item has-sub"><a href="/" class="menu-link">
-							<span>소셜매치</span>
-					</a>
-						<div class="submenu">
+					<li class="menu-item">
+						<a href="/" class="menu-link">
+							<span style="">소셜매치</span>
+						</a>
+						<!-- <div class="submenu">
 							<div class="submenu-group-wrapper">
 								<ul class="submenu-group">
 									<li class="submenu-item"><a href="/" class='submenu-link'>매치</a></li>
@@ -123,14 +134,15 @@
 										class='submenu-link'>스타터</a></li>
 								</ul>
 							</div>
-						</div></li>
+						</div> -->
+					</li>
 					<li class="menu-item"><a href="court" class='menu-link'> <span>코트예약</span></a>
 					</li>
 
 					<li class="menu-item"><a href="club" class="menu-link">
 							<span>클럽</span>
 					</a>
-				</li>
+					</li>
 
 					<li class="menu-item"><a href="sns" class="menu-link">
 							<span>커뮤니티</span>
