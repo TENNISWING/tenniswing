@@ -111,7 +111,7 @@ public class MemberController {
 
 		if (!check) {
 			model.addAttribute("message", "아이디 중복 체크하지 않았습니다");
-			return "member/signup";
+			return "redirect:/signup";
 		}
 
 		int result = memberService.insertMember(memberVO);
@@ -119,6 +119,7 @@ public class MemberController {
 		if (result > 0) {
 
 			if (memberVO.getMemDiv().equals("ROLE_HOST")) {
+				model.addAttribute("message", "회원가입을 완료하였습니다.");
 				return "redirect:/loginform";
 			}
 			List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());
