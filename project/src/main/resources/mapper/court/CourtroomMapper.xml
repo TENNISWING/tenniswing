@@ -424,5 +424,6 @@
   		SELECT count(*)
   		FROM reserve
   		WHERE crtroom_no = #{crtroomNo}
+  		AND reserve_state = 'i1'
   	</select>
   </mapper>

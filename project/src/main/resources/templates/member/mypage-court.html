@@ -31,10 +31,10 @@
 						<tbody>
 						<th:block th:each="crt : ${court}">
 							<tr>
-								<td>[[${crt.PAY_DATE}]]</td>
+								<td>[[${#dates.format(crt.PAY_DATE,'yyyy-MM-dd')}]]</td>
 								<td>[[${crt.CRTROOM_NAME}]]</td>
 								<td class="reservePrice">[[${crt.RESERVE_PRICE}]]</td>
-								<td class="reserveDate" id="reserveNo" th:attrappend="id=${crt.RESERVE_NO}">[[${crt.RESERVE_DATE}]]</td>
+								<td class="reserveDate" id="reserveNo" th:attrappend="id=${crt.RESERVE_NO}">[[${#dates.format(crt.RESERVE_DATE,'yyyy-MM-dd')}]]</td>
 								<td class="reserveState" id="reserveUid" th:attrappend="id=${crt.RESERVE_UID}">[[${crt.RESERVE_STATE}]]</td>
 								<td th:if="${crt.RESERVE_STATE == '이용전'}"><button type="button" class="btn btn-success reserveCancel" id="reservePayNo" th:attrappend="id=${crt.RESERVE_PAY_NO}">예약취소</button></td>	
 								<td th:if="${crt.RESERVE_STATE == '이용후'}"><button type="button" class="btn btn-light" disabled>예약취소</button></td>
@@ -82,34 +82,45 @@
 			reason : "reserve cancel",
 			charge : refundCharge,
 			reserveNo : reserveNo};
-   	 $.ajax({
-      url: 'courtReserveCancel', 
-      type: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify(data),
-      dataType: 'json',
-      success: function(result) {
-			if (result) {
-				//alert("환불 성공");
-				Swal2.fire({
-					icon: "success",
-					text: "환불 성공"
-				}).then(function(){
-					location.reload();
-				})
-			} else {
-				//alert("환불 실패, 다시 시도해 주세요.");
-				Swal2.fire({
-					icon: "error",
-					text: "환불 실패, 다시 시도해 주세요."
-				})
-			}
-			console.log(result);
-		},
-	  error: function(e) {
-			console.log(e);
-	  }
-    });
+	
+	Swal2.fire({
+		icon: "question",
+		text: "환불예정금액은 "+refundPrice+"원 입니다. 그래도 환불하시겠습니까?",
+		showDenyButton: true,
+	    confirmButtonText: "yes",
+	    denyButtonText: "no"
+	}).then((result)=>{
+		if(result.isConfirmed){
+		   	 $.ajax({
+		      url: 'courtReserveCancel', 
+		      type: 'POST',
+		      contentType: 'application/json',
+		      data: JSON.stringify(data),
+		      dataType: 'json',
+		      success: function(result) {
+					if (result) {
+						//alert("환불 성공");
+						Swal2.fire({
+							icon: "success",
+							text: "환불 성공! 환불 금액: "+data.amount+"원"
+						}).then(function(){
+							location.reload();
+						})
+					} else {
+						//alert("환불 실패, 다시 시도해 주세요.");
+						Swal2.fire({
+							icon: "error",
+							text: "환불 실패, 다시 시도해 주세요."
+						})
+					}
+					console.log(result);
+				},
+			  error: function(e) {
+					console.log(e);
+			  }
+		    });
+		}
+	})
   }
 </script>
 <script
