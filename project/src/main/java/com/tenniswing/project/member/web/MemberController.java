@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
@@ -105,13 +106,13 @@ public class MemberController {
 
 	// 회원가입 처리
 	@PostMapping("signup")
-	public String signupProc(MemberVO memberVO, Model model) throws IOException {
+	public String signupProc(MemberVO memberVO, Model model, RedirectAttributes rttr) throws IOException {
 
 		boolean check = memberService.idCheck(memberVO.getMemId());
 
 		if (!check) {
-			model.addAttribute("message", "아이디 중복 체크하지 않았습니다");
-			return "member/signup";
+			rttr.addFlashAttribute("message", "아이디 중복 체크하지 않았습니다");
+			return "redirect:signup";
 		}
 
 		int result = memberService.insertMember(memberVO);
@@ -119,17 +120,18 @@ public class MemberController {
 		if (result > 0) {
 
 			if (memberVO.getMemDiv().equals("ROLE_HOST")) {
-				return "redirect:/loginform";
+				rttr.addFlashAttribute("msg", "회원가입을 완료하였습니다.");
+				return "redirect:loginform";
 			}
 			List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());
 
 			// 테이블 구분, 게시글 번호, 파일목록
-			int n = attachService.saveAttach("m", memberVO.getMemNo(), files);
-			model.addAttribute("message", "회원가입을 완료하였습니다.");
-			return "redirect:/loginform";
+			attachService.saveAttach("m", memberVO.getMemNo(), files);
+			rttr.addFlashAttribute("msg", "회원가입을 완료하였습니다.");
+			return "redirect:loginform";
 		} else {
-			model.addAttribute("message", "회원가입에 실패하였습니다.");
-			return "redirect:/signup";
+			rttr.addFlashAttribute("msg", "회원가입에 실패하였습니다.");
+			return "redirect:signup";
 		}
 
 	}

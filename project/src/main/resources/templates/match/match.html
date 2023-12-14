@@ -202,9 +202,15 @@
 			</div>
 		</div>
 	</section>
-	<!-- 슬라이드 닫히는 곳 -->
+
 
 	<script>
+	let msg = "[[${message}]]"
+	if(msg != "") {
+		alert('수정이 완료되었습니다!');
+	}
+	
+	
 	$('#btnsearch').on("click", function(e) {
 		let matchDate = $('.matchdate .active').data('day');
 		matchAjax(matchDate,1)
@@ -407,7 +413,6 @@
                         }
                     
                         $.each(dateArry, (idx, ele) => {
-                        	console.log(ele.dayNo);
                         	if (idx == 0) {
                                 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
                                                     <div class="btn btn-outline-success active" data-day="${ele.allDate}">
@@ -492,6 +497,8 @@
                                 clickable: true,
                             },
                         });
+                        
+                        
                     </script>
 </th:block>
 
