@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.match.service.MatchHistService;
@@ -85,15 +86,15 @@ public class MatchController {
 	
 		// 매치 수정하기
 		@PostMapping("matchUpdate")
-		@ResponseBody
-		public boolean matchUpdateProcess(MatchVO matchVO) {
+		public String matchUpdateProcess(MatchVO matchVO, RedirectAttributes rttr) {
 			String id = SecurityContextHolder.getContext().getAuthentication().getName();
 			matchVO.setMemId(id);
 			int n = matchService.updateMatch(matchVO);
 			if (n > 0) {
-				return true;
+				rttr.addFlashAttribute("message", "수정되었습니다");
+				return "redirect:/";
 			} else {
-				return false;
+				return "redirect:matchUpdate";
 			}
 		}
 
@@ -119,7 +120,7 @@ public class MatchController {
 	// 매치 수정페이지
 	@GetMapping("matchupdateregi")
 	public String matchupdateregiPage(Model model, MatchVO matchVO) {
-		model.addAttribute("matchInfo", matchService.selectMatch(matchVO));
+		model.addAttribute("matchInfo", matchService.selectMatch(matchVO));		
 		return "match/matchupdateregi";
 	}
 
@@ -191,6 +192,20 @@ public class MatchController {
 			return true;
 		} else {
 			return false;
+		}
+	}
+	
+	// 클럽 매치 수정하기
+	@PostMapping("clubMatchUpdate")
+	public String clubMatchUpdateProcess(MatchVO matchVO, RedirectAttributes rttr) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		matchVO.setMemId(id);
+		int n = matchService.updateClubMatch(matchVO);
+		if (n > 0) {
+			rttr.addFlashAttribute("message", "수정되었습니다");
+			return "redirect:/";
+		} else {
+			return "redirect:clubMatchUpdate";
 		}
 	}
 
@@ -380,6 +395,20 @@ public class MatchController {
 		}
 	}
 
+	// 스타터 매치 수정하기
+		@PostMapping("starterMatchUpdate")
+		public String starterMatchUpdateProcess(MatchVO matchVO, RedirectAttributes rttr) {
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			matchVO.setMemId(id);
+			int n = matchService.updateStarterMatch(matchVO);
+			if (n > 0) {
+				rttr.addFlashAttribute("message", "수정되었습니다");
+				return "redirect:/";
+			} else {
+				return "redirect:starterMatchUpdate";
+			}
+		}
+	
 	@GetMapping("startermatchdetail")
 	public String startermatchdetailPage(Model model, MatchVO matchVO) {
 		model.addAttribute("starterMatchInfo", matchService.selectStarterMatch(matchVO));

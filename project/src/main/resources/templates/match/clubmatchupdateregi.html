@@ -4,10 +4,11 @@
 	layout:decorate="~{layouts/main-layout}">
 
 <th:block layout:fragment="content">
-	
+
 	<!-- signup form -->
 	<div class="container justify-content-center" id="signupForm">
-		<form class="form form-vertical" action="clubmatchupdateregi" method="POST">
+		<form class="form form-vertical" action="clubMatchUpdate"
+			method="POST" name="clubMatchUpdate">
 			<div class="form-body">
 				<div class="text-center">
 					<h3 class="my-4">클럽 매치 수정</h3>
@@ -31,10 +32,11 @@
 								<label for="name">코트 선택</label>
 								<div class="input-group">
 									<input type="text" class="form-control" autocomplete="off"
-										placeholder="코트 찾기" data-bs-toggle="collapse"
-										data-bs-target="#collapseExample" aria-expanded="false"
-										aria-controls="collapseExample" id="search1"> <input
-										type="hidden" name="crtroomNo" id="crtroomNo">
+										th:value="${clubMatchInfo.crtroomName}" placeholder="코트 찾기"
+										data-bs-toggle="collapse" data-bs-target="#collapseExample"
+										aria-expanded="false" aria-controls="collapseExample"
+										id="search1"> <input type="hidden" name="crtroomNo"
+										id="crtroomNo"  th:value="${clubMatchInfo.crtroomNo}">
 									<button type="button" class="input-group-text">
 										<i class="icon dripicons dripicons-search fs-3"></i>
 									</button>
@@ -47,26 +49,6 @@
 								</div>
 							</div>
 						</div>
-						<!-- <div class="col-6">
-						<label for="age">코트 선택</label>
-						<div class="input-group">
-							<input type="text" class="form-control" autocomplete="off"
-								placeholder="코트 찾기" data-bs-toggle="collapse"
-								data-bs-target="#collapseExample" aria-expanded="false"
-								aria-controls="collapseExample" id="search1">
-
-							<button type="button" class="input-group-text">
-								<i class="icon dripicons dripicons-search fs-3"></i>
-							</button>
-							<div class="collapse z-3 position-absolute mt-5" id="searchArea1">
-
-								<div class="form-group">
-									<select class="form-select" id="searchItem1">
-									</select>
-								</div>
-							</div>
-						</div>
-						</div> -->
 						<script>
 						$('#search1').on('propertychange change keyup paste input', function(e){						
 								let inputVal = $(e.target).val();								
@@ -122,6 +104,7 @@
 							<div class="col-6" style="margin-left: 55px;">
 								<label for="region">매치 일자</label><br> <input type="date"
 									id="matchDate" name="matchDate"
+									th:value="${#dates.format(clubMatchInfo.matchDate,'yyyy-MM-dd')}"
 									class="form-control flatpickr-always-open"
 									placeholder="예약 일자 선택">
 							</div>
@@ -157,12 +140,12 @@
 								<div class="form-group">
 									<select class="choices form-select" name="age" id="age">
 										<optgroup label="연령대">
-											<option value="a1">10대</option>
-											<option value="a2">20대</option>
-											<option value="a3">30대</option>
-											<option value="a4">40대</option>
-											<option value="a5">50대</option>
-											<option value="a6">60대이상</option>
+											<option value="a1" th:selected="'a1' == ${clubMatchInfo.age}">10대</option>
+											<option value="a2" th:selected="'a2' == ${clubMatchInfo.age}">20대</option>
+											<option value="a3" th:selected="'a3' == ${clubMatchInfo.age}">30대</option>
+											<option value="a4" th:selected="'a4' == ${clubMatchInfo.age}">40대</option>
+											<option value="a5" th:selected="'a5' == ${clubMatchInfo.age}">50대</option>
+											<option value="a6" th:selected="'a6' == ${clubMatchInfo.age}">60대이상</option>
 										</optgroup>
 									</select>
 								</div>
@@ -172,43 +155,55 @@
 								<div class="form-group">
 									<select class="choices form-select" name="lv" id="lv">
 										<optgroup label="구력">
-											<option value="d1">입문</option>
-											<option value="d2">2~5년</option>
-											<option value="d3">5년이상</option>
+											<option value="d1" th:selected="'d1' == ${clubMatchInfo.lv}">입문</option>
+											<option value="d2" th:selected="'d1' == ${clubMatchInfo.lv}">2~5년</option>
+											<option value="d3" th:selected="'d1' == ${clubMatchInfo.lv}">5년이상</option>
 										</optgroup>
 									</select>
 								</div>
 							</div>
 						</div>
 
-							<div class="row mmmttt">
+						<div class="row mmmttt">
 							<div class="col-4">
 								<label for="gameWay">경기 방식</label>
 								<div class="form-group">
 									<select class="choices form-select" id="gameWay" name="gameWay">
 										<optgroup label="경기방식">
-											<option value="f1">단식</option>
-											<option value="f2">남복</option>
-											<option value="f3">여복</option>
-											<option value="f4">랠리</option>
-											<option value="f5">혼복</option>
+											<option value="f1"
+												th:selected="'f1' == ${clubMatchInfo.gameWay}">단식</option>
+											<option value="f2"
+												th:selected="'f2' == ${clubMatchInfo.gameWay}">남복</option>
+											<option value="f3"
+												th:selected="'f3' == ${clubMatchInfo.gameWay}">여복</option>
+											<option value="f4"
+												th:selected="'f4' == ${clubMatchInfo.gameWay}">랠리</option>
+											<option value="f5"
+												th:selected="'f5' == ${clubMatchInfo.gameWay}">혼복</option>
 										</optgroup>
 									</select>
 								</div>
 							</div>
-							
+
 							<div class="col-4">
 								<label for="ntrp">ntrp</label>
 								<div class="form-group">
 									<select class="choices form-select" id="ntrp" name="ntrp">
 										<optgroup label="ntpr">
-											<option value="e1">1.0</option>
-											<option value="e2">1.5</option>
-											<option value="e3">2.0</option>
-											<option value="e4">2.5</option>
-											<option value="e5">3.0</option>
-											<option value="e6">3.5</option>
-											<option value="e7">4.0이상</option>
+											<option value="e1"
+												th:selected="'e1' == ${clubMatchInfo.ntrp}">1.0</option>
+											<option value="e2"
+												th:selected="'e2' == ${clubMatchInfo.ntrp}">1.5</option>
+											<option value="e3"
+												th:selected="'e3' == ${clubMatchInfo.ntrp}">2.0</option>
+											<option value="e4"
+												th:selected="'e4' == ${clubMatchInfo.ntrp}">2.5</option>
+											<option value="e5"
+												th:selected="'e5' == ${clubMatchInfo.ntrp}">3.0</option>
+											<option value="e6"
+												th:selected="'e6' == ${clubMatchInfo.ntrp}">3.5</option>
+											<option value="e7"
+												th:selected="'e7' == ${clubMatchInfo.ntrp}">4.0이상</option>
 										</optgroup>
 									</select>
 								</div>
@@ -220,8 +215,8 @@
 								<label for="name">코트비</label><br>
 								<div class="input-group mb-3">
 									<input type="text" class="form-control is-invalid"
-										placeholder="코트비 입력" id="crtUseAmt" name="crtUseAmt"
-										maxlength="10" required>
+										th:value="${clubMatchInfo.crtUseAmt}" placeholder="코트비 입력"
+										id="crtUseAmt" name="crtUseAmt" maxlength="10" required>
 								</div>
 							</div>
 						</div>
@@ -231,17 +226,19 @@
 								<label for="name">코멘트</label><br>
 								<div class="input-group mb-3">
 									<input type="text" class="form-control is-invalid"
+									th:value="${clubMatchInfo.detailCtt}"
 										placeholder="코멘트 입력" id="detailCtt" name="detailCtt">
 								</div>
 							</div>
 						</div>
 
 						<div class="ctrgbtns">
-								<br>
-								<input type="number" th:value="${clubMatchInfo.matchNo}" hidden="true" name="matchNo">
-						<button class="btn btn-success" type="submit">수정하기</button>
-						<button class="btn btn-success" type="button" th:onclick="|location.href='@{/clubmatch}'|">취소</button>
-							</div>
+							<br> <input type="number"
+								th:value="${clubMatchInfo.matchNo}" hidden="true" name="matchNo">
+							<button class="btn btn-success" type="button" id="applyBtn">수정하기</button>
+							<button class="btn btn-success" type="button"
+								th:onclick="|location.href='@{/clubmatch}'|">취소</button>
+						</div>
 					</div>
 
 				</div>
@@ -249,7 +246,26 @@
 			</div>
 		</form>
 	</div>
-	
-	</th:block>
+	<script th:inline='javascript'>
+	 $('#applyBtn').on("click", function(e) {
+    	 e.preventDefault();
+     	console.log('applyBtn');
+     	 Swal.fire({
+    		  title: "수정 하시겠습니까?",
+    		  text: "수정을 원하시면 예를 눌러주세요.",
+    		  icon: "warning",
+    		  showCancelButton: true,
+    		  confirmButtonColor: "#3085d6",
+    		  cancelButtonColor: "#d33",
+    		  confirmButtonText: "예"
+    		}).then((result) => {
+    		  if (result.isConfirmed) {    			
+    		    $('form').submit();
+    		  }
+    		});
+        
+     })
+	</script>
+</th:block>
 
 </html>
