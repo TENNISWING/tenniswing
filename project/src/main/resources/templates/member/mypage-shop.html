@@ -20,21 +20,21 @@
 					<table class="table" id="table1">
 						<thead>
 							<tr>
-								<th>주문일자</th>
+								<th>사진</th>
 								<th>상품명</th>
+								<th>카테고리</th>
 								<th>가격</th>
-								<th>주문상태</th>
-								<th>배송상태</th>		
+								<th>삭제</th>		
 							</tr>
 						</thead>
 						<tbody>
 						
 						<th:block th:each="o : ${order}">
 							<tr>
-								<td>[[${o.APPLY_DATE}]]</td>
-								<td>[[${o.CLUB_NAME}]]</td>
-								<td>[[${o.CLUB_REGION}]]</td>
-								<td>[[${o.CLUB_APPROVE}]]</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
 								<td th:if="${o.CLUB_APPROVE == '대기'}"><button type="button" class="btn btn-success" th:onclick="cancel11()">가입취소</button>			
 								<td th:if="${o.CLUB_APPROVE == '승인'}"><button type="button" class="btn btn-light" disabled>가입취소</button>			
 							</tr>
