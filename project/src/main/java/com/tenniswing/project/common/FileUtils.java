@@ -83,13 +83,7 @@ public class FileUtils {
         return uuid + "." + extension;
     }
 
-    /**
-     * 업로드 경로 반환
-     * @return 업로드 경로
-     */
-    private String getUploadPath() {
-        return makeDirectories(uploadPath);
-    }
+ 
 
     /**
      * 업로드 경로 반환
@@ -97,7 +91,7 @@ public class FileUtils {
      * @return 업로드 경로
      */
     private String getUploadPath(final String addPath) {
-        return makeDirectories(uploadPath + File.separator + addPath);
+        return makeDirectories(uploadPath + "/" + addPath);
     }
 
     /**
