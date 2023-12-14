@@ -3,6 +3,8 @@ package com.tenniswing.project.member.service;
 import java.util.List;
 import java.util.Map;
 
+import com.tenniswing.project.attach.service.AttachVO;
+
 public interface MemberService {
 	// 전체조회
 	public List<MemberVO> getMemberAll();
@@ -26,7 +28,7 @@ public interface MemberService {
 	public int searchPwUpdate(MemberVO memberVO);
 
 	// 회원가입
-	public int insertMember(MemberVO memberVO);
+	public int insertMember(MemberVO memberVO, List<AttachVO> files);
 
 	// 수정
 	public Map<String, Object> updateMemberInfo(MemberVO memberVO);

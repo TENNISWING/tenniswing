@@ -64,7 +64,7 @@ public class MemberController {
 	}
 
 	// 호스트회원가입 폼 이동
-	@GetMapping("hostsignup")
+	@GetMapping("signuphost")
 	public String hostSignupPage(Model model) {
 		return "member/hostsignup";
 	}
@@ -114,19 +114,12 @@ public class MemberController {
 			rttr.addFlashAttribute("message", "아이디 중복 체크하지 않았습니다");
 			return "redirect:signup";
 		}
-
-		int result = memberService.insertMember(memberVO);
+		
+		List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());
+		
+		int result = memberService.insertMember(memberVO, files);
 
 		if (result > 0) {
-
-			if (memberVO.getMemDiv().equals("ROLE_HOST")) {
-				rttr.addFlashAttribute("msg", "회원가입을 완료하였습니다.");
-				return "redirect:loginform";
-			}
-			List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());
-
-			// 테이블 구분, 게시글 번호, 파일목록
-			attachService.saveAttach("m", memberVO.getMemNo(), files);
 			rttr.addFlashAttribute("msg", "회원가입을 완료하였습니다.");
 			return "redirect:loginform";
 		} else {

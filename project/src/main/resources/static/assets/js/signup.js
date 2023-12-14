@@ -318,7 +318,7 @@ $('input:radio[name=memDiv]').on("change", function (e) {
     if (ckId == 'member') {
         location.href = "signup";
     } else {
-        location.href = "hostsignup";
+        location.href = "signuphost";
     }
 });
 
