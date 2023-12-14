@@ -205,6 +205,14 @@ public class ClubController {
 		return "redirect:clubMatchJoin";
 	}
 	
+	//매치 모집 삭제
+		@PostMapping("recDelete")
+		@ResponseBody
+		public boolean deleteRecAjax(@RequestParam("paramRecNo") Integer clubMatchRecruitNo) {
+			boolean result = clubMatchService.clubRecDelete(clubMatchRecruitNo);
+			return result;
+		}
+	
 	// --------------------------------------- 매치 일정
 
 	// 상세페이지 > 탭 > 매치일정
@@ -213,21 +221,37 @@ public class ClubController {
 		return "club/clubMatchDate";
 	}
 	
+	//매치 일정 리스트
 	@GetMapping("selectClubList")
 	@ResponseBody
 	public List<MatchVO> MatchListAjax(MatchVO matchVO) {
-		return matchService.selectClubList(matchVO);
+		
+		return matchService.selectClubList(matchVO).get("before");
 	}
 	
 	// --------------------------------------- 매치 결과
 
 	// 상세페이지 > 탭 > 매치결과
 	@GetMapping("clubMatchEnd")
-	public String EndTapPage(Model model) {
+	public String EndTapPage(ClubVO clubVO ) {
 		return "club/clubMatchEnd";
 	}
 	
-	
+	//매치 결과 리스트
+		@GetMapping("selectClubEndList")
+		@ResponseBody
+		public List<MatchVO> MatchEndListAjax(MatchVO matchVO) {
+			return matchService.selectClubList(matchVO).get("after");
+		}
+		
+
+	//매치 결과 입력
+		@PostMapping("insertResult")
+		@ResponseBody
+		public String resultAjax(ClubVO clubVO) {
+			clubMatchService.insertResult(clubVO);
+			return "redirect:clubMatchEnd";
+		}
 	
 	// --------------------------------------- 자유게시판
 	
@@ -285,11 +309,12 @@ public class ClubController {
 	@ResponseBody
 	public Map<String, Object> postUpdateFormAjax(ClubPostVO clubPostVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println("55555555555555555555555555"+clubPostVO);
 		clubPostVO.setMemId(id);
 		Map<String, Object> result = clubPostService.updatePost(clubPostVO);
 
-		List<AttachVO> files = fileUtils.uploadFiles(clubPostVO.getFiles());
-		attachService.updateAttach("cp", clubPostVO.getClubPostNo(), files);
+		//List<AttachVO> files = fileUtils.uploadFiles(clubPostVO.getFiles());
+		//attachService.updateAttach("cp", clubPostVO.getClubPostNo(), files);
 	
 		return result;
 	}

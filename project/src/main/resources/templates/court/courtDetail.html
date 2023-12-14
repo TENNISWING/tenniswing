@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layouts/main-layout}">
+	layout:decorate="~{layouts/main-layout}">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
@@ -1073,6 +1073,10 @@ body{
 									$('#matchList').empty();
 									$('#loadDiv').empty();
 									$('#lastDiv').empty();
+									if(crtroomOperateEndTime == '00:00'){
+										crtroomOperateEndTime = '24:00';
+									}
+									
 										for(let i=0; i<reserveTimeCode.length; i++){
 											let b = ``;
 											if( crtroomOperateStartTime > reserveTimeCode[i][1].substr(0,5)){

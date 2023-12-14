@@ -25,6 +25,7 @@ public class ClubVO {
 	private String memId;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date clubCreateDate;
+	private String clubState;
 	
 	private List<String> clubTimeList;
 	
@@ -89,6 +90,8 @@ public class ClubVO {
 	private int clubMatchNo;
 	private String clubMatchRst;
 	private int clubMatchAttendNum;
+	private int clubMatchRstNo;
+	
 	
 	//참여인원 카운트
 	private int joinMem;

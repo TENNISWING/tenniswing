@@ -40,6 +40,11 @@ public class SnsServiceImpl implements SnsService {
 	// 회원당 그룹 조회
 	@Override
 	public List<SnsVO> selectGroup(SnsVO snsVO) {
+		//List<SnsVO> list = snsMapper.selectGroup(snsVO);
+		//for문 안에 랜덤if문 돌고 if문 안에 set값
+		//랜덤 순서 이미지
+		//스위치문, if문
+		//랜덤한수 돌린다음에 setattachpath
 		return snsMapper.selectGroup(snsVO);
 	}
 
@@ -248,21 +253,26 @@ public class SnsServiceImpl implements SnsService {
 		map.put("info", snsVO);
 		return map;
 	}
-
+	//페이징
 	@Override
 	public int selectCount(SnsVO snsVO) {
 		return snsMapper.selectCount(snsVO);
 	}
 
-	
+	@Override
+	public List<SnsVO> snsAllList() {
+		return snsMapper.snsAllList();
+	}
+	// 마이페이지 좋아요
+	@Override
+	public List<SnsVO> selectMyLike(SnsVO snsVO) {
+		return snsMapper.selectMyLike(snsVO);
+	}
+	// 마이페이지 스크랩
+	@Override
+	public List<SnsVO> selectMyScrap(SnsVO snsVO) {
+		return snsMapper.selectMyScrap(snsVO);
+	}
 
-
-
-	
-
-	/*
-	 * @Override public List<SnsVO> selectAllSnsInfo() { // TODO Auto-generated
-	 * method stub return null; }
-	 */
 
 }

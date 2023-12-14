@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layouts/admin/admin-layout}">
+	layout:decorate="~{layouts/admin/admin-layout}">
 <head>
 <link rel="shortcut icon" href="./assets/compiled/svg/favicon.svg"
 	type="image/x-icon">
@@ -208,7 +208,7 @@
 							<div class="form-group">
 								<label for="prodDetailSto">상품 상세 재고</label> <input type="number"
 									th:field="*{prodDetailSto}" class="form-control"
-									placeholder="상품 상세 재고" />
+									placeholder="상품 상세 재고" required="required" />
 							</div>
 							
 							<div class="form-group">
@@ -513,6 +513,17 @@
 		$('#addDetailBnt').on('click', insertProdDetail);
 		
 		function insertProdDetail(e) {
+			/* if(('#prodDetailSto').val() == '' || ('#prodDetailSto').text() == ''){
+				Swal.fire({
+					title: "상품 재고",
+					text: "상품 재고 입력하세요.",
+					icon: "info",
+					didClose: () =>{
+						$('#prodDetailSto').focus();
+						//return;	
+					}
+				})				
+			} */
 						
 			let prodDetailInfo = getProdDetailInfo();
 			//console.log(prodDetailInfo);

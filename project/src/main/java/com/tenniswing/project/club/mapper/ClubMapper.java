@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.club.service.ClubVO;
-import com.tenniswing.project.match.service.MatchVO;
 
 public interface ClubMapper {
 	//전체조회
@@ -48,5 +47,8 @@ public interface ClubMapper {
 
 	//마이클럽 리스트
 	public List<Map<String, Object>> selectAllMyClub(String memId);
+	
+	//어드민 클럽 리스트
+	public List<ClubVO> selectAdminAllClub();
 
 }

@@ -325,10 +325,10 @@
 		, FIND_CATEGORY_NAME (m.game_way) game_way_name
 		, m.prog_state
 		, m.ntrp
-		, m.lv
-		, FIND_CATEGORY_NAME (m.lv) lv_name
-		, m.gen
-		, FIND_CATEGORY_NAME (m.gen) gen_name
+		, p.lv
+		, FIND_CATEGORY_NAME (p.lv) lv_name
+		, p.gen
+		, FIND_CATEGORY_NAME (p.gen) gen_name
 		, m.crt_use_amt
 		, m.recruit_psn_num
 		, m.detail_ctt
@@ -340,9 +340,11 @@
 		, c.crtroom_location
 		, FIND_CATEGORY_NAME (c.crtroom_region) crtroom_region_name
 		, b.NAME
-		FROM match m, crtroom c, mem b
+        , p.nick
+		FROM match m, crtroom c, mem b, pr p
 		WHERE m.crtroom_no = c.crtroom_no
 		AND m.mem_id = b.mem_id
+        AND b.mem_id = p.mem_id
 		AND m.match_no = #{matchNo}
 	</select>
   	<select id="matchAttachListAllCourt" resultType="AttachVO">
@@ -358,8 +360,11 @@
 		AND c.crtroom_no = #{crtroomNo}
 	</select>
 
+	<resultMap id="clubMatchCourtResult" type="matchVO">
+  		<collection property="attachList" javaType="ArrayList" column="crtroom_no" ofType="AttachVO" select="matchAttachListAllCourt" />
+  	</resultMap>
 	<!-- 클럽 단건조회 -->
-	<select id="selectClubMatch" resultType="MatchVO">
+	<select id="selectClubMatch" resultMap="clubMatchCourtResult">
 		SELECT m.match_no
 		, m.club_name
 		, m.match_date
@@ -383,12 +388,14 @@
 		, c.crtroom_name
 		, c.crtroom_location
 		, FIND_CATEGORY_NAME (c.crtroom_location) crtroom_location_name
-		, a.attach_path
-		FROM club_match m, crtroom c, attach a
+        , p.nick
+        , t.mem_id
+        , p.gen
+		, FIND_CATEGORY_NAME (p.gen) gen_name
+		FROM club_match m, club t, crtroom c, pr p
 		WHERE m.crtroom_no = c.crtroom_no
-		AND c.crtroom_no = a.attach_table_pk
-		AND a.attach_table_div = 'cd'
-		AND a.attach_turn = 1
+        AND t.mem_id = p.mem_id
+        AND m.club_no = t.club_no
 		and m.match_no = #{matchNo}
 	</select>
 
@@ -423,7 +430,10 @@
 	</select>
 
 	<!-- 스타터 단건조회 -->
-	<select id="selectStarterMatch" resultType="MatchVO">
+	<resultMap id="starterMatchCourtResult" type="matchVO">
+  		<collection property="attachList" javaType="ArrayList" column="crtroom_no" ofType="AttachVO" select="matchAttachListAllCourt" />
+  	</resultMap>
+	<select id="selectStarterMatch" resultMap="starterMatchCourtResult">
 		SELECT s.match_no
 		, s.mem_id
 		, s.match_date
@@ -434,8 +444,8 @@
 		, s.ntrp
 		, s.lv
 		, FIND_CATEGORY_NAME (s.lv) lv_name
-		, s.gen
-		, FIND_CATEGORY_NAME (s.gen) gen_name
+		, p.gen
+		, FIND_CATEGORY_NAME (p.gen) gen_name
 		, s.rsprice
 		, s.recruit_psn_num
 		, s.detail_ctt
@@ -444,12 +454,12 @@
 		, c.crtroom_name
 		, c.crtroom_location
 		, FIND_CATEGORY_NAME (c.crtroom_location) crtroom_location_name
-		, a.attach_path
-		FROM starter_match s, crtroom c, attach a
+		, b.NAME
+        , p.nick
+		FROM starter_match s, crtroom c, mem b, pr p
 		WHERE s.crtroom_no = c.crtroom_no
-		AND c.crtroom_no = a.attach_table_pk
-		AND a.attach_table_div = 'cd'
-		AND a.attach_turn = 1
+		AND s.mem_id = b.mem_id
+        AND b.mem_id = p.mem_id
 		AND match_no = #{matchNo}
 	</select>
 
@@ -857,7 +867,7 @@
 		SELECT m.match_no
 		, c.club_name
 		, m.match_date
-		, m.time
+		, FIND_CATEGORY_NAME (m.time) time_name
 		, m.in_date
 		, m.update_date
 		, m.game_way
@@ -874,8 +884,11 @@
 		, m.detail_ctt
 		, m.crtroom_no
 		, FIND_CATEGORY_NAME (m.age) age_name
+        , FIND_CATEGORY_NAME (r.club_match_rst) club_match_rst_name
 		FROM club_match m JOIN club c
 		                    ON m.club_no = c.club_no
+                           LEFT JOIN club_match_rst r
+                             ON r.club_match_no = m.match_no
 		WHERE c.club_no=#{clubNo}
 	</select>
 </mapper>

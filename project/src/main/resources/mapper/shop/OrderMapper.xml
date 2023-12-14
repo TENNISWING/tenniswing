@@ -13,6 +13,7 @@
 				order_prod_cnt,
 				order_t_pay_amt,
 				order_date,
+				ship_waybill_no,
 				FIND_CATEGORY_NAME(order_state) AS order_state
 		FROM	order_table
 		ORDER BY order_no			 	
@@ -28,7 +29,8 @@
 		        o.order_adr3, 
 		        o.order_adr1, 
 		        o.order_req,
-		        o.imp_uid, 
+		        o.imp_uid,
+		        ship_waybill_no,
 		        FIND_CATEGORY_NAME(o.order_state) AS order_state,
 		        o.order_t_pay_amt, 
 		        o.merchant_uid
@@ -70,6 +72,48 @@
 		AND		od.order_no = #{orderNo}
 	</select>
 	
+	<!-- 상품 한건 조회(결제 취소) -->
+	<select id="selectOrder" resultType="OrderTableVO">
+		SELECT 	*
+		FROM	order_table
+		WHERE	order_no = #{orderNo}
+	</select>
+	
+	<!-- 상품 주문 취소(결제 취소) -->
+	<insert id="insertPayCancel" parameterType="PayCancelVO">
+		<selectKey keyProperty="payCancelNo" resultType="int" order="BEFORE">
+			SELECT 	NVL(MAX(pay_cancel_no), 0) + 1
+			FROM	pay_cancel
+		</selectKey>
+		INSERT INTO pay_cancel (
+				pay_cancel_no,
+				pay_cancel_date,
+				pay_cancel_amt,
+				pay_cancel_apply_part,
+				order_no
+		)
+		VALUES (
+				#{payCancelNo},
+				SYSDATE,
+				#{payCancelAMt},
+				#{payCancelApplyPart},
+				#{orderNo}
+		)
+	</insert>
+	
+	<!-- 상품 주문 수정(취소 후 상태 변경) -->
+	<update id="updateOrderState" parameterType="OrderTableVO">
+		UPDATE	order_table
+		<set>
+			<if test="orderState != null and !orderState.equals('')">
+				order_state = #{orderState},
+			</if>
+			<if test="shipWaybillNo != null and !shipWaybillNo.equals('')">
+				ship_waybill_no = #{shipWaybillNo},
+			</if>
+		</set>
+		WHERE	order_no = #{orderNo}
+	</update>
   	
   	<!-- 상품 주문 후 등록 -->
   	<insert id="insertOrder" parameterType="OrderTableVO">
@@ -233,4 +277,16 @@
 		FROM dual
 		</foreach>
   	</insert>
+  	
+  	<!-- order_detail 한건 조회 -->
+  	<select id="selectOrderDetail" resultType="OrderDetailVO">
+  		SELECT 	order_detail_no,
+  				order_detail_price,
+  				order_detail_cnt,
+  				order_detail_amt,
+  				order_no,
+  				prod_detail_no
+	  	FROM	order_detail
+	  	WHERE	order_no = #{orderNo} 
+  	</select>
   </mapper>

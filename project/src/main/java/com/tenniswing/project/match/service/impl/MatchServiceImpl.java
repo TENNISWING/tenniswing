@@ -1,5 +1,9 @@
 package com.tenniswing.project.match.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -213,9 +217,28 @@ public class MatchServiceImpl implements MatchService {
 		return matchMapper.matchStarterAll();
 	}
 
+	
+	//클럽내 매치 리스트
 	@Override
-	public List<MatchVO> selectClubList(MatchVO matchVO) {
-		return matchMapper.selectClubList(matchVO);
+	public Map<String, List<MatchVO>> selectClubList(MatchVO matchVO) {
+		Map<String, List<MatchVO>> map = new HashMap<>();
+		 List<MatchVO> before = new ArrayList<>();
+		 List<MatchVO> after = new ArrayList<>();
+		 
+		  Date today = new Date();
+		  
+		  List<MatchVO> list= matchMapper.selectClubList(matchVO);
+		  for(MatchVO vo :list) {
+			  if(vo.getMatchDate().after(today)) {
+				  before.add(vo);
+			  }else {
+				  after.add(vo);
+			  }
+		  }
+		  map.put("before", before);
+		  map.put("after", after);
+		  
+		return map;
 	}
 
 	/*

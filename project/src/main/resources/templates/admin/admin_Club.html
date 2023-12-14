@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layouts/admin/admin-layout}">
+	layout:decorate="~{layouts/admin/admin-layout}">
 <head>
 	<link rel="shortcut icon" href="./assets/compiled/svg/favicon.svg"
 		type="image/x-icon">
@@ -10,9 +10,9 @@
 		type="image/png">
 	
 	<link rel="stylesheet"
-		href="assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+		href="/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
 	<link rel="stylesheet"
-		href="./assets/compiled/css/table-datatable-jquery.css">
+		href="/assets/compiled/css/table-datatable-jquery.css">
 	<style type="text/css">
 	    svg,
 	    path {
@@ -39,7 +39,7 @@
 					</div>
 					<div class="dashboard__header">
 						<div class="d__header--left">
-							<h2 class="title">회원 목록</h2>
+							<h2 class="title">클럽 목록</h2>
 							<div class="danger__btn border-30">500 products</div>
 						</div>
 						<div class="add__btn" style="margin-right: 1.5rem">
@@ -55,33 +55,27 @@
 									<table class="table" id="table1">
 										<thead>
 											<tr>
-												<th>회원 번호</th>
-												<th>아이디</th>
-												<th>이름</th>
-												<th>폰 번호</th>
-												<th>닉네임</th>
-												<th>회원상태</th>
-												<th>가입일</th>
-												<th>회원구분</th>												
+												<th>클럽 번호</th>
+												<th>클럽명</th>
+												<th>클럽장</th>
+												<th>지역</th>
+												<th>클럽상태</th>
+												<th>개설일</th>
 												<th style="text-align: center;">Action</th>
 											</tr>
 										</thead>
 										<tbody>
-											<th:block th:each="m : ${memberList}">
+											<th:block th:each="c : ${clubList}">
 												<tr>
-													<td>[[ ${m.memNo} ]]</td>
-													<td>[[ ${m.memId} ]]</td>
-													<td>[[ ${m.name} ]]</td>
-													<td>[[ ${m.phoneNo} ]]</td>
-													<td>[[ ${m.nick} ]]</td>
-													<td>[[ ${m.state} ]]</td>
-													<td>[[ ${#dates.format(m.joinDate, 'yyyy-MM-dd')} ]]</td>
-													<td th:if="${m.memDiv == 'ROLE_MEMBER'}"><span class="badge bg-success">회원</span></td>
-													<td th:if="${m.memDiv == 'ROLE_HOST'}"><span class="badge bg-success">호스트</span></td>
-													<td th:if="${m.memDiv == 'ROLE_ADMIN'}"><span class="badge bg-success">관리자</span></td>
+													<td>[[ ${c.clubNo} ]]</td>
+													<td>[[ ${c.clubName} ]]</td>
+													<td>[[ ${c.memId} ]]</td>
+													<td>[[ ${c.clubRegion} ]]</td>
+													<td>[[ ${c.clubState} ]]</td>
+													<td>[[ ${#dates.format(c.clubCreateDate, 'yyyy-MM-dd')} ]]</td>
 													<td>
 														<div class="card__action">
-															<a th:onclick="|location.href='@{/adminDetail_Member(memId=${m.memId})}'|" class="action__btn ml-10"> 
+															<a th:onclick="|location.href='@{/adminDetail_Club(clubNo=${c.clubNo})}'|" class="action__btn ml-10"> 
 																<svg width="20"
 																	height="20" viewBox="0 0 20 20" fill="none"
 																	xmlns="http://www.w3.org/2000/svg">
@@ -137,52 +131,7 @@
 	<!-- Main__container End-->
 	
 	<script type="text/javascript">
-		function deleteProd(prodNo){
-			console.log(prodNo);
-			
-			Swal.fire({
-				title: "Are you sure?",
-				text: "You won't be able to revert this!",
-				icon: "warning",
-				showCancelButton: true,
-				confirmButtonColor: "#3085d6",
-				cancelButtonColor: "#d33",
-				confirmButtonText: "Yes, delete it!"
-			}).then((result) => {
-				//console.log(result);
-				if (result.isConfirmed) {
-					$.ajax({
-						type : 'get',
-						url : 'adminDelete_Product?prodNo='+prodNo,
-						contentType : 'application/json',
-						dataType : 'text',
-						success : function(data){
-							data = JSON.parse(data);
-							console.log(data.result);
-							if(data.result){
-								Swal.fire({
-									icon: "success",
-									title: "삭제 완료",
-									text: "상품 정보가 삭제되었습니다.",
-									}).then(function(){
-										location.reload();
-									})
-							}else {
-								Swal.fire({
-									  icon: "error",
-									  title: "삭제 실패",
-									  text: "삭제 중 문제 발생",
-								}).then(function(){
-									location.reload();
-								})
-							}
-						}
-					});
-				}
-				/* end of if */
-			});
-			/* end of then */
-		}
+		
 		
 		changeColor();	
 		function changeColor() {
@@ -197,12 +146,12 @@
 			})
 		}
 	</script>
-	<script src="assets/extensions/jquery/jquery.min.js"></script>
+	<script src="/assets/extensions/jquery/jquery.min.js"></script>
 	<script
-		src="assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
+		src="/assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
 	<script
-		src="assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-	<script src="assets/static/js/pages/datatables.js"></script>
+		src="/assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script src="/assets/static/js/pages/datatables.js"></script>
 </th:block>
 
 </html>

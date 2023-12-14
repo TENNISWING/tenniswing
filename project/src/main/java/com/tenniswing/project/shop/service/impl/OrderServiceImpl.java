@@ -13,8 +13,10 @@ import com.tenniswing.project.shop.mapper.OrderMapper;
 import com.tenniswing.project.shop.mapper.ProdDetailMapper;
 import com.tenniswing.project.shop.mapper.ProdMapper;
 import com.tenniswing.project.shop.service.CartVO;
+import com.tenniswing.project.shop.service.OrderDetailVO;
 import com.tenniswing.project.shop.service.OrderService;
 import com.tenniswing.project.shop.service.OrderTableVO;
+import com.tenniswing.project.shop.service.PayCancelVO;
 import com.tenniswing.project.shop.service.ProdVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -149,7 +151,6 @@ public class OrderServiceImpl implements OrderService {
 		return orderMapper.selectAdminOrder(orderNo);
 	}
 
-
 	@Override
 	public OrderTableVO selectAdminOrderPay(int orderNo) {
 		return orderMapper.selectAdminOrderPay(orderNo);
@@ -159,6 +160,36 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<OrderTableVO> selectAdminOrderProd(int orderNo) {
 		return orderMapper.selectAdminOrderProd(orderNo);
+	}
+
+	
+	// 한건 조회 취소 어드민
+	@Override
+	public OrderTableVO selectOrder(int orderNo) {
+		return orderMapper.selectOrder(orderNo);
+	}
+
+	// 주문 취소 결제 취소 INSERT
+	@Override
+	public int insertPayCancel(PayCancelVO payCancelVO) {
+		return orderMapper.insertPayCancel(payCancelVO);
+	}
+
+	// 주문 취소 주문 상태 update
+	@Override
+	public boolean updateOrderState(OrderTableVO orderTable) {
+		boolean isSucess = false;
+		int result = orderMapper.updateOrderState(orderTable);
+		if(result > 0) {
+			isSucess = true;
+		}
+		return isSucess;  
+	}
+	
+	// 주문 취소 order_detail 한건 조회
+	@Override
+	public List<OrderDetailVO> selectOrderDetail(int orderNo) {
+		return orderMapper.selectOrderDetail(orderNo);
 	}
 	
 	

@@ -90,9 +90,15 @@
 # Match
 --------------------------------------------------------------*/
 
-.mtntrpbtn {
-	background-color: white;
-    border: none;
+.mmmttt {
+	justify-content: space-around;
+}
+
+.matchimg img {
+	height: 80px;
+	width: 80px;
+ 	border-radius: 50%;
+ 	margin-right:20px;
 }
 
 .ctrgbtns {

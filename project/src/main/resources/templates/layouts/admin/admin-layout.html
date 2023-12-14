@@ -42,11 +42,6 @@
     <!-- Template Main CSS File -->
     <link href="/assets/css/main.css" rel="stylesheet">
 
-    <!-- Template Main JS File -->
-    <!-- <script src="assets/js/main.js"></script> -->
-
-	<!-- bootstraph -->
-	<!-- <link rel="stylesheet" href="assets/css/bootstrap.min.css" /> -->
 	<!-- Fancy Box -->
 	<link rel="stylesheet" href="assets/css/jquery.fancybox.min.css" />
 	<!-- swiper js -->
@@ -80,13 +75,13 @@
                 </a>
             </header>
 			<!-- header -->
-			<header th:replace="/layouts/admin/admin-side :: adminside"></header>
+			<header th:replace="layouts/admin/admin-side :: adminside"></header>
 
 			<!-- content -->
 			<th:block layout:fragment="admincontent"></th:block>
 
 			<!-- footer -->
-			<footer th:replace="/layouts/admin/admin-footer :: adminfooter"></footer>
+			<footer th:replace="layouts/admin/admin-footer :: adminfooter"></footer>
 		</div>
 	</div>
 	
@@ -119,9 +114,7 @@
 	<script src="/assets/static/js/pages/filepond.js"></script>
           <script src="/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
           	<script src="/assets/static/js/pages/sweetalert2.js"></script>
-	<!-- Need: Apexcharts -->
-	<script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
-	<script src="assets/static/js/pages/dashboard.js"></script>
+
 	
 	<script type="text/javascript">
 		console.log(window.location.pathname);

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layouts/main-layout}">
+	layout:decorate="~{layouts/main-layout}">
 
 <th:block layout:fragment="content">
 	<h3 class="container p-3">매치 이력</h3>
 	<div class="container" id="mypage">
 		<div class="row">
 			<div class="col-lg-4 col-md-auto">
-				<div th:replace="/member/mypage-sidemenu :: sidemenu"></div>
+				<div th:replace="member/mypage-sidemenu :: sidemenu"></div>
 			</div>
 			<div class="col-lg-8 col-md-auto">
 				<!-- Profile Table Start -->
