@@ -110,6 +110,12 @@ HAVING c.club_no= #{clubNo}
 }
 </delete>
 
+<!-- 매치 결과 수정 -->
+<update id="editResult" parameterType="ClubVO">
+	UPDATE club_match_rst
+	SET club_match_rst = #{clubMatchRst} 
+	WHERE club_match_no = #{clubMatchNo}
+</update>
 
 
 </mapper>

@@ -60,4 +60,10 @@ public class ClubMatchServiceImpl implements ClubMatchService {
 		}
 	}
 
+	//매치 결과 수정
+	@Override
+	public int editResult(ClubVO clubVO) {
+		return clubMatchMapper.editResult(clubVO);
+	}
+
 }
