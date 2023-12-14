@@ -72,14 +72,20 @@ public class CourtroomServiceImpl implements CourtroomService {
 	}
 
 	@Override
-	public boolean deleteCourtroom(int crtroomNo) {
-		int result = courtroomMapper.deleteCourtroom(crtroomNo);
-		
-		if(result == 1) {
-			return true;
-		}else {
-			return false;
+	public Map<String, Object> deleteCourtroom(int crtroomNo) {
+		Map<String, Object> map = new HashMap<>();
+		int reserveCount = courtroomMapper.courtReserveCount(crtroomNo);
+		int result = 0;
+		if(reserveCount == 0) {
+			result = courtroomMapper.deleteCourtroom(crtroomNo);
 		}
+		boolean isSuccessed = false;
+		if(result == 1) {
+			isSuccessed = true;
+		}
+		map.put("reserveCount", reserveCount);
+		map.put("result", isSuccessed);
+		return map;
 	}
 
 	//사용자
