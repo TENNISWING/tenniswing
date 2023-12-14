@@ -22,37 +22,40 @@
 			let clubNo = [[${ clubVO.clubNo }]];
 			console.log("클럽번호" + clubNo)
 
-			$.ajax(
+			$.ajax({
 				type: 'GET',
 				url: 'selectClubEndList',
 				data: { clubNo },
 				success: function (data) {
 					$('#matchEndList').empty();
 					for (let match of data) {
-						let result;
-						if(${match.clubMatchRstName} != null){
-							result = ${match.clubMatchRstName}
-						}else{
-							result="대기";
-						}
 						let List = `
 						<li>
 						<div class="recent-message d-flex px-4 py-3"
 						style="border-bottom: 1px solid #e1e1e1; display: flex; justify-content: space-between; align-items: center;">
-						<div class="d-flex-right">
-							<div class="match-box">`+
-							result
-							+`</div>
-							<div class="name ms-4" style="padding: 10px 0;">
-								<h5 class="mb-1">${new Date(match.matchDate).toLocaleDateString(
+						<div class="d-flex-right">`
+						if(match.clubMatchRstName == null){
+							List+=`
+								<div class="match-box">대기</div>
+							`
+						}else{
+							List+=`
+								<div class="match-box"> ${match.clubMatchRstName}</div>
+							`
+						}
+					List+=	`
+							<div class="name ms-4" style="padding: 10px 0;"
+								data-bs-toggle="modal" data-bs-target="#hist${match.matchNo}" style="cursor:pointer;">
+								<h5 class="mb-1 histInfo">${new Date(match.matchDate).toLocaleDateString(
 							'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치</h5>
 								<h6 class="text-muted mb-0">참가 인원 : ${match.recruitPsnNum}명</h6>
-								<h6 class="text-muted mb-0">게임 방식 : ${match.gameWayName}</h6>
 							</div>
 						</div>
 						<div>
 						<button type="button" class="btn btn-outline-success resultBtn"
 							 data-bs-toggle="modal" data-bs-target="#result${match.matchNo}">결과입력</button>
+							 <i type="button" class="fa-regular fa-pen-to-square resEditBtn"
+									data-bs-toggle="modal" data-bs-target="#resEdit${match.matchNo}" ></i>
 						</div>
 						</div>
 						</li>
@@ -93,13 +96,74 @@
 							</div>
 						</div>
 						<!-- /결과 작성 모달 -->
+						<!-- 결과 수정 모달 -->
+						<div class="modal-success me-1 mb-1 d-inline-block">
+							<div class="modal fade text-left" id="resEdit${match.matchNo}"
+								tabindex="-1" role="dialog" aria-labelledby="myModalLabel110"
+								aria-hidden="true">
+								<div
+									class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+									role="document">
+									<div class="modal-content">
+										<div class="modal-header bg-success">
+											<h5 class="modal-title white" id="myModalLabel110">${new Date(match.matchDate).toLocaleDateString(
+													'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치 결과</h5>
+											<button type="button" class="close" data-bs-dismiss="modal"
+												aria-label="Close">
+												<i data-feather="x"></i>
+											</button>
+										</div>
+										<div class="modal-body">
+											<input class="form-check-input" type="radio" name="clubMatchRst" id="win" value="n2" style="display: inline-block;">
+					                     	  <label class="form-check-label" for="win" style="display: inline-block;">승</label>
+											<input class="form-check-input" type="radio" name="clubMatchRst" id="lose" value="n1" style="display: inline-block;">
+										 	   <label class="form-check-label" for="lose" style="display: inline-block;">패</label>
+											<input class="form-check-input" type="radio" name="clubMatchRst" id="tie," value="n3" style="display: inline-block;"> 
+												<label class="form-check-label" for="tie," style="display: inline-block;">무승부</label>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-light-secondary"
+												data-bs-dismiss="modal">Close</button>
+
+											<button type="button" class="btn btn-success ms-1 saveBtn" 
+												 data-match-no="${match.matchNo}" data-bs-dismiss="modal">저장</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /결과 수정 모달 -->
+						<!-- 상대편 정보 모달 -->
+						<div class="modal-success me-1 mb-1 d-inline-block">
+							<div class="modal fade text-left" id="resEdit${match.matchNo}"
+								tabindex="-1" role="dialog" aria-labelledby="myModalLabel110"
+								aria-hidden="true">
+								<div
+									class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+									role="document">
+									<div class="modal-content">
+										<div class="modal-header bg-success">
+											<h5 class="modal-title white" id="myModalLabel110">${new Date(match.matchDate).toLocaleDateString(
+													'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치</h5>
+											<button type="button" class="close" data-bs-dismiss="modal"
+												aria-label="Close">
+												<i data-feather="x"></i>
+											</button>
+										</div>
+										<div class="modal-body">
+										
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /상대편 정보 모달 -->
+						
 					`
 						$('#matchEndList').append(List);
 					}
 					
-					let rst = $('p.rst').text();
-					console.log(rst);
-					checkRst(rst)
+					
 					
 					$('.saveBtn').on("click", function (e) {
 						let clubMatchNo = $(this).data('match-no');

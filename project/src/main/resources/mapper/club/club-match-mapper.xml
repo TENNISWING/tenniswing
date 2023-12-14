@@ -7,32 +7,6 @@
 
 <!-- 인원모집 리스트 전체조회 -->
 <select id="selectAllMatchRecruit" resultType="ClubVO">
-<!-- SELECT c.club_match_recruit_no
-		   , c.club_match_date
-           , c.club_match_recruit_psn_num
-           , c.club_no
-           , c.match_recruit_write_date
-           , c.recruit_state
-           , c.div
-           , c.match_opponent_no
-           , c.match_no
-           , mem.mem_no
- 		   ,count(m.CLUB_MATCH_RECRUIT_NO) as join_mem
-FROM club_match_recruit c LEFT JOIN club_match_recruit_mem m	 
-                          ON c.club_match_recruit_no = m.club_match_recruit_no
-                          LEFT JOIN mem mem ON mem.mem_no = m.mem_no
-WHERE c.RECRUIT_STATE = 'l2'                     
-GROUP BY  c.club_match_recruit_no
-      , c.club_match_date
-      , c.club_match_recruit_psn_num
-      , c.club_no
-      , c.match_recruit_write_date
-      , c.recruit_state
-      , c.div
-      , c.match_opponent_no
-      , c.match_no
-      , mem.mem_no
-HAVING c.club_no= #{clubNo} -->
 SELECT c.club_match_recruit_no
 		   , c.club_match_date
            , c.club_match_recruit_psn_num
@@ -128,13 +102,14 @@ HAVING c.club_no= #{clubNo}
 </insert>
 
 <!-- 모집 삭제 -->
-  	<delete id="clubRecDelete" statementType="CALLABLE" parameterType="map">
-	{call DELETE_REC (
-	 	#{clubMatchRecruitNo, mode=IN, jdbcType=DECIMAL},
-        #{delResult, mode=OUT, jdbcType=DECIMAL, javaType=long}
-		)
-	}
-  	</delete>
+<delete id="clubRecDelete" statementType="CALLABLE" parameterType="map">
+{call DELETE_REC (
+ 	#{clubMatchRecruitNo, mode=IN, jdbcType=DECIMAL},
+       #{delResult, mode=OUT, jdbcType=DECIMAL, javaType=long}
+	)
+}
+</delete>
+
 
 
 </mapper>

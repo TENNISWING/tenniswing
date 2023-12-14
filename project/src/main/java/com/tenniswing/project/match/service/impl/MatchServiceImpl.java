@@ -240,6 +240,11 @@ public class MatchServiceImpl implements MatchService {
 		  
 		return map;
 	}
+	//클럽 내 신청 리스트
+	@Override
+	public List<MatchVO> selectHistList(MatchVO matchVO) {
+		return matchMapper.selectHistList(matchVO);
+	}
 
 	/*
 	 * @Override public MatchVO matchSelectCourtroom(MatchVO matchVO) { return
