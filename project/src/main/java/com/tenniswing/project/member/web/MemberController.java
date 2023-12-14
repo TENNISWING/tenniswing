@@ -124,7 +124,7 @@ public class MemberController {
 			List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());
 
 			// 테이블 구분, 게시글 번호, 파일목록
-			int n = attachService.saveAttach("m", memberVO.getMemNo(), files);
+			attachService.saveAttach("m", memberVO.getMemNo(), files);
 			model.addAttribute("message", "회원가입을 완료하였습니다.");
 			return "redirect:/loginform";
 		} else {
