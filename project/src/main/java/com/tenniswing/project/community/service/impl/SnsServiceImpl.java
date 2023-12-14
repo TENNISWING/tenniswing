@@ -260,13 +260,18 @@ public class SnsServiceImpl implements SnsService {
 	}
 
 	@Override
-	public List<SnsVO> selectSnsMyPage(SnsVO snsVO) {
-		return snsMapper.selectSnsMyPage(snsVO);
-	}
-  
-	@Override
 	public List<SnsVO> snsAllList() {
 		return snsMapper.snsAllList();
+	}
+	// 마이페이지 좋아요
+	@Override
+	public List<SnsVO> selectMyLike(SnsVO snsVO) {
+		return snsMapper.selectMyLike(snsVO);
+	}
+	// 마이페이지 스크랩
+	@Override
+	public List<SnsVO> selectMyScrap(SnsVO snsVO) {
+		return snsMapper.selectMyScrap(snsVO);
 	}
 
 
