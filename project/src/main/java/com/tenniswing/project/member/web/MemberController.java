@@ -32,28 +32,28 @@ import com.tenniswing.project.member.service.MemberVO;
 public class MemberController {
 
 	@Autowired	MemberService memberService;
-	
+
 	@Autowired	ClubService clubService;
-	
+
 	@Autowired	CrtReserveService crtReserveService;
-	
-	@Autowired	MatchHistService matchHistService;	
+
+	@Autowired	MatchHistService matchHistService;
 
 	@Autowired	HttpSession httpSession;
 
 	@Autowired	FileUtils fileUtils;
 
 	@Autowired	AttachService attachService;
-	
+
 	@Autowired SnsService snsService;
 
 	// 로그인 폼 이동
 	@GetMapping("loginform")
-	public String loginPage(@RequestParam(value = "error", required = false) String error, 
+	public String loginPage(@RequestParam(value = "error", required = false) String error,
 				@RequestParam(value = "exception", required = false)String exception, Model model) {
 				model.addAttribute("error", error);
-				model.addAttribute("message", exception);			
-		return "member/login";		
+				model.addAttribute("message", exception);
+		return "member/login";
 	}
 
 	// 회원가입 폼 이동
@@ -91,7 +91,7 @@ public class MemberController {
 	// 패스워드찾아서 업데이트
 	@PostMapping("forgotpw")
 	@ResponseBody
-	public int fortgotPwAjax(Model model, @RequestBody MemberVO memberVO) {		
+	public int fortgotPwAjax(Model model, @RequestBody MemberVO memberVO) {
 		return memberService.searchPwUpdate(memberVO);
 	}
 
@@ -140,7 +140,7 @@ public class MemberController {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 
 		MemberVO memberVO = memberService.memberInfo(id);
-		
+
 		model.addAttribute("match", matchHistService.selectAllMyMatchHist(id));
 		model.addAttribute("member", memberVO);
 		model.addAttribute("nowpage", 0);
@@ -190,11 +190,11 @@ public class MemberController {
 		}
 		return false;
 	}
-	
+
 	//회원탈퇴
 	@PostMapping("memberquit")
 	@ResponseBody
-	public Boolean memberQuitAjax(@RequestBody MemberVO memeberVO) {		
+	public Boolean memberQuitAjax(@RequestBody MemberVO memeberVO) {
 		return memberService.deleteMember(memeberVO);
 	}
 
@@ -202,7 +202,7 @@ public class MemberController {
 	@GetMapping("mypage-club")
 	public String clubMyPage(Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		
+
 		model.addAttribute("clubList", clubService.selectAllMyClub(id));
 		model.addAttribute("member", memberService.memberInfo(id));
 		model.addAttribute("nowpage", 1);
@@ -213,8 +213,8 @@ public class MemberController {
 	@GetMapping("mypage-court")
 	public String courtMyPage(Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		
-		model.addAttribute("court", crtReserveService.selectMyCourtReverse(id));		
+
+		model.addAttribute("court", crtReserveService.selectMyCourtReverse(id));
 		model.addAttribute("member", memberService.memberInfo(id));
 		model.addAttribute("nowpage", 2);
 		return "member/mypage-court";
@@ -224,7 +224,9 @@ public class MemberController {
 	@GetMapping("mypage-sns")
 	public String writeMyPage(SnsVO snsVO, Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		model.addAttribute("sns", snsService.selectSnsMyPage(snsVO));
+		snsVO.setMemId(id);
+		model.addAttribute("like", snsService.selectMyLike(snsVO));
+		model.addAttribute("scrap", snsService.selectMyScrap(snsVO));
 		model.addAttribute("member", memberService.memberInfo(id));
 		model.addAttribute("nowpage", 3);
 		return "member/mypage-sns";
@@ -234,8 +236,8 @@ public class MemberController {
 	@GetMapping("mypage-shop")
 	public String shopMyPage(Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		
-		
+
+
 		model.addAttribute("member", memberService.memberInfo(id));
 		model.addAttribute("nowpage", 4);
 		return "member/mypage-shop";
