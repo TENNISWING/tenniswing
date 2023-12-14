@@ -79,4 +79,11 @@
 		DELETE FROM crt_detail_inf
 		WHERE crt_detail_no = #{crtDetailNo}
 	</delete>
+	
+	<!-- 코트 디테일 예약건수 조회 -->
+  	<select id="courtDetailReserveCount" resultType="CrtDetailVO">
+  		SELECT count(*)
+  		FROM reserve
+  		WHERE crt_detail_no = #{crtDetailNo}
+  	</select>
 </mapper>

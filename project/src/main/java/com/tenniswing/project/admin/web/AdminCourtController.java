@@ -25,4 +25,21 @@ public class AdminCourtController {
 	CourtroomService courtroomService;
 	
 
+	@PostMapping("admin_CourtApply_proccess")
+	@ResponseBody
+	public int courtStateProccess(CrtroomVO crtroomVO, int number) {
+		int result = 0;
+		if(number == 1) {
+			result = courtroomService.courtStatePermit(crtroomVO);
+		}else {
+			result = courtroomService.courtStateNotPermit(crtroomVO);
+		}
+		
+		if(result > 0) {
+			return number;
+		}else {
+			return -1;
+		}
+	}	
+
 }
