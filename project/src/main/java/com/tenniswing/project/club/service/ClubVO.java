@@ -26,6 +26,7 @@ public class ClubVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date clubCreateDate;
 	private String clubState;
+	private String name;
 	
 	private List<String> clubTimeList;
 	

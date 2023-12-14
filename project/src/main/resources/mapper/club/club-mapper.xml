@@ -85,25 +85,31 @@
   		<collection property="clubMemList" javaType="ArrayList" column="club_no" ofType="clubVO" select="selectclubMem" />
   	</resultMap>
  <select id = "selectClub" resultType="clubVO">
-  	SELECT club_no
+  	SELECT c.club_no
   		   , club_name
-  		   , FIND_CATEGORY_NAME (club_region) club_region_name
-  		   , FIND_CATEGORY_NAME (club_gen) club_gen_name
-  		   , FIND_CATEGORY_NAME (club_age) club_age_name
-  		   , FIND_CATEGORY_NAME (club_day) club_day_name
-  		   , FIND_CATEGORY_NAME (club_time) club_time_name
-  		   , club_intro
-  		   , club_crt
-  		   , club_mem_num
-  		   , FIND_CATEGORY_NAME (club_recruitment) club_recruitment_name
-  		   , mem_id
-  		   , club_create_date
+  		   , FIND_CATEGORY_NAME (c.club_region) club_region_name
+  		   , FIND_CATEGORY_NAME (c.club_gen) club_gen_name
+  		   , FIND_CATEGORY_NAME (c.club_age) club_age_name
+  		   , FIND_CATEGORY_NAME (c.club_day) club_day_name
+  		   , FIND_CATEGORY_NAME (c.club_time) club_time_name
+  		   , c.club_intro
+  		   , c.club_crt
+  		   , (SELECT COUNT(cm.club_no) FROM club c LEFT OUTER JOIN club_mem cm
+                                                    ON c.club_no = cm.club_no
+                                              WHERE cm.club_approve = 'm2'      
+                                              GROUP BY cm.club_no
+                                              HAVING cm.club_no = #{clubNo} ) club_mem_num
+  		   , FIND_CATEGORY_NAME (c.club_recruitment) club_recruitment_name
+  		   , c.mem_id
+  		   , c.club_create_date
   		   , (SELECT ATTACH_PATH
-		FROM ATTACH
-		where club_no = attach_table_pk
-		AND attach_table_div = 'cl') as ATTACH_PATH
-    		FROM club 
-    WHERE club_no = #{clubNo}
+                FROM ATTACH
+                where club_no = attach_table_pk
+                AND attach_table_div = 'cl') as ATTACH_PATH
+           , m.name
+    		FROM club c JOIN mem m
+                        ON c.mem_id = m.mem_id
+    WHERE c.club_no = #{clubNo}
   </select> 
   
  <!-- 신청 클럽 멤버 -->
