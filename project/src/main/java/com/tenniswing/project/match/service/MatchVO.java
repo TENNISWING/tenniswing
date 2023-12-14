@@ -39,6 +39,7 @@ public class MatchVO {
 	private int clubNo;
 	private String clubMatchRst;
 	private String clubMatchRstName;
+	private String div;
 	
 	
 	private String contName;

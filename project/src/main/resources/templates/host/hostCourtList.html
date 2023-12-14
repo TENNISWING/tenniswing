@@ -46,12 +46,12 @@
 										<thead>
 											<tr>
 												<th>Court No</th>
-												<th>image</th>
 												<th>Name</th>
 												<th>Location</th>
 												<th>Operate Time</th>
 												<th>Court Count</th>
 												<th>Register Date</th>
+												<th>permission</th>
 												<th>Button</th>
 											</tr>
 										</thead>
@@ -60,7 +60,6 @@
 												<tr>
 													<td id="crtroomNo" th:attrappend="id=${stat.index}">[[
                             ${courtList.crtroomNo} ]]</td>
-                          <td></td>
                           <td>[[ ${courtList.crtroomName} ]]</td>
                           <td>[[ ${courtList.crtroomLocation} ]]</td>
                           <td>[[ ${courtList.crtroomOperateStartTime} ]] ~ [[
@@ -69,6 +68,7 @@
                           <td>[[
                             ${#dates.format(courtList.crtroomRegiDate,'yyyy년MM월dd일')}
                             ]]</td>
+                          <td><span class="badge bg-success" style="background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important">[[${courtList.crtroomStateName}]]</span></td>
                           <td>
                             <div
                               th:onclick="|location.href='@{/hostCourtDetail(crtroomNo=${courtList.crtroomNo})}'|"
