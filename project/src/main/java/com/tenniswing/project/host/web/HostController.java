@@ -1,6 +1,8 @@
 package com.tenniswing.project.host.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -118,14 +120,21 @@ public class HostController {
 	// 삭제
 	@PostMapping("hostdeleteCourtroom")
 	@ResponseBody
-	public boolean deleteCourtroomProccess(@RequestParam("crtNo") Integer crtroomNo) {
-		boolean result = courtroomService.deleteCourtroom(crtroomNo);
+	public Map<String, Object> deleteCourtroomProccess(@RequestParam("crtNo") Integer crtroomNo) {
+		Map<String, Object> map = courtroomService.deleteCourtroom(crtroomNo);
+		Map<String, Object> resultmap = new HashMap<>();
+		if(map.get("reserveCount").equals(0)) {
+			resultmap.put("result", true);
+		}else {
+			resultmap.put("result", false);
+			resultmap.put("reserveCount", map.get("reserveCount"));
+		}
 		/*
 		 * String msg = null; if(result) { msg = "정상적으로 삭제되었습니다. \n삭제대상 : "+crtroomNo;
 		 * }else { msg = "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다. \n삭제요청 : "+crtroomNo; }
 		 * rttr.addFlashAttribute("result", msg);
 		 */
-		return result;
+		return resultmap;
 	}
 
 	// 코트 상세

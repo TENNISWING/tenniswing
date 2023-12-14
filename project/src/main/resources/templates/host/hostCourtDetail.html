@@ -44,9 +44,11 @@
 														<div id="carouselExampleCaptions" class="carousel slide"
 															data-bs-ride="carousel">
 															<ol class="carousel-indicators">
-																<th:block th:each="num, stat : ${courtDetail.attachList}">
-																	<li data-bs-target="#carouselExampleCaptions"
-																		th:data-bs-slide-to="${stat.index}" class="indicators"></li>
+																<th:block th:if="${courtDetail.attachList} != null">
+																	<th:block th:each="num, stat : ${courtDetail.attachList}">
+																		<li data-bs-target="#carouselExampleCaptions"
+																			th:data-bs-slide-to="${stat.index}" class="indicators"></li>
+																	</th:block>
 																</th:block>
 																<!-- <li data-bs-target="#carouselExampleCaptions"
 												data-bs-slide-to="1"></li>
@@ -351,7 +353,7 @@
 																					th:value="${courtDetail.crtIndoorOutdoorName}">
 																			</div>
 																			<input type="hidden" id="crtDetailNo"
-																				th:attrappend="id=${stat.index}" class="form-control"
+																				th:attrappend="id=${courtDetail.crtDetailNo}" class="form-control"
 																				name="fname" th:value="${courtDetail.crtDetailNo}">
 																			<div style="text-align: right;">
 																				<button type="button"
@@ -361,7 +363,7 @@
 																					세부 수정하기</button>
 																				<button type="button"
 																					class="btn btn-primary me-1 mb-1 crtDetail"
-																					id="crtDetailDelete" th:attrappend="id=${stat.index}"
+																					id="crtDetailDelete" th:attrappend="id=${courtDetail.crtDetailNo}"
 																					style="width: 30%; display: inline-block;">[[${stat.index}+1]]코트
 																					세부 삭제하기</button>
 																			</div>
