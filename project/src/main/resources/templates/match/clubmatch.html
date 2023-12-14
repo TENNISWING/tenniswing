@@ -213,6 +213,12 @@
 	<!-- 슬라이드 닫히는 곳 -->
 	
 	<script>
+	let msg = "[[${message}]]"
+		if(msg != "") {
+			alert('수정이 완료되었습니다!');
+		}
+		
+	
 	$('#btnsearch').on("click", function(e) {
 		let matchDate = $('.matchdate .active').data('day');
 		clubMatchAjax(matchDate,1) 
