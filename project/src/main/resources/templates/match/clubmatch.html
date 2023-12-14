@@ -212,7 +212,7 @@
 	</section>
 	<!-- 슬라이드 닫히는 곳 -->
 	
-	<script>
+	<script th:inline='javascript'>
 	let msg = "[[${message}]]"
 		if(msg != "") {
 			alert('수정이 완료되었습니다!');

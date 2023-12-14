@@ -395,6 +395,20 @@ public class MatchController {
 		}
 	}
 
+	// 스타터 매치 수정하기
+		@PostMapping("starterMatchUpdate")
+		public String starterMatchUpdateProcess(MatchVO matchVO, RedirectAttributes rttr) {
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			matchVO.setMemId(id);
+			int n = matchService.updateStarterMatch(matchVO);
+			if (n > 0) {
+				rttr.addFlashAttribute("message", "수정되었습니다");
+				return "redirect:/";
+			} else {
+				return "redirect:starterMatchUpdate";
+			}
+		}
+	
 	@GetMapping("startermatchdetail")
 	public String startermatchdetailPage(Model model, MatchVO matchVO) {
 		model.addAttribute("starterMatchInfo", matchService.selectStarterMatch(matchVO));
