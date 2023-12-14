@@ -247,7 +247,8 @@ public class ClubController {
 	//매치 결과 리스트
 		@GetMapping("selectClubEndList")
 		@ResponseBody
-		public List<MatchVO> MatchEndListAjax(MatchVO matchVO) {
+		public List<MatchVO> MatchEndListAjax(MatchVO matchVO,Model model) {
+			model.addAttribute("hist", matchService.selectHistList(matchVO));
 			return matchService.selectClubList(matchVO).get("after");
 		}
 		
@@ -259,6 +260,14 @@ public class ClubController {
 			clubMatchService.insertResult(clubVO);
 			return "redirect:clubMatchEnd";
 		}
+		
+	//매치 결과 수정
+		@PostMapping("editResult")
+		@ResponseBody
+		public int editresultAjax(ClubVO clubVO) {
+			return clubMatchService.editResult(clubVO);
+		}
+		
 	
 	// --------------------------------------- 자유게시판
 	

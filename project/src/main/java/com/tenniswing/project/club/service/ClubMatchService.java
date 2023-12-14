@@ -21,4 +21,7 @@ public interface ClubMatchService {
 	//매치 모집 삭제
 	public boolean clubRecDelete(int clubMatchRstNo);
 	
+	//매치 결과 수정
+	public int editResult(ClubVO clubVO);
+	
 }

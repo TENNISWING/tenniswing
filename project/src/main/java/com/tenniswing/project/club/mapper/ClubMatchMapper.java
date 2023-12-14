@@ -22,4 +22,7 @@ public interface ClubMatchMapper {
 		
 		//매치 모집 삭제
 		public int clubRecDelete(HashMap<String, Long> map);
+		
+		//매치 결과 수정
+		public int editResult(ClubVO clubVO);
 }
