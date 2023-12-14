@@ -3,6 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/main-layout}">
 
+
 <th:block layout:fragment="content">
 	<!-- Login form -->
 	<div class="container">
@@ -60,17 +61,17 @@
 					</div> -->
 				</div>
 
-				<div th:if="${param.logout}">로그아웃 완료</div>
 			</div>
 		</div>
 		<div class="col-3"></div>
 	</div>
+
 	<script>
-		if ($('#message').val() != '') {
-			Toast.fire({
-				icon : "success",
-				title : $('#message').val(),
-			})
+		if ($('#message').val() != '') {	
+			Swal.fire({
+                    icon: "success",
+                    title: $('#message').val(),
+                })
 		}
 	</script>
 	<!-- End Login form -->

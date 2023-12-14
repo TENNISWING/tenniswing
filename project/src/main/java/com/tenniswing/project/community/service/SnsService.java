@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.tenniswing.project.attach.service.AttachVO;
-import com.tenniswing.project.club.service.ClubVO;
 
 public interface SnsService {
 	// 전체조회
@@ -16,7 +15,9 @@ public interface SnsService {
 	// 그룹 값이 NULL인 SNS 리스트 조회
 	public List<SnsVO> selectGrpNull(SnsVO snsVO);
 	// sns 마이페이지
-	public List<SnsVO> selectSnsMyPage(SnsVO snsVO);
+	public List<SnsVO> selectMyLike(SnsVO snsVO);
+	// sns 스크랩
+	public List<SnsVO> selectMyScrap(SnsVO snsVO);
 
 	// 단건조회
 	public SnsVO selectSnsInfo(SnsVO snsVO);
@@ -55,7 +56,7 @@ public interface SnsService {
 	//페이징 전체 갯수
 	public int selectCount(SnsVO snsVO);
 
+	//public List<SnsVO> selectAllSnsInfo(SnsVO snsVO);
 	//어드민페이지
 	public List<SnsVO> snsAllList();
-
 }

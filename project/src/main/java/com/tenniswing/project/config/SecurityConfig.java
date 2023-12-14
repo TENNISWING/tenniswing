@@ -25,8 +25,8 @@ public class SecurityConfig {
 
 				.antMatchers("/mypage/**","/clubform","/clubdetail","/matchregi","/snsRegister","/reserveCourt","/snsEditForm","/snsMyList","/noticeForm","/checkout","/noticeForm","/noticeEditForm","/snsMyList").authenticated()
 
-				//.antMatchers("/admin**").hasRole("ADMIN")
-				//.antMatchers("/host**").hasRole("HOST")				
+				.antMatchers("/admin**").hasRole("ADMIN")
+				.antMatchers("/host**").hasRole("HOST")				
 
 				.anyRequest().permitAll()
 				

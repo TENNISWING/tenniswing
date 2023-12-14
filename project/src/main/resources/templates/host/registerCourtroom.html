@@ -104,7 +104,7 @@
 										</div>
 										<div class="col-md-8 form-group">
 											<input type="file" class="image-preview-filepond" name="files"
-												data-parsley-required="true" placeholder="파일을 첨부해주세요."
+												data-parsley-required="true" placeholder="파일을 첨부해주세요." id="crtOperatePermit"
 												multiple> <div th:text="${message}"></div>
 										</div>
 										<!-- 운영 허가증 끝 -->
@@ -160,10 +160,11 @@
 			let crtroomExp = document.getElementsByName('crtroomExp')[0];
 			let crtroomCaution = document.getElementsByName('crtroomCaution')[0];
 			let crtroomUseGuide = document.getElementsByName('crtroomUseGuide')[0];
+			let crtOperatePermit = document.getElementById('crtOperatePermit');
 			
 			let list = [crtroomName,crtroomRegion,crtroomLocation,crtroomOperateStartTime,
-						crtroomOperateEndTime,crtroomExp,crtroomCaution,crtroomUseGuide];
-			let listExp = ['이름','지역','위치','운영 시작 시간','운영 종료 시간','설명','주의사항','이용안내'];
+						crtroomOperateEndTime,crtroomExp,crtroomCaution,crtroomUseGuide,crtOperatePermit];
+			let listExp = ['이름','지역','위치','운영 시작 시간','운영 종료 시간','설명','주의사항','이용안내','운영허가증'];
 			for(let i=0; i < list.length; i++){
 				if(list[i].value == ''){
 					Swal.fire({

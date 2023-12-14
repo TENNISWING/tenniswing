@@ -75,30 +75,9 @@
 													<td>[[ ${#dates.format(c.crtroomRegiDate, 'yyyy-MM-dd')} ]]</td>
 													<td>
 														<div class="card__action">
-															<a th:onclick="|location.href='@{/adminDetail_Court(crtroomNo=${c.crtroomNo})}'|" class="action__btn ml-10"> 
-																<svg width="20"
-																	height="20" viewBox="0 0 20 20" fill="none"
-																	xmlns="http://www.w3.org/2000/svg">
-	                                                                <g
-																		clip-path="url(#)">
-	                                                                    <path
-																		d="M0.833984 10C0.833984 10 4.16732 3.33334 10.0007 3.33334C15.834 3.33334 19.1673 10 19.1673 10C19.1673 10 15.834 16.6667 10.0007 16.6667C4.16732 16.6667 0.833984 10 0.833984 10Z"
-																		stroke="#667085" stroke-width="2"
-																		stroke-linecap="round" stroke-linejoin="round" />
-	                                                                    <path
-																		d="M10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5Z"
-																		stroke="#667085" stroke-width="2"
-																		stroke-linecap="round" stroke-linejoin="round" />
-	                                                                </g>
-	                                                                <defs>
-	                                                                    <clipPath>
-	                                                                        <rect
-																		width="20" height="20" fill="white" />
-	                                                                    </clipPath>
-	                                                                </defs>
-	                                                            </svg>
-															</a> 
-															
+															<button type="button" class="permit btn btn-outline-info" id="permit" th:attrappend="id=${c.crtroomNo}">승인</button>
+															&nbsp;
+															<button type="button" class="notPermit btn btn-outline-info" id="notPermit" th:attrappend="id=${c.crtroomNo}">거절</button>
 															<!--/* 타임리프에서 onclick 매게변수 전달하는 법 */-->
 															<!-- <button type="button" class="action__btn ml-10" th:no="${prodList.prodNo}" th:onclick="deleteProd(this.getAttribute('no'))">
 																<svg width="18" height="20" viewBox="0 0 18 20"
@@ -131,7 +110,51 @@
 	<!-- Main__container End-->
 	
 	<script type="text/javascript">
-		function deleteProd(prodNo){
+		$('.permit').on('click',function(e){
+			console.log('승인?');
+			let crtroomNo = $(e.target).prop('id').replace('permit','');
+			permition(crtroomNo, 1);
+		});
+		$('.notPermit').on('click',function(e){
+			let crtroomNo = $(e.target).prop('id').replace('notPermit','');
+			permition(crtroomNo, 2);
+		})
+		
+		function permition(crtroomNo, number){
+			$.ajax({
+				type : 'post',
+				url : 'admin_CourtApply_proccess',
+				//contentType : 'application/json',
+				data : {crtroomNo, number},
+				success : function(data){
+					//data = JSON.parse(data);
+					//console.log(data.result);
+					if(data == 1){
+						Swal.fire({
+							icon: "success",
+							text: "승인되었습니다.",
+							}).then(function(){
+								location.reload();
+							})
+					} else if(data == 2) {
+						Swal.fire({
+							icon: "success",
+							text: "거절되었습니다.",
+							}).then(function(){
+								location.reload();
+							})
+					} else {
+						Swal.fire({
+							icon: "error",
+							text: "승인 또는 거절에 실패하였습니다.",
+							}).then(function(){
+								location.reload();
+							})
+					}
+				}
+			});
+		}
+		/* function deleteProd(prodNo){
 			console.log(prodNo);
 			
 			Swal.fire({
@@ -173,12 +196,10 @@
 						}
 					});
 				}
-				/* end of if */
 			});
-			/* end of then */
-		}
+		} */
 		
-		changeColor();	
+		/* changeColor();	
 		function changeColor() {
 			//console.log($('#table1 span').text());
 			$('#table1 span').each((idx, item) => {
@@ -189,7 +210,7 @@
 					$(item).attr('style', 'background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important');
 				}
 			})
-		}
+		} */
 	</script>
 	<script src="assets/extensions/jquery/jquery.min.js"></script>
 	<script

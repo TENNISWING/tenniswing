@@ -18,8 +18,8 @@
 	<div class="content__body">
 		<br>
 		<h5>신청 매치</h5>
-		<ul style="list-style: none;" id="match2List">
-			<!-- 여기에 매치 리스트 -->
+		<ul style="list-style: none;" id="histList">
+			<!-- 여기에 신청 리스트 -->
 		</ul>
 	</div>
 
@@ -27,6 +27,7 @@
 	<script type="text/javascript">
 
 		matchListAjax()
+		matchHistAjax()
 
 		function matchListAjax() {
 			let clubNo = [[${ clubVO.clubNo }]];
@@ -48,7 +49,7 @@
 								<p>매치1</p>
 							</div>
 							<div class="name ms-4" style="padding: 10px 0;">
-								<h5 class="mb-1">${new Date(match.matchDate).toLocaleDateString(
+								<h5 class="mb-1" onclick="location.href='/clubmatchdetail?matchNo=${match.matchNo}'" style="cursor:pointer;">${new Date(match.matchDate).toLocaleDateString(
 							'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치</h5>
 								<h6 class="text-muted mb-0">참가 인원 : ${match.recruitPsnNum}명</h6>
 								<h6 class="text-muted mb-0">게임 방식 : ${match.gameWayName}</h6>
@@ -99,6 +100,45 @@
 				}
 			})
 		}
+		
+		function matchHistAjax(){
+			let clubNo = [[${ clubVO.clubNo }]];
+			console.log("클럽번호" + clubNo)
+			$.ajax({
+				type: 'GET',
+				url: 'selectHistList',
+				data: { clubNo },
+				success: function (data) {
+					$('#histList').empty();
+					for (let hist of data) {
+						let List = `
+						<li>
+						<div class="recent-message d-flex px-4 py-3"
+						style="border-bottom: 1px solid #e1e1e1; display: flex; justify-content: space-between; align-items: center;">
+						<div class="d-flex-right">
+							<div class="match-box">
+								<p>신청1</p>
+							</div>
+							<div class="name ms-4" style="padding: 10px 0;">
+							<h5 class="mb-1" onclick="location.href='/clubmatchdetail?matchNo=${hist.matchNo}'" style="cursor:pointer;">
+								${new Date(hist.matchDate).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치</h5>
+							<h6 class="text-muted mb-0">참가 인원 : ${hist.recruitPsnNum}명</h6>
+							<h6 class="text-muted mb-0">게임 방식 : ${hist.gameWayName}</h6>
+						</div>
+							
+						</div>
+						</div>
+						</li>
+					`
+						$('#histList').append(List);
+						
+
+					}
+				}
+			})
+			
+		}
+		
 	</script>
 </body>
 

@@ -67,8 +67,12 @@ public interface MatchService {
 		public List<MatchVO> matchConstAll();
 		public List<MatchVO> matchStarterAll();	
 		
+		
+		
 		//클럽 매치 리스트(클럽페이지 내)
 		public Map<String, List<MatchVO>> selectClubList(MatchVO matchVO);
+		public List<MatchVO> selectHistList(MatchVO matchVO); //매치신청 리스트
+		
 		
 		//public MatchVO matchSelectCourtroom(MatchVO matchVO);
 }

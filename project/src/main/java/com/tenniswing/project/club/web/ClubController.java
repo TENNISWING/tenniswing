@@ -225,9 +225,16 @@ public class ClubController {
 	@GetMapping("selectClubList")
 	@ResponseBody
 	public List<MatchVO> MatchListAjax(MatchVO matchVO) {
-		
+		matchVO.setDiv("bj1");
 		return matchService.selectClubList(matchVO).get("before");
 	}
+	
+	//매치 신청 리스트
+	@GetMapping("selectHistList")
+	@ResponseBody
+	public List<MatchVO> histListAjax(MatchVO matchVO) {
+		return matchService.selectHistList(matchVO);
+	}	
 	
 	// --------------------------------------- 매치 결과
 
