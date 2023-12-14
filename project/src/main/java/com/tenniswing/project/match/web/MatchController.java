@@ -82,6 +82,20 @@ public class MatchController {
 			return false;
 		}
 	}
+	
+		// 매치 수정하기
+		@PostMapping("matchUpdate")
+		@ResponseBody
+		public boolean matchUpdateProcess(MatchVO matchVO) {
+			String id = SecurityContextHolder.getContext().getAuthentication().getName();
+			matchVO.setMemId(id);
+			int n = matchService.updateMatch(matchVO);
+			if (n > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 
 	// 매치 등록페이지
 	@GetMapping("matchregi")

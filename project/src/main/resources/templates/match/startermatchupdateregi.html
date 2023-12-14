@@ -25,118 +25,208 @@
 							<!-- File uploader with image preview -->
 						</div>
 
-						<div class="row">
-							<div class="col-8">
-								<label for="crtroomNo">자주가는 코트</label><br>
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" placeholder="코트 입력"
-										aria-describedby="crtroomBtn" id="crtroomNo" name="crtroomNo" th:value="${starterMatchInfo.crtroomNo}">
-									<button class="btn btn-success" type="button" id="crtroomBtn">찾기</button>
+						<!-- 코트 찾기 -->
+						<div class="row mb-3">
+							<div class="col-6" style="margin-left: 55px;">
+								<label for="name">코트 선택</label>
+								<div class="input-group">
+									<input type="text" class="form-control" autocomplete="off"
+										placeholder="코트 찾기" data-bs-toggle="collapse"
+										data-bs-target="#collapseExample" aria-expanded="false"
+										aria-controls="collapseExample" id="search1"> <input
+										type="hidden" name="crtroomNo" id="crtroomNo">
+									<button type="button" class="input-group-text">
+										<i class="icon dripicons dripicons-search fs-3"></i>
+									</button>
+								</div>
+								<div class="collapse z-3 position-absolute" id="searchArea1">
+									<div class="form-group">
+										<select class="form-select" id="searchItem1">
+										</select>
+									</div>
 								</div>
 							</div>
 						</div>
-							
-							<div class="row">
-								<div class="col-6">
-									<label for="region">매치 일자</label><br>
-										<input type="date" th:value="${#dates.format(starterMatchInfo.matchDate,'yyyy-MM-dd')}" id="matchDate" name="matchDate" class="form-control flatpickr-always-open" placeholder="예약 일자 선택">
-								</div>				
+						<!-- <div class="col-6">
+						<label for="age">코트 선택</label>
+						<div class="input-group">
+							<input type="text" class="form-control" autocomplete="off"
+								placeholder="코트 찾기" data-bs-toggle="collapse"
+								data-bs-target="#collapseExample" aria-expanded="false"
+								aria-controls="collapseExample" id="search1">
+
+							<button type="button" class="input-group-text">
+								<i class="icon dripicons dripicons-search fs-3"></i>
+							</button>
+							<div class="collapse z-3 position-absolute mt-5" id="searchArea1">
+
+								<div class="form-group">
+									<select class="form-select" id="searchItem1">
+									</select>
+								</div>
 							</div>
+						</div>
+						</div> -->
+						<script>
+						$('#search1').on('propertychange change keyup paste input', function(e){						
+								let inputVal = $(e.target).val();								
+								$('#searchArea1').addClass('show');					
+								 $.ajax({
+								        type: 'get',
+								        url: 'searcharea',
+								        data: {inputVal},
+								        success: function (result) {
+								        	$('#searchItem1').empty();
+								        	//$('#searchItem').append('<optgroup label="코트">');
+								        	$.each(result, function(index, data) { // 데이터 =item
+								        		let b = `													 
+					                                 <option value="${data.crtroomNo}">${data.crtroomName}</option>  `  										
+					                                 $('#searchItem1').append(b)												
+											});								        	
+												b = '</optgroup>'
+											$('#searchItem1').append(b)
+								        },
+								        error: () => console.log(error)
+								    })
+								
+								if(inputVal == ''){
+									$('#searchArea1').removeClass('show');
+								}
+								 
+								
+							})
 						
+						 $('#searchItem1').on('change propertychange click', function(e){
+										console.log($(e.target).val())
+										let crtNo = $(e.target).val();
+										$('#crtroomNo').val(crtNo);
+										$('#search1').val(e.target.options[e.target.selectedIndex].text);
+										//location.href = `courtDetail?crtroomNo=${crtNo}`
+									})
+					
+					</script>
+
 						<div class="row">
-							<div class="col-8">
-								<label for="region">예약 시간 선택</label><br>
-								<p>지원이가 아직 완성 안함</p>
+							<div class="col-6" style="margin-left: 55px;">
+								<label for="region">매치 일자</label> <input type="date"
+									id="matchDate" name="matchDate"
+									class="form-control flatpickr-always-open"
+									placeholder="예약 일자 선택">
 							</div>
+						</div>
+						<br>
+
+						<div class="row">
+							<div class="col-4" style="margin-left: 55px;">
+								<label for="time">경기 시작 시간</label>
+								<div class="form-group ">
+									<select class="choices form-select" id="time" name="time">
+										<optgroup label="경기시간">
+											<option>12:00</option>
+											<option>13:00</option>
+											<option>14:00</option>
+											<option>15:00</option>
+											<option>16:00</option>
+											<option>17:00</option>
+											<option>18:00</option>
+											<option>19:00</option>
+											<option>20:00</option>
+											<option>21:00</option>
+											<option>22:00</option>
+										</optgroup>
+									</select>
+								</div>
 							</div>
-							
-							<div class="row">
-							<div class="col-6">
-								<label for="age">연령대</label><br>
+						</div>
+
+
+						<div class="row mmmttt">
+							<div class="col-4">
+								<label for="age">연령대</label>
 								<div class="form-group">
 									<select class="choices form-select" name="age" id="age">
 										<optgroup label="연령대">
-											<option value="a1" th:selected="'a1' == ${starterMatchInfo.age}">10대</option>
-											<option value="a2" th:selected="'a2' == ${starterMatchInfo.age}">20대</option>
-											<option value="a3" th:selected="'a3' == ${starterMatchInfo.age}">30대</option>
-											<option value="a4" th:selected="'a4' == ${starterMatchInfo.age}">40대</option>
-											<option value="a5" th:selected="'a5' == ${starterMatchInfo.age}">50대</option>
-											<option value="a6" th:selected="'a6' == ${starterMatchInfo.age}">60대이상</option>
+											<option value="a1">10대</option>
+											<option value="a2">20대</option>
+											<option value="a3">30대</option>
+											<option value="a4">40대</option>
+											<option value="a5">50대</option>
+											<option value="a6">60대이상</option>
 										</optgroup>
 									</select>
 								</div>
 							</div>
-							
-							<div class="col-6">
-								<label for="lv">구력</label><br>
-								<div class="form-group">
-									<select class="choices form-select" name="lv" id="lv">
-										<optgroup label="구력">
-											<option value="d1" th:selected="'d1' == ${starterMatchInfo.lv}">입문</option>
-											<option value="d2" th:selected="'d2' == ${starterMatchInfo.lv}">2~5년</option>
-											<option value="d3" th:selected="'d3' == ${starterMatchInfo.lv}">5년이상</option>
-										</optgroup>
-									</select>
-								</div>
-							</div>
-							</div>
-							
-							<div class="row">
-							<div class="col-6">
-								<label for="gen">모집 성별</label><br>
+							<div class="col-4">
+								<label for="gen">모집 성별</label>
 								<div class="form-group">
 									<select class="choices form-select" name="gen" id="gen">
 										<optgroup label="성별">
-											<option value="c1" th:selected="'c1' == ${starterMatchInfo.gen}">남성</option>
-											<option value="c2" th:selected="'c2' == ${starterMatchInfo.gen}">여성</option>
+											<option value="c1">남성</option>
+											<option value="c2">여성</option>
 										</optgroup>
 									</select>
 								</div>
 							</div>
-						
-							<div class="col-6">
-								<label for="ntrp">ntrp</label><br>
+						</div>
+
+						<div class="row mmmttt">
+							<div class="col-4">
+								<label for="lv">구력</label>
+								<div class="form-group">
+									<select class="choices form-select" name="lv" id="lv">
+										<optgroup label="구력">
+											<option value="d1">입문</option>
+											<option value="d2">2~5년</option>
+											<option value="d3">5년이상</option>
+										</optgroup>
+									</select>
+								</div>
+							</div>
+
+
+							<div class="col-4">
+								<label for="gameWay">경기 방식</label>
+								<div class="form-group">
+									<select class="choices form-select" id="gameWay" name="gameWay">
+										<optgroup label="경기방식">
+											<option value="f1">단식</option>
+											<option value="f2">남복</option>
+											<option value="f3">여복</option>
+											<option value="f4">랠리</option>
+											<option value="f5">혼복</option>
+										</optgroup>
+									</select>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-4" style="margin-left: 55px;">
+								<label for="ntrp">ntrp</label>
 								<div class="form-group">
 									<select class="choices form-select" id="ntrp" name="ntrp">
 										<optgroup label="ntpr">
-											<option value="e1" th:selected="'e1' == ${starterMatchInfo.ntrp}">1.0</option>
-											<option value="e2" th:selected="'e2' == ${starterMatchInfo.ntrp}">1.5</option>
-											<option value="e3" th:selected="'e3' == ${starterMatchInfo.ntrp}">2.0</option>
-											<option value="e4" th:selected="'e4' == ${starterMatchInfo.ntrp}">2.5</option>
-											<option value="e5" th:selected="'e5' == ${starterMatchInfo.ntrp}">3.0</option>
-											<option value="e6" th:selected="'e6' == ${starterMatchInfo.ntrp}">3.5</option>
-											<option value="e7" th:selected="'e7' == ${starterMatchInfo.ntrp}">4.0이상</option>
+											<option value="e1">1.0</option>
+											<option value="e2">1.5</option>
+											<option value="e3">2.0</option>
+											<option value="e4">2.5</option>
+											<option value="e5">3.0</option>
+											<option value="e6">3.5</option>
+											<option value="e7">4.0이상</option>
 										</optgroup>
 									</select>
 								</div>
 							</div>
-							</div>
-													
-						<div class="row">
-						<div class="col-5">
-								<label for="name">레슨비</label><br>
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" th:value="${starterMatchInfo.rsPrice}"
-										placeholder="레슨비 입력" id="rsPrice" name="rsPrice" maxlength="10"
-										required>
-								</div>
-							</div>
-							</div>
-							
-							<div class="row">
-						<div class="col-6">
-								<label for="name">코멘트</label><br>
-								<div class="input-group mb-3">
-									<input type="text" class="form-control is-invalid" th:value="${starterMatchInfo.detailCtt}"
-										placeholder="코멘트 입력" id="detailCtt" name="detailCtt">
-								</div>
-							</div>
-							</div>
-							
+
+							<!-- ntrp modal start -->
 							<div class="col-4">
-									<button type="button" class="mtntrpbtn" id="ntrpQ"
+								<br>
+								<h5>
+									<button type="button" class="btn btn-success" id="ntrpQ"
 										href="javascript:void(0)" data-bs-toggle="modal"
 										data-bs-target="#ntrpModal">NTRP이란?</button>
+								</h5>
 							</div>
 							<div class="modal fade" id="ntrpModal" tabindex="-1"
 								role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -203,27 +293,50 @@
 											</table>
 										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-light-secondary"
-												data-bs-dismiss="modal">
-												<i class="bx bx-x d-block d-sm-none"></i> <span
-													class="d-none d-sm-block">닫기</span>
-											</button>
 											<button type="button" class="btn btn-primary ms-1"
 												data-bs-dismiss="modal">
 												<i class="bx bx-check d-block d-sm-none"></i> <span
-													class="d-none d-sm-block">확인</span>
+													class="d-none d-sm-block">닫기</span>
 											</button>
 										</div>
-
 									</div>
 								</div>
-							</div><br>
-						<input type="number" th:value="${starterMatchInfo.matchNo}" hidden="true" name="matchNo">
-						<button class="btn btn-success" type="submit" >수정하기</button>
-						<button class="btn btn-success" type="button" th:onclick="|location.href='@{/}'|">취소</button>
+							</div>
+							<!-- ntrp modal end -->
 						</div>
+
+
+						<div class="row">
+							<div class="col-4" style="margin-left: 55px;">
+								<label for="name">레슨비</label><br>
+								<div class="input-group mb-3">
+									<input type="text" class="form-control"
+										placeholder="레슨비 입력" id="rsPrice" name="rsPrice"
+										maxlength="10" required>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-6" style="margin-left: 55px;">
+								<label for="name">코멘트</label>
+								<div class="input-group mb-3">
+									<input type="text" class="form-control"
+										placeholder="코멘트 입력" id="detailCtt" name="detailCtt">
+								</div>
+							</div>
+
+							<div class="ctrgbtns">
+								<br>
+								<input type="number" th:value="${starterMatchInfo.matchNo}" hidden="true" name="matchNo">
+						<button class="btn btn-success" type="submit">수정하기</button>
+						<button class="btn btn-success" type="button" th:onclick="|location.href='@{/startermatch}'|">취소</button>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="col-3 "></div> -->
 				</div>
-				</div>
+			</div>
 
 		</form>
 	</div>
