@@ -13,7 +13,7 @@
 		</collection>
 	</resultMap>
 	<select id="selectAllSnsInfo" resultMap="snsResult">
-		SELECT s.sns_wrt_no 
+		SELECT s.sns_wrt_no
 				, s.sns_title
 				, s.sns_ctt
 				, s.sns_write_date
@@ -37,13 +37,13 @@
 					from sns_scrap p
 					where s.sns_wrt_no = p.sns_wrt_no
 					and mem_id = #{memId}) as scrap_no
-				</if>       
+				</if>
 		FROM sns s
 		<!-- 		join sns_grp g
 		 			 on s.sns_grp_no = g.sns_grp_no -->
 				join mem m
 					 on s.mem_id = m.mem_id
-		<if test='snsTag != null and snsTag != "".toString()'>WHERE s.sns_tag LIKE '%'||#{snsTag}||'%'</if> 
+		<if test='snsTag != null and snsTag != "".toString()'>WHERE s.sns_tag LIKE '%'||#{snsTag}||'%'</if>
 		ORDER BY s.sns_wrt_no DESC
 	</select>
 
@@ -67,7 +67,7 @@
 		<collection property="attachList" javaType="ArrayList" column="sns_wrt_no"  ofType="AttachVO" select="attachListAllSns"></collection>
 	</resultMap>
 	<select id="selectSnsInfo" resultMap="snsSelectOne">
-		SELECT s.sns_wrt_no 
+		SELECT s.sns_wrt_no
 				, s.sns_title
 				, s.sns_ctt
 				, s.sns_write_date
@@ -91,7 +91,7 @@
 					from sns_scrap p
 					where s.sns_wrt_no = p.sns_wrt_no
 					and mem_id = #{memId}) as scrap_no
-				</if>       
+				</if>
 		FROM sns s
 		left outer JOIN sns_grp g
   					ON s.sns_grp_no = g.sns_grp_no
@@ -99,10 +99,10 @@
   					ON s.mem_id = m.mem_id
         WHERE sns_wrt_no= #{snsWrtNo}
 	</select>
-	
-<!-- 	
+
+<!--
 	<select id="selectSnsDetail">
-			SELECT s.sns_wrt_no 
+			SELECT s.sns_wrt_no
 				, s.sns_title
 				, s.sns_ctt
 				, s.sns_write_date
@@ -126,16 +126,16 @@
 					from sns_scrap p
 					where s.sns_wrt_no = p.sns_wrt_no
 					and mem_id = #{memId}) as scrap_no
-				</if>       
+				</if>
 		FROM sns s
 		left outer JOIN sns_grp g
   					ON s.sns_grp_no = g.sns_grp_no
 		JOIN mem m
   					ON s.mem_id = m.mem_id
         WHERE sns_wrt_no= #{snsWrtNo}
-	
+
 	</select> -->
-	
+
 	<!-- memId와 snsWrtNo가 일치하는 단건 조회 editform에서 쓸거임 -->
 	<select id="selectSnsOne" resultType = "SnsVO">
 		SELECT sns_wrt_no
@@ -149,28 +149,31 @@
 		WHERE sns_wrt_no = #{snsWrtNo}
 		AND mem_id = #{memId}
 	</select>
-	
-	
-	<!-- 마이페이지 sns 좋아요 스크랩 -->
-	<select id="selectSnsMyPage" resultType = "SnsVO">
-		SELECT s.sns_wrt_no
-			   , s.sns_title
-			   , s.sns_write_date
-			   , s.mem_id
-			   , l.like_no
-			   , l.like_in_date
-			   , s.scrap_no
-			   , s.scrap_in_date
-		FROM sns s, sns_like l, sns_scrap s
-		WHERE s.sns_wrt_no = l.sns_wrt_no
-		AND s.sns_wrt_no = s.sns_wrt_no
-		AND mem_id = #{memId}
+
+
+
+	<!-- 마이페이지 스크랩 -->
+	<select id="selectMyScrap" resultType = "SnsVO">
+		SELECT p.sns_wrt_no, p.scrap_no, p.mem_id, s.sns_title, p.scrap_in_date
+		FROM sns_scrap p,  sns s
+		WHERE p.sns_wrt_no = s.sns_wrt_no
+		AND p.mem_id = #{memId}
 	</select>
+
+
+	<!-- 마이페이지 좋아요 -->
+	<select id="selectMyLike" resultType = "SnsVO">
+		SELECT l.sns_wrt_no, l.like_no, s.sns_title, l.like_in_date
+		FROM sns s, sns_like l
+		WHERE s.sns_wrt_no = l.sns_wrt_no
+		AND l.mem_id = #{memId}
+	</select>
+
 
 	<!-- 내가 등록한 그룹 리스트 sns, sns_grp 다 데려옴 -->
 <!-- 	<select id="selectMyGroup" resultType="SnsVO">
-	 	SELECT * FROM ( SELECT A.* , rownum rn FROM (	
-			SELECT s.sns_wrt_no 
+	 	SELECT * FROM ( SELECT A.* , rownum rn FROM (
+			SELECT s.sns_wrt_no
 				, s.sns_title
 				, s.sns_ctt
 				, s.sns_write_date
@@ -192,14 +195,14 @@
 			</if>
 			<if test="snsGrpNo==null">
 			AND s.sns_grp_no is null
-			</if>		
+			</if>
 			ORDER BY s.sns_write_date DESC
  					) A
-	    ) B 
+	    ) B
 	  WHERE rn BETWEEN (#{page}-1)*#{pageUnit} + 1 and #{page} * #{pageUnit}
-		
+
 	</select> -->
-	
+
 	<!-- 내가 등록한 그룹 리스트 sns, sns_grp 다 데려옴 -->
     <resultMap type="SnsVO" id="grpResult">
 		<id column="sns_wrt_no" property="snsWrtNo" />
@@ -208,8 +211,8 @@
 		</collection>
 	</resultMap>
 	<select id="selectMyGroup" resultMap="grpResult">
-	 	SELECT * FROM ( SELECT A.* , rownum rn FROM (	
-			SELECT s.sns_wrt_no 
+	 	SELECT * FROM ( SELECT A.* , rownum rn FROM (
+			SELECT s.sns_wrt_no
 				, s.sns_title
 				, s.sns_ctt
 				, s.sns_write_date
@@ -231,15 +234,15 @@
 			</if>
 			<if test="snsGrpNo==null">
 			AND s.sns_grp_no is null
-			</if>		
+			</if>
 			ORDER BY s.sns_write_date DESC
  					) A
-	    ) B 
+	    ) B
 	  WHERE rn BETWEEN (#{page}-1)*#{pageUnit} + 1 and #{page} * #{pageUnit}
-		
+
 	</select>
-	
-	 
+
+
  	<!-- 전체 갯수 -->
   	<select id="selectCount" resultType="int">
    		SELECT 	count(*)
@@ -254,16 +257,16 @@
 			</if>
 			<if test="snsGrpNo==null">
 			and s.sns_grp_no is null
-			</if>		
-	</select>	 
-	
+			</if>
+	</select>
+
 	<!-- 해시태그 검색 -->
 	<select id="snsTagSearch" resultType="SnsVO">
 		SELECT *
 		FROM sns
 		WHERE sns_tag LIKE '%'||#{snsTag}||'%'
 	</select>
-	
+
 	<!-- SNS 등록 -->
 	<insert id="insertSns" parameterType="SnsVO">
 		<selectKey keyProperty="snsWrtNo"
@@ -322,8 +325,8 @@
 		DELETE FROM sns_like
 		WHERE like_no = #{likeNo}
 	</delete>
-	
- 
+
+
 	<!-- sns 그룹 등록 -->
 	<insert id="insertSnsGrp" parameterType="SnsVO">
 		<selectKey keyProperty="snsGrpNo" resultType="int"
@@ -349,7 +352,7 @@
 				,#{attachPath}
 			)
 	</insert>
-	
+
 	<!-- 회원당 그룹 조회 -->
 	<select id="selectGroup" resultType="SnsVO">
 	select * from (
@@ -364,7 +367,7 @@
 		from sns_grp s, mem m
 		where s.mem_id = m.mem_id
 		and s.mem_id = #{memId}
-	union 
+	union
     select null,
            to_date('1970/01/01','yyyy/MM/dd'),
            null,
@@ -375,12 +378,12 @@
            null
     from dual
            )order by grp_create_date desc
-    	
+
 	</select>
-	
+
 	<!-- sns 테이블에서 그룹번호가 null인 애들 조회 -->
 	<!-- <select id="selectGrpNull" parameterType="SnsVO">
-		select s.sns_wrt_no 
+		select s.sns_wrt_no
 			, s.sns_title
 			, s.sns_ctt
 			, s.sns_write_date
@@ -395,8 +398,8 @@
 		where s.mem_id = #{memId}
 		and s.sns_grp_no is null
 	</select> -->
-	
-	
+
+
 	<!-- 수정 : 그룹업데이트 -->
 	<update id="updateGrp" parameterType="SnsVO">
 		UPDATE sns_grp
@@ -413,7 +416,7 @@
 		        ,sns_grp_no = #{snsGrpNo}
 		  WHERE sns_wrt_no = #{snsWrtNo}
 	</update>
-	
+
 	<!-- 스크랩 등록 -->
 	<insert id="insertScrap" parameterType="SnsVO">
 		<selectKey keyProperty="scrapNo" resultType="int"
@@ -434,23 +437,23 @@
 				,#{snsWrtNo}
 			)
 	</insert>
-	
+
 	<!-- 스크랩 삭제 -->
 	<delete id="deleteScrap" parameterType="int">
 		DELETE FROM sns_scrap
 		WHERE scrap_no = #{scrapNo}
-		
+
 	</delete>
-	
+
 	<!-- 첨부파일, 좋아요, 댓글, 그룹, sns 삭제 -->
 	<delete id="deleteGrp" statementType="CALLABLE" parameterType="map">
 		{ call DELETE_GRP(
 				#{snsGrpNo, mode=IN, jdbcType=DECIMAL},
-				#{delGrpResult, mode=OUT, jdbcType=DECIMAL, javaType=long}	
+				#{delGrpResult, mode=OUT, jdbcType=DECIMAL, javaType=long}
 			)
 		}
 	</delete>
-	
+
 	<!-- sns 리플 좋아요 한번에 삭제 -->
 	<delete id="deleteSns" statementType="CALLABLE" parameterType="map">
 	    {call DELETE_SNS(
@@ -463,19 +466,19 @@
 
 	<!-- 어드민 페이지 -->
 	<select id="snsAllList" resultType="SnsVO">
-		SELECT s.sns_wrt_no 
+		SELECT s.sns_wrt_no
 				, s.sns_title
 				, s.sns_ctt
 				, s.sns_write_date
 				, s.sns_tag
 				, s.sns_hit
 				, m.name
-				, s.mem_id	      
+				, s.mem_id
 		FROM sns s
 				join mem m
 					 on s.mem_id = m.mem_id
 		ORDER BY s.sns_wrt_no DESC
-	</select>	
+	</select>
 
 
 </mapper>

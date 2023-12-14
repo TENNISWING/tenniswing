@@ -26,4 +26,7 @@ public interface CrtDetailMapper {
 	// 삭제
 	public int deleteCrtDetail(int crtDetailNo);
 	
+	// 코트 디테일 예약 건수 조회
+	public int courtDetailReserveCount(CrtDetailVO crtDetailVO);
+	
 }

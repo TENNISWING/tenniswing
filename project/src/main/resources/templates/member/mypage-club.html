@@ -16,32 +16,43 @@
 				<div th:replace="member/mypage-sidemenu :: sidemenu"></div>
 			</div>
 			<div class="col-lg-8 col-md-auto">				
-				<div class="table-responsive mt-5">
-					<table class="table" id="table1">
+				
+				
+				<!-- Profile Table Start -->
+				<div class="cart__form">
+					<table>
 						<thead>
+							<h3>마이 클럽</h3>
 							<tr>
-								<th>가입일자</th>
-								<th>클럽명</th>
-								<th>지역</th>
-								<th>상태</th>
-								<th>가입취소</th>		
+								<th class="cart-pd__thumb">가입일자</th>
+								<th class="cart-pd__qty">클럽명</th>
 							</tr>
 						</thead>
 						<tbody>
-						
-						<th:block th:each="c : ${clubList}">
-							<tr>
-								<td>[[${c.APPLY_DATE}]]</td>
-								<td>[[${c.CLUB_NAME}]]</td>
-								<td>[[${c.CLUB_REGION}]]</td>
-								<td>[[${c.CLUB_APPROVE}]]</td>
-								<td th:if="${c.CLUB_APPROVE == '대기'}"><button type="button" class="btn btn-success" th:onclick="cancel11()">가입취소</button>			
-								<td th:if="${c.CLUB_APPROVE == '승인'}"><button type="button" class="btn btn-light" disabled>가입취소</button>			
+							<tr th:if="${clubList.size == 0}">
+									<td colspan="5">나의 클럽이 없습니다.</td>
 							</tr>
-						</th:block>	
+							<th:block th:each="c : ${clubList}">
+								<tr>
+									<td class="cart-pd__date text-start" data-title="Date">
+										[[${#dates.format(c.APPLY_DATE,'yyyy-MM-dd')}]]</td>
+									<td class="cart-pd__thumb">
+										<div class="product-card--inline">
+											<div class="product__content">
+												<h5 class="product__title">[[${c.CLUB_NAME}]]</h5>
+											</div>
+										</div>
+									</td>
+								</tr>
+
+								
+							</th:block>
 						</tbody>
 					</table>
 				</div>
+				<!-- Profile Card End -->
+
+
 			</div>
 		</div>
 	</div>

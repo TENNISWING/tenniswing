@@ -142,6 +142,7 @@
 	  				, match_no
 	  				, match_apply_club_no
 	  				, match_state
+	  				, div
   	 			)
   	 			VALUES
   	 			(
@@ -149,6 +150,7 @@
   	 				,#{matchNo}
   	 				,#{clubNo}
   	 				,'g1'
+  	 				,'bj2'
   	 			)
   	</insert> 
   	

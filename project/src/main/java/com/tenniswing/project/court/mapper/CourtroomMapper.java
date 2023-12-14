@@ -77,4 +77,7 @@ public interface CourtroomMapper {
 	
 	// 코트 거절
 	public int courtStateNotPermit(CrtroomVO crtroomVO);
+	
+	// 코트 예약 건수 조회
+	public int courtReserveCount(CrtroomVO crtroomVO);
 }
