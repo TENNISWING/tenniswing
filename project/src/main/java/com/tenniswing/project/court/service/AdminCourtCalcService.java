@@ -8,4 +8,6 @@ public interface AdminCourtCalcService {
 	
 	//관리자 정산하기
 	public int insertAdminCourtCalc(List<CalcTableVO> list);
+	
+	
 }

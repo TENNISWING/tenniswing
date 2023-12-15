@@ -6,30 +6,24 @@
 <th:block layout:fragment="content">
 
 	<!-- signup form -->
-	<div class="container justify-content-center" id="signupForm">
-
-		<form class="form form-vertical" action="startermatchregi" name="startermatchregi"
+	<div class="container" id="signupForm">
+		<form class="form form-vertical col-lg-10 mx-auto" action="startermatchregi" name="startermatchregi"
 			method="POST">
 			<div class="form-body">
 				<div class="text-center">
 					<h3 class="my-4">스타터 매치 등록</h3>
 				</div>
 				<div th:text="${msg}"></div>
-				<!-- <div class="col-3"></div> -->
 			</div>
 
 			<div class="justify-content-center">
 				<div class="row justify-content-center" id="memberForm">
-					<!-- <div class="col-3 "></div> -->
 
-					<div class="col-lg-7 p-5 text-start shadow mb-5 ">
-						<div class="container card text-center w-50">
-							<!-- File uploader with image preview -->
-						</div>
-
+					<div class="p-5 text-start shadow mb-5 ">
+						<div class="col-lg-12 p-5 mx-auto">
 						<!-- 코트 찾기 -->
-						<div class="row mb-5">
-							<div class="col-6" style="margin-left: 55px;">
+						<div class="d-flex flex-row justify-content-evenly mb-5">
+							<div class="col-6">
 								<label for="crtroomNo">코트 찾기</label><br>
 								<div class="input-group">
 									<input type="text" class="form-control" placeholder="코트 입력"
@@ -49,8 +43,8 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						
+							<div class="col-4"></div>
+						</div>						
 						<script>
 					$('#crtroomBtn').on('click', function (e) {
 					    let inputVal = $('#crtroomName').val();
@@ -93,42 +87,39 @@
 					
 					</script>
 
-						<div class="row">
-							<div class="col-6" style="margin-left: 55px;">
+						<div class="d-flex flex-row justify-content-evenly">
+							<div class="col-6 mb-4">
 								<label for="region">매치 일자</label> <input type="date"
 									id="matchDate" name="matchDate"
 									class="form-control flatpickr-always-open"
 									placeholder="예약 일자 선택">
 							</div>
-						</div>
-						<br>
-
-						<div class="row">
-							<div class="col-4" style="margin-left: 55px;">
+						
+						<div class="col-4 mb-4">
 								<label for="time">경기 시작 시간</label>
 								<div class="form-group ">
 									<select class="choices form-select" id="time" name="time">
 										<optgroup label="경기시간">
-											<option>12:00</option>
-											<option>13:00</option>
-											<option>14:00</option>
-											<option>15:00</option>
-											<option>16:00</option>
-											<option>17:00</option>
-											<option>18:00</option>
-											<option>19:00</option>
-											<option>20:00</option>
-											<option>21:00</option>
-											<option>22:00</option>
+										<th:block th:each="num : ${#numbers.sequence(1,9)}">
+											<option>0[[${num}]]:00</option>											
+										</th:block>
+										<th:block th:each="num : ${#numbers.sequence(10,24)}">
+											<option>[[${num}]]:00</option>											
+										</th:block>
 										</optgroup>
 									</select>
 								</div>
 							</div>
 						</div>
+						<br>
+
+						<div class="row">
+							
+						</div>
 
 
-						<div class="row mmmttt">
-							<div class="col-4">
+						<div class="d-flex flex-row justify-content-evenly">
+							<div class="col-4 ">
 								<label for="age">연령대</label>
 								<div class="form-group">
 									<select class="choices form-select" name="age" id="age">
@@ -143,6 +134,7 @@
 									</select>
 								</div>
 							</div>
+							<div class="col-1"></div>
 							<div class="col-4">
 								<label for="gen">모집 성별</label>
 								<div class="form-group">
@@ -156,7 +148,7 @@
 							</div>
 						</div>
 
-						<div class="row mmmttt">
+						<div class="d-flex flex-row justify-content-evenly">
 							<div class="col-4">
 								<label for="lv">구력</label>
 								<div class="form-group">
@@ -170,7 +162,7 @@
 								</div>
 							</div>
 
-
+							<div class="col-1"></div>
 							<div class="col-4">
 								<label for="gameWay">경기 방식</label>
 								<div class="form-group">
@@ -188,8 +180,8 @@
 						</div>
 
 
-						<div class="row">
-							<div class="col-4" style="margin-left: 55px;">
+						<div class="d-flex flex-row justify-content-evenly">
+							<div class="col-4">
 								<label for="ntrp">ntrp</label>
 								<div class="form-group">
 									<select class="choices form-select" id="ntrp" name="ntrp">
@@ -205,7 +197,7 @@
 									</select>
 								</div>
 							</div>
-
+							<div class="col-1"></div>
 							<!-- ntrp modal start -->
 							<div class="col-4">
 								<br>
@@ -292,9 +284,8 @@
 							<!-- ntrp modal end -->
 						</div>
 
-
-						<div class="row">
-							<div class="col-4" style="margin-left: 55px;">
+							<div class="d-flex flex-row justify-content-evenly">
+							<div class="col-6">
 								<label for="name">레슨비</label><br>
 								<div class="input-group mb-3">
 									<input type="text" class="form-control"
@@ -302,15 +293,18 @@
 										maxlength="10" required>
 								</div>
 							</div>
+							<div class="col-4"></div>
 						</div>
 
-						<div class="row">
-							<div class="col-6" style="margin-left: 55px;">
+						<div class="d-flex flex-row justify-content-evenly">
+							<div class="col-6">
 								<label for="name">코멘트</label>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control"
-										placeholder="코멘트 입력" id="detailCtt" name="detailCtt">
+									<textarea class="form-control"
+										placeholder="코멘트 입력" id="detailCtt" name="detailCtt"></textarea>
 								</div>
+							</div>
+							<div class="col-4"></div>
 							</div>
 
 							<div class="ctrgbtns">
@@ -321,10 +315,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- <div class="col-3 "></div> -->
 				</div>
 			</div>
-
 		</form>
 	</div>
 	<script th:inline='javascript'>	

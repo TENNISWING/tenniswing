@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tenniswing.project.attach.mapper.AttachMapper;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.court.mapper.CourtroomMapper;
+import com.tenniswing.project.court.mapper.CrtDetailMapper;
 import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.court.service.CrtroomVO;
 import com.tenniswing.project.member.service.MemberVO;
@@ -20,6 +21,7 @@ public class CourtroomServiceImpl implements CourtroomService {
 
 	@Autowired CourtroomMapper courtroomMapper;
 	@Autowired AttachMapper attachMapper;
+	@Autowired CrtDetailMapper crtDetailMapper;
 	
 	// 호스트
 	@Override
@@ -78,6 +80,9 @@ public class CourtroomServiceImpl implements CourtroomService {
 		int result = 0;
 		if(reserveCount == 0) {
 			result = courtroomMapper.deleteCourtroom(crtroomNo);
+			courtroomMapper.deleteCourtroomImg(crtroomNo);
+			crtDetailMapper.deleteCrtDetail(crtroomNo);
+			crtDetailMapper.deleteCrtDetailImg(crtroomNo);
 		}
 		boolean isSuccessed = false;
 		if(result == 1) {

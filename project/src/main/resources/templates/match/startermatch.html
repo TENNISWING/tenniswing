@@ -3,19 +3,27 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/main-layout}">
 
+<head>
+	<style type="text/css">
+		.nav p {
+			color: #3c3c3c;
+		    opacity: 0.7;
+		    font-weight: 500;
+		}
+	</style>
+</head>
 <th:block layout:fragment="content">
-<div class="mctdeall">
 	<!-- match sub menu -->
-	<div class="container mb-4">
+	<div class="container mb-4" style="margin-bottom: 0 !important">
 		<ul class="nav d-flex justify-content-around text-center matchsidevar">
 			<li class="d-flex flex-column"><a href="/"><img
-					src="assets/img/match/icon/icon1.png" class=" miconimg">매치</a></li>
+					src="assets/img/winner.png" class=" miconimg" style="width: 1.5rem; opacity: 0.7;"><p>매치</p></a></li>
 			<li class="d-flex flex-column"><a href="clubmatch"><img
-					src="assets/img/match/icon/icon2.png" class=" miconimg">클럽</a></li>
+					src="assets/img/medal.png" class=" miconimg" style="width: 1.5rem; opacity: 0.7;"><p>클럽</p></a></li>
 			<!-- <li class="d-flex flex-column"><a href="contestmatch"><img
 					src="assets/img/match/icon/icon3.png" class=" miconimg">대회</a></li> -->
 			<li class="d-flex flex-column"><a href="startermatch"><img
-					src="assets/img/match/icon/icon4.png" class=" miconimg">스타터</a></li>
+					src="assets/img/wreath.png" class=" miconimg" style="width: 1.5rem; opacity: 0.7;"><p>스타터</p></a></li>
 		</ul>
 	</div>
 	<!-- End match sub menu  -->

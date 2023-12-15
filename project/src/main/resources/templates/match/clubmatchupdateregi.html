@@ -6,8 +6,8 @@
 <th:block layout:fragment="content">
 
 	<!-- signup form -->
-	<div class="container justify-content-center" id="signupForm">
-		<form class="form form-vertical" action="clubMatchUpdate"
+	<div class="container" id="signupForm">
+		<form class="form form-vertical col-lg-10 mx-auto" action="clubMatchUpdate"
 			method="POST" name="clubMatchUpdate">
 			<div class="form-body">
 				<div class="text-center">
@@ -19,16 +19,12 @@
 
 			<div class="justify-content-center">
 				<div class="row justify-content-center" id="memberForm">
-					<!-- <div class="col-3 "></div> -->
 
-					<div class="col-lg-7 p-5 text-start shadow mb-5 ">
-						<div class="container card text-center w-50">
-							<!-- File uploader with image preview -->
-						</div>
-
+					<div class="p-5 text-start shadow mb-5 ">
+						<div class="col-lg-12 p-5 mx-auto">
 						<!-- 코트 찾기 -->
-						<div class="row mb-3">
-							<div class="col-6" style="margin-left: 55px;">
+						<div class="d-flex flex-row justify-content-evenly mb-5">
+							<div class="col-6">
 								<label for="name">코트 선택</label>
 								<div class="input-group">
 									<input type="text" class="form-control" autocomplete="off"
@@ -48,6 +44,7 @@
 									</div>
 								</div>
 							</div>
+							<div class="col-4"></div>
 						</div>
 						<script>
 						$('#search1').on('propertychange change keyup paste input', function(e){						
@@ -88,8 +85,8 @@
 					
 					</script>
 
-						<div class="row">
-							<div class="col-6" style="margin-left: 55px;">
+						<div class="d-flex flex-row justify-content-evenly">
+							<div class="col-6 mb-4">
 								<label for="crtroomNo">신청 할 클럽</label>
 								<div class="form-group ">
 									<select class="choices form-select" id="clubNo" name="clubNo">
@@ -98,25 +95,34 @@
 									</select>
 								</div>
 							</div>
+							<div class="col-4"></div>
 						</div>
 
-						<div class="row">
-							<div class="col-6" style="margin-left: 55px;">
+						<div class="d-flex flex-row justify-content-evenly">
+							<div class="col-6 mb-4">
 								<label for="region">매치 일자</label><br> <input type="date"
 									id="matchDate" name="matchDate"
 									th:value="${#dates.format(clubMatchInfo.matchDate,'yyyy-MM-dd')}"
 									class="form-control flatpickr-always-open"
 									placeholder="예약 일자 선택">
 							</div>
-						</div>
-						<br>
 
-						<div class="row">
-							<div class="col-6" style="margin-left: 55px;">
+						<div class="col-4 mb-4">
 								<label for="time">경기 시작 시간</label>
 								<div class="form-group ">
 									<select class="choices form-select" id="time" name="time">
 										<optgroup label="경기시간">
+											<option>01:00</option>
+											<option>02:00</option>
+											<option>03:00</option>
+											<option>04:00</option>
+											<option>05:00</option>
+											<option>06:00</option>
+											<option>07:00</option>
+											<option>08:00</option>
+											<option>09:00</option>
+											<option>10:00</option>
+											<option>11:00</option>
 											<option>12:00</option>
 											<option>13:00</option>
 											<option>14:00</option>
@@ -128,14 +134,22 @@
 											<option>20:00</option>
 											<option>21:00</option>
 											<option>22:00</option>
+											<option>23:00</option>
+											<option>24:00</option>
 										</optgroup>
 									</select>
 								</div>
 							</div>
 						</div>
+						
+						<br>
 
-						<div class="row mmmttt">
-							<div class="col-4">
+						<div class="row">
+							
+						</div>
+
+						<div class="d-flex flex-row justify-content-evenly">
+							<div class="col-4 ">
 								<label for="age">연령대</label>
 								<div class="form-group">
 									<select class="choices form-select" name="age" id="age">
@@ -150,6 +164,7 @@
 									</select>
 								</div>
 							</div>
+							<div class="col-1"></div>
 							<div class="col-4">
 								<label for="lv">구력</label>
 								<div class="form-group">
@@ -164,7 +179,7 @@
 							</div>
 						</div>
 
-						<div class="row mmmttt">
+						<div class="d-flex flex-row justify-content-evenly">
 							<div class="col-4">
 								<label for="gameWay">경기 방식</label>
 								<div class="form-group">
@@ -184,7 +199,11 @@
 									</select>
 								</div>
 							</div>
+							<div class="col-1"></div>
+							<div class="col-4"></div>
+							</div>
 
+							<div class="d-flex flex-row justify-content-evenly">
 							<div class="col-4">
 								<label for="ntrp">ntrp</label>
 								<div class="form-group">
@@ -208,10 +227,96 @@
 									</select>
 								</div>
 							</div>
+						<div class="col-1"></div>
+							<!-- ntrp modal start -->
+							<div class="col-4">
+								<br>
+								<h5>
+									<button type="button" class="btn btn-success" id="ntrpQ"
+										href="javascript:void(0)" data-bs-toggle="modal"
+										data-bs-target="#ntrpModal">NTRP이란?</button>
+								</h5>
+							</div>
+							<div class="modal fade" id="ntrpModal" tabindex="-1"
+								role="dialog" aria-labelledby="exampleModalCenterTitle"
+								aria-hidden="true">
+								<div
+									class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable modal-lg"
+									role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalCenterTitle">ntrp이란?
+											</h5>
+											<button type="button" class="close" data-bs-dismiss="modal"
+												aria-label="Close">
+												<i data-feather="x"></i>
+											</button>
+										</div>
+										<div class="modal-body">
+											<p>
+												NTRP란 National Tennis Rating Program의 약자입니다.<br> 이는 미국
+												테니스 협회(USTA)에서 개인의 테니스 실력을 평가하기 위해 만든 기준으로,<br> 세계에서 가장
+												널리 통용되는 테니스 실력의 기준입니다.
+											</p>
+											<table class="table">
+												<thead>
+													<tr>
+														<th>ntrp rating</th>
+														<th>설명</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>1.0</td>
+														<td>테니스 라켓을 이제 막 들어 시작한 상태</td>
+													</tr>
+													<tr>
+														<td>1.5</td>
+														<td>테니스 경험이 있으나 게임을 하기엔 아직 미숙한 상태</td>
+													</tr>
+													<tr>
+														<td>2.0</td>
+														<td>랠리는 어느정도 가능하나 플레이를 지속하기엔 어려운 상태</td>
+													</tr>
+													<tr>
+														<td>2.5</td>
+														<td>일관성이 있는 랠리가 가능한 상태</td>
+													</tr>
+													<tr>
+														<td>3.0</td>
+														<td>코트 인식이 좋고, 스핀 및 고급 기술 사용가능한 상태</td>
+													</tr>
+													<tr>
+														<td>3.5</td>
+														<td>일관된 방향으로 공을 칠수 있는 레벨</td>
+													</tr>
+													<tr>
+														<td>4.0</td>
+														<td>정밀하고 지속적인 샷 랠리 가능한 레벨</td>
+													</tr>
+													<tr>
+														<td>4.5이상</td>
+														<td>대회 참가 가능 레벨</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-primary ms-1"
+												data-bs-dismiss="modal">
+												<i class="bx bx-check d-block d-sm-none"></i> <span
+													class="d-none d-sm-block">닫기</span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- ntrp modal end -->
 						</div>
 
-						<div class="row">
-							<div class="col-4" style="margin-left: 55px;">
+
+						<div class="d-flex flex-row justify-content-evenly">
+							<div class="col-6">
 								<label for="name">코트비</label><br>
 								<div class="input-group mb-3">
 									<input type="text" class="form-control"
@@ -219,10 +324,11 @@
 										id="crtUseAmt" name="crtUseAmt" maxlength="10" required>
 								</div>
 							</div>
+							<div class="col-4"></div>
 						</div>
 
-						<div class="row">
-							<div class="col-6" style="margin-left: 55px;">
+						<div class="d-flex flex-row justify-content-evenly">
+							<div class="col-6">
 								<label for="name">코멘트</label><br>
 								<div class="input-group mb-3">
 									<input type="text" class="form-control"
@@ -230,6 +336,7 @@
 										placeholder="코멘트 입력" id="detailCtt" name="detailCtt">
 								</div>
 							</div>
+							<div class="col-4"></div>
 						</div>
 
 						<div class="ctrgbtns">

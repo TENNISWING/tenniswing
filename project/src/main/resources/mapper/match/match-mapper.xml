@@ -558,9 +558,8 @@
 
 
 	<select id="selectMyOwnerClub" resultType="clubVO">
-		SELECT club_no
-		,
-		club_name
+		SELECT club_no 
+		, club_name
 		FROM club c
 		where mem_id = #{memId}
 	</select>

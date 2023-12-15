@@ -43,6 +43,8 @@ public class AdminCourtCalcServiceImpl implements AdminCourtCalcService {
 			AdminCourtCalcVO vo = new AdminCourtCalcVO();
 			vo.setHostId(host.getMemId());
 			
+			
+			
 			LocalDate date = LocalDate.now();
 			int year = date.getYear();
 			int monthValue = date.getMonthValue()-1;
@@ -67,6 +69,9 @@ public class AdminCourtCalcServiceImpl implements AdminCourtCalcService {
 			vo.setCalcStartDate(start);
 			vo.setCalcEndDate(end);
 			System.out.println("날짜 >>>>>>>>>>> "+start+end);
+			if(adminCourtCalcMapper.selectHostCourtCalc(vo) > 0) {
+				continue;
+			}
 			List<AdminCourtCalcVO> list = adminCourtCalcMapper.selectAllAdminCourtCalc(vo);
 			CalcTableVO calcT = new CalcTableVO();
 			
