@@ -200,9 +200,12 @@
 	</update>
   
   <!-- 클럽 삭제 -->
-  <delete id="deleteClub" parameterType="int">
-  	DELETE FROM club
-  	WHERE club_no = #{clubNo}
+  <delete id="deleteClub" statementType="CALLABLE" parameterType="map">
+  	{call DELETE_CLUB (
+ 	   #{clubNo, mode=IN, jdbcType=DECIMAL},
+       #{delResult, mode=OUT, jdbcType=DECIMAL, javaType=long}
+		)
+	}
   </delete>
   
   
@@ -245,6 +248,30 @@
   		   	#{clubMemNo}
   		   	, #{clubJoinApplyWrt}
   		   	, 'm3'
+  		   	, #{memId}
+  		   	, #{clubNo}
+  		   	, SYSDATE
+  		   )
+  </insert>
+  
+    <!-- 클럽장 등록 -->
+  <insert id="insertClubHost" parameterType="clubVO">
+  <selectKey keyProperty="clubMemNo" resultType="int" order="BEFORE">
+  		SELECT NVL(MAX(club_mem_no),0)+1
+  		FROM club_mem
+  	</selectKey>
+  	INSERT INTO club_mem
+  			(
+  				club_mem_no
+  				, club_approve
+  				, mem_id
+  				, club_no
+  				, apply_date
+  			)
+  		   VALUES
+  		   (
+  		   	#{clubMemNo}
+  		   	, 'm2'
   		   	, #{memId}
   		   	, #{clubNo}
   		   	, SYSDATE

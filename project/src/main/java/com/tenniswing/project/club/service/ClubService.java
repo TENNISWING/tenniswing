@@ -14,12 +14,14 @@ public interface ClubService {
 	
 	//등록
 	public int insertClub(ClubVO clubVO);
+	
 	//클럽 가입 승인 거절
 	public Map<String, Object> clubMemAdd(ClubVO clubVO);
 	
+	
 	//삭제
-	public boolean deleteClub(int ClubNo);
-	public boolean clubMemDelete(int ClubNo);
+	public boolean deleteClub(int clubNo);
+	public boolean clubMemDelete(int clubNo);
 	
 	//수정
 	public Map<String, Object> updateClub(ClubVO clubVO);

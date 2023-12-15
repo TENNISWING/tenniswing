@@ -1,5 +1,6 @@
 package com.tenniswing.project.club.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,13 +18,14 @@ public interface ClubMapper {
 	
 	//등록
 	public int insertClub(ClubVO clubVO);
+	public int insertClubHost(ClubVO clubVO);
 	
 	//수정
 	public int updateClub(ClubVO clubVO);
 	public int clubMemAdd(ClubVO clubVO);
 	
 	//삭제
-	public int deleteClub(int ClubNo);
+	public int deleteClub(HashMap<String, Long> map);
 	public int clubMemDelete(int ClubVO);
 
 	//재은
@@ -50,5 +52,7 @@ public interface ClubMapper {
 	
 	//어드민 클럽 리스트
 	public List<ClubVO> selectAdminAllClub();
+
+	
 
 }

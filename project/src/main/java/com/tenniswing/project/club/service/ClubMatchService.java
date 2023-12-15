@@ -19,7 +19,7 @@ public interface ClubMatchService {
 	public int insertResult(ClubVO clubVO);
 	
 	//매치 모집 삭제
-	public boolean clubRecDelete(int clubMatchRstNo);
+	public boolean clubRecDelete(int clubMatchRecNo);
 	
 	//매치 결과 수정
 	public int editResult(ClubVO clubVO);
