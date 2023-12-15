@@ -121,7 +121,7 @@ public class HostController {
 	@PostMapping("hostdeleteCourtroom")
 	@ResponseBody
 	public Map<String, Object> deleteCourtroomProccess(@RequestParam("crtNo") Integer crtroomNo) {
-		Map<String, Object> map = courtroomService.deleteCourtroom(crtroomNo);
+		//Map<String, Object> map = courtroomService.deleteCourtroom(crtroomNo);
 		Map<String, Object> resultmap = new HashMap<>();
 		if(map.get("reserveCount").equals(0)) {
 			resultmap.put("result", true);
@@ -129,11 +129,14 @@ public class HostController {
 			resultmap.put("result", false);
 			resultmap.put("reserveCount", map.get("reserveCount"));
 		}
+
 		/*
 		 * String msg = null; if(result) { msg = "정상적으로 삭제되었습니다. \n삭제대상 : "+crtroomNo;
 		 * }else { msg = "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다. \n삭제요청 : "+crtroomNo; }
 		 * rttr.addFlashAttribute("result", msg);
 		 */
+
+		//return map;
 		return resultmap;
 	}
 

@@ -85,5 +85,6 @@
   		SELECT count(*)
   		FROM reserve
   		WHERE crt_detail_no = #{crtDetailNo}
+  		AND reserve_state = 'i1'
   	</select>
 </mapper>
