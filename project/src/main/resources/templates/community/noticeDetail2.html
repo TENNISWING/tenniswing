@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main-layout}">
+
+<head>
+<!-- tagify 소스 다운 -->
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<!-- 폴리필 (구버젼 브라우저 지원) -->
+<script
+	src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+
+<style type="text/css">
+.editDelBtn {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+</style>
+</head>
+<th:block layout:fragment="content">
+
+	<div class="container">
+		<!-- 테이블시작  -->
+		<div class="col-xxl-12">
+			<div class="dashboard-block">
+				<div class="dashboard-block__title">
+					<h4>공지사항 게시글</h4>
+				</div>
+				<div class="ec-base-table typeWrite ">
+					<table border="1" class="table">
+						<caption>게시판 상세</caption>
+						<colgroup>
+							<col style="width: 130px;" />
+							<col style="width: auto;" />
+						</colgroup>
+						<tbody>
+							<tr>
+								<th scope="row">제목</th>
+								<td>[[${nbrd.brdTitle}]]</td>
+							</tr>
+							<tr>
+								<th scope="row">작성자</th>
+								<td>[[${nbrd.name}]]<span class="displaynone"></span>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<ul class="etcArea">
+										<li class=""><strong>작성일</strong> <span class="txtNum">[[${#dates.format(nbrd.brdWriteDate,'yyyy-MM-dd')}]]</span></li>
+										<li class=""><strong>조회수</strong> <span class="txtNum">[[${nbrd.brdHit}]]</span>
+										</li>
+									</ul>
+									<div class="detail">
+										<div class="fr-view fr-view-article">
+											<p th:utext="${nbrd.brdCtt}"></p>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="editDelBtn">
+
+				<div class="btn__group flex-wrap">
+					<button type="button" class="btn btn-primary -o me-auto"
+						th:onclick="|location.href='@{noticeList}'|">목록으로</button>
+					<button type="button" class="btn btn-outline brdDelBtn"
+						th:id="${nbrd.brdWrtNo}">삭제</button>
+					<button type="submit" class="btn btn-gray-filled"
+						style="margin-left: 20px;"
+						th:onclick="|location.href='@{/noticeEditForm(brdWrtNo=${nbrd.brdWrtNo})}'|">수정</button>
+				</div>
+			</div>
+
+		</div>
+		<!-- 테이블 end -->
+
+	</div>
+
+	<script>
+	$('.brdDelBtn').on('click', function(e){
+		let brdWrtNo = $(e.target).attr("id");
+       	$.ajax({
+        		type:'POST',
+        		url: 'brdDelete',
+        		data:{brdWrtNo},
+        		success:function(result){
+        			console.log(result)
+        			if(result){
+        				alert("게시글 정상삭제");
+        				location.href="/noticeList";
+        			}else{
+        				alert("삭제실패. 재시도해주세요.");
+        			}
+        		},
+        		error : function() {
+					alert("삭제 실패");
+				}
+		})
+	})
+
+
+    </script>
+
+
+</th:block>
+
+</html>

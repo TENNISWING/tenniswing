@@ -377,11 +377,11 @@ public class AdminController {
 		} else {
 			return false;
 		}
-	}	
-
-	@PostMapping("")
+	}
+	
+	@PostMapping("admin_CourtApply_proccess")
 	@ResponseBody
-	public boolean courtStateProccess(CrtroomVO crtroomVO, int number) {
+	public int courtStateProccess(CrtroomVO crtroomVO, int number) {
 		int result = 0;
 		if(number == 1) {
 			result = courtroomService.courtStatePermit(crtroomVO);
@@ -390,11 +390,13 @@ public class AdminController {
 		}
 		
 		if(result > 0) {
-			return true;
+			return number;
 		}else {
-			return false;
+			return -1;
 		}
-	}
+	}	
+
+	
 
 	// sns 목록
 	@GetMapping("admin_sns")

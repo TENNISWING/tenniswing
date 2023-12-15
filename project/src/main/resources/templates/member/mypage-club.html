@@ -4,34 +4,27 @@
 	layout:decorate="~{layouts/main-layout}">
 <head>
 <link rel="stylesheet"
-		href="/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
-	<link rel="stylesheet"
-		href="/assets/compiled/css/table-datatable-jquery.css">
+	href="/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet"
+	href="/assets/compiled/css/table-datatable-jquery.css">
 </head>
 <th:block layout:fragment="content">
-	<h3 class="container p-3">매치 이력</h3>
+	<h3 class="container p-3">나의 클럽목록</h3>
 	<div class="container" id="mypage">
 		<div class="row">
 			<div class="col-lg-4 col-md-auto">
 				<div th:replace="member/mypage-sidemenu :: sidemenu"></div>
 			</div>
-			<div class="col-lg-8 col-md-auto">				
-				
-				
-				<!-- Profile Table Start -->
-				<div class="cart__form">
-					<table>
+			<div class="col-lg-8 col-md-auto">
+				<div class="cart__form mt-3">
+					<table class="table" id="club">
 						<thead>
-							<h3>마이 클럽</h3>
 							<tr>
-								<th class="cart-pd__thumb">가입일자</th>
-								<th class="cart-pd__qty">클럽명</th>
+								<th>가입일자</th>
+								<th>클럽명</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:if="${clubList.size == 0}">
-									<td colspan="5">나의 클럽이 없습니다.</td>
-							</tr>
 							<th:block th:each="c : ${clubList}">
 								<tr>
 									<td class="cart-pd__date text-start" data-title="Date">
@@ -45,49 +38,37 @@
 									</td>
 								</tr>
 
-								
+
 							</th:block>
 						</tbody>
 					</table>
 				</div>
-				<!-- Profile Card End -->
-
-
 			</div>
 		</div>
 	</div>
 
-
-
-	<script>
-	function myPageAjax(page) {
-		
-		$.ajax({
-			type: 'GET',
-			url: 'matchList',
-			data: {matchDate, page, gameWay, gen, location, ntrp},
-			success: function(result) {
-				//리스트
-				$('#matchList').empty();
-				for(let matchInfo of result.matchList){
-					let b = `<tr class="navbar-brand">					
-					<td class="text-center"><b>${dateFormat(matchInfo.matchDate)}</b></td>
-					<td>${matchInfo.time}시</td>
-					<td>${matchInfo.gameWayName}</td>
-					<td>${matchInfo.crtroomName}</td>
-					<td>${matchInfo.genName}</td>
-					<td class="text-end mtbt">
-						<a class="btn btn-primary matchbtn1" href="matchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>
-					</td>
-				</tr>`
-					$('#matchList').append(b)
-				}
-				
-				showPage(result.selectCount);
-			}
-		})
-	}
+	<script
+	src="/assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
+<script
+	src="/assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+<script>
+	$("#club").DataTable(
+			{
+				responsive : true,
+				pagingType: 'simple',
+			    "language": {
+			        "info": "Page _PAGE_ of _PAGES_",
+			        "lengthMenu": "_MENU_ ",
+			        "search": "",
+			        "searchPlaceholder": "검색.."
+			    },
+			    columnDefs: [
+			        // 2번째 항목 넓이를 100px로 설정
+			        { targets: 1, width: 200 }
+			    ]
+			})
 	</script>
+
 
 
 </th:block>
