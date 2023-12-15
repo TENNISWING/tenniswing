@@ -24,9 +24,14 @@ public interface CrtDetailMapper {
 	public int updateCrtDetail(CrtDetailVO crtDetailVO);
 	
 	// 삭제
-	public int deleteCrtDetail(int crtDetailNo);
+	public int deleteCrtDetail(int crtroomNo);
 	
 	// 코트 디테일 예약 건수 조회
-	public int courtDetailReserveCount(CrtDetailVO crtDetailVO);
+	public int courtDetailReserveCount(int crtDetailNo);
 	
+	// 코트 사진 삭제
+	public int deleteCrtDetailImg(int crtDetailNo);
+	
+	// 코트장 내의 코트 사진 카운트
+	public int selectCrtDetailImg(int crtroomNo);
 }

@@ -34,7 +34,11 @@ public class CrtDetailServiceImpl implements CrtDetailService {
 
 		int crtroomNo = crtDetailVO.getCrtroomNo();
 		
+		int countImg = crtDetailMapper.selectCrtDetailImg(crtroomNo);
 		int index = 1;
+		if(countImg != 0) {
+			index = countImg + 1;
+		}
 		for (AttachVO file : files) {
 			file.setAttachTableDiv("cd");
 			file.setAttachTablePk(crtroomNo);
@@ -76,6 +80,7 @@ public class CrtDetailServiceImpl implements CrtDetailService {
 		int result = crtDetailMapper.deleteCrtDetail(crtDetailNo);
 		
 		if(result == 1) {
+			crtDetailMapper.deleteCrtDetailImg(crtDetailNo);
 			return true;
 		}else {
 			return false;

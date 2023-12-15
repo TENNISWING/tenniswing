@@ -1,14 +1,15 @@
 package com.tenniswing.project.court.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.tenniswing.project.court.mapper.CrtReserveMapper;
-import com.tenniswing.project.court.service.CrtRefundVO;
 import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.court.service.CrtReserveVO;
 
@@ -16,6 +17,15 @@ import com.tenniswing.project.court.service.CrtReserveVO;
 public class CrtReserveServiceImpl implements CrtReserveService {
 
 	@Autowired CrtReserveMapper crtReserveMapper;
+	
+	
+	@Scheduled(fixedRate = 3600000)
+	public void reportCurrentTime() {
+		Date date = new Date();
+		CrtReserveVO crtReserveVO = new CrtReserveVO();
+		crtReserveVO.setReserveDate(date);
+		crtReserveMapper.updateState(crtReserveVO);
+	}
 	
 	@Override
 	public Map<String, Object> insertCrtReserve(CrtReserveVO crtReserveVO) {

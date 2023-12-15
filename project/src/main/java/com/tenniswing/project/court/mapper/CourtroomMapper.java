@@ -80,4 +80,7 @@ public interface CourtroomMapper {
 	
 	// 코트 예약 건수 조회
 	public int courtReserveCount(int crtroomNo);
+	
+	// 코트장 운영허가증 사진 삭제
+	public int deleteCourtroomImg(int crtroomNo);
 }
