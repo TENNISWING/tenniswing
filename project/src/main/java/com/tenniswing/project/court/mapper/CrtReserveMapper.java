@@ -35,4 +35,7 @@ public interface CrtReserveMapper {
 		
 		// 환불 상태 변경
 		public int updateCrtReserveState(CrtReserveVO crtReserveVO);
+		
+		// 예약 시간 지나면 자동 상태변경
+		public int updateState(CrtReserveVO crtReserveVO);
 }

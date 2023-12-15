@@ -284,6 +284,12 @@
 		WHERE crtroom_no = #{crtroomNo}
 	</delete>
 	
+	<delete id="deleteCourtroomImg" parameterType="int">
+  		DELETE FROM attach
+  		WHERE attach_table_div = 'co'
+  		AND attach_table_pk = #{crtroomNo}
+  	</delete>
+	
 	<!-- 검색창 코트 정보 -->
 	<select id="courtSearch" resultType="crtroomVO">
 		SELECT *

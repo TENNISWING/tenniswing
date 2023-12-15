@@ -110,15 +110,31 @@
 		let results = `[[${result}]]`;
 		//results = JSON.parse(results)
 		console.log(results);
-		$.ajax({
-			url: 'admin_Calc_proccess',
-			type: 'POST',
-			contentType : 'application/json',
-			data : results,
-			success: function(result){
-				console.log(result)
-			},
-			error: function(err) {console.log(err)}
+		Swal2.fire({
+			icon: "question",
+			text: "일괄 정산하시겠습니까?",
+			showDenyButton: true,
+		    confirmButtonText: "yes",
+		    denyButtonText: "no"
+		}).then((result)=>{
+			if(result.isConfirmed){
+				$.ajax({
+					url: 'admin_Calc_proccess',
+					type: 'POST',
+					contentType : 'application/json',
+					data : results,
+					success: function(result){
+							Swal2.fire({
+								icon: "success",
+								text: "정산 완료되었습니다."
+							}).then(function(){
+								location.reload();
+							})
+							console.log(result);
+					},
+					error: function(err) {console.log(err)}
+				})
+			}
 		})
 	})
 	/* $(function(){

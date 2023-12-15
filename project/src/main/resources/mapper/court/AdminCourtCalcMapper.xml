@@ -20,11 +20,20 @@
 	FROM reserve r JOIN crtroom c
 				   ON r.crtroom_no = c.crtroom_no
                    LEFT OUTER JOIN reserve_cancel rc
-                   ON r.reserve_no = rc.reserve_no	
+                   ON r.reserve_no = rc.reserve_no
     Where r.reserve_state != 'i1' 
     AND c.host_id = #{hostId}  
     <!-- AND r.pay_date BETWEEN '23/11/01' AND '23/11/30' -->
     AND r.pay_date BETWEEN TO_DATE(#{calcStartDate},'YYYY-MM-DD') AND TO_DATE(#{calcEndDate},'YYYY-MM-DD')
+</select>
+
+<!-- 정산 완료 조회 -->
+<select id="selectHostCourtCalc" resultType="int">
+	SELECT COUNT(*)
+	FROM crt_calc 
+    Where host_id = #{hostId}  
+    AND calc_start_date = TO_DATE(#{calcStartDate},'YYYY-MM-DD') 
+    AND calc_end_date = TO_DATE(#{calcEndDate},'YYYY-MM-DD')
 </select>
 <!-- 관리자 정산하기 -->
 <!-- <insert id="insertAdminCourtCalc" parameterType="List">
