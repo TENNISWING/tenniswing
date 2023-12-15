@@ -2,28 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<style>
-		.toggleBoard {
-			display: none;
-			
-		}
+<style>
+.content__body {
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
 
-		.boardContainer {
-			margin-bottom: -16px;
-		}
+.toggleBoard {
+	display: none;
+}
 
-		.toggleBoardTitle {
-			cursor: pointer;
-		}
-		.boardBody{
-		box-shadow: 0px 9px 15px #d5d9db;
-   			margin: 3px;
-		}
-		
-		
-	</style>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
+.boardContainer {
+	margin-bottom: -16px;
+}
+
+.toggleBoardTitle {
+	cursor: pointer;
+}
+
+.boardBody {
+	box-shadow: 0px 9px 15px #d5d9db;
+	margin: 3px;
+}
+</style>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
 <th:block layout:fragment="content">
 
@@ -49,7 +51,7 @@
 			</section>
 		</div>
 		<!-- table hover -->
-		<div class="table-responsive">
+		<div>
 			<table class="table mb-0">
 				<thead>
 					<tr>
