@@ -61,6 +61,7 @@
 												<th>호스트아이디</th>
 												<th>코트상태</th>
 												<th>등록일</th>
+												<th>운영허가증</th>
 												<th style="text-align: center;">Action</th>
 											</tr>
 										</thead>
@@ -73,6 +74,13 @@
 													<td>[[ ${c.hostId} ]]</td>
 													<td><span class="badge bg-success">[[ ${c.crtroomState} ]]</span></td>
 													<td>[[ ${#dates.format(c.crtroomRegiDate, 'yyyy-MM-dd')} ]]</td>
+													<td>
+													<!-- button trigger for  Vertically Centered modal -->
+						                            <button type="button" class="btn btn-outline-primary block" data-bs-toggle="modal"
+						                                data-bs-target="#exampleModalCenter" th:attrappend="data-bs-target=${c.crtroomNo}">
+						                                Launch Modal
+						                            </button>
+													</td>
 													<td>
 														<div class="card__action">
 															<button type="button" class="permit btn btn-outline-info" id="permit" th:attrappend="id=${c.crtroomNo}">승인</button>
@@ -91,13 +99,44 @@
 														</div>
 													</td>
 												</tr>
+												<!-- Vertically Centered modal Modal -->
+											      <div class="modal fade" id="exampleModalCenter" th:attrappend="id=${c.crtroomNo}" tabindex="1" role="dialog"
+											          aria-labelledby="exampleModalCenterTitle">
+											          <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+											              role="document">
+											              <div class="modal-content">
+											                  <div class="modal-header">
+											                      <h5 class="modal-title">운영허가증
+											                      </h5>
+											                      <button type="button" class="close" data-bs-dismiss="modal"
+											                          aria-label="Close">
+											                          <i data-feather="x"></i>
+											                      </button>
+											                  </div>
+											                  <div class="modal-body">
+											                      <img th:src="${c.attachPath}">
+											                  </div>
+											                  <div class="modal-footer">
+											                      <button type="button" class="btn btn-light-secondary"
+											                          data-bs-dismiss="modal">
+											                          <i class="bx bx-x d-block d-sm-none"></i>
+											                          <span class="d-none d-sm-block">Close</span>
+											                      </button>
+											                      <button type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+											                          <i class="bx bx-check d-block d-sm-none"></i>
+											                          <span class="d-none d-sm-block">Accept</span>
+											                      </button>
+											                  </div>
+											              </div>
+											          </div>
+											      </div>
 											</th:block>
 										</tbody>
 									</table>
 								</div>
 							</div>
 						</div>
-
+						
 					</section>
 					<!-- Basic Tables end -->
 

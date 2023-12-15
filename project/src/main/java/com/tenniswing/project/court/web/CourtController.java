@@ -263,4 +263,12 @@ public class CourtController {
 			return false;
 		}
 	}
+	
+	@GetMapping("hostReserve")
+	@ResponseBody
+	public List<CrtReserveVO> hostReserve(CrtReserveVO crtReserveVO) {
+		String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+		crtReserveVO.setHostId(memId);
+		return crtReserveService.selectAllCrtDeReserve(crtReserveVO);
+	}
 }
