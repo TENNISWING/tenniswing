@@ -78,8 +78,9 @@
 													<!-- button trigger for  Vertically Centered modal -->
 						                            <button type="button" class="btn btn-outline-primary block" data-bs-toggle="modal"
 						                                data-bs-target="#exampleModalCenter" th:attrappend="data-bs-target=${c.crtroomNo}">
-						                                Launch Modal
+						                               운영허가증
 						                            </button>
+						                            
 													</td>
 													<td>
 														<div class="card__action">
@@ -100,10 +101,11 @@
 													</td>
 												</tr>
 												<!-- Vertically Centered modal Modal -->
-											      <div class="modal fade" id="exampleModalCenter" th:attrappend="id=${c.crtroomNo}" tabindex="1" role="dialog"
-											          aria-labelledby="exampleModalCenterTitle">
-											          <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
-											              role="document">
+											      <div class="modal fade" id="exampleModalCenter" th:attrappend="id=${c.crtroomNo}"
+											          aria-labelledby="exampleModalCenterTitle"
+											          tabindex="-1" aria-hidden="true">
+											          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+											              >
 											              <div class="modal-content">
 											                  <div class="modal-header">
 											                      <h5 class="modal-title">운영허가증
