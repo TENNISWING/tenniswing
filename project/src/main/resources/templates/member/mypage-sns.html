@@ -1,109 +1,115 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/main-layout}">
-  
-  <head>
-    <link
-      rel="stylesheet"
-      href="/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="/assets/compiled/css/table-datatable-jquery.css"
-    />
-  </head>
-  
-  <th:block layout:fragment="content">
-    <h3 class="container p-3">매치 이력</h3>
-    <div class="container" id="mypage">
-      <div class="row">
-        <div class="col-lg-4 col-md-auto">
-          <div th:replace="member/mypage-sidemenu :: sidemenu"></div>
-        </div>
-        <div class="col-lg-8 col-md-auto mx-auto">
-          <div class="table-responsive mt-5">
-            <table class="table" id="table1">
-              <thead>
-                <tr>
-                  <th>번호</th>
-                  <th>제목</th>
-                  <th>생성일자</th>
-                </tr>
-              </thead>
-              <tbody>
-                <th:block th:each="l : ${like}">
-                  <tr
-                    class="snsLike"
-                    th:onclick="|location.href='@{/snsDetail(snsWrtNo=${l.snsWrtNo})}'|"
-                  >
-                    <td>[[${lStat.count}]]</td>
-                    <td>[[${l.snsTitle}]]</td>
-                    <td>[[${#dates.format(l.likeInDate,'yyyy-MM-dd')}]]</td>
-                  </tr>
-                </th:block>
-              </tbody>
-            </table>
-          </div>
-          <div class="col-lg-8 col-md-auto mx-auto">
-            <div class="table-responsive mt-5">
-              <table class="table" id="table1">
-                <thead>
-                  <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>생성일자</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <th:block th:each="s : ${scrap}">
-                    <tr
-                      class="snsScrap"
-                      th:onclick="|location.href='@{/snsDetail(snsWrtNo=${s.snsWrtNo})}'|"
-                    >
-                      <td>[[${sStat.count}]]</td>
-                      <td>[[${s.snsTitle}]]</td>
-                      <td>[[${#dates.format(s.scrapInDate,'yyyy-MM-dd')}]]</td>
-                    </tr>
-                  </th:block>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main-layout}">
 
-    <script>
-      function myPageAjax(page) {
-        $.ajax({
-          type: "GET",
-          url: "matchList",
-          data: { matchDate, page, gameWay, gen, location, ntrp },
-          success: function (result) {
-            //리스트
-            $("#matchList").empty();
-            for (let matchInfo of result.matchList) {
-              let b = `<tr class="navbar-brand">
-					<td class="text-center"><b>${dateFormat(matchInfo.matchDate)}</b></td>
-					<td>${matchInfo.time}시</td>
-					<td>${matchInfo.gameWayName}</td>
-					<td>${matchInfo.crtroomName}</td>
-					<td>${matchInfo.genName}</td>
-					<td class="text-end mtbt">
-						<a class="btn btn-primary matchbtn1" href="matchdetail?matchNo=${
-              matchInfo.matchNo
-            }">${matchInfo.progStateName}</a>
-					</td>
-				</tr>`;
-              $("#matchList").append(b);
-            }
+<head>
+<link rel="stylesheet"
+		href="/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+	<link rel="stylesheet"
+		href="/assets/compiled/css/table-datatable-jquery.css">
+</head>
 
-            showPage(result.selectCount);
-          },
-        });
-      }
-    </script>
-  </th:block>
+<th:block layout:fragment="content">
+	<h3 class="container p-3">MY SNS</h3>
+	<div class="container" id="mypage">
+		<div class="row">
+			<div class="col-lg-4 col-md-auto">
+				<div th:replace="member/mypage-sidemenu :: sidemenu"></div>
+			</div>
+			<div class="col-lg-8 mx-auto">
+				<ul class="nav nav-pills" id="myTab" role="tablist">
+					<li class="nav-item" role="presentation"><a
+						class="nav-link active" id="like-tab" data-bs-toggle="tab"
+						href="#like" role="tab" aria-controls="like" aria-selected="true">글
+							목록 - 좋아요</a></li>
+					<li class="nav-item" role="presentation"><a class="nav-link"
+						id="scrap-tab" data-bs-toggle="tab" href="#scrap" role="tab"
+						aria-controls="scrap" aria-selected="false">글 목록 - 즐겨찾기</a></li>
+				</ul>
+				<div class="tab-content" >
+					<div class="tab-pane fade show active" id="like" role="tabpanel"
+						aria-labelledby="like-tab">
+						<div class="cart__form mt-3">
+							<table class="table" id="tablelike">
+								<thead>
+									<tr>
+										<th>번호</th>
+										<th>제목</th>
+										<th>생성일자</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:each="l : ${like}">
+										<tr class="snsLike"
+											th:onclick="|location.href='@{/snsDetail(snsWrtNo=${l.snsWrtNo})}'|">
+											<td>[[${lStat.count}]]</td>
+											<td>[[${l.snsTitle}]]</td>
+											<td>[[${#dates.format(l.likeInDate,'yyyy-MM-dd')}]]</td>
+										</tr>
+									</th:block>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="scrap" role="tabpanel"
+						aria-labelledby="scrap-tab">
+						<div class="cart__form mt-3">
+							<table class="table" id="tablescrap">
+								<thead>
+									<tr>
+										<th>번호</th>
+										<th>제목</th>
+										<th>생성일자</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:each="s : ${scrap}">
+										<tr class="snsScrap"
+											th:onclick="|location.href='@{/snsDetail(snsWrtNo=${s.snsWrtNo})}'|">
+											<td>[[${sStat.count}]]</td>
+											<td>[[${s.snsTitle}]]</td>
+											<td>[[${#dates.format(s.scrapInDate,'yyyy-MM-dd')}]]</td>
+										</tr>
+									</th:block>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script
+		src="/assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="/assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script>
+		$("#tablelike").DataTable(
+				{
+					pagingType: 'simple',	
+				    "language": {		
+				        "search": "",
+				        "searchPlaceholder": "검색.."
+				    },
+				    columnDefs: [
+				        // 항목 넓이를 설정
+				        { targets: 0, width: 20 },
+				        { targets: 1, width: 100 },
+				        { targets: 2, width: 30 }
+				    ]
+				})
+		 $("#tablescrap").DataTable(
+				{					
+					pagingType: 'simple',	
+				    "language": {
+				        "search": "",
+				        "searchPlaceholder": "검색.."
+				    },
+				  
+				  
+				})		
+	
+	</script>
+</th:block>
 </html>

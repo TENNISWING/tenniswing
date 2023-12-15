@@ -7,7 +7,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
+import com.tenniswing.project.attach.mapper.AttachMapper;
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.common.FileUtils;
@@ -29,6 +32,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	AttachService attachService;
+	
+	@Autowired
+	AttachMapper attachMapper;
 
 	@Override
 	public List<MemberVO> getMemberAll() {
@@ -85,9 +91,10 @@ public class MemberServiceImpl implements MemberService {
 	
 		return memberVO;
 	}
-
+	
 	@Override
-	public int insertMember(MemberVO memberVO) {
+	@Transactional
+	public int insertMember(MemberVO memberVO, List<AttachVO> files) {
 
 		String role = memberVO.getMemDiv();
 
@@ -97,21 +104,25 @@ public class MemberServiceImpl implements MemberService {
 			memberVO.setNick("호스트회원");
 			memberVO.setMemDiv("ROLE_HOST");
 		}
-
+		
+		//비번 암호화
 		memberVO.setPwd(passwordEncoder.encode(memberVO.getPwd()));
 
 		int result = memberMapper.insertMember(memberVO);		
 
-		if (result > 0) {
-			
+		if (result > 0) {			
 			if(role.equals("ROLE_HOST")) {
 				return result;
 			}
 			
-			List<AttachVO> files = fileUtils.uploadFiles(memberVO.getFiles());			
-			//테이블 구분, 게시글 번호, 파일목록
-			attachService.saveAttach("m", memberVO.getMemNo(), files);
-			
+			if(!CollectionUtils.isEmpty(files)) {
+				for(AttachVO file : files) {
+					file.setAttachTableDiv("m");
+					file.setAttachTablePk(memberVO.getMemNo());
+				}				
+				attachMapper.saveAttachAll(files);				
+			}
+	
 			return result;
 			
 		} else {
