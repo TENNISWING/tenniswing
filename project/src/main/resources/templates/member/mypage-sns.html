@@ -80,11 +80,9 @@
 			</div>
 		</div>
 	</div>
-	<script
-		src="/assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script
-		src="/assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	
 	<script>
+	$(document).ready(function() {
 		$("#tablelike").DataTable(
 				{
 					pagingType: 'simple',	
@@ -105,11 +103,17 @@
 				    "language": {
 				        "search": "",
 				        "searchPlaceholder": "검색.."
-				    },
+				    },				   
 				  
-				  
-				})		
+				})
+	})
+	
+				
 	
 	</script>
+	<script
+		src="/assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="/assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
 </th:block>
 </html>

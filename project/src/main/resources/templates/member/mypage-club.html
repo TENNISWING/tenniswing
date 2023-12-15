@@ -52,6 +52,7 @@
 <script
 	src="/assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
 <script>
+$(document).ready(function() {
 	$("#club").DataTable(
 			{
 				responsive : true,
@@ -67,6 +68,10 @@
 			        { targets: 1, width: 200 }
 			    ]
 			})
+	});
+
+
+	
 	</script>
 
 
