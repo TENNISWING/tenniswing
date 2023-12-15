@@ -340,6 +340,7 @@
 		FROM club c JOIN club_mem cm
 					ON c.club_no = cm.club_no
 		where cm.mem_id = #{memId}
+		AND cm.club_approve = 'm2'
 		ORDER BY
 		cm.apply_date DESC
 	</select>

@@ -3,6 +3,7 @@
 
 <head>
 <style>
+
 .content__body {
 	font-family: 'Noto Sans KR', sans-serif !important;
 }
@@ -10,19 +11,81 @@
 .toggleBoard {
 	display: none;
 }
-
 .boardContainer {
 	margin-bottom: -16px;
 }
-
 .toggleBoardTitle {
 	cursor: pointer;
 }
-
 .boardBody {
-	box-shadow: 0px 9px 15px #d5d9db;
-	margin: 3px;
+	border-bottom: 1.5px solid #c1c1c1;
+
 }
+.postTable table{
+  width: 100%;
+}
+
+.postTable th {
+  background: #c1c1c1;
+  height: 54px;
+  font-weight: lighter;
+  color: white;
+  padding: 10px;
+  }
+.postTable tr {
+  border-bottom: 1px solid #cccccc;
+}
+.postTable tr:last-child {
+  border-bottom: 0px;
+}
+.postTable td {
+  border-left: none;
+  padding: 10px;
+}
+.postTable td:last-child {
+  width: 60px;
+}
+
+.postRep{
+margin: 20px 0;
+}
+
+.postRep th{
+    background: #cbeadb;
+    height: 5px;
+    font-weight: 500;
+    color: #273a27;
+    padding: 5px;
+}
+
+
+.filter__area{
+	margin: 0;
+    align-items: center;
+    height: 50px;
+}
+
+.page-link {
+  color: #000; 
+  background-color: #fff;
+  border: 1px solid #ccc; 
+}
+
+.page-item.active .page-link {
+ z-index: 1;
+ color: #555;
+ font-weight:bold;
+ background-color: #f1f1f1;
+ border-color: #ccc;
+ 
+}
+
+.page-link:focus, .page-link:hover {
+  color: #000;
+  background-color: #fafafa; 
+  border-color: #ccc;
+}
+
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -31,13 +94,14 @@
 
 	<body>
 		<div class="content__body">
-			<section class="archive-category">
+			<section class="archive-category" style="padding:25px 0 0 0;">
 				<div class="col-12">
-					<div class="filter__area" style="margin: 0;">
+					<div class="filter__area">
 						<div class="email-fixed-search col-6 ">
 							<div class="form-group position-relative  mb-0 has-icon-left">
-								<button class="btn btn-outline-success" id="clubPostWrite" th:data-club-no="${clubVO.clubNo}"
-									data-bs-toggle="modal" data-bs-target="#WriteModal">글쓰기</button>
+								<button class="btn btn-outline my-4" id="clubPostWrite"
+									th:data-club-no="${clubVO.clubNo}" data-bs-toggle="modal"
+									data-bs-target="#WriteModal">글쓰기</button>
 							</div>
 						</div>
 						<div class="shortBy-select select__style d-lg-flex d-none">
@@ -51,8 +115,8 @@
 			</section>
 		</div>
 		<!-- table hover -->
-		<div>
-			<table class="table mb-0">
+		<div class="postTable mb-0">
+			<table>
 				<thead>
 					<tr>
 						<th>작성일</th>
@@ -229,9 +293,9 @@
 							</tr>
 							<tr class="toggleBoard">
 							<td colspan='5' style="padding: 0;"  id="p${clubPost.clubPostNo}">
-								<div class="boardBody">
+								<div class="boardBody" style="text-align:center;">
 									<div>
-										<img src="${clubPost.attachPath}" style="width: 70%; padding:25px 0px">
+										<img src="${clubPost.attachPath}" style="width: 70%; padding:25px 0px; background-size: cover;">
 									</div>
 									<div style="padding: 0 5%;">
 									<pre class="form-control" id="exampleFormControlTextarea1" style="text-align:left;" >${clubPost.clubPostCtt}</pre>
@@ -242,8 +306,8 @@
 											aria-describedby="basic-addon2">
 										<button type="button" class="input-group-text repInserBtn" data-value="${clubPost.clubPostNo}">등록</button>
 									</div>
-									<div class="table-responsive" >
-											<table class="table" id="table1" data-value="${clubPost.clubPostNo}">
+									<div class="postRep" >
+											<table id="table1" data-value="${clubPost.clubPostNo}">
 												<thead>
 													<tr>
 														<th>작성자</th>
@@ -402,6 +466,11 @@
 					let postHit  =$(`[data-bs-target="${clubPostNo}"]`).find('.postHit')
 					let n=postHit.text()*1
 					postHit.text(n+1)
+					
+					//스크롤 이동
+					let offset = $(event.currentTarget).prev().next().offset(); //해당 위치 반환
+					$("html, body").animate({scrollTop: offset.top},100); 
+					
 				}
 				
 				
@@ -427,6 +496,7 @@
 							`
 							$('#r' + clubPostNo).append(List)
 						}
+						
 						
 						//댓글 삭제 버튼 클릭
 						$('.repDelBtn').on("click", function (e) {
