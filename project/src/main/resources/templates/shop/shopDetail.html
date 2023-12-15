@@ -4,6 +4,9 @@
 	layout:decorate="~{layouts/main-layout}">
 <head>
 	<style type="text/css">
+		svg, path, span, i {
+			pointer-events: none;
+		}
 		.outline h3,
 		.outline button{
 			display: inline;
@@ -154,7 +157,7 @@
                                             </svg> Share
 								</a></li>
 								<!-- 위시리스트 버튼 위시리스트 넣는 이벤트 -->
-								<li><a href="#" class="wishlist__btn"> <svg width="16"
+								<li><a th:id="prodNo_+${prod.prodNo}" class="wishlist__btn wishProd" style="cursor:pointer;"> <svg width="16"
 											height="16" viewBox="0 0 16 16" fill="none"
 											xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -634,7 +637,7 @@
 											</a>
 											<!-- <div class="badge">HIT</div> -->
 											<div class="product__actions">
-												<a th:onclick="|location.href='@{/shopDetail(prodNo=${relatedProd.prodNo})}'|" class="action__btn"> 
+												<a class="action__btn wishProd" th:id="prodNo_+${relatedProd.prodNo}"> 
 													<svg width="16" height="14" viewBox="0 0 16 14" fill="none"
 														xmlns="http://www.w3.org/2000/svg">
                                                         <path
@@ -979,8 +982,86 @@
 		
 	</script>
 	
-	<!-- 장바구니 로그인 체크 -->
 	<script th:inline="javascript">
+	
+	addWish();
+	/* 상품 상세 위시 추가 */
+	function addWish() {	
+		let wishMemId = [[${#authentication.name}]];
+		
+		$('.wishProd').on('click', function(e) {
+			console.log(e.target);
+			
+			let temp = $(e.target).attr('id');
+			console.log(temp);
+			let prodNo = temp.split('_');
+			console.log(prodNo[1]);
+			
+			if(wishMemId == "anonymousUser"){
+				Swal.fire({
+					title: "로그인 확인",
+					html: `로그인이 필요한 서비스입니다.<br>
+						   로그인 페이지로 이동하시겠습니까?`,
+					icon: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#3085d6",
+					cancelButtonColor: "#d33",
+					confirmButtonText: "이동",
+					cancelButtonText: "취소"
+				}).then((result) => {
+					  if (result.isConfirmed) {
+					    location.href = '/loginform';
+					    return;
+					  }
+				})
+			} else {
+				let objData = {};
+				objData.memId = wishMemId;
+				objData.prodNo = prodNo[1];
+				
+				console.log('=='+objData);
+				
+				// 위시리스트에 상훔 존재하는지 확인
+				$.ajax('selectWish', {
+					type : 'post',
+					contentType : 'application/json',
+					data : JSON.stringify(objData)
+				})
+				.done(result => {
+					if(result){
+						Swal.fire({
+							  icon: "info",
+							  title: "위시리스트",
+							  text: "이미 존재하는 상품입니다."
+						});
+						return;
+					} else {
+						// 위시리스트에 상훔 등록							
+						$.ajax('insertWish', {
+							type : 'post',
+							contentType : 'application/json',
+							data : JSON.stringify(objData)
+						})
+						.done(result => {
+							if(result){
+								Swal.fire({
+									  icon: "success",
+									  title: "위시리스트",
+									  text: "위시리스트가 추가되었습니다.",
+								})
+							}
+						})
+						.fail(err => {
+							console.log(err);
+							location.reload();
+						})
+					}
+				})
+			}
+		})
+	}
+	
+	<!-- 장바구니 로그인 체크 -->
 	$('#myCart').on('click', function(event){
 		event.preventDefault();
 		$(".flyoutCart").toggleClass("active");

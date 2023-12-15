@@ -31,19 +31,61 @@
 			</div>
 			<div class="col-lg-8 col-md-auto">
 				<ul class="nav nav-pills" id="myTab" role="tablist" style="gap: 3rem;">
-					<li class="nav-item" role="presentation"><a
-						class="nav-link active" id="like-tab" data-bs-toggle="tab"
-						href="#like" role="tab" aria-controls="like" aria-selected="true"
-						style="border: 1px solid #eaecf0; border-radius: 6px;">위시리스트</a>
-					</li>
-					<li class="nav-item" role="presentation"><a class="nav-link"
+					<li class="nav-item" role="presentation"><a class="nav-link active" 
 						id="scrap-tab" data-bs-toggle="tab" href="#scrap" role="tab"
-						aria-controls="scrap" aria-selected="false"
+						aria-controls="scrap" aria-selected="true"
 						style="border: 1px solid #eaecf0; border-radius: 6px;">주문 내역</a>
+					</li>
+					<li class="nav-item" role="presentation"><a
+						class="nav-link" id="like-tab" data-bs-toggle="tab"
+						href="#like" role="tab" aria-controls="like" aria-selected="false"
+						style="border: 1px solid #eaecf0; border-radius: 6px;">위시리스트</a>
 					</li>
 				</ul>
 				<div class="tab-content" >
-					<div class="tab-pane fade show active" id="like" role="tabpanel" aria-labelledby="like-tab">
+					<div class="tab-pane fade show active" id="scrap" role="tabpanel" aria-labelledby="scrap-tab">
+						<div class="cart__form mt-3">
+							<table class="table" id="tableOrder">
+								<thead>
+									<tr>
+										<th style="text-align: left; padding-left: 10px;">주문 번호</th>
+										<!-- <th>주문 수량</th> -->
+										<th>주문 금액</th>
+										<th>주문 일자</th>
+										<th>주문 상태</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:each="orderList : ${orderList}">
+										<tr>
+											<td style="text-align: left;">[[ ${orderList.merchantUid} ]]</td>
+											<!-- <td>[[ ${orderList.orderProdCnt} ]]</td> -->
+											<td class="orderMemPrice" th:id="orderMemPrice+${orderList.orderNo}">[[ ${orderList.orderTPayAmt} ]]</td>
+											<td>[[ ${#dates.format(orderList.orderDate, 'yyyy-MM-dd')} ]]</td>
+											<td><span class="badge bg-success orderStateClass">[[ ${orderList.orderState} ]]</span></td>
+											<td>
+												<div class="cart__action__btn" style="display: flex; justify-content: space-around;">
+													<div class="cart__btn" style="display: inline;">
+														<a th:onclick="|location.href='@{/mypage-shopDetail(orderNo=${orderList.orderNo})}'|"
+															class="btn btn-outline"
+															style="width: auto; padding: 7px 15px;">보기</a>
+													</div>
+
+													<div class="cart__btn" style="display: inline;">
+														<a
+															class="btn btn-outline " th:id="cancleOrder_+${orderList.orderNo}"
+															style="width: auto; padding: 7px 15px; color: #d92d20; background: rgba(217, 45, 32, 0.1);">취소</a>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</th:block>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="like" role="tabpanel" aria-labelledby="like-tab">
 						<div class="cart__form mt-3">
 							<table class="table" id="table1">
 								<thead>
@@ -105,7 +147,7 @@
 														</div>
 													</div>
 													<button type="button" class="danger__btn wishDelBnt"
-														th:id="delWish_+${wishList.wishNo}">
+														th:id="delWish_+${wishList.wishNo}" style="height: 40px;">
 														<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 				                                        	<path
 																d="M1.25 3.5H2.75M2.75 3.5H14.75M2.75 3.5V14C2.75 14.3978 2.90804 14.7794 3.18934 15.0607C3.47064 15.342 3.85218 15.5 4.25 15.5H11.75C12.1478 15.5 12.5294 15.342 12.8107 15.0607C13.092 14.7794 13.25 14.3978 13.25 14V3.5H2.75ZM5 3.5V2C5 1.60218 5.15804 1.22064 5.43934 0.93934C5.72064 0.658035 6.10218 0.5 6.5 0.5H9.5C9.89782 0.5 10.2794 0.658035 10.5607 0.93934C10.842 1.22064 11 1.60218 11 2V3.5M6.5 7.25V11.75M9.5 7.25V11.75"
@@ -113,48 +155,6 @@
 																stroke-linejoin="round"></path>
 				                                        </svg>
 													</button>
-												</div>
-											</td>
-										</tr>
-									</th:block>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div class="tab-pane fade" id="scrap" role="tabpanel" aria-labelledby="scrap-tab">
-						<div class="cart__form mt-3">
-							<table class="table" id="tableOrder">
-								<thead>
-									<tr>
-										<th style="text-align: left; padding-left: 10px;">주문 번호</th>
-										<!-- <th>주문 수량</th> -->
-										<th>주문 금액</th>
-										<th>주문 일자</th>
-										<th>주문 상태</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									<th:block th:each="orderList : ${orderList}">
-										<tr>
-											<td style="text-align: left;">[[ ${orderList.merchantUid} ]]</td>
-											<!-- <td>[[ ${orderList.orderProdCnt} ]]</td> -->
-											<td>[[ ${orderList.orderTPayAmt} ]]</td>
-											<td>[[ ${#dates.format(orderList.orderDate, 'yyyy-MM-dd')} ]]</td>
-											<td><span class="badge bg-success orderStateClass">[[ ${orderList.orderState} ]]</span></td>
-											<td>
-												<div class="cart__action__btn">
-													<div class="cart__btn" style="display: inline;">
-														<a th:onclick="|location.href='@{/mypage-shopDetail(orderNo=${orderList.orderNo})}'|"
-															class="btn btn-outline"
-															style="width: auto; padding: 7px 15px;">보기</a>
-													</div>
-
-													<div class="cart__btn" style="display: inline;">
-														<a
-															class="btn btn-outline " th:id="cancleOrder_+${orderList.orderNo}"
-															style="width: auto; padding: 7px 15px; color: #d92d20; background: rgba(217, 45, 32, 0.1);">취소</a>
-													</div>
 												</div>
 											</td>
 										</tr>
@@ -186,7 +186,26 @@
 				}
 			})
 		}
-	
+		
+		changeOrderMemPrice();
+		function changeOrderMemPrice() {		
+			let price = $('.orderMemPrice');
+			console.log(price);
+			
+			price.each(function(){
+				priceId = $(this).attr('id');
+				// jQuery id 찾을 때 변수 넣어서 찾기
+				console.log(priceId);
+				
+				let changePrice = $('#'+priceId).text();
+				//console.log(changePrice);
+				changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				
+				changePrice = changePrice + '원';
+				$('#'+priceId).text(changePrice);
+			});
+		}
+		
 		changeWishtPrice();
 		/* 가격 */
 		function changeWishtPrice() {		
@@ -301,8 +320,8 @@
 				    },
 				})	 */
 		$(document).ready(function() {
-			  $('#table1').DataTable();
-			  $('#tableOrder').DataTable({
+			  $('#tableOrder').DataTable();
+			  $('#table1').DataTable({
 				  autoWidth: false,
 			  });
 			});
