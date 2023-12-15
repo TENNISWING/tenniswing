@@ -90,7 +90,7 @@
 
 						<div class="row">
 							<div class="col-6" style="margin-left: 55px;">
-								<label for="crtroomNo">클럽명</label>
+								<label for="crtroomNo">신청 할 클럽</label>
 								<div class="form-group ">
 									<select class="choices form-select" id="clubNo" name="clubNo">
 										<option th:each="club : ${clubList}" th:value="${club.clubNo}"
@@ -214,7 +214,7 @@
 							<div class="col-4" style="margin-left: 55px;">
 								<label for="name">코트비</label><br>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control is-invalid"
+									<input type="text" class="form-control"
 										th:value="${clubMatchInfo.crtUseAmt}" placeholder="코트비 입력"
 										id="crtUseAmt" name="crtUseAmt" maxlength="10" required>
 								</div>
@@ -225,7 +225,7 @@
 							<div class="col-6" style="margin-left: 55px;">
 								<label for="name">코멘트</label><br>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control is-invalid"
+									<input type="text" class="form-control"
 									th:value="${clubMatchInfo.detailCtt}"
 										placeholder="코멘트 입력" id="detailCtt" name="detailCtt">
 								</div>

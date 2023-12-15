@@ -211,14 +211,17 @@
 			</div>
 		</div>
 	</section>
-
+    <script src="/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
+	<script src="/assets/static/js/pages/sweetalert2.js"></script>
 
 	<script>
 	let msg = "[[${message}]]"
 	if(msg != "") {
-		alert('수정이 완료되었습니다!');
-	}
-	
+		Swal.fire({
+		      title: msg,
+		      icon: "success"
+		    })
+	}	
 	
 	$('#btnsearch').on("click", function(e) {
 		let matchDate = $('.matchdate .active').data('day');
