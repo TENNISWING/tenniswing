@@ -21,6 +21,8 @@ public interface SnsMapper {
 	public List<SnsVO> selectMyLike(SnsVO snsVO);
 	// sns 스크랩
 	public List<SnsVO> selectMyScrap(SnsVO snsVO);
+	// 좋아요 카운트
+	public SnsVO selectLikeCnt(SnsVO snsVO);
 	
 	// 등록
 	public int insertSns(SnsVO snsVO);

@@ -17,7 +17,7 @@
  			   , sns_rep_edit_date
  			   , sr.sns_wrt_no
  			   , m.mem_id
- 			   , m.name
+ 			   , (select nick from pr where mem_id= sr.mem_id) name
  		from sns_rep sr, mem m
  		where sr.mem_id = m.mem_id
         and sr.sns_wrt_no = #{snsWrtNo}
@@ -31,7 +31,7 @@
  			   , sns_rrep_write_date
  			   , sns_rrep_edit_date
  			   , m.mem_id
- 			   , m.name
+ 			   , (select nick from pr where mem_id= rr.mem_id) name
  		from sns_rrep rr, mem m
  		where rr.mem_id = m.mem_id
         and rr.sns_rep_no = #{snsRepNo}

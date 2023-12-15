@@ -169,6 +169,12 @@
 		AND l.mem_id = #{memId}
 	</select>
 
+	<!-- 좋아요 카운트 -->
+	<select id="selectLikeCnt" resultType="SnsVO">
+		select count(*) as like_cnt
+		from sns_like
+		where sns_wrt_no = #{snsWrtNo}
+	</select>
 
 	<!-- 내가 등록한 그룹 리스트 sns, sns_grp 다 데려옴 -->
 <!-- 	<select id="selectMyGroup" resultType="SnsVO">

@@ -18,7 +18,8 @@ public interface SnsService {
 	public List<SnsVO> selectMyLike(SnsVO snsVO);
 	// sns 스크랩
 	public List<SnsVO> selectMyScrap(SnsVO snsVO);
-
+	// 좋아요 카운트
+	public SnsVO selectLikeCnt(SnsVO snsVO);
 	// 단건조회
 	public SnsVO selectSnsInfo(SnsVO snsVO);
 	// 좋아요번호 단건조회 (회원별 게시글 당)
