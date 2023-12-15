@@ -109,15 +109,7 @@
 			recruitListAjax()
 
 			//매치모집 리스트
-			
-			
-			//let clubNo = [[${clubVO.clubNo}]];
-			//let clubMemNo = [[${clubVO.clubMemNo}]];
-
-			
 			function recruitListAjax() {
-				
-				
 
 				let clubNo = [[${ clubVO.clubNo }]];
 				
@@ -192,8 +184,6 @@
 				             console.log("멤버번호"+clubMemNo)
 				             console.log("모집번호"+clubMatchRecruitNo)
 							
-							//console.log("신청시 멤버번호"+memNo)
-							//console.log("신청시 모집번호"+clubMatchRecruitNo)
 							
 							isertRecruitMem(clubMatchRecruitNo,clubMemNo )
 
@@ -219,6 +209,10 @@
 							});
 						});
 						
+						
+						$('#matchWrite').on('click', function (e) {
+							$('#postForm')[0].reset();	//모집폼값 초기화
+						})
 					}//success
 				})//ajax
 
@@ -232,8 +226,7 @@
 					dataType: 'text',
 					success: function (result) {
 						alert("등록성공")
-						//postListAjax(); //등록후 리스트 불러오기
-						//$('#postForm')[0].reset();	//폼값 초기화
+						postListAjax(); //등록후 리스트 불러오기
 
 					},
 					error: function () {
@@ -264,12 +257,13 @@
 					dataType: 'text',
 					success: function (result) {
 						alert("등록성공")
-						//postListAjax(); //등록후 리스트 불러오기
+						recruitListAjax(); //등록후 리스트 불러오기
 						//$('#postForm')[0].reset();	//폼값 초기화
 
 					},
 					error: function () {
 						alert("등록 실패")
+						recruitListAjax(); //등록후 리스트 불러오기
 
 					}
 

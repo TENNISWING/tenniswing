@@ -24,6 +24,9 @@
 	align-items: center;
 	flex-wrap: nowrap;
 }
+img{
+border: 3px solid white;
+}
 
 .d-flex-right {
 	display: flex !important;
@@ -62,10 +65,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xxl-4">
-				<!-- <div class="dashboard-block__title">
-                                                <h4>Profile Image</h4>
-                                            </div> -->
-				<div class="card card-shadow" style="background-color: #f9f9f9;">
+				<div class="card card-shadow">
 					<div class="user__profile text-center"
 						style="padding: 20px 10px 40px 10px;">
 						<div class="club__avatar">
@@ -73,9 +73,9 @@
 						<img th:unless="${club.attachPath} != '' or ${club.attachPath} != null" th:src="/assets/compiled/jpg/banana.jpg"  alt="default-pic"/>
 						</div>
 						<div class="user__content">
-							<h2 style="margin: 40px 0px;; color: #134631;" th:text="${club.clubName}"></h2>
-							<h6 style="color: gray;" >멤버수 : [[${club.clubMemNum}]]명</h6>
-							<h6 style="color: gray;" >클럽장 : [[${club.name}]]</h6>
+							<h2 style="margin: 40px 0px; color: #3c3c3c;" th:text="${club.clubName}"></h2>
+							<h5 style="color: #828282; font-weight: 500; font-size: 1.3em;" >멤버수 : [[${club.clubMemNum}]]명</h5>
+							<h5 style="color: #828282; font-weight: 500; font-size: 1.3em;" >클럽장 : [[${club.name}]]</h5>
 							<div>
 							<th:block th:if="${#strings.equals(club.memId,loginId)}">
 								<button class="btn rounded-pill btn-outline-white" id="clubEdit"
