@@ -122,13 +122,22 @@ public class HostController {
 	@ResponseBody
 	public Map<String, Object> deleteCourtroomProccess(@RequestParam("crtNo") Integer crtroomNo) {
 		Map<String, Object> map = courtroomService.deleteCourtroom(crtroomNo);
-		Map<String, Object> resultmap = new HashMap<>();
-		if(map.get("reserveCount").equals(0)) {
-			resultmap.put("result", true);
-		}else {
-			resultmap.put("result", false);
-			resultmap.put("reserveCount", map.get("reserveCount"));
-		}
+
+		// Map<String, Object> resultmap = new HashMap<>();
+		// if(map.get("reserveCount").equals(0)) {
+		// 	resultmap.put("result", true);
+		// }else {
+		// 	resultmap.put("result", false);
+		// 	resultmap.put("reserveCount", map.get("reserveCount"));
+		// }
+
+		/*
+		 * Map<String, Object> resultmap = new HashMap<>();
+		 * if(resultmap.get("reserveCount").equals(0)) { resultmap.put("result", true);
+		 * }else { resultmap.put("result", false); resultmap.put("reserveCount",
+		 * resultmap.get("reserveCount")); }
+		 */
+
 
 		/*
 		 * String msg = null; if(result) { msg = "정상적으로 삭제되었습니다. \n삭제대상 : "+crtroomNo;
@@ -137,7 +146,7 @@ public class HostController {
 		 */
 
 		//return map;
-		return resultmap;
+		return map;
 	}
 
 	// 코트 상세

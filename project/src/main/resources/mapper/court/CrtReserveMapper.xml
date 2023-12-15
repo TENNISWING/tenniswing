@@ -201,4 +201,14 @@
 		SET reserve_state = 'i3'
 		WHERE reserve_no = #{reserveNo}
 </update>
+
+<!-- 예약날짜 지나면 상태변경 -->
+<update id="updateState" parameterType="CrtReserveVO">
+	UPDATE reserve
+		SET reserve_state = 'i2'
+		WHERE reserve_no = (select reserve_no
+							from reserve_detail_inf
+							where reserve_date <![CDATA[<]]> #{reserveDate})
+		AND reserve_state = 'i1'
+</update>
 </mapper>

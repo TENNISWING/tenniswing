@@ -839,9 +839,11 @@ body{
 							</div>
 							`;
 							console.log(b);
+							$('#noReview').remove();
 							$('.review__wrapper').prepend(b);
 							$('.reviewDel').on('click',reviewDel);
 							moreBtn();
+							
 							$('#reviewStar').val('5');
 							$('#reviewCtt').val('');
 							$('#files').val('');
@@ -928,7 +930,7 @@ body{
 				});
 			}
 			if($('.review__item').length == 0){
-				b = `<div style="text-align: center;">
+				b = `<div id="noReview" style="text-align: center;">
 					후기가 없습니다.
 					</div>`
 					$('.review__wrapper').append(b);

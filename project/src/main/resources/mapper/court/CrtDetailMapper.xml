@@ -16,6 +16,14 @@
 		WHERE crt_detail_no = #{crtDetailNo}
 	</select>
 	
+	<!-- 코트 사진 카운트 -->
+	<select id="selectCrtDetailImg" resultType="int">
+		SELECT COUNT(*)
+		FROM attach
+		WHERE attach_table_div = 'cd'
+		AND attach_table_pk = #{crtroomNo}
+	</select>
+	
 	<!-- 코트 번호로 조회 -->
 	<select id="selectCrtDetailNo" resultType="crtDetailVO">
 		SELECT crt_detail_no
@@ -77,11 +85,17 @@
 	<!-- 코트 삭제 -->
 	<delete id="deleteCrtDetail" parameterType="int">
 		DELETE FROM crt_detail_inf
-		WHERE crt_detail_no = #{crtDetailNo}
+		WHERE crtroom_no = #{crtroomNo}
 	</delete>
 	
+	<delete id="deleteCrtDetailImg" parameterType="int">
+  		DELETE FROM attach
+  		WHERE attach_table_div = 'cd'
+  		AND attach_table_pk = #{crtroomNo}
+  	</delete>
+	
 	<!-- 코트 디테일 예약건수 조회 -->
-  	<select id="courtDetailReserveCount" resultType="CrtDetailVO">
+  	<select id="courtDetailReserveCount" resultType="int">
   		SELECT count(*)
   		FROM reserve
   		WHERE crt_detail_no = #{crtDetailNo}
