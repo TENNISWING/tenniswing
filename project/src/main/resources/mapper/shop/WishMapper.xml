@@ -44,4 +44,12 @@
 			  )
   </insert>
   
+  
+  <!-- 위시 삭제 -->
+ 	<delete id="deleteWish" parameterType="WishVO">
+		DELETE 	FROM wish
+		WHERE	wish_no = #{wishNo}
+		AND		mem_id = #{memId}
+	</delete>
+  
   </mapper>

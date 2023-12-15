@@ -939,7 +939,7 @@
 	
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 	<script>
-		let swiper = new Swiper(".swiper-wrapper", {
+		let swiper = new Swiper(".productGallerySwiper", {
 			/* loop : true, */
 			loopPreventsSliding : true,
 			grabCursor : true,
@@ -957,6 +957,26 @@
 				clickable : true,
 			},
 		});
+		
+		/* let swiperThumb = new Swiper(".productGallerySwiperThumb", {
+			loop : true,
+			loopPreventsSliding : true,
+			grabCursor : true,
+			slidesPerView : 3,
+			spaceBetween : 20,
+	
+			autoplay : {
+				delay : 2000,
+				pauseOnMouseEnter : true,
+				disableOnInteraction : false
+			},
+			pagination : {
+				el : ".swiper-slider",
+				dynamicBullets : true,
+				clickable : true,
+			},
+		}); */
+		
 	</script>
 	
 	<!-- 장바구니 로그인 체크 -->
@@ -1010,7 +1030,12 @@
 						Swal.fire({
 							  icon: "info",
 							  title: "장바구니",
-							  text: "이미 존재하는 상품입니다."
+							  text: "이미 존재하는 상품입니다.",
+							  didClose: () => {
+								  $('#cateColor').val('none').prop('selected',true);
+								  $('#cateSize').val('none').prop('selected',true);			
+								  $('#prodDetailSto').val('1');	
+							  }
 						});
 						return;
 					} else{
@@ -1046,9 +1071,6 @@
 					  icon: "info",
 					  title: "장바구니",
 					  text: "색상, 사이즈를 선택해주세요"
-					  didCloser: () => {
-						return;						  
-					  }
 				});
 			}
 		}

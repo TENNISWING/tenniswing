@@ -28,6 +28,8 @@ import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.match.service.MatchHistService;
 import com.tenniswing.project.member.service.MemberService;
 import com.tenniswing.project.member.service.MemberVO;
+import com.tenniswing.project.shop.service.OrderService;
+import com.tenniswing.project.shop.service.OrderTableVO;
 import com.tenniswing.project.shop.service.WishService;
 
 @Controller
@@ -50,6 +52,8 @@ public class MemberController {
 	@Autowired SnsService snsService;
 	
 	@Autowired WishService wishService;
+	
+	@Autowired OrderService orderService;
 
 	// 로그인 폼 이동
 	@GetMapping("loginform")
@@ -234,11 +238,27 @@ public class MemberController {
 	@GetMapping("mypage-shop")
 	public String shopMyPage(Model model) {
 		String memId = SecurityContextHolder.getContext().getAuthentication().getName();
-
+		OrderTableVO orderTableVO = new OrderTableVO();
+		orderTableVO.setMemId(memId);
+		
+		model.addAttribute("orderList", orderService.selectAdminAllOrder(orderTableVO));
 		model.addAttribute("wishList", wishService.selectAllWish(memId));
 		model.addAttribute("member", memberService.memberInfo(memId));
 		model.addAttribute("nowpage", 4);
 		return "member/mypage-shop";
+	}
+	
+	// 내 주문 상세
+	@GetMapping("mypage-shopDetail")
+	public String adminDetailOrderPage(int orderNo, Model model) {
+		String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		model.addAttribute("orderSelect", orderService.selectAdminOrder(orderNo));
+		model.addAttribute("orderPay", orderService.selectAdminOrderPay(orderNo));
+		model.addAttribute("orderProd", orderService.selectAdminOrderProd(orderNo));
+		model.addAttribute("member", memberService.memberInfo(memId));
+		model.addAttribute("nowpage", 4);
+		return "member/mypage-shopDetail";
 	}
 
 }

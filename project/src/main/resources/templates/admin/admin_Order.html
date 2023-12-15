@@ -254,13 +254,12 @@
 			editOrderState(e);
 			shippingBill();
 			
-			
 		});
 		
 		/* 모달 폼에 주문번호 넣어두기 */
 		function editOrderState(e) {
 			let temp = $(e.target.parentElement.parentElement.parentElement.children[0]).text();
-			console.log($(e.target.parentElement.parentElement).prev().text());
+			console.log('======'+temp);
 			$('#orderNO').val($(e.target.parentElement.parentElement.parentElement.children[0]).text());
 			//console.log($('#orderNO').val());
 			$('#orderState option:contains('+$(e.target.parentElement.parentElement).prev().text()+')').prop("selected", true);
@@ -271,8 +270,12 @@
 				//console.log(item.orderNo);
 				
 				if(item.orderNo == temp) {
-					//console.log(item);
-					if(item.shipWaybillNo != null || item.shipWaybillNo != ''){
+					//console.log(item.shipWaybillNo);
+					if(item.shipWaybillNo == null || item.shipWaybillNo == ''){
+						console.log(item.shipWaybillNo);
+						$('#shipWaybillNo').attr("readonly",false);
+					} else {
+						console.log(item.shipWaybillNo);
 						$('#shipWaybillNo').val(item.shipWaybillNo);
 						$('#shipWaybillNo').attr("readonly",true);
 					}

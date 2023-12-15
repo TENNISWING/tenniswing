@@ -16,6 +16,9 @@
 				ship_waybill_no,
 				FIND_CATEGORY_NAME(order_state) AS order_state
 		FROM	order_table
+		<if test="memId != null and memId != ''">
+			WHERE mem_id = #{memId}
+		</if>
 		ORDER BY order_no			 	
   	</select>
   	

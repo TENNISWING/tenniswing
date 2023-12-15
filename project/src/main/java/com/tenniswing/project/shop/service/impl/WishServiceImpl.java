@@ -37,5 +37,14 @@ public class WishServiceImpl implements WishService{
 			isSucess = true;
 		return isSucess;
 	}
+	
+	// 위시 삭제
+	@Override
+	public boolean deleteWish(WishVO wishVO) {
+		boolean isSucess = false;
+		if(wishMapper.deleteWish(wishVO) == 1)
+			isSucess = true;
+		return isSucess;
+	}
 
 }

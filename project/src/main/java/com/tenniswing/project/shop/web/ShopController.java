@@ -131,6 +131,14 @@ public class ShopController {
 		return wishService.insertWish(wishVO);
 	}
 	
+//	위시 삭제
+	@PostMapping("deleteWish")
+	@ResponseBody
+	public boolean deleteWish(@RequestBody WishVO wishVO){
+		log.warn("======위시삭제====="+wishVO);
+		return wishService.deleteWish(wishVO);
+	}
+	
 	
 //	장바구니 리스트 출력
 	@GetMapping("selectCartList")
