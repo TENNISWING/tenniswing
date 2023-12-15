@@ -212,14 +212,14 @@ public class MatchController {
 
 	//클럽 매치 등록
 	@GetMapping("clubmatchregi")
-	public String clubmatchregiPage(Model model) {
+	public String clubmatchregiPage(Model model, RedirectAttributes rttr) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<ClubVO> list = matchService.selectMyOwnerClub(id);
 		if(list.size() == 0) {
-			
+			rttr.addFlashAttribute("message", "클럽장이 아닙니다.");
+			return "redirect:clubmatch";
 		}
-		model.addAttribute("clubList", );
-		
+		model.addAttribute("clubList", list);
 		return "match/clubmatchregi";
 	}
 
