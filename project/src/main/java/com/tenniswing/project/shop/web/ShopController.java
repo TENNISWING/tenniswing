@@ -29,6 +29,8 @@ import com.tenniswing.project.shop.service.ProdDetailService;
 import com.tenniswing.project.shop.service.ProdDetailVO;
 import com.tenniswing.project.shop.service.ProdService;
 import com.tenniswing.project.shop.service.ProdVO;
+import com.tenniswing.project.shop.service.WishService;
+import com.tenniswing.project.shop.service.WishVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -56,6 +58,9 @@ public class ShopController {
 	
 	@Autowired
 	OrderService orderService;
+	
+	@Autowired
+	WishService wishService;
 	
 	// 상품 목록
 	@GetMapping("shop")
@@ -102,6 +107,30 @@ public class ShopController {
 		model.addAttribute("prodDetail", new ProdDetailVO());
 		return "shop/shopDetail";
 	}
+	
+//	위시리스트 리스트 출력
+	/*
+	 * @GetMapping("mypage-shop") public String selectAllWish(Model model) { String
+	 * memId = SecurityContextHolder.getContext().getAuthentication().getName();
+	 * model.addAttribute("wishList", wishService.selectAllWish(memId)); return
+	 * "member/mypage-shop"; }
+	 */
+	
+//	위시리스트 한건조회
+	@PostMapping("selectWish")
+	@ResponseBody
+	public boolean selectWish(@RequestBody WishVO wishVO){
+		return (wishService.selectOneWish(wishVO));
+	}
+	
+//	위시 등록
+	@PostMapping("insertWish")
+	@ResponseBody
+	public boolean insertWish(@RequestBody WishVO wishVO){
+		log.warn("======위시추가====="+wishVO);
+		return wishService.insertWish(wishVO);
+	}
+	
 	
 //	장바구니 리스트 출력
 	@GetMapping("selectCartList")

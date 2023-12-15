@@ -121,7 +121,7 @@ public class HostController {
 	@PostMapping("hostdeleteCourtroom")
 	@ResponseBody
 	public Map<String, Object> deleteCourtroomProccess(@RequestParam("crtNo") Integer crtroomNo) {
-		//Map<String, Object> map = courtroomService.deleteCourtroom(crtroomNo);
+		Map<String, Object> map = courtroomService.deleteCourtroom(crtroomNo);
 		Map<String, Object> resultmap = new HashMap<>();
 		if(map.get("reserveCount").equals(0)) {
 			resultmap.put("result", true);
