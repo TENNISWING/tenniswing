@@ -9,10 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.tenniswing.project.club.service.ClubVO;
 import com.tenniswing.project.court.service.CourtroomService;
 import com.tenniswing.project.match.service.MatchHistService;
 import com.tenniswing.project.match.service.MatchHistVO;
@@ -214,7 +214,12 @@ public class MatchController {
 	@GetMapping("clubmatchregi")
 	public String clubmatchregiPage(Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		model.addAttribute("clubList", matchService.selectMyOwnerClub(id));
+		List<ClubVO> list = matchService.selectMyOwnerClub(id);
+		if(list.size() == 0) {
+			
+		}
+		model.addAttribute("clubList", );
+		
 		return "match/clubmatchregi";
 	}
 
