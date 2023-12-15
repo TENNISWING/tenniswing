@@ -15,4 +15,5 @@ public interface WishMapper {
 	public int insertWish(WishVO wishVO);
 	
 	// 위시 삭제
+	public int deleteWish(WishVO wishVO);
 }

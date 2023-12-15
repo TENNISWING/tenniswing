@@ -13,4 +13,5 @@ public interface WishService {
 	public boolean insertWish(WishVO wishVO);
 	
 	// 위시 삭제
+	public boolean deleteWish(WishVO wishVO);
 }

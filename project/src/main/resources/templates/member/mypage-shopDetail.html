@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main-layout}">
+<head>
+	<link rel="stylesheet"
+		href="/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+	<link rel="stylesheet"
+		href="/assets/compiled/css/table-datatable-jquery.css">
+	<style type="text/css">
+		.container {
+			font-family: 'Noto Sans KR', sans-serif !important;
+		}
+		
+		svg, path, span, i {
+			pointer-events: none;
+		}
+		.address__list li,
+		.address__list span {
+			font-family: 'Noto Sans KR', sans-serif !important;
+		}
+		table thead th,
+		table tbody tr td,
+		table tbody tr td a,
+		table tbody tr td li,
+		table tbody tr td div {
+			font-family: 'Noto Sans KR', sans-serif !important;
+		}
+		
+	</style>
+</head>
+<th:block layout:fragment="content">
+	<h3 class="container p-3">쇼핑</h3>
+	<div class="container" id="myOrderPage">
+		<div class="row">
+			<div class="col-lg-4 col-md-auto">
+				<div th:replace="member/mypage-sidemenu :: sidemenu"></div>
+			</div>
+
+			<div class="col-8">
+				<!--/* <div class="dashboard__breadcrumb">
+					<div class="breadcrumb__meta">
+						<ul style="padding: 0;">
+							<li><a onclick="history.back()" class="link"><i
+									style="font-family: 'Font Awesome 6 Free' !important;"
+									class="fa-solid fa-arrow-left me-2"></i> Back</a></li>
+						</ul>
+					</div>
+				</div> */-->
+				<div class="dashboard__header" style="padding-top: 0;">
+					<div class="d__header--left">
+						<h2 class="title" style="font-family: 'Noto Sans KR', sans-serif !important; color: #3c3c3c; opacity: .8; font-weight: 700;">주문 번호: [[
+							${orderSelect.merchantUid} ]]</h2>
+						<!-- <div class="danger__btn border-30">30 order</div> -->
+					</div>
+					<a th:onclick="|location.href='@{/mypage-shop}'|" class="link"><i
+									style="font-family: 'Font Awesome 6 Free' !important; cursor: pointer;"
+									class="fa-solid fa-arrow-left me-2"></i> Back</a>
+					<!--/* <div class="add__btn">
+                                <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i>Add product</a>
+                            </div> */-->
+				</div>
+				<!-- Address Wrapper Start -->
+				<div class="address__wrapper">
+					<div class="address__cards" style="width: 45%; flex-basis: auto;">
+						<div class="address__header">
+							<h5 class="title">배송지 정보</h5>
+							<!-- <a href="#" class="danger__btn">edit</a> -->
+							<!-- <a href="#" class="danger__btn" data-bs-toggle="modal"
+									data-bs-target="#delivery-address">edit</a> -->
+						</div>
+						<ul class="address__list">
+							<li>주소: <span>[[ ${orderSelect.orderAdr2} ]]</span></li>
+							<li>상세주소: <span>[[ ${orderSelect.orderAdr3} ]]</span></li>
+							<li>우편번호: <span>[[ ${orderSelect.orderAdr1} ]]</span></li>
+							<li>요청사항: <span>[[ ${orderSelect.orderReq} ]]</span></li>
+						</ul>
+					</div>
+
+					<div class="address__cards" style="width: 45%; flex-basis: auto;">
+						<div class="address__header">
+							<h5 class="title">결제 정보</h5>
+							<!-- <a href="#" class="danger__btn" data-bs-toggle="modal"
+									data-bs-target="#billing-address">edit</a> -->
+						</div>
+						<ul class="address__list">
+							<li>결제자: <span>[[ ${orderSelect.name} ]]</span></li>
+							<li>결제 수단: <span>[[ ${orderPay.payMethod} ]]</span></li>
+							<li>결제 금액: <span>[[ ${orderPay.payAmt} ]]</span></li>
+							<li>결제 일자: <span>[[ ${#dates.format(orderPay.payDate,
+									'yyyy-MM-dd')} ]]</span></li>
+						</ul>
+					</div>
+				</div>
+				<!-- Address Wrapper End -->
+				<div class="form-padding">
+					<h3 class="card_title mb-15" style="font-family: 'Noto Sans KR', sans-serif !important;
+						color: #3c3c3c; opacity: .8; font-weight: 700;">주문 상세 정보</h3>
+					<div class="table-responsive">
+						<div class="cart__form">
+							<table>
+								<thead>
+									<tr>
+										<th class="cart-pd__thumb">상품 정보</th>
+										<th class="cart-pd__date text-start" style="padding: 15px;">상품 상세 번호</th>
+										<th class="cart-pd__qty">주문 수량</th>
+										<th class="cart-pd__status">주문 상태</th>
+										<th class="cart-pd__price">주문 가격</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:each="orderProd : ${orderProd}">
+										<tr>
+											<td class="cart-pd__thumb">
+												<div class="product-card--inline">
+													<a href="#" class="product__image"> <img
+														th:src="${orderProd.attachPath}" alt="product" />
+													</a>
+													<div class="product__content">
+														<h5 class="product__title">
+															<a href="#" style="padding-left: 0;">[[ ${orderProd.prodName} ]]</a>
+														</h5>
+														<ul class="product__info" style="padding: 0;">
+															<li class="info-item">Color: <span>[[
+																	${orderProd.cateColor} ]]</span></li>
+															<li class="info-item">Size: <span>[[
+																	${orderProd.cateSize} ]]</span></li>
+														</ul>
+													</div>
+												</div>
+											</td>
+											<td class="cart-pd__date text-start" data-title="Date" style="text-align: center !important;">[[
+												${orderProd.prodDetailNo} ]]</td>
+											<td class="cart-pd__qty" data-title="Quantity">[[
+												${orderProd.orderDetailCnt} ]]</td>
+											<td class="cart-pd__status" data-title="Status">
+												<div class="primary__btn border-30 orderState">[[
+													${orderSelect.orderState} ]]</div>
+											</td>
+											<td class="cart-pd__Price" data-title="Price">[[
+												${orderProd.orderDetailAmt} ]]</td>
+										</tr>
+									</th:block>
+									<tr>
+										<th:block th:if="${orderSelect.shipWaybillNo != null}">
+											<td class="border-none pt-10"
+												style="border: 0; text-align: left;">송장 번호: [[
+												${orderSelect.shipWaybillNo} ]]</td>
+										</th:block>
+										<th:block th:unless="${orderSelect.shipWaybillNo != null}">
+											<td class="border-none pt-10"
+												style="border: 0; text-align: left;">&nbsp;</td>
+										</th:block>
+										<td class="border-none pt-10" style="border: 0">&nbsp;</td>
+										<td class="border-none pt-10" style="border: 0">&nbsp;</td>
+										<td class="border-none pt-10 text-end"><strong>Total</strong></td>
+										<td class="border-none pt-10"><strong>[[
+												${orderSelect.orderTPayAmt} ]]</strong></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<script th:inline="javascript">
+		changeColor();	
+		function changeColor() {
+			$('.orderState').each((idx, item) => {
+				//console.log(item);
+				if($(item).text() == '결제완료'){
+					$(item).attr('style', 'background: rgba(18, 183, 106, 0.1) !important; color: #12b76a !important;');				
+				} else if($(item).text() == '상품준비중' || $(item).text() == '배송중' || $(item).text() == '배송완료') {
+					$(item).attr('style', 'background: rgba(105, 65, 198, 0.1) !important; color: #6941c6 !important;');
+				} else {
+					$(item).attr('style', 'background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important');
+				}
+			})
+		}
+	</script>
+</th:block>
+
+</html>
