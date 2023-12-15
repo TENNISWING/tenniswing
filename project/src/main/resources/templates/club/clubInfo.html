@@ -3,20 +3,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <style>
-table {
+#info {
     width: 100%;
     border-top: 1px solid #c1c1c1;
     border-collapse: collapse;
   }
-  th, td {
+#info > th, td {
     border-bottom: 1px solid #c1c1c1;
     border-left: 1px solid #c1c1c1;
     padding: 10px;
   }
-  td{
+#info > td{
   width: 300px
   }
-  th:first-child, td:first-child {
+#info > th:first-child, td:first-child {
     border-left: none;
   }
 </style>
@@ -36,7 +36,7 @@ table {
 							data-feather="user"></i>[[${club.clubMemNum}]]명</a>
 					<div class="product-detail__attr col-xxl-12">
 						<div class="product__attr">
-							<table>
+							<table id="info">
 								<tbody>
 									<tr>
 										<td><span class="fa-fw select-all fas"></span>요일 <span style="color: gray">[[${club.clubDayName}]]요일</span></td>
