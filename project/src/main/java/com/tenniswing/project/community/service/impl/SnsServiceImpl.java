@@ -274,5 +274,10 @@ public class SnsServiceImpl implements SnsService {
 		return snsMapper.selectMyScrap(snsVO);
 	}
 
+	@Override
+	public SnsVO selectLikeCnt(SnsVO snsVO) {
+		return snsMapper.selectLikeCnt(snsVO);
+	}
+
 
 }

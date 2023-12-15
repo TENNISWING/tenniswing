@@ -59,6 +59,7 @@ public class CommunityController {
 	
 		snsVO.setMemId(id);
 		model.addAttribute("snsList", snsService.selectAllSnsInfo(snsVO));
+		model.addAttribute("likeCnt", snsService.selectLikeCnt(snsVO));
 		return "community/community";
 	}
 	
@@ -270,22 +271,31 @@ public class CommunityController {
 	// sns 좋아요 등록
 	@PostMapping("snsLikeInsert")
 	@ResponseBody
-	public int insertLikeAjax(SnsVO snsVO) {
+	public Map<String, String> insertLikeAjax(SnsVO snsVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		snsVO.setMemId(id);
 		System.out.println(snsVO);
+		Map<String, String> map = new HashMap<>();
+		
 		int result = snsService.insertLike(snsVO);
-		//map으로 바꾸고 좋아요 counting 가져오기...
+		map.put("result", Integer.toString(result));
+		map.put("cnt", Integer.toString(snsService.selectLikeCnt(snsVO).getLikeCnt()));
 
-		return result;
+		return map;
 	}
 
 	// sns 좋아요 삭제
 	@PostMapping("snsLikeDel")
 	@ResponseBody
-	public boolean deleteLikeAjax(Integer likeNo) {
+	public  Map<String, String> deleteLikeAjax(Integer likeNo,SnsVO snsVO) {
+		Map<String, String> map = new HashMap<>();
 		boolean result = snsService.deleteLike(likeNo);
-		return result;
+		if(result) {
+			map.put("result", "true");
+		}
+		
+		map.put("cnt", Integer.toString(snsService.selectLikeCnt(snsVO).getLikeCnt()));
+		return map;
 	}
 	
 	//스크랩 등록

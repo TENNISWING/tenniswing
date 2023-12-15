@@ -14,20 +14,20 @@
 .thumbImg{
 	height : 150px;
 }
-	a,
-	span,
-	button,
-	input,
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6,
-	tr,
-	td,
-	th,
-	pre{
+	section a,
+	section span,
+	section button,
+	section input,
+	section h1,
+	section h2,
+	section h3,
+	section h4,
+	section h5,
+	section h6,
+	section tr,
+	section td,
+	section th,
+	section pre{
 		font-family: 'Noto Sans KR', sans-serif !important;
 	}
 	.grpTitle{
@@ -85,6 +85,7 @@
 															style="gap: 15px; align-items: center;">
 															<th:block  th:if="${mg.snsGrpNo!=null}">
 															<!-- 모달열리게하는 수정아이콘 -->
+															<th:block th:if="${mg.memId == '${#authentication.name}'}">
 															<i type="button"
 																class="fa-regular fa-pen-to-square editBtnClass"
 																data-bs-toggle="modal" th:data-snsgrpno="${mg.snsGrpNo}"
@@ -94,6 +95,7 @@
 															<!-- 삭제버튼 -->
 															<i type="button" class="fa-regular fa-trash-can delBtnClass"
 																id="delSnsListBtn" th:no="${mg.snsGrpNo}"></i>
+															</th:block>
 															</th:block>
 														</div>
 														<button class="btn btn-light-primary grpBtn"
@@ -354,17 +356,20 @@
 		//리스트 뿌리는 함수
 		function getSnsMyList(snsGrpNo,page) {
 			let memId = $('#memId').val();
+			let loginMemId = '[[${#authentication.name}]]';
 			$.ajax({
 				type: 'GET',
 				url: 'mySnsList',
 				data: { snsGrpNo, page, memId},
 				success: function (result) {
+					
 					$('.grpListTbody').empty();
 					if(result.mySnsGroupList.length == 0){
 						let b = `<tr> <td colspan="3"> 게시물이 없습니다. </td> </tr>`
 							$('.grpListTbody').append(b);
 						return;
 					}
+					
 					for (let grp of result.mySnsGroupList) {
 						
 						let b = `
@@ -387,27 +392,34 @@
 									b += `	<div class="card__action text-center">
 										<div class="edBtns" style="float: right;">
 										<i type="button" class="fa-solid fa-magnifying-glass" onclick="location.href='/snsDetail?snsWrtNo=${grp.snsWrtNo}'"></i>
-										<i type="button"
-											class="fa-regular fa-pen-to-square editBtnClass"
-											onclick="location.href='/snsEditForm?snsWrtNo=${grp.snsWrtNo}&snsGrpNo=${grp.snsGrpNo}'"
-											id="editSnsBtn"></i>
-										<i type="button"
-											class="fa-regular fa-trash-can delBtnClass"
-											id="delSnsListBtn${grp.snsWrtNo}" ></i>
-									</div>
+										`
+										if(loginMemId==grp.memId){
+											b+=`<i type="button"
+												class="fa-regular fa-pen-to-square editBtnClass"
+												onclick="location.href='/snsEditForm?snsWrtNo=${grp.snsWrtNo}&snsGrpNo=${grp.snsGrpNo}'"
+												id="editSnsBtn"></i>
+											<i type="button"
+												class="fa-regular fa-trash-can delBtnClass"
+												id="delSnsListBtn${grp.snsWrtNo}" ></i>`
+										}
+									
+								b+=	`</div>
 								</div>`
 								}else{
 									b+= `<div class="card__action text-center">
 										<div class="edBtns" style="float: right;">
 										<i type="button" class="fa-solid fa-magnifying-glass" onclick="location.href='/snsDetail?snsWrtNo=${grp.snsWrtNo}'"></i>
-										<i type="button"
-											class="fa-regular fa-pen-to-square editBtnClass"
-											onclick="location.href='/snsEditForm?snsWrtNo=${grp.snsWrtNo}'"
-											id="editSnsBtn"></i>
-										<i type="button"
-											class="fa-regular fa-trash-can delBtnClass"
-											id="delSnsListBtn${grp.snsWrtNo}" ></i>
-									</div>
+										`
+									 if(loginMemId==grp.memId){
+										 b+=`<i type="button"
+												class="fa-regular fa-pen-to-square editBtnClass"
+												onclick="location.href='/snsEditForm?snsWrtNo=${grp.snsWrtNo}'"
+												id="editSnsBtn"></i>
+											<i type="button"
+												class="fa-regular fa-trash-can delBtnClass"
+												id="delSnsListBtn${grp.snsWrtNo}" ></i>`
+									 }
+								b+=	`</div>
 								</div>`
 								}
 							b+= `		
