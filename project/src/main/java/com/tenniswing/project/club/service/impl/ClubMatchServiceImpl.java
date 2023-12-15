@@ -42,6 +42,7 @@ public class ClubMatchServiceImpl implements ClubMatchService {
 		return clubMatchMapper.insertResult(clubVO);
 	}
 
+	//매치 모집 삭제
 	@Override
 	public boolean clubRecDelete(int clubMatchRecruitNo) {
 		

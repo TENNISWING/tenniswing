@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.tenniswing.project.shop.mapper.WishMapper">
+  <!-- 위시 목록 -->
+  <select id="selectAllWish" resultType="WishVO">
+  	SELECT  w.wish_no,
+  			a.attach_path,
+  			p.prod_no,
+  			p.prod_name,
+  			p.prod_brand,
+  			p.prod_price,
+  			FIND_CATEGORY_NAME(p.cate_prod) AS cate_prod
+	FROM    wish w, attach a, prod p
+	WHERE   w.prod_no = p.prod_no
+	AND     p.prod_no = a.attach_table_pk
+	AND		a.attach_table_div = 'p'
+	AND 	a.attach_turn = 1
+	AND		w.mem_id = #{memId}
+  </select>
+  
+  <!-- 위시 한건 -->
+  <select id="selectOneWish" resultType="WishVO">
+  	SELECT 	*
+  	FROM 	wish
+  	WHERE	mem_id = #{memId}
+  	AND		prod_no = #{prodNo}
+  </select>
+  
+  
+  <!-- 위시 등록 -->
+  <insert id="insertWish" parameterType="WishVO">
+  	<selectKey keyProperty="wishNo" resultType="int" order="BEFORE">
+			SELECT 	NVL(MAX(wish_no), 0) + 1
+			FROM 	wish
+		</selectKey>
+		INSERT INTO wish
+		VALUES(
+				#{wishNo},
+				#{memId},
+				#{prodNo}
+			  )
+  </insert>
+  
+  </mapper>

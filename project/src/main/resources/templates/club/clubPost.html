@@ -20,6 +20,7 @@
    			margin: 3px;
 		}
 		
+		
 	</style>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
@@ -172,7 +173,7 @@
 			//페이징
 	    	
 			
-			$('#sortBy').on('change', function(e) {
+			$('#sortBy').on('change', function(e) {0
 				pageNum = 1;
 				postListPage(1);
 			})
@@ -231,7 +232,7 @@
 										<img src="${clubPost.attachPath}" style="width: 70%; padding:25px 0px">
 									</div>
 									<div style="padding: 0 5%;">
-									<p class="form-control" id="exampleFormControlTextarea1" style="text-align:left;" >${clubPost.clubPostCtt}</p>
+									<pre class="form-control" id="exampleFormControlTextarea1" style="text-align:left;" >${clubPost.clubPostCtt}</pre>
 									<div class="input-group">
 										<input type="text" class="form-control repCtt"
 											placeholder="enter your comment"
@@ -504,7 +505,7 @@
 					let form = $('#postForm')[0]
 					let postInfo = new FormData(form)
 					postInfo.append('clubNo', clubNo); //클럽넘버 추가
-
+					
 					$.ajax({
 						url: 'postInsert',
 						data: postInfo,
@@ -514,12 +515,13 @@
 						processData: false,
 						success: function (result) {
 							alert("등록성공")
-							postListPage(); //등록후 리스트 불러오기
 							$('#postForm')[0].reset();	//폼값 초기화
+							postListPage(1); //등록후 리스트 불러오기
 
 						},
 						error: function () {
 							alert("등록 실패")
+							postListPage(1);
 
 						}
 

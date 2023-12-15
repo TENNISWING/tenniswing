@@ -28,6 +28,7 @@ import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.match.service.MatchHistService;
 import com.tenniswing.project.member.service.MemberService;
 import com.tenniswing.project.member.service.MemberVO;
+import com.tenniswing.project.shop.service.WishService;
 
 @Controller
 public class MemberController {
@@ -47,6 +48,8 @@ public class MemberController {
 	@Autowired	AttachService attachService;
 
 	@Autowired SnsService snsService;
+	
+	@Autowired WishService wishService;
 
 	// 로그인 폼 이동
 	@GetMapping("loginform")
@@ -230,10 +233,10 @@ public class MemberController {
 	// 내 주문 내역 목록
 	@GetMapping("mypage-shop")
 	public String shopMyPage(Model model) {
-		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		String memId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-
-		model.addAttribute("member", memberService.memberInfo(id));
+		model.addAttribute("wishList", wishService.selectAllWish(memId));
+		model.addAttribute("member", memberService.memberInfo(memId));
 		model.addAttribute("nowpage", 4);
 		return "member/mypage-shop";
 	}

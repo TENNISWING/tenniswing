@@ -61,20 +61,30 @@ public class ClubServiceImpl implements ClubService {
 		 * List<AttachVO> files = fileUtils.uploadFiles(clubVO.getFiles());attachService.saveAttach("",
 		 * clubVO.getClubNo(), files);
 		 */
+		
 		int result = clubMapper.insertClub(clubVO); 
 		if(result == 1) {
+			clubMapper.insertClubHost(clubVO); 
 			return clubVO.getClubNo();
+			
 		}else {
 			return -1;
 		}
 	}
 	
+	
+	
 	//클럽 삭제
 	@Override
-	public boolean deleteClub(int ClubNo) {
-		int result = clubMapper.deleteClub(ClubNo);
+	public boolean deleteClub(int clubNo) {
 		
-		if(result ==1) {
+		HashMap<String, Long> map = new HashMap<String, Long>();
+		map.put("clubNo", (long) clubNo);
+		map.put("delClubResult", (long) 0);
+		
+		long result =(long)map.get("delClubResult");
+		
+		if(result >= 1) {
 			return true;
 		}else {
 			return false;
@@ -155,6 +165,6 @@ public class ClubServiceImpl implements ClubService {
 	public List<ClubVO> selectAllClub() {
 		return clubMapper.selectAdminAllClub();
 	}
-	 
+
 	
 }

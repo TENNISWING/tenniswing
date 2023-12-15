@@ -7,6 +7,16 @@
 		href="/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
 	<link rel="stylesheet"
 		href="/assets/compiled/css/table-datatable-jquery.css">
+	<style type="text/css">
+		#table1 thead tr th {
+			text-align: center;
+			font-family: 'Noto Sans KR', sans-serif !important;
+			font-weight: 700;
+		}
+		.container {
+			font-family: 'Noto Sans KR', sans-serif !important;
+		}
+	</style>
 </head>
 <th:block layout:fragment="content">
 	<h3 class="container p-3">쇼핑</h3>
@@ -15,36 +25,157 @@
 			<div class="col-lg-4 col-md-auto">
 				<div th:replace="member/mypage-sidemenu :: sidemenu"></div>
 			</div>
-			<div class="col-lg-8 col-md-auto">				
-				<div class="cart__form mt-3">
-					<table class="table" id="table1">
-						<thead>
-							<tr>
-								<th>사진</th>
-								<th>상품명</th>
-								<th>카테고리</th>
-								<th>가격</th>
-								<th>삭제</th>		
-							</tr>
-						</thead>
-						<tbody>
-						
-						<th:block th:each="o : ${order}">
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td th:if="${o.CLUB_APPROVE == '대기'}"><button type="button" class="btn btn-success" th:onclick="cancel11()">가입취소</button>			
-								<td th:if="${o.CLUB_APPROVE == '승인'}"><button type="button" class="btn btn-light" disabled>가입취소</button>			
-							</tr>
-						</th:block>	
-						</tbody>
-					</table>
+			<div class="col-lg-8 col-md-auto">
+				<ul class="nav nav-pills" id="myTab" role="tablist" style="gap: 3rem;">
+					<li class="nav-item" role="presentation"><a
+						class="nav-link active" id="like-tab" data-bs-toggle="tab"
+						href="#like" role="tab" aria-controls="like" aria-selected="true"
+						style="border: 1px solid #eaecf0; border-radius: 6px;">위시리스트</a>
+					</li>
+					<li class="nav-item" role="presentation"><a class="nav-link"
+						id="scrap-tab" data-bs-toggle="tab" href="#scrap" role="tab"
+						aria-controls="scrap" aria-selected="false"
+						style="border: 1px solid #eaecf0; border-radius: 6px;">주문 내역</a>
+					</li>
+				</ul>
+				<div class="tab-content" >
+					<div class="tab-pane fade show active" id="like" role="tabpanel" aria-labelledby="like-tab">
+						<div class="cart__form mt-3">
+							<table class="table" id="table1">
+								<thead>
+									<tr>
+										<th style="display: none">번호</th>
+										<th style="text-align: left; padding-left: 10px;">상품</th>
+										<!-- <th>상품명</th> -->
+										<th>브랜드</th>
+										<!-- <th>카테고리</th> -->
+										<th>가격</th>
+										<!-- <th>장바구니</th> -->
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+
+									<th:block th:each="wishList : ${wishList}">
+										<tr>
+											<td style="display: none">[[ ${wishList.wishNo} ]]</td>
+											<td class="cart-pd__thumb">
+												<div class="product-card--inline">
+													<a
+														th:onclick="|location.href='@{/shopDetail(prodNo=${wishList.prodNo})}'|"
+														class="product__image"> <img
+														th:src="${wishList.attachPath}" alt="wish" />
+													</a>
+													<div class="product__content">
+														<h5 class="product__title" style="margin: 0;">
+															<a
+																th:onclick="|location.href='@{/shopDetail(prodNo=${wishList.prodNo})}'|">[[
+																${wishList.prodName} ]]</a>
+														</h5>
+														<ul class="product__info" style="padding: 3px; margin: 0;">
+															<!-- <li class="info-item">Color: <span>Red</span></li> -->
+															<li class="info-item"><b>카테고리:</b> <span>[[
+																	${wishList.cateProd} ]]</span></li>
+														</ul>
+													</div>
+												</div>
+											</td>
+											<!-- <td><img th:src="${wishList.attachPath}" alt="wish" /></td> -->
+											<!-- <td>[[ ${wishList.prodName} ]]</td> -->
+											<td>[[ ${wishList.prodBrand} ]]</td>
+											<!-- <td>[[ ${wishList.cateProd} ]]</td> -->
+											<td class="wishPrice" th:id="wishPrice+${wishList.wishNo}">[[
+												${wishList.prodPrice} ]]</td>
+											<!-- <td class="cart-pd__qty">
+									</td> -->
+											<td class="cart-pd__action" data-title="Action">
+												<div class="product-card--inline"
+													style="justify-content: space-around;">
+
+													<div class="cart__action__btn">
+														<div class="cart__btn">
+															<a
+																th:onclick="|location.href='@{/shopDetail(prodNo=${wishList.prodNo})}'|"
+																class="btn btn-outline"
+																style="width: auto; padding: 7px 15px;">장바구니</a>
+														</div>
+													</div>
+													<button type="button" class="danger__btn wishDelBnt"
+														th:id="delWish+${wishList.wishNo}">
+														<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+				                                        	<path
+																d="M1.25 3.5H2.75M2.75 3.5H14.75M2.75 3.5V14C2.75 14.3978 2.90804 14.7794 3.18934 15.0607C3.47064 15.342 3.85218 15.5 4.25 15.5H11.75C12.1478 15.5 12.5294 15.342 12.8107 15.0607C13.092 14.7794 13.25 14.3978 13.25 14V3.5H2.75ZM5 3.5V2C5 1.60218 5.15804 1.22064 5.43934 0.93934C5.72064 0.658035 6.10218 0.5 6.5 0.5H9.5C9.89782 0.5 10.2794 0.658035 10.5607 0.93934C10.842 1.22064 11 1.60218 11 2V3.5M6.5 7.25V11.75M9.5 7.25V11.75"
+																stroke="#667085" stroke-linecap="round"
+																stroke-linejoin="round"></path>
+				                                        </svg>
+													</button>
+												</div>
+											</td>
+										</tr>
+									</th:block>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="scrap" role="tabpanel"
+						aria-labelledby="scrap-tab">
+						<div class="cart__form mt-3">
+							<table class="table" id="tablescrap">
+								<thead>
+									<tr>
+										<th>번호</th>
+										<th>제목</th>
+										<th>생성일자</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block>
+										<tr class="snsScrap">
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+									</th:block>
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
+	
 			</div>
 		</div>
 	</div>
+	
+	<script th:inline="javascript">
+		changeWishtPrice();
+		/* 가격 */
+		function changeWishtPrice() {		
+			let price = $('.wishPrice');
+			console.log(price);
+			
+			price.each(function(){
+				priceId = $(this).attr('id');
+				// jQuery id 찾을 때 변수 넣어서 찾기
+				console.log(priceId);
+				
+				let changePrice = $('#'+priceId).text();
+				//console.log(changePrice);
+				changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				
+				changePrice = changePrice + '원';
+				$('#'+priceId).text(changePrice);
+			});
+		}
+		
+		function deleteWishItem() {
+			
+			$('.wishDelBnt').on('click', function(e) {
+				console.log(e.target);
+			
+			}
+		}
+	
+	</script>
 
 </th:block>
 
