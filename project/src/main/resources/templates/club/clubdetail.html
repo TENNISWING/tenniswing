@@ -34,34 +34,30 @@
 	width: 350px;
 	height: 300px;
 	object-fit: cover;
+	border-radius : 15px;
 }
+
+.btn-outline-white {
+    --bs-btn-color: #198754;
+    --bs-btn-border-color: #198754;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #198754;
+    --bs-btn-hover-border-color: #198754;
+    --bs-btn-focus-shadow-rgb: 25, 135, 84;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #198754;
+    --bs-btn-active-border-color: #198754;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #198754;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #198754;
+    --bs-gradient: none;
 </style>
 </head>
 
 <th:block layout:fragment="content">
 
 
-	<!-- club sub menu -->
-	<div class="container mb-4">
-		<ul class="nav d-flex justify-content-around text-center">
-			<li class="d-flex flex-column">
-				<a href="javascript:void(0)">
-					<div><i class="fa-solid fa-list fs-3 text-info"></i></div>클럽 목록
-				</a>
-			</li>
-			<li class="d-flex flex-column">
-				<a href="javascript:void(0)">
-					<div><i class="fa-solid fa-pen-square fs-3 text-primary"></i></div>클럽 창설
-				</a>
-			</li>
-			<li class="d-flex flex-column">
-				<a href="javascript:void(0)">
-					<div><i class="fa-solid fa-m fs-3 text-warning"></i></div>마이 클럽
-				</a>
-			</li>
-		</ul>
-	</div>
-	<!-- End club sub menu  -->
 
 	<div class="container">
 		<div class="row">
@@ -69,7 +65,7 @@
 				<!-- <div class="dashboard-block__title">
                                                 <h4>Profile Image</h4>
                                             </div> -->
-				<div class="card card-shadow" style="border: 1px solid #e9e9e9;">
+				<div class="card card-shadow" style="background-color: #f9f9f9;">
 					<div class="user__profile text-center"
 						style="padding: 20px 10px 40px 10px;">
 						<div class="club__avatar">
@@ -77,16 +73,16 @@
 						<img th:unless="${club.attachPath} != '' or ${club.attachPath} != null" th:src="/assets/compiled/jpg/banana.jpg"  alt="default-pic"/>
 						</div>
 						<div class="user__content">
-							<h3 style="line-height: 80px; color: #668585;"
-								th:text="${club.clubName}"></h3>
+							<h2 style="margin: 40px 0px;; color: #134631;" th:text="${club.clubName}"></h2>
 							<h6 style="color: gray;" >멤버수 : [[${club.clubMemNum}]]명</h6>
+							<h6 style="color: gray;" >클럽장 : [[${club.name}]]</h6>
 							<div>
 							<th:block th:if="${#strings.equals(club.memId,loginId)}">
-								<button class="btn btn-outline-success" id="clubEdit"
+								<button class="btn rounded-pill btn-outline-white" id="clubEdit"
 									data-bs-toggle="modal" data-bs-target="#EditModal"
 									style="width: 50%; margin-top: 30px;"
 									th:data-club-no="${club.clubNo}">클럽 수정</button>
-								<button class="btn btn-outline-success" id="clubDel"
+								<button class="btn rounded-pill btn-outline-success" id="clubDel"
 									style="width: 50%; margin-top: 30px;">클럽 삭제</button>
 							</th:block>		
 							</div>
@@ -98,7 +94,7 @@
 			</div>
 
 			<div class="col-xxl-8">
-				<div class="dashboard-block">
+				<div class="dashboard-block" style="margin-top: 20px;">
 					<!-- /클럽 탭 메뉴 -->
 					<div class="tabs__wrapper tabs__wrapper--v3">
 						<div class="tabs__filter">
@@ -237,79 +233,69 @@
 												<label for="clubDayName" data-parsley-required="true"
 													class="form-label">요일</label>
 												<div>
-													<input class="form-check-input" type="checkbox"
-														name="clubDay" id="checkbox1" value="j1"
-														style="display: inline-block;"> <label
-														class="form-check-label" for="checkbox1"
-														style="display: inline-block;">일요일</label>&nbsp; <input
-														class="form-check-input" type="checkbox" name="clubDay"
-														id="checkbox2" value="j2" style="display: inline-block;">
-													<label class="form-check-label" for="checkbox2"
-														style="display: inline-block;">월요일</label>&nbsp; <input
-														class="form-check-input" type="checkbox" name="clubDay"
-														id="checkbox3" value="j3" style="display: inline-block;">
-													<label class="form-check-label" for="checkbox3"
-														style="display: inline-block;">화요일</label>&nbsp; <input
-														class="form-check-input" type="checkbox" name="clubDay"
-														id="checkbox4" value="j4" style="display: inline-block;">
-													<label class="form-check-label" for="checkbox4"
-														style="display: inline-block;">수요일</label>&nbsp; <input
-														class="form-check-input" type="checkbox" name="clubDay"
-														id="checkbox5" value="j5" style="display: inline-block;">
-													<label class="form-check-label" for="checkbox5"
-														style="display: inline-block;">목요일</label>&nbsp; <input
-														class="form-check-input" type="checkbox" name="clubDay"
-														id="checkbox5" value="j6" style="display: inline-block;">
-													<label class="form-check-label" for="checkbox5"
-														style="display: inline-block;">금요일</label>&nbsp; <input
-														class="form-check-input" type="checkbox" name="clubDay"
-														id="checkbox7" value="j7" style="display: inline-block;">
-													<label class="form-check-label" for="checkbox7"
-														style="display: inline-block;">토요일</label>
+													<input class="form-check-input" type="radio" name="clubDay"
+														id="radio1" value="j1" th:checked="${club.clubDay eq 'j1'? 'checked' : ''}">
+													<label class="form-check-label" for="radio1">일요일</label> &nbsp;
+													<input class="form-check-input" type="radio" name="clubDay"
+														id="radio2" value="j2" th:checked="${club.clubDay eq 'j2'? 'checked' : ''}">
+													<label class="form-check-label" for="radio2">월요일</label> &nbsp;
+													<input class="form-check-input" type="radio" name="clubDay"
+														id="radio3" value="j3" th:checked="${club.clubDay eq 'j3'? 'checked' : ''}">
+													<label class="form-check-label" for="radio3">화요일</label> &nbsp;
+													<input class="form-check-input" type="radio" name="clubDay"
+														id="radio4" value="j4" th:checked="${club.clubDay eq 'j4'? 'checked' : ''}">
+													<label class="form-check-label" for="radio4" >수요일</label> &nbsp;
+													<input class="form-check-input" type="radio" name="clubDay"
+														id="radio5" value="j5" th:checked="${club.clubDay eq 'j5'? 'checked' : ''}">
+													<label class="form-check-label" for="radio5" >목요일</label> &nbsp;
+													<input class="form-check-input" type="radio" name="clubDay"
+														id="radio5" value="j6" th:checked="${club.clubDay eq 'j6'? 'checked' : ''}">
+													<label class="form-check-label" for="radio5" >금요일</label> &nbsp;
+													<input class="form-check-input" type="radio" name="clubDay"
+														id="radio7" value="j7"  th:checked="${club.clubDay eq 'j7'? 'checked' : ''}">
+													<label class="form-check-label" for="radio7" >토요일</label>&nbsp;
 												</div>
 											</div>
 
 										</div>
 
-										<div class="col-12">
-											<div class="form-group mandatory">
-												<label data-parsley-required="true" class="form-label">시간</label>
-												<div>
-													<input class="form-check-input" type="checkbox"
-														name="clubTime" id="checkbox8" value="k1"
-														style="display: inline-block;"> <label
-														class="form-check-label" for="checkbox8"
-														style="display: inline-block;">오전</label>&nbsp; <input
-														class="form-check-input" type="checkbox" name="clubTime"
-														id="checkbox9" value="k2" style="display: inline-block;">
-													<label class="form-check-label" for="checkbox9"
-														style="display: inline-block;">오후</label>&nbsp; <input
-														class="form-check-input" type="checkbox" name="clubTime"
-														id="checkbox10" value="k3" style="display: inline-block;">
-													<label class="form-check-label" for="checkbox10"
-														style="display: inline-block;">저녁</label>&nbsp; <input
-														class="form-check-input" type="checkbox" name="clubTime"
-														id="checkbox11" value="k4" style="display: inline-block;">
-													<label class="form-check-label" for="checkbox11"
-														style="display: inline-block;">심야</label>&nbsp;
-												</div>
-											</div>
-
+								<div class="col-12">
+									<div class="form-group mandatory">
+										<label data-parsley-required="true" class="form-label">시간</label>
+										<div>
+										<input class="form-check-input" type="radio" name="clubTime" id="radio8" value="k1"
+											 th:checked="${club.clubTime eq 'k1'? 'checked' : ''}"> 
+										<label class="form-check-label" for="radio8" >오전</label>&nbsp;
+										 
+										<input class="form-check-input" type="radio" name="clubTime" id="radio9" value="k2"
+											th:checked="${club.clubTime eq 'k2'? 'checked' : ''}">
+										<label class="form-check-label" for="radio9" >오후</label>&nbsp;
+										
+										<input class="form-check-input" type="radio" name="clubTime" id="radio10" value="k3" 
+											th:checked="${club.clubTime eq 'k3'? 'checked' : ''}">
+										<label class="form-check-label" for="radio10">저녁</label>&nbsp;
+										
+										<input class="form-check-input" type="radio" name="clubTime" id="radio11" value="k4" 
+											th:checked="${club.clubTime eq 'k4'? 'checked' : ''}">
+										<label class="form-check-label" for="radio11">심야</label>&nbsp;
 										</div>
+									</div>
+
+								</div>
 
 										<div class="col-6">
 											<div class="form-group ">
 												<label for="exampleFormControlTextarea1" class="form-label">지역</label>
 												<select class="form-control" data-parsley-required="true"
 													th:field="*{clubRegion}" th:value="${club.clubRegion}">
-													<option value="b1">서울</option>
-													<option value="b2">경기</option>
-													<option value="b3">인천</option>
-													<option value="b4">강원도</option>
-													<option value="b5">전라도</option>
-													<option value="b6">경상도</option>
-													<option value="b7">충청도</option>
-													<option value="b8">제주도</option>
+													<option value="b1" th:selected="${club.clubRegion} == 'b1'">서울</option>
+													<option value="b2" th:selected="${club.clubRegion} == 'b2'">경기</option>
+													<option value="b3" th:selected="${club.clubRegion} == 'b3'">인천</option>
+													<option value="b4" th:selected="${club.clubRegion} == 'b4'">강원도</option>
+													<option value="b5" th:selected="${club.clubRegion} == 'b5'">전라도</option>
+													<option value="b6" th:selected="${club.clubRegion} == 'b6'">경상도</option>
+													<option value="b7" th:selected="${club.clubRegion} == 'b7'">충청도</option>
+													<option value="b8" th:selected="${club.clubRegion} == 'b8'">제주도</option>
 												</select>
 											</div>
 										</div>

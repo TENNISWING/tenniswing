@@ -229,7 +229,7 @@
  										<p style="text-align: left;">${clubList.clubIntro}</p>
  									</div>
  									<div class="modal-footer" style="text-align: center;">
- 										<button type="button" class="btn btn-primary ms-1"
+ 										<button type="button" class="btn btn-primary ms-1" id="wrtBtn"
  											data-bs-dismiss="modal" data-bs-target="#join${clubList.clubNo}"
  											data-bs-toggle="modal">가입신청서 작성</button>
  									</div>
@@ -238,7 +238,7 @@
  						</div>
  						<!-- /클럽 가입 신청 버튼 Modal  -->
  						<!-- 클럽 가입 신청 작성 Modal  -->
- 						<div class="modal fade" id="join${clubList.clubNo}" tabindex="-1"
+ 						<div class="modal fade wrtModal" id="join${clubList.clubNo}" tabindex="-1"
  							role="dialog" aria-labelledby="exampleModalCenterTitle"
  							aria-hidden="true">
  							<div
@@ -274,14 +274,17 @@
  						$('#clubList').append(List)
  					}//반복문 끝
  					showPage(result.selectCount);
- 					 $('.submitBtn').on("click", function(e){
- 						// console.log("확인버튼 클릭했어예")
- 						let clubNo = $(this).data('value');
- 						let clubJoinApplyWrt = $(e.target).parent().prev().children().val()
- 						//console.log("글 내용은 들어오나여"+clubJoinApplyWrt)
- 						//console.log("글 내용은 들어오나여"+clubNo)
+ 					
+ 					//가입 신청폼 초기화
+ 					$('#wrtBtn').on('click', function (e) {
+ 						$('textarea').val('');
+ 					});
+ 					
+ 					$('.submitBtn').on("click", function(e){
+ 					    let clubNo = $(this).data('value');
+ 					    let clubJoinApplyWrt = $(e.target).parent().prev().children().val()
  						clubMemFormAjax(clubNo,clubJoinApplyWrt)
- 					}) 
+ 					 }) 
  					
  					
  				}//success 끝
@@ -332,6 +335,8 @@
 			$('.pagination').html(str);
 		}//여기까지는 똑같이 쌔비지
 		
+		
+		
 			//클럽 가입 신청(등록)
 			function clubMemFormAjax(clubNo,clubJoinApplyWrt){
 				$.ajax({
@@ -340,8 +345,8 @@
 					data : {clubNo,clubJoinApplyWrt},
 					dataType:'text',
 					success:function(result){
-						//$('#clubJoinApplyWrt').val('');
-						alert("신청이 완료되었습니다.")
+						alert("신청이 완료되었습니다.");
+						
 					},
 					error: function(){
 						alert("신청 실패")
