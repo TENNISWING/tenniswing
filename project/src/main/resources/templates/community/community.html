@@ -11,6 +11,26 @@
 .repTr{
 	background-color: #ECF8E0;
 }
+section a,
+section span,
+section button,
+section input,
+section h1,
+section h2,
+section h3,
+section h4,
+section h5,
+section h6,
+section tr,
+section td,
+section th,
+section pre{
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+.snsTopBtn{
+	font-family: 'Noto Sans KR', sans-serif !important;
+	border: 1px solid #ccc;
+}
 
 </style>
 <!-- tagify 소스 다운 -->
@@ -21,19 +41,6 @@
 </head>
 
 <th:block layout:fragment="content">
-
-	<!-- community sub menu -->
-	<div class="container mb-4">
-		<ul class="nav d-flex justify-content-around text-center matchsidevar">
-			<li class="d-flex flex-column"><a href="sns"><img
-					src="assets/img/match/icon/icon1.png" class=" miconimg">SNS</a></li>
-			<li class="d-flex flex-column"><a href="freeboardList"><img
-					src="assets/img/match/icon/icon3.png" class=" miconimg">자유게시판</a></li>
-			<li class="d-flex flex-column"><a href="noticeList"><img
-					src="assets/img/match/icon/icon4.png" class=" miconimg">공지사항</a></li>
-		</ul>
-	</div>
-	<!-- community sub menu End -->
 
 	<div class="container">
 		<div class="row">
@@ -47,11 +54,11 @@
 					</button>
 				</div> -->
 				<div class="insertBtn">
-					<a href="#" class="btn btn-secondary rounded-pill"
+					<a href="#" class="btn rounded-pill snsTopBtn"
 						th:onclick="|location.href='@{snsMyList}'|">내가 등록한 sns 보기</a> 
-					<a class="btn btn-secondary rounded-pill"
+					<a class="btn rounded-pill snsTopBtn"
 						th:onclick="|location.href='@{snsRegister}'|">등록</a>
-					<a class="btn btn-secondary rounded-pill" th:onclick="|location.href='@{sns}'|">목록으로</a>	
+					<a class="btn rounded-pill snsTopBtn" th:onclick="|location.href='@{sns}'|">목록으로</a>	
 				</div>
 
 				<!-- Basic card section start -->
@@ -98,7 +105,7 @@
 																	th:if="${simg.attachExt=='.mp4'}"
 																	th:classappend="${simgStat.count==1}?active:_">
 																	<video class="main-top-promotion-video"
-																		autoplay="autoplay" loop="loop" muted="muted">
+																		autoplay="autoplay" loop="loop" controls="controls">
 																		<source th:src="${simg.attachPath}" type="video/mp4">
 																	</video>
 																</div>
@@ -130,7 +137,7 @@
 													<div class="card-body">
 														<h6 class="card-subtitle"><a href="#" class="btn btn-secondary rounded-pill"
 						th:onclick="|location.href='@{snsMyList(memId=${s.memId})}'|" >[[${s.name}]]</a></h6>
-														<p class="card-text">[[${s.snsCtt}]]</p>
+														<pre class="card-text">[[${s.snsCtt}]]</pre>
 													</div>
 
 												</div>
@@ -519,22 +526,28 @@
 
     
     function makeReply(index, repList){
+    	let memId = [[${#authentication.name}]];
         let b = `
             <tr class = "repTr" id = ${repList.snsRepNo}>
 					<td>${repList.name}</td>
 					<td class = "editCtt">${repList.snsRepCtt}</td>
 					<td>${new Date(repList.snsRepWriteDate).toLocaleDateString()}</td>
 					<td>
-						<i type="button" class="fa-regular fa-comment reWrtBtn" id="reWrtBtn${index}"></i>
-						<i type="button" class="fa-regular fa-pen-to-square repEditBtn" id="editBtn${index}"></i>
-						<i type="button" class="fa-regular fa-trash-can repDelBtn" id="delBtn${index}"></i></td>
-				</tr>`
+					<i type="button" class="fa-regular fa-comment reWrtBtn" id="reWrtBtn${index}"></i>
+					`
+					if(memId==repList.memId){
+						b+=`<i type="button" class="fa-regular fa-pen-to-square repEditBtn" id="editBtn${index}"></i>
+							<i type="button" class="fa-regular fa-trash-can repDelBtn" id="delBtn${index}"></i></td>`
+					}
+						
+						
+				b+=`</tr>`
 				
             $('#replyList').append(b);
     }
     
     function makeRreply(snsRrepList){
-    	
+    	let memId = [[${#authentication.name}]];
     	$('#loadDiv').empty();
     	$('#lastDiv').empty();
     	for(let[index, rrep] of snsRrepList.entries()){
@@ -543,11 +556,13 @@
 				<td> ㄴ ${rrep.name}</td>
 				<td class = "editCtt">${rrep.snsRrepCtt}</td>
 				<td>${new Date(rrep.snsRrepWriteDate).toLocaleDateString()}</td>
-				<td><i type="button"
-					class="fa-regular fa-pen-to-square rrepEditBtn" id="rreditBtn`+index+`"></i>
-					<i type="button" class="fa-regular fa-trash-can rrepDelBtn" id="rrdelBtn`+index+`"></i></td>
-			</tr>
-			`
+				<td>`
+				if(memId==rrep.memId){
+					b+=`<i type="button"
+						class="fa-regular fa-pen-to-square rrepEditBtn" id="rreditBtn`+index+`"></i>
+						<i type="button" class="fa-regular fa-trash-can rrepDelBtn" id="rrdelBtn`+index+`"></i></td>`
+				}
+			b+=`</tr>`
 		 $('#replyList').append(b);
 		}
 		$('#loadDiv').append(`
@@ -603,9 +618,7 @@
 						<td>${data[num].name}</td>
 						<td class = "editCtt" id="">${data[num].snsRepCtt}</td>
 						<td>${new Date(data[num].snsRepWriteDate).toLocaleDateString()}</td>
-						<td><i type="button"
-							class="fa-regular fa-pen-to-square repEditBtn" id="editBtn`+data[num].snsRepNo+`"></i> 
-							<i type="button" class="fa-regular fa-trash-can"></i></td>
+						<td></td>
 					</tr>`
 	   		$('#replyList').append(b);
 			snsRepNo = $(e.target).closest('tr').prop('id');
@@ -657,10 +670,7 @@
 						<td>${data[num].name}</td>
 						<td class = "editCtt" id="">${data[num].snsRepCtt}</td>
 						<td>${new Date(data[num].snsRepWriteDate).toLocaleDateString()}</td>
-						<td><i type="button"
-							class="fa-regular fa-pen-to-square repEditBtn" id="editBtn`+data[num].snsRepNo+`"
-							></i> <i type="button"
-							class="fa-regular fa-trash-can"></i></td>
+						<td></td>
 					</tr>`
 	   		$('#replyList').append(b);
 			//snsRepNo = $(e.target).closest('tr').prop('id');

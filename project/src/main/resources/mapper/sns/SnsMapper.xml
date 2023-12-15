@@ -19,7 +19,7 @@
 				, s.sns_write_date
 				, s.sns_tag
 				, s.sns_hit
-				, m.name
+				,(select nick from pr where mem_id= s.mem_id) name
 				, s.mem_id
 				<!-- , g.grp_name
 				, g.sns_grp_no -->
@@ -73,7 +73,7 @@
 				, s.sns_write_date
 				, s.sns_tag
 				, s.sns_hit
-				, m.name
+				, (select nick from pr where mem_id= s.mem_id) name
 				, s.mem_id
 				, g.grp_name
 				, g.sns_grp_no
@@ -218,7 +218,7 @@
 				, s.sns_write_date
 				, s.sns_tag
 				, s.sns_hit
-				, m.name
+				, (select nick from pr where mem_id= #{memId}) name
 				, m.mem_id
 				, g.grp_name
 				, g.sns_grp_no
@@ -362,7 +362,7 @@
 			   ,s.grp_name
 			   ,s.grp_edit_date
 			   ,s.mem_id
-			   ,m.name
+			   ,(select nick from pr where mem_id= #{memId}) name
 			   ,s.attach_path
 		from sns_grp s, mem m
 		where s.mem_id = m.mem_id
@@ -373,8 +373,8 @@
            null,
            '기타',
            null,
-           null,
-           null,
+          #{memId},
+           (select nick from pr where mem_id= #{memId}),
            null
     from dual
            )order by grp_create_date desc
@@ -472,7 +472,7 @@
 				, s.sns_write_date
 				, s.sns_tag
 				, s.sns_hit
-				, m.name
+				, (select nick from pr where mem_id= #{memId}) name
 				, s.mem_id
 		FROM sns s
 				join mem m

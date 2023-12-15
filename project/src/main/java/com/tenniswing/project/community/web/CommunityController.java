@@ -163,9 +163,7 @@ public class CommunityController {
 	@GetMapping("mySnsList")
 	@ResponseBody
 	public Map<String, Object> mySnsListAjax(SnsVO snsVO){
-		HashMap<String, Object> map = new HashMap<>();
-		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		snsVO.setMemId(id);
+		HashMap<String, Object> map = new HashMap<>();		
 	
 		 map.put("selectCount", snsService.selectCount(snsVO));
 		 map.put("mySnsGroupList",snsService.selectMyGroup(snsVO));
@@ -338,18 +336,6 @@ public class CommunityController {
 		System.out.println("그룹찍어봄" + snsVO);
 
 		return snsService.insertSnsGrp(snsVO);
-	}
-
-	// 자유게시판 메인(리스트 페이지)
-	@GetMapping("freeboardList")
-	public String freeboardListPage(Model model) {
-		return "community/freeboardList";
-	}
-
-	// 자유게시판 글 등록폼
-	@GetMapping("freeBrdForm")
-	public String freeBrdFormPage(Model model) {
-		return "community/freeBrdForm";
 	}
 
 	// 공지사항 게시판 메인(리스트 페이지)
