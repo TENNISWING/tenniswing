@@ -123,11 +123,11 @@ public class HostController {
 	public Map<String, Object> deleteCourtroomProccess(@RequestParam("crtNo") Integer crtroomNo) {
 		//Map<String, Object> map = courtroomService.deleteCourtroom(crtroomNo);
 		Map<String, Object> resultmap = new HashMap<>();
-		if(map.get("reserveCount").equals(0)) {
+		if(resultmap.get("reserveCount").equals(0)) {
 			resultmap.put("result", true);
 		}else {
 			resultmap.put("result", false);
-			resultmap.put("reserveCount", map.get("reserveCount"));
+			resultmap.put("reserveCount", resultmap.get("reserveCount"));
 		}
 
 		/*
