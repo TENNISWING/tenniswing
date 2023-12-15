@@ -8,7 +8,7 @@
 	<!-- signup form -->
 	<div class="container justify-content-center" id="signupForm">
 
-		<form class="form form-vertical" action="startermatchregi"
+		<form class="form form-vertical" action="startermatchregi" name="startermatchregi"
 			method="POST">
 			<div class="form-body">
 				<div class="text-center">
@@ -28,83 +28,68 @@
 						</div>
 
 						<!-- 코트 찾기 -->
-						<div class="row mb-3">
+						<div class="row mb-5">
 							<div class="col-6" style="margin-left: 55px;">
-								<label for="name">코트 선택</label>
+								<label for="crtroomNo">코트 찾기</label><br>
 								<div class="input-group">
-									<input type="text" class="form-control" autocomplete="off"
-										placeholder="코트 찾기" data-bs-toggle="collapse"
-										data-bs-target="#collapseExample" aria-expanded="false"
-										aria-controls="collapseExample" id="search1"> <input
-										type="hidden" name="crtroomNo" id="crtroomNo">
-									<button type="button" class="input-group-text">
-										<i class="icon dripicons dripicons-search fs-3"></i>
-									</button>
+									<input type="text" class="form-control" placeholder="코트 입력"
+										aria-describedby="crtroomBtn" id="crtroomName"
+										name="crtroomName">
+									<button class="btn btn-success" type="button" id="crtroomBtn">찾기</button>
+
+									<input type="text" class="form-control" placeholder="코트 입력"
+										aria-describedby="crtroomBtn" id="crtroomNo" name="crtroomNo"
+										hidden="true">
 								</div>
-								<div class="collapse z-3 position-absolute" id="searchArea1">
+								<div class="collapse z-3 position-absolute" id="searchcrt">
 									<div class="form-group">
-										<select class="form-select" id="searchItem1">
+										<select class="form-select" id="searchCrtItem">
+
 										</select>
 									</div>
 								</div>
 							</div>
 						</div>
-						<!-- <div class="col-6">
-						<label for="age">코트 선택</label>
-						<div class="input-group">
-							<input type="text" class="form-control" autocomplete="off"
-								placeholder="코트 찾기" data-bs-toggle="collapse"
-								data-bs-target="#collapseExample" aria-expanded="false"
-								aria-controls="collapseExample" id="search1">
-
-							<button type="button" class="input-group-text">
-								<i class="icon dripicons dripicons-search fs-3"></i>
-							</button>
-							<div class="collapse z-3 position-absolute mt-5" id="searchArea1">
-
-								<div class="form-group">
-									<select class="form-select" id="searchItem1">
-									</select>
-								</div>
-							</div>
-						</div>
-						</div> -->
-						<script>
-						$('#search1').on('propertychange change keyup paste input', function(e){						
-								let inputVal = $(e.target).val();								
-								$('#searchArea1').addClass('show');					
-								 $.ajax({
-								        type: 'get',
-								        url: 'searcharea',
-								        data: {inputVal},
-								        success: function (result) {
-								        	$('#searchItem1').empty();
-								        	//$('#searchItem').append('<optgroup label="코트">');
-								        	$.each(result, function(index, data) { // 데이터 =item
-								        		let b = `													 
-					                                 <option value="${data.crtroomNo}">${data.crtroomName}</option>  `  										
-					                                 $('#searchItem1').append(b)												
-											});								        	
-												b = '</optgroup>'
-											$('#searchItem1').append(b)
-								        },
-								        error: () => console.log(error)
-								    })
-								
-								if(inputVal == ''){
-									$('#searchArea1').removeClass('show');
-								}
-								 
-								
-							})
 						
-						 $('#searchItem1').on('change propertychange click', function(e){
-										console.log($(e.target).val())
-										let crtNo = $(e.target).val();
-										$('#crtroomNo').val(crtNo);
-										$('#search1').val(e.target.options[e.target.selectedIndex].text);
-										//location.href = `courtDetail?crtroomNo=${crtNo}`
-									})
+						<script>
+					$('#crtroomBtn').on('click', function (e) {
+					    let inputVal = $('#crtroomName').val();
+					    $('#searchcrt').addClass('show');
+					    $.ajax({
+					        type: 'get',
+					        url: 'searcharea',
+					        data: { inputVal },
+					        success: function (result) {
+					            $('#searchCrtItem').empty();
+					            $('#searchCrtItem').append('<option selected="">코트선택</option>')
+					            $.each(result, function (index, data) { // 데이터 =item
+					                let b = `													 
+										<option value="${data.crtroomNo}">${data.crtroomName}</option>`
+					                $('#searchCrtItem').append(b)
+					            });
+					            b = '</optgroup>'
+					            $('#searchCrtItem').append(b)
+					        },
+					        error: () => console.log(error)
+					    })
+
+					    if (inputVal == '') {
+					        $('#searchcrt').removeClass('show');
+					    }
+
+
+					})
+
+					$('#searchCrtItem').on('change', function (e) {
+					    let crtNo = $('#searchCrtItem option:selected').val();
+					    let crtName = $('#searchCrtItem option:selected').text();
+					    console.log(crtName)
+					    if (crtNo != null) {
+					        $('#crtroomNo').val(crtNo);
+					        $('#crtroomName').val(crtName);
+					        $('#searchcrt').removeClass('show');
+					    }
+					})
 					
 					</script>
 
@@ -329,10 +314,10 @@
 							</div>
 
 							<div class="ctrgbtns">
-								<br>
-								<button class="btn btn-success" type="submit">등록하기</button>
+								<br> 
+								<button class="btn btn-success" type="submit" id="regiBtn">등록하기</button>
 								<button class="btn btn-success" type="button"
-									th:onclick="|location.href='@{/}'|">취소</button>
+									th:onclick="|location.href='@{/startermatch}'|">취소</button>
 							</div>
 						</div>
 					</div>
@@ -342,7 +327,26 @@
 
 		</form>
 	</div>
-
+	<script th:inline='javascript'>	
+     $('#regiBtn').on("click", function(e) {
+    	 e.preventDefault();
+     	console.log('applyBtn');
+     	 Swal.fire({
+    		  title: "등록 하시겠습니까?",
+    		  text: "등록을 원하시면 예를 눌러주세요.",
+    		  icon: "warning",
+    		  showCancelButton: true,
+    		  confirmButtonColor: "#3085d6",
+    		  cancelButtonColor: "#d33",
+    		  confirmButtonText: "예"
+    		}).then((result) => {
+    		  if (result.isConfirmed) {    			
+    		    $('form').submit();
+    		  }
+    		});
+        
+     })
+	</script>
 </th:block>
 
 </html>
