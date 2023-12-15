@@ -121,13 +121,13 @@ public class HostController {
 	@PostMapping("hostdeleteCourtroom")
 	@ResponseBody
 	public Map<String, Object> deleteCourtroomProccess(@RequestParam("crtNo") Integer crtroomNo) {
-		//Map<String, Object> map = courtroomService.deleteCourtroom(crtroomNo);
+		Map<String, Object> map = courtroomService.deleteCourtroom(crtroomNo);
 		Map<String, Object> resultmap = new HashMap<>();
-		if(resultmap.get("reserveCount").equals(0)) {
+		if(map.get("reserveCount").equals(0)) {
 			resultmap.put("result", true);
 		}else {
 			resultmap.put("result", false);
-			resultmap.put("reserveCount", resultmap.get("reserveCount"));
+			resultmap.put("reserveCount", map.get("reserveCount"));
 		}
 
 		/*
