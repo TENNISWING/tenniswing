@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/main-layout}">
 
 <th:block layout:fragment="content">
@@ -17,14 +16,12 @@
 				<div class="container my-3 p-2">
 					<div class="d-flex justify-content-center">
 						<div class="form-check mx-4">
-							<input class="form-check-input" type="radio" name="memDiv"
-								id="member" value="h1"> <label class="form-check-label"
-								for="member">일반회원</label>
+							<input class="form-check-input" type="radio" name="memDiv" id="member" value="h1"> <label
+								class="form-check-label" for="member">일반회원</label>
 						</div>
 						<div class="form-check mx-4">
-							<input class="form-check-input" type="radio" name="memDiv"
-								id="host" value="h3" checked> <label
-								class="form-check-label" for="host">호스트회원</label>
+							<input class="form-check-input" type="radio" name="memDiv" id="host" value="h3" checked>
+							<label class="form-check-label" for="host">호스트회원</label>
 						</div>
 					</div>
 				</div>
@@ -39,9 +36,9 @@
 
 						<label for="memId">아이디(이메일)</label><br>
 						<div class="input-group mb-3">
-							<input type="text" class="form-control is-invalid"
-								placeholder="영문 | 숫자만 입력 가능" aria-describedby="duplicateBtn"
-								id="memId" name="memId" maxlength="40" autofocus required>
+							<input type="text" class="form-control is-invalid" placeholder="영문 | 숫자만 입력 가능"
+								aria-describedby="duplicateBtn" id="memId" name="memId" maxlength="40" autofocus
+								required>
 							<button class="btn btn-success" type="button" id="duplicateBtn">중복확인</button>
 							<div class="invalid-feedback" id="memIdFeedback"></div>
 							<input type="checkbox" id="idck" hidden="true">
@@ -49,9 +46,9 @@
 						<div class="col-8">
 							<label for="pwd">비밀번호</label><br>
 							<div class="input-group mb-3">
-								<input type="password" class="form-control is-invalid"
-									placeholder="비밀번호 8자리이상" aria-describedby=pwview id="pwd"
-									name="pwd" pattern=".{8,50}" title="최소8자리입력해주세요" required>
+								<input type="password" class="form-control is-invalid" placeholder="비밀번호 8자리이상"
+									aria-describedby=pwview id="pwd" name="pwd" pattern=".{8,50}" title="최소8자리입력해주세요"
+									required>
 								<button class="btn btn-success" type="button" id="pwview">
 									<i class="fa-regular fa-eye-slash"></i>
 								</button>
@@ -61,17 +58,16 @@
 							<div class="col-5">
 								<label for="name">이름</label><br>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control is-invalid"
-										placeholder="한글만 입력 가능" id="name" name="name" maxlength="10"
-										required>
+									<input type="text" class="form-control is-invalid" placeholder="한글만 입력 가능" id="name"
+										name="name" maxlength="10" required>
 								</div>
 							</div>
 							<div class="col-7">
 								<label for="phoneNo">휴대폰 번호</label><br>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control is-invalid"
-										placeholder="숫자만 입력 해주세요" aria-describedby="phoneNoBtn"
-										id="phoneNo" name="phoneNo" maxlength="11" required>
+									<input type="text" class="form-control is-invalid" placeholder="숫자만 입력 해주세요"
+										aria-describedby="phoneNoBtn" id="phoneNo" name="phoneNo" maxlength="11"
+										required>
 									<button class="btn btn-success" type="button" id="phoneNoBtn">인증하기</button>
 								</div>
 							</div>
@@ -79,9 +75,8 @@
 						<div class="col-8">
 							<label for="hostBusinessRegiNo">사업자 등록 번호</label><br>
 							<div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder="사업자등록번호"
-									id="hostBusinessRegiNo" name="hostBusinessRegiNo"
-									maxlength="10">
+								<input type="text" class="form-control" placeholder="사업자등록번호" id="hostBusinessRegiNo"
+									name="hostBusinessRegiNo" maxlength="10">
 							</div>
 						</div>
 
@@ -89,23 +84,22 @@
 							<div class="col-3">
 								<label for="hostBank">은행</label><br>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control" placeholder="은행명"
-										id="hostBank" name="hostBank" maxlength="10">
+									<input type="text" class="form-control" placeholder="은행명" id="hostBank"
+										name="hostBank" maxlength="10">
 								</div>
 							</div>
 							<div class="col-3">
 								<label for="hostDepositor">예금주명</label><br>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control" placeholder="예금주명"
-										id="hostDepositor" name="hostDepositor" maxlength="10"
-										>
+									<input type="text" class="form-control" placeholder="예금주명" id="hostDepositor"
+										name="hostDepositor" maxlength="10">
 								</div>
 							</div>
 							<div class="col-6">
 								<label for="hostActNo">사업자 계좌번호</label><br>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control" placeholder="계좌번호"
-										id="hostActNo" name="hostActNo" maxlength="10" >
+									<input type="text" class="form-control" placeholder="계좌번호" id="hostActNo"
+										name="hostActNo" maxlength="10">
 								</div>
 							</div>
 						</div>
@@ -281,25 +275,106 @@
 				})
 			}
 			$('#hostForm').hide();
-		});
 
-		//멤버 호스트 메뉴 전환
-		$('input:radio[name=memDiv]').on("change", function (e) {
-			let ckId = $(e.target).prop('id');
+			$('#submitBtn').on('click', function (e) {
+				e.preventDefault();
+				if ($('#phoneCk').is(':checked') && $('#idck').is(':checked')) {
+					$('form').submit();
+				} else if (!$('#idck').is(':checked')) {
+					Swal2.fire({
+						icon: "error",
+						title: "아이디 중복 확인이 필요합니다.",
+					})
+				} else {
+					Swal2.fire({
+						icon: "error",
+						title: "본인 인증이 필요합니다.",
+					})
+				}
+			})
 
-			if (ckId == 'member') {
-				location.href = "signup";
-			} else {
-				location.href = "signuphost";
-			}
-		});
+			IMP.init("imp48072683");
+			$('#phoneNoBtn').on('click', function (e) {
+				if ($('#phoneNo').val() == '') {
+					Swal2.fire({
+						icon: "error",
+						title: "번호를 입력 해 주세요.",
+					})
+					return;
+				}
+				IMP.certification({
+				}, function (rsp) {
+					if (rsp.success) {
+						let impUid = rsp.imp_uid;
+						Swal2.fire({
+							icon: "success",
+							title: "본인 인증이 완료되었습니다.",
+						})
+						$('#phoneCk').prop('checked', true);
+					} else {
+						console.log("실패")
+					}
+				});
+			})
 
+			$('#forgotphoneNoBtn').on('click', function (e) {
 
+				if ($('#phoneNo').val() == '') {
+					Swal2.fire({
+						icon: "error",
+						title: "번호를 입력 해 주세요.",
+					})
+					return;
+				}
 
-	</script>
+				IMP.certification({
+				}, function (rsp) {
+					if (rsp.success) {
+						Swal2.fire({
+							icon: "success",
+							title: "본인 인증이 완료되었습니다.",
+						})
+						$('#phoneCk').prop('checked', true);
 
-	<script th:inline="javascript">
+						let phoneNo = $('input[name="phoneNo"]').val();
 
+						$.ajax({
+							type: 'POST',
+							url: 'forgotid',
+							contentType: 'application/json',
+							data: JSON.stringify({ phoneNo: phoneNo }),
+							success: function (result) {
+								console.log(result);
+								$('#myId').prop('hidden', false);
+								$('#memId').val(result);
+								Swal2.fire({
+									icon: "success",
+									title: "아이디 찾기 완료",
+								})
+							}
+							,
+							error: () => console.log(error)
+						})
+					} else {
+						Swal2.fire({
+							icon: "error",
+							title: "본인 인증 실패",
+						})
+					}
+				});
+			});
+
+			//멤버 호스트 메뉴 전환
+			$('input:radio[name=memDiv]').on("change", function (e) {
+				let ckId = $(e.target).prop('id');
+
+				if (ckId == 'member') {
+					location.href = "signup";
+				} else {
+					location.href = "signuphost";
+				}
+			});
+		})
 
 	</script>
 
