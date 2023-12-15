@@ -105,11 +105,12 @@ public class MatchController {
 	}
 
 	@PostMapping("matchregi")
-	public String matchregiProcess(Model model, MatchVO matchVO) {
+	public String matchregiProcess(Model model, MatchVO matchVO, RedirectAttributes rttr) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		matchVO.setMemId(id);
 		int n = matchService.insertMatch(matchVO);
 		if (n > 0) {
+			rttr.addFlashAttribute("message", "등록되었습니다!");
 			return "redirect:/";
 		} else {
 			model.addAttribute("msg", "등록 실패");
@@ -218,11 +219,12 @@ public class MatchController {
 	}
 
 	@PostMapping("clubmatchregi")
-	public String clubmatchregiProcess(Model model, MatchVO matchVO) {
+	public String clubmatchregiProcess(Model model, MatchVO matchVO, RedirectAttributes rttr) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		matchVO.setMemId(id);
 		int n = matchService.insertClubMatch(matchVO);
 		if (n > 0) {
+			rttr.addFlashAttribute("message", "등록되었습니다!");
 			return "redirect:/clubmatch";
 		} else {
 			model.addAttribute("msg", "등록 실패");
@@ -422,18 +424,19 @@ public class MatchController {
 	}
 
 	@PostMapping("startermatchregi")
-	public String startermatchregiProcess(Model model, MatchVO matchVO) {
+	public String startermatchregiProcess(Model model, MatchVO matchVO, RedirectAttributes rttr) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		matchVO.setMemId(id);
 		int n = matchService.insertStarterMatch(matchVO);
 		if (n > 0) {
+			rttr.addFlashAttribute("message", "등록되었습니다!");
 			return "redirect:/startermatch";
 		} else {
 			model.addAttribute("msg", "등록 실패");
 			return "match/startermatchregi";
 		}
 	}
-
+	
 	@GetMapping("startermatchupdateregi")
 	public String startermatchupdateregiPage(Model model, MatchVO matchVO) {
 		model.addAttribute("starterMatchInfo", matchService.selectStarterMatch(matchVO));
