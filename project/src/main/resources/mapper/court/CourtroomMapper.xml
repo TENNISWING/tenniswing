@@ -407,7 +407,10 @@
   				, c.crtroom_regi_date
   				, FIND_CATEGORY_NAME(c.crtroom_state) crtroom_state
   				, FIND_CATEGORY_NAME(c.crtroom_region) crtroom_region_name
-  		FROM crtroom c 
+  				, a.attach_path
+  		FROM crtroom c JOIN attach a
+  						ON c.crtroom_no = a.attach_table_pk
+  		WHERE a.attach_table_div = 'co'
   		ORDER BY c.crtroom_no
   	</select>
   	

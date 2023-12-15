@@ -81,4 +81,9 @@ public class CrtReserveServiceImpl implements CrtReserveService {
 		return crtReserveMapper.updateCrtReserveState(crtReserveVO);
 	}
 
+	@Override
+	public List<CrtReserveVO> selectAllCrtDeReserve(CrtReserveVO crtReserveVO) {
+		return crtReserveMapper.selectAllCrtDeReserve(crtReserveVO);
+	}
+
 }

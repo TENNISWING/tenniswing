@@ -66,6 +66,7 @@ public class HostController {
 		System.out.println(courtroomService.selectCourtroom(crtroomVO));
 		model.addAttribute("courtDetail", courtroomService.selectCourtroom(crtroomVO));
 		model.addAttribute("refundInf", crtDetailService.refundInf());
+		model.addAttribute("review",courtroomService.selectCourtReview(crtroomVO.getCrtroomNo()));
 		return "host/hostCourtDetail";
 	}
 

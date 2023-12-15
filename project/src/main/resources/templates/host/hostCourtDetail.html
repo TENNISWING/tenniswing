@@ -2,8 +2,62 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/host/host-layout}">
+<head>
+<style>
+body {
+	margin: 40px 10px;
+	padding: 0;
+	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+	font-size: 14px;
+}
 
+#calendar {
+	max-width: 1100px;
+	margin: 0 auto;
+}
+
+/*요일*/
+.fc-col-header-cell-cushion {
+	color: #000;
+}
+
+.fc-col-header-cell-cushion:hover {
+	text-decoration: none;
+	color: #000;
+}
+/*일자*/
+.fc-daygrid-day-number {
+	color: #000;
+	font-size: 1em;
+}
+
+/*more버튼*/
+.fc-daygrid-more-link.fc-more-link {
+	color: #000;
+}
+/*일정시간*/
+.fc-daygrid-event>.fc-event-time {
+	color: #000;
+}
+/*시간제목*/
+.fc-daygrid-dot-event>.fc-event-title {
+	color: #000 !important;
+}
+/*month/week/day*/
+.fc-button-active {
+	border-color: #ffc107 !important;
+	background-color: #ffc107 !important;
+	color: #000 !important;
+	font-weight: bold !important;
+}
+/*노란버튼*/
+.btn-warning {
+	font-weight: bold;
+}
+</style>
+</head>
 <th:block layout:fragment="hostcontent">
+<script src='/assets/fullcalendar/dist/index.global.js'></script>
 
 	<div class="page-content">
 		<!-- Main__container Start-->
@@ -229,12 +283,18 @@
 												<div class="tabs__wrapper tabs__wrapper--v3">
 													<div class="tabs__filter">
 														<ul class="nav nav-tabs" id="myTab" role="tablist">
+															<li class="nav-item" role="presentation">
+																<button class="nav-link" id="electronics-tab"
+																	data-bs-toggle="tab" data-bs-target="#electronics-tab-pane"
+																	type="button" role="tab" aria-controls="electronics-tab-pane"
+																	aria-selected="false">예약현황</button>
+															</li>
 															<th:block
 																th:each="courtDetail, stat : ${courtDetail.crtDetailList}">
 																<li class="nav-item" role="presentation">
 																	<button class="nav-link" id="home-tab"
 																		data-bs-toggle="tab" data-bs-target="#home-tab-pane"
-																		th:attrappend="data-bs-target=${stat.index}"
+																		th:attrappend="data-bs-target=${courtDetail.crtDetailNo}"
 																		type="button" role="tab" aria-controls="home-tab-pane"
 																		aria-selected="true">[[${stat.index}+1]]코트</button>
 																</li>
@@ -251,34 +311,21 @@
 																	type="button" role="tab" aria-controls="women-tab-pane"
 																	aria-selected="false">후기</button>
 															</li>
-															<li class="nav-item" role="presentation">
-																<button class="nav-link" id="electronics-tab"
-																	data-bs-toggle="tab"
-																	data-bs-target="#electronics-tab-pane" type="button"
-																	role="tab" aria-controls="electronics-tab-pane"
-																	aria-selected="false">문의사항</button>
-															</li>
+															
 														</ul>
 													</div>
 												</div>
 												<div class="tab-content" id="myTabContent">
 													<th:block
 														th:each="courtDetail, stat : ${courtDetail.crtDetailList}">
-														<div class="tab-pane fade firstload" id="home-tab-pane"
-															th:attrappend="id=${stat.index}" role="tabpanel"
+														<div class="tab-pane fade" id="home-tab-pane"
+															th:attrappend="id=${courtDetail.crtDetailNo}" role="tabpanel"
 															aria-labelledby="home-tab" tabindex="0">
 															<div class="content__body" style="padding-top: 10px;">
-																<div class="col-md-6"
-																	style="margin-left: 50px; margin-bottom: 50px; margin-right: 150px; width: 25.5%; display: inline-block; float: left">
-																	<h5>날짜 선택</h5>
-																	<input type="date"
-																		class="form-control flatpickr-always-open"
-																		placeholder="Select date..">
-																</div>
-																<div class="col-md-6"
-																	style="width: 75.5; display: inline-block; float: left">
-																	<h5>예약 시간 조회</h5>
-																	<div style="overflow: hidden">
+																<div class="col-md-6" 
+																	style="display: inline-block; float: center; margin-left: 25%">
+																	
+																	<!-- <div style="overflow: hidden">
 																		<table>
 																			<thead>
 																				<tr>
@@ -322,7 +369,7 @@
 																				</tr>
 																			</tbody>
 																		</table>
-																	</div>
+																	</div> -->
 																	<br>
 																	<div class="card">
 																		<div class="row">
@@ -367,9 +414,18 @@
 																					style="width: 30%; display: inline-block;">[[${stat.index}+1]]코트
 																					세부 삭제하기</button> -->
 																			</div>
+																			<br><br><br><br><br>
 																		</div>
 																	</div>
 																</div>
+																<!-- <div class="col-md-6"
+																style="margin-left: 50px; margin-bottom: 50px; margin-right: 150px; width: 50%; display: inline-block; float: left">
+																	<h5>예약 현황</h5>
+																	<input type="date"
+																		class="form-control flatpickr-always-open"
+																		placeholder="Select date..">
+																	
+																</div> -->
 															</div>
 														</div>
 													</th:block>
@@ -458,12 +514,45 @@
 														role="tabpanel" aria-labelledby="women-tab" tabindex="0">
 														<div class="client__review"
 															style="padding: 10px; margin-bottom: 50px;">
-															<div class="outline"
+															<div class="table-responsive">
+																<table class="table" id="table1">
+																	<thead>
+																		<tr>
+																			<th>후기 번호</th>
+																			<th>이미지</th>
+																			<th>별점</th>
+																			<th>후기 내용</th>
+																			<th>작성자</th>
+																			<th>작성일자</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<th:block th:each="review : ${review}">
+																			<tr>
+																				<td>[[ ${review.reviewNo} ]]</td>
+																				<td>
+																				<th:block th:if="${review.attachPath != null}">
+																					<img th:src="${review.attachPath}" alt="avatar" style="width: 150px; overfit:cover"/>
+																				</th:block>
+																				<th:block th:unless="${review.attachPath != null}">
+																					<img th:src="/assets/img/default img.jpg" alt="avatar" style="overfit:cover"/>
+																				</th:block>
+																				</td>
+																				<td>[[ ${review.reviewStar} ]]</td>
+																				<td>[[ ${review.reviewCtt} ]]</td>
+																				<td>[[ ${review.memId} ]]</td>
+																				<td>[[ ${#dates.format(review.reviewWriteDate, 'yyyy-MM-dd')} ]]</td>
+																			</tr>
+																		</th:block>
+																	</tbody>
+																</table>
+															</div>
+															<!-- <div class="outline"
 																style="margin: 30px 0 30px 0; overflow: hidden;">
 																<h3 class="sec__title" style="margin: 0; float: left">Comments
 																	(2)</h3>
-															</div>
-															<div class="review__wrapper">
+															</div> -->
+															<!-- <div class="review__wrapper">
 																<div class="review__item">
 																	<div class="avatar">
 																		<img src="assets/img/shop/teni.jpg" alt="avatar" />
@@ -524,22 +613,17 @@
 																		</div>
 																	</div>
 																</div>
-															</div>
+															</div> -->
 														</div>
 													</div>
-													<div class="tab-pane fade" id="electronics-tab-pane"
+													<div class="tab-pane fade firstload" id="electronics-tab-pane"
 														role="tabpanel" aria-labelledby="electronics-tab"
 														tabindex="0">
-														<div class="content__body">
-															<p>Lorem ipsum dolor sit amet consectetur adipisicing
-																elit. Numquam, placeat quibusdam. Reiciendis veritatis
-																facere, perspiciatis unde nostrum hic deleniti, optio
-																quibusdam quae repellendus laboriosam aut perferendis quis
-																dolore, deserunt illo animi quod tempora adipisci
-																consequatur enim! Aspernatur corporis provident, iusto
-																laborum vero libero similique debitis inventore repellat
-																doloribus. Neque, ipsam!</p>
-														</div>
+														<br>
+															<div style="display: flex; justify-content: center;">
+																<div id='calendar' style="width: 70%; height: 100%"></div>
+															</div>
+														<br><br>
 													</div>
 												</div>
 											</div>
@@ -626,6 +710,115 @@
 		$('.firstload').eq(0).addClass('show active');
 		console.log('window');
 	})
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+		var allEvents = [];
+			let crtroomNo = `[[${param.crtroomNo}]]`;
+			$.ajax({
+				type: 'get',
+				url: 'hostReserve',
+				data: {crtroomNo},
+				success: function(result){
+					console.log(result);
+					result.forEach(event => {
+						allEvents.push({
+							title : event.crtroomName,
+							start : event.reserveDate,
+							groupId : event.reserveStateName,
+							writer : event.memId,
+							content : event.reserveTimeName,
+							id : event.reservePrice,
+							allDay: true
+						})
+					})
+					callFull();
+				},
+				error: function(err){
+					console.log(err);
+				}
+			})
+		
+
+		//fullcalendar 기능 호출
+		function callFull() {
+
+			var calendarEl = document.getElementById('calendar');
+			var calendar = new FullCalendar.Calendar(calendarEl, {
+				headerToolbar : {
+					left : 'prev,next today',
+					center : 'title',
+					right : 'dayGridMonth,timeGridWeek,timeGridDay'
+				},
+				initialDate : new Date(),
+				navLinks : true, // can click day/week names to navigate views
+				selectable : false,
+				selectMirror : true,
+				eventClick : function(arg) {
+					console.log(arg);
+					Swal.fire({
+						title: "예약 정보",
+						html: "<br><div><strong>코트장 이름:&nbsp;&nbsp;&nbsp;</strong>"+arg.event.title+"</div><br>"
+							+"<div><strong>예약날짜:&nbsp;&nbsp;&nbsp;</strong>"+dateToFormat(arg.event.start)+"</div><br>"
+							+"<div><strong>예약시간:&nbsp;&nbsp;&nbsp;</strong>"+arg.event.extendedProps.content+"</div><br>"
+							+"<div><strong>예약자:&nbsp;&nbsp;&nbsp;</strong>"+arg.event.extendedProps.writer+"</div><br>"
+							+"<div><strong>예약금액:&nbsp;&nbsp;&nbsp;</strong>"+arg.event.id+" 원</div><br>"
+							+"<div><strong>예약상태:&nbsp;&nbsp;&nbsp;</strong>"+arg.event.groupId+"</div>",
+	      	            showCancelButton: false,
+	      	            confirmButtonColor: 'orange',
+	      	            cancelButtonColor: '#d33',
+	      	            confirmButtonText: 'OK'
+					})
+					},
+					eventBorderColor: '#343a40',
+					eventBackgroundColor : '#343a40',
+					editable : true,
+					dayMaxEvents : true, // allow "more" link when too many events
+					events : allEvents
+				})
+				calendar.render();
+			}
+		});
+
+		function dateToFormat(date) {
+		    var year = date.getFullYear();
+	
+		    var month = date.getMonth() + 1;
+		    if (month < 10)  {
+		        month = '0' + month;
+		    }
+	
+		    var date = date.getDate();
+		    if (date < 10) {
+		        date = '0' + date;
+		    }
+		    
+		    return year + '/' + month + '/' + date;
+		}
+		
+		//
+		function dateToMonth(date){
+			var month = date.getMonth() + 1;
+			return month;
+		}
+		
+		//이전,다음 달 값 가져오기
+		$('button.fc-prev-button').click(function(){
+			var date = $('#calendar').fullCalendar('getDate');
+			date = convertDate(date);
+			var MonthEvents = [];
+			console.log(date);
+			if(allEvents.start == dateToMonth(date)){
+				MonthEvents.push(date);
+			}
+			var count = MonthEvents.length;
+			$('#MonthCount').innerText = count;
+		})
+		$('button.fc-next-button').click(function(){
+			var date = $('#calendar').fullCalendar('getDate');
+			convertDate(date);
+		})
+		
 </script>
 </th:block>
 

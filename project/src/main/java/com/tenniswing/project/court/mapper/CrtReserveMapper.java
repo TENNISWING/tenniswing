@@ -24,6 +24,9 @@ public interface CrtReserveMapper {
 		// 호스트별 예약 리스트 조회
 		public List<CrtReserveVO> selectAllCrtReserve(String hostId);
 		
+		// 코트별 예약 리스트
+		public List<CrtReserveVO> selectAllCrtDeReserve(CrtReserveVO crtReserveVO);
+		
 		// 호스트별 환불 리스트 조회
 		public List<CrtReserveVO> selectAllCrtRefund(String hostId);
 		
