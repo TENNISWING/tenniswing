@@ -4874,7 +4874,7 @@ h4 {
   position: relative;
 }
 .cart__action__btn .cart__btn .btn {
-  width: 120px;
+  width: auto;
   height: 40px;
 }
 @media screen and (max-width: 1440px) {

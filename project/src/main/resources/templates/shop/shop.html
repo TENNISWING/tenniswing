@@ -399,7 +399,7 @@
 	<!-- Trending Section End -->
 	
 	<!-- 페이징 처리 -->
-	<script type="text/javascript">
+	<script th:inline="javascript">
 		prodPage(1);
 		//changePrice();
 		
@@ -644,7 +644,7 @@
 				let prodNo = temp.split('_');
 				console.log(prodNo[1]);
 				
-				if(cartMemId == "anonymousUser"){
+				if(wishMemId == "anonymousUser"){
 					Swal.fire({
 						title: "로그인 확인",
 						html: `로그인이 필요한 서비스입니다.<br>
@@ -662,7 +662,48 @@
 						  }
 					})
 				} else {
+					let objData = {};
+					objData.memId = wishMemId;
+					objData.prodNo = prodNo[1];
 					
+					console.log('=='+objData);
+					
+					// 위시리스트에 상훔 존재하는지 확인
+					$.ajax('selectWish', {
+						type : 'post',
+						contentType : 'application/json',
+						data : JSON.stringify(objData)
+					})
+					.done(result => {
+						if(result){
+							Swal.fire({
+								  icon: "info",
+								  title: "위시리스트",
+								  text: "이미 존재하는 상품입니다."
+							});
+							return;
+						} else {
+							// 위시리스트에 상훔 등록							
+							$.ajax('insertWish', {
+								type : 'post',
+								contentType : 'application/json',
+								data : JSON.stringify(objData)
+							})
+							.done(result => {
+								if(result){
+									Swal.fire({
+										  icon: "success",
+										  title: "위시리스트",
+										  text: "위시리스트가 추가되었습니다.",
+									})
+								}
+							})
+							.fail(err => {
+								console.log(err);
+								location.reload();
+							})
+						}
+					})
 				}
 			})
 		}
@@ -681,7 +722,7 @@
 		});
 	</script>
 	<script>
-		new Swiper(".swiper-wrapper", {
+		new Swiper(".trending__Swiper", {
 			/* loop : true, */
 			loopPreventsSliding : true,
 			grabCursor : true,

@@ -110,7 +110,7 @@
 }
 
 .mctdeall {
-	font-family: NanumSquareNeo-Variable;
+	font-family: 'Noto Sans KR', sans-serif !important;
 }
 
 .modal-title {
@@ -154,11 +154,11 @@
 }
 
 .matchdate {
-	font-family: NanumSquareNeo-Variable;
+	font-family: 'Noto Sans KR', sans-serif !important;
 }
 
 .mcardbody {
-	font-family: NanumSquareNeo-Variable;
+	font-family: 'Noto Sans KR', sans-serif !important;
 }
 
 .mcfilter {
@@ -180,16 +180,16 @@
 }
 
 .msection {
-	font-family: NanumSquareNeo-Variable;
+	font-family: 'Noto Sans KR', sans-serif !important;
 }
 
 .mdttitle {
-	font-family: NanumSquareNeo-Variable;
+	font-family: 'Noto Sans KR', sans-serif !important;
 }
 
 .miconimg {
-margin-right: 6px;
-margin-bottom: 1px;
+/* margin-right: 6px; */
+margin-bottom: 3px;
 }
 
 .matchmenu {
@@ -198,13 +198,14 @@ margin-bottom: 1px;
 
 .matchsidevar {
 	justify-content: space-evenly;
+  gap: 10rem;
 }
 
 .matchsidevar a {
-	font-family: NanumSquareNeo-Variable;
-	margin-top: 5px;
-    font-size: 15px;
-    margin-right: 45px;
+	font-family: 'Noto Sans KR', sans-serif !important;
+	/* margin-top: 5px; */
+    font-size: 1.02rem;
+    /* margin-right: 45px; */
 }
 
 .bg-green{
@@ -216,7 +217,7 @@ margin-bottom: 1px;
 }
 
 .mtitle {
-    font-family: NanumSquareNeo-Variable;
+    font-family: 'Noto Sans KR', sans-serif !important;
     text-align: center;
 }
 
@@ -349,9 +350,9 @@ margin-bottom: 1px;
 }
 
 /* matchdetail bootstrap css start */
-trap snippet, You can copy and paste the following css code inside a page with bootstrap 4.4.1 included, to get the result that you can see in the preview selection
+/* trap snippet, You can copy and paste the following css code inside a page with bootstrap 4.4.1 included, to get the result that you can see in the preview selection */
 
-body{margin-top:20px;}
+/* body{margin-top:20px;} */
 .blog-listing {
     padding-top: 30px;
     padding-bottom: 30px;
