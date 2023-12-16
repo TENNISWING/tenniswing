@@ -27,6 +27,11 @@
 svg, path, i {
 	pointer-events: none;
 }
+
+.editDelBtn {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -38,206 +43,91 @@ svg, path, i {
 			<!-- Product List Start -->
 			<div class="row">
 				<div class="col-12">
-					<div class="dashboard__breadcrumb">
-						<div class="breadcrumb__meta">
-							<ul style="padding: 0">
-								<li><a href="admin_member" class="link"><i
-										class="fa-solid fa-arrow-left me-2"></i> Back</a></li>
-							</ul>
-						</div>
-					</div>
+			
 					<div class="dashboard__header">
 						<div class="d__header--left">
-							<h2 class="title">회원 상세</h2>
+							<h2 class="title">공지사항 게시글</h2>
 						</div>
 					</div>
 
-					<form action="#" class="dashboard__form">
-						<div class="row">
-							<div class="col-xxl-4">
-								<div class="dashboard-block">
-									<div class="dashboard-block__title">
-										<h4>프로필 사진</h4>
-									</div>
-									<div class="card block__card">
-										<div class="upload__drag p-0">
-											<!-- th:src="${attachList}" -->
-											<img th:src="${member.attachPath}" id="img"
-												alt="product-image" />
-										</div>
-									</div>
-									<div></div>
+					<div class="container">
+        <!-- 테이블시작  -->
+        <div class="container mt-5">
+            <div class="dashboard-block">               
+                <div class="form__wrapper form-padding">
+                    <div class="flex__form c-3">
+                        <div class="form-group">
+                            <label for="product_name">제목</label>
+                            <div th:text="${notice.brdTitle}"></div>
+                        </div>
+						
+                     
+                        <div class="form-group">
+                            <label for="slug">작성자</label>
+                            <div th:text="${notice.name}"></div>
+                        </div>
+                         <div class="form-group">
+	                            <label for="slug">조회수</label>
+	                            <div th:text="${notice.brdHit}"></div>
+	                        </div>
+	                        
+                        <div class="flex__form c-3">
+                        	   <div class="form-group">
+                            <label for="stock">작성 일자</label>
+                            <div th:text="${#dates.format(notice.brdWriteDate,'yyyy-MM-dd')}"></div>
+                        </div>
+	                       
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group" style="height:200px;">
+                        <label for="description">내용</label>
+                        <div th:utext="${notice.brdCtt}"></div>
+                    </div>
 
-								</div>
-							</div>
+                </div>
+            </div>
 
-							<div class="col-xxl-8">
-								<div class="dashboard-block">
-									<div class="dashboard-block__title">
-										<h4>기본 정보</h4>
-									</div>
-									<div class="form__wrapper form-padding">
-										<div class="flex__form c-3">
-											<div class="form-group">
-												<label for="MemNo">회원 번호</label> <input type="text"
-													name="memNo" id="memNo" class="form-control"
-													placeholder="회원 번호" th:value="${member.memNo}"
-													readonly="readonly" />
-											</div>
-											<div class="form-group">
-												<label for="name">회원 아이디</label> <input type="text"
-													name="name" id="name" class="form-control"
-													placeholder="아이디" th:value="${member.memId}"
-													readonly="readonly" />
-											</div>
-											<div class="form-group">
-												<label for="product_brand">회원 이름</label> <input type="text"
-													name="product_brand" id="product_brand"
-													class="form-control" placeholder="이름"
-													th:value="${member.name}" readonly="readonly" />
-											</div>
-										</div>
-										<div class="flex__form c-3">
-											<div class="form-group">
-												<label for="nick">회원 닉네임</label> <input type="text"
-													name="nick" id="nick" class="form-control"
-													placeholder="닉네임" th:value="${member.nick}"
-													readonly="readonly" />
-											</div>
-											<div class="form-group">
-												<label for="phoneNo">폰 번호</label> <input type="text"
-													name="phoneNo" id="phoneNo" class="form-control"
-													placeholder="폰 번호" th:value="${member.phoneNo}"
-													readonly="readonly" />
-											</div>
-											<div class="form-group">
-												<label for="gen">성별</label> <input type="text" name="gen"
-													id="gen" class="form-control" placeholder="성별"
-													th:value="${member.gen}" readonly="readonly" />
-											</div>
-										</div>
-										<div class="flex__form c-3">
-											<div class="form-group">
-												<label for="mannerPoint">매너점수</label> <input type="text"
-													name="mannerPoint" id="mannerPoint" class="form-control"
-													placeholder="매너점수" th:value="${member.mannerPoint}"
-													readonly="readonly" />
-											</div>
-											<div class="form-group">
-												<label for="joinDate">가입일</label> <input type="text"
-													name="JoinDate" id="joinDate" class="form-control"
-													placeholder="회원 가입일"
-													th:value="${#dates.format(member.joinDate, 'yyyy-MM-dd')}"
-													readonly="readonly" />
-											</div>
-											<div class="form-group">
-												<label>회원 상태</label>
-												<div class="custom-checkbox">
-													<th:block th:if="${member.state} == '정상'">
-														<input type="checkbox" name="state" id="state"
-															checked="checked" />
-													</th:block>
-													<th:block th:unless="${member.state} == '정상'">
-														<input type="checkbox" name="state" id="state"
-															readonly="readonly" />
-													</th:block>
-													<label for="state"> <span class="active">정상</span>
-														<span class="inactive">정지</span>
-													</label>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-			<!-- Product List End -->
-		</div>
-		<!-- Main Inner Wrapper End -->
-	</div>
-	<!-- Main__container End-->
+            <div class="editDelBtn">
 
-	<script>
-	//회원탈퇴 버튼
-	$('#state').on('change', function(e){
-		
-		
-		if(!$(e.target).is(':checked')){			
-			 Swal2.fire({
-				icon: "info",
-				html: "회원을 정지시키겠습니까?",
-				showCancelButton: true,
-				confirmButtonText: "네",
-				cancelButtonText: "아니오"
-			}).then(result => {
-				if(result.isConfirmed){					
-				let memId = '[[${member.memId}]]'
-				$.ajax({
-		            type: 'POST',
-		            url: 'memberquit',
-		            contentType: 'application/json',
-		            data: JSON.stringify({ memId, div:'bh2' }),
-		            success: function (result) {   
-		                if (result > 0) {
-		                    Swal2.fire({
-		                        icon: "success",
-		                        title: "회원정지를 완료하였습니다.",
-		                    })                  
-		                } else {
-		                    Swal2.fire({
-		                        icon: "error",
-		                        title: "회원정지 실패",
-		                    })
-		                }
-		            },
-		            error: () => console.log(error)
-		        })
-				}else{
-					$(e.target).prop('checked',true);
+                <div class="btn__group flex-wrap">
+                    <button type="button" class="btn btn-primary -o me-auto"
+                        th:onclick="|location.href='@{admin_notice}'|">목록으로</button>
+                    <button type="button" class="btn btn-outline brdDelBtn" th:id="${notice.brdWrtNo}">삭제</button>
+                    <button type="submit" class="btn btn-gray-filled" style="margin-left:20px;"
+                    th:onclick="|location.href='@{/adminEdit_notice(brdWrtNo=${notice.brdWrtNo})}'|">수정</button>
+                </div>
+            </div>
+
+        </div>
+        <!-- 테이블 end -->
+</div></div></div></div>
+    </div>
+
+    <script>
+	$('.brdDelBtn').on('click', function(e){
+		let brdWrtNo = $(e.target).attr("id");
+       	$.ajax({
+        		type:'POST',
+        		url: 'brdDelete',
+        		data:{brdWrtNo},
+        		success:function(result){
+        			if(result){
+        				alert("게시글 정상삭제");
+        				location.href="/admin_notice";
+        			}else{
+        				alert("삭제실패. 재시도해주세요.");
+        			}
+        		},
+        		error : function() {
+					alert("삭제 실패");
 				}
-	        })
-	        
-		}else{
-			 Swal2.fire({
-					icon: "info",
-					html: "회원을 복귀시키겠습니까?",
-					showCancelButton: true,
-					confirmButtonText: "네",
-					cancelButtonText: "아니오"
-				}).then(result => {
-					if(result.isConfirmed){					
-					let memId = '[[${member.memId}]]'
-					$.ajax({
-			            type: 'POST',
-			            url: 'memberquit',
-			            contentType: 'application/json',
-			            data: JSON.stringify({ memId, div:'bh1' }),
-			            success: function (result) {   
-			                if (result > 0) {
-			                    Swal2.fire({
-			                        icon: "success",
-			                        title: "회원정지를 취소하였습니다.",
-			                    })                  
-			                } else {
-			                    Swal2.fire({
-			                        icon: "error",
-			                        title: "회원정지 취소 실패",
-			                    })
-			                }
-			            },
-			            error: () => console.log(error)
-			        })
-					}else{
-						$(e.target).prop('checked', false);
-					}
-		        })
-		}
+		})
 	})
-	</script>
 
+
+    </script>
+	
 
 	<script src="assets/extensions/jquery/jquery.min.js"></script>
 	<script
