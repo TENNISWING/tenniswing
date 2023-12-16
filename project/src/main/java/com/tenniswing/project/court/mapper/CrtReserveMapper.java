@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.tenniswing.project.court.service.CrtRefundVO;
 import com.tenniswing.project.court.service.CrtReserveVO;
+import com.tenniswing.project.court.service.HostDashBoardVO;
 
 public interface CrtReserveMapper {
 	// 예약등록
@@ -41,4 +42,7 @@ public interface CrtReserveMapper {
 		
 		// 예약 시간 지나면 자동 상태변경
 		public int updateState(CrtReserveVO crtReserveVO);
+		
+		// 대시보드 예약금액, 예약건수
+		public HostDashBoardVO hostMonthReserve();
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.tenniswing.project.court.mapper.CrtReserveMapper;
 import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.court.service.CrtReserveVO;
+import com.tenniswing.project.court.service.HostDashBoardVO;
 
 @Service
 public class CrtReserveServiceImpl implements CrtReserveService {
@@ -84,6 +85,11 @@ public class CrtReserveServiceImpl implements CrtReserveService {
 	@Override
 	public List<CrtReserveVO> selectAllCrtDeReserve(CrtReserveVO crtReserveVO) {
 		return crtReserveMapper.selectAllCrtDeReserve(crtReserveVO);
+	}
+
+	@Override
+	public HostDashBoardVO hostMonthReserve() {
+		return crtReserveMapper.hostMonthReserve();
 	}
 
 }
