@@ -245,4 +245,13 @@ public class HostController {
 		model.addAttribute("calcList", crtReserveService.selectAllCrtCalc(hostId));
 		return "host/hostCalcList";
 	}
+	
+	
+	@GetMapping("/host")
+	public String hostPage(Model model) { 		
+		model.addAttribute("hostMonthReserve", crtReserveService.hostMonthReserve());
+		model.addAttribute("hostMonthRefund", crtReserveService.hostMonthRefund());
+		model.addAttribute("todayReserve", crtReserveService.todayReserve());
+		return "host/dashboard";
+	}
 }

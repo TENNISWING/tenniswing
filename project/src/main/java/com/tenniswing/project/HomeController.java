@@ -12,9 +12,6 @@ public class HomeController {
 		return "admin/dashboard";
 	}
 	
-	@GetMapping("/host")
-	public String hostPage(Model model) { 			
-		return "host/dashboard";
-	}
+	
 }
 

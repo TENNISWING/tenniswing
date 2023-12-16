@@ -92,4 +92,14 @@ public class CrtReserveServiceImpl implements CrtReserveService {
 		return crtReserveMapper.hostMonthReserve();
 	}
 
+	@Override
+	public HostDashBoardVO hostMonthRefund() {
+		return crtReserveMapper.hostMonthRefund();
+	}
+
+	@Override
+	public List<CrtReserveVO> todayReserve() {
+		return crtReserveMapper.todayReserve();
+	}
+
 }

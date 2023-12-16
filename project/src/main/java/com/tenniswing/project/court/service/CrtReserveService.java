@@ -38,5 +38,10 @@ public interface CrtReserveService {
 		
 		// 대시보드 예약금액, 예약건수
 		public HostDashBoardVO hostMonthReserve();
-
+		
+		// 대시보드 환불금액, 환불건수
+		public HostDashBoardVO hostMonthRefund();
+		
+		// 오늘의 예약
+		public List<CrtReserveVO> todayReserve();
 }

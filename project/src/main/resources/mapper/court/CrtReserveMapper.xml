@@ -238,4 +238,32 @@
 							where reserve_date <![CDATA[<]]> #{reserveDate})
 		AND reserve_state = 'i1'
 </update>
+
+<!-- 이번달 예약금액, 예약건수 -->
+<select id="hostMonthReserve" resultType="HostDashBoardVO">
+ 	SELECT sum(r.reserve_price) month_reserve_price, count(*) month_reserve_count
+	FROM reserve r JOIN reserve_detail_inf rd
+	                ON r.reserve_no = rd.reserve_no
+	WHERE EXTRACT (month from rd.reserve_date) = EXTRACT (month from SYSDATE)
+</select>
+  	
+<!-- 이번달 환불금액, 환불건수 -->
+<select id="hostMonthRefund" resultType="HostDashBoardVO">
+  	SELECT sum(rc.refund_price) month_refund_price, count(*) month_refund_count
+	FROM reserve_cancel rc
+	WHERE EXTRACT (month from rc.cancel_date) = EXTRACT (month from SYSDATE)
+</select>
+ 
+<!-- 오늘의 예약 -->
+<select id="todayReserve" resultType="CrtReserveVO">
+	SELECT r.mem_id
+			, c.crtroom_name
+			, rd.reserve_date 
+	FROM reserve r JOIN crtroom c
+                   ON r.crtroom_no = c.crtroom_no
+                   JOIN reserve_detail_inf rd
+                   ON r.reserve_no = rd.reserve_no
+	WHERE TO_CHAR(r.pay_date,'yyyy-MM-dd') = TO_CHAR(sysdate,'yyyy-MM-dd')
+</select>
+
 </mapper>
