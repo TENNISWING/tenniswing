@@ -48,7 +48,7 @@
 													<th>예약시간</th>
 													<th>결제날짜</th>
 													<th>예약상태</th>
-													<th>Button</th>
+													<!-- <th>Button</th> -->
 												</tr>
 											</thead>
 											<tbody>
@@ -58,7 +58,7 @@
 															${reserveList.reserveNo} ]]</td>
 														<td>[[ ${reserveList.crtroomName} ]]</td>
 														<td>[[ ${reserveList.memId} ]]</td>
-														<td>[[ ${reserveList.reservePrice} ]]</td>
+														<td>[[ ${#numbers.formatInteger(reserveList.reservePrice, 3, 'COMMA') + '원'} ]]</td>
 														<td>[[ ${#dates.format(reserveList.reserveDate,'yyyy-MM-dd')} ]]</td>
 														<td>[[ ${reserveList.reserveTimeName} ]]</td>
 														<td>[[
@@ -69,13 +69,13 @@
 															<td th:case="i2"><span class="badge bg-light-success">[[ ${reserveList.reserveStateName} ]]</span></td>
 															<td th:case="i3"><span class="badge bg-light-danger">[[ ${reserveList.reserveStateName} ]]</span></td>
 														</th:block>
-														<td>
+														<!-- <td>
 															<div
 																th:onclick="|location.href='@{/hostCourtDetail(crtroomNo=${reserveList.crtroomNo})}'|"
 																class="btn icon btn-primary">
 																<i class="icon dripicons dripicons-enter"></i>
 															</div>
-														</td>
+														</td> -->
 													</tr>
 												</th:block>
 											</tbody>

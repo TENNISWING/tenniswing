@@ -9,5 +9,6 @@ public interface AdminCourtCalcService {
 	//관리자 정산하기
 	public int insertAdminCourtCalc(List<CalcTableVO> list);
 	
-	
+	//관리자 정산 내역 조회
+	public List<CalcTableVO> selectPreviousCourtCalc(CalcTableVO calcTableVO);
 }

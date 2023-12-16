@@ -14,4 +14,7 @@ public interface AdminCourtCalcMapper {
 	
 	//정산 내역 확인
 	public int selectHostCourtCalc(AdminCourtCalcVO adminCalcVO);
+	
+	//관리자 정산 내역 조회
+	public List<CalcTableVO> selectPreviousCourtCalc(CalcTableVO calcTableVO);
 }
