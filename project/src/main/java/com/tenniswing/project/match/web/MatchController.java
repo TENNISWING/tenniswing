@@ -34,7 +34,7 @@ public class MatchController {
 	// ----------매치----------//
 	// 매치 홈
 	@GetMapping(value = { "/", "/home" })
-	public String matchPage(Model model) {
+	public String matchPage(Model model) {		
 		List<MatchVO> viewList = matchService.matchRecentView();
 		model.addAttribute("viewList", viewList);
 		return "match/match";
@@ -49,10 +49,28 @@ public class MatchController {
 		map.put("matchList", list);
 		return map;
 	}
-
+	
+	@GetMapping("regiBtnAjax")
+	@ResponseBody
+	public int regiBtnAjax(MatchVO matchVO) {
+		String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(memId.equals("anonymousUser")){
+           return 0;
+        }else {
+           return 1;
+        }
+	}	
+	
 	@GetMapping("matchdetail")
 	public String matchdetailPage(Model model, MatchVO matchVO) {
-		model.addAttribute("matchInfo", matchService.selectMatch(matchVO));
+		String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+		matchVO =  matchService.selectMatch(matchVO);
+		if (memId.equals(matchVO.getMemId())) {
+			model.addAttribute("auth", true);
+		} else {
+			model.addAttribute("auth", false);
+		}
+		model.addAttribute("matchInfo", matchVO);
 		return "match/matchdetail";
 	}
 
@@ -163,8 +181,16 @@ public class MatchController {
 	@GetMapping("clubmatchdetail")
 	public String clubmatchdetailPage(Model model, MatchVO matchVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+		matchVO =  matchService.selectClubMatch(matchVO);
+		if (memId.equals(matchVO.getMemId())) {
+			model.addAttribute("auth", true);
+		} else {
+			model.addAttribute("auth", false);
+		}
+		model.addAttribute("matchInfo", matchVO);
 		model.addAttribute("clubList",matchService.selectMyClub(id));
-		model.addAttribute("clubMatchInfo", matchService.selectClubMatch(matchVO));
+		model.addAttribute("clubMatchInfo", matchVO);
 		return "match/clubmatchdetail";
 	}
 
@@ -418,7 +444,14 @@ public class MatchController {
 	
 	@GetMapping("startermatchdetail")
 	public String startermatchdetailPage(Model model, MatchVO matchVO) {
-		model.addAttribute("starterMatchInfo", matchService.selectStarterMatch(matchVO));
+		String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+		matchVO =  matchService.selectStarterMatch(matchVO);
+		if (memId.equals(matchVO.getMemId())) {
+			model.addAttribute("auth", true);
+		} else {
+			model.addAttribute("auth", false);
+		}
+		model.addAttribute("starterMatchInfo", matchVO);
 		return "match/startermatchdetail";
 	}
 
