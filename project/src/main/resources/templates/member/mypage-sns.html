@@ -42,7 +42,8 @@
 								<tbody>
 									<th:block th:each="l : ${like}">
 										<tr class="snsLike"
-											th:onclick="|location.href='@{/snsDetail(snsWrtNo=${l.snsWrtNo})}'|">
+											th:onclick="|location.href='@{/snsDetail(snsWrtNo=${l.snsWrtNo})}'|"
+											style="cursor:pointer;">
 											<td>[[${lStat.count}]]</td>
 											<td>[[${l.snsTitle}]]</td>
 											<td>[[${#dates.format(l.likeInDate,'yyyy-MM-dd')}]]</td>
@@ -66,7 +67,8 @@
 								<tbody>
 									<th:block th:each="s : ${scrap}">
 										<tr class="snsScrap"
-											th:onclick="|location.href='@{/snsDetail(snsWrtNo=${s.snsWrtNo})}'|">
+											th:onclick="|location.href='@{/snsDetail(snsWrtNo=${s.snsWrtNo})}'|"
+											style="cursor:pointer;">
 											<td>[[${sStat.count}]]</td>
 											<td>[[${s.snsTitle}]]</td>
 											<td>[[${#dates.format(s.scrapInDate,'yyyy-MM-dd')}]]</td>

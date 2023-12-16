@@ -66,7 +66,7 @@
 																	th:if="${simg.attachExt=='.mp4'}"
 																	th:classappend="${simgStat.count==1}?active:_">
 																	<video class="main-top-promotion-video"
-																		autoplay="autoplay" loop="loop" muted="muted">
+																		autoplay="autoplay" loop="loop"  controls="controls">
 																		<source th:src="${simg.attachPath}" type="video/mp4">
 																	</video>
 																</div>
