@@ -35,6 +35,10 @@ section pre{
 	    font-size: 17px;
 	
 }
+.repBody{
+	padding:0px !important;
+	
+}
 
 </style>
 <!-- tagify 소스 다운 -->
@@ -73,22 +77,15 @@ section pre{
 					<div class="swiper-wrapper">
 						<!-- Slides -->
 						<th:block th:each="s : ${snsList}">
-							<div class="swiper-slide" id="${s.snsWrtNo}">
+							<div class="swiper-slide" th:id="${s.snsWrtNo}">
 								<section id="content-types" style="height: 800px">
 									<div class="row">
 										<div class="snsdiv col-xl-12 border border-1 rounded-4">
-											<div class="card snsimg">
+											<div class="card snsimg mb-0">
 												<div class="card-content">
 													<div class="card-body">
 														<span class="card-title" style="font-weight: bold;">[[${s.snsTitle}]]</span>
 														<div class="edBtns" style="float: right;">
-														<!-- 	<i type="button"
-																class="fa-regular fa-pen-to-square editBtnClass"
-																th:onclick="|location.href='@{/snsEditForm(snsWrtNo=${s.snsWrtNo}, snsGrpNo=${s.snsGrpNo})}'|"
-																id="editSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i>
-															<i type="button"
-																class="fa-regular fa-trash-can delBtnClass"
-																id="delSnsBtn" th:attrappend="id=${s.snsWrtNo}"></i> -->
 														</div>
 														<br>
 
@@ -154,13 +151,13 @@ section pre{
 														<!-- 좋아요 버튼 -->
 														<li class="d-flex flex-column">
 															<div>
-																<a th:if="${s.likeNo>0}" class="btn icon btn-white">
+																<a th:if="${s.likeNo != null}" class="btn icon btn-white">
 																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC "
 																	th:data-likeno="${s.likeNo}"
 																	th:data-snsWrtNo="${s.snsWrtNo}"
 																	id="likeBtn" th:attrappend="id=${sStat.count}">[[${s.likeCnt}]]</i>
 																</a>
-																<a th:unless="${s.likeNo>0}" class="btn icon btn-white"
+																<a th:unless="${s.likeNo != null}" class="btn icon btn-white"
 																	>
 																	<i class="fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active"
 																	th:data-likeno="${s.likeNo}" th:data-snsWrtNo="${s.snsWrtNo}" id="likeBtn"
@@ -212,11 +209,13 @@ section pre{
 														<!-- 스크랩 버튼 -->
 														<li class="d-flex flex-column">
 															<div>
-																<a th:if="${s.scrapNo>0}" class="btn icon btn-white bmark"> 
+																<a th:if="${s.scrapNo != null}" class="btn icon btn-white bmark"> 
 																	<i class="fa-solid fa-bookmark fs-5 text-secondary iBmark" th:data-scrapno="${s.scrapNo}" th:data-snswrtno="${s.snsWrtNo}" id="scrapBtn" th:attrappend="id=${sStat.count}"></i>
 																</a>
-																<a th:unless="${s.scrapNo>0}" class="btn icon btn-white bmark"> 
-																	<i class="fa-regular fa-bookmark fs-5 text-secondary iBmark active" th:data-scrapno="${s.scrapNo}" th:data-snswrtno="${s.snsWrtNo}" id="scrapBtn" th:attrappend="id=${sStat.count}"></i>
+																<a th:unless="${s.scrapNo != null}" class="btn icon btn-white bmark"> 
+																	<i class="fa-regular fa-bookmark fs-5 text-secondary iBmark active" th:data-scrapno="${s.scrapNo}" th:data-snswrtno="${s.snsWrtNo}" id="scrapBtn" th:attrappend="id=${sStat.count}"
+																	data-swal-toast-template="#my-template"
+																	></i>
 																</a>
 															</div>
 														</li>
@@ -269,8 +268,8 @@ section pre{
 				</div>
 				<div class="modal-body">
 					<div class="card">
-						<div class="card-header"></div>
-						<div class="card-body">
+						<!-- <div class="card-header"></div> -->
+						<div class="card-body repBody">
 							<table class="table" id="tableRep">
 								<thead>
 									<tr>
@@ -315,8 +314,7 @@ section pre{
 	<script th:inline="javascript">
 
 	// scroll to element
-	const element = document.getElementById("row");
-	element.scrollIntoView();
+	document.querySelector('.snsdiv').scrollIntoView({ block: "end" });
 
 	let message = [[${message}]]
 	if(message!= null){
@@ -405,9 +403,11 @@ section pre{
 					+ "&title=" + title);
 		}
 
+
 		// 스크랩 등록, 삭제
 		$('.iBmark').on('click', function(e){
 			let snsWrtNo = $(this).attr('data-snswrtno');
+			let target = $(e.target);
 			if($(this).hasClass("active")){
 				console.log('액티브> 안눌린 스크랩버튼');
 				//인서트
@@ -421,12 +421,13 @@ section pre{
 							Swal.fire({
 								  position: "center",
 								  icon: "success",
-								  title: "스크랩되었습니다",
+								  title: "스크랩 되었습니다.",
 								  showConfirmButton: false,
 								  timer: 1500
 								});
-						$(e.target).attr('class','fa-solid fa-bookmark fs-5 text-secondary iBmark');
-						$(e.target).removeClass("active");
+						target.attr('class','fa-solid fa-bookmark fs-5 text-secondary iBmark');
+						target.attr('data-scrapNo', result)
+						target.removeClass("active");
 							
 						}
 						
@@ -444,10 +445,31 @@ section pre{
 	            	   type:'post',
 	            	   datatype:'json',
 	            	   success: function(result){
-	            		   if(result){
-	            		   alert("스크랩 delete 성공")
-	            		   $(e.target).attr('class','fa-regular fa-bookmark fs-5 text-secondary iBmark active');
-	            			   
+	            			if(result){
+	            		   		target.attr('class','fa-regular fa-bookmark fs-5 text-secondary iBmark active');
+	            		   		target.removeAttr('data-scrapNo');
+	            		    		Swal.fire({
+									  position: "center",
+									  icon: "warning",
+									  title: "스크랩 해제 되었습니다.",
+									  showConfirmButton: false,
+									  timer: 1500
+									}); 
+	            		/* 		Swal.bindClickHandler();
+	            				Swal.mixin({
+	            					  toast: true,
+	            					  position: 'center',
+	            					  icon:'info',
+	            					  title:'스크랩 해제 되었습니다.',
+	            					  iconColor: 'red',
+	            					  customClass: {
+	            					    popup: 'colored-toast',
+	            					  },
+	            					  showConfirmButton: false,
+	            					  timer: 1500,
+	            					  timerProgressBar: true,
+	            					  
+	            					}).bindClickHandler("data-swal-toast-template"); */
 	            		   }
 	            	 },
 	            	 error: function() {
@@ -456,13 +478,13 @@ section pre{
 				})
 			}
 		})
-			
+			//assets/img/sns/heart.png
 		
 		
 		
 		//좋아요 insert, delete
 		$('.likeBtnC').on('click', function(e){
-			
+			let target = $(e.target);
 			let snsWrtNo = $(this).attr('data-snsWrtNo');
 		      if($(this).hasClass("active")){
 	                console.log('액티브있는거찍는중');
@@ -473,15 +495,32 @@ section pre{
 							type : 'post',
 							datatype : 'text',
 							success : function(result) {
-								if(result==true){
+								Swal.fire({
+									 title: '좋아요 등록 완료!',
+									 text: '마이페이지에서 확인하실 수 있습니다.',
+									//background: "url(assets/img/sns/heartboom.gif)",
+									 backdrop: `
+										 	rgba(230, 134, 163, 0.3)
+										    url("assets/img/sns/heartboom.gif")
+										    center
+										    no-repeat
+										  `,
+									  //imageUrl: 'assets/img/sns/heartboom.gif',
+									  //imageWidth: 400,
+									  //imageHeight: 200,
+									  //imageAlt: 'Custom image',
+									  showConfirmButton: false,
+									  timer: 1500
+									})
 								
 									//location.href="/sns";
-									console.log($(e.target).children())
-									$(e.target).attr('class','fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC')
-									$(e.target).removeClass("active");
-									$(e.target).text(result.cnt);
+									console.log($(e.target))
+									target.attr('class','fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC')
+								    target.removeClass("active");
+									target.text(result.cnt);
+									target.attr('data-likeNo', result.likeNo);
 									
-								}
+								
 							},
 							error : function() {
 								alert("좋아요 실패")
@@ -496,10 +535,25 @@ section pre{
 	            	   type:'post',
 	            	   datatype:'json',
 	            	   success: function(result){
-	            		   alert("delete 성공")
-	            		   $(e.target).attr('class','fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active')
-	            		   $(e.target).text(result.cnt);
-	            	   }
+	            		   Swal.fire({
+	            		
+	            			   	 //icon: "info",
+	            			   	 backdrop: `
+										 	rgba(230, 134, 163, 0.3)`,
+	            			   	 //background: "rgba(230, 134, 163, 0.3)",
+								 title: '좋아요 취소',
+								 text:'좋아요가 해제 되었습니다.',
+								  showConfirmButton: false,
+								  timer: 1300
+								})
+	            		   //alert("delete 성공")
+	            		   target.attr('class','fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active')
+	            		   target.text(result.cnt);
+	            		   target.removeAttr('data-likeNo');
+	            	   },
+						error : function() {
+							alert("좋아요 취소 실패")
+						}
 	     
 	               })
 	           }
@@ -636,22 +690,48 @@ section pre{
         	console.log(cnt);
 
         	snsRepNo = $(e.target).closest('tr').prop('id');
-        	 $.ajax({
-        		type:'POST',
-        		url: 'snsReplyDel',
-        		data:{repNo: snsRepNo},
-        		dataType:'json',
-        		success:function(result){
-        			if(result>0){
-        				alert("정상삭제");
-        				getRepList(snsWrtNo)
-        			}
-        		},
-        		error : function() {
-					alert("삭제 실패");
+        	/* sweetalert */
+        		Swal.fire({
+				  title: "Are you sure?",
+				  text: "You won't be able to revert this!",
+				  icon: "warning",
+				  showCancelButton: true,
+				  confirmButtonColor: "#3085d6",
+				  cancelButtonColor: "#d33",
+				  confirmButtonText: "Yes, delete it!"
+				}).then((result) => {
+				  if (result.isConfirmed) {
+					   	 $.ajax({
+				        		type:'POST',
+				        		url: 'snsReplyDel',
+				        		data:{repNo: snsRepNo},
+				        		dataType:'json',
+				        		success:function(result){
+				        			if(result>0){
+				        				  Swal.fire({
+				        				      title: "Deleted!",
+				        				      text: "Your file has been deleted.",
+				        				      icon: "success"
+				        				    });
+				        				getRepList(snsWrtNo)
+				        			}
+				        		},
+				        		error : function() {
+									alert("삭제 실패");
 
-				}
-        	})
+								}
+				        	})
+				    
+				    
+				  }
+				});
+        	
+        	/* sweetalert end */
+        	
+        	
+        	
+        	
+     
         });
         
         // 대댓글 등록 이벤트

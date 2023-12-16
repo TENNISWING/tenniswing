@@ -61,14 +61,6 @@
 										<div class="form-body">
 											<div class="row">
 												<div class="col-12">
-													<div class="form-group mandatory">
-														<label for="password-vertical"
-															data-parsley-required="true" class="form-label">제목</label>
-														<input type="text" id="password-vertical"
-															class="form-control" name="snsTitle" placeholder="">
-													</div>
-												</div>
-												<div class="col-12">
 													<div class="form-group">
 														<div>
 															<label for="password-vertical"
@@ -76,7 +68,7 @@
 																등록</label>
 
 															<div class="input-group mb-3">
-																<select class="form-select" id="snsGrpNo" th:field="*{snsGrpNo}">
+																<select class="form-select" id="snsGrpNo" th:field="*{snsGrpNo}" required="required">
 																	<option selected value="">choose</option>
 																	<!-- <option value="">그룹선택안함</option> -->
 																	<th:block th:each="g : ${grpList}">
@@ -92,11 +84,20 @@
 														</div>
 													</div>
 													</div>
+												<div class="col-12">
+													<div class="form-group mandatory">
+														<label for="password-vertical"
+															data-parsley-required="true" class="form-label">제목</label>
+														<input type="text" id="password-vertical"
+															class="form-control" name="snsTitle" placeholder="" required="required">
+													</div>
+												</div>
+											
 													<div class="col-12">
 														<div class="form-group mandatory">
 															<label for="password-vertical" class="form-label">내용</label>
 															<textarea class="form-control"
-																id="exampleFormControlTextarea1" name="snsCtt" rows="3"></textarea>
+																id="exampleFormControlTextarea1" name="snsCtt" rows="3" required="required"></textarea>
 														</div>
 													</div>
 													<div class="col-12">
@@ -222,10 +223,10 @@
 					data: {grpName,attachPath},
 					type : 'post',
 					datatype : 'text',
-					success: function(result){
-						if(result>0){
+					success: function(data){
+						if(data.result>0){
 						alert("그룹 등록 성공");
-						location.reload();
+						$('#snsGrpNo').append(`<option selected value="` + data.resVO.snsGrpNo + `">`+ data.resVO.grpName +`</option>`);
 						}
 						$('.grpInput').val('');
 					},

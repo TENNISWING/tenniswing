@@ -271,15 +271,16 @@ public class CommunityController {
 	// sns 좋아요 등록
 	@PostMapping("snsLikeInsert")
 	@ResponseBody
-	public Map<String, String> insertLikeAjax(SnsVO snsVO) {
+	public Map<String, Object> insertLikeAjax(SnsVO snsVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		snsVO.setMemId(id);
-		System.out.println(snsVO);
-		Map<String, String> map = new HashMap<>();
+		//System.out.println(snsVO);
+		Map<String, Object> map = new HashMap<>();
 		
 		int result = snsService.insertLike(snsVO);
 		map.put("result", Integer.toString(result));
 		map.put("cnt", Integer.toString(snsService.selectLikeCnt(snsVO).getLikeCnt()));
+		map.put("likeNo", snsVO.getLikeNo());
 
 		return map;
 	}
@@ -304,9 +305,9 @@ public class CommunityController {
 	public int insertScrapAjax(SnsVO snsVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		snsVO.setMemId(id);
-		int result = snsService.insertScrap(snsVO);
+		snsService.insertScrap(snsVO);
 		
-		return result;
+		return snsVO.getScrapNo();
 	}
 	//스크랩 삭제 
 	@PostMapping("scrapDelete")
@@ -340,7 +341,7 @@ public class CommunityController {
 	// sns 그룹 등록
 	@PostMapping("snsGrpInsert")
 	@ResponseBody
-	public int snsGrpInsertAjax(SnsVO snsVO) {
+	public Map<String, Object> snsGrpInsertAjax(SnsVO snsVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		snsVO.setMemId(id);
 		System.out.println("그룹찍어봄" + snsVO);

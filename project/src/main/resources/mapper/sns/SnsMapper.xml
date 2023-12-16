@@ -451,7 +451,7 @@
 
 	</delete>
 
-	<!-- 첨부파일, 좋아요, 댓글, 그룹, sns 삭제 -->
+	<!-- 첨부파일, 좋아요, 댓글, 대댓글, 그룹, sns 삭제 -->
 	<delete id="deleteGrp" statementType="CALLABLE" parameterType="map">
 		{ call DELETE_GRP(
 				#{snsGrpNo, mode=IN, jdbcType=DECIMAL},
