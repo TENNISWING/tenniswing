@@ -17,7 +17,10 @@
 	    svg,
 	    path {
 	       pointer-events: none;
-	   }	
+	   }
+	   .modal-backdrop{
+	   		z-index: 10;
+	   }
 	</style>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -100,38 +103,7 @@
 														</div>
 													</td>
 												</tr>
-												<!-- Vertically Centered modal Modal -->
-											      <div class="modal fade" id="exampleModalCenter" th:attrappend="id=${c.crtroomNo}"
-											          aria-labelledby="exampleModalCenterTitle"
-											          tabindex="-1" aria-hidden="true">
-											          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-											              >
-											              <div class="modal-content">
-											                  <div class="modal-header">
-											                      <h5 class="modal-title">운영허가증
-											                      </h5>
-											                      <button type="button" class="close" data-bs-dismiss="modal"
-											                          aria-label="Close">
-											                          <i data-feather="x"></i>
-											                      </button>
-											                  </div>
-											                  <div class="modal-body">
-											                      <img th:src="${c.attachPath}">
-											                  </div>
-											                  <div class="modal-footer">
-											                      <button type="button" class="btn btn-light-secondary"
-											                          data-bs-dismiss="modal">
-											                          <i class="bx bx-x d-block d-sm-none"></i>
-											                          <span class="d-none d-sm-block">Close</span>
-											                      </button>
-											                      <button type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
-											                          <i class="bx bx-check d-block d-sm-none"></i>
-											                          <span class="d-none d-sm-block">Accept</span>
-											                      </button>
-											                  </div>
-											              </div>
-											          </div>
-											      </div>
+												
 											</th:block>
 										</tbody>
 									</table>
@@ -149,7 +121,39 @@
 		<!-- Main Inner Wrapper End -->
 	</div>
 	<!-- Main__container End-->
-	
+	<!-- Vertically Centered modal Modal -->
+	<th:block th:each="c : ${courtList}">
+    <div class="modal fade modalFade" id="exampleModalCenter" th:attrappend="id=${c.crtroomNo}"
+        aria-labelledby="exampleModalCenterTitle"
+        tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">운영허가증
+                    </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img th:src="${c.attachPath}">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-secondary"
+                        data-bs-dismiss="modal">
+                        <i class="bx bx-x d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Close</span>
+                    </button>
+                    <button type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                        <i class="bx bx-check d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Accept</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </th:block>
 	<script type="text/javascript">
 		$('.permit').on('click',function(e){
 			console.log('승인?');

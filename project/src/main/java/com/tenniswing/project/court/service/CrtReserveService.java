@@ -35,5 +35,8 @@ public interface CrtReserveService {
 		
 		// 환불 상태 변경
 		public int updateCrtReserveState(CrtReserveVO crtReserveVO);
+		
+		// 대시보드 예약금액, 예약건수
+		public HostDashBoardVO hostMonthReserve();
 
 }

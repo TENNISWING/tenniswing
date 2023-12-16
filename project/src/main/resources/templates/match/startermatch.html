@@ -106,7 +106,7 @@
 						</form>
 					</div>
 						<div class="col-lg-2 text-end">
-							<button type="button" class="btn btn-primary"
+							<button type="button" class="btn btn-primary" id="regiBtn"
 								th:onclick="|location.href='@{startermatchregi}'|">매치 등록</button>
 						</div>
 				</div>
@@ -236,6 +236,17 @@
 			      icon: "success"
 			    })
 		}
+	
+	$.ajax('regiBtnAjax', {
+		type: 'get',
+	}).done(results => {
+		if(results == 0){
+			console.log("로그인 안됨");
+			$('#regiBtn').css('display','none');
+		}else{
+			
+		}
+	}).fail(err => console.log(err));
 
 	$('#btnsearch').on("click", function(e) {
 		let matchDate = $('.matchdate .active').data('day');
@@ -262,6 +273,7 @@
 		$('#ntrp').val('');		
 		$('#gen').val('');
 		$('#crtroomLocation').val('');
+		$('select').niceSelect('update'); 
 		starterMatchAjax(matchDate,1)
 	});
 

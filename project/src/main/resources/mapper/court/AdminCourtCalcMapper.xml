@@ -104,4 +104,20 @@
 		)
 	</foreach>
 </update>
+
+
+<!-- 관리자 이전정산 내역 조회 -->
+<select id="selectPreviousCourtCalc" resultType="CalcTableVO">
+	SELECT CALC_NO
+		, CALC_DATE
+		, CALC_PRICE
+		, PAY_PRICE
+		, HOST_ID
+		, FIND_CATEGORY_NAME(CALC_STATE) calc_state_name
+		, CALC_COMM
+		, PAY_CASE
+		, CALC_START_DATE
+		, CALC_END_DATE
+	FROM crt_calc
+</select>
 </mapper>

@@ -3,29 +3,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <style>
-#info {
+
+.info {
     width: 100%;
     border-top: 1px solid #c1c1c1;
     border-collapse: collapse;
   }
-#info > th, td {
+.info h, td {
     border-bottom: 1px solid #c1c1c1;
     border-left: 1px solid #c1c1c1;
     padding: 10px;
   }
-#info > td{
+.info td{
   width: 300px
   }
-#info > th:first-child, td:first-child {
+.info th:first-child, td:first-child {
     border-left: none;
   }
+.valText{  
+  margin-left: 20px;
+  color: gray;
+  }
 </style>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <th:block>
 <body>
-	<div class="content__body" style="padding: 15px;">
+	<div class="container content__body" style="padding: 15px;">
 		<div class="col-md-11">
 			<div class="product-detail__wrapper">
 				<br>
@@ -36,17 +42,17 @@
 							data-feather="user"></i>[[${club.clubMemNum}]]명</a>
 					<div class="product-detail__attr col-xxl-12">
 						<div class="product__attr">
-							<table id="info">
+							<table class="info">
 								<tbody>
 									<tr>
-										<td><span class="fa-fw select-all fas"></span>요일 <span style="color: gray">[[${club.clubDayName}]]요일</span></td>
-										<td><span class="fa-fw select-all fas"></span>시간 <span style="color: gray">[[${club.clubTimeName}]]</span>
-										<td><span class="fa-fw select-all fas"></span>지역 <span style="color: gray">[[${club.clubRegionName}]]</span></td>
+										<td><span class="fa-fw select-all fas"></span> 요일 <span class="valText" >[[${club.clubDayName}]]요일</span></td>
+										<td><span class="fa-fw select-all fas"></span> 시간 <span class="valText" >[[${club.clubTimeName}]]</span>
+										<td><span class="fa-fw select-all fas"></span> 지역 <span class="valText" >[[${club.clubRegionName}]]</span></td>
 									</tr>
 									<tr>
-										<td><span class="fa-fw select-all fas"></span>나이 <span style="color: gray">[[${club.clubAgeName}]]</span></td>
-										<td><span class="fa-fw select-all fas"></span>성별 <span style="color: gray">[[${club.clubGenName}]]</span>
-										<td><span class="fa-fw select-all fas"></span>경기장 <span style="color: gray">[[${club.clubCrt}]]</span></td>
+										<td><span class="fa-fw select-all fas"></span> 나이 <span class="valText" >[[${club.clubAgeName}]]</span></td>
+										<td><span class="fa-fw select-all fas"></span> 성별 <span class="valText" >[[${club.clubGenName}]]</span>
+										<td><span class="fa-fw select-all fas"></span> 경기장 <span class="valText" >[[${club.clubCrt}]]</span></td>
 									</tr>
 									<tr>
 										<td colspan='3'><pre class="product-detail__short_desc" style="font-size: larger;  line-height: 30px; ">[[${club.clubIntro}]]</pre></td>
