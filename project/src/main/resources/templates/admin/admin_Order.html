@@ -23,6 +23,9 @@
 	#table1{
 		width: 100% !important;
 	}
+	#table1 thead tr th {
+		text-align: center;
+	}
 	svg,
     path,
     i {
@@ -82,7 +85,7 @@
 													<td>[[ ${#dates.format(orderList.orderDate, 'yyyy-MM-dd')} ]]</td>
 													<td><span class="badge bg-success orderStateClass">[[ ${orderList.orderState} ]]</span></td>
 													<td>
-														<div class="card__action">
+														<div class="card__action" style="display: flex; justify-content: space-around;">
 															<a th:onclick="|location.href='@{/adminDetail_Order(orderNo=${orderList.orderNo})}'|" class="action__btn ml-10"> <svg width="20"
 																	height="20" viewBox="0 0 20 20" fill="none"
 																	xmlns="http://www.w3.org/2000/svg">

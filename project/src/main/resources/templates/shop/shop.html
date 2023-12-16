@@ -4,6 +4,9 @@
 	layout:decorate="~{layouts/main-layout}">
 <head>
 	<style type="text/css">	
+		svg, path, span, i {
+			pointer-events: none;
+		}
 		.list{
 			max-height: none;
 		}
@@ -321,7 +324,7 @@
 											</a>
 											<div class="badge">HIT</div>
 											<div class="product__actions">
-												<a th:onclick="|location.href='@{/shopDetail(prodNo=${popularProd.prodNo})}'|" class="action__btn"> 
+												<a class="action__btn wish" th:id="slideProdNo_+${popularProd.prodNo}"> 
 													<svg width="16" height="14" viewBox="0 0 16 14" fill="none"
 														xmlns="http://www.w3.org/2000/svg">
                                                         <path
@@ -476,7 +479,7 @@
 											</a>
 											<!-- <div class="badge">10%</div> -->
 											<div class="product__actions">
-												<a href="#" class="action__btn">
+												<a class="action__btn wish" id="mainProdNo_${prod.prodNo}">
 													<svg width="16"
 														height="14" viewBox="0 0 16 14" fill="none"
 														xmlns="http://www.w3.org/2000/svg">
