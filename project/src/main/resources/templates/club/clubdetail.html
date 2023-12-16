@@ -69,8 +69,12 @@ border: 3px solid white;
 					<div class="user__profile text-center"
 						style="padding: 20px 10px 40px 10px;">
 						<div class="club__avatar">
-						<img th:if="${club.attachPath} != '' or ${club.attachPath} != null"  th:src="${club.attachPath}" />
-						<img th:unless="${club.attachPath} != '' or ${club.attachPath} != null" th:src="/assets/compiled/jpg/banana.jpg"  alt="default-pic"/>
+							<th:block th:if="${club.attachPath != null}"  >
+								<img th:src="${club.attachPath}" />
+							</th:block>
+							<th:block th:unless=" ${club.attachPath != null}" >
+								<img src = "/assets/img/sns/Tennis1.jpg" alt="noImg"/>
+							</th:block>
 						</div>
 						<div class="user__content">
 							<h2 style="margin: 40px 0px; color: #3c3c3c;" th:text="${club.clubName}"></h2>

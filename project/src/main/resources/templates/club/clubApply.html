@@ -17,15 +17,7 @@
 				<!-- 여기에 가입 신청 리스트 -->
 			</ul>
 		</div>
-		<br>
-		<ul class="pagination justify-content-center">
-			<li class="page-item disabled"><a class="page-link" href="#"
-				tabindex="-1" aria-disabled="true">이전</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">다음</a></li>
-		</ul>
+		
 
 		<script th:inline="javascript">
 		
@@ -82,10 +74,10 @@
 										<p style="text-align: left;">${rep.clubJoinApplyWrt}</p>
 									</div>
 									<div class="modal-footer" data-club="${rep.clubNo}" data-mem="${rep.clubMemNo}">
-										<button type="button" class="btn btn-light-secondary" 
-											id="noBtn" data-bs-dismiss="modal" data-value="m1">거절</button>
-										<button type="button" class="btn btn-primary ms-1 okBtn" id="okBtn"
-											data-bs-dismiss="modal" data-value="m2">승인</button>
+										<button type="button" class="btn btn-light-secondary noBtn" 
+											id="noBtn" data-bs-dismiss="modal">거절</button>
+										<button type="button" class="btn btn-primary ms-1 okBtn"
+											id="okBtn" data-bs-dismiss="modal" data-value="m2">승인</button>
 									</div>
 								</div>
 							</div>
@@ -119,18 +111,13 @@
 					})
 					
 					$(".noBtn").on("click", function(e){
-						console.log("거절버튼 클릭")
-						let clubApprove = $(event.currentTarget).attr('data-value');
-						let clubNo = $(this).parent().data('club');
 						let clubMemNo = $(this).parent().data('mem');
-						let memNoData = {clubApprove,clubNo,clubMemNo}
-						console.log(memNoData)
-						
+						console.log("거절버튼"+ clubMemNo)
 						 $.ajax({
-							url: 'memFormAjax',
+							url: 'clubMemDelete',
 							type: 'post',
-							data : JSON.stringify(memNoData),
-							contentType : 'application/json',
+							data : { paramMemNo: clubMemNo },
+							dataType: 'JSON',
 							success: function (result) {
 								alert("거절완료")
 								applyListAjax()

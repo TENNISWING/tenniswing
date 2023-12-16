@@ -166,5 +166,10 @@ public class ClubServiceImpl implements ClubService {
 		return clubMapper.selectAdminAllClub();
 	}
 
+	@Override
+	public List<ClubVO> selectCheckMem(ClubVO clubVO) {
+		return clubMapper.selectCheckMem(clubVO);
+	}
+
 	
 }

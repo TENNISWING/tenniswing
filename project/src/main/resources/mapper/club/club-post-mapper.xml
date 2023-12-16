@@ -13,6 +13,7 @@
   		   , c.club_post_write_date
   		   , c.club_post_hit
   		   , a.attach_path
+  		   , c.mem_id
   	FROM club_post c LEFT JOIN mem m
 					   ON c.mem_id = m.mem_id
 					 LEFT JOIN attach a
