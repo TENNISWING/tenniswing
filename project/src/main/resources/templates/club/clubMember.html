@@ -23,6 +23,7 @@
 		
 		//멤버 리스트
 		function realMemListAjax(){
+			let memId = [[${#authentication.name}]];
 			let clubNo = [[${club.clubNo}]];
 			console.log("진짜 멤버에서 클럽번호" + clubNo);
 			$.ajax({
@@ -40,17 +41,19 @@
 								style="border-bottom: 1px solid #e1e1e1; display: flex; justify-content: space-between; align-items: center;">
 								<div class="d-flex-right">
 									<div class="avatar avatar-lg">
-										<img src="./assets/compiled/jpg/4.jpg">
+										<img src="${rep.attachPath}">
 									</div>
 									<div class="name ms-4">
 										<h5 class="mb-1">${rep.nick}</h5>
 										<h7 class="text-muted mb-0">${rep.clubGenName} / ${rep.clubAgeName}</h7>
 									</div>
-								</div>
-								<div>
+								</div>`
+						if(memId == rep.memId){		
+							List +=	`	<div>
 									<i class="fa-regular fa-trash-can memNoBtn" type="button" data-mem-no="${rep.clubMemNo}"></i>	
-								</div>
-							</div>
+								</div>`
+						}
+					List +=	`</div>
 						</li>
 						`
 						$('#realMemList').append(List)

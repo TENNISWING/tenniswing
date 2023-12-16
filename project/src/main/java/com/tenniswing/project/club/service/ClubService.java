@@ -35,6 +35,9 @@ public interface ClubService {
 	//페이징 전체 갯수
 	public int selectCount(ClubVO clubVO);
 	
+	//클럽 멤버 체크
+	public List<ClubVO> selectCheckMem(ClubVO clubVO);
+	
 
 	//재은
 	public ClubVO selectMatchClub(ClubVO clubVO);

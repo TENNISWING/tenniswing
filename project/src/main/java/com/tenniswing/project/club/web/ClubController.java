@@ -73,9 +73,15 @@ public class ClubController {
 	 @GetMapping("clubList")
 	 @ResponseBody 
 	 public Map<String, Object> clubListPage(ClubVO clubVO) {
+		 
+		 String id = SecurityContextHolder.getContext().getAuthentication().getName();
+	     clubVO.setMemId(id);
+
 		 HashMap<String, Object> map = new HashMap<>();
 		 map.put("selectCount", clubService.selectCount(clubVO));
 		 map.put("clubList",clubService.selectAllClub(clubVO));
+		 map.put("memcheck", clubService.selectCheckMem(clubVO));
+		 System.out.println("멤체크"+clubService.selectCheckMem(clubVO));
 		 return map;
 	 }
 

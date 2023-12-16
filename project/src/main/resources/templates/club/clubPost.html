@@ -225,7 +225,7 @@ margin: 20px 0;
 		</div>
 		<!-- /글수정 모달  -->
 
-		<script>
+		<script th:inline='javascript'>
 
 		
 		$(document).ready(function () {
@@ -258,6 +258,7 @@ margin: 20px 0;
 			
 			
 			function postListPage(page) {
+				let memId = [[${#authentication.name}]];
 				let sort = $('#sortBy').val();
 				if(sort == 0)
 					sort = 'club_post_write_date DESC';
@@ -285,11 +286,16 @@ margin: 20px 0;
 								</td>
 								<td  style="text-align: left;">${clubPost.name}</td>
 								<td class="postHit">${clubPost.clubPostHit}</td>
-								<td>
-								<i type="button" class="fa-regular fa-pen-to-square postEditBtn" data-value="${clubPost.clubPostNo}"
-														data-bs-toggle="modal" data-bs-target="#editModal" ></i>
-								<i type="button" class="fa-regular fa-trash-can postDelBtn" data-value="${clubPost.clubPostNo}"></i>
-								</td>
+								
+								<td>`
+								if(memId==clubPost.memId){
+									List += `<i type="button" class="fa-regular fa-pen-to-square postEditBtn" data-value="${clubPost.clubPostNo}"
+										data-bs-toggle="modal" data-bs-target="#editModal" ></i>
+										<i type="button" class="fa-regular fa-trash-can postDelBtn" data-value="${clubPost.clubPostNo}"></i>`
+								}
+								
+								List += `</td>
+								
 							</tr>
 							<tr class="toggleBoard">
 							<td colspan='5' style="padding: 0;"  id="p${clubPost.clubPostNo}">
@@ -479,6 +485,7 @@ margin: 20px 0;
 
 
 			function repList(clubPostNo) {
+				let memId = [[${#authentication.name}]];
 				$.ajax({
 					type: 'GET',
 					url: 'repList',
@@ -491,7 +498,13 @@ margin: 20px 0;
 								<td>${rep.name}</td>
 								<td style="text-align:left;">${rep.clubRepCtt}</td>
 								<td>${new Date(rep.clubRepWriteDate).toLocaleDateString()}</td>
-								<td><i type="button" class="fa-regular fa-trash-can repDelBtn" data-postno="${clubPostNo}" data-value="${rep.clubRepNo}"></i></td>
+								<td>`
+								
+								if(memId == rep.memId){
+								List += `<i type="button" class="fa-regular fa-trash-can repDelBtn" data-postno="${clubPostNo}" data-value="${rep.clubRepNo}"></i>`
+								}
+								
+							List += `</td>
 							</tr>
 							`
 							$('#r' + clubPostNo).append(List)
