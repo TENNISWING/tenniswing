@@ -396,7 +396,11 @@ public class AdminController {
 		}
 	}	
 
-	
+	@GetMapping("admin_Court_Previous_Calc")
+	public String adminCourtPreviousCalc(CalcTableVO calcTableVO, Model model) {
+		model.addAttribute("result", adminCalcService.selectPreviousCourtCalc(calcTableVO));
+		return "admin/admin_Court_Previous_Calc";
+	}
 
 	// sns 목록
 	@GetMapping("admin_sns")
