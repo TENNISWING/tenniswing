@@ -26,6 +26,7 @@
 								<th>예약날짜</th>
 								<th>예약상태</th>
 								<th>예약취소</th>
+								<th>후기작성</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -33,12 +34,15 @@
 							<tr>
 								<td>[[${#dates.format(crt.PAY_DATE,'yyyy-MM-dd')}]]</td>
 								<td>[[${crt.CRTROOM_NAME}]]</td>
-								<td class="reservePrice">[[${crt.RESERVE_PRICE}]]</td>
+								<td class="reservePrice">[[${#numbers.formatInteger(crt.RESERVE_PRICE,3,'COMMA')}]]원</td>
 								<td class="reserveDate" id="reserveNo" th:attrappend="id=${crt.RESERVE_NO}">[[${#dates.format(crt.RESERVE_DATE,'yyyy-MM-dd')}]]</td>
 								<td class="reserveState" id="reserveUid" th:attrappend="id=${crt.RESERVE_UID}">[[${crt.RESERVE_STATE}]]</td>
 								<td th:if="${crt.RESERVE_STATE == '이용전'}"><button type="button" class="btn btn-success reserveCancel" id="reservePayNo" th:attrappend="id=${crt.RESERVE_PAY_NO}">예약취소</button></td>	
 								<td th:if="${crt.RESERVE_STATE == '이용후'}"><button type="button" class="btn btn-light" disabled>예약취소</button></td>
 								<td th:if="${crt.RESERVE_STATE == '취소'}"><button type="button" class="btn btn-light" disabled>예약취소</button></td>			
+								<td th:if="${crt.RESERVE_STATE == '이용전'}"><button type="button" class="btn btn-light" disabled>후기작성</button></td>	
+								<td th:if="${crt.RESERVE_STATE == '이용후'}"><button type="button" class="btn btn-warning" th:onclick="|location.href='@{/courtDetail(crtroomNo=${crt.CRTROOM_NO})}'|">후기작성</button></td>
+								<td th:if="${crt.RESERVE_STATE == '취소'}"><button type="button" class="btn btn-light" disabled>후기작성</button></td>
 							</tr>
 						</th:block>	
 						</tbody>

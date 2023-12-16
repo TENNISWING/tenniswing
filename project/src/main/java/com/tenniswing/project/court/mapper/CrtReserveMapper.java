@@ -3,8 +3,8 @@ package com.tenniswing.project.court.mapper;
 import java.util.List;
 import java.util.Map;
 
-import com.tenniswing.project.court.service.CrtRefundVO;
 import com.tenniswing.project.court.service.CrtReserveVO;
+import com.tenniswing.project.court.service.CrtroomVO;
 import com.tenniswing.project.court.service.HostDashBoardVO;
 
 public interface CrtReserveMapper {
@@ -51,4 +51,16 @@ public interface CrtReserveMapper {
 		
 		// 오늘의 예약
 		public List<CrtReserveVO> todayReserve();
+		
+		// 올해 월별 예약금액
+		public HostDashBoardVO thisYearMonthPrice();
+		
+		// 최근 리뷰 5개
+		public CrtroomVO recentReview(String hostId);
+		
+		// 호스트 간단정보
+		public HostDashBoardVO hostInfo(String hostId);
+		
+		// 별점 통계
+		public HostDashBoardVO hostStarInfo(String hostId);
 }

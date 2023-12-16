@@ -266,4 +266,56 @@
 	WHERE TO_CHAR(r.pay_date,'yyyy-MM-dd') = TO_CHAR(sysdate,'yyyy-MM-dd')
 </select>
 
+<!-- 올해 월별 예약금액 -->
+<select id="thisYearMonthPrice" resultType="HostDashBoardVO">
+	SELECT (select sum(reserve_price) from reserve where EXTRACT(month from pay_date) = 1) JAN
+        ,(select sum(reserve_price) from reserve where EXTRACT(month from pay_date) = 2) FEB
+        ,(select sum(reserve_price) from reserve where EXTRACT(month from pay_date) = 3) MAR
+        ,(select sum(reserve_price) from reserve where EXTRACT(month from pay_date) = 4) APR
+        ,(select sum(reserve_price) from reserve where EXTRACT(month from pay_date) = 5) MAY
+        ,(select sum(reserve_price) from reserve where EXTRACT(month from pay_date) = 6) JUN
+        ,(select sum(reserve_price) from reserve where EXTRACT(month from pay_date) = 7) JUL
+        ,(select sum(reserve_price) from reserve where EXTRACT(month from pay_date) = 8) AUG
+        ,(select sum(reserve_price) from reserve where EXTRACT(month from pay_date) = 9) SEP
+        ,(select sum(reserve_price) from reserve where EXTRACT(month from pay_date) = 10) OCT
+        ,(select sum(reserve_price) from reserve where EXTRACT(month from pay_date) = 11) NOV
+        ,(select sum(reserve_price) from reserve where EXTRACT(month from pay_date) = 12) DEC
+	FROM reserve
+	WHERE EXTRACT(year from pay_date) = EXTRACT(year from sysdate)
+	AND <![CDATA[rownum = 1]]>
+</select>
+
+<!-- 최근 후기 5개 -->
+<select id="recentReview" resultType="CrtroomVO">
+	SELECT r.mem_id
+	        , r.review_ctt
+	        , r.review_write_date
+	        , r.review_star
+	        , c.crtroom_name
+	FROM review r JOIN crtroom c
+	                ON r.crtroom_no = c.crtroom_no
+	WHERE c.host_id = #{hostId}
+	AND <![CDATA[rownum < 6]]>
+	ORDER BY r.review_write_date
+</select>
+
+<!-- 호스트 간단정보 -->
+<select id="hostInfo" resultType="HostDashBoardVO">
+	SELECT m.mem_id , m.name, a.attach_path 
+	FROM mem m LEFT OUTER JOIN attach a
+	ON m.mem_no = a.attach_table_pk
+	WHERE m.mem_id = #{hostId}
+</select>
+
+<!-- 별점통계 -->
+<select id="hostStarInfo" resultType="HostDashBoardVO">
+	SELECT (select count(*) from review where review_star = 5) five
+	        , (select count(*) from review where review_star = 4) four
+	        , (select count(*) from review where review_star = 3) three
+	        , (select count(*) from review where review_star = 2) two
+	        , (select count(*) from review where review_star = 1) one
+	FROM review r JOIN crtroom c
+	                ON r.crtroom_no = c.crtroom_no
+	WHERE c.host_id = #{hostId}
+</select>
 </mapper>

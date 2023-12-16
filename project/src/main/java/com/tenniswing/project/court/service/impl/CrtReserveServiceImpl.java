@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.tenniswing.project.court.mapper.CrtReserveMapper;
 import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.court.service.CrtReserveVO;
+import com.tenniswing.project.court.service.CrtroomVO;
 import com.tenniswing.project.court.service.HostDashBoardVO;
 
 @Service
@@ -100,6 +101,26 @@ public class CrtReserveServiceImpl implements CrtReserveService {
 	@Override
 	public List<CrtReserveVO> todayReserve() {
 		return crtReserveMapper.todayReserve();
+	}
+
+	@Override
+	public HostDashBoardVO thisYearMonthPrice() {
+		return crtReserveMapper.thisYearMonthPrice();
+	}
+
+	@Override
+	public CrtroomVO recentReview(String hostId) {
+		return crtReserveMapper.recentReview(hostId);
+	}
+
+	@Override
+	public HostDashBoardVO hostInfo(String hostId) {
+		return crtReserveMapper.hostInfo(hostId);
+	}
+
+	@Override
+	public HostDashBoardVO hostStarInfo(String hostId) {
+		return crtReserveMapper.hostStarInfo(hostId);
 	}
 
 }

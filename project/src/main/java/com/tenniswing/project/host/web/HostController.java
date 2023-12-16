@@ -249,9 +249,14 @@ public class HostController {
 	
 	@GetMapping("/host")
 	public String hostPage(Model model) { 		
+		String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
 		model.addAttribute("hostMonthReserve", crtReserveService.hostMonthReserve());
 		model.addAttribute("hostMonthRefund", crtReserveService.hostMonthRefund());
 		model.addAttribute("todayReserve", crtReserveService.todayReserve());
+		model.addAttribute("yearPrice", crtReserveService.thisYearMonthPrice());
+		model.addAttribute("recentReview", crtReserveService.recentReview(hostId));
+		model.addAttribute("hostInfo", crtReserveService.hostInfo(hostId));
+		model.addAttribute("hostStar", crtReserveService.hostStarInfo(hostId));
 		return "host/dashboard";
 	}
 }
