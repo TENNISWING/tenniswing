@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tenniswing.project.attach.mapper.AttachMapper;
 import com.tenniswing.project.attach.service.AttachService;
@@ -133,5 +134,56 @@ public class ProdServiceImpl implements ProdService{
 	@Override
 	public void updateProdHit(int prodNo) {
 		prodMapper.updateProdHit(prodNo);
+	}
+
+	// 리뷰 등록 가능 확인
+	@Override
+	public Integer confirmInsertReview(ProdVO prodVO) {
+		return prodMapper.confirmInsertReview(prodVO);
+	}
+
+	// 리뷰 등록
+	@Override
+	@Transactional
+	public int insertProdReview(ProdVO prodVO, List<AttachVO> files) {
+		int result = prodMapper.insertProdReview(prodVO);
+
+		int reviewNo = prodVO.getProdReviewNo();
+
+		int index = 1;
+		if(files != null && files.size() > 0) {
+			for (AttachVO file : files) {
+				file.setAttachTableDiv("pr");
+				file.setAttachTablePk(reviewNo);
+				file.setAttachTurn(index);
+				index++;
+			}
+			attachMapper.saveAttachTurn(files);
+		}
+
+		if (result == 1) {
+			return reviewNo;
+		} else {
+			return -1;
+		}
+	}
+
+	// 상품별 리뷰 조회
+	@Override
+	public List<ProdVO> selectProdReview(int prodNo) {
+		return prodMapper.selectProdReview(prodNo);
+	}
+
+	// 상품 리뷰 삭제
+	@Override
+	public boolean deleteProdReview(int prodReviewNo) {
+		int result = prodMapper.deleteProdReview(prodReviewNo);
+
+		if (result == 1) {
+			prodMapper.deleteReviewImg(prodReviewNo);
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
