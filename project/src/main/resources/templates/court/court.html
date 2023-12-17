@@ -15,7 +15,10 @@
 		   4px 4px 5px 0px #0001;
 		}
 		body{
-			font-family: 'NanumSquareNeo-Variable';
+			font-family: 'Noto Sans KR', sans-serif !important;
+		}
+		.page-link.active, .active > .page-link{
+			background-color: #00B96D;
 		}
 	</style>
 </head>
@@ -75,7 +78,7 @@
 						<div class="swiper-wrapper">
 							<div class="swiper-slide">
 								<div class="single__slide__wrapper"
-									style="background-image: url('assets/img/shop/slide5.png'); height: 350px;">
+									style="background-image: url('assets/img/court/tennis-banner13-1.jpg'); height: 350px;">
 									<div class="hero__wrapper text-left">
 										<!-- <h5 class="hero__subtitle">Limited offer 25% off</h5>  -->
 										<h1 class="hero__title">
@@ -90,7 +93,7 @@
 							</div>
 							<div class="swiper-slide">
 								<div class="single__slide__wrapper"
-									style="background-image: url('assets/img/shop/slide2.jpg'); height: 350px;">
+									style="background-image: url('assets/img/court/tennis-banner17-1.jpg'); height: 350px;">
 									<div class="hero__wrapper text-left">
 										<!-- <h5 class="hero__subtitle">Limited offer 10% off</h5> -->
 										<h1 class="hero__title">
@@ -103,9 +106,24 @@
 									</div>
 								</div>
 							</div>
+							<!-- <div class="swiper-slide">
+								<div class="single__slide__wrapper"
+									style="background-image: url('assets/img/court/tennis-banner15-4.jpg'); height: 350px;">
+									<div class="hero__wrapper text-left">
+										<h5 class="hero__subtitle">Limited offer 10% off</h5>
+										<h1 class="hero__title">
+											Summer <br /> Skin care <br /> Product
+										</h1> 
+										<p class="hero__content"></p>
+										<div class="hero__btn">
+											<a href="product.html" class="btn btn-primary">Shop Now</a>
+										</div>
+									</div>
+								</div>
+							</div> -->
 							<div class="swiper-slide">
 								<div class="single__slide__wrapper"
-									style="background-image: url('assets/img/shop/slide3.jpg'); height: 350px;">
+									style="background-image: url('assets/img/court/tennis-banner18-1.jpg'); height: 350px;">
 									<div class="hero__wrapper text-left">
 										<!-- <h5 class="hero__subtitle">Limited offer 10% off</h5> -->
 										<h1 class="hero__title">
@@ -377,11 +395,11 @@
 										<li><i class="fa-solid fa-star"></i></li>
 									</ul>
 									</th:block>
-								<div class="total__rating">([[${courtList.countReview}]])</div>
+								<div class="total__rating" style="font-family: 'Noto Sans KR', sans-serif;">([[${courtList.countReview}]])</div>
                          	 </li>
-                         	 <li class="list-group-item" style="border: 0;"><span style="float: left;"><h5 class="card-title">[[ ${courtList.crtroomName} ]]</h5></span></li>
-                             <li class="list-group-item" style="border: 0;"><span style="float: left;">[[ ${#numbers.formatInteger(courtList.minPrice, 3, 'COMMA') + '원'} ]] ~</span></li>
-                             <li class="list-group-item" style="border: 0;"><span style="float: left;">[[ ${courtList.crtroomLocation} ]]</span></li>
+                         	 <li class="list-group-item" style="border: 0;"><span style="float: left; font-family: 'Noto Sans KR', sans-serif;"><h5 class="card-title">[[ ${courtList.crtroomName} ]]</h5></span></li>
+                             <li class="list-group-item" style="border: 0;"><span style="float: left; font-family: 'Noto Sans KR', sans-serif;">[[ ${#numbers.formatInteger(courtList.minPrice, 3, 'COMMA') + '원'} ]] ~</span></li>
+                             <li class="list-group-item" style="border: 0;"><span style="float: left; font-family: 'Noto Sans KR', sans-serif;">[[ ${courtList.crtroomLocation} ]]</span></li>
                              <li class="list-group-item" style="border: 0;"></li>
                          </ul>
                         </div>
@@ -500,7 +518,7 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="section-title" style="margin: 50px 0 0 0">
-								<h2><span style="font-size: 25px; font-family: 'NanumSquareNeo-Variable';">Recently Registered Court</span></h2>
+								<h2><span style="font-size: 25px; color: #134631; font-family: 'Noto Sans KR', sans-serif;">최근 등록한 코트장</span></h2>
 							</div>
 						</div>
 					</div>
@@ -517,7 +535,7 @@
 													> <img
 														th:src="${recentCrt.attachPath}" alt="icon" style="overfit: cover;" />
 													</a>
-													<div class="badge" style="font-family: 'NanumSquareNeo-Variable';">New</div>
+													<div class="badge" >New</div>
 													<!-- <div class="product__actions">
 														<a href="#" class="action__btn"> <svg width="16"
 																height="14" viewBox="0 0 16 14" fill="none"
@@ -558,42 +576,42 @@
 												<div class="product__content">
 													<div class="product__rating">
 														<th:block th:switch="${recentCrt.avgStar != null ? recentCrt.avgStar : 0}">
-															<ul th:case="0" class="star">
+															<ul th:case="0" class="star" style="padding: 0">
 																<li><i class="fa-regular fa-star"></i></li>
 																<li><i class="fa-regular fa-star"></i></li>
 																<li><i class="fa-regular fa-star"></i></li>
 																<li><i class="fa-regular fa-star"></i></li>
 																<li><i class="fa-regular fa-star"></i></li>
 															</ul>
-															<ul th:case="1" class="star">
+															<ul th:case="1" class="star" style="padding: 0">
 																<li><i class="fa-solid fa-star"></i></li>
 																<li><i class="fa-regular fa-star"></i></li>
 																<li><i class="fa-regular fa-star"></i></li>
 																<li><i class="fa-regular fa-star"></i></li>
 																<li><i class="fa-regular fa-star"></i></li>
 															</ul> 
-															<ul th:case="2" class="star">
+															<ul th:case="2" class="star" style="padding: 0">
 																<li><i class="fa-solid fa-star"></i></li>
 																<li><i class="fa-solid fa-star"></i></li>
 																<li><i class="fa-regular fa-star"></i></li>
 																<li><i class="fa-regular fa-star"></i></li>
 																<li><i class="fa-regular fa-star"></i></li>
 															</ul>
-															<ul th:case="3" class="star">
+															<ul th:case="3" class="star" style="padding: 0">
 																<li><i class="fa-solid fa-star"></i></li>
 																<li><i class="fa-solid fa-star"></i></li>
 																<li><i class="fa-solid fa-star"></i></li>
 																<li><i class="fa-regular fa-star"></i></li>
 																<li><i class="fa-regular fa-star"></i></li>
 															</ul>
-															<ul th:case="4" class="star">
+															<ul th:case="4" class="star" style="padding: 0">
 																<li><i class="fa-solid fa-star"></i></li>
 																<li><i class="fa-solid fa-star"></i></li>
 																<li><i class="fa-solid fa-star"></i></li>
 																<li><i class="fa-solid fa-star"></i></li>
 																<li><i class="fa-regular fa-star"></i></li>
 															</ul>
-															<ul th:case="5" class="star">
+															<ul th:case="5" class="star" style="padding: 0">
 																<li><i class="fa-solid fa-star"></i></li>
 																<li><i class="fa-solid fa-star"></i></li>
 																<li><i class="fa-solid fa-star"></i></li>
@@ -601,16 +619,16 @@
 																<li><i class="fa-solid fa-star"></i></li>
 															</ul>
 															</th:block>
-														<div class="total__rating" style="font-family: 'NanumSquareNeo-Variable';">([[${recentCrt.countReview}]])</div>
+														<div class="total__rating" style="font-family: 'Noto Sans KR', sans-serif;">([[${recentCrt.countReview}]])</div>
 													</div>
 													<div class="product__title">
 														<h5>
 															<a th:onclick="|location.href='@{/courtDetail(crtroomNo=${recentCrt.crtroomNo})}'|"
-															   style="font-family: 'NanumSquareNeo-Variable';">[[${recentCrt.crtroomName}]]</a>
+															   style="font-family: 'Noto Sans KR', sans-serif;">[[${recentCrt.crtroomName}]]</a>
 														</h5>
 													</div>
 													<div class="product__bottom">
-														<div class="product__price price" style="font-family: 'NanumSquareNeo-Variable';">
+														<div class="product__price price" style="font-family: 'Noto Sans KR', sans-serif;">
 															[[${#numbers.formatInteger(recentCrt.minPrice, 3, 'COMMA') + '원'}]] ~
 															<!-- <del>$22.00</del> -->
 														</div>
@@ -618,7 +636,8 @@
 														</script>
 														<div class="cart__action__btn">
 															<div class="cart__btn">
-																<button type="button" th:onclick="|location.href='@{/courtDetail(crtroomNo=${recentCrt.crtroomNo})}'|" class="btn btn-outline">상세보기</button>
+																<button type="button" th:onclick="|location.href='@{/courtDetail(crtroomNo=${recentCrt.crtroomNo})}'|" class="btn btn-outline" 
+																style="font-family: 'Noto Sans KR', sans-serif;">상세보기</button>
 															</div>
 															<!-- <div class="quantity cart__quantity">
 																<button type="button" class="decressQnt">
@@ -716,7 +735,7 @@
 		                    style="display: inline-block; width: 270px; margin-left: 1.25%; margin-right: 1.25%;
 		                    		border-radius: 10px; margin-bottom: 2.5%; cursor:pointer; box-shadow: 1px 1px 10px #eee">
 		                     <div class="card" onclick='location.href="courtDetail?crtroomNo=${courtList.crtroomNo}"'
-		                     	style="margin: 0">
+		                     	style="margin: 0;">
 		                           	<img src="${courtList.attachPath}" class="card-img-top img-fluid"
 		                                alt="singleminded" style="height: 202px; over-fit: cover">
 		                         <ul class="list-group list-group-flush">
@@ -740,9 +759,9 @@
 							b+=	`</ul>
 								<div class="total__rating">(`+courtList.countReview+`)</div>
 		                         	 </li>
-		                         	 <li class="list-group-item" style="border: 0;"><span style="float: left;"><h5 class="card-title crtroomNameCss" style="font-family: 'NanumSquareNeo-Variable';">`+courtList.crtroomName+`</h5></span></li>
-		                             <li class="list-group-item" style="border: 0;"><span style="float: left; font-weight: bold; color: green" class="price">`+minPrice+`원 ~</span></li>
-		                             <li class="list-group-item" style="border: 0;"><span style="float: left;">`+courtList.crtroomLocation+`</span></li>
+		                         	 <li class="list-group-item" style="border: 0;"><span style="float: left;"><h5 class="card-title crtroomNameCss" style="font-family: 'Noto Sans KR', sans-serif;">`+courtList.crtroomName+`</h5></span></li>
+		                             <li class="list-group-item" style="border: 0;"><span style="float: left; font-weight: bold; color: #FF9966; font-family: 'Noto Sans KR', sans-serif;" class="price">`+minPrice+`원 ~</span></li>
+		                             <li class="list-group-item" style="border: 0;"><span style="float: left; font-family: 'Noto Sans KR', sans-serif; height: 50px;">`+courtList.crtroomLocation+`</span></li>
 		                             <li class="list-group-item" style="border: 0;"></li>
 		                         </ul>
 		                        </div>
