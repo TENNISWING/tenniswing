@@ -39,6 +39,10 @@ section pre{
 	padding:0px !important;
 	
 }
+.snsBtnsCol{
+    display: flex;
+    gap: 20px;
+}
 
 </style>
 <!-- tagify 소스 다운 -->
@@ -55,12 +59,12 @@ section pre{
 			<div class="col-2"></div>
 			<div class="col-8">
 				<div class="insertBtn">
-					<a class="btn rounded-pill snsTopBtn" th:onclick="|location.href='@{snsMyList}'|">목록으로</a>	
+					<a class="btn rounded-pill snsTopBtn" href="javascript:history.back();">목록으로</a>	
 				</div>
 						<!-- Slides -->
 						<th:block>
 							<div class="detailSns" id="${sDetail.snsWrtNo}">
-								<section id="content-types" style="height: 900px">
+								<section id="content-types" style="height: 1000px">
 									<div class="row">
 										<div class="snsdiv col-xl-12 rounded-4">
 											<div class="card dSnsimg mb-0 border border-1">
@@ -80,11 +84,10 @@ section pre{
 
 														<th:block
 															th:each=" lang : ${#strings.arraySplit(sDetail.snsTag,',')}">
-															<span class="card-title tagVal">[[${lang}]]</span>
+															<a class="text-primary" th:href="@{sns(snsTag=${lang})}"> <span class="card-title tagVal">#[[${lang}]]</span></a>
 															<!-- <input th:each="tagg:${#strings.arraySplit(s.snsTag,',')}" type="text" class="tags4" name="tags4" th:value="${lang}" readonly> -->
-
 														</th:block>
-														<h6 class="card-subtitle" style="font-weight: 300;">[[${sDetail.grpName}]]</h6>
+														<!-- <h6 class="card-subtitle" style="font-weight: 300;">[[${sDetail.grpName}]]</h6> -->
 													</div>
 													
 													<div id="myCarousel"
@@ -96,7 +99,7 @@ section pre{
 																<div class="carousel-item"
 																	th:if="${simg.attachExt=='.mp4'}"
 																	th:classappend="${simgStat.count==1}?active:_">
-																	<video class="main-top-promotion-video"
+																	<video class="main-top-promotion-video detailVideo"
 																		autoplay="autoplay" loop="loop"  controls="controls">
 																		<source th:src="${simg.attachPath}" type="video/mp4">
 																	</video>
@@ -190,9 +193,12 @@ section pre{
 																			});
 																	</script>
 																</span> <span th:onclick="javascript:kakaoShare()"
-																	id="kakao-link-btn"><img
+																	id="kakao-link-btn" style="cursor:pointer;"><img
 																	src="assets/img/sns/kakaoTalk.png"
-																	style="width: 16px; height: 16px;"> </span>
+																	style="width: 20px; height: 20px;"> </span>
+																<span onclick="clip(); return false;" style="cursor:pointer;"><i class="fa-regular fa-copy fs-5"></i></span>	
+																	
+																	
 															</div> <!-- 콜랩스 추가 끝 -->
 														</li>
 
@@ -297,6 +303,26 @@ section pre{
 
 	<!-- Initialize Swiper -->
 	<script th:inline="javascript">
+	
+
+	function clip(){
+
+		var url = '';
+		var textarea = document.createElement("textarea");
+		document.body.appendChild(textarea);
+		url = window.document.location.href;
+		textarea.value = url;
+		textarea.select();
+		document.execCommand("copy");
+		document.body.removeChild(textarea);
+		Swal.fire({
+			  position: "center",
+			  icon: "success",
+			  title: "URL이 복사되었습니다.",
+			  showConfirmButton: false,
+			  timer: 1500
+			});
+	}
 
 	// scroll to element
 	const element = document.getElementById("content-types");
@@ -328,9 +354,9 @@ section pre{
 			}
 	});
 
-
+		let tennisUrl = [[${sDetail.snsWrtNo}]];
 		// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
-		Kakao.init('5cb79bd417ece35ea33fa7b756305a02');
+		Kakao.init('a3f2337f2fab17974560df2e031393c0');
 
 		// SDK 초기화 여부를 판단합니다.
 		console.log(Kakao.isInitialized());
@@ -342,17 +368,19 @@ section pre{
 						content : {
 							title : 'TENNISWING-SNS',
 							description : '클럽매치데이 ',
-							imageUrl : 'https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800',
+							imageUrl : 'assets/img/logo.png',
 							link : {
-								mobileWebUrl : '카카오공유하기 시 클릭 후 이동 경로',
-								webUrl : '카카오공유하기 시 클릭 후 이동 경로',
+								mobileWebUrl : 'http://tenniswing.site/snsDetail?snsWrtNo='+tennisUrl,
+								webUrl : 'http://tenniswing.site/snsDetail?snsWrtNo='+tennisUrl, 
+							/* 	mobileWebUrl : 'http://localhost:8099/snsDetail?snsWrtNo='+tennisUrl,
+								webUrl : 'http://localhost:8099/snsDetail?snsWrtNo='+tennisUrl, */
 							},
 						},
 						buttons : [ {
 							title : '웹으로 보기',
 							link : {
-								mobileWebUrl : '카카오공유하기 시 클릭 후 이동 경로',
-								webUrl : '카카오공유하기 시 클릭 후 이동 경로',
+								mobileWebUrl : 'http://tenniswing.site/snsDetail?snsWrtNo='+tennisUrl,
+								webUrl : 'http://tenniswing.site/snsDetail?snsWrtNo='+tennisUrl,
 							},
 						}, ],
 						// 카카오톡 미설치 시 카카오톡 설치 경로이동
@@ -367,14 +395,14 @@ section pre{
 		}
 		// NAVER
 		function shareNaver() {
-			const title = "TENNISWING";
-			const url = "https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800";
+			const title = "TENNISWING-SNS";
+			const url = "http://tenniswing.site/snsDetail?snsWrtNo="+tennisUrl;
 			window.open("https://share.naver.com/web/shareView?url=" + url
 					+ "&title=" + title);
 		}
 		// Facebook
 		function shareFacebook() {
-			const title = "TENNISWING-SNS";
+			const title = tennisUrl;
 			const url = "https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800";
 			window.open("http://www.facebook.com/sharer/sharer.php?u=" + url
 					+ "&title=" + title);
@@ -696,22 +724,39 @@ section pre{
 		$('.rrepDelBtn').on('click', function(e){
         	//console.log("대댓글삭제클릭되나요");
 			let snsRrepNo = $(e.target).closest('tr').prop('id');
-		 	 $.ajax({
-		        		type:'POST',
-		        		url: 'snsRreDel',
-		        		data:{snsRrepNo},
-		        		dataType:'json',
-		        		success:function(result){
-		        			if(result){
-		        				alert("정상삭제");
-		        				getRepList(snsWrtNo)
-		        			}
-		        		},
-		        		error : function() {
-							alert("삭제 실패");
-	
-					}
-				})
+			Swal.fire({
+				  title: "Are you sure?",
+				  text: "You won't be able to revert this!",
+				  icon: "warning",
+				  showCancelButton: true,
+				  confirmButtonColor: "#3085d6",
+				  cancelButtonColor: "#d33",
+				  confirmButtonText: "Yes, delete it!"
+				}).then((result) => {
+				  if (result.isConfirmed) {
+					 	 $.ajax({
+				        		type:'POST',
+				        		url: 'snsRreDel',
+				        		data:{snsRrepNo},
+				        		dataType:'json',
+				        		success:function(result){
+				        			if(result){
+				        			    Swal.fire({
+				      				      title: "삭제되었습니다!",
+				      				      //text: "Your file has been deleted.",
+				      				      icon: "success"
+				      				    });
+				        				getRepList(snsWrtNo)
+				        			}
+				        		},
+				        		error : function() {
+									alert("삭제 실패");
+							}
+						})
+					  
+				  }
+				});
+		
 		})
 		
 		//대댓글 수정 이벤트
