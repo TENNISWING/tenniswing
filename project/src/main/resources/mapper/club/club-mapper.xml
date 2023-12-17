@@ -58,8 +58,8 @@
 			FROM club c LEFT OUTER JOIN attach a
 						  ON a.attach_table_pk = c.club_no
 			AND a.attach_table_div = 'cl'
-			<if test="clubRegion != null and clubRegion != ''">AND c.club_region = #{clubRegion}</if>
-            <if test="clubGen != null and clubGen != ''">AND c.club_gen = #{clubGen}</if>
+			<if test="clubRegion != null and clubRegion != 'none'">AND c.club_region = #{clubRegion}</if>
+            <if test="clubGen != null and clubGen != 'none'">AND c.club_gen = #{clubGen}</if>
             <if test="clubName != null and clubName != ''">AND c.club_name LIKE '%'||#{clubName}||'%'</if>
 			<if test="sort != null and sort != ''">ORDER BY ${sort}</if>
 			<if test="!(sort != null and sort != '')">ORDER BY c.club_create_date DESC</if>
@@ -304,9 +304,9 @@
   
   <!-- 멤버체크 -->
   <select id="selectCheckMem" resultType="clubVO">
-  	SELECT mem_id
+  	SELECT club_no
   	FROM club_mem
-  	WHERE club_no = #{clubNo}
+  	WHERE mem_id = #{memId}
   </select>
   
 

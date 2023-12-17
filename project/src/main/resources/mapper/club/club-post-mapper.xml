@@ -26,6 +26,18 @@
   WHERE rn BETWEEN (#{page}-1)*#{pageUnit} + 1 and #{page} * #{pageUnit}					 
   </select>
   
+  <!-- 게시글 단건 조회 -->
+  <select  id="selectPost" resultType="ClubPostVO">
+  SELECT club_post_no
+	 			   , club_post_title
+	 			   , club_post_ctt
+	 			   , club_post_write_date
+	 			   , mem_id
+	 			   , club_no
+  FROM club_post	 		
+  WHERE club_post_no = #{clubPostNo}	   
+  </select>
+  
   
   <!-- 전체 갯수 -->
   	<select id="selectCount" resultType="int">

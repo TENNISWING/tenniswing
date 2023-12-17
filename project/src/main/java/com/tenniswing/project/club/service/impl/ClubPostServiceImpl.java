@@ -67,18 +67,20 @@ public class ClubPostServiceImpl implements ClubPostService  {
 		public Map<String, Object> updatePost(ClubPostVO clubPostVO) {
 			Map<String, Object> map = new HashMap<>();
 			
-			List<AttachVO> files = fileUtils.uploadFiles(clubPostVO.getFiles());
-			attachService.updateAttach("cp", clubPostVO.getClubNo(), files);
+			/*
+			 * List<AttachVO> files = fileUtils.uploadFiles(clubPostVO.getFiles());
+			 * attachService.updateAttach("cp", clubPostVO.getClubNo(), files);
+			 */
 			
 			boolean isSuccessed = false;
 			
 			int result = clubPostMapper.updatePost(clubPostVO);
 			
-			if(result == 1) {
+			if(result > 0) {
 				isSuccessed = true;
 			}
 			map.put("result", isSuccessed);
-			map.put("post", clubPostVO);
+			
 			
 			
 			return map;
