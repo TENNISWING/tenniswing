@@ -105,7 +105,7 @@
     --bs-red: #dc3545;
     --bs-orange: #fd7e14;
     --bs-yellow: #ffc107;
-    --bs-green: #198754;
+    --bs-green: #00b96d;
     --bs-teal: #20c997;
     --bs-cyan: #0dcaf0;
     --bs-white: #fff;
@@ -316,7 +316,8 @@ h1,
     margin-bottom: 0.5rem;
     font-weight: 700;
     line-height: 1.2;
-    color: var(--bs-heading-color);
+    /* color: var(--bs-heading-color); */
+    color: #3c3c3c;
 }
 h1,
 .h1 {
@@ -3071,10 +3072,10 @@ fieldset:disabled .btn {
 }
 .btn-dark {
     --bs-btn-color: #fff;
-    --bs-btn-bg: #131313;
+    --bs-btn-bg: #3c3c3c;
     --bs-btn-border-color: #131313;
-    --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #363636;
+    --bs-btn-hover-color: #3c3c3c;
+    --bs-btn-hover-bg: #fff;
     --bs-btn-hover-border-color: #2b2b2b;
     --bs-btn-focus-shadow-rgb: 54, 54, 54;
     --bs-btn-active-color: #fff;
@@ -3703,7 +3704,8 @@ fieldset:disabled .btn {
     padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
     font-size: var(--bs-nav-link-font-size);
     font-weight: var(--bs-nav-link-font-weight);
-    color: var(--bs-nav-link-color);
+    /* color: var(--bs-nav-link-color); */
+    color: #3c3c3c;
     text-decoration: none;
     background: none;
     border: 0;
@@ -3771,7 +3773,8 @@ fieldset:disabled .btn {
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
     color: var(--bs-nav-pills-link-active-color);
-    background-color: var(--bs-nav-pills-link-active-bg);
+    /* background-color: var(--bs-nav-pills-link-active-bg); */
+    background-color: #3c3c3c;
 }
 .nav-underline {
     --bs-nav-underline-gap: 1rem;
@@ -4634,8 +4637,10 @@ fieldset:disabled .btn {
 .active > .page-link {
     z-index: 3;
     color: var(--bs-pagination-active-color);
-    background-color: var(--bs-pagination-active-bg);
-    border-color: var(--bs-pagination-active-border-color);
+    /* background-color: var(--bs-pagination-active-bg);
+    border-color: var(--bs-pagination-active-border-color); */
+    background-color: #3c3c3c;
+    border-color: #3c3c3c;
 }
 .page-link.disabled,
 .disabled > .page-link {
@@ -17668,7 +17673,8 @@ body .bi:before,
     background-color: #fff;
 }
 .btn.btn-light-primary {
-    background-color: #ebf3ff;
+    /* background-color: #ebf3ff; */
+    background: rgba(52, 64, 84, 0.1);
     color: #002152;
 }
 .btn.btn-light-secondary {
