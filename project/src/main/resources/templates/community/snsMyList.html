@@ -35,6 +35,7 @@
 	}
 	.snsGrpName{
 		font-weight: 500;
+		font-size: 17px;
 	}
 	.edBtns{
 	    display: flex;
@@ -271,7 +272,7 @@
 		let snsGrpNo = 0;
 		
 		$('.grpBtn').on('click', function (e) {
-
+			
 			pageNum=1;
 			snsGrpNo = $(e.target).attr('data-snsgrpno');
 			
@@ -290,7 +291,13 @@
 				type: 'post',
 				success: function (data) {
 					if (data.result) {
-						alert('그룹이름 수정성공');
+						Swal.fire({
+							  position: "center",
+							  icon: "success",
+							  title: "그룹이름이 수정되었습니다.",
+							  showConfirmButton: false,
+							  timer: 1500
+							});
 						$('#snsGrpName' + data.info.snsGrpNo).text(data.info.grpName);
 						$('#grpBrdName' + data.info.snsGrpNo).text(data.info.grpName);
 						$('input[name=grpName]').val('');
@@ -307,35 +314,26 @@
 
 		$('.btn.btn-light-primary').on('click', function (e) {
 			$(e.target).toggleClass('active');
-			//console.log($(e.target).prop('id'));
-
-			/* 	for(let i=1; i< $('.btn.btn-light-primary').length; i++){
-					if ($(e.target).hasClass('active')) {
-						$('#collapseExample'+i).attr('class',
-								'card-body shadow collapse show')
-					} else {
-						$('#collapseExample'+i).attr('class',
-								'card-body shadow collapse')
-					}
-				} */
+		
 			for (let i = 1; i <= $('.btn.btn-light-primary').length; i++) {
 				if ($(e.target).hasClass('active') && $(e.target).attr('id') == i) {
+					document.querySelector('#collapseExample' + i).scrollIntoView({block: "center"});
 					$('#collapseExample' + i).attr('class',
 						'card-body shadow collapse show')
-
-					console.log($('#collapseExample' + i));
+					//console.log($('#collapseExample' + i));
 
 				} else {
 					$('#collapseExample' + i).attr('class',
 						'card-body shadow collapse')
+				
 				}
 			}
 			// 기타 게시판 콜랩스
 			if ($(e.target).hasClass('active') && $(e.target).attr('id') == 100) {
 				$('#collapseExample' + 100).attr('class',
 					'card-body shadow collapse show')
-
-				console.log($('#collapseExample' + 100));
+					document.querySelector('#collapseExample' + 100).scrollIntoView({block: "center"});
+				//console.log($('#collapseExample' + 100));
 			} else {
 				$('#collapseExample' + 100).attr('class',
 					'card-body shadow collapse')
