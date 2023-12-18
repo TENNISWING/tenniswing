@@ -77,7 +77,7 @@ public class AdminController {
 
 	@Autowired
 	SnsService snsService;
-	
+
 	@Autowired
 	BrdService brdService;
 
@@ -89,7 +89,7 @@ public class AdminController {
 
 	@Autowired
 	ProdMapper prodMapper;
-	
+
 	@Autowired
 	AdminCourtCalcService adminCalcService;
 
@@ -273,16 +273,15 @@ public class AdminController {
 		}
 	}
 
-
 	// 주문 상태 수정
 	@PostMapping("adminOrderUpdate")
 	@ResponseBody
 	public Boolean adminOrderUpdate(@RequestBody OrderTableVO vo) {
-		
+
 		return orderService.updateOrderState(vo);
 	}
-	
-	//회원목록
+
+	// 회원목록
 	@GetMapping("admin_member")
 	public String adminMemberPage(Model model) {
 		model.addAttribute("memberList", memberService.getMemberAll());
@@ -358,40 +357,40 @@ public class AdminController {
 
 		return "admin/adminDetail_Court";
 	}
-	
+
 	@GetMapping("admin_court_calc")
-	public String adminCourtCalcPage(Model model, AdminCourtCalcVO adminCourtCalcVO){
-		
+	public String adminCourtCalcPage(Model model, AdminCourtCalcVO adminCourtCalcVO) {
+
 		model.addAttribute("result", adminCalcService.selectAllAdminCourtCalc(adminCourtCalcVO));
 		return "admin/admin_Court_Calc";
 	}
-	
+
 	@PostMapping("admin_Calc_proccess")
 	@ResponseBody
 	public boolean adminCalcProccess(@RequestBody List<CalcTableVO> list) {
 		System.out.println(list);
-		int	result = adminCalcService.insertAdminCourtCalc(list);
-		
-		if(result > 0) {
-			return true; 
+		int result = adminCalcService.insertAdminCourtCalc(list);
+
+		if (result > 0) {
+			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	@PostMapping("admin_CourtApply_proccess")
 	@ResponseBody
 	public int courtStateProccess(CrtroomVO crtroomVO, int number) {
 		int result = 0;
-		if(number == 1) {
+		if (number == 1) {
 			result = courtroomService.courtStatePermit(crtroomVO);
-		}else {
+		} else {
 			result = courtroomService.courtStateNotPermit(crtroomVO);
 		}
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			return number;
-		}else {
+		} else {
 			return -1;
 		}
 	}	
@@ -427,14 +426,42 @@ public class AdminController {
 		return "admin/admin_Notice";
 	}
 
-	// sns 상세페이지
+	// 공지사항 상세페이지
 	@GetMapping("adminDetail_notice")
-	public String adminNoticeDetailPage(Model model, Integer BrdNo) {
-
+	public String adminNoticeDetailPage(Model model, Integer brdWrtNo) {
 		BrdVO brdVO = new BrdVO();
-		brdVO.setBrdWrtNo(BrdNo);
+		brdVO.setBrdWrtNo(brdWrtNo);
 		model.addAttribute("notice", brdService.selectBrdInfo(brdVO));
 
 		return "admin/adminDetail_Notice";
 	}
+
+	// 공지사항 수정페이지
+	@GetMapping("adminEdit_notice")
+	public String adminNoticeEditPage(Model model, Integer brdWrtNo) {
+		BrdVO brdVO = new BrdVO();
+		brdVO.setBrdWrtNo(brdWrtNo);
+		model.addAttribute("notice", brdService.selectBrdInfo(brdVO));
+
+		return "admin/adminEdit_Notice";
+	}
+
+	// 공지사항 수정 처리
+	@PostMapping("adminEdit_notice")
+	public String noticeEdit(BrdVO brdVO, Model model) {
+		brdService.updateBrd(brdVO);
+		int brdWrtNo = brdService.selectBrdInfo(brdVO).getBrdWrtNo();
+
+		return "redirect:adminDetail_notice?brdWrtNo=" + brdWrtNo;
+	}
+	
+	// 공지사항 삭제 처리
+	@PostMapping("brdDelete")
+	@ResponseBody
+	public boolean brdDeleteAjax(Integer brdWrtNo) {
+		boolean result = brdService.deleteBrd(brdWrtNo);
+		
+		return result;
+	}
+	
 }

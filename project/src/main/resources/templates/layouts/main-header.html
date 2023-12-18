@@ -1,37 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<style type="text/css">
-		svg, path, span, i {
-			pointer-events: none;
-		}
-		.swal2-popup {
-		 	z-index: 1000000 !important;
-		}
-		span {
-			font-family: 'Noto Sans KR', sans-serif !important;
-		}
-		.container {
-			font-family: 'Noto Sans KR', sans-serif !important;
-		}
-	</style>
+<style type="text/css">
+svg, path, span, i {
+	pointer-events: none;
+}
+
+.swal2-popup {
+	z-index: 1000000 !important;
+}
+
+span {
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+
+.container {
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+
+#searchItem{
+	width:200px;
+}
+</style>
 </head>
 <th:block th:fragment="header">
 	<!-- header -->
 	<header class="mb-4 header header-sticky">
-		<div class="header-top" style="padding-bottom: 0; padding-top: 0; padding-top: 20px; padding-bottom: 20px;">
+		<div class="header-top"
+			style="padding-bottom: 0; padding-top: 0; padding-top: 20px; padding-bottom: 20px;">
 			<div class="container">
 				<div class="logo">
-					<h3 style="font-family: 'Bungee', sans-serif; color: #3c3c3c; margin-bottom: 0;">
-						<a href="/" style="font-size: 1.8rem; padding: 0;">
-							<img src="assets/img/logo.png" alt="logo" style="padding-right: 7px; margin-bottom: 5px; color: #3c3c3c;"/>
-							<span style="color: #3c3c3c;">TennisWing</span>					
+					<h3
+						style="font-family: 'Bungee', sans-serif; color: #3c3c3c; margin-bottom: 0;">
+						<a href="/" style="font-size: 1.8rem; padding: 0;"> <img
+							src="assets/img/logo.png" alt="logo"
+							style="padding-right: 7px; margin-bottom: 5px; color: #3c3c3c;" />
+							<span style="color: #3c3c3c;">TennisWing</span>
 						</a>
 					</h3>
 					<!-- <a href="/">
 					</a> -->
-				
+
 				</div>
 				<div class="header-top-right">
 					<!-- 코트 찾기 -->
@@ -43,22 +53,25 @@
 							aria-controls="collapseExample" id="search"
 							style="border-radius: 0.5rem 0 0 0.5rem; height: 2.5rem;">
 
-						<button type="button" class="input-group-text" style="border-radius: 0 0.5rem 0.5rem 0;">
+						<button type="button" class="input-group-text"
+							style="border-radius: 0 0.5rem 0.5rem 0;">
 							<!-- <i class="icon dripicons dripicons-search fs-3"></i> -->
 							<img src="assets/img/search.png" alt="search" />
 						</button>
-						<div class="collapse z-3 position-absolute mt-5" id="searchArea">
+						<div class="z-3 position-absolute mt-5" id="searchArea">
 
-							<div class="form-group">
-								<select class="form-select" id="searchItem"></select>
-							</div>
+							<div class="list-group" id="searchItem"></div>
 
 						</div>
 					</div>
 
 					<script>
-						$('#search').on('propertychange change keyup paste input', function(e){						
-								let inputVal = $(e.target).val();								
+						$('#search').on('change keyup ', function(e){						
+								let inputVal = $(e.target).val();	
+								if(inputVal.length < 1 || inputVal == ''){
+									$('#searchArea').removeClass('show');
+									return
+								}
 								$('#searchArea').addClass('show');				
 								 $.ajax({
 								        type: 'get',
@@ -66,32 +79,35 @@
 								        data: {inputVal},
 								        success: function (result) {
 								        	$('#searchItem').empty();
-								        	$('#searchItem').append('<option selected="">코트선택</option>')
+								        	//$('#searchItem').append('<option selected="">코트선택</option>')
 								        	
 								        	$.each(result, function(index, data) { // 데이터 =item
-								        		let b = `													 
-					                                 <option value="${data.crtroomNo}">${data.crtroomName}</option>  `  										
-					                                 $('#searchItem').append(b)												
-											});								        	
-												b = '</optgroup>'
-											$('#searchItem').append(b)
+								        		let b = `
+								        			<a href="courtDetail?crtroomNo=${data.crtroomNo}" class="list-group-item list-group-item-action" id="${data.crtroomNo}"
+								        			>${data.crtroomName}</a>`
+					                                 $('#searchItem').append(b)		
+					                                 /*  $('.list-group-item').on('click', function(e){		
+							
+										let crtNo = $(e.target).prop('id');
+										if(crtNo != null){											
+											location.href = `courtDetail?crtroomNo=${crtNo}`
+										}
+											});		 */						        	
+												//b = '</optgroup>'
+											//$('#searchItem').append(b)
+											
+												
+									})
 								        },
 								        error: () => console.log(error)
 								    })
 								
-								if(inputVal == ''){
-									$('#searchArea').removeClass('show');
-								}
+							
 								 
 								
 							})
 						
-						 $('#searchItem').on('change', function(e){							 		
-										let crtNo = $(e.target).val();
-										if(crtNo != null){											
-											location.href = `courtDetail?crtroomNo=${crtNo}`
-										}
-									})
+					
 					
 					</script>
 					<!-- <a href="cart" class="cart__btn">
@@ -120,11 +136,9 @@
 		<nav class="main-navbar nav d-none d-lg-flex">
 			<div class="container">
 				<ul>
-					<li class="menu-item">
-						<a href="/" class="menu-link">
-							<span style="">소셜매치</span>
-						</a>
-						<!-- <div class="submenu">
+					<li class="menu-item"><a href="/" class="menu-link"> <span
+							style="">소셜매치</span>
+					</a> <!-- <div class="submenu">
 							<div class="submenu-group-wrapper">
 								<ul class="submenu-group">
 									<li class="submenu-item"><a href="/" class='submenu-link'>매치</a></li>
@@ -134,20 +148,15 @@
 										class='submenu-link'>스타터</a></li>
 								</ul>
 							</div>
-						</div> -->
-					</li>
+						</div> --></li>
 					<li class="menu-item"><a href="court" class='menu-link'> <span>코트예약</span></a>
 					</li>
 
-					<li class="menu-item"><a href="club" class="menu-link">
-							<span>클럽</span>
-					</a>
-					</li>
+					<li class="menu-item"><a href="club" class="menu-link"> <span>클럽</span>
+					</a></li>
 
-					<li class="menu-item"><a href="sns" class="menu-link">
-							<span>커뮤니티</span>
-					</a>
-					</li>
+					<li class="menu-item"><a href="sns" class="menu-link"> <span>커뮤니티</span>
+					</a></li>
 
 					<li class="menu-item"><a href="shop" class="menu-link"> <span>쇼핑</span>
 					</a> <!-- <div class="submenu">
@@ -196,10 +205,9 @@
 				</div>
 				<!-- Cart Items End -->
 				<!-- Cart SubTotal Start -->
-				<ul class="cart__subtotal" >
-					<li>
-						<span class="label">총 수량</span> <span class="value" id="totalCartCount"></span>
-					</li>
+				<ul class="cart__subtotal">
+					<li><span class="label">총 수량</span> <span class="value"
+						id="totalCartCount"></span></li>
 					<!-- <li><span class="label">Shipping:</span> <span class="value">$15.22</span>
 					</li> -->
 				</ul>
@@ -215,14 +223,15 @@
 			</div>
 			<!-- Cart Button Start -->
 			<div class="cart__btns">
-				<a href="checkout?type=cart" id="cartCheckout" class="btn btn-primary">상품 주문</a>
-				<a href="shop" class="btn btn-outline" style="border: 1px solid">쇼핑 하기</a>
+				<a href="checkout?type=cart" id="cartCheckout"
+					class="btn btn-primary">상품 주문</a> <a href="shop"
+					class="btn btn-outline" style="border: 1px solid">쇼핑 하기</a>
 			</div>
 			<!-- Cart Button End -->
 		</div>
 	</div>
 	<!-- Header FlyoutCart End 카트 종료 -->
-	
+
 	<!-- 장바구니 로그인 체크 -->
 	<script th:inline="javascript">
 	$('.myCart').on('click', function(event){
