@@ -287,7 +287,7 @@
 
 <!-- 최근 후기 5개 -->
 <select id="recentReview" resultType="CrtroomVO">
-	SELECT r.mem_id
+	SELECT * FROM (SELECT r.mem_id
 	        , r.review_ctt
 	        , r.review_write_date
 	        , r.review_star
@@ -295,8 +295,8 @@
 	FROM review r JOIN crtroom c
 	                ON r.crtroom_no = c.crtroom_no
 	WHERE c.host_id = #{hostId}
-	AND <![CDATA[rownum < 6]]>
-	ORDER BY r.review_write_date
+    ORDER BY r.review_write_date)
+	WHERE <![CDATA[rownum < 6]]>
 </select>
 
 <!-- 호스트 간단정보 -->
@@ -317,5 +317,6 @@
 	FROM review r JOIN crtroom c
 	                ON r.crtroom_no = c.crtroom_no
 	WHERE c.host_id = #{hostId}
+	AND <![CDATA[rownum = 1]]>
 </select>
 </mapper>

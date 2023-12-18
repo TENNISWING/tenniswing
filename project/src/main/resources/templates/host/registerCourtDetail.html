@@ -2,20 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/host/host-layout}">
-
+<head>
+<style>
+	body{
+		background-color: #f5f5f5;
+	}
+	*{
+		font-family: 'Noto Sans KR', sans-serif !important;
+	}
+	.form-check-input:checked {
+	    background-color: #fc5356;
+	    border-color: #fc5356;
+	}
+</style>
+</head>
 <th:block layout:fragment="hostcontent">
 
-	<div class="page-content">
+	<div class="container">
 		<!-- Main__container Start-->
-		<div class="main__container">
 			<!-- Main Inner Wrapper Start -->
-			<div class="main__inner--wrapper" style="padding: 40px 0;">
+			<div class="col-md-12 col-12">
 				<!-- Basic Tables start -->
-				<section class="section">
-					<div class="card">
+					<div class="card" style="padding: 30px; height: 800px;">
 						<div class="card-header" style="overflow: hidden">
-							<div class="page-heading">
-								<h3>코트 등록</h3>
+							<div class="section-title" style="margin: 0; padding: 0">
+								<h2 style="color: #3C3C3C; font-size: 20px;">코트 등록</h2>
 							</div>
 						</div>
 						<div class="card-body">
@@ -24,7 +35,7 @@
 								enctype="multipart/form-data" th:object="${crtDetailVO}"
 								class="form" name="insertForm" data-parsley-validate
 								onsubmit="return crtDetailInsertHandler();">
-								<div class="row">
+								<div class="row" style="padding: 30px 80px;">
 									<!-- 코트 세부 등록 -->
 									<!-- <label for="courtNo" class="form-label">
 												코트장 번호
@@ -33,12 +44,13 @@
 										<label for="contact-info-horizontal">실내 외 선택<span
 											style="color: red"> *</span></label>
 									</div>
-									<div class="col-md-7 form-group">
+									<div class="col-md-9 form-group" style="padding-bottom: 5px">
 										<input class="form-check-input" type="radio"
 											name="crtIndoorOutdoor" id="Success1" value="bf1"
 											style="display: inline-block;"> <label
 											class="form-check-label" for="indoor"
-											style="display: inline-block;"> 실내 </label>&nbsp; <input
+											style="display: inline-block;"> 실내 </label>&nbsp;&nbsp;&nbsp;&nbsp;
+											<input
 											class="form-check-input" type="radio" name="crtIndoorOutdoor"
 											id="Success2" value="bf2" style="display: inline-block;">
 										<label class="form-check-label" for="outdoor"
@@ -48,15 +60,15 @@
 										<label for="contact-info-horizontal">코트 이용 가격<span
 											style="color: red"> *</span></label>
 									</div>
-									<div class="col-md-7 form-group">
+									<div class="col-md-9 form-group">
 										<input type="number" class="form-control" name="crtUsePrice"
 											placeholder="코트 이용 가격을 입력하세요." data-parsley-required="true">
 									</div>
 									<div class="col-md-3">
 										<label for="contact-info-horizontal">코트 이용 단위 시간<span
-											style="color: red"> *</span></label>
+											style="color: #fc5356; font-size: 12px">(고정)</span></label>
 									</div>
-									<div class="col-md-7 form-group">
+									<div class="col-md-9 form-group">
 										<input type="number" class="form-control" name="useUnitTime"
 											value="1" readonly
 											data-parsley-required="true">
@@ -65,36 +77,34 @@
 										<label for="contact-info-horizontal">코트 이미지<span
 											style="color: red"> *</span></label>
 									</div>
-									<div class="col-md-7 form-group">
+									<div class="col-md-9 form-group">
 										<input type="file" id="files" name="files"
 											class="multiple-files-filepond" multiple> <span
-											style="font-size: 12px; color: blue;">가장 처음 들어간 이미지가
-											코트페이지에 보여집니다.</span>
+											style="font-size: 12px; color: #fc5356;">가장 처음 들어간 이미지가
+											코트예약 목록페이지에 보여집니다.</span>
 									</div>
 									<input type="hidden" class="form-control" name="crtroomNo"
 										th:value="${param.crtroomNo}" readonly />
-									<div class="col-10 d-flex justify-content-end">
+									<div class="col-sm-12 d-flex justify-content-end" style="margin-top: 220px">
 										<!-- <input type="hidden" name="action" value=""> -->
 										<button type="submit" name="action" value="complete"
-											class="btn btn-primary me-1 mb-1">등록 완료</button>
+											class="btn btn-light-secondary me-1 mb-1" style="background-color: #3c3c3c; color: white">등록 완료</button>
 										<button type="submit" name="action" value="add"
-											class="btn btn-primary me-1 mb-1">코트 추가 등록</button>
-										<button type="reset" class="btn btn-light-secondary me-1 mb-1">
-											리셋</button>
+											class="btn btn-light-secondary me-1 mb-1" style="background-color: #3c3c3c; color: white">코트 추가 등록</button>
+										<!-- <button type="reset" class="btn btn-light-secondary me-1 mb-1">
+											리셋</button> -->
 										<button type="button"
 											class="btn btn-light-secondary me-1 mb-1 cancelBtn">
-											등록 취소</button>
+											취소</button>
 									</div>
 								</div>
 							</form>
 							<!-- // Basic multiple Column Form section end -->
 						</div>
 					</div>
-				</section>
 			</div>
 		</div>
 		<!-- Basic Tables end -->
-	</div>
 
 
 

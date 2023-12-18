@@ -57,7 +57,7 @@ body{
 										<th:block th:each="courtDetail, stat : ${courtDetail.attachList}">
 											<div class="swiper-slide">
 												<div class="gallery-item">
-													<img th:src="${courtDetail.attachPath}" alt="product iamge" />
+													<img th:src="${courtDetail.attachPath}" alt="product iamge" style="height: 100%" />
 												</div>
 											</div>
 										</th:block>
@@ -159,7 +159,7 @@ body{
 										</li>
 									</ul>
 								</div>
-								<h3 class="product-detail__price" style="font-family: 'Noto Sans KR', sans-serif; color: #00B96D">[[
+								<h3 class="product-detail__price" style="font-family: 'Noto Sans KR', sans-serif;">[[
 									${#numbers.formatInteger(courtDetail.minPrice, 3, 'COMMA') + '원'} ]] ~</h3>
 								<p class="product-detail__short_desc" style="font-family: 'Noto Sans KR', sans-serif;"> [[
 									${courtDetail.crtroomExp} ]]</p>
@@ -351,16 +351,16 @@ body{
 												<div class="outline"
 													style="margin: 30px 0 30px 0; overflow: hidden">
 													<h5 class="sec__title" id="reviewTitle" style="margin: 0; float: left; color: #3C3C3C">Review</h5>
-													<button type="button" class="btn btn-outline-success" id="reviewBtn"
+													<button type="button" class="btn btn-outline" id="reviewBtn"
 														data-bs-toggle="modal" data-bs-target="#inlineForm"
-														style="float: right;">후기 작성</button>
+														style="float: right; background: #efefef !important; border: 1px solid #ada9a9 !important; color: #3C3C3C !important">후기 작성</button>
 												</div>
 												<div class="review__wrapper">
 													<th:block th:each="review, stat: ${courtReview}">
 													<div class="review__item" id="review" th:attrappend="id=${review.reviewNo}">
 														<div class="avatar">
-																<img th:if="${review.attachPath} != null" th:src="${review.attachPath}" alt="avatar" style="overfit:cover"/>
-																<img th:unless="${review.attachPath} != null" src="/assets/img/default img.jpg" alt="avatar" style="overfit:cover"/>
+																<img th:if="${review.attachPath} != null" th:src="${review.attachPath}" alt="avatar" style="overfit:cover; border-radius: 10px"/>
+																<img th:unless="${review.attachPath} != null" src="/assets/img/default img.jpg" alt="avatar" style="overfit:cover; border-radius: 10px"/>
 														</div>
 														<div class="review__content">
 															<div class="review__desc">
@@ -370,42 +370,42 @@ body{
 																	</h5>
 																	<div class="rating">
 																		<th:block th:switch="${review.reviewStar != null ? review.reviewStar : 0}">
-																		<ul th:case="0" class="star">
+																		<ul th:case="0" class="star" style="padding: 0">
 																			<li><i class="fa-regular fa-star"></i></li>
 																			<li><i class="fa-regular fa-star"></i></li>
 																			<li><i class="fa-regular fa-star"></i></li>
 																			<li><i class="fa-regular fa-star"></i></li>
 																			<li><i class="fa-regular fa-star"></i></li>
 																		</ul>
-																		<ul th:case="1" class="star">
+																		<ul th:case="1" class="star" style="padding: 0">
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-regular fa-star"></i></li>
 																			<li><i class="fa-regular fa-star"></i></li>
 																			<li><i class="fa-regular fa-star"></i></li>
 																			<li><i class="fa-regular fa-star"></i></li>
 																		</ul>
-																		<ul th:case="2" class="star">
+																		<ul th:case="2" class="star" style="padding: 0">
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-regular fa-star"></i></li>
 																			<li><i class="fa-regular fa-star"></i></li>
 																			<li><i class="fa-regular fa-star"></i></li>
 																		</ul>
-																		<ul th:case="3" class="star">
+																		<ul th:case="3" class="star" style="padding: 0">
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-regular fa-star"></i></li>
 																			<li><i class="fa-regular fa-star"></i></li>
 																		</ul>
-																		<ul th:case="4" class="star">
+																		<ul th:case="4" class="star" style="padding: 0">
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-regular fa-star"></i></li>
 																		</ul>
-																		<ul th:case="5" class="star">
+																		<ul th:case="5" class="star" style="padding: 0">
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-solid fa-star"></i></li>
 																			<li><i class="fa-solid fa-star"></i></li>
@@ -420,7 +420,7 @@ body{
 																<div class="date">[[${#dates.format(review.reviewWriteDate, 'yyyy년 MM월 dd일')}]]</div>
 															</div>
 																<th:block th:if="${#strings.equals(review.memId, #authentication.name)}">
-																	<button type="button" class="btn icon btn-danger reviewDel" id="reviewDel" th:attrappend="id=${review.reviewNo}" style="float: right;">삭제</button>
+																	<button type="button" class="btn icon btn-danger reviewDel" id="reviewDel" th:attrappend="id=${review.reviewNo}" style="float: right; background: #fff0e0 !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important">삭제</button>
 																</th:block>
 															<div class="review__para">
 																<p>[[${review.reviewCtt}]]</p>
@@ -460,7 +460,7 @@ body{
 													</div> -->
 													<br>
 												<div style="display: flex; justify-content: center">
-													<button id="reviewLoad" class="btn btn-primary" style="width: 200px;">More</button>
+													<button id="reviewLoad" class="btn btn-primary" style="width: 200px; background-color: white; border: 1px solid #3C3C3C; color: #3C3C3C">More</button>
 												</div>
 												</div>
 											</div>
@@ -516,7 +516,7 @@ body{
 			<div class="row">
 				<div class="col-12">
 					<div class="section-title" style="margin: 50px 0 0 0">
-						<h2><span style="font-size: 25px; font-family: 'Noto Sans KR', sans-serif; color: #134631;">인근 코트장 추천</span></h2>
+						<h2 style="font-size: 25px;"><span style="font-family: 'Noto Sans KR', sans-serif; color: #3C3C3C">인근 코트장 추천</span></h2>
 					</div>
 				</div>
 			</div>
@@ -689,7 +689,7 @@ body{
 				role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title" id="myModalLabel33">후기 등록</h4>
+						<h4 class="modal-title" id="myModalLabel33" style="color: #3C3C3C">후기 등록</h4>
 						<button type="button" class="close"
 							data-bs-dismiss="modal" aria-label="Close">
 							<i data-feather="x"></i>
@@ -727,7 +727,7 @@ body{
 								class="d-none d-sm-block">취소</span>
 						</button>
 						<button type="button" class="btn btn-primary ms-1 reviewBtn"
-							data-bs-dismiss="modal" id="reviewRegi">
+							data-bs-dismiss="modal" id="reviewRegi" style="background-color: #3C3C3C; border: #3C3C3C">
 							<i class="bx bx-check d-block d-sm-none"></i> <span
 								class="d-none d-sm-block">등록</span>
 						</button>
@@ -825,7 +825,7 @@ body{
 							b+= `<div class="date">`+dateFormat(reviewWriteDate)+`</div>
 									</div>`;
 								if(results.reviews.memId == results.memId){
-									b+= `<button type="button" class="btn icon btn-danger reviewDel" id="reviewDel${results.reviews.reviewNo}" style="float: right;">삭제</button>`;
+									b+= `<button type="button" class="btn icon btn-danger reviewDel" id="reviewDel${results.reviews.reviewNo}" style="float: right; background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important;">삭제</button>`;
 								}
 							b+= `<div class="review__para">
 										<p>${results.reviews.reviewCtt}</p>
@@ -1223,22 +1223,22 @@ body{
                         	
                         	if (idx == 0) {
                                $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                                    <div class="btn btn-outline-success active date" data-day="${ele.allDate}">
+                                                    <div class="btn btn-outline active date" style="background-color: #F9F9F9" data-day="${ele.allDate}">
                                                     ${ele.date}<br>
                                                     ${ele.day}</div></div>`)
                             } else if (ele.dayNo == 0) {
                         		 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                         <div class="btn btn-outline-danger date" data-day="${ele.allDate}">
+                                         <div class="btn btn-outline date" style="background-color: #F9F9F9; color: #ff6c6c" data-day="${ele.allDate}">
                                          ${ele.date}<br>
                                          ${ele.day}</div></div>`)
                         	} else if (ele.dayNo == 6) {
                         		 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                         <div class="btn btn-outline-primary date" data-day="${ele.allDate}">
+                                         <div class="btn btn-outline date" style="background-color: #F9F9F9; color: #5353ff" data-day="${ele.allDate}">
                                          ${ele.date}<br>
                                          ${ele.day}</div></div>`)
                         	} else {
                         		$('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                        <div class="btn btn-outline-success date" data-day="${ele.allDate}">
+                                        <div class="btn btn-outline date" style="background-color: #F9F9F9" data-day="${ele.allDate}">
                                         ${ele.date}<br>
                                         ${ele.day}</div></div>`)
                         	}                        	

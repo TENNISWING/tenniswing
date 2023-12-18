@@ -109,7 +109,7 @@ public class CrtReserveServiceImpl implements CrtReserveService {
 	}
 
 	@Override
-	public CrtroomVO recentReview(String hostId) {
+	public List<CrtroomVO> recentReview(String hostId) {
 		return crtReserveMapper.recentReview(hostId);
 	}
 
