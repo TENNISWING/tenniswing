@@ -97,6 +97,7 @@ public class AdminController {
 	@GetMapping("admin_Product")
 	public String adminProductPage(Model model, ProdVO prodVO) {
 		model.addAttribute("prodList", prodService.selectAdminAllProd(prodVO));
+		model.addAttribute("prodCount", prodService.selectAdminAllCount(prodVO));
 		// System.out.println(prodService.selectAllProd(prodVO));
 		return "admin/admin_Product";
 	}
@@ -107,11 +108,11 @@ public class AdminController {
 
 		// 첨부파일 불러오기
 		List<AttachVO> attachList = attachService.attachList("p", prodVO.getProdNo());
-		String path = "";
+		//String path = "";
 
 		if (attachList != null && attachList.size() != 0) {
-			path = attachList.get(0).getAttachPath();
-			model.addAttribute("attachList", path);
+			//path = attachList.get(0).getAttachPath();
+			model.addAttribute("attachList", attachList);
 		}
 
 		model.addAttribute("prod", prodService.selectProd(prodVO));
@@ -156,6 +157,14 @@ public class AdminController {
 	// 수정
 	@GetMapping("adminEdit_Product")
 	public String adminEditProductPage(Model model, ProdVO prodVO) {
+		// 첨부파일 불러오기
+		List<AttachVO> attachList = attachService.attachList("p", prodVO.getProdNo());
+		//String path = "";
+
+		if (attachList != null && attachList.size() != 0) {
+			//path = attachList.get(0).getAttachPath();
+			model.addAttribute("attachList", attachList);
+		}
 		model.addAttribute("prod", prodService.selectProd(prodVO));
 		return "admin/adminEdit_Product";
 	}
@@ -164,6 +173,22 @@ public class AdminController {
 	@PostMapping("adminEdit_Product")
 	@ResponseBody
 	public Map<String, Object> adminEditProductProcess(@RequestBody ProdVO prodVO) {
+		// JSON => @RequestBody
+		
+		 if(prodVO.getProdSaleSts() == null || prodVO.getProdSaleSts() == "") { 
+			 return prodService.updateProd(prodVO);
+		 } else {
+			 ProdDetailVO prodDetailVO = new ProdDetailVO();
+			 prodDetailVO.setProdNo(prodVO.getProdNo());
+			 prodDetailVO.setProdDetailSaleSts(prodVO.getProdSaleSts());
+			 prodDetailMapper.updateProdDetailSts(prodDetailVO); 
+			 return prodService.updateProd(prodVO);
+		 }
+	}
+	
+	@PostMapping("adminEdit_ProductSts")
+	@ResponseBody
+	public Map<String, Object> adminEditProductStsProcess(@RequestBody ProdVO prodVO) {
 		// JSON => @RequestBody
 		return prodService.updateProd(prodVO);
 	}
@@ -199,6 +224,7 @@ public class AdminController {
 	@GetMapping("admin_Order")
 	public String adminOrderPage(Model model, OrderTableVO orderTableVO) {
 		model.addAttribute("orderList", orderService.selectAdminAllOrder(orderTableVO));
+		model.addAttribute("orderCount", orderService.selectAdminAllOrderCount(orderTableVO));
 		// log.warn("=====주문목록===="+orderService.selectAdminAllOrder(orderTableVO));
 		return "admin/admin_Order";
 	}
@@ -410,10 +436,10 @@ public class AdminController {
 
 	// sns 상세페이지
 	@GetMapping("adminDetail_sns")
-	public String adminSnsDetailPage(Model model, Integer SnsNo) {
-
+	public String adminSnsDetailPage(Model model, Integer snsWrtNo) {
+		System.out.println(snsWrtNo);
 		SnsVO snsVO = new SnsVO();
-		snsVO.setSnsWrtNo(SnsNo);
+		snsVO.setSnsWrtNo(snsWrtNo);
 		model.addAttribute("sns", snsService.selectSnsInfo(snsVO));
 
 		return "admin/adminDetail_Sns";

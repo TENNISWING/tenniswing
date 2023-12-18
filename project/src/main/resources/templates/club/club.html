@@ -172,6 +172,20 @@
 			pageNum = 1;
 			clubListPage(1);
 		})
+		
+		//필터 초기화
+		$('#btnReset').on('click', function(e) {
+			$('#firstDrop div span').text('지역');
+			$('#firstDrop div ul li:first-child').addClass('selected','focus');
+			$('#firstDrop div ul li').not(':first').attr('class', 'option');
+			$('#secondDrop div span').text('성별');
+			$('#secondDrop div ul li:first-child').addClass('selected','focus');
+			$('#secondDrop div ul li').not(':first').attr('class', 'option');
+			$('#cateRegion').val('none').prop('selected',true);
+			$('#cateGen').val('none').prop('selected',true);
+			pageNum = 1;
+			clubListPage(1);
+		});
 
 
 		function clubListPage(page) {
@@ -228,7 +242,7 @@
 		 						List += `
 		 							<div class="mail-items">
 		 								<p>${clubList.clubName}</p>
-		 								<div class="badge badge-pill bg-light-success me-1 rounded-pill">${clubList.clubMemNum}</div>
+		 								<div class="badge badge-pill bg-light-success me-1 rounded-pill">${clubList.clubMemNum}명</div>
 		 								<div class="badge badge-pill bg-light-warning me-1 rounded-pill">${clubList.clubRecruitmentName}
 		 								</div>
 		 							</div>
@@ -279,7 +293,7 @@
  								role="document">
  								<div class="modal-content">
  									<div class="modal-header">
- 										<h5 class="modal-title" id="exampleModalCenterTitle">클럽 가입하기</h5>
+ 										<h5 class="modal-title" id="exampleModalCenterTitle" style="color: #3c3c3c;">클럽 가입하기</h5>
  										<button type="button" class="close" data-bs-dismiss="modal"
  											aria-label="Close">
  											<i data-feather="x"></i>
@@ -294,7 +308,7 @@
  										<p style="text-align: left;">${clubList.clubIntro}</p>
  									</div>
  									<div class="modal-footer" style="text-align: center;">
- 										<button type="button" class="btn btn-primary ms-1" id="wrtBtn"
+ 										<button type="button" class="btn btn-dark ms-1" id="wrtBtn"
  											data-bs-dismiss="modal" data-bs-target="#join${clubList.clubNo}"
  											data-bs-toggle="modal">가입신청서 작성</button>
  									</div>
@@ -311,7 +325,7 @@
  								role="document">
  								<div class="modal-content">
  									<div class="modal-header">
- 										<h5 class="modal-title" id="exampleModalCenterTitle">가입신청</h5>
+ 										<h5 class="modal-title" id="exampleModalCenterTitle" style="color: #3c3c3c;">가입신청</h5>
  										<button type="button" class="close" data-bs-dismiss="modal"
  											aria-label="Close">
  											<i data-feather="x"></i>
@@ -326,9 +340,9 @@
  										</p>
  									</div>
  									<div class="modal-footer" style="text-align: center;">
- 										<button type="button" class="btn btn-primary ms-1"
+ 										<button type="button" class="btn btn-light-secondary ms-1"
  											data-bs-dismiss="modal">취소</button>
- 										<button type="button" class="btn btn-primary ms-1 submitBtn"
+ 										<button type="button" class="btn btn-dark ms-1 submitBtn"
  											data-bs-dismiss="modal" data-value="${clubList.clubNo}">신청</button>
  									</div>
  								</div>
@@ -356,6 +370,18 @@
 						clubMemFormAjax(clubNo, clubJoinApplyWrt)
 					})
 
+					$('.clubBody').on("click", function (e) {
+						if (memId == 'anonymousUser') {
+							Swal.fire({
+								backdrop: `
+									 rgba(100, 100, 100, 0.6)`,
+								title: '권한이 없습니다.',
+								text: '클럽 가입 후 이용이 가능합니다.',
+								showConfirmButton: false,
+								timer: 1300
+							})
+						}
+					})
 						
  					
  				}

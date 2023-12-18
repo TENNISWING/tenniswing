@@ -2,29 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/host/host-layout}">
-
+<head>
+<style>
+	body{
+		background-color: #f5f5f5;
+	}
+	*{
+		font-family: 'Noto Sans KR', sans-serif !important;
+	}
+	.shop-btn-primary:hover{
+		background-color: #3C3C3C;
+		color: white;
+		border: 1px solid #3C3C3C;
+	}
+	.pagination.pagination-primary .page-item.active .page-link {
+	    background-color: #3C3C3C;
+	    border-color: #3C3C3C;
+	    box-shadow: 0 2px 5px rgba(67, 94, 190, 0.3);
+	}
+</style>
+</head>
 <th:block layout:fragment="hostcontent">
 	<div class="page-content">
 		<!-- Main__container Start-->
 		<div class="main__container">
 			<!-- Main Inner Wrapper Start -->
-			<div class="main__inner--wrapper" style="padding: 40px 0;">
+			<div class="main__inner--wrapper" style="padding: 0;">
 					<!-- Product List Start -->
 				<div class="row">
 					<div class="col-12">
-						<div class="dashboard__breadcrumb">
-							<div class="breadcrumb__meta">
-								<ul style="padding: 0">
-									<li><a href="dashboard.html" class="link">Dashboard</a></li>
-									<li>Court List</li>
-								</ul>
-							</div>
-						</div>
+						
 	
 					<!-- Basic Tables start -->
 					<div class="dashboard__header">
 						<div class="d__header--left">
-							<h2 class="title">코트 리스트</h2>
+							<div class="section-title" style="margin: 0; padding: 0">
+								<h2 style="color: #3C3C3C; font-size: 30px;">코트 리스트</h2>
+							</div>
 						</div>
 						<div class="add__btn" style="margin-right: 1.5rem">
 							<a href="hostregisterCourtroom" class="shop-btn shop-btn-primary"><i
@@ -37,26 +51,26 @@
 						</div> -->
 					</div>
 					<section class="section">
-						<div class="card">
+						<div class="card" style="height: 1200px;">
 	
 							<div class="card-body">
 								<div class="table-responsive">
 									<table class="table" id="table1">
 										<thead>
 											<tr>
-												<th>Court No</th>
-												<th>Name</th>
-												<th>Location</th>
-												<th>Operate Time</th>
-												<th>Court Count</th>
-												<th>Register Date</th>
-												<th>permission</th>
-												<th>Button</th>
+												<th>코트장 번호</th>
+												<th>코트명</th>
+												<th>위치</th>
+												<th>운영시간</th>
+												<th>코트 갯수</th>
+												<th>등록일</th>
+												<th>허가여부</th>
+												<th>설정</th>
 											</tr>
 										</thead>
 										<tbody>
 											<th:block th:each="courtList, stat : ${courtList}">
-												<tr>
+												<tr style="text-align: left;">
 													<td id="crtroomNo" th:attrappend="id=${courtList.crtroomNo}">[[
                             ${courtList.crtroomNo} ]]</td>
                           <td>[[ ${courtList.crtroomName} ]]</td>
@@ -71,17 +85,50 @@
                           <td>
                             <div
                               th:onclick="|location.href='@{/hostCourtDetail(crtroomNo=${courtList.crtroomNo})}'|"
-                              class="btn icon btn-primary">
-                              <i class="icon dripicons dripicons-enter"></i>
+                              class="btn icon btn-primary" style="background-color: white; border:1px solid rgb(102, 112, 133); padding: 7px;">
+                              <svg width="20"
+									height="20" viewBox="0 0 20 20" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+                                  <g clip-path="url(#)">
+                                  <path
+									d="M0.833984 10C0.833984 10 4.16732 3.33334 10.0007 3.33334C15.834 3.33334 19.1673 10 19.1673 10C19.1673 10 15.834 16.6667 10.0007 16.6667C4.16732 16.6667 0.833984 10 0.833984 10Z"
+									stroke="#667085" stroke-width="2"
+									stroke-linecap="round" stroke-linejoin="round" />
+                                  <path
+									d="M10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5Z"
+									stroke="#667085" stroke-width="2"
+									stroke-linecap="round" stroke-linejoin="round" />
+                                  </g>
+                                  <defs>
+                                      <clipPath>
+                                          <rectwidth="20" height="20" fill="white" />
+                                      </clipPath>
+                                  </defs>
+                              </svg>
+                              <!-- <i class="icon dripicons dripicons-enter"></i> -->
                             </div>
-                            <div class="btn icon btn-success edit"
+                            <div class="btn icon btn-success edit" style="background-color: white; border:1px solid rgb(102, 112, 133); padding: 7px"
                               th:onclick="|location.href='@{/hosteditCourtroom(crtroomNo=${courtList.crtroomNo})}'|"
                               id="courtroomEdit" th:attrappend="id=${stat.index}">
-                              <i class="icon dripicons dripicons-pencil"></i>
+                              <svg width="20" height="20" viewBox="0 0 20 20"
+								fill="none" xmlns="http://www.w3.org/2000/svg">
+                               <path
+								d="M14.166 2.49999C14.3849 2.28112 14.6447 2.1075 14.9307 1.98905C15.2167 1.8706 15.5232 1.80963 15.8327 1.80963C16.1422 1.80963 16.4487 1.8706 16.7347 1.98905C17.0206 2.1075 17.2805 2.28112 17.4993 2.49999C17.7182 2.71886 17.8918 2.97869 18.0103 3.26466C18.1287 3.55063 18.1897 3.85713 18.1897 4.16665C18.1897 4.47618 18.1287 4.78268 18.0103 5.06865C17.8918 5.35461 17.7182 5.61445 17.4993 5.83332L6.24935 17.0833L1.66602 18.3333L2.91602 13.75L14.166 2.49999Z"
+								stroke="#667085" stroke-width="1.66667"
+								stroke-linecap="round" stroke-linejoin="round" />
+                              </svg>
+                              <!-- <i class="icon dripicons dripicons-pencil"></i> -->
                             </div>
-                            <div class="btn icon btn-danger courtroom"
+                            <div class="btn icon btn-danger courtroom" style="background-color: white; border:1px solid rgb(102, 112, 133); padding: 7px"
                               id="courtroomDelete" th:attrappend="id=${courtList.crtroomNo}">
-                              <i class="icon dripicons dripicons-trash" id="courtroomDelete" th:attrappend="id=${courtList.crtroomNo}"></i>
+                              	<svg width="18" height="20" viewBox="0 0 18 20"
+									fill="none" xmlns="http://www.w3.org/2000/svg">
+                                 <path
+										d="M1.5 5.00001H3.16667M3.16667 5.00001H16.5M3.16667 5.00001V16.6667C3.16667 17.1087 3.34226 17.5326 3.65482 17.8452C3.96738 18.1577 4.39131 18.3333 4.83333 18.3333H13.1667C13.6087 18.3333 14.0326 18.1577 14.3452 17.8452C14.6577 17.5326 14.8333 17.1087 14.8333 16.6667V5.00001H3.16667ZM5.66667 5.00001V3.33334C5.66667 2.89131 5.84226 2.46739 6.15482 2.15483C6.46738 1.84227 6.89131 1.66667 7.33333 1.66667H10.6667C11.1087 1.66667 11.5326 1.84227 11.8452 2.15483C12.1577 2.46739 12.3333 2.89131 12.3333 3.33334V5.00001M7.33333 9.16667V14.1667M10.6667 9.16667V14.1667"
+										stroke="#667085" stroke-width="1.66667"
+										stroke-linecap="round" stroke-linejoin="round"/>
+                                 </svg>
+                              <!-- <i class="icon dripicons dripicons-trash" id="courtroomDelete" th:attrappend="id=${courtList.crtroomNo}"></i> -->
                             </div>
                           </td>
 												</tr>
@@ -168,7 +215,7 @@
 							Swal.fire({
 								  icon: "error",
 								  title: "",
-								  html: "정상적으로 삭제되지 않았습니다."+"\n예약 건수: "+result.reserveCount+"건",
+								  html: "정상적으로 삭제되지 않았습니다."+" 예약 건수: "+result.reserveCount+"건",
 							})
 						}
 					}

@@ -50,17 +50,17 @@
 					<section class="section">
 						<div class="card">
 							<div class="card-body">
-								<div class="table-responsive">
+								<div class="table-responsive" style="height:669.531px">
 									<table class="table" id="table1">
 										<thead>
 											<tr>
 												<th>클럽 번호</th>
 												<th>클럽명</th>
 												<th>클럽장</th>
+												<th>회원수</th>
 												<th>지역</th>
-												<th>클럽상태</th>
 												<th>개설일</th>
-												<th style="text-align: center;">Action</th>
+											<!-- 	<th style="text-align: center;">Action</th> -->
 											</tr>
 										</thead>
 										<tbody>
@@ -69,10 +69,10 @@
 													<td>[[ ${c.clubNo} ]]</td>
 													<td>[[ ${c.clubName} ]]</td>
 													<td>[[ ${c.memId} ]]</td>
+													<td>[[ ${c.clubMemNum} ]]</td>
 													<td>[[ ${c.clubRegion} ]]</td>
-													<td>[[ ${c.clubState} ]]</td>
 													<td>[[ ${#dates.format(c.clubCreateDate, 'yyyy-MM-dd')} ]]</td>
-													<td>
+													<!-- <td>
 														<div class="card__action">
 															<a th:onclick="|location.href='@{/adminDetail_Club(clubNo=${c.clubNo})}'|" class="action__btn ml-10"> 
 																<svg width="20"
@@ -98,8 +98,8 @@
 	                                                            </svg>
 															</a> 
 															
-															<!--/* 타임리프에서 onclick 매게변수 전달하는 법 */-->
-															<!-- <button type="button" class="action__btn ml-10" th:no="${prodList.prodNo}" th:onclick="deleteProd(this.getAttribute('no'))">
+															/* 타임리프에서 onclick 매게변수 전달하는 법 */
+															<button type="button" class="action__btn ml-10" th:no="${prodList.prodNo}" th:onclick="deleteProd(this.getAttribute('no'))">
 																<svg width="18" height="20" viewBox="0 0 18 20"
 																	fill="none" xmlns="http://www.w3.org/2000/svg">
 	                                                                <path
@@ -107,9 +107,9 @@
 																		stroke="#667085" stroke-width="1.66667"
 																		stroke-linecap="round" stroke-linejoin="round"/>
 	                                                            </svg>
-															</button> -->
+															</button>
 														</div>
-													</td>
+													</td> -->
 												</tr>
 											</th:block>
 										</tbody>

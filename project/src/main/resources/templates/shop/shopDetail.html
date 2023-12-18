@@ -26,8 +26,7 @@ svg, path, span, i {
 }
 
 section a, section span, section button, section input, section h1,
-	section h2, section h3, section h4, section h5, section h6, section pre
-	{
+section h2, section h3, section h4, section h5, section h6, section pre {
 	font-family: 'Noto Sans KR', sans-serif !important;
 }
 
@@ -173,13 +172,53 @@ section a, section span, section button, section input, section h1,
 						<div class="product-detail__meta">
 							<!-- 상품 별점 -->
 							<div class="rating">
-								<ul style="padding: 0">
-									<li><i class="fa-solid fa-star"></i></li>
-									<li><i class="fa-solid fa-star"></i></li>
-									<li><i class="fa-solid fa-star"></i></li>
-									<li><i class="fa-regular fa-star"></i></li>
-									<li><i class="fa-regular fa-star"></i></li>
-								</ul>
+								<th:block th:switch="${prodStar.avgStar != null ? prodStar.avgStar : 0}">
+									<ul th:case="0" class="star" style="padding: 0">
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+									</ul>
+									<ul th:case="1" class="star" style="padding: 0">
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+									</ul>
+									<ul th:case="2" class="star" style="padding: 0">
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+									</ul>
+									<ul th:case="3" class="star" style="padding: 0">
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+									</ul>
+									<ul th:case="4" class="star" style="padding: 0">
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-regular fa-star"></i></li>
+									</ul>
+									<ul th:case="5" class="star" style="padding: 0">
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+										<li><i class="fa-solid fa-star"></i></li>
+									</ul>
+								</th:block>
+								<div class="total__rating">
+									<p style="font-size: 14px; font-family: 'Noto Sans KR', sans-serif; margin: 0;">([[${prodStar.prodReview}]])</p>
+								</div>
 							</div>
 							
 							<ul class="right-meta" style="margin: 0;">
@@ -398,7 +437,7 @@ section a, section span, section button, section input, section h1,
 				
 			</div>
 
-			<div class="row product-info">
+			<div class="row product-info" id="tabMenus">
 				<div class="col-12 tab_wrap">
 					<div class="tabs__wrapper tabs__wrapper--v3">
 						<div class="tabs__filter">
@@ -632,9 +671,10 @@ section a, section span, section button, section input, section h1,
 														</div>
 													</div>
 													<div class="col-md-5">
-														<div class="date" style="text-align: right;">[[${#dates.format(prodReview.prodReviewRegiDate, 'yyyy년 MM월 dd일')}]]</div>
+														<div class="date" style="text-align: right; color: #3c3c3c">[[${#dates.format(prodReview.prodReviewRegiDate, 'yyyy년 MM월 dd일')}]]</div>
 														<th:block th:if="${#strings.equals(prodReview.memId, #authentication.name)}">
-															<button type="button" class="btn icon btn-danger prodReviewDel" th:id="reviewDel_+${prodReview.prodReviewNo}" style="float: right; display: inline-block;">삭제</button>
+															<button type="button" class="btn icon btn-danger prodReviewDel" th:id="reviewDel_+${prodReview.prodReviewNo}" 
+																style="float: right; display: inline-block; background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important;">삭제</button>
 														</th:block>
 													</div>
 												</div>
@@ -646,7 +686,8 @@ section a, section span, section button, section input, section h1,
 									</th:block>
 									<br>
 									<div style="display: flex; justify-content: center">
-										<button id="reviewLoad" class="btn btn-primary" style="width: 200px;">More</button>
+										<button id="reviewLoad" class="btn btn-primary" 
+											style="width: 200px; background-color: white; border-color: #3C3C3C; color: #3C3C3C;">More</button>
 									</div>
 								</div>
 							</div>
@@ -666,8 +707,8 @@ section a, section span, section button, section input, section h1,
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
-					<div class="section-title">
-						<h2 style="color: #222222">Related Product</h2>
+					<div class="section-title" style="margin: 20px 0 0 0;">
+						<h2 style="color: #3c3c3c; font-size: 25px;">Related Product</h2>
 					</div>
 				</div>
 			</div>
@@ -698,13 +739,51 @@ section a, section span, section button, section input, section h1,
 										</div>
 										<div class="product__content">
 											<div class="product__rating">
-												<ul style="padding: 0">
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-regular fa-star"></i></li>
-												</ul>
+												<th:block th:switch="${relatedProd.avgStar != null ? relatedProd.avgStar : 0}">
+													<ul th:case="0" class="star" style="padding: 0">
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul>
+													<ul th:case="1" class="star" style="padding: 0">
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul> 
+													<ul th:case="2" class="star" style="padding: 0">
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul>
+													<ul th:case="3" class="star" style="padding: 0">
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul>
+													<ul th:case="4" class="star" style="padding: 0">
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul>
+													<ul th:case="5" class="star" style="padding: 0">
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+													</ul>
+												</th:block>
+												<div class="total__rating" style="font-family: 'Noto Sans KR', sans-serif; margin: 0;">([[${relatedProd.prodReview}]])</div>
 												<!-- <div class="total__rating">(321)</div> -->
 											</div>
 											<!-- 상품명 -->
@@ -1133,6 +1212,7 @@ section a, section span, section button, section input, section h1,
 		        $(`.tab_wrap .tit_list > li button[value="${tabId}"]`).addClass("active");
 		        $(tabId).addClass("active");
 		        $(tabId).addClass("show");
+		       
 
 		        //탭메뉴 클릭할 때 url 파라미터 변경
 		        if (updateUrlParam) {
@@ -1162,6 +1242,7 @@ section a, section span, section button, section input, section h1,
 		        let tabId = $(this).val();
 		        //console.log('sadf'+tabId);
 		        activateTab(tabId, true);
+		        document.querySelector('.product-info').scrollIntoView({ behavior: "smooth", block: "center" });
 		    });
 
 		    //페이지 로드 했을 때 탭메뉴 선택
@@ -1181,6 +1262,25 @@ section a, section span, section button, section input, section h1,
 		        activateTab(newTabName ? `#${newTabName}` : 'first');
 		    });
 		}
+		
+		
+		$(function () {
+	        const url = new URL(window.location);
+	        const urlParams = url.searchParams;
+	        if(urlParams.get('tabName')) {
+	            //const scrollTop = $('#'+urlParams.get('tabName')).offset().top;
+	          	console.log(urlParams.get('tabName'));
+	          	
+	          	document.querySelector('.product-info').scrollIntoView({ behavior: "smooth", block: "center" });
+	          	// 1) 부드럽게 이동	
+	            //$('html, body').animate({scrollTop: scrollTop-59}, 500);
+	          	
+	          	// 또는
+	          
+	          	// 2) 바로 이동
+	            // $(window).scrollTop(scrollTop-59);
+	        }
+	    });
 		
 	/*]]>*/
 	</script>

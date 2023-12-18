@@ -56,7 +56,7 @@ public interface CrtReserveMapper {
 		public HostDashBoardVO thisYearMonthPrice();
 		
 		// 최근 리뷰 5개
-		public CrtroomVO recentReview(String hostId);
+		public List<CrtroomVO> recentReview(String hostId);
 		
 		// 호스트 간단정보
 		public HostDashBoardVO hostInfo(String hostId);

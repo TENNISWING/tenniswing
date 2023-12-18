@@ -18,6 +18,9 @@ public interface ClubService {
 	//클럽 가입 승인 거절
 	public Map<String, Object> clubMemAdd(ClubVO clubVO);
 	
+	// 클럽명 중복 체크
+	public boolean clubNameCheck(String clubName);
+	
 	
 	//삭제
 	public boolean deleteClub(int clubNo);

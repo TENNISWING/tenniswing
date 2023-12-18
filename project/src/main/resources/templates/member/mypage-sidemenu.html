@@ -6,7 +6,7 @@
 			<div class="avatar avatar-xl col-lg-3 col-md-auto" data-bs-toggle="modal" data-bs-target="#galleryModal">
 				<img th:src="${member.attachPath}" style="cursor: pointer;">
 			</div>
-			<div class="name col-lg-9 col-md-auto">
+			<div class="name col-lg-9 col-md-auto" style="padding-left: 20px;">
 				<h5 class="font-bold">[[${member.nick}]]</h5>
 				<h6 class="text-muted mb-0">[[${member.memId}]]</h6>
 			</div>
@@ -14,11 +14,11 @@
 		</li>
 		<li class="list-group-item d-flex justify-content-evenly p-3">
 			<div class="text-center">
-				<i class="fa-regular fa-face-grin-beam fs-4 text-warning">매너
+				<i class="fa-regular fa-face-grin-beam fs-6 text-warning">매너
 					[[${member.mannerPoint}]]</i>
 			</div>
 			<div class="text-center">
-				<i class="fa-solid fa-trophy fs-4 text-primary" id="level">LV
+				<i class="fa-solid fa-trophy fs-6 text-primary" id="level">LV
 					[[${member.ntrp}]]</i>
 			</div>
 

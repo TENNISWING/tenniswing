@@ -7,17 +7,22 @@
 		href="/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
 	<link rel="stylesheet"
 		href="/assets/compiled/css/table-datatable-jquery.css">
+	<style>
+		body{
+			font-family: 'Noto Sans KR', sans-serif !important;
+		}
+	</style>
 </head>
 <th:block layout:fragment="content">
 	<h3 class="container p-3">코트 예약</h3>
 	<div class="container" id="mypage">
 		<div class="row">
-			<div class="col-lg-4 col-md-auto">
+			<div class="col-lg-3 col-md-auto">
 				<div th:replace="member/mypage-sidemenu :: sidemenu"></div>
 			</div>
-			<div class="col-lg-8 col-md-auto">				
+			<div class="col-lg-9 col-md-auto">				
 				<div class="cart__form">
-					<table class="table" id="courtTable">
+					<table class="table" id="courtTable" style="font-family: 'Noto Sans KR', sans-serif !important;">
 						<thead>
 							<tr>
 								<th>결제일자</th>
@@ -36,13 +41,21 @@
 								<td>[[${crt.CRTROOM_NAME}]]</td>
 								<td class="reservePrice">[[${#numbers.formatInteger(crt.RESERVE_PRICE,3,'COMMA')}]]원</td>
 								<td class="reserveDate" id="reserveNo" th:attrappend="id=${crt.RESERVE_NO}">[[${#dates.format(crt.RESERVE_DATE,'yyyy-MM-dd')}]]</td>
-								<td class="reserveState" id="reserveUid" th:attrappend="id=${crt.RESERVE_UID}">[[${crt.RESERVE_STATE}]]</td>
-								<td th:if="${crt.RESERVE_STATE == '이용전'}"><button type="button" class="btn btn-success reserveCancel" id="reservePayNo" th:attrappend="id=${crt.RESERVE_PAY_NO}">예약취소</button></td>	
-								<td th:if="${crt.RESERVE_STATE == '이용후'}"><button type="button" class="btn btn-light" disabled>예약취소</button></td>
-								<td th:if="${crt.RESERVE_STATE == '취소'}"><button type="button" class="btn btn-light" disabled>예약취소</button></td>			
-								<td th:if="${crt.RESERVE_STATE == '이용전'}"><button type="button" class="btn btn-light" disabled>후기작성</button></td>	
-								<td th:if="${crt.RESERVE_STATE == '이용후'}"><button type="button" class="btn btn-warning" th:onclick="|location.href='@{/courtDetail(crtroomNo=${crt.CRTROOM_NO})}'|">후기작성</button></td>
-								<td th:if="${crt.RESERVE_STATE == '취소'}"><button type="button" class="btn btn-light" disabled>후기작성</button></td>
+								<th:block th:if="${crt.RESERVE_STATE == '이용전'}">
+									<td class="reserveState" id="reserveUid" th:attrappend="id=${crt.RESERVE_UID}"><span class="badge bg-light-warning">[[${crt.RESERVE_STATE}]]</span></td>
+								</th:block>
+								<th:block th:if="${crt.RESERVE_STATE == '이용후'}">
+									<td class="reserveState" id="reserveUid" th:attrappend="id=${crt.RESERVE_UID}"><span class="badge bg-light-success">[[${crt.RESERVE_STATE}]]</span></td>
+								</th:block>
+								<th:block th:if="${crt.RESERVE_STATE == '취소'}">
+									<td class="reserveState" id="reserveUid" th:attrappend="id=${crt.RESERVE_UID}"><span class="badge bg-light-danger">[[${crt.RESERVE_STATE}]]</span></td>
+								</th:block>
+								<td th:if="${crt.RESERVE_STATE == '이용전'}"><button type="button" class="cancelBtn btn btn-success reserveCancel" style="width: 85px; font-weight: bold; font-size: 13px; background: white; border: 1px solid #3C3C3C; color: #3C3C3C" id="reservePayNo" th:attrappend="id=${crt.RESERVE_PAY_NO}">예약취소</button></td>	
+								<td th:if="${crt.RESERVE_STATE == '이용후'}"><button type="button" class="btn btn-light" disabled style="width: 85px; font-size: 13px;">예약취소</button></td>
+								<td th:if="${crt.RESERVE_STATE == '취소'}"><button type="button" class="btn btn-light" disabled style="width: 85px; font-size: 13px;">예약취소</button></td>			
+								<td th:if="${crt.RESERVE_STATE == '이용전'}"><button type="button" class="btn btn-light" disabled style="width: 85px; font-size: 13px;">후기작성</button></td>	
+								<td th:if="${crt.RESERVE_STATE == '이용후'}"><button type="button" class="reviewBtn btn btn-warning" style="width: 85px; font-weight: bold; font-size: 13px; background: white; border: 1px solid #3C3C3C; color: #3C3C3C" th:onclick="|location.href='@{/courtDetail(crtroomNo=${crt.CRTROOM_NO})}'|">후기작성</button></td>
+								<td th:if="${crt.RESERVE_STATE == '취소'}"><button type="button" class="btn btn-light" disabled style="width: 85px; font-size: 13px;">후기작성</button></td>
 							</tr>
 						</th:block>	
 						</tbody>

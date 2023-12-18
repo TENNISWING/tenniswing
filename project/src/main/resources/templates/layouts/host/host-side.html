@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <th:block th:fragment="hostside">
 	<div id="sidebar">
 		<div class="sidebar-wrapper active">
 			<div class="sidebar-header position-relative">
 				<div class="d-flex justify-content-between align-items-center">
 					<div class="logo">
-						<a href="host">호스트 관리자 페이지</a>
+						<a href="host" style="font-weight: bold; font-size: 20px; color: #3C3C3C"><img src="./assets/img/logo.png" style="width: 40px; height: 40px;" alt="Face 2"> Host AdminPage</a>
 					</div>
 					<div class="sidebar-toggler  x">
 						<a href="#" class="sidebar-hide d-xl-none d-block"><i
@@ -25,23 +26,23 @@
 					<li class="sidebar-title">코트 메뉴</li>
 
 					<li class="sidebar-item"><a href="hostCourtList"
-						class='sidebar-link'> <i class="bi bi-hexagon-fill"></i> <span>코트목록</span>
+						class='sidebar-link'> <i class="bi bi-collection-fill"></i> <span>코트목록</span>
 					</a></li>
 
 					<li class="sidebar-item  "><a href="reserveList"
-						class='sidebar-link'> <i class="bi bi-grid-1x2-fill"></i> <span>예약관리</span>
+						class='sidebar-link'> <i class="bi bi-file-earmark-medical-fill"></i> <span>예약관리</span>
 					</a></li>
 
 					<li class="sidebar-title">정산 메뉴</li>
 
 					<li class="sidebar-item"><a href="reserveCancelList"
-						class='sidebar-link'> <i class="bi bi-pentagon-fill"></i> <span>환불관리</span>
+						class='sidebar-link'> <i class="bi bi-journal-check"></i> <span>환불관리</span>
 					</a></li>
 					<li class="sidebar-item"><a href="hostCalcList"
-						class='sidebar-link'> <i class="bi bi-pentagon-fill"></i> <span>정산관리</span>
+						class='sidebar-link'> <i class="bi bi-stack"></i> <span>정산관리</span>
 					</a></li>
 					<li class="sidebar-item mt-5"><a href="/logout"
-						class='sidebar-link'> <i class="bi bi-cash"></i> <span>로그아웃</span>
+						class='sidebar-link'> <i class="bi bi-pentagon-fill"></i> <span>로그아웃</span>
 					</a></li>
 
 				</ul>

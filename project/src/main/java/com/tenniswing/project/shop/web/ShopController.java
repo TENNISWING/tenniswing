@@ -107,6 +107,7 @@ public class ShopController {
 		model.addAttribute("prodDetailList", prodDetailService.selectAllProdDetail(prodVO));
 		model.addAttribute("prodDetail", new ProdDetailVO());
 		model.addAttribute("prodReview", prodService.selectProdReview(prodVO.getProdNo()));
+		model.addAttribute("prodStar", prodService.prodStar(prodVO.getProdNo()));
 		return "shop/shopDetail";
 	}
 	

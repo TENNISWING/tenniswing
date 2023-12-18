@@ -305,8 +305,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
-					<div class="section-title">
-						<h2>Popular Product</h2>
+					<div class="section-title" style="margin: 20px 0 0 0;">
+						<h2 style="color: #3c3c3c; font-size: 25px;">Popular Product</h2>
 					</div>
 				</div>
 			</div>
@@ -337,14 +337,51 @@
 										</div>
 										<div class="product__content">
 											<div class="product__rating">
-												<ul style="padding: 0">
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-regular fa-star"></i></li>
-												</ul>
-												<!-- <div class="total__rating">(321)</div> -->
+												<th:block th:switch="${popularProd.avgStar != null ? popularProd.avgStar : 0}">
+													<ul th:case="0" class="star" style="padding: 0">
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul>
+													<ul th:case="1" class="star" style="padding: 0">
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul> 
+													<ul th:case="2" class="star" style="padding: 0">
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul>
+													<ul th:case="3" class="star" style="padding: 0">
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul>
+													<ul th:case="4" class="star" style="padding: 0">
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-regular fa-star"></i></li>
+													</ul>
+													<ul th:case="5" class="star" style="padding: 0">
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+														<li><i class="fa-solid fa-star"></i></li>
+													</ul>
+												</th:block>
+												<div class="total__rating" style="font-family: 'Noto Sans KR', sans-serif; margin: 0;">([[${popularProd.prodReview}]])</div>
 											</div>
 											<!-- 상품명 -->
 											<div class="product__title">
@@ -492,44 +529,57 @@
 											</div>
 										</div>
 										<div class="product__content">
-											<!-- 병점 -->
 											<div class="product__rating">
-												<ul style="padding-left: 3px">
+												<ul style="padding-left: 3px">`;
+										
+											let avgStarStar = 0;
+											if(prod.avgStar != null){
+												avgStarStar = Number(prod.avgStar);
+												console.log(avgStarStar);
+											}
+											for(let i=0; i< avgStarStar; i++){
+												prodData+= `<li><i class="fa-solid fa-star"></i></li>`;
+											}
+											for(let j=0; j<5-avgStarStar; j++){
+												prodData+= `<li><i class="fa-regular fa-star"></i></li>`;
+											}
+											/* <!-- 병점 -->
 													<!-- 별 -->
 													<li><i class="fa-solid fa-star"></i></li>
 													<li><i class="fa-solid fa-star"></i></li>
 													<li><i class="fa-solid fa-star"></i></li>
 													<!-- 비어있는 별 -->
 													<li><i class="fa-regular fa-star"></i></li>
-													<li><i class="fa-regular fa-star"></i></li>
-												</ul>
-												<!-- 후기 갯수 -->
-												<div class="total__rating">(321)</div>
-											</div>
+													<li><i class="fa-regular fa-star"></i></li> */
+										
 											<!-- 상품명 -->
-											<div class="product__title">
-												<h5>
-													<a href="shopDetail?prodNo=${prod.prodNo}">
-														${prod.prodName}
-													</a>
-												</h5>
-											</div>
-											<div class="product__bottom">
-												<!-- 상품가격 -->
-												<div class="product__price price" id="prodPrice${prod.prodNo}">
-													${prod.prodPrice}
-													<!-- <del>$22.00</del> -->
-												</div>
-												<!-- 위시 버튼(이벤트 주기) -->
-												<div class="cart__action__btn">
-													<div class="cart__btn">
-														<!-- 위시 이벤트 줄 버튼 -->
-														<a id="prodNo_${prod.prodNo}" class="btn btn-outline wish">Add to Wish</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>`;
+											prodData+= `</ul>
+															<!-- 후기 갯수 -->
+															<div class="total__rating">(`+prod.prodReview+`)</div>
+														</div>
+														<div class="product__title">
+																<h5>
+																	<a href="shopDetail?prodNo=${prod.prodNo}">
+																		${prod.prodName}
+																	</a>
+																</h5>
+															</div>
+															<div class="product__bottom">
+																<!-- 상품가격 -->
+																<div class="product__price price" id="prodPrice${prod.prodNo}">
+																	${prod.prodPrice}
+																	<!-- <del>$22.00</del> -->
+																</div>
+																<!-- 위시 버튼(이벤트 주기) -->
+																<div class="cart__action__btn">
+																	<div class="cart__btn">
+																		<!-- 위시 이벤트 줄 버튼 -->
+																		<a id="prodNo_${prod.prodNo}" class="btn btn-outline wish">Add to Wish</a>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>`;
 						$('#shopList').append(prodData);
 					}
 					changePrice();

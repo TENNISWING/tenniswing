@@ -20,7 +20,7 @@
 		from brd b, mem m
 		where b.mem_id = m.mem_id
 		and brd_div ='bc2'
-		order by brd_wrt_no DESC
+		order by brd_write_date DESC
 
 		) A) b where rn between (#{page}-1)*#{pageUnit} + 1 and #{page} *
 		#{pageUnit}

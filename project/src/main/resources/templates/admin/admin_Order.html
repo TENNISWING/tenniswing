@@ -52,7 +52,7 @@
 					<div class="dashboard__header">
 						<div class="d__header--left">
 							<h2 class="title">List of order</h2>
-							<div class="danger__btn border-30">500 orders</div>
+							<div class="danger__btn border-30">[[ ${orderCount} ]] orders</div>
 						</div>
 					</div>
 
@@ -80,8 +80,8 @@
 													<td>[[ ${orderList.orderNo} ]]</td>
 													<td>[[ ${orderList.merchantUid} ]]</td>
 													<td>[[ ${orderList.memId} ]]</td>
-													<td class="orderPrice" id="price">[[ ${orderList.orderProdCnt} ]]</td>
-													<td>[[ ${orderList.orderTPayAmt} ]]</td>
+													<td>[[ ${orderList.orderProdCnt} ]]</td>
+													<td class="orderPrice" th:id="orderPriceAdmin+${orderList.orderNo}">[[ ${orderList.orderTPayAmt} ]]</td>
 													<td>[[ ${#dates.format(orderList.orderDate, 'yyyy-MM-dd')} ]]</td>
 													<td><span class="badge bg-success orderStateClass">[[ ${orderList.orderState} ]]</span></td>
 													<td>
@@ -209,7 +209,7 @@
 			//console.log($('#table1 span').text());
 			$('#table1 span').each((idx, item) => {
 				//console.log(item);
-				if($(item).text() == '결제완료'){
+				if($(item).text() == '결제완료' || $(item).text() == '상품준비중'){
 					$(item).attr('style', 'background: rgba(18, 183, 106, 0.1) !important; color: #12b76a !important;');				
 				} else if($(item).text() == '상품준비중' || $(item).text() == '배송중' || $(item).text() == '배송완료') {
 					$(item).attr('style', 'background: rgba(105, 65, 198, 0.1) !important; color: #6941c6 !important;');
@@ -351,6 +351,19 @@
 			}
 		});
 
+	</script>
+	
+	<!--/* 가격부분 , 추가하는 기능 */-->
+	<script type="text/javascript">
+		$('.orderPrice').each(function(){
+			priceId = $(this).attr('id');
+			
+			let changePrice = $('#'+priceId).text();
+			changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			
+			changePrice = changePrice + '원';
+			$('#'+priceId).text(changePrice);
+		});
 	</script>
 	
 	<!-- Main__container End-->

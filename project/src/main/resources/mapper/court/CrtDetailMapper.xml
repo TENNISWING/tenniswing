@@ -77,7 +77,6 @@
 		UPDATE crt_detail_inf
 			SET
 					crt_use_price = #{crtUsePrice}
-					, use_unit_time = #{useUnitTime}
 					, crt_indoor_outdoor = #{crtIndoorOutdoor}
 			WHERE crt_detail_no = #{crtDetailNo}
 	</update>

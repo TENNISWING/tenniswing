@@ -4,20 +4,27 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.tenniswing.project.shop.mapper.OrderMapper">
+  
+  	<!-- 주문 어드민 전체 갯수 -->
+  	<select id="selectAdminAllOrderCount" resultType="int">
+ 		select 	count(*) AS order_all_count	
+   		FROM 	order_table 
+  	</select>
   	
   	<!-- 전체 조회 어드민 -->
   	<select id="selectAdminAllOrder" resultType="OrderTableVO">
-		SELECT	order_no,
-				merchant_uid,
-				mem_id,
-				order_prod_cnt,
-				order_t_pay_amt,
-				order_date,
-				ship_waybill_no,
-				FIND_CATEGORY_NAME(order_state) AS order_state
-		FROM	order_table
+		SELECT	DISTINCT ot.order_no,
+				ot.merchant_uid,
+				ot.mem_id,
+				ot.order_prod_cnt,
+				ot.order_t_pay_amt,
+				ot.order_date,
+				ot.ship_waybill_no,
+				FIND_CATEGORY_NAME(ot.order_state) AS order_state
+		FROM	order_table ot, order_detail od
+		WHERE	ot.order_no = od.order_no
 		<if test="memId != null and memId != ''">
-			WHERE mem_id = #{memId}
+			AND mem_id = #{memId}
 		</if>
 		ORDER BY order_no			 	
   	</select>
@@ -59,7 +66,8 @@
 		        a.attach_path,
 		        od.order_detail_cnt,
 		        od.order_detail_amt,
-		        pd.prod_detail_no
+		        pd.prod_detail_no,
+		        p.prod_no
 		FROM    order_detail od
                 JOIN prod_detail pd
                 ON pd.prod_detail_no = od.prod_detail_no 
