@@ -38,10 +38,13 @@
 			<div class="swiper mySwiper banner" data-aos="fade-up">
 				<div class="swiper-wrapper banner">
 					<div class="swiper-slide banner text-center">
-						<img src="/assets/img/match/slide.png" class="img-fluid" alt="">
+						<img src="/assets/img/match/matchbanner01.png" class="img-fluid" alt="">
 					</div>
 					<div class="swiper-slide banner text-center">
-						<img src="/assets/img/match/slide.png" class="img-fluid" alt="">
+						<img src="/assets/img/match/matchbanner02.png" class="img-fluid" alt="">
+					</div>
+					<div class="swiper-slide banner text-center">
+						<img src="/assets/img/match/matchbanner03.png" class="img-fluid" alt="">
 					</div>
 				</div>
 				<div class="swiper-pagination banner"></div>
@@ -152,7 +155,7 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="product__wrapper swiper__pagination">
-						<div class="swiper trending__Swiper">
+						<div class="swiper mtrending__Swiper ">
 							<div class="swiper-wrapper">
 
 								<div th:block th:each="v : ${viewList}" class="swiper-slide">
@@ -491,7 +494,7 @@
                         
                         
                         
-                        new Swiper(".mySwiper.mtbanner", {
+                       new Swiper(".mySwiper.mtbanner", {
 							/* loop : true, */
 							loopPreventsSliding : true,
 							grabCursor : true,
@@ -510,10 +513,24 @@
 							},
 						});
                         
+                        
+                        new Swiper(".mtrending__Swiper", {
+							loopPreventsSliding : true,
+							grabCursor : true,
+							slidesPerView : 5,
+							spaceBetween : 20,
+
+							/* autoplay : {
+								delay : 2000,
+								pauseOnMouseEnter : true,
+								disableOnInteraction : false
+							}, */
+						});
+                        
                                                 
                         
                         new Swiper(".mySwiper.banner", {
-                            loop: true,
+                            loop: true, 
                             loopPreventsSliding: true,
                             grabCursor: true,
                             autoplay: {
@@ -527,8 +544,7 @@
                                 clickable: true,
                             },
                         });
-                        
-                     
+                                             
                     </script>
 </th:block>
 

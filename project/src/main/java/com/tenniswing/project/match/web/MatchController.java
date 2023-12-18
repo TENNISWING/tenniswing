@@ -126,6 +126,7 @@ public class MatchController {
 	public String matchregiProcess(Model model, MatchVO matchVO, RedirectAttributes rttr) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		matchVO.setMemId(id);
+		System.out.println(matchVO);
 		int n = matchService.insertMatch(matchVO);
 		if (n > 0) {
 			rttr.addFlashAttribute("message", "등록되었습니다!");
@@ -189,7 +190,7 @@ public class MatchController {
 			model.addAttribute("auth", false);
 		}
 		model.addAttribute("matchInfo", matchVO);
-		model.addAttribute("clubList",matchService.selectMyClub(id));
+		model.addAttribute("clubList",matchService.selectMyOwnerClub(id));
 		model.addAttribute("clubMatchInfo", matchVO);
 		return "match/clubmatchdetail";
 	}
@@ -230,7 +231,7 @@ public class MatchController {
 		int n = matchService.updateClubMatch(matchVO);
 		if (n > 0) {
 			rttr.addFlashAttribute("message", "수정되었습니다");
-			return "redirect:/";
+			return "redirect:/clubmatch";
 		} else {
 			return "redirect:clubMatchUpdate";
 		}
@@ -268,13 +269,12 @@ public class MatchController {
 	public String clubupdateregiPage(Model model, MatchVO matchVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		model.addAttribute("clubMatchInfo", matchService.selectClubMatch(matchVO));
-		model.addAttribute("clubList",matchService.selectMyClub(id));
+		model.addAttribute("clubList",matchService.selectMyOwnerClub(id));
 		return "match/clubmatchupdateregi";
 	}
 
 	@PostMapping("clubmatchupdateregi")
 	public String clubupdateregiProcess(Model model, MatchVO matchVO) {
-		System.out.println(matchVO);
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		matchVO.setMemId(id);
 		int n = matchService.updateClubMatch(matchVO);
@@ -436,7 +436,7 @@ public class MatchController {
 			int n = matchService.updateStarterMatch(matchVO);
 			if (n > 0) {
 				rttr.addFlashAttribute("message", "수정되었습니다");
-				return "redirect:/";
+				return "redirect:/startermatch";
 			} else {
 				return "redirect:starterMatchUpdate";
 			}
