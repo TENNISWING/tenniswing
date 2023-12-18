@@ -11,6 +11,38 @@
 .repTr{
 	background-color: #ECF8E0;
 }
+section a,
+section span,
+section button,
+section input,
+section h1,
+section h2,
+section h3,
+section h4,
+section h5,
+section h6,
+section tr,
+section td,
+section th,
+section pre{
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+.snsTopBtn{
+	font-family: 'Noto Sans KR', sans-serif !important;
+	border: 1px solid #ccc;
+}
+section pre{
+	    font-size: 17px;
+	
+}
+.repBody{
+	padding:0px !important;
+	
+}
+.snsBtnsCol{
+    display: flex;
+    gap: 20px;
+}
 
 </style>
 <!-- tagify 소스 다운 -->
@@ -26,13 +58,16 @@
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
+				<div class="insertBtn">
+					<a class="btn rounded-pill snsTopBtn" href="javascript:history.back();">목록으로</a>	
+				</div>
 						<!-- Slides -->
 						<th:block>
 							<div class="detailSns" id="${sDetail.snsWrtNo}">
-								<section id="content-types" style="height: 900px">
+								<section id="content-types" style="height: 1000px">
 									<div class="row">
 										<div class="snsdiv col-xl-12 rounded-4">
-											<div class="card dSnsimg border border-1">
+											<div class="card dSnsimg mb-0 border border-1">
 												<div class="card-content">
 													<div class="card-body">
 														<span class="card-title" style="font-weight: bold;">[[${sDetail.snsTitle}]]</span>
@@ -49,11 +84,10 @@
 
 														<th:block
 															th:each=" lang : ${#strings.arraySplit(sDetail.snsTag,',')}">
-															<span class="card-title tagVal">[[${lang}]]</span>
+															<a class="text-primary" th:href="@{sns(snsTag=${lang})}"> <span class="card-title tagVal">#[[${lang}]]</span></a>
 															<!-- <input th:each="tagg:${#strings.arraySplit(s.snsTag,',')}" type="text" class="tags4" name="tags4" th:value="${lang}" readonly> -->
-
 														</th:block>
-														<h6 class="card-subtitle" style="font-weight: 300;">[[${sDetail.grpName}]]</h6>
+														<!-- <h6 class="card-subtitle" style="font-weight: 300;">[[${sDetail.grpName}]]</h6> -->
 													</div>
 													
 													<div id="myCarousel"
@@ -65,8 +99,8 @@
 																<div class="carousel-item"
 																	th:if="${simg.attachExt=='.mp4'}"
 																	th:classappend="${simgStat.count==1}?active:_">
-																	<video class="main-top-promotion-video"
-																		autoplay="autoplay" loop="loop" muted="muted">
+																	<video class="main-top-promotion-video detailVideo"
+																		autoplay="autoplay" loop="loop"  controls="controls">
 																		<source th:src="${simg.attachPath}" type="video/mp4">
 																	</video>
 																</div>
@@ -99,7 +133,7 @@
 													
 													<div class="card-body">
 														<h6 class="card-subtitle">[[${sDetail.name}]]</h6>
-														<p class="card-text">[[${sDetail.snsCtt}]]</p>
+														<pre class="card-text">[[${sDetail.snsCtt}]]</pre>
 														<p class="card-text"></p>
 													</div>
 
@@ -113,20 +147,20 @@
 														<!-- 좋아요 버튼 -->
 														<li class="d-flex flex-column">
 															<div>
-																<a th:if="${sDetail.likeNo>0}" class="btn icon btn-white"
+																<a th:if="${sDetail.likeNo != null}" class="btn icon btn-white"
 																	>
 																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC "
 																	th:data-likeno="${sDetail.likeNo}"
 																	th:data-snsWrtNo="${sDetail.snsWrtNo}"
-																	id="likeBtn" > </i>
+																	id="likeBtn" >[[${sDetail.likeCnt}]]</i>
 																</a>
-																<a th:unless="${sDetail.likeNo>0}" class="btn icon btn-white"
+																<a th:unless="${sDetail.likeNo != null}" class="btn icon btn-white"
 																	>
 																	<i class="fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active"
 																	th:data-likeno="${sDetail.likeNo}" th:data-snsWrtNo="${sDetail.snsWrtNo}" id="likeBtn"
-																	> </i>
+																	>[[${sDetail.likeCnt}]]</i>
 																</a>
-															</div> <span>[[${sDetail.likeCnt}]]</span>
+															</div><!--  <span>[[${sDetail.likeCnt}]]</span> -->
 														</li>
 
 														<!-- 댓글 버튼 -->
@@ -159,19 +193,22 @@
 																			});
 																	</script>
 																</span> <span th:onclick="javascript:kakaoShare()"
-																	id="kakao-link-btn"><img
+																	id="kakao-link-btn" style="cursor:pointer;"><img
 																	src="assets/img/sns/kakaoTalk.png"
-																	style="width: 16px; height: 16px;"> </span>
+																	style="width: 20px; height: 20px;"> </span>
+																<span onclick="clip(); return false;" style="cursor:pointer;"><i class="fa-regular fa-copy fs-5"></i></span>	
+																	
+																	
 															</div> <!-- 콜랩스 추가 끝 -->
 														</li>
 
 														<!-- 스크랩 버튼 -->
 														<li class="d-flex flex-column">
 															<div>
-																<a th:if="${sDetail.scrapNo>0}" class="btn icon btn-white bmark"> 
+																<a th:if="${sDetail.scrapNo != null}" class="btn icon btn-white bmark"> 
 																	<i class="fa-solid fa-bookmark fs-5 text-secondary iBmark" th:data-scrapno="${sDetail.scrapNo}" th:data-snswrtno="${sDetail.snsWrtNo}" id="scrapBtn" ></i>
 																</a>
-																<a th:unless="${sDetail.scrapNo>0}" class="btn icon btn-white bmark"> 
+																<a th:unless="${sDetail.scrapNo != null}" class="btn icon btn-white bmark"> 
 																	<i class="fa-regular fa-bookmark fs-5 text-secondary iBmark active" th:data-scrapno="${sDetail.scrapNo}" th:data-snswrtno="${sDetail.snsWrtNo}" id="scrapBtn" ></i>
 																</a>
 															</div>
@@ -223,7 +260,7 @@
 				<div class="modal-body">
 					<div class="card">
 						<div class="card-header"></div>
-						<div class="card-body">
+						<div class="card-body repBody">
 							<table class="table" id="tableRep">
 								<thead>
 									<tr>
@@ -234,19 +271,12 @@
 									</tr>
 								</thead>
 								<tbody id="replyList" class="replyList">
-									<!-- 	<tr th:each="num : ${#numbers.sequence(1,5)}">
-												<td>Graiden</td>
-												<td>vehicula.aliquet@semconsequat.co.uk</td>
-												<td>076 4820 8838</td>
-												<td><i type="button"
-													class="fa-regular fa-pen-to-square"></i> <i type="button"
-													class="fa-regular fa-trash-can"></i></td>
-											</tr> -->
-
+									<!-- 댓글리스트 아작스 -->
 								</tbody>
 							</table>
 								<!-- <a href="#" id="load" class="load">MORE</a> -->
-
+								<div id="lastDiv" style="display: flex; justify-content: center;"></div>
+							<div id="loadDiv" style="display: flex; justify-content: center"></div>
 						</div>
 					</div>
 				</div>
@@ -273,6 +303,26 @@
 
 	<!-- Initialize Swiper -->
 	<script th:inline="javascript">
+	
+
+	function clip(){
+
+		var url = '';
+		var textarea = document.createElement("textarea");
+		document.body.appendChild(textarea);
+		url = window.document.location.href;
+		textarea.value = url;
+		textarea.select();
+		document.execCommand("copy");
+		document.body.removeChild(textarea);
+		Swal.fire({
+			  position: "center",
+			  icon: "success",
+			  title: "URL이 복사되었습니다.",
+			  showConfirmButton: false,
+			  timer: 1500
+			});
+	}
 
 	// scroll to element
 	const element = document.getElementById("content-types");
@@ -304,9 +354,9 @@
 			}
 	});
 
-
+		let tennisUrl = [[${sDetail.snsWrtNo}]];
 		// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
-		Kakao.init('5cb79bd417ece35ea33fa7b756305a02');
+		Kakao.init('a3f2337f2fab17974560df2e031393c0');
 
 		// SDK 초기화 여부를 판단합니다.
 		console.log(Kakao.isInitialized());
@@ -318,17 +368,19 @@
 						content : {
 							title : 'TENNISWING-SNS',
 							description : '클럽매치데이 ',
-							imageUrl : 'https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800',
+							imageUrl : 'assets/img/logo.png',
 							link : {
-								mobileWebUrl : '카카오공유하기 시 클릭 후 이동 경로',
-								webUrl : '카카오공유하기 시 클릭 후 이동 경로',
+								mobileWebUrl : 'http://tenniswing.site/snsDetail?snsWrtNo='+tennisUrl,
+								webUrl : 'http://tenniswing.site/snsDetail?snsWrtNo='+tennisUrl, 
+							/* 	mobileWebUrl : 'http://localhost:8099/snsDetail?snsWrtNo='+tennisUrl,
+								webUrl : 'http://localhost:8099/snsDetail?snsWrtNo='+tennisUrl, */
 							},
 						},
 						buttons : [ {
 							title : '웹으로 보기',
 							link : {
-								mobileWebUrl : '카카오공유하기 시 클릭 후 이동 경로',
-								webUrl : '카카오공유하기 시 클릭 후 이동 경로',
+								mobileWebUrl : 'http://tenniswing.site/snsDetail?snsWrtNo='+tennisUrl,
+								webUrl : 'http://tenniswing.site/snsDetail?snsWrtNo='+tennisUrl,
 							},
 						}, ],
 						// 카카오톡 미설치 시 카카오톡 설치 경로이동
@@ -343,14 +395,14 @@
 		}
 		// NAVER
 		function shareNaver() {
-			const title = "TENNISWING";
-			const url = "https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800";
+			const title = "TENNISWING-SNS";
+			const url = "http://tenniswing.site/snsDetail?snsWrtNo="+tennisUrl;
 			window.open("https://share.naver.com/web/shareView?url=" + url
 					+ "&title=" + title);
 		}
 		// Facebook
 		function shareFacebook() {
-			const title = "TENNISWING-SNS";
+			const title = tennisUrl;
 			const url = "https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800";
 			window.open("http://www.facebook.com/sharer/sharer.php?u=" + url
 					+ "&title=" + title);
@@ -358,6 +410,7 @@
 
 		// 스크랩 등록, 삭제
 		$('.iBmark').on('click', function(e){
+			let target = $(e.target);
 			let snsWrtNo = $(this).attr('data-snswrtno');
 			if($(this).hasClass("active")){
 				console.log('액티브> 안눌린 스크랩버튼');
@@ -368,9 +421,18 @@
 					type : 'post',
 					datatype: 'text',
 					success : function(result){
-						alert("스크랩성공");
-						$(e.target).attr('class','fa-solid fa-bookmark fs-5 text-secondary iBmark');
-						$(e.target).removeClass("active");
+						if(result>0){
+							Swal.fire({
+								  position: "center",
+								  icon: "success",
+								  title: "스크랩 되었습니다.",
+								  showConfirmButton: false,
+								  timer: 1500
+								});
+						target.attr('class','fa-solid fa-bookmark fs-5 text-secondary iBmark');
+						target.attr('data-scrapNo', result);
+						target.removeClass("active");
+						}
 					},
 					error: function() {
 						alert("좋아요 실패")
@@ -385,8 +447,17 @@
 	            	   type:'post',
 	            	   datatype:'json',
 	            	   success: function(result){
-	            		   alert("스크랩 delete 성공")
-	            		   $(e.target).attr('class','fa-regular fa-bookmark fs-5 text-secondary iBmark active');
+	            			if(result){
+	            		   		target.attr('class','fa-regular fa-bookmark fs-5 text-secondary iBmark active');
+	            		   		target.removeAttr('data-scrapNo');
+	            		    		Swal.fire({
+									  position: "center",
+									  icon: "warning",
+									  title: "스크랩 해제 되었습니다.",
+									  showConfirmButton: false,
+									  timer: 1500
+									}); 
+	            		   }
 	            	 }
 				})
 			}
@@ -397,7 +468,7 @@
 		
 		//좋아요 insert, delete
 		$('.likeBtnC').on('click', function(e){
-			
+			let target = $(e.target);
 			let snsWrtNo = $(this).attr('data-snsWrtNo');
 		      if($(this).hasClass("active")){
 	                console.log('액티브있는거찍는중');
@@ -408,12 +479,22 @@
 							type : 'post',
 							datatype : 'text',
 							success : function(result) {
-									alert("좋아요성공")
-									
-									//location.href="/sns";
-									console.log($(e.target))
-									$(e.target).attr('class','fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC')
-									$(e.target).removeClass("active");
+								Swal.fire({
+									 title: '좋아요 등록 완료!',
+									 text: '마이페이지에서 확인하실 수 있습니다.',
+									 backdrop: `
+										 	rgba(230, 134, 163, 0.3)
+										    url("assets/img/sns/heartboom.gif")
+										    center
+										    no-repeat
+										  `,
+									  showConfirmButton: false,
+									  timer: 1500
+									})
+									target.attr('class','fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC')
+									target.removeClass("active");
+									target.text(result.cnt);
+									target.attr('data-likeNo', result.likeNo);
 							},
 							error : function() {
 								alert("좋아요 실패")
@@ -424,12 +505,24 @@
 	               let likeNo = $(this).attr('data-likeno');
 	               $.ajax({
 	            	   url:'snsLikeDel',
-	            	   data:{likeNo},
+	            	   data:{likeNo, snsWrtNo},
 	            	   type:'post',
 	            	   datatype:'json',
 	            	   success: function(result){
-	            		   alert("delete 성공")
-	            		   $(e.target).attr('class','fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active')
+	            		   Swal.fire({
+	   	            		
+	            			   	 //icon: "info",
+	            			   	 backdrop: `
+										 	rgba(230, 134, 163, 0.3)`,
+	            			   	 //background: "rgba(230, 134, 163, 0.3)",
+								 title: '좋아요 취소',
+								 text:'좋아요가 해제 되었습니다.',
+								  showConfirmButton: false,
+								  timer: 1300
+								})
+	            		   target.attr('class','fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active');
+	            		   target.text(result.cnt);
+	            		   target.removeAttr('data-likeNo');
 	            	   }
 	     
 	               })
@@ -457,34 +550,60 @@
 
     
     function makeReply(index, repList){
+    	let memId = [[${#authentication.name}]];
         let b = `
-            <tr class = "repTr" id = ${repList.snsRepNo}>
-					<td>${repList.name}</td>
-					<td class = "editCtt">${repList.snsRepCtt}</td>
-					<td>${new Date(repList.snsRepWriteDate).toLocaleDateString()}</td>
-					<td>
-						<i type="button" class="fa-regular fa-comment reWrtBtn" id="reWrtBtn${index}"></i>
-						<i type="button" class="fa-regular fa-pen-to-square repEditBtn" id="editBtn${index}"></i>
-						<i type="button" class="fa-regular fa-trash-can repDelBtn" id="delBtn${index}"></i></td>
-				</tr>`
+        	 <tr class = "repTr" id = ${repList.snsRepNo}>
+			<td>${repList.name}</td>
+			<td class = "editCtt">${repList.snsRepCtt}</td>
+			<td>${new Date(repList.snsRepWriteDate).toLocaleDateString()}</td>
+			<td>
+			<i type="button" class="fa-regular fa-comment reWrtBtn" id="reWrtBtn${index}"></i>
+			`
+			if(memId==repList.memId){
+				b+=`<i type="button" class="fa-regular fa-pen-to-square repEditBtn" id="editBtn${index}"></i>
+					<i type="button" class="fa-regular fa-trash-can repDelBtn" id="delBtn${index}"></i></td>`
+			}
+				
+				
+		b+=`</tr>`
 				
             $('#replyList').append(b);
     }
     
     function makeRreply(snsRrepList){
+    	let memId = [[${#authentication.name}]];
+    	$('#loadDiv').empty();
+    	$('#lastDiv').empty();
     	for(let[index, rrep] of snsRrepList.entries()){
 			b = `
 			    <tr id = ${rrep.snsRrepNo}>
 				<td> ㄴ ${rrep.name}</td>
 				<td class = "editCtt">${rrep.snsRrepCtt}</td>
 				<td>${new Date(rrep.snsRrepWriteDate).toLocaleDateString()}</td>
-				<td><i type="button"
-					class="fa-regular fa-pen-to-square rrepEditBtn" id="rreditBtn`+index+`"></i>
-					<i type="button" class="fa-regular fa-trash-can rrepDelBtn" id="rrdelBtn`+index+`"></i></td>
-			</tr>
-			`
+				<td>`
+				if(memId==rrep.memId){
+					b+=`<i type="button"
+						class="fa-regular fa-pen-to-square rrepEditBtn" id="rreditBtn`+index+`"></i>
+						<i type="button" class="fa-regular fa-trash-can rrepDelBtn" id="rrdelBtn`+index+`"></i></td>`
+				}
+			b+=`</tr>`
 		 $('#replyList').append(b);
 		}
+    	$('#loadDiv').append(`
+				<button id="load" class="btn btn-primary" style="width: 200px;">More</button>
+				`)
+		$('#replyList td').css('display','none');
+		$('#replyList td').slice(0,16).show();
+		$('#load').click(function(e){
+			e.preventDefault();
+			$('#replyList td:hidden').slice(0,16).show();
+			if($("#replyList td:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+				$('#lastDiv').append(`
+											<div>마지막 행입니다.</div>
+									   `);
+	            $('#load').fadeOut(100); // 컨텐츠 없을 시 버튼 사라짐
+	        }
+		})
     }
     
 	//댓글 리스트
@@ -523,9 +642,7 @@
 						<td>${data[num].name}</td>
 						<td class = "editCtt" id="">${data[num].snsRepCtt}</td>
 						<td>${new Date(data[num].snsRepWriteDate).toLocaleDateString()}</td>
-						<td><i type="button"
-							class="fa-regular fa-pen-to-square repEditBtn" id="editBtn`+data[num].snsRepNo+`"></i> 
-							<i type="button" class="fa-regular fa-trash-can"></i></td>
+						<td></td>
 					</tr>`
 	   		$('#replyList').append(b);
 			snsRepNo = $(e.target).closest('tr').prop('id');
@@ -543,30 +660,45 @@
         	console.log(cnt);
 
         	snsRepNo = $(e.target).closest('tr').prop('id');
-        	 $.ajax({
-        		type:'POST',
-        		url: 'snsReplyDel',
-        		data:{repNo: snsRepNo},
-        		dataType:'json',
-        		success:function(result){
-        			if(result>0){
-        				alert("정상삭제");
-        				getRepList(snsWrtNo)
-        			}
-        		},
-        		error : function() {
-					alert("삭제 실패");
+        	Swal.fire({
+				  title: "정말 삭제하시겠습니까?",
+				  text: "댓글 삭제시 복구가 불가합니다.",
+				  icon: "warning",
+				  showCancelButton: true,
+				  confirmButtonColor: "#3085d6",
+				  cancelButtonColor: "#d33",
+				  confirmButtonText: "Yes, delete it!"
+				}).then((result) => {
+				  if (result.isConfirmed) {
+					   	 $.ajax({
+				        		type:'POST',
+				        		url: 'snsReplyDel',
+				        		data:{repNo: snsRepNo},
+				        		dataType:'json',
+				        		success:function(result){
+				        			if(result>0){
+				        				  Swal.fire({
+				        				      title: "Deleted!",
+				        				      text: "댓글이 삭제되었습니다.",
+				        				      icon: "success"
+				        				    });
+				        				getRepList(snsWrtNo)
+				        			}
+				        		},
+				        		error : function() {
+									alert("삭제 실패");
 
-				}
-        	})
-        });
+								}
+				        	})
+				    
+				    
+				  }
+				});
+		});
         
         // 대댓글 등록 이벤트
 		$('.reWrtBtn').on('click', function(e){
 			snsRepNo = $(e.target).closest('tr').prop('id');
-			//console.log(snsRepNo);
-			//console.log('대댓글 작성버튼 잘뜨는지');
-			//let snsRrepCtt = $("#replyContents").val();
 			$('#replyList').empty();
 	
 	    	let num = $(e.target).prop('id').replace('reWrtBtn','');
@@ -575,10 +707,7 @@
 						<td>${data[num].name}</td>
 						<td class = "editCtt" id="">${data[num].snsRepCtt}</td>
 						<td>${new Date(data[num].snsRepWriteDate).toLocaleDateString()}</td>
-						<td><i type="button"
-							class="fa-regular fa-pen-to-square repEditBtn" id="editBtn`+data[num].snsRepNo+`"
-							></i> <i type="button"
-							class="fa-regular fa-trash-can"></i></td>
+						<td></td>
 					</tr>`
 	   		$('#replyList').append(b);
 			//snsRepNo = $(e.target).closest('tr').prop('id');
@@ -595,22 +724,39 @@
 		$('.rrepDelBtn').on('click', function(e){
         	//console.log("대댓글삭제클릭되나요");
 			let snsRrepNo = $(e.target).closest('tr').prop('id');
-		 	 $.ajax({
-		        		type:'POST',
-		        		url: 'snsRreDel',
-		        		data:{snsRrepNo},
-		        		dataType:'json',
-		        		success:function(result){
-		        			if(result){
-		        				alert("정상삭제");
-		        				getRepList(snsWrtNo)
-		        			}
-		        		},
-		        		error : function() {
-							alert("삭제 실패");
-	
-					}
-				})
+			Swal.fire({
+				  title: "Are you sure?",
+				  text: "You won't be able to revert this!",
+				  icon: "warning",
+				  showCancelButton: true,
+				  confirmButtonColor: "#3085d6",
+				  cancelButtonColor: "#d33",
+				  confirmButtonText: "Yes, delete it!"
+				}).then((result) => {
+				  if (result.isConfirmed) {
+					 	 $.ajax({
+				        		type:'POST',
+				        		url: 'snsRreDel',
+				        		data:{snsRrepNo},
+				        		dataType:'json',
+				        		success:function(result){
+				        			if(result){
+				        			    Swal.fire({
+				      				      title: "삭제되었습니다!",
+				      				      //text: "Your file has been deleted.",
+				      				      icon: "success"
+				      				    });
+				        				getRepList(snsWrtNo)
+				        			}
+				        		},
+				        		error : function() {
+									alert("삭제 실패");
+							}
+						})
+					  
+				  }
+				});
+		
 		})
 		
 		//대댓글 수정 이벤트
@@ -652,8 +798,14 @@
 					type : 'post',
 					datatype : 'text',
 					success : function(result) {
-						$(e.target).text('등록')
-							alert("수정성공")
+						$(e.target).text('등록');
+						Swal.fire({
+							  position: "center",
+							  icon: "success",
+							  title: "댓글이 수정되었습니다.",
+							  showConfirmButton: false,
+							  timer: 1500
+							});
 						//if (result == "success") {
 						//}
 						$('#replyContents').val('') //댓글 등록시 댓글 등록창 초기화
@@ -673,7 +825,13 @@
 					datatype : 'text',
 					success : function(result) {
 						if(result>0){
-							alert("등록성공");
+							Swal.fire({
+								  position: "center",
+								  icon: "success",
+								  title: "댓글이 등록되었습니다.",
+								  showConfirmButton: false,
+								  timer: 1500
+								});
 
 						}else{
 							alert("등록 실패. 다시 시도해주세요.");
@@ -701,7 +859,13 @@
 				datatype : 'text',
 				success : function(result){
 					if(result > 0){
-						alert("대댓글 등록 성공");
+						Swal.fire({
+							  position: "center",
+							  icon: "success",
+							  title: "대댓글이 등록되었습니다.",
+							  showConfirmButton: false,
+							  timer: 1500
+							});
 						$(e.target).text('등록')
 						$('#replyContents').val(''); //댓글 등록시 댓글 등록창 초기화
 						getRepList(snsWrtNo);
@@ -726,7 +890,13 @@
 					success: function(result){
 						if(result){
 							$(e.target).text('등록')
-							alert("수정성공")
+							Swal.fire({
+							  position: "center",
+							  icon: "success",
+							  title: "대댓글이 수정되었습니다.",
+							  showConfirmButton: false,
+							  timer: 1500
+							});
 						$('#replyContents').val('') //댓글 등록시 댓글 등록창 초기화
 						 getRepList(snsWrtNo);
 						}
@@ -736,60 +906,6 @@
 				})
 		}
 	});
-
-	//대댓글 등록 처리
-	/* $('.reWrtBtn').on('click', function(e){
-		snsRepNo = $(e.target).closest('tr').prop('id');
-		console.log(snsRepNo);
-		console.log('대댓글 작성버튼 잘뜨는지');
-		let snsRrepCtt = $("#replyContents").val(); */
-/* 		$.ajax({
-			url: 'snsRreInsert',
-			data: {snsRepNo,snsRrepCtt},
-			datatype : 'text',
-			success : function(result){
-				if(result > 0){
-					alert("대댓글 등록 성공");
-					getRepList(snsWrtNo);
-				}else{
-					alert("대댓글 등록실패, 다시 시도해주세요.")
-				}
-				$('#replyContents').val('');
-				
-			},
-			error : function(){
-				alert("에러 등록실패.");
-			}
-		}) 
-	})*/
-	// sns 삭제
-/* 	$('.delBtnClass').on('click', function(e){
-		
-		let snsWrtNo = $(e.target).prop("id").replace("delSnsBtn","");
-		
-       	$.ajax({
-        		type:'POST',
-        		url: 'snsDel',
-        		data:{snsWrtNo},
-        		success:function(result){
-        			console.log(result)
-        			if(result){
-        				alert("정상삭제");
-        				location.reload();
-        			}else{
-        				alert("삭제실패. 재시도해주세요.");
-        			}
-        		},
-        		error : function() {
-					alert("삭제 실패");
-				}
-		})
-
-	}) */
-
-
-
-
 
 		</script>
 </th:block>
