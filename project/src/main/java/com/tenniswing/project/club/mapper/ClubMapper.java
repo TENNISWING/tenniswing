@@ -20,6 +20,9 @@ public interface ClubMapper {
 	public int insertClub(ClubVO clubVO);
 	public int insertClubHost(ClubVO clubVO);
 	
+	// 클럽명 중복 체크
+	public int clubNameCheck(String clubName);
+	
 	//수정
 	public int updateClub(ClubVO clubVO);
 	public int clubMemAdd(ClubVO clubVO);

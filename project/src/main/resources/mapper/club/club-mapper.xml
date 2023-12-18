@@ -56,11 +56,13 @@
                                               HAVING cl.club_no = c.club_no ) club_mem_num
 					, a.attach_path
 			FROM club c LEFT OUTER JOIN attach a
-						  ON a.attach_table_pk = c.club_no
-			AND a.attach_table_div = 'cl'
-			<if test="clubRegion != null and clubRegion != 'none'">AND c.club_region = #{clubRegion}</if>
-            <if test="clubGen != null and clubGen != 'none'">AND c.club_gen = #{clubGen}</if>
+						  ON ( a.attach_table_pk = c.club_no	AND a.attach_table_div = 'cl' )
+			<where>
+			<if test="clubRegion != null and clubRegion != ''">AND c.club_region = #{clubRegion}</if>
+            <if test="clubGen != null and clubGen != ''">AND c.club_gen = #{clubGen}</if>
             <if test="clubName != null and clubName != ''">AND c.club_name LIKE '%'||#{clubName}||'%'</if>
+			</where>
+			
 			<if test="sort != null and sort != ''">ORDER BY ${sort}</if>
 			<if test="!(sort != null and sort != '')">ORDER BY c.club_create_date DESC</if>
 			) A
@@ -78,6 +80,12 @@
          <if test="clubGen != null and clubGen != ''">AND c.club_gen = #{clubGen}</if>
          <if test="clubName != null and clubName != ''">AND c.club_name LIKE '%'||#{clubName}||'%'</if>
 	</select>	 
+	
+<!-- 클럽이름 중복 체크 -->
+<select id="clubNameCheck" parameterType="String"
+	resultType="int">
+	SELECT COUNT(club_name) FROM club WHERE club_name = #{clubName}
+</select>	
   
   <!-- 클럽 단건 조회 -->
   <resultMap id="clubtResult" type="ClubVO">

@@ -1,5 +1,83 @@
 <!DOCTYPE html>
 <html>
+<style>
+.content__body{
+font-family: 'Noto Sans KR', sans-serif !important;
+}
+
+.custom-btn {
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 25px;
+  font-weight: 500;
+  background: transparent;
+  position: relative;
+  display: inline-block;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+}
+
+
+.loseBox {
+  width: 70px;
+  height: 70px;
+  line-height: 42px;
+  padding: 0;
+  border: none;
+background: linear-gradient(0deg, rgb(255 94 75) 0%, rgb(255 180 149) 100%);
+}
+
+.loseBox > span {
+ font-size: 1.3em;
+}
+
+.winBox {
+  width: 70px;
+  height: 70px;
+  line-height: 42px;
+  padding: 0;
+  border: none;
+background: linear-gradient(0deg, rgb(122 181 255) 0%, rgb(187 237 255) 100%);
+}
+
+.winBox > span {
+ font-size: 1.3em;
+}
+
+.tieBox {
+  width: 70px;
+  height: 70px;
+  line-height: 42px;
+  padding: 0;
+  border: none;
+background: linear-gradient(0deg, rgb(143 143 143) 0%, rgb(233 233 233) 100%);
+}
+
+.tieBox > span {
+ font-size: 1em;
+}
+
+.rstBox {
+  width: 70px;
+  height: 70px;
+  line-height: 42px;
+  padding: 0;
+  border: none;
+	background: linear-gradient(0deg, rgb(243 243 243) 0%, rgb(252 252 252) 100%);
+}
+
+.rstBox > span {
+ font-size: 1em;
+ color: #9d9d9d;
+}
+
+
+
+
+
+</style>
 
 <head>
 	<meta charset="UTF-8">
@@ -8,7 +86,7 @@
 
 <body>
 	<div class="content__body">
-		<ul style="list-style: none;" id="matchEndList">
+		<ul style="list-style: none; padding-left: 0;" id="matchEndList">
 			<!-- 여기에 매치 리스트 -->
 		</ul>
 	</div>
@@ -37,12 +115,24 @@
 						<div class="d-flex-right">`
 						if(match.clubMatchRstName == null){
 							List+=`
-								<div class="match-box">대기</div>
+								<button class="custom-btn rstBox"><span>대기</span></button>
 							`
 						}else{
-							List+=`
-								<div class="match-box"> ${match.clubMatchRstName}</div>
-							`
+							
+							if(match.clubMatchRstName == '패'){
+								List+=`
+									<button class="custom-btn loseBox"><span>${match.clubMatchRstName}</span></button>
+								`
+							}else if(match.clubMatchRstName == '승'){
+								List+=`
+									<button class="custom-btn winBox"><span>${match.clubMatchRstName}</span></button>
+								`
+							}else{
+								List+=`
+									<button class="custom-btn tieBox"><span>${match.clubMatchRstName}</span></button>
+								`
+							}
+							
 						}
 					List+=	`
 							<div class="name ms-4" style="padding: 10px 0; cursor : pointer;"
@@ -81,7 +171,7 @@
 									role="document">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h5 class="modal-title white" style="color: black;" id="myModalLabel110">${new Date(match.matchDate).toLocaleDateString(
+											<h5 class="modal-title white" style="color: #3c3c3c;" id="myModalLabel110">${new Date(match.matchDate).toLocaleDateString(
 													'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치 결과</h5>
 											<button type="button" class="close" data-bs-dismiss="modal"
 												aria-label="Close">
@@ -89,12 +179,18 @@
 											</button>
 										</div>
 										<div class="modal-body">
+										<div>
 											<input class="form-check-input" type="radio" name="clubMatchRst" id="win" value="n2" style="display: inline-block;">
 					                     	  <label class="form-check-label" for="win" style="display: inline-block;">승</label>
+					                     	 </div>
+					                     	<div>
 											<input class="form-check-input" type="radio" name="clubMatchRst" id="lose" value="n1" style="display: inline-block;">
 										 	   <label class="form-check-label" for="lose" style="display: inline-block;">패</label>
+										 	  </div>
+										 	 <div>
 											<input class="form-check-input" type="radio" name="clubMatchRst" id="tie," value="n3" style="display: inline-block;"> 
 												<label class="form-check-label" for="tie," style="display: inline-block;">무승부</label>
+												</div>
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-light-secondary"
@@ -117,8 +213,8 @@
 									class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
 									role="document">
 									<div class="modal-content">
-										<div class="modal-header bg-success">
-											<h5 class="modal-title white" id="myModalLabel110">${new Date(match.matchDate).toLocaleDateString(
+										<div class="modal-header ">
+											<h5 class="modal-title white" id="myModalLabel110" style="color: #3c3c3c;" >${new Date(match.matchDate).toLocaleDateString(
 													'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치 결과</h5>
 											<button type="button" class="close" data-bs-dismiss="modal"
 												aria-label="Close">
@@ -137,7 +233,7 @@
 											<button type="button" class="btn btn-light-secondary"
 												data-bs-dismiss="modal">Close</button>
 
-											<button type="button" class="btn btn-success ms-1 updateBtn" 
+											<button type="button" class="btn btn-dark ms-1 updateBtn" 
 												 data-match-no="${match.matchNo}" data-bs-dismiss="modal">저장</button>
 										</div>
 									</div>
