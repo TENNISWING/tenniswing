@@ -101,22 +101,20 @@
 								</div>
 							</div>
 
-							<div class="product-detail__qty">
+							<div class="product-detail__qty" style="display: flex">
 								<span class="product-detail--stroke"
 									style="font-weight: bold; font-family: 'NanumSquareNeo-Variable';">코트장
 									위치</span>
-								<div>
-									<input type="text" style="border: 0; text-align: center"
-										th:value="${matchInfo.crtroomLocation}" disabled /> <input
-										type="hidden" style="border: 0; text-align: center"
+									<span style="border: 0; text-align:left; width:175px;"
+										th:text="${matchInfo.crtroomLocation}"></span>
+										<input type="hidden" style="border: 0; text-align: center"
 										name="crtroomLocation" th:value="${matchInfo.crtroomLocation}">
-								</div>
 							</div>
 						</div>
 						<br><br>
 
 						<div class="review__wrapper">
-							<div class="review__item">
+							<div class="review__item" style="align-items: center;">
 								<div class="matchimg">
 									<img src="https://bootdey.com/img/Content/avatar/avatar1.png"
 										alt="avatar" />
@@ -169,6 +167,7 @@
 					</div>
 				</div>
 			</div>
+			</section>
 	</div>
 	<br><br>	
 	<script th:inline='javascript'>

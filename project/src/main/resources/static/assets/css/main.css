@@ -103,6 +103,18 @@
 	color:lightgreen;
 }
 
+#crtroomOperateStartTime {
+	background-color: transparent;
+}
+
+.swiper-button-next {
+	right: 0px !important;
+}
+
+.swiper-button-prev {
+	left: 0px !important;
+}
+
 .mmmttt {
 	justify-content: space-around;
 }
