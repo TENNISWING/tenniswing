@@ -342,6 +342,7 @@
 		(club_recruitment) club_recruitment
 		, club_create_date
 		, club_state
+		, mem_id
 		FROM club 
 		ORDER BY club_no
 	</select>

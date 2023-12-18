@@ -72,6 +72,7 @@
 				, s.sns_ctt
 				, s.sns_write_date
 				, s.sns_tag
+				, FIND_CATEGORY_NAME(s.sns_state) sns_state
 				, s.sns_hit
 				, (select nick from pr where mem_id= s.mem_id) name
 				, s.mem_id
@@ -477,13 +478,14 @@
 				, s.sns_ctt
 				, s.sns_write_date
 				, s.sns_tag
+				, FIND_CATEGORY_NAME(s.sns_state) sns_state
 				, s.sns_hit
-				, (select nick from pr where mem_id= #{memId}) name
+				, (select nick from pr where mem_id= s.mem_id) name
 				, s.mem_id
 		FROM sns s
 				join mem m
 					 on s.mem_id = m.mem_id
-		ORDER BY s.sns_wrt_no DESC
+		order by SNS_WRITE_DATE
 	</select>
 
 

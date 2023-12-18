@@ -2,7 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/main-layout}">
-
+<head>
+<link rel="stylesheet"
+		href="/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+	<link rel="stylesheet"
+		href="/assets/compiled/css/table-datatable-jquery.css">
+</head>
 <th:block layout:fragment="content">
 	<h3 class="container p-3">매치 이력</h3>
 	<div class="container" id="mypage">
@@ -13,65 +18,26 @@
 			<div class="col-lg-8 col-md-auto">
 				<!-- Profile Table Start -->
 				<div class="cart__form">
-					<table>
+					<table class="table" id="match">
 						<thead>
-							<!-- <h3>매치 이력</h3> -->
 							<tr>
 								<th class="cart-pd__thumb">일자</th>
 								<th class="cart-pd__qty">코트장이름</th>
 								<th class="cart-pd__price">매치상대</th>
 								<th class="cart-pd__qty">매치상태</th>
-								<th class="cart-pd__status">코멘트</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:if="${match.size == 0}">
-									<td colspan="5">매치 이력이 없습니다.</td>
-							</tr>
 							<th:block th:each="m : ${match}">
 								<tr>
 									<td class="cart-pd__date text-start" data-title="Date">
-										[[${m.MATCH_DATE}]]</td>
-									<td class="cart-pd__thumb">
-										<div class="product-card--inline">
-											<div class="product__content">
-												<h5 class="product__title">[[${m.CRTROOM_NAME}]]</h5>
-												<ul class="product__info">
-													<li class="info-item">Weight: <span>5kg</span></li>
-												</ul>
-											</div>
-										</div>
-									</td>
-									<td class="cart-pd__qty" data-title="Quantity">[[${m.OPP_MATCH}]]</td>
-									<td class="cart-pd__qty" data-title="Quantity">[[${m.MATCH_STATE}]]</td>
-									<td>
-										<div class="accordion-item">
-											<h2 class="accordion-header" id="headingTwo">
-												<button class="collapsed btn btn-outline-success"
-													type="button" data-bs-toggle="collapse"
-													data-bs-target="#collapseTwo" aria-expanded="false"
-													aria-controls="collapseTwo">코멘트보기</button>
-											</h2>
-										</div>
-									</td>
+									[[${#dates.format(m.match_date,'yyyy-MM-dd')}]]</td>
+									<td class="cart-pd__thumb">[[${m.crtroom_name}]]</td>
+									<td class="cart-pd__thumb">[[${m.opp_match}]]</td>
+									<td class="cart-pd__thumb">[[${m.match_state}]]</td>
 								</tr>
-								<tr>
-									<td colspan="5" id="collapseTwo"
-										class="accordion-collapse collapse"
-										aria-labelledby="headingTwo">
-										<div class="accordion-body">
-											<div class="input-group mb-3">
-												<input type="text" class="form-control" placeholder="코멘트 입력"
-													id="repCtt" name="repCtt">
-												<button class="btn btn-success regiBtn" type="button">등록</button>
-											</div>
-										</div>
-									</td>
-								</tr>
-
-								
 							</th:block>
-						</tbody>
+						</tbody>						
 					</table>
 				</div>
 				<!-- Profile Card End -->
@@ -84,7 +50,24 @@
 
 
 	<script>
-	function myPageAjax(page) {
+	$(document).ready(function() {
+		$("#match").DataTable(
+				{
+					responsive : true,
+					pagingType: 'simple',
+				    "language": {
+				        "info": "Page _PAGE_ of _PAGES_",
+				        "lengthMenu": "_MENU_ ",
+				        "search": "",
+				        "searchPlaceholder": "검색.."
+				    },
+				    columnDefs: [
+				        // 2번째 항목 넓이를 100px로 설정
+				        { targets: 1, width: 200 }
+				    ]
+				})
+		});
+/* 	function myPageAjax(page) {
 		
 		$.ajax({
 			type: 'GET',
@@ -110,9 +93,12 @@
 				showPage(result.selectCount);
 			}
 		})
-	}
+	} */
 	</script>
-
+<script
+		src="assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
 
 </th:block>
 
