@@ -118,4 +118,9 @@ public class AdminCourtCalcServiceImpl implements AdminCourtCalcService {
 	public int insertAdminCourtCalc(List<CalcTableVO> list) {
 		return adminCourtCalcMapper.insertAdminCourtCalc(list);
 	}
+
+	@Override
+	public List<CalcTableVO> selectPreviousCourtCalc(CalcTableVO calcTableVO) {
+		return adminCourtCalcMapper.selectPreviousCourtCalc(calcTableVO);
+	}
 }

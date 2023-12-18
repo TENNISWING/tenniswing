@@ -108,9 +108,13 @@ public class SnsServiceImpl implements SnsService {
 
 	// 그룹등록
 	@Override
-	public int insertSnsGrp(SnsVO snsVO) {
+	public Map<String, Object> insertSnsGrp(SnsVO snsVO) {
 
-		return snsMapper.insertSnsGrp(snsVO);
+		Map<String, Object> resMap = new HashMap<>();
+		resMap.put("result", snsMapper.insertSnsGrp(snsVO));
+		resMap.put("resVO", snsVO);
+		
+		return resMap;
 	}
 
 	// 좋아요 등록

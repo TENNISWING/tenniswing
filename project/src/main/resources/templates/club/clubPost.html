@@ -3,6 +3,8 @@
 
 <head>
 <style>
+
+
 .content__body {
 	font-family: 'Noto Sans KR', sans-serif !important;
 }
@@ -10,19 +12,81 @@
 .toggleBoard {
 	display: none;
 }
-
 .boardContainer {
 	margin-bottom: -16px;
 }
-
 .toggleBoardTitle {
 	cursor: pointer;
 }
-
 .boardBody {
-	box-shadow: 0px 9px 15px #d5d9db;
-	margin: 3px;
+	border-bottom: 1.5px solid #c1c1c1;
+
 }
+.postTable table{
+  width: 100%;
+}
+
+.postTable th {
+  background: #c1c1c1;
+  height: 45px;
+  font-weight: lighter;
+  color: white;
+  padding: 10px;
+  }
+.postTable tr {
+  border-bottom: 1px solid #cccccc;
+}
+.postTable tr:last-child {
+  border-bottom: 0px;
+}
+.postTable td {
+  border-left: none;
+  padding: 10px;
+}
+.postTable td:last-child {
+  width: 60px;
+}
+
+.postRep{
+margin: 20px 0;
+}
+
+.postRep th{
+    background: #cbeadb;
+    height: 5px;
+    font-weight: 500;
+    color: #273a27;
+    padding: 5px;
+}
+
+
+.filter__area{
+	margin: 0;
+    align-items: center;
+    height: 50px;
+}
+
+.page-link {
+  color: #000; 
+  background-color: #fff;
+  border: 1px solid #ccc; 
+}
+
+.page-item.active .page-link {
+ z-index: 1;
+ color: #555;
+ font-weight:bold;
+ background-color: #f1f1f1;
+ border-color: #ccc;
+ 
+}
+
+.page-link:focus, .page-link:hover {
+  color: #000;
+  background-color: #fafafa; 
+  border-color: #ccc;
+}
+
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -31,13 +95,14 @@
 
 	<body>
 		<div class="content__body">
-			<section class="archive-category">
+			<section class="archive-category" style="padding:15px 0 0 0;">
 				<div class="col-12">
-					<div class="filter__area" style="margin: 0;">
+					<div class="filter__area">
 						<div class="email-fixed-search col-6 ">
 							<div class="form-group position-relative  mb-0 has-icon-left">
-								<button class="btn btn-outline-success" id="clubPostWrite" th:data-club-no="${clubVO.clubNo}"
-									data-bs-toggle="modal" data-bs-target="#WriteModal">글쓰기</button>
+								<button class="btn btn-outline my-4" id="clubPostWrite"
+									th:data-club-no="${clubVO.clubNo}" data-bs-toggle="modal"
+									data-bs-target="#WriteModal">글쓰기</button>
 							</div>
 						</div>
 						<div class="shortBy-select select__style d-lg-flex d-none">
@@ -51,8 +116,8 @@
 			</section>
 		</div>
 		<!-- table hover -->
-		<div>
-			<table class="table mb-0">
+		<div class="postTable mb-0">
+			<table>
 				<thead>
 					<tr>
 						<th>작성일</th>
@@ -82,7 +147,7 @@
 			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title" id="myModalLabel33">게시글 작성하기</h4>
+						<h4 class="modal-title" id="myModalLabel33" style="color: black;">게시글 작성하기</h4>
 						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
 							<i data-feather="x"></i>
 						</button>
@@ -109,7 +174,7 @@
 							<button type="button" class="btn btn-light-secondary cancleBtn" data-bs-dismiss="modal">
 								<i class="bx bx-x d-block d-sm-none"></i> <span class="d-none d-sm-block">취소</span>
 							</button>
-							<button type="button" class="btn btn-primary ms-1 insertBtn" data-bs-dismiss="modal">
+							<button type="button" class="btn btn-dark ms-1 insertBtn" data-bs-dismiss="modal">
 								<i class="bx bx-check d-block d-sm-none"></i> <span class="d-none d-sm-block">작성</span>
 							</button>
 						</div>
@@ -122,51 +187,134 @@
 		<!-- 글수정 모달  -->
 		<div class="modal fade text-left" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
 			aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="myModalLabel33">게시글 수정하기</h4>
-						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-							<i data-feather="x"></i>
-						</button>
-					</div>
-					<form class="form__wrapper PostEditModal" id="postEditForm" th:action="@{/postUpdate}" method="POST"
-						th:object="${club}" enctype="multipart/form-data" data-parsley-validate>
-						<div class="modal-body">
-							<input type="hidden" name="clubNo" th:value="${clubVO.clubNo}">
-							<div class="input-group mb-3">
-								<input type="file" class="form-control" name="files" id="inputGroupFile01" style="padding: 0.375rem 0.75rem">
-							</div>
-							<div class="form-group">
-								<label for=clubPostTitle>제목</label>
-								<input name="clubPostTitle" id="clubPostTitle" class="form-control form-area">
-							</div>
-							<div class="form-group">
-								<label for="clubPostCtt">내용</label>
-								<textarea name="clubPostCtt" cols="30" rows="5" id="clubPostCtt"
-									class="form-control form-area"></textarea>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-light-secondary editCancleBtn" data-bs-dismiss="modal">
-								<i class="bx bx-x d-block d-sm-none"></i> <span class="d-none d-sm-block">취소</span>
-							</button>
-							<button type="button" class="btn btn-primary ms-1" id="postUpdateBtn" data-bs-dismiss="modal">
-								수정
-							</button>
-						</div>
-					</form>
-				</div>
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document" id="editForm">
+			
 			</div>
 		</div>
 		<!-- /글수정 모달  -->
 
-		<script>
+		<script th:inline='javascript'>
 
 		
 		$(document).ready(function () {
 			postListPage(1);
+			
+			
 		});
+		
+		$('.postEditBtn').on("click", function (e) {
+			e.stopPropagation();
+			//const postClubData = new URLSearchParams();
+			let no = $(this).data('value');
+			//console.log("이거 클럽 포스트 번호인데" + no);
+		
+			});
+		
+		
+		//게시글 수정
+		function clubPostEditfnc(clubPostNo){	
+			//$('.accordion-header').preventDefault();
+			$('#editForm').empty();
+			
+			$.ajax({
+				type: 'GET',
+				url: 'clubPostEdit',
+				data: {clubPostNo},
+				success: function (data) {
+					console.log(data.post.clubPostNo)
+					let b = `
+						
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myModalLabel33" style="color: black;">게시글 수정하기</h4>
+								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+									<i data-feather="x"></i>
+								</button>
+							</div>
+							<form class="form__wrapper PostEditModal" id="postEditForm" action="postUpdate" method="POST"
+								 enctype="multipart/form-data" data-parsley-validate>
+								<div class="modal-body">
+									<input type="hidden" name="clubNo" value="${data.post.clubNo}">
+									<input type="hidden" name="clubPostNo" value="${data.post.clubPostNo}">
+									<div class="input-group mb-3">
+										<input type="file" class="form-control" name="files" id="inputGroupFile01" style="padding: 0.375rem 0.75rem">
+									</div>
+									<div class="form-group">
+										<label for=clubPostTitle>제목</label>
+										<input name="clubPostTitle" id="clubPostTitle" class="form-control form-area" value="${data.post.clubPostTitle}">
+									</div>
+									<div class="form-group">
+										<label for="clubPostCtt">내용</label>
+										<textarea name="clubPostCtt" cols="30" rows="5" id="clubPostCtt"
+											class="form-control form-area">${data.post.clubPostCtt}</textarea>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-light-secondary editCancleBtn" data-bs-dismiss="modal">
+										<i class="bx bx-x d-block d-sm-none"></i> <span class="d-none d-sm-block">취소</span>
+									</button>
+									<button type="button" class="btn btn-dark ms-1" id="postUpdateBtn" data-bs-dismiss="modal">
+										수정
+									</button>
+								</div>
+							</form>
+						</div>
+					
+					`
+					$('#editForm').append(b);
+					
+						$('#postUpdateBtn').on("click", function (e) { //수정 버튼 눌렀을때
+								console.log("수정 버튼 눌렀을때");
+								/* let postClubData = $("#postEditForm").serialize() + "&clubPostNo=" + no;
+								console.log(postClubData); */
+								
+								let form = $('#postEditForm')[0]
+								let postEditInfo = new FormData(form)
+								//postEditInfo.append('clubPostNo', data.post.clubPostNo); //클럽포스트넘버 추가
+								
+								$.ajax({
+									url: 'postUpdate',  //컨트롤러에 맵핑에 있는 경로
+									data: postEditInfo,
+									type: 'post',
+									enctype: 'multipart/form-data',
+									contentType: false,
+									processData: false,
+									success: function (result) {
+										Swal.fire({
+											backdrop: `
+												 rgba(100, 100, 100, 0.6)`,
+											title: '수정 완료',
+											text: '게시글이 수정 되었습니다.',
+											showConfirmButton: false,
+											timer: 1700
+										})
+										
+										//$('#postEditForm')[0].reset();	//폼값 초기화
+										postListPage(1);
+										// getRepList(snsWrtNo); //다시 메인 페이지 보여줘야하나요?
+										//DOM 조작 함수호츨 등 가능
+									},
+									error: function () {
+										Swal.fire({
+											backdrop: `
+												 rgba(100, 100, 100, 0.6)`,
+											title: '수정 완료',
+											text: '게시글이 수정 되었습니다.',
+											showConfirmButton: false,
+											timer: 1700
+										})
+										postListPage(1);
+
+									}
+								})
+					
+					//수정 아이콘 클릭할때
+						
+
+						})
+				}
+			})
+		}
 		
 		var pageNum = 1;
 		var pageSize = 10.0; //페이지 번호 수
@@ -194,6 +342,7 @@
 			
 			
 			function postListPage(page) {
+				let memId = [[${#authentication.name}]];
 				let sort = $('#sortBy').val();
 				if(sort == 0)
 					sort = 'club_post_write_date DESC';
@@ -212,26 +361,31 @@
 						for (let clubPost of data.clubPost) {
 							let List = `
 							<tr class="accordion-header" style="height: 70px;" 
-								data-bs-target="${clubPost.clubPostNo}" aria-expanded="false"	>
+								data-bs-target="${clubPost.clubPostNo}" aria-expanded="false">
 								<td>${new Date(clubPost.clubPostWriteDate).toLocaleDateString()}</td>
-								<td>
+								<td class="accordion">
 									<div class="boardContainer toggleBoardTitle" data-value="${clubPost.clubPostNo}">
 										<p class="toggleBoardTitle" style="text-align: left;">${clubPost.clubPostTitle}</p>
 								    </div>
 								</td>
 								<td  style="text-align: left;">${clubPost.name}</td>
 								<td class="postHit">${clubPost.clubPostHit}</td>
-								<td>
-								<i type="button" class="fa-regular fa-pen-to-square postEditBtn" data-value="${clubPost.clubPostNo}"
-														data-bs-toggle="modal" data-bs-target="#editModal" ></i>
-								<i type="button" class="fa-regular fa-trash-can postDelBtn" data-value="${clubPost.clubPostNo}"></i>
-								</td>
+								
+								<td>`
+								if(memId==clubPost.memId){
+									List += `<i type="button" class="fa-regular fa-pen-to-square postEditBtn" data-value="${clubPost.clubPostNo}"
+										data-bs-toggle="modal" data-bs-target="#editModal" onclick="clubPostEditfnc(${clubPost.clubPostNo})"></i>
+										<i type="button" class="fa-regular fa-trash-can postDelBtn" data-value="${clubPost.clubPostNo}"></i>`
+								}
+								
+								List += `</td>
+								
 							</tr>
 							<tr class="toggleBoard">
 							<td colspan='5' style="padding: 0;"  id="p${clubPost.clubPostNo}">
-								<div class="boardBody">
+								<div class="boardBody" style="text-align:center;">
 									<div>
-										<img src="${clubPost.attachPath}" style="width: 70%; padding:25px 0px">
+										<img src="${clubPost.attachPath}" style="width: 70%; padding:25px 0px; background-size: cover;">
 									</div>
 									<div style="padding: 0 5%;">
 									<pre class="form-control" id="exampleFormControlTextarea1" style="text-align:left;" >${clubPost.clubPostCtt}</pre>
@@ -242,8 +396,8 @@
 											aria-describedby="basic-addon2">
 										<button type="button" class="input-group-text repInserBtn" data-value="${clubPost.clubPostNo}">등록</button>
 									</div>
-									<div class="table-responsive" >
-											<table class="table" id="table1" data-value="${clubPost.clubPostNo}">
+									<div class="postRep" >
+											<table id="table1" data-value="${clubPost.clubPostNo}">
 												<thead>
 													<tr>
 														<th>작성자</th>
@@ -294,7 +448,8 @@
 						}
 						
 						
-					$('#postList tr.accordion-header').on("click", repListAjax);
+					//$('#postList tr.accordion-header').on("click", repListAjax);
+					$('#postList td.accordion').on("click", repListAjax);
 						
 						//조회수 추가
 						
@@ -324,43 +479,7 @@
 							});
 						});
 
-						//수정 아이콘 클릭할때
-						$('.postEditBtn').on("click", function (e) {
-							e.stopPropagation();
-							//const postClubData = new URLSearchParams();
-							let no = $(this).data('value');
-							//console.log("이거 클럽 포스트 번호인데" + no);
-							$('#postUpdateBtn').on("click", function (e) { //수정 버튼 눌렀을때
-								/* console.log("수정 버튼 눌렀을때");
-								let postClubData = $("#postEditForm").serialize() + "&clubPostNo=" + no;
-								console.log(postClubData); */
-								
-								let form = $('#postEditForm')[0]
-								let postEditInfo = new FormData(form)
-								postEditInfo.append('clubPostNo', no); //클럽포스트넘버 추가
-								
-								$.ajax({
-									url: 'postUpdate',  //컨트롤러에 맵핑에 있는 경로
-									data: postEditInfo,
-									type: 'post',
-									enctype: 'multipart/form-data',
-									contentType: false,
-									processData: false,
-									success: function (result) {
-										alert("수정성공")
-										postListPage();
-										$('#postEditForm')[0].reset();	//폼값 초기화
-										// getRepList(snsWrtNo); //다시 메인 페이지 보여줘야하나요?
-										//DOM 조작 함수호츨 등 가능
-									},
-									error: function () {
-										alert("수정 실패")
-
-									}
-								})
-							});
-
-						})
+						
 
 						//상세 조회 (제목 클릭)
 						/* 	$(".boardContainer").on("click", function (e) {
@@ -391,17 +510,22 @@
 
 			//댓글 리스트 아작스
 			function repListAjax() {
-				if( $(event.currentTarget).next().is(':visible')){
-					$(event.currentTarget).next().hide();
+				if( $(event.currentTarget).parent().next().is(':visible')){
+					$(event.currentTarget).parent().next().hide();
 				}else{
-					$(event.currentTarget).next().show();
-					let clubPostNo = $(event.currentTarget).attr('data-bs-target');
+					$(event.currentTarget).parent().next().show();
+					let clubPostNo = $(event.currentTarget).parent().attr('data-bs-target');
 					repList(clubPostNo);
 					
 					//조회수 증가
 					let postHit  =$(`[data-bs-target="${clubPostNo}"]`).find('.postHit')
 					let n=postHit.text()*1
 					postHit.text(n+1)
+					
+					//스크롤 이동
+					let offset = $(event.currentTarget).offset(); //해당 위치 반환
+					$("html, body").animate({scrollTop: offset.top},100); 
+					
 				}
 				
 				
@@ -410,6 +534,7 @@
 
 
 			function repList(clubPostNo) {
+				let memId = [[${#authentication.name}]];
 				$.ajax({
 					type: 'GET',
 					url: 'repList',
@@ -422,11 +547,18 @@
 								<td>${rep.name}</td>
 								<td style="text-align:left;">${rep.clubRepCtt}</td>
 								<td>${new Date(rep.clubRepWriteDate).toLocaleDateString()}</td>
-								<td><i type="button" class="fa-regular fa-trash-can repDelBtn" data-postno="${clubPostNo}" data-value="${rep.clubRepNo}"></i></td>
+								<td>`
+								
+								if(memId == rep.memId){
+								List += `<i type="button" class="fa-regular fa-trash-can repDelBtn" data-postno="${clubPostNo}" data-value="${rep.clubRepNo}"></i>`
+								}
+								
+							List += `</td>
 							</tr>
 							`
 							$('#r' + clubPostNo).append(List)
 						}
+						
 						
 						//댓글 삭제 버튼 클릭
 						$('.repDelBtn').on("click", function (e) {
@@ -543,11 +675,12 @@
 					success: function (result) {
 						if (result) {
 							//삭제되면 리스트 다시 불러오기
-							postListAjax()
+							postListAjax(1)
 						}
 					},
 					error: function () {
 						alert("삭제실패");
+						postListPage(1);
 					}
 				})
 			};

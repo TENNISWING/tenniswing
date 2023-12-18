@@ -47,7 +47,7 @@
 					List+=	`
 							<div class="name ms-4" style="padding: 10px 0; cursor : pointer;"
 								data-bs-toggle="modal" data-bs-target="#hist${match.matchNo}">
-								<h5 class="mb-1 histInfo">${new Date(match.matchDate).toLocaleDateString(
+								<h5 class="mb-1 histInfo" style="color: #3c3c3c;">${new Date(match.matchDate).toLocaleDateString(
 							'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치</h5>
 								<h6 class="text-muted mb-0">참가 인원 : ${match.recruitPsnNum}명</h6>
 							</div>
@@ -56,14 +56,14 @@
 						if(match.clubMatchRstName == null){
 							List+=`
 								<div>
-								<button type="button" class="btn btn-outline-success resultBtn"
+								<button type="button" class="btn btn-outline my-4 resultBtn"
 									 data-bs-toggle="modal" data-bs-target="#result${match.matchNo}">결과입력</button>
 								</div>
 							`
 						}else{
 							List+=`
 								<div>
-								<button type="button" class="btn btn-outline-success editBtn"
+								<button type="button" class="btn btn-outline my-4 editBtn"
 									 data-bs-toggle="modal" data-bs-target="#edit${match.matchNo}">수정</button>
 								</div>
 							`
@@ -80,8 +80,8 @@
 									class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
 									role="document">
 									<div class="modal-content">
-										<div class="modal-header bg-success">
-											<h5 class="modal-title white" id="myModalLabel110">${new Date(match.matchDate).toLocaleDateString(
+										<div class="modal-header">
+											<h5 class="modal-title white" style="color: black;" id="myModalLabel110">${new Date(match.matchDate).toLocaleDateString(
 													'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치 결과</h5>
 											<button type="button" class="close" data-bs-dismiss="modal"
 												aria-label="Close">
@@ -100,7 +100,7 @@
 											<button type="button" class="btn btn-light-secondary"
 												data-bs-dismiss="modal">Close</button>
 
-											<button type="button" class="btn btn-success ms-1 saveBtn" 
+											<button type="button" class="btn btn-dark ms-1 saveBtn" 
 												 data-match-no="${match.matchNo}" data-bs-dismiss="modal">저장</button>
 										</div>
 									</div>

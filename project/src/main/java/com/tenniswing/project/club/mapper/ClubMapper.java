@@ -32,6 +32,8 @@ public interface ClubMapper {
 	public ClubVO selectMatchClub(ClubVO clubVO);
 	
 	
+	//클럽 멤버 체크
+	public List<ClubVO> selectCheckMem(ClubVO clubVO);
 	
 	
 	//첨부파일

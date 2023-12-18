@@ -3,6 +3,9 @@ package com.tenniswing.project.shop.service;
 import java.util.List;
 import java.util.Map;
 
+import com.tenniswing.project.attach.service.AttachVO;
+import com.tenniswing.project.court.service.CrtroomVO;
+
 public interface ProdService {
 	// 전체조회
 	public List<ProdVO> selectAllProd(ProdVO prodVO);
@@ -31,12 +34,18 @@ public interface ProdService {
 	// 조회수
 	public void updateProdHit(int hit);
 	
-	// 수정 - 상품 상세 추가시
-	
-	// 수정 - 상품 상세 수정시s
-	
-	// 수정 - 상품 상세 삭제시
-	
 	// 삭제
 	public Map<String, Object> deleteProd(int prodNo);
+	
+	// 후기 등록 권한여부
+	public Integer confirmInsertReview(ProdVO prodVO);
+	
+	// 코트 후기 등록
+	public int insertProdReview(ProdVO prodVO, List<AttachVO> files);
+	
+	// 코트 후기 조회
+	public List<ProdVO> selectProdReview(int prodNo);
+	
+	// 후기 삭제
+	public boolean deleteProdReview(int prodReviewNo);
 }

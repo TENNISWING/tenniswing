@@ -70,11 +70,20 @@
 	height : 600px;
 }
 
-.carousel-item video {
-
+.snsVideo{
+	
 	width: 400px;
 	height : 600px;
 }
+.detailVideo{
+	width: 480px;
+	height : 600px;
+}
+/* .carousel-item video {
+
+	width: 400px;
+	height : 600px;
+} */
 
 .snsimg{
 	width: 400px;
@@ -89,6 +98,10 @@
 /*--------------------------------------------------------------
 # Match
 --------------------------------------------------------------*/
+
+.sdbctn:hover {
+	color:lightgreen;
+}
 
 .mmmttt {
 	justify-content: space-around;

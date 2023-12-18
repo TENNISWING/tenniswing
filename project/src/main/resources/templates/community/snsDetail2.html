@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main-layout}">
+<head>
+<style>
+.swiper {
+	width: 600px;
+	height: 1200px;
+}
+.repTr{
+	background-color: #ECF8E0;
+}
+section a,
+section span,
+section button,
+section input,
+section h1,
+section h2,
+section h3,
+section h4,
+section h5,
+section h6,
+section tr,
+section td,
+section th,
+section pre{
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+.snsTopBtn{
+	font-family: 'Noto Sans KR', sans-serif !important;
+	border: 1px solid #ccc;
+}
+section pre{
+	    font-size: 17px;
+	
+}
+.repBody{
+	padding:0px !important;
+	
+}
+
+</style>
+<!-- tagify 소스 다운 -->
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<!-- 폴리필 (구버젼 브라우저 지원) -->
+<script
+	src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+</head>
+
+<th:block layout:fragment="content">
+
+	<div class="container">
+		<div class="row" id="row">
+			<div class="col-3"></div>
+			<div class="col-6">
+				<div class="insertBtn">
+					<a class="btn rounded-pill snsTopBtn" th:onclick="|location.href='@{sns}'|">목록으로</a>	
+				</div>
+
+				<!-- Basic card section start -->
+
+				<!-- Slider main container -->
+				<div class="swiper">
+					<!-- Additional required wrapper -->
+					<div class="swiper-wrapper">
+						<!-- Slides -->
+						<th:block th:each="s : ${snsList}">
+							<div class="swiper-slide" th:id="${s.snsWrtNo}">
+								<section id="content-types" style="height: 800px">
+									<div class="row">
+										<div class="snsdiv col-xl-12 border border-1 rounded-4">
+											<div class="card snsimg mb-0">
+												<div class="card-content">
+													<div class="card-body">
+														<span class="card-title" style="font-weight: bold;">[[${s.snsTitle}]]</span>
+														<div class="edBtns" style="float: right;">
+														</div>
+														<br>
+
+														<th:block
+															th:each=" lang : ${#strings.arraySplit(s.snsTag,',')}">
+															<a class="text-primary" th:href="@{sns(snsTag=${lang})}"> <span class="card-title tagVal">#[[${lang}]]</span></a>
+															<!-- <input th:each="tagg:${#strings.arraySplit(s.snsTag,',')}" type="text" class="tags4" name="tags4" th:value="${lang}" readonly> -->
+
+														</th:block>
+														<h6 class="card-subtitle" style="font-weight: 300;">[[${s.grpName}]]</h6>
+													</div>
+													<div id="myCarousel" th:attrappend="id=${sStat.count}"
+														class="carousel slide" data-ride="carousel">
+														<div class="carousel-inner">
+															<!-- 사진 / 동영상 반복문 -->
+															<th:block th:each="simg : ${s.attachList}">
+																<div class="carousel-item"
+																	th:if="${simg.attachExt=='.mp4'}"
+																	th:classappend="${simgStat.count==1}?active:_">
+																	<video class="main-top-promotion-video"
+																		autoplay="autoplay" loop="loop" controls="controls" muted="muted">
+																		<source th:src="${simg.attachPath}" type="video/mp4">
+																	</video>
+																</div>
+																<div class="carousel-item"
+																	th:unless="${simg.attachExt=='.mp4'}"
+																	th:classappend="${simgStat.count==1}?active:_">
+																	<img th:src="${simg.attachPath}" class="d-block w-100"
+																		alt="...">
+																</div>
+															</th:block>
+															<!-- 사진 / 동영상 반복문 end -->
+														</div>
+														<th:block th:each="simg : ${s.attachList}">
+														<th:block th:if="${simg.attachExt!='.mp4'} and ${simgStat.count == 1} and ${#arrays.length(s.attachList) != 1}">
+														<a class="carousel-control-prev" href="#myCarousel"
+															th:attrappend="href=${sStat.count}" role="button"
+															data-bs-slide="prev"> <span
+															class="carousel-control-prev-icon" aria-hidden="true"></span>
+															<span class="visually-hidden">Previous</span>
+														</a> <a class="carousel-control-next" href="#myCarousel"
+															th:attrappend="href=${sStat.count}" role="button"
+															data-bs-slide="next"> <span
+															class="carousel-control-next-icon" aria-hidden="true"></span>
+															<span class="visually-hidden">Next</span>
+														</a>
+														</th:block>
+														</th:block>
+													</div>
+													<div class="card-body">
+														<h6 class="card-subtitle"><a href="#" class="btn btn-secondary rounded-pill mb-2"
+						th:onclick="|location.href='@{snsMyList(memId=${s.memId})}'|" >[[${s.name}]]</a></h6>
+														<pre class="card-text">[[${s.snsCtt}]]</pre>
+													</div>
+
+												</div>
+												<!-- 카드콘텐트 END -->
+
+												<div class="buttons" style="float: right">
+													<ul class="nav d-flex justify-content-around text-center"
+														style="float: right">
+
+														<!-- 좋아요 버튼 -->
+														<li class="d-flex flex-column">
+															<div>
+																<a th:if="${s.likeNo != null}" class="btn icon btn-white">
+																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC "
+																	th:data-likeno="${s.likeNo}"
+																	th:data-snsWrtNo="${s.snsWrtNo}"
+																	id="likeBtn" th:attrappend="id=${sStat.count}">[[${s.likeCnt}]]</i>
+																</a>
+																<a th:unless="${s.likeNo != null}" class="btn icon btn-white"
+																	>
+																	<i class="fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active"
+																	th:data-likeno="${s.likeNo}" th:data-snsWrtNo="${s.snsWrtNo}" id="likeBtn"
+																	th:attrappend="id=${sStat.count}" >[[${s.likeCnt}]]</i>
+																</a>
+																
+															<!-- <span class="likeCnt"></span> -->
+															</div> 
+														</li>
+
+														<!-- 댓글 버튼 -->
+														<li class="d-flex flex-column ss"><div>
+																<a class="btn icon btn-white" data-bs-toggle="modal"
+																	data-bs-target="#large" th:data-snsid="${s.snsWrtNo}">
+																	<i class="fa-solid fa-comment fs-5 text-secondary"
+																	th:id="${sStat.count}"></i>
+																</a>
+															</div></li>
+
+														<!-- 공유하기 버튼 -->
+														<li class="d-flex flex-column">
+															<div>
+																<a class="btn icon btn-white snsBtns"
+																	data-bs-toggle="collapse"
+																	data-bs-target="#collapseExample"
+																	th:attrappend="aria-controls=${sStat.count}"
+																	aria-expanded="false" aria-controls="collapseExample"><i
+																	class="fa-solid fa-share-from-square fs-5 text-secondary"
+																	th:id="${sStat.count}"></i></a>
+															</div> <!-- 콜랩스 추가 -->
+															<div class="collapse snsBtnsCol" id="collapseExample"
+																th:attrappend="id=${sStat.count}">
+																<span onclick="shareNaver()"> <script
+																		type="text/javascript"
+																		src="https://ssl.pstatic.net/share/js/naver_sharebutton.js">
+																	</script> <script type="text/javascript">
+																	new ShareNaver.makeButton(
+																			{
+																				"type" : "a"
+																			});
+																	</script>
+																</span> <span th:onclick="javascript:kakaoShare()"
+																	id="kakao-link-btn"><img
+																	src="assets/img/sns/kakaoTalk.png"
+																	style="width: 16px; height: 16px;"> </span>
+															</div> <!-- 콜랩스 추가 끝 -->
+														</li>
+
+														<!-- 스크랩 버튼 -->
+														<li class="d-flex flex-column">
+															<div>
+																<a th:if="${s.scrapNo != null}" class="btn icon btn-white bmark"> 
+																	<i class="fa-solid fa-bookmark fs-5 text-secondary iBmark" th:data-scrapno="${s.scrapNo}" th:data-snswrtno="${s.snsWrtNo}" id="scrapBtn" th:attrappend="id=${sStat.count}"></i>
+																</a>
+																<a th:unless="${s.scrapNo != null}" class="btn icon btn-white bmark"> 
+																	<i class="fa-regular fa-bookmark fs-5 text-secondary iBmark active" th:data-scrapno="${s.scrapNo}" th:data-snswrtno="${s.snsWrtNo}" id="scrapBtn" th:attrappend="id=${sStat.count}"
+																	data-swal-toast-template="#my-template"
+																	></i>
+																</a>
+															</div>
+														</li>
+
+													</ul>
+												</div>
+												<!-- button end -->
+											</div>
+											<!-- snsimg -->
+
+										</div>
+										<!-- snsdiv end -->
+									</div>
+									<!-- 슬라이더 안 row End -->
+								</section>
+							</div>
+						</th:block>
+
+
+					</div>
+
+
+				</div>
+			</div>
+			<!-- col6 end -->
+
+		</div>
+		<!-- div row end -->
+
+		<div class="col-3"></div>
+
+	</div>
+	<!-- div container end -->
+
+
+
+	<div class="modal fade text-left myRepList" id="large" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+
+		<div class="modal-dialog modal-dialog-scrollable modal-lg"
+			role="document">
+
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="myModalLabel1">댓글</h5>
+					<button type="button" class="close rounded-pill"
+						data-bs-dismiss="modal" aria-label="Close">
+						<i data-feather="x"></i>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="card">
+						<!-- <div class="card-header"></div> -->
+						<div class="card-body repBody">
+							<table class="table" id="tableRep">
+								<thead>
+									<tr>
+										<th>작성자</th>
+										<th>댓글 내용</th>
+										<th>작성일자</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody id="replyList" class="replyList">
+									<!-- 댓글리스트 아작스 -->
+								</tbody>
+							</table>
+							<div id="lastDiv" style="display: flex; justify-content: center;"></div>
+							<div id="loadDiv" style="display: flex; justify-content: center"></div>
+
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="input-group mb-3">
+						<input type="text" class="form-control"
+							placeholder="enter your comment"
+							aria-label="Recipient's user" aria-describedby="basic-addon2"
+							id="replyContents">
+						<button type="button" class="input-group-text" id="repSubmit">등록</button>
+					</div>
+
+					<button type="button" class="btn" data-bs-dismiss="modal">
+						<i class="bx bx-x d-block d-sm-none"></i> <span
+							class="d-none d-sm-block">Close</span>
+					</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+	<!-- Initialize Swiper -->
+	<script th:inline="javascript">
+
+	// scroll to element
+	//document.querySelector('.snsdiv').scrollIntoView({ block: "end" });
+
+	let message = [[${message}]]
+	if(message!= null){
+		alert(message)
+	}
+
+	// Tagify
+	var input = document.querySelector('input[name=tags4]'),
+    tagify = new Tagify(input);
+
+	// 스와이퍼
+	const swiper = new Swiper('.swiper', {
+		  // Optional parameters
+		  direction: 'vertical',
+		  loop: false,
+		  mousewheel : true,
+		  centeredSlides: true, // 1번 슬라이드가 가운데 보이기
+	});
+
+
+	// sns 공유 버튼
+	$('.btn.icon.btn-white.snsBtns i').on('click', function(e) {
+		$(e.target).toggleClass('active');
+		let cnt = $(e.target).prop('id');
+			for(let i=1; i<= $('.btn.icon.btn-white.snsBtns').length; i++){
+				$('#collapseExample'+ i).attr('class', 'snsBtnsCol collapse')
+			}
+			if ($(e.target).hasClass('active')) {
+				$('#collapseExample'+ cnt).attr('class',
+						'snsBtnsCol collapse show')
+						//console.log($('#collapseExample'+i));
+			}else{
+				$('.btn.icon.btn-white.snsBtns i').attr("class", "fa-solid fa-share-from-square fs-5 text-secondary" );
+			}
+	});
+
+
+		// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+		Kakao.init('5cb79bd417ece35ea33fa7b756305a02');
+
+		// SDK 초기화 여부를 판단합니다.
+		console.log(Kakao.isInitialized());
+
+		function kakaoShare() {
+			Kakao.Link
+					.sendDefault({
+						objectType : 'feed',
+						content : {
+							title : 'TENNISWING-SNS',
+							description : '클럽매치데이 ',
+							imageUrl : 'https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800',
+							link : {
+								mobileWebUrl : '카카오공유하기 시 클릭 후 이동 경로',
+								webUrl : '카카오공유하기 시 클릭 후 이동 경로',
+							},
+						},
+						buttons : [ {
+							title : '웹으로 보기',
+							link : {
+								mobileWebUrl : '카카오공유하기 시 클릭 후 이동 경로',
+								webUrl : '카카오공유하기 시 클릭 후 이동 경로',
+							},
+						}, ],
+						// 카카오톡 미설치 시 카카오톡 설치 경로이동
+						installTalk : true,
+					})
+		}
+		// Twitter
+		function shareTwitter() {
+			const text = "TENNISWING-SNS";
+			const url = "https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800";
+			window.open("https://twitter.com/intent/tweet?text=" + url + text);
+		}
+		// NAVER
+		function shareNaver() {
+			const title = "TENNISWING";
+			const url = "https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800";
+			window.open("https://share.naver.com/web/shareView?url=" + url
+					+ "&title=" + title);
+		}
+		// Facebook
+		function shareFacebook() {
+			const title = "TENNISWING-SNS";
+			const url = "https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800";
+			window.open("http://www.facebook.com/sharer/sharer.php?u=" + url
+					+ "&title=" + title);
+		}
+
+
+		// 스크랩 등록, 삭제
+		$('.iBmark').on('click', function(e){
+			let snsWrtNo = $(this).attr('data-snswrtno');
+			let target = $(e.target);
+			if($(this).hasClass("active")){
+				console.log('액티브> 안눌린 스크랩버튼');
+				//인서트
+				$.ajax({
+					url : 'scrapInsert',
+					data : {snsWrtNo},
+					type : 'post',
+					datatype: 'text',
+					success : function(result){
+						if(result>0){
+							Swal.fire({
+								  position: "center",
+								  icon: "success",
+								  title: "스크랩 되었습니다.",
+								  showConfirmButton: false,
+								  timer: 1500
+								});
+						target.attr('class','fa-solid fa-bookmark fs-5 text-secondary iBmark');
+						target.attr('data-scrapNo', result)
+						target.removeClass("active");
+							
+						}
+						
+					},
+					error: function() {
+						alert("스크랩 실패")
+					}
+				})
+			}else{
+				//딜리트
+			      let scrapNo = $(this).attr('data-scrapno');
+	               $.ajax({
+	            	   url:'scrapDelete',
+	            	   data:{scrapNo},
+	            	   type:'post',
+	            	   datatype:'json',
+	            	   success: function(result){
+	            			if(result){
+	            		   		target.attr('class','fa-regular fa-bookmark fs-5 text-secondary iBmark active');
+	            		   		target.removeAttr('data-scrapNo');
+	            		    		Swal.fire({
+									  position: "center",
+									  icon: "warning",
+									  title: "스크랩 해제 되었습니다.",
+									  showConfirmButton: false,
+									  timer: 1500
+									}); 
+	            		/* 		Swal.bindClickHandler();
+	            				Swal.mixin({
+	            					  toast: true,
+	            					  position: 'center',
+	            					  icon:'info',
+	            					  title:'스크랩 해제 되었습니다.',
+	            					  iconColor: 'red',
+	            					  customClass: {
+	            					    popup: 'colored-toast',
+	            					  },
+	            					  showConfirmButton: false,
+	            					  timer: 1500,
+	            					  timerProgressBar: true,
+	            					  
+	            					}).bindClickHandler("data-swal-toast-template"); */
+	            		   }
+	            	 },
+	            	 error: function() {
+							alert("스크랩 삭제 실패")
+						}
+				})
+			}
+		})
+			//assets/img/sns/heart.png
+		
+		
+		
+		//좋아요 insert, delete
+		$('.likeBtnC').on('click', function(e){
+			let target = $(e.target);
+			let snsWrtNo = $(this).attr('data-snsWrtNo');
+		      if($(this).hasClass("active")){
+	                console.log('액티브있는거찍는중');
+					//인서트
+					$.ajax({
+							url : 'snsLikeInsert',
+							data : {snsWrtNo},
+							type : 'post',
+							datatype : 'text',
+							success : function(result) {
+								Swal.fire({
+									 title: '좋아요 등록 완료!',
+									 text: '마이페이지에서 확인하실 수 있습니다.',
+									//background: "url(assets/img/sns/heartboom.gif)",
+									 backdrop: `
+										 	rgba(230, 134, 163, 0.3)
+										    url("assets/img/sns/heartboom.gif")
+										    center
+										    no-repeat
+										  `,
+									  //imageUrl: 'assets/img/sns/heartboom.gif',
+									  //imageWidth: 400,
+									  //imageHeight: 200,
+									  //imageAlt: 'Custom image',
+									  showConfirmButton: false,
+									  timer: 1500
+									})
+								
+									//location.href="/sns";
+									console.log($(e.target))
+									target.attr('class','fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC')
+								    target.removeClass("active");
+									target.text(result.cnt);
+									target.attr('data-likeNo', result.likeNo);
+									
+								
+							},
+							error : function() {
+								alert("좋아요 실패")
+						}
+	            })
+		      }else{
+	               //딜리트
+	               let likeNo = $(this).attr('data-likeno');
+	               $.ajax({
+	            	   url:'snsLikeDel',
+	            	   data:{likeNo , snsWrtNo},
+	            	   type:'post',
+	            	   datatype:'json',
+	            	   success: function(result){
+	            		   Swal.fire({
+	            		
+	            			   	 //icon: "info",
+	            			   	 backdrop: `
+										 	rgba(230, 134, 163, 0.3)`,
+	            			   	 //background: "rgba(230, 134, 163, 0.3)",
+								 title: '좋아요 취소',
+								 text:'좋아요가 해제 되었습니다.',
+								  showConfirmButton: false,
+								  timer: 1300
+								})
+	            		   //alert("delete 성공")
+	            		   target.attr('class','fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active')
+	            		   target.text(result.cnt);
+	            		   target.removeAttr('data-likeNo');
+	            	   },
+						error : function() {
+							alert("좋아요 취소 실패")
+						}
+	     
+	               })
+	           }
+		
+		})
+
+		
+	let repList = 0;
+	// 댓글 모달창이 열릴때 이벤트
+	let snsWrtNo = 0;
+	var snsRepNo = 0;
+	$('.myRepList').on('show.bs.modal', function(e){
+
+		 console.log(e.relatedTarget); // 이번호를 아작스 통신의 데이터로 넘겨준다.
+		 snsWrtNo = $(e.relatedTarget).attr('data-snsid');
+		 getRepList(snsWrtNo);
+
+	});
+
+/* 	$('#tableRep').DataTable({
+    	searching:false,
+    	ordering:false
+    }); */
+
+    
+    function makeReply(index, repList){
+    	let memId = [[${#authentication.name}]];
+        let b = `
+            <tr class = "repTr" id = ${repList.snsRepNo}>
+					<td>${repList.name}</td>
+					<td class = "editCtt">${repList.snsRepCtt}</td>
+					<td>${new Date(repList.snsRepWriteDate).toLocaleDateString()}</td>
+					<td>
+					<i type="button" class="fa-regular fa-comment reWrtBtn" id="reWrtBtn${index}"></i>
+					`
+					if(memId==repList.memId){
+						b+=`<i type="button" class="fa-regular fa-pen-to-square repEditBtn" id="editBtn${index}"></i>
+							<i type="button" class="fa-regular fa-trash-can repDelBtn" id="delBtn${index}"></i></td>`
+					}
+						
+						
+				b+=`</tr>`
+				
+            $('#replyList').append(b);
+    }
+    
+    function makeRreply(snsRrepList){
+    	let memId = [[${#authentication.name}]];
+    	$('#loadDiv').empty();
+    	$('#lastDiv').empty();
+    	for(let[index, rrep] of snsRrepList.entries()){
+			b = `
+			    <tr id = ${rrep.snsRrepNo}>
+				<td> ㄴ ${rrep.name}</td>
+				<td class = "editCtt">${rrep.snsRrepCtt}</td>
+				<td>${new Date(rrep.snsRrepWriteDate).toLocaleDateString()}</td>
+				<td>`
+				if(memId==rrep.memId){
+					b+=`<i type="button"
+						class="fa-regular fa-pen-to-square rrepEditBtn" id="rreditBtn`+index+`"></i>
+						<i type="button" class="fa-regular fa-trash-can rrepDelBtn" id="rrdelBtn`+index+`"></i></td>`
+				}
+			b+=`</tr>`
+		 $('#replyList').append(b);
+		}
+		$('#loadDiv').append(`
+				<button id="load" class="btn btn-primary" style="width: 200px;">More</button>
+				`)
+		$('#replyList td').css('display','none');
+		$('#replyList td').slice(0,16).show();
+		$('#load').click(function(e){
+			e.preventDefault();
+			$('#replyList td:hidden').slice(0,16).show();
+			if($("#replyList td:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+				$('#lastDiv').append(`
+											<div>마지막 행입니다.</div>
+									   `);
+	            $('#load').fadeOut(100); // 컨텐츠 없을 시 버튼 사라짐
+	        }
+		})
+    
+    }
+    
+	//댓글 리스트
+	function getRepList(snsWrtNo){
+		$.ajax({
+			type: 'GET',
+			url:'snsRep',
+			data: {snsWrtNo},
+			   success: function(data) {
+				   console.log('data');
+				   console.log(data);
+					$('#replyList').empty();
+		            for(let [index, repList] of data.entries()){
+
+		            	makeReply(index,repList);
+						makeRreply(repList.snsRrepList);
+		            	 	
+		            }
+		            replyEvent(data);
+		            //대댓글이벤트
+		         }
+
+		})
+	}
+		
+	
+	//댓글 이벤트 등록
+	function replyEvent(data){
+        //수정 아이콘 눌렀을때 누른행 제외하고 사라지고 등록 버튼 수정버튼으로 변경
+        $('.repEditBtn').on('click', function(e){
+        	$('#replyList').empty();
+        	let num = $(e.target).prop('id').replace('editBtn','');
+         	let b = `
+	               <tr>
+						<td>${data[num].name}</td>
+						<td class = "editCtt" id="">${data[num].snsRepCtt}</td>
+						<td>${new Date(data[num].snsRepWriteDate).toLocaleDateString()}</td>
+						<td></td>
+					</tr>`
+	   		$('#replyList').append(b);
+			snsRepNo = $(e.target).closest('tr').prop('id');
+			
+			$('#repSubmit').text('수정');
+			$('#replyContents').val(data[num].snsRepCtt);
+
+        })
+
+        // 댓글 삭제
+		$('.repDelBtn').on('click',function(e){
+        	//console.log("삭제클릭되나요");
+        	//console.log(e.target);
+        	let cnt = $(e.target).prop("id").replace("delBtn","");
+        	console.log(cnt);
+
+        	snsRepNo = $(e.target).closest('tr').prop('id');
+        	/* sweetalert */
+        		Swal.fire({
+				  title: "Are you sure?",
+				  text: "You won't be able to revert this!",
+				  icon: "warning",
+				  showCancelButton: true,
+				  confirmButtonColor: "#3085d6",
+				  cancelButtonColor: "#d33",
+				  confirmButtonText: "Yes, delete it!"
+				}).then((result) => {
+				  if (result.isConfirmed) {
+					   	 $.ajax({
+				        		type:'POST',
+				        		url: 'snsReplyDel',
+				        		data:{repNo: snsRepNo},
+				        		dataType:'json',
+				        		success:function(result){
+				        			if(result>0){
+				        				  Swal.fire({
+				        				      title: "Deleted!",
+				        				      text: "Your file has been deleted.",
+				        				      icon: "success"
+				        				    });
+				        				getRepList(snsWrtNo)
+				        			}
+				        		},
+				        		error : function() {
+									alert("삭제 실패");
+
+								}
+				        	})
+				    
+				    
+				  }
+				});
+        	
+        	/* sweetalert end */
+        	
+        	
+        	
+        	
+     
+        });
+        
+        // 대댓글 등록 이벤트
+		$('.reWrtBtn').on('click', function(e){
+			$('#loadDiv').empty();
+			$('#lastDiv').empty();
+			snsRepNo = $(e.target).closest('tr').prop('id');
+			//console.log(snsRepNo);
+			//console.log('대댓글 작성버튼 잘뜨는지');
+			//let snsRrepCtt = $("#replyContents").val();
+			$('#replyList').empty();
+	
+	    	let num = $(e.target).prop('id').replace('reWrtBtn','');
+	     	let b = `
+	               <tr>
+						<td>${data[num].name}</td>
+						<td class = "editCtt" id="">${data[num].snsRepCtt}</td>
+						<td>${new Date(data[num].snsRepWriteDate).toLocaleDateString()}</td>
+						<td></td>
+					</tr>`
+	   		$('#replyList').append(b);
+			//snsRepNo = $(e.target).closest('tr').prop('id');
+			
+			$('#repSubmit').text('대댓글 등록');
+			//$('#replyContents').val(data[num].snsRepCtt);
+ 		
+		})
+		
+		
+		
+		
+		// 대댓글 삭제 이벤트
+		$('.rrepDelBtn').on('click', function(e){
+        	//console.log("대댓글삭제클릭되나요");
+			let snsRrepNo = $(e.target).closest('tr').prop('id');
+		 	 $.ajax({
+		        		type:'POST',
+		        		url: 'snsRreDel',
+		        		data:{snsRrepNo},
+		        		dataType:'json',
+		        		success:function(result){
+		        			if(result){
+		        				alert("정상삭제");
+		        				getRepList(snsWrtNo)
+		        			}
+		        		},
+		        		error : function() {
+							alert("삭제 실패");
+	
+					}
+				})
+		})
+		
+		//대댓글 수정 이벤트
+		$('.rrepEditBtn').on('click', function(e){
+			$('#replyList').empty();
+			let repnum = $(e.target).parents().siblings('td')
+			let rrepnum =$(e.target).closest('tr').prop('id');
+	
+			let rep1 = $(repnum[0]).text().replace('ㄴ','').trim();
+			let rep2 = $(repnum[1]).text()
+			let rep3 = $(repnum[2]).text()
+	
+			let b = `
+				<tr class ="editRrep" id = ${rrepnum}>
+				<td> ${rep1}</td>
+				<td class = "editCtt">${rep2}</td>
+				<td>${new Date(rep3).toLocaleDateString()}</td>
+				<td></td>
+			</tr>
+			`
+		 $('#replyList').append(b);		
+		 $('#repSubmit').text('대댓글 수정');
+		 $('#replyContents').val(rep2);
+		})
+
+		
+	} //댓글 이벤트 등록 end
+	
+
+	// 댓글 등록 처리
+	$('#repSubmit').on("click", function(e) {
+			let snsRepCtt = $("#replyContents").val();
+			
+		//댓글 수정
+		if($(e.target).text() == '수정'){
+				$.ajax({
+					url : 'snsReplyEdit',
+					data : {snsWrtNo, snsRepCtt, snsRepNo},
+					type : 'post',
+					datatype : 'text',
+					success : function(result) {
+						$(e.target).text('등록')
+							alert("수정성공")
+						//if (result == "success") {
+						//}
+						$('#replyContents').val('') //댓글 등록시 댓글 등록창 초기화
+						 getRepList(snsWrtNo); //등록후 댓글 목록 불러오기 함수 실행
+						//DOM 조작 함수호츨 등 가능
+					},
+					error : function() {
+						alert("등록 실패")
+
+					}
+				})
+		} else if($(e.target).text() == '등록') {
+				$.ajax({
+					url : 'snsReplyInsert',
+					data : {snsWrtNo, snsRepCtt},
+					type : 'post',
+					datatype : 'text',
+					success : function(result) {
+						if(result>0){
+							alert("등록성공");
+
+						}else{
+							alert("등록 실패. 다시 시도해주세요.");
+						}
+
+						$('#replyContents').val('') //댓글 등록시 댓글 등록창 초기화
+						 getRepList(snsWrtNo); //등록후 댓글 목록 불러오기 함수 실행
+						//DOM 조작 함수호츨 등 가능
+					},
+					error : function() {
+						alert("등록 실패")
+
+				}
+
+			})
+		}else if($(e.target).text() == '대댓글 등록'){
+			//snsRepNo = $(e.target).closest('tr').prop('id');
+			console.log(snsRepNo);
+			console.log('대댓글 작성버튼 잘뜨는지');
+			let snsRrepCtt = $("#replyContents").val();
+	 		$.ajax({
+				url: 'snsRreInsert',
+				data: {snsRepNo,snsRrepCtt},
+				type : 'post',
+				datatype : 'text',
+				success : function(result){
+					if(result > 0){
+						alert("대댓글 등록 성공");
+						$(e.target).text('등록')
+						$('#replyContents').val(''); //댓글 등록시 댓글 등록창 초기화
+						getRepList(snsWrtNo);
+					}else{
+						alert("대댓글 등록실패, 다시 시도해주세요.")
+						$('#replyContents').val('');
+					}
+					
+				},
+				error : function(){
+					alert("에러 등록실패.");
+				}
+			}) 
+		}else if($(e.target).text() == '대댓글 수정'){
+			let snsRrepCtt = $("#replyContents").val();
+			let snsRrepNo = $('.editRrep').prop('id');
+				$.ajax({
+					url: 'snsRreEdit',
+					data: {snsRrepNo, snsRrepCtt},
+					type: 'post',
+					datatype: 'text',
+					success: function(result){
+						if(result){
+							$(e.target).text('등록')
+							alert("수정성공")
+						$('#replyContents').val('') //댓글 등록시 댓글 등록창 초기화
+						 getRepList(snsWrtNo);
+						}
+					},error: function(){
+						alert('에러 수정 실패');
+					}
+				})
+		}
+	});
+
+
+	</script>
+</th:block>
+
+</html>

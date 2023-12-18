@@ -16,7 +16,7 @@
 	<div class="container mb-4" style="margin-bottom: 0 !important">
 		<ul class="nav d-flex justify-content-around text-center matchsidevar">
 			<li class="d-flex flex-column"><a href="/"><img
-					src="assets/img/winner.png" class=" miconimg" style="width: 1.5rem; opacity: 0.7;"><p>매치</p></a></li>
+					src="assets/img/winner.png" class=" miconimg" style="width: 1.5rem; opacity: 0.7;"><p class="sdbctn">매치</p></a></li>
 			<li class="d-flex flex-column"><a href="clubmatch"><img
 					src="assets/img/medal.png" class=" miconimg" style="width: 1.5rem; opacity: 0.7;"><p>클럽</p></a></li>
 			<!-- <li class="d-flex flex-column"><a href="contestmatch"><img
@@ -103,7 +103,7 @@
 						</form>
 					</div>
 						<div class="col-lg-2 text-end">
-							<button type="button" class="btn btn-primary"
+							<button type="button" class="btn btn-primary" id="regiBtn"
 								th:onclick="|location.href='@{matchregi}'|">매치 등록</button>
 						</div>
 				</div>
@@ -221,7 +221,18 @@
 		      title: msg,
 		      icon: "success"
 		    })
-	}	
+	}
+	
+	$.ajax('regiBtnAjax', {
+		type: 'get',
+	}).done(results => {
+		if(results == 0){
+			console.log("로그인 안됨");
+			$('#regiBtn').css('display','none');
+		}else{
+			
+		}
+	}).fail(err => console.log(err));
 	
 	$('#btnsearch').on("click", function(e) {
 		let matchDate = $('.matchdate .active').data('day');
@@ -248,7 +259,9 @@
 		$('#gameWay').val('');		
 		$('#gen').val('');
 		$('#crtroomLocation').val('');
+	    $('select').niceSelect('update'); 
 		matchAjax(matchDate,1)
+		
 	});
 	
 	function dateFormat(dd) {
@@ -510,7 +523,7 @@
                             },
                         });
                         
-                        
+                     
                     </script>
 </th:block>
 

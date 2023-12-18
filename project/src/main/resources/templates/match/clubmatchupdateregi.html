@@ -331,9 +331,9 @@
 							<div class="col-6">
 								<label for="name">코멘트</label><br>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control"
-									th:value="${clubMatchInfo.detailCtt}"
-										placeholder="코멘트 입력" id="detailCtt" name="detailCtt">
+									<textarea class="form-control"
+									th:text="${clubMatchInfo.detailCtt}"
+										placeholder="코멘트 입력" id="detailCtt" name="detailCtt"></textarea>
 								</div>
 							</div>
 							<div class="col-4"></div>

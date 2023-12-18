@@ -37,21 +37,6 @@ layout:decorate="~{layouts/main-layout}">
 											</div>
 										</div>
 									</th:block>
-									<!-- <div class="swiper-slide">
-											<div class="gallery-item">
-												<img src="/assets/img/card.jpg" alt="product iamge" />
-											</div>
-										</div>
-										<div class="swiper-slide">
-											<div class="gallery-item">
-												<img src="/assets/img/card.jpg" alt="product iamge" />
-											</div>
-										</div>
-										<div class="swiper-slide">
-											<div class="gallery-item">
-												<img src="/assets/img/card.jpg" alt="product iamge" />
-											</div>
-										</div> -->
 								</div>
 							</div>
 							<div class="product-gallery__main swiper productGallerySwiper">
@@ -63,21 +48,6 @@ layout:decorate="~{layouts/main-layout}">
 											</div>
 										</div>
 									</th:block>
-									<!-- <div class="swiper-slide">
-											<div class="gallery-item">
-												<img src="/assets/img/card.jpg" alt="product iamge" />
-											</div>
-										</div>
-										<div class="swiper-slide">
-											<div class="gallery-item">
-												<img src="/assets/img/card.jpg" alt="product iamge" />
-											</div>
-										</div>
-										<div class="swiper-slide">
-											<div class="gallery-item">
-												<img src="/assets/img/card.jpg" alt="product iamge" />
-											</div>
-										</div> -->
 								</div>
 							</div>
 						</div>
@@ -159,9 +129,10 @@ layout:decorate="~{layouts/main-layout}">
 									<button type="button" class="btn btn-primary matchbtn4"
 										id="applyBtn" style="font-size: 12.5px">신청하기</button>
 								</div>
+								<th:block th:if="${auth==true}">
 								<div class="cart__action__btn">
 									<button type="button" class="btn btn-primary matchbtn4"
-										style="font-size: 12.5px"
+										style="font-size: 12.5px" id="updateBtn"
 										th:onclick="|location.href='@{/startermatchupdateregi(matchNo=${starterMatchInfo.matchNo})}'|">
 										수정하기</a>
 									</button>
@@ -170,6 +141,7 @@ layout:decorate="~{layouts/main-layout}">
 									<button type="button" class="btn btn-primary matchbtn4"
 										style="font-size: 12.5epx" id="deleteBtn">삭제하기</button>
 								</div>
+								</th:block>
 								<div class="cart__action__btn">
 									<button type="button" class="btn btn-primary matchbtn4"
 										style="font-size: 12.5px" th:onclick="|location.href='@{/startermatch}'|">
@@ -186,6 +158,19 @@ layout:decorate="~{layouts/main-layout}">
 	<br><br>
   
          <script th:inline='javascript'>
+         
+         $.ajax('regiBtnAjax', {
+     		type: 'get',
+     	}).done(results => {
+     		if(results == 0){
+     			console.log("로그인 안됨");
+     			$('#regiBtn,#applyBtn,#updateBtn,#deleteBtn').css('display','none');
+     		}else{
+     			
+     		}
+     	}).fail(err => console.log(err));	
+         
+         
             let matchNo = [[${starterMatchInfo.matchNo}]]
             $('#applyBtn').on("click", function(e) {
             	console.log('applyBtn');

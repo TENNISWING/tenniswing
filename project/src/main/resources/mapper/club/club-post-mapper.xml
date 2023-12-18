@@ -13,6 +13,7 @@
   		   , c.club_post_write_date
   		   , c.club_post_hit
   		   , a.attach_path
+  		   , c.mem_id
   	FROM club_post c LEFT JOIN mem m
 					   ON c.mem_id = m.mem_id
 					 LEFT JOIN attach a
@@ -23,6 +24,18 @@
 			) A
     ) B 
   WHERE rn BETWEEN (#{page}-1)*#{pageUnit} + 1 and #{page} * #{pageUnit}					 
+  </select>
+  
+  <!-- 게시글 단건 조회 -->
+  <select  id="selectPost" resultType="ClubPostVO">
+  SELECT club_post_no
+	 			   , club_post_title
+	 			   , club_post_ctt
+	 			   , club_post_write_date
+	 			   , mem_id
+	 			   , club_no
+  FROM club_post	 		
+  WHERE club_post_no = #{clubPostNo}	   
   </select>
   
   

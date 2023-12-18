@@ -36,6 +36,10 @@
 	.snsGrpName{
 		font-weight: 500;
 	}
+	.edBtns{
+	    display: flex;
+    	gap: 20px;
+	}
 </style>
 </head>
 
@@ -85,7 +89,7 @@
 															style="gap: 15px; align-items: center;">
 															<th:block  th:if="${mg.snsGrpNo!=null}">
 															<!-- 모달열리게하는 수정아이콘 -->
-															<th:block th:if="${mg.memId == '${#authentication.name}'}">
+															<th:block th:if="${mg.memId == #authentication.name}">
 															<i type="button"
 																class="fa-regular fa-pen-to-square editBtnClass"
 																data-bs-toggle="modal" th:data-snsgrpno="${mg.snsGrpNo}"
@@ -490,7 +494,11 @@
 									success: function (result) {
 										console.log(result)
 										if (result) {
-											alert("정상삭제");
+											 Swal.fire({
+					        				      title: "Deleted!",
+					        				      text: "게시물이 삭제되었습니다.",
+					        				      icon: "success"
+					        				    });
 											location.reload();
 										} else {
 											alert("삭제실패. 재시도해주세요.");
@@ -583,7 +591,8 @@
 							console.log(result)
 							if (result) {
 								alert("정상삭제");
-								location.reload();
+								//location.reload();
+								getSnsMyList(snsGrpNo,pageNum);
 							} else {
 								alert("삭제실패. 재시도해주세요.");
 							}

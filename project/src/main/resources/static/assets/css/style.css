@@ -5184,7 +5184,7 @@ h4 {
   left: 50%;
   width: 0%;
   height: 1px;
-  background: #eb5e28;
+  background: #000000;
   -webkit-transition: all 300ms ease-in-out;
   transition: all 300ms ease-in-out;
   -webkit-transform: translateX(-50%);
@@ -7610,7 +7610,7 @@ h4 {
 /* **************************************
 /*  Product Peview Modal Start
 *****************************************/
-.product__modal {
+/* .product__modal {
   background: rgba(0, 0, 0, 0.8);
 }
 .product__modal .modal-dialog {
@@ -7678,7 +7678,7 @@ h4 {
     top: 10px;
     right: 10px;
   }
-}
+} */
 
 /* **************************************
 /*  Product Peview Modal End
@@ -8029,7 +8029,7 @@ h4 {
 /*********************************
 /* Login Start
 *********************************/
-.popup__modal {
+/* .popup__modal {
   background: rgba(0, 0, 0, 0.8);
 }
 .popup__modal.v2 .modal-dialog {
@@ -8078,7 +8078,7 @@ h4 {
   outline: none;
   -webkit-box-shadow: none;
           box-shadow: none;
-}
+} */
 
 .popup__form {
   -webkit-box-align: center;

@@ -4,35 +4,82 @@
 	layout:decorate="~{layouts/main-layout}">
 <head>
 	<style type="text/css">
-		.outline h3,
-		.outline button{
-			display: inline;
-		}
-		.outline {
-			display: flex;
-			justify-content: space-between;
-		}
-		
-		#InfoContent p{
-			margin: 0;
-		}
-		#mainImage img:hover {
-			transform: scale(1.2);
-		}
-		section a,
-		section span,
-		section button,
-		section input,
-		section h1,
-		section h2,
-		section h3,
-		section h4,
-		section h5,
-		section h6,
-		section pre{
-			font-family: 'Noto Sans KR', sans-serif !important;
-		}
-	</style>
+svg, path, span, i {
+	pointer-events: none;
+}
+
+.outline h3, .outline button {
+	display: inline;
+}
+
+.outline {
+	display: flex;
+	justify-content: space-between;
+}
+
+#InfoContent p {
+	margin: 0;
+}
+
+#mainImage img:hover {
+	transform: scale(1.2);
+}
+
+section a, section span, section button, section input, section h1,
+	section h2, section h3, section h4, section h5, section h6, section pre
+	{
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+
+@import
+	url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+.rate {
+	display: inline-block;
+	border: 0;
+	margin-right: 15px;
+}
+
+.rate>input {
+	display: none;
+}
+
+.rate>label {
+	float: right;
+	color: #ddd
+}
+
+.rate>label:before {
+	display: inline-block;
+	font-size: 1rem;
+	padding: .3rem .2rem;
+	margin: 0;
+	cursor: pointer;
+	font-family: FontAwesome;
+	content: "\f005 ";
+}
+
+.rate .half:before {
+	content: "\f089 ";
+	position: absolute;
+	padding-right: 0;
+}
+
+.rate input:checked ~ label, .rate label:hover, .rate label:hover ~
+	label {
+	color: #f73c32 !important;
+}
+
+.rate input:checked+.rate label:hover, .rate input input:checked ~ label:hover,
+	.rate input:checked ~ .rate label:hover ~ label, .rate label:hover ~
+	input:checked ~ label {
+	color: #f73c32 !important;
+}
+.rating ul{
+	padding: 0;
+	margin: 0;
+}
+</style>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/> -->
 </head>
@@ -135,7 +182,7 @@
 								</ul>
 							</div>
 							
-							<ul class="right-meta">
+							<ul class="right-meta" style="margin: 0;">
 								<!-- 카카오 공유 ㅂ튼 -->
 								<li><a class="share__btn" id="kakao-link-btn" href="javascript:kakaoShare()"> <svg width="16"
 											height="16" viewBox="0 0 16 16" fill="none"
@@ -154,7 +201,7 @@
                                             </svg> Share
 								</a></li>
 								<!-- 위시리스트 버튼 위시리스트 넣는 이벤트 -->
-								<li><a href="#" class="wishlist__btn"> <svg width="16"
+								<li><a th:id="prodNo_+${prod.prodNo}" class="wishlist__btn wishProd" style="cursor:pointer;"> <svg width="16"
 											height="16" viewBox="0 0 16 16" fill="none"
 											xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -352,41 +399,41 @@
 			</div>
 
 			<div class="row product-info">
-				<div class="col-12">
+				<div class="col-12 tab_wrap">
 					<div class="tabs__wrapper tabs__wrapper--v3">
 						<div class="tabs__filter">
-							<ul class="nav nav-tabs" id="myTab" role="tablist">
+							<ul class="nav nav-tabs tit_list" id="myTab" role="tablist">
 								<li class="nav-item" role="presentation">
 									<button class="nav-link active" id="home-tab"
 										data-bs-toggle="tab" data-bs-target="#home-tab-pane"
 										type="button" role="tab" aria-controls="home-tab-pane"
-										aria-selected="true">
+										aria-selected="true" value="#home">
 										Product Details</button>
 								</li>
 								<li class="nav-item" role="presentation">
 									<button class="nav-link" id="groceries-tab"
 										data-bs-toggle="tab" data-bs-target="#groceries-tab-pane"
 										type="button" role="tab" aria-controls="groceries-tab-pane"
-										aria-selected="false">
+										aria-selected="false" value="#groceries">
 										Additional Information</button>
 								</li>
 								<li class="nav-item" role="presentation">
 									<button class="nav-link" id="women-tab" data-bs-toggle="tab"
 										data-bs-target="#women-tab-pane" type="button" role="tab"
-										aria-controls="women-tab-pane" aria-selected="false">
+										aria-controls="women-tab-pane" aria-selected="false" value="#women">
 										Reviews</button>
 								</li>
 							</ul>
 						</div>
 					</div>
 					<div class="tab-content" id="myTabContent">
-						<div class="tab-pane fade show active" id="home-tab-pane"
+						<div class="tab-pane tab_list fade show active" id="home"
 							role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 							<div class="content__body">
 								<pre>[[ ${prod.prodExp} ]]</pre>
 							</div>
 						</div>
-						<div class="tab-pane fade" id="groceries-tab-pane" role="tabpanel"
+						<div class="tab-pane tab_list fade" id="groceries" role="tabpanel"
 							aria-labelledby="groceries-tab" tabindex="0">
 							<div class="content__body" id="InfoContent">
 								<p style="margin-bottom: 5px"><b>배송 안내</b></p>
@@ -403,7 +450,7 @@
 							</div>
 						</div>
 						<!-- 후기 -->
-						<div class="tab-pane fade" id="women-tab-pane" role="tabpanel"
+						<div class="tab-pane tab_list fade" id="women" role="tabpanel"
 							aria-labelledby="women-tab" tabindex="0">
 							<!-- <div class="review__form pb-30">
 								<h3 class="sec__title">Leave a Comment</h3>
@@ -448,58 +495,47 @@
 									role="document">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h4 class="modal-title" id="myModalLabel33">Login Form</h4>
+											<h4 class="modal-title" id="myModalLabel33">리뷰 등록</h4>
 											<button type="button" class="close" data-bs-dismiss="modal"
 												aria-label="Close">
-												<i data-feather="x"></i>
+												<i data-feather="x" style="height: 24px; width: 24px;"></i>
 											</button>
 										</div>
-										<form action="#" class="form__wrapper">
+										<form action="#" class="form__wrapper" id="addReview" enctype="multipart/form-data">
+											<input type="hidden" name="prodNo" th:value="${prod.prodNo}">
 											<div class="modal-body">
-												
-													<!-- <div class="form-group">
-														<label for="name">Name</label> <input type="text" name="name"
-															id="name" class="form-control" placeholder="Enter your name" />
+												<div class="row">
+													<div class="mb-3 col-md-8">
+														<input type="file" name="files" id="files" multiple="multiple" class="form-control" style="padding: 0.375rem 0.75rem">
 													</div>
-													<div class="form-group">
-														<label for="emails">Email</label> <input type="email"
-															name="email" id="emails" class="form-control"
-															placeholder="Enter your email" />
+	
+													<div class="mb-3 col-md-4">
+														<!--/* input-group
+														<label class="input-group-text" for="inputGroupSelect01" 
+															style="margin: 0; font-weight: 400; color: #71808F; padding-left: 25px; padding-right: 25px">
+															   Stars</label>
+														<select class="form-select" id="inputGroupSelect01">
+															<option selected>Choose...</option>
+															<option value="1">One</option>
+															<option value="2">Two</option>
+															<option value="3">Three</option>
+															<option value="4">Four</option>
+															<option value="5">Five</option>
+														</select> */-->
+														<fieldset class="rate">
+							                                <input type="radio" id="rating5" name="prodReviewStar" value="5"><label for="rating5" title="5점"></label>
+							                                <input type="radio" id="rating4" name="prodReviewStar" value="4"><label for="rating4" title="4점"></label>
+							                                <input type="radio" id="rating3" name="prodReviewStar" value="3"><label for="rating3" title="3점"></label>
+							                                <input type="radio" id="rating2" name="prodReviewStar" value="2"><label for="rating2" title="2점"></label>
+							                                <input type="radio" id="rating1" name="prodReviewStar" value="1"><label for="rating1" title="1점"></label>
+							                            </fieldset>
 													</div>
-													<div class="form-group">
-														<label for="web">Website</label> <input type="text"
-															name="name" id="web" class="form-control"
-															placeholder="Your Website" />
-													</div> -->
-
-
-												<div class="input-group mb-3">
-														<input type="file" class="form-control" id="inputGroupFile01" style="padding: 0.375rem 0.75rem">
-												</div>
-
-												<div class="input-group mb-3">
-													<label class="input-group-text" for="inputGroupSelect01" 
-														style="margin: 0; font-weight: 400; color: #71808F; padding-left: 25px; padding-right: 25px">
-														   Stars</label>
-													<select class="form-select" id="inputGroupSelect01">
-														<option selected>Choose...</option>
-														<option value="1">One</option>
-														<option value="2">Two</option>
-														<option value="3">Three</option>
-														<option value="4">Four</option>
-														<option value="5">Five</option>
-													</select>
 												</div>
 
 												<div class="form-group">
-													<label for="area">Comment</label>
-													<textarea name="area" cols="30" rows="5" id="area"
-														class="form-control form-area" placeholder="Type a comment"></textarea>
-												</div>
-												<div class="input-info__save">
-													<input class="checkbox" id="checkbox-2" type="checkbox"
-														value="value2" /> <label for="checkbox-2"> Save my
-														name, email in this browser for the next time I comment.</label>
+													<label for="prodReviewCtt">Comment</label>
+													<textarea name="prodReviewCtt" cols="30" rows="5" id="prodReviewCtt"
+														class="form-control form-area" placeholder="상품 후기를 작성해주세요.."></textarea>
 												</div>
 										
 												<!-- <label for="email">Email: </label>
@@ -520,7 +556,7 @@
 														class="d-none d-sm-block">취소</span>
 												</button>
 												<button type="button" class="btn btn-primary ms-1"
-													data-bs-dismiss="modal">
+													data-bs-dismiss="modal" id="reviewProdRegi">
 													<i class="bx bx-check d-block d-sm-none"></i> <span
 														class="d-none d-sm-block">등록</span>
 												</button>
@@ -532,70 +568,85 @@
 							
 							<div class="client__review">
 								<div class="outline" style="margin: 30px 0 30px 0;">
-									<h3 class="sec__title" style="margin: 0;">Comments (2)</h3>
+									<h3 class="sec__title" style="margin: 0;">Reviews</h3>
 									<button type="button" class="btn btn-outline-success"
-									data-bs-toggle="modal" data-bs-target="#inlineForm">
-									Launch Modal</button>
+									data-bs-toggle="modal" data-bs-target="#inlineForm" id="reviewBtn">
+									리뷰 등록</button>
 								</div>
 								<div class="review__wrapper">
-									<div class="review__item">
-										<div class="avatar">
-											<img src="assets/img/shop/teni.jpg" alt="avatar" />
-										</div>
-										<div class="review__content">
-											<div class="review__desc">
-												<div class="review__wrap">
-													<h5>
-														<a href="#">Hena Sinha</a>
-													</h5>
-													<div class="rating">
-														<ul>
-															<li><i class="fa-solid fa-star"></i></li>
-															<li><i class="fa-solid fa-star"></i></li>
-															<li><i class="fa-solid fa-star"></i></li>
-															<li><i class="fa-solid fa-star"></i></li>
-															<li><i class="fa-regular fa-star"></i></li>
-														</ul>
+									<th:block th:each="prodReview : ${prodReview}">
+										<div class="review__item" th:id="review_+${prodReview.prodReviewNo}">
+											<div class="avatar product__image">
+												<img th:if="${prodReview.attachPath} != null" th:src="${prodReview.attachPath}" alt="avatar" style="overfit:cover"/>
+												<img th:unless="${prodReview.attachPath} != null" src="/assets/img/default img.jpg" alt="avatar" style="overfit:cover"/>
+											</div>
+											<div class="review__content">
+												<div class="review__desc" style="display : flex; align-items : center;">
+													<div class="review__wrap col-md-7">
+														<h6 style="color: #3c3c3c">[[ ${prodReview.memId} ]]</h6>
+														<div class="rating">
+															<th:block th:switch="${prodReview.prodReviewStar != null ? prodReview.prodReviewStar : 0}">
+																<ul th:case="0" class="star">
+																	<li><i class="fa-regular fa-star"></i></li>
+																	<li><i class="fa-regular fa-star"></i></li>
+																	<li><i class="fa-regular fa-star"></i></li>
+																	<li><i class="fa-regular fa-star"></i></li>
+																	<li><i class="fa-regular fa-star"></i></li>
+																</ul>
+																<ul th:case="1" class="star">
+																	<li><i class="fa-solid fa-star"></i></li>
+																	<li><i class="fa-regular fa-star"></i></li>
+																	<li><i class="fa-regular fa-star"></i></li>
+																	<li><i class="fa-regular fa-star"></i></li>
+																	<li><i class="fa-regular fa-star"></i></li>
+																</ul>
+																<ul th:case="2" class="star">
+																	<li><i class="fa-solid fa-star"></i></li>
+																	<li><i class="fa-solid fa-star"></i></li>
+																	<li><i class="fa-regular fa-star"></i></li>
+																	<li><i class="fa-regular fa-star"></i></li>
+																	<li><i class="fa-regular fa-star"></i></li>
+																</ul>
+																<ul th:case="3" class="star">
+																	<li><i class="fa-solid fa-star"></i></li>
+																	<li><i class="fa-solid fa-star"></i></li>
+																	<li><i class="fa-solid fa-star"></i></li>
+																	<li><i class="fa-regular fa-star"></i></li>
+																	<li><i class="fa-regular fa-star"></i></li>
+																</ul>
+																<ul th:case="4" class="star">
+																	<li><i class="fa-solid fa-star"></i></li>
+																	<li><i class="fa-solid fa-star"></i></li>
+																	<li><i class="fa-solid fa-star"></i></li>
+																	<li><i class="fa-solid fa-star"></i></li>
+																	<li><i class="fa-regular fa-star"></i></li>
+																</ul>
+																<ul th:case="5" class="star">
+																	<li><i class="fa-solid fa-star"></i></li>
+																	<li><i class="fa-solid fa-star"></i></li>
+																	<li><i class="fa-solid fa-star"></i></li>
+																	<li><i class="fa-solid fa-star"></i></li>
+																	<li><i class="fa-solid fa-star"></i></li>
+																</ul>
+															</th:block>
+														</div>
+													</div>
+													<div class="col-md-5">
+														<div class="date" style="text-align: right;">[[${#dates.format(prodReview.prodReviewRegiDate, 'yyyy년 MM월 dd일')}]]</div>
+														<th:block th:if="${#strings.equals(prodReview.memId, #authentication.name)}">
+															<button type="button" class="btn icon btn-danger prodReviewDel" th:id="reviewDel_+${prodReview.prodReviewNo}" style="float: right; display: inline-block;">삭제</button>
+														</th:block>
 													</div>
 												</div>
-											</div>
-											<div class="review__para">
-												<p>There are many variations of passages of Lorem Ipsum
-													available, but the majority have thank you suffered
-													alteration in some form, by injected humour, or randomised
-													words which don't look.</p>
-											</div>
-										</div>
-									</div>
-									<div class="review__item">
-										<div class="avatar">
-											<img src="assets/img/shop/teni.jpg" alt="avatar" />
-										</div>
-										<div class="review__content">
-											<div class="review__desc">
-												<div class="review__wrap">
-													<h5>
-														<a href="#">Brenna Das</a>
-													</h5>
-													<div class="rating">
-														<ul>
-															<li><i class="fa-solid fa-star"></i></li>
-															<li><i class="fa-solid fa-star"></i></li>
-															<li><i class="fa-solid fa-star"></i></li>
-															<li><i class="fa-solid fa-star"></i></li>
-															<li><i class="fa-regular fa-star"></i></li>
-														</ul>
-													</div>
+												<div class="review__para">
+													<p>[[${prodReview.prodReviewCtt}]]</p>
 												</div>
-												<div class="date">18 Jun 2022</div>
-											</div>
-											<div class="review__para">
-												<p>There are many variations of passages of Lorem Ipsum
-													available, but the majority have thank you suffered
-													alteration in some form, by injected humour, or randomised
-													words which don't look.</p>
 											</div>
 										</div>
+									</th:block>
+									<br>
+									<div style="display: flex; justify-content: center">
+										<button id="reviewLoad" class="btn btn-primary" style="width: 200px;">More</button>
 									</div>
 								</div>
 							</div>
@@ -634,7 +685,7 @@
 											</a>
 											<!-- <div class="badge">HIT</div> -->
 											<div class="product__actions">
-												<a th:onclick="|location.href='@{/shopDetail(prodNo=${relatedProd.prodNo})}'|" class="action__btn"> 
+												<a class="action__btn wishProd" th:id="prodNo_+${relatedProd.prodNo}"> 
 													<svg width="16" height="14" viewBox="0 0 16 14" fill="none"
 														xmlns="http://www.w3.org/2000/svg">
                                                         <path
@@ -748,6 +799,148 @@
 	<script th:inline="javascript">
 	/*<![CDATA[*/
 		
+		// 리뷰 등록 버튼 보이기 안 보이기
+		$(function() {
+			console.log([[ ${prod.prodNo} ]]);
+			prodNo = [[ ${prod.prodNo} ]];
+			$.ajax('confirmOrder', {
+				type: 'post',
+				data: {prodNo},				
+			}).done(results => {
+				if(results == 0){
+					$('#reviewBtn').css('display','none');
+				}
+			}).fail(err => console.log(err));
+		})
+		
+		// 리뷰 등록
+		$('#reviewProdRegi').on('click',function(e){
+			let form = $('#addReview')[0];
+			let reviewInfo = new FormData(form);
+			//console.log('asd'+$('#prodReviewStar').is(':checked'));
+			
+			for(let value of reviewInfo.values())
+				console.log(value);
+			
+			if(!($('input[name=prodReviewStar]').is(':checked'))) {
+				Swal.fire({
+					text: "별점을 선택해주세요.",
+					icon: "info",
+					didClose: () =>{
+						$('#prodReviewStar').focus();
+					}
+				})				
+				return;	
+			} else if($('#prodReviewCtt').val() == '') {
+				Swal.fire({
+					text: "후기 내용을 입력하세요.",
+					icon: "info",
+					didClose: () =>{
+						$('#prodReviewCtt').focus();
+					}
+				})				
+				return;	
+			}
+			
+			$.ajax('insertProdReview', {
+				type: 'post',
+				data: reviewInfo,
+				enctype: 'multipart/form-data',
+				contentType : false,
+				processData : false
+			}).done(results => {
+				if (results.result) {
+					Swal2.fire({
+						icon: "success",
+						title: "리뷰 등록",
+						text: "정상적으로 등록되었습니다.",
+					}).then(function(){
+						location.reload();
+					})
+				} else {
+					Swal2.fire({
+						icon: "error",
+						title: "리뷰 등록",
+						text: "정상적으로 등록되지 않았습니다.",
+					}).then(function(){
+						console.log(results);
+						location.reload();
+					})
+				}
+			})
+			.fail(err => console.log(err));
+		})
+		
+		moreBtn();
+		function moreBtn(){
+			$('.review__item').css('display','none');
+			$('.review__item').slice(0,3).show();
+			$('#reviewLoad').click(function(e){
+				e.preventDefault();
+				$('.review__item:hidden').slice(0,3).show();
+				if($(".review__item:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+		            $('#reviewLoad').fadeOut(100); // 컨텐츠 없을 시 버튼 사라짐
+		            b = `<div style="text-align: center;">
+						<p>마지막 후기 입니다.</p>
+						</div>`
+						$('.review__wrapper').append(b);
+		        }
+			});
+		}
+		if($('.review__item').length == 0){
+			b = `<div id="noReview" style="text-align: center;">
+				후기가 없습니다.
+				</div>`
+				$('.review__wrapper').append(b);
+				$('#reviewLoad').hide();
+		}
+		
+		// 후기 삭제
+		$('.prodReviewDel').on('click',reviewDel);
+		
+		function reviewDel(e){
+			Swal.fire({
+				  title: "리뷰 삭제",
+				  text: "정말 삭제하시겠습니까?",
+				  icon: "warning",
+				  showCancelButton: true,
+				  confirmButtonColor: "#3085d6",
+				  cancelButtonColor: "#d33",
+				  confirmButtonText: "삭제",
+				  cancelButtonText: "취소"
+				}).then((result) => {
+				  if (result.isConfirmed) {
+				    console.log($(e.target));
+					let prodReviewNo = $(e.target).prop("id").replace("reviewDel_","");
+					console.log(prodReviewNo);
+					$.ajax({
+						type: 'POST',
+						url: 'deleteProdReview',
+						data: {prodReviewNo},
+						dataType: 'json',
+						success: function(result){
+							if(result){
+								Swal.fire({
+									  icon: "success",
+									  title: "리뷰 삭제",
+									  text: "정상적으로 삭제되었습니다.",
+									}).then(function(){
+										location.reload();
+										//$('#review_'+prodReviewNo).remove();
+										//moreBtn();
+									})
+							}else{
+								Swal.fire({
+									  icon: "error",
+									  title: "",
+									  text: "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다.",
+								})
+							}
+						}
+					})
+			  	}
+			});
+		}
 		// 상품 상세 존재하는 색상 표시
 		//console.log(/*[[ ${prodDetailList} ]]*/);
 		let prodDetailList = [[ ${prodDetailList} ]];
@@ -914,6 +1107,81 @@
 			
 		});
 		
+		// 탭 기록 남기기
+		$(window).on('load', function() {
+		    tab();
+		})
+
+		function tab() {
+		    //탭 구분 파라미터 이름
+		    const paramName = 'tabName';
+
+		    //탭메뉴 실행 함수
+		    function activateTab(tabId, updateUrlParam) {
+		        //tabId 값이 first 일 때 첫번째 탭 선택
+		        tabId = tabId === 'first' ? $('.tab_wrap .tit_list > li:first-child button').val() : tabId;
+				console.log(tabId);
+		        
+		        //초기화
+		        $(".tab_wrap .tit_list > li").removeClass("active");
+		        $(".tab_wrap .tit_list > li button").removeClass("active");
+		        $(".tab_wrap .tab_list").removeClass("active");
+		        $(".tab_wrap .tab_list").removeClass("show");
+
+		        //실행
+		        $(`.tab_wrap .tit_list > li button[value="${tabId}"]`).parent().addClass("active");
+		        $(`.tab_wrap .tit_list > li button[value="${tabId}"]`).addClass("active");
+		        $(tabId).addClass("active");
+		        $(tabId).addClass("show");
+
+		        //탭메뉴 클릭할 때 url 파라미터 변경
+		        if (updateUrlParam) {
+		            setUrlParam(tabId);
+		        }
+		    }
+
+		    //파라미터 값 변경 함수
+		    function setUrlParam(tabId) {
+		        const params = new URLSearchParams(location.search);
+		        params.set(paramName, tabId.slice(1));
+		        history.pushState(null, null, `${location.origin}${location.pathname}?${params.toString()}`);
+		    }
+
+		    //파라미터 확인 함수
+		    function getUrlParam() {
+		        const urlParams = new URLSearchParams(location.search);
+		        return urlParams.get(paramName);
+		    }
+
+		    //파라미터 값 확인
+		    const tabName = getUrlParam();
+
+		    //탭메뉴 클릭할 때 실행
+		    $(".tab_wrap .tit_list > li button").on("click", function(e) {
+		        e.preventDefault();
+		        let tabId = $(this).val();
+		        //console.log('sadf'+tabId);
+		        activateTab(tabId, true);
+		    });
+
+		    //페이지 로드 했을 때 탭메뉴 선택
+		    if (tabName) {
+		        const tabTop = $('.tab_wrap').offset().top;
+		        requestAnimationFrame(function() {
+		            /* $('html, body').scrollTop(tabTop - 100); */
+		        });
+		        activateTab(`#${tabName}`);
+		    } else {
+		        activateTab('first');
+		    }
+
+		    //뒤로가기, 앞으로가기 버튼 눌렀을 때 탭메뉴 활성화 복원
+		    $(window).on('popstate', function() {
+		        const newTabName = getUrlParam();
+		        activateTab(newTabName ? `#${newTabName}` : 'first');
+		    });
+		}
+		
 	/*]]>*/
 	</script>
 	
@@ -979,8 +1247,86 @@
 		
 	</script>
 	
-	<!-- 장바구니 로그인 체크 -->
 	<script th:inline="javascript">
+	
+	addWish();
+	/* 상품 상세 위시 추가 */
+	function addWish() {	
+		let wishMemId = [[${#authentication.name}]];
+		
+		$('.wishProd').on('click', function(e) {
+			console.log(e.target);
+			
+			let temp = $(e.target).attr('id');
+			console.log(temp);
+			let prodNo = temp.split('_');
+			console.log(prodNo[1]);
+			
+			if(wishMemId == "anonymousUser"){
+				Swal.fire({
+					title: "로그인 확인",
+					html: `로그인이 필요한 서비스입니다.<br>
+						   로그인 페이지로 이동하시겠습니까?`,
+					icon: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#3085d6",
+					cancelButtonColor: "#d33",
+					confirmButtonText: "이동",
+					cancelButtonText: "취소"
+				}).then((result) => {
+					  if (result.isConfirmed) {
+					    location.href = '/loginform';
+					    return;
+					  }
+				})
+			} else {
+				let objData = {};
+				objData.memId = wishMemId;
+				objData.prodNo = prodNo[1];
+				
+				console.log('=='+objData);
+				
+				// 위시리스트에 상훔 존재하는지 확인
+				$.ajax('selectWish', {
+					type : 'post',
+					contentType : 'application/json',
+					data : JSON.stringify(objData)
+				})
+				.done(result => {
+					if(result){
+						Swal.fire({
+							  icon: "info",
+							  title: "위시리스트",
+							  text: "이미 존재하는 상품입니다."
+						});
+						return;
+					} else {
+						// 위시리스트에 상훔 등록							
+						$.ajax('insertWish', {
+							type : 'post',
+							contentType : 'application/json',
+							data : JSON.stringify(objData)
+						})
+						.done(result => {
+							if(result){
+								Swal.fire({
+									  icon: "success",
+									  title: "위시리스트",
+									  text: "위시리스트가 추가되었습니다.",
+								})
+							}
+						})
+						.fail(err => {
+							console.log(err);
+							location.reload();
+						})
+					}
+				})
+			}
+		})
+	}
+	
+	<!-- 장바구니 로그인 체크 -->
 	$('#myCart').on('click', function(event){
 		event.preventDefault();
 		$(".flyoutCart").toggleClass("active");

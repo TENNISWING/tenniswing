@@ -47,7 +47,6 @@
 													<th>정산날짜</th>
 													<th>정산상태</th>
 													<th>정산완료날짜</th>
-													<th>Button</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -55,8 +54,8 @@
 													<tr>
 														<td id="calcNo" th:attrappend="id=${calcList.calcNo}">[[
 															${calcList.calcNo} ]]</td>
-														<td>[[ ${calcList.payPrice} ]]</td>
-														<td>[[ ${calcList.calcPrice} ]]</td>
+														<td>[[ ${#numbers.formatInteger(calcList.payPrice, 3, 'COMMA') + '원'} ]]</td>
+														<td>[[ ${#numbers.formatInteger(calcList.calcPrice, 3, 'COMMA') + '원'} ]]</td>
 														<td>[[ ${calcList.payCase} ]]</td>
 														<td>[[ ${#dates.format(calcList.calcStartDate,'yyyy-MM-dd')} ]] ~ [[ ${#dates.format(calcList.calcEndDate,'yyyy-MM-dd')} ]]</td>
 														<th:block th:switch="${calcList.calcState}">
@@ -66,13 +65,6 @@
 														<td>[[
 															${#dates.format(calcList.calcDate,'yyyy-MM-dd')}
 															]]</td>
-														<td>
-															<!-- <div
-																th:onclick="|location.href='@{/hostCourtDetail(crtroomNo=${reserveList.crtroomNo})}'|"
-																class="btn icon btn-primary">
-																<i class="icon dripicons dripicons-enter"></i>
-															</div> -->
-														</td>
 													</tr>
 												</th:block>
 											</tbody>

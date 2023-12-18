@@ -13,7 +13,6 @@
 	margin: 0 auto;
 	text-align: center;
 	padding: 35px 0px;
-	border-radius: 10%;
 }
 
 .d-flex-match {
@@ -55,6 +54,8 @@ border: 3px solid white;
     --bs-btn-disabled-bg: transparent;
     --bs-btn-disabled-border-color: #198754;
     --bs-gradient: none;
+}
+
 </style>
 </head>
 
@@ -63,14 +64,18 @@ border: 3px solid white;
 
 
 	<div class="container">
-		<div class="row">
+		<div class="row" style="margin: 50px 0;">
 			<div class="col-xxl-4">
 				<div class="card card-shadow">
 					<div class="user__profile text-center"
 						style="padding: 20px 10px 40px 10px;">
 						<div class="club__avatar">
-						<img th:if="${club.attachPath} != '' or ${club.attachPath} != null"  th:src="${club.attachPath}" />
-						<img th:unless="${club.attachPath} != '' or ${club.attachPath} != null" th:src="/assets/compiled/jpg/banana.jpg"  alt="default-pic"/>
+							<th:block th:if="${club.attachPath != null}"  >
+								<img th:src="${club.attachPath}" />
+							</th:block>
+							<th:block th:unless=" ${club.attachPath != null}" >
+								<img src = "/assets/img/sns/Tennis1.jpg" alt="noImg"/>
+							</th:block>
 						</div>
 						<div class="user__content">
 							<h2 style="margin: 40px 0px; color: #3c3c3c;" th:text="${club.clubName}"></h2>
@@ -78,12 +83,9 @@ border: 3px solid white;
 							<h5 style="color: #828282; font-weight: 500; font-size: 1.3em;" >클럽장 : [[${club.name}]]</h5>
 							<div>
 							<th:block th:if="${#strings.equals(club.memId,loginId)}">
-								<button class="btn rounded-pill btn-outline-white" id="clubEdit"
-									data-bs-toggle="modal" data-bs-target="#EditModal"
-									style="width: 50%; margin-top: 30px;"
-									th:data-club-no="${club.clubNo}">클럽 수정</button>
-								<button class="btn rounded-pill btn-outline-success" id="clubDel"
-									style="width: 50%; margin-top: 30px;">클럽 삭제</button>
+								<button class="btn btn-outline my-4 " id="clubEdit" data-bs-toggle="modal" data-bs-target="#EditModal"
+									th:data-club-no="${club.clubNo}" style="background-color: #ededed;"><div class="icon dripicons dripicons-gear"> 클럽 수정</div></button>
+								<button class="btn btn-outline my-4" id="clubDel"><div class="icon dripicons dripicons-exit"> 클럽 삭제</div></button>
 							</th:block>		
 							</div>
 
@@ -202,7 +204,7 @@ border: 3px solid white;
 
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="myModalLabel1">클럽 수정</h5>
+							<h5 class="modal-title" id="myModalLabel1" style="color: black;">클럽 수정</h5>
 							<button type="button" class="close rounded-pill"
 								data-bs-dismiss="modal" aria-label="Close">
 								<i data-feather="x"></i>
@@ -287,15 +289,15 @@ border: 3px solid white;
 											<div class="form-group ">
 												<label for="exampleFormControlTextarea1" class="form-label">지역</label>
 												<select class="form-control" data-parsley-required="true"
-													th:field="*{clubRegion}" th:value="${club.clubRegion}">
-													<option value="b1" th:selected="${club.clubRegion} == 'b1'">서울</option>
-													<option value="b2" th:selected="${club.clubRegion} == 'b2'">경기</option>
-													<option value="b3" th:selected="${club.clubRegion} == 'b3'">인천</option>
-													<option value="b4" th:selected="${club.clubRegion} == 'b4'">강원도</option>
-													<option value="b5" th:selected="${club.clubRegion} == 'b5'">전라도</option>
-													<option value="b6" th:selected="${club.clubRegion} == 'b6'">경상도</option>
-													<option value="b7" th:selected="${club.clubRegion} == 'b7'">충청도</option>
-													<option value="b8" th:selected="${club.clubRegion} == 'b8'">제주도</option>
+													name="clubRegion" th:value="${club.clubRegionName}">
+													<option value="b1" th:selected="${club.clubRegionName} == '서울'">서울</option>
+													<option value="b2" th:selected="${club.clubRegionName} == '경기'">경기</option>
+													<option value="b3" th:selected="${club.clubRegionName} == '인천'">인천</option>
+													<option value="b4" th:selected="${club.clubRegionName} == '강원도'">강원도</option>
+													<option value="b5" th:selected="${club.clubRegionName} == '전라도'">전라도</option>
+													<option value="b6" th:selected="${club.clubRegionName} == '경상도'">경상도</option>
+													<option value="b7" th:selected="${club.clubRegionName} == '충청도'">충청도</option>
+													<option value="b8" th:selected="${club.clubRegionName} == '제주도'">제주도</option>
 												</select>
 											</div>
 										</div>
@@ -311,13 +313,13 @@ border: 3px solid white;
 											<div class="form-group ">
 												<label for="exampleFormControlTextarea1" class="form-label">연령대</label>
 												<select class="form-control" data-parsley-required="true"
-													th:field="*{clubAge}" th:value="${club.clubAge}">
-													<option value="a1">10대</option>
-													<option value="a2">20대</option>
-													<option value="a3">30대</option>
-													<option value="a4">40대</option>
-													<option value="a5">50대</option>
-													<option value="a6">60대 이상</option>
+													name="clubAge" th:value="${club.clubAgeName}">
+													<option value="a1" th:selected="${club.clubAgeName} == '10대'">10대</option>
+													<option value="a2" th:selected="${club.clubAgeName} == '20대'">20대</option>
+													<option value="a3" th:selected="${club.clubAgeName} == '30대'">30대</option>
+													<option value="a4" th:selected="${club.clubAgeName} == '40대'">40대</option>
+													<option value="a5" th:selected="${club.clubAgeName} == '50대'">50대</option>
+													<option value="a6" th:selected="${club.clubAgeName} == '60대'">60대 이상</option>
 												</select>
 											</div>
 										</div>
@@ -325,10 +327,10 @@ border: 3px solid white;
 											<div class="form-group ">
 												<label for="exampleFormControlTextarea1" class="form-label">성별</label>
 												<select class="form-control" data-parsley-required="true"
-													 name="clubGen">
-													<option th:selected="${club.clubGen}=='남성'" value="c1">남성</option>
-													<option th:selected="${club.clubGen}=='여성'" value="c2">여성</option>
-													<option th:selected="${club.clubGen}=='모두'" value="c3">모두</option>
+													 name="clubGen" th:value="${club.clubGenName}">
+													<option th:selected="${club.clubGenName}=='남성'" value="c1">남성</option>
+													<option th:selected="${club.clubGenName}=='여성'" value="c2">여성</option>
+													<option th:selected="${club.clubGenName}=='모두'" value="c3">모두</option>
 												</select>
 											</div>
 										</div>
@@ -345,16 +347,12 @@ border: 3px solid white;
 												<div>
 													<label for="exampleFormControlTextarea1" class="form-label">모집여부</label>
 												</div>
-												<input class="form-check-input" type="radio"
-													name="clubRecruitment" value="l1"
-													style="display: inline-block;"> <label
-													class="form-check-label" for="indoor"
-													style="display: inline-block;">비활성화</label>&nbsp; <input
-													class="form-check-input" type="radio"
-													name="clubRecruitment" value="l2"
-													style="display: inline-block;"> <label
-													class="form-check-label" for="outdoor"
-													style="display: inline-block;">활성화</label>
+												<input class="form-check-input" type="radio" name="clubRecruitment" value="l1" 
+												       style="display: inline-block;" th:checked="${club.clubRecruitment eq 'l1'? 'checked' : ''}"> 
+													<label class="form-check-label" for="indoor" style="display: inline-block;">비활성화</label>&nbsp; 
+												<input class="form-check-input" type="radio" name="clubRecruitment" value="l2" 
+													   style="display: inline-block;" th:checked="${club.clubRecruitment eq 'l2'? 'checked' : ''}"> 
+													<label class="form-check-label" for="outdoor" style="display: inline-block;">활성화</label>
 											</div>
 										</div>
 
@@ -365,8 +363,11 @@ border: 3px solid white;
 						<div class="modal-footer">
 							<div class="col-12 d-flex justify-content-end">
 								<button type="button" id="updateBtn"
-									class="btn btn-primary me-1 mb-1">수정</button>
-								<button type="button" class="btn btn-light-secondary me-1 mb-1">취소</button>
+									class="btn btn-dark ms-1 mb-1">수정</button>
+								<button type="button" class="close btn btn-light-secondary me-1 mb-1" data-bs-dismiss="modal" aria-label="Close">취소</button>
+								
+								
+								
 							</div>
 
 						</div>
@@ -421,7 +422,7 @@ border: 3px solid white;
 		// 클럽 삭제 아작스
 		function deleteAjax() {
 			let clubNo = $('#info-tab').data('club-no')
-
+			console.log("삭제시작" + clubNo)
 			$.ajax({
 				type: 'POST',
 				url: 'clubdelete',
@@ -441,8 +442,11 @@ border: 3px solid white;
 
 		//클럽수정 아작스
 		$('.clubEditModal').on('show.bs.modal', function (e) {
+			
+			$('#updateForm')[0].reset()
 			console.log(e.relatedTarget); // 이번호를 아작스 통신의 데이터로 넘겨준다.
 			let clubNo = $(e.relatedTarget).attr('data-club-no');
+			 
 			
 				$('#updateBtn').on("click", function(e) { //수정 버튼 눌렀을때
 					console.log("수정 버튼 눌렀을때");
@@ -454,11 +458,25 @@ border: 3px solid white;
 						datatype: 'JSON',
 						contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
 						success: function (result) {
-							alert("수정성공")
-							location.href = "/club";
+							Swal.fire({
+								backdrop: `
+									 rgba(100, 100, 100, 0.6)`,
+								title: '수정 완료',
+								text: '클럽 정보가 수정되었습니다.',
+								showConfirmButton: false,
+								timer: 1700
+							})
+							location.reload();
 						},
 						error: function () {
-							alert("수정 실패")
+							Swal.fire({
+								backdrop: `
+									 rgba(100, 100, 100, 0.6)`,
+								title: '수정 실패',
+								text: '클럽 정보 수정중 오류발생',
+								showConfirmButton: false,
+								timer: 1300
+							})
 
 							}
 						}) 
