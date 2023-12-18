@@ -18,8 +18,13 @@ public interface ProdDetailMapper {
 	
 //	등록
 	public int insertProdDetail(ProdDetailVO prodDetailVO);
+	
 //	수정
 	public int updateProdDetail(ProdDetailVO prodDetailVO);
+	
+//	판매유무 한번에 수정
+	public int updateProdDetailSts(ProdDetailVO prodDetailVO);
+	
 //	삭제
 	public int deleteProdDetail(ProdDetailVO prodDetailVO);
 	

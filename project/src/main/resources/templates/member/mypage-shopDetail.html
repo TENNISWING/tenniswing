@@ -26,18 +26,24 @@
 		table tbody tr td div {
 			font-family: 'Noto Sans KR', sans-serif !important;
 		}
-		
+		.reviewOrder {	
+		    width: auto !important;
+		    height: auto !important;
+		    padding: 7px 15px !important;
+		    font-size: 12px !important;
+		    font-weight: 600 !important;
+		}
 	</style>
 </head>
 <th:block layout:fragment="content">
 	<h3 class="container p-3">쇼핑</h3>
 	<div class="container" id="myOrderPage">
 		<div class="row">
-			<div class="col-lg-4 col-md-auto">
+			<div class="col-lg-3 col-md-auto">
 				<div th:replace="member/mypage-sidemenu :: sidemenu"></div>
 			</div>
 
-			<div class="col-8">
+			<div class="col-9">
 				<!--/* <div class="dashboard__breadcrumb">
 					<div class="breadcrumb__meta">
 						<ul style="padding: 0;">
@@ -93,7 +99,7 @@
 					</div>
 				</div>
 				<!-- Address Wrapper End -->
-				<div class="form-padding">
+				<div class="form-padding" style="margin-bottom: 70px;">
 					<h3 class="card_title mb-15" style="font-family: 'Noto Sans KR', sans-serif !important;
 						color: #3c3c3c; opacity: .8; font-weight: 700;">주문 상세 정보</h3>
 					<div class="table-responsive">
@@ -106,6 +112,7 @@
 										<th class="cart-pd__qty">주문 수량</th>
 										<th class="cart-pd__status">주문 상태</th>
 										<th class="cart-pd__price">주문 가격</th>
+										<th class="cart-pd__price">후기</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -134,11 +141,16 @@
 											<td class="cart-pd__qty" data-title="Quantity">[[
 												${orderProd.orderDetailCnt} ]]</td>
 											<td class="cart-pd__status" data-title="Status">
-												<div class="primary__btn border-30 orderState">[[
+												<div class="primary__btn border-30 orderState stateOrder" th:id="stateOrder_+${orderProd.prodNo}">[[
 													${orderSelect.orderState} ]]</div>
 											</td>
 											<td class="cart-pd__Price orderDetailPrice" th:id="detailPrice+${orderProd.prodDetailNo}" data-title="Price">[[
 												${orderProd.orderDetailAmt} ]]</td>
+											<td>
+												<button type="button" th:onclick="|location.href='@{/shopDetail(prodNo=${orderProd.prodNo})}&tabName=women'|"
+													class="btn btn-outline reviewOrder" th:id="reviewOrder_+${orderProd.prodNo}"
+													style="width: auto; padding: 7px 15px; background-color: #eef8f1; color: #00b96d;">후기</button>
+											</td>
 										</tr>
 									</th:block>
 									<tr>
@@ -172,7 +184,7 @@
 		function changeColor() {
 			$('.orderState').each((idx, item) => {
 				//console.log(item);
-				if($(item).text() == '결제완료'){
+				if($(item).text() == '결제완료' || $(item).text() == '상품준비중'){
 					$(item).attr('style', 'background: rgba(18, 183, 106, 0.1) !important; color: #12b76a !important;');				
 				} else if($(item).text() == '상품준비중' || $(item).text() == '배송중' || $(item).text() == '배송완료') {
 					$(item).attr('style', 'background: rgba(105, 65, 198, 0.1) !important; color: #6941c6 !important;');
@@ -217,6 +229,32 @@
 				changePrice = changePrice + '원';
 				$('#'+priceId).text(changePrice);
 			});
+		}
+		
+		// 후기 ( 배송완료일 때는 후기 가능)
+		stateOrderToReview();
+		function stateOrderToReview() {
+			let state = $('.stateOrder');
+			let orderId;
+			
+			state.each(function() {
+				orderId = $(this).attr('id');
+				console.log($(this).text());
+				let no = orderId.split('_');
+				
+				if($(this).text() == '배송완료') {
+					console.log($('#reviewOrder_' + no[1]));
+					$('#reviewOrder_' + no[1]).attr('disabled', false);
+				} else {
+					console.log($('#reviewOrder_' + no[1]));
+					$('#reviewOrder_' + no[1]).attr('disabled', true);
+					$('#reviewOrder_' + no[1]).css('color', '#344054');
+					$('#reviewOrder_' + no[1]).css('font-weight', '800 !important');
+					$('#reviewOrder_' + no[1]).css('border', '1px solid rgba(52, 64, 84, 0.1)');
+					$('#reviewOrder_' + no[1]).css('background', 'rgba(52, 64, 84, 0.1)');
+				}
+				
+			})	
 		}
 	</script>
 </th:block>

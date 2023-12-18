@@ -2,7 +2,6 @@ package com.tenniswing.project.shop.mapper;
 
 import java.util.List;
 
-import com.tenniswing.project.court.service.CrtroomVO;
 import com.tenniswing.project.shop.service.ProdVO;
 
 public interface ProdMapper {
@@ -11,10 +10,12 @@ public interface ProdMapper {
 	
 	// 어드민 전체조회
 	public List<ProdVO> selectAdminAllProd(ProdVO prodVO);
+
+	public int selectAdminAllCount(ProdVO prodVO);
 	
 	// 페이징 전체 갯수
 	public int selectCount(ProdVO prodVO);
-	
+
 	// 최근 상품 스와이퍼
 	public List<ProdVO> selectSwiperProd();
 
@@ -53,4 +54,7 @@ public interface ProdMapper {
 	
 	// 후기 사진 삭제
 	public int deleteReviewImg(int prodReviewNo);
+	
+	// 별점 및 후기수 계산
+	public ProdVO prodStar(int prodNo);
 }

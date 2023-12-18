@@ -40,6 +40,9 @@ public class ProdVO {
 	// 조회수
 	private int prodHit;
 	
+	// 전체상품
+	private Integer prodAllCount;
+	
 	//첨부파일
 	private String attachPath;
 	
@@ -66,4 +69,8 @@ public class ProdVO {
 	private Date prodReviewEditDate;
 	private String memId;
 	private int orderTableNo;
+	
+	// 별점
+	private Integer avgStar;
+	private int prodReview;
 }

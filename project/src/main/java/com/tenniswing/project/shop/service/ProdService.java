@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.tenniswing.project.attach.service.AttachVO;
-import com.tenniswing.project.court.service.CrtroomVO;
 
 public interface ProdService {
 	// 전체조회
@@ -12,6 +11,8 @@ public interface ProdService {
 	
 	// 어드민 전체조회
 	public List<ProdVO> selectAdminAllProd(ProdVO prodVO);
+	
+	public int selectAdminAllCount(ProdVO prodVO);
 	
 	// 페이징 전체 갯수
 	public int selectCount(ProdVO prodVO);
@@ -48,4 +49,7 @@ public interface ProdService {
 	
 	// 후기 삭제
 	public boolean deleteProdReview(int prodReviewNo);
+	
+	// 별점 및 후기수 계산
+	public ProdVO prodStar(int prodNo);
 }

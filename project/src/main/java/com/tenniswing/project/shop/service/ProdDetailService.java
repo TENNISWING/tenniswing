@@ -15,8 +15,10 @@ public interface ProdDetailService {
 	
 //	등록
 	public Map<String, Object> insertProdDetail(ProdDetailVO prodDetailVO);
+	
 //	수정
 	public Map<String, Object> updateProdDetail(ProdDetailVO prodDetailVO);
+	
 //	삭제
 	public Map<String, Object> deleteProdDetail(ProdDetailVO prodDetailVO);
 	
