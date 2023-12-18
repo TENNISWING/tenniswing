@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style >
+#load{
+    z-index: 1;
+    color: #555;
+    font-weight: bold;
+    background-color: #f1f1f1;
+    border-color: #ccc;
+}
+
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -44,7 +54,7 @@
 										<img src="${rep.attachPath}">
 									</div>
 									<div class="name ms-4">
-										<h5 class="mb-1">${rep.nick}</h5>
+										<h5 class="mb-1" style="color: #3c3c3c;">${rep.nick}</h5>
 										<h7 class="text-muted mb-0">${rep.clubGenName} / ${rep.clubAgeName}</h7>
 									</div>
 								</div>`
@@ -78,7 +88,7 @@
 						});
 					});
 					$('#loadDiv').append(`
-							<button id="load" class="btn btn-primary" style="width: 200px;">More</button>
+							<button id="load" class="btn" style="width: 200px;">More</button>
 							`)
 					$('#realMemList li').css('display','none');
 					$('#realMemList li').slice(0,2).show();

@@ -81,7 +81,7 @@ public class ClubController {
 		 map.put("selectCount", clubService.selectCount(clubVO));
 		 map.put("clubList",clubService.selectAllClub(clubVO));
 		 map.put("memcheck", clubService.selectCheckMem(clubVO));
-		 System.out.println("멤체크"+clubService.selectCheckMem(clubVO));
+		
 		 return map;
 	 }
 
@@ -325,19 +325,31 @@ public class ClubController {
 		boolean result = clubPostService.deletePost(clubPostNo);
 		return result;
 	}
+	
+	//자유게시판 수정 폼
+	@GetMapping("clubPostEdit")
+	@ResponseBody
+	public Map<String, Object> postEditForm(Model model, ClubPostVO clubPostVO){
+		
+		ClubPostVO vo = clubPostService.selectPost(clubPostVO);
+		Map<String, Object> result = new HashMap<>();
+		result.put("post", vo);
+		
+		return result;
+		
+	}
 
 	//자유게시판 수정
 	@PostMapping("postUpdate")
 	@ResponseBody
 	public Map<String, Object> postUpdateFormAjax(ClubPostVO clubPostVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-		System.out.println("55555555555555555555555555"+clubPostVO);
 		clubPostVO.setMemId(id);
 		Map<String, Object> result = clubPostService.updatePost(clubPostVO);
-
+		result.put("post", clubPostVO);
 		//List<AttachVO> files = fileUtils.uploadFiles(clubPostVO.getFiles());
 		//attachService.updateAttach("cp", clubPostVO.getClubPostNo(), files);
-	
+	System.out.println("55555555555555555555555555"+result);
 		return result;
 	}
 

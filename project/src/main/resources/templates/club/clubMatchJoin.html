@@ -10,34 +10,20 @@
 	<body>
 
 		<div class="content__body">
-			<section class="archive-category">
+			<section class="archive-category" style="padding:15px 0 0 0;">
 				<div class="col-12">
 					<div class="filter__area" style="margin: 0;">
 						<div class="email-fixed-search col-6 ">
 							<div class="form-group position-relative  mb-0 has-icon-left">
-								<button class="btn btn-outline-success" id="matchWrite" data-bs-toggle="modal"
+								<button class="btn btn-outline my-4" id="matchWrite" data-bs-toggle="modal"
 									th:data-club-no="${clubVO.clubNo}" data-bs-target="#addMatchModal">모집 추가</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
-			<!--  <div class="recent-message d-flex-match px-4 py-3" style="border-bottom: 1px solid #e1e1e1;"> -->
-			<!-- <div class="d-flex-right">
-					<div class="match-box">
-						<p>매치1</p>
-					</div>
-					<div class="name ms-4" style="padding: 10px 0;">
-						<h5 class="mb-1">2023년 12월 24일 매치인원 모집</h5>
-						<h6 class="text-muted mb-0">모집 인원 : 5명</h6>
-						<h6 class="text-muted mb-0">참가 인원 : 3명</h6>
-						<p class="text-muted mb-0">작성일 : 2023-11-24</p>
-					</div>
-				</div>
-				<button type="button" class="btn btn-outline-success"
-					data-bs-toggle="modal" data-bs-target="#joinModal">참여하기</button> -->
 			<div class="content__body">
-				<ul style="list-style: none;" id="recruitList">
+				<ul style="list-style: none; padding-left: 0;" id="recruitList">
 					<!-- 여기에 모집 리스트 -->
 				</ul>
 			</div>
@@ -122,37 +108,40 @@
 						for (let rec of data) {
 							let List = `
 						<li>
-						<div class="recent-message d-flex px-4 py-3"
-						style="border-bottom: 1px solid #e1e1e1; display: flex; justify-content: space-between; align-items: center;">
+						<div class="recent-message d-flex px-4 py-3" style="border-bottom: 1px solid #e1e1e1; display: flex; justify-content: space-between; align-items: center;">
 						<div class="d-flex-right">
-							<div class="match-box">
-								<p>매치1</p>
+						
+							<div class="match-box" style="width: 100px; height:100px; border-radius: 15px; overflow:hidden;" >
+							<img src = "/assets/img/sns/Tennis3.jpg" style="width: 100%; height: 100%; object-fit:cover;"/>
 							</div>
 							<div class="name ms-4" style="padding: 10px 0;">
-								<h5 class="mb-1">${new Date(rec.clubMatchDate).toLocaleDateString(
-								'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치인원 모집</h5>
-								<h6 class="text-muted mb-0">모집 인원 : ${rec.clubMatchRecruitPsnNum}명</h6>
-								<h6 class="text-muted mb-0">참가 인원 : ${rec.joinMem}명</h6>
-								<p class="text-muted mb-0">작성일 : ${new Date(rec.matchRecruitWriteDate).toLocaleDateString()}</p>
-							</div>
+							<h5 class="mb-1" style="color: #3c3c3c;">${new Date(rec.clubMatchDate).toLocaleDateString(
+							'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치인원 모집</h5>
+							<h6 class="text-muted mb-0">모집 인원 : ${rec.clubMatchRecruitPsnNum}명</h6>
+							<h6 class="text-muted mb-0">참가 인원 : ${rec.joinMem}명</h6>
+							<p class="text-muted mb-0">작성일 : ${new Date(rec.matchRecruitWriteDate).toLocaleDateString()}</p>
 						</div>
-						<div>
-								<button type="button" class="btn btn-outline-success"
-								 data-bs-toggle="modal" data-bs-target="#join${rec.clubMatchRecruitNo}">참여하기</button>
-								 <i class="fa-regular fa-trash-can recNoBtn" type="button" data-rec-no="${rec.clubMatchRecruitNo}"></i>	
+							
+ 						</div>
+ 						<div>
+						<button type="button" class="btn btn-outline my-4"
+						 data-bs-toggle="modal" data-bs-target="#join${rec.clubMatchRecruitNo}">참여하기</button>
+						 <i class="fa-regular fa-trash-can recNoBtn" type="button" data-rec-no="${rec.clubMatchRecruitNo}"></i>	
+				</div>
+							
 						</div>
+						
 						</div>
 						</li>
 						<!-- 참여모달 -->
-						<div class="modal-success me-1 mb-1 d-inline-block">
 							<div class="modal fade text-left" id="join${rec.clubMatchRecruitNo}" tabindex="-1"
 								role="dialog" aria-labelledby="myModalLabel110" aria-hidden="true">
 								<div
 									class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
 									role="document">
 									<div class="modal-content">
-										<div class="modal-header bg-success">
-											<h5 class="modal-title white" id="myModalLabel110">${new Date(rec.clubMatchDate).toLocaleDateString(
+										<div class="modal-header">
+											<h5 class="modal-title" style="color: black;" id="myModalLabel110">${new Date(rec.clubMatchDate).toLocaleDateString(
 									'ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })} 매치인원 모집</h5>
 											<button type="button" class="close" data-bs-dismiss="modal"
 												aria-label="Close">
@@ -164,13 +153,12 @@
 											<button type="button" class="btn btn-light-secondary"
 												data-bs-dismiss="modal">Close</button>
 
-											<button type="button" class="btn btn-success ms-1 joinBtn" data-match-no="${rec.clubMatchRecruitNo}" 
+											<button type="button" class="btn btn-dark ms-1 joinBtn" data-match-no="${rec.clubMatchRecruitNo}" 
 												data-bs-dismiss="modal">Accept</button>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
 						<!-- /참여모달 -->
 					`
 							$('#recruitList').append(List)
@@ -225,8 +213,15 @@
 					type: 'POST',
 					dataType: 'text',
 					success: function (result) {
-						alert("등록성공")
-						postListAjax(); //등록후 리스트 불러오기
+						Swal.fire({
+							backdrop: `
+								 rgba(100, 100, 100, 0.6)`,
+							title: '신청 완료',
+							text: '참가 신청이 완료되었습니다.',
+							showConfirmButton: false,
+							timer: 1700
+						})
+						recruitListAjax(); //등록후 리스트 불러오기
 
 					},
 					error: function () {
