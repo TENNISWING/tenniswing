@@ -24,7 +24,7 @@
                 , MIN(d.crt_use_price) min_price
                 , a.attach_path
                 , TRUNC(SUM(r.review_star)/COUNT(r.review_no)) avg_star
-  				, COUNT(r.review_no) count_review
+  				, COUNT(r.review_no)/COUNT(d.crt_detail_no) count_review
   		FROM crtroom c JOIN crt_detail_inf d
                        ON c.crtroom_no = d.crtroom_no
                        JOIN attach a
@@ -436,18 +436,4 @@
   		AND reserve_state = 'i1'
   	</select>
   	
-  	<!-- 이번달 예약금액, 예약건수 -->
-  	<select id="hostMonthReserve" resultType="HostDashBoardVO">
-  		SELECT sum(r.reserve_price) month_reserve_price, count(*) month_reserve_count
-		FROM reserve r JOIN reserve_detail_inf rd
-		                ON r.reserve_no = rd.reserve_no
-		WHERE EXTRACT (month from rd.reserve_date) = EXTRACT (month from SYSDATE)
-  	</select>
-  	
-  	<!-- 이번달 환불금액, 환불건수 -->
-  	<select id="hostMonthRefund" resultType="HostDashBoardVO">
-  		SELECT sum(rc.refund_price) month_refund_price, count(*) month_refund_count
-		FROM reserve_cancel rc
-		WHERE EXTRACT (month from rc.cancel_date) = EXTRACT (month from sysdate);
-  	</select>
   </mapper>

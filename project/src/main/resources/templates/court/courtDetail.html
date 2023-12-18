@@ -6,14 +6,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <style>
-@font-face {
-    font-family: 'NanumSquareNeo-Variable';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
 body{
-	font-family: 'NanumSquareNeo-Variable';
+	font-family: 'Noto Sans KR', sans-serif !important;
 }
 </style>
 
@@ -91,49 +85,49 @@ body{
 							th:value="${param.crtroomNo}">
 						<div class="col-md-6" style="margin-top: 20px; width: 30%">
 							<div class="product-detail__wrapper">
-								<h2 class="product-detail__title" style="font-family: 'NanumSquareNeo-Variable';">[[
+								<h2 class="product-detail__title" style="font-family: 'Noto Sans KR', sans-serif;">[[
 									${courtDetail.crtroomName} ]]</h2>
 								<input type="hidden" name="crtroomName"
 									th:value="${courtDetail.crtroomName}">
 								<div class="product-detail__meta">
 									<div class="rating">
 									<th:block th:switch="${crtroomStar.avgStar != null ? crtroomStar.avgStar : 0}">
-										<ul th:case="0" class="star">
+										<ul th:case="0" class="star" style="padding: 0">
 											<li><i class="fa-regular fa-star"></i></li>
 											<li><i class="fa-regular fa-star"></i></li>
 											<li><i class="fa-regular fa-star"></i></li>
 											<li><i class="fa-regular fa-star"></i></li>
 											<li><i class="fa-regular fa-star"></i></li>
 										</ul>
-										<ul th:case="1" class="star">
+										<ul th:case="1" class="star" style="padding: 0">
 											<li><i class="fa-solid fa-star"></i></li>
 											<li><i class="fa-regular fa-star"></i></li>
 											<li><i class="fa-regular fa-star"></i></li>
 											<li><i class="fa-regular fa-star"></i></li>
 											<li><i class="fa-regular fa-star"></i></li>
 										</ul>
-										<ul th:case="2" class="star">
+										<ul th:case="2" class="star" style="padding: 0">
 											<li><i class="fa-solid fa-star"></i></li>
 											<li><i class="fa-solid fa-star"></i></li>
 											<li><i class="fa-regular fa-star"></i></li>
 											<li><i class="fa-regular fa-star"></i></li>
 											<li><i class="fa-regular fa-star"></i></li>
 										</ul>
-										<ul th:case="3" class="star">
+										<ul th:case="3" class="star" style="padding: 0">
 											<li><i class="fa-solid fa-star"></i></li>
 											<li><i class="fa-solid fa-star"></i></li>
 											<li><i class="fa-solid fa-star"></i></li>
 											<li><i class="fa-regular fa-star"></i></li>
 											<li><i class="fa-regular fa-star"></i></li>
 										</ul>
-										<ul th:case="4" class="star">
+										<ul th:case="4" class="star" style="padding: 0">
 											<li><i class="fa-solid fa-star"></i></li>
 											<li><i class="fa-solid fa-star"></i></li>
 											<li><i class="fa-solid fa-star"></i></li>
 											<li><i class="fa-solid fa-star"></i></li>
 											<li><i class="fa-regular fa-star"></i></li>
 										</ul>
-										<ul th:case="5" class="star">
+										<ul th:case="5" class="star" style="padding: 0">
 											<li><i class="fa-solid fa-star"></i></li>
 											<li><i class="fa-solid fa-star"></i></li>
 											<li><i class="fa-solid fa-star"></i></li>
@@ -142,7 +136,7 @@ body{
 										</ul>
 										</th:block>
 										<div class="total__rating">
-											<p style="font-size: 14px; font-family: 'NanumSquareNeo-Variable';">([[${crtroomStar.countReview}]] ratings)</p>
+											<p style="font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">([[${crtroomStar.countReview}]] ratings)</p>
 										</div>
 									</div>
 									<ul class="right-meta">
@@ -165,14 +159,14 @@ body{
 										</li>
 									</ul>
 								</div>
-								<h3 class="product-detail__price" style="font-family: 'NanumSquareNeo-Variable';">[[
+								<h3 class="product-detail__price" style="font-family: 'Noto Sans KR', sans-serif; color: #00B96D">[[
 									${#numbers.formatInteger(courtDetail.minPrice, 3, 'COMMA') + '원'} ]] ~</h3>
-								<p class="product-detail__short_desc" style="font-family: 'NanumSquareNeo-Variable';"> [[
+								<p class="product-detail__short_desc" style="font-family: 'Noto Sans KR', sans-serif;"> [[
 									${courtDetail.crtroomExp} ]]</p>
 								<br>
 								<div class="product-detail__attr">
 									<div class="product__attr">
-										<span class="product-detail--stroke" style="font-weight: bold; font-family: 'NanumSquareNeo-Variable';">운영시간</span>
+										<span class="product-detail--stroke" style="font-weight: bold; font-family: 'Noto Sans KR', sans-serif;">운영시간</span>
 										<ul class="product__attr--color" style="margin: 0; padding: 0">
 											<li><input type="text"
 												style="width: 70px; border: 0; text-align: center" id="crtroomOperateStartTime"
@@ -208,10 +202,11 @@ body{
 								</div>
 							</div> -->
 								<div class="product-detail__qty">
-									<span class="product-detail--stroke" style="font-weight: bold; font-family: 'NanumSquareNeo-Variable';">코트장 위치</span>
+									<div class="product-detail--stroke" style="font-weight: bold; font-family: 'Noto Sans KR', sans-serif;">코트장 위치</div>
 									<div>
-										<input type="text" style="border: 0; text-align: center"
-											th:value="${courtDetail.crtroomLocation}" disabled /> <input
+										<textarea style="border: 0; text-align: center"
+											 disabled >[[${courtDetail.crtroomLocation}]]</textarea>
+											<input
 											type="hidden" style="border: 0; text-align: center"
 											name="crtroomLocation"
 											th:value="${courtDetail.crtroomLocation}">
@@ -228,7 +223,7 @@ body{
 							<!-- Swiper -->
 							<div class="swiper mySwiper dateslide">
 								<div class="swiper-wrapper dateslide matchdate">
-									<!-- <div class="swiper-slide dateslide">resizeme</div>            -->
+									<!-- <div class="swiper-slide dateslide">resizeme</div> -->
 								</div>
 								<div class="swiper-button-next dateslide text-green"></div>
 								<div class="swiper-button-prev dateslide text-green"></div>
@@ -244,17 +239,17 @@ body{
 								<table style="display: none">
 									<tbody>
 										<tr>
-											<td class="crtIndoorOutdoorName" style="font-family: 'NanumSquareNeo-Variable';">[[${courtDetail.crtIndoorOutdoorName}]]</td>
-											<td class="crtUsePrice" style="font-family: 'NanumSquareNeo-Variable';">[[${courtDetail.crtUsePrice}]]</td>
-											<td class="useUnitTime" style="font-family: 'NanumSquareNeo-Variable';">[[${courtDetail.useUnitTime}]]</td>
+											<td class="crtIndoorOutdoorName" style="font-family: 'Noto Sans KR', sans-serif;">[[${courtDetail.crtIndoorOutdoorName}]]</td>
+											<td class="crtUsePrice" style="font-family: 'Noto Sans KR', sans-serif;">[[${courtDetail.crtUsePrice}]]</td>
+											<td class="useUnitTime" style="font-family: 'Noto Sans KR', sans-serif;">[[${courtDetail.useUnitTime}]]</td>
 										<tr>
 									</tbody>
 								</table>
 								<input type="radio" class="btn-check" name="crtDetailNo"
 									id="success-outlined" th:attrappend="id=${stat.index}"
 									autocomplete="off" th:value="${courtDetail.crtDetailNo}">
-								<label class="btn btn-outline-success" for="success-outlined"
-									th:attrappend="for=${stat.index}" style="font-family: 'NanumSquareNeo-Variable';">[[${stat.index}+1]]코트</label>
+								<label class="btn btn-outline" for="success-outlined"
+									th:attrappend="for=${stat.index}" style="font-family: 'Noto Sans KR', sans-serif; ">[[${stat.index}+1]]코트</label>
 							</th:block>
 						</div>
 						<table class="table">
@@ -323,21 +318,21 @@ body{
 										<div class="tab-pane fade show active" id="home-tab-pane"
 											role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 											<div class="content__body">
-												<pre style="font-size: 14px; font-family: 'NanumSquareNeo-Variable';">[[ ${courtDetail.crtroomUseGuide} ]]</pre>
+												<pre style="font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">[[ ${courtDetail.crtroomUseGuide} ]]</pre>
 											</div>
 										</div>
 										<div class="tab-pane fade" id="groceries-tab-pane"
 											role="tabpanel" aria-labelledby="groceries-tab" tabindex="0">
 											<div class="content__body">
-												<pre style="font-size: 14px; font-family: 'NanumSquareNeo-Variable';">[[ ${courtDetail.crtroomCaution} ]]</pre>
+												<pre style="font-size: 14px; font-family: 'Noto Sans KR', sans-serif;">[[ ${courtDetail.crtroomCaution} ]]</pre>
 											</div>
 										</div>
 										<div class="tab-pane fade" id="refund-tab-pane"
 											role="tabpanel" aria-labelledby="groceries-tab" tabindex="0">
 											<div class="content__body">
-												<h5 style="margin-top: 20px; font-family: 'NanumSquareNeo-Variable'">Refund Information</h5>
+												<!-- <h3 style="margin-top: 20px; font-family: 'Noto Sans KR', sans-serif; color: #3C3C3C">Refund Information</h3> -->
 												<br>
-												<ul style="font-family: 'NanumSquareNeo-Variable'">
+												<ul style="font-family: 'Noto Sans KR', sans-serif">
 													<li>7일 전 취소시: [[${refundInf.sevenDayBefore}]]% 환불</li>
 													<li>5일 전 취소시: [[${refundInf.fiveDayBefore}]]% 환불</li>
 													<li>3일 전 취소시: [[${refundInf.threeDayBefore}]]% 환불</li>
@@ -352,10 +347,10 @@ body{
 										<div class="tab-pane fade" id="women-tab-pane" role="tabpanel"
 											aria-labelledby="women-tab" tabindex="0">
 
-											<div class="client__review" style="font-family: 'NanumSquareNeo-Variable'">
+											<div class="client__review" style="font-family: 'Noto Sans KR', sans-serif">
 												<div class="outline"
 													style="margin: 30px 0 30px 0; overflow: hidden">
-													<h3 class="sec__title" id="reviewTitle" style="margin: 0; float: left">Review</h3>
+													<h5 class="sec__title" id="reviewTitle" style="margin: 0; float: left; color: #3C3C3C">Review</h5>
 													<button type="button" class="btn btn-outline-success" id="reviewBtn"
 														data-bs-toggle="modal" data-bs-target="#inlineForm"
 														style="float: right;">후기 작성</button>
@@ -473,8 +468,8 @@ body{
 										
 										<div class="tab-pane fade" id="electronics-tab-pane"
 											role="tabpanel" aria-labelledby="electronics-tab"
-											tabindex="0" style="font-family: 'NanumSquareNeo-Variable'">
-											<h5 style="margin-top: 20px; font-family: 'NanumSquareNeo-Variable'">court address</h5>
+											tabindex="0" style="font-family: 'Noto Sans KR', sans-serif">
+											<!-- <h3 style="margin-top: 20px; font-family: 'Noto Sans KR', sans-serif; color: #3C3C3C">court address</h3> -->
 											<div style="margin-top: 15px">
 												<!-- <div><span class="fa-fw select-all fas"></span>[[${courtDetail.crtroomLocation}]]</div>  -->
 											</div>
@@ -483,20 +478,20 @@ body{
 											</div>
 											<br>
 											<div style="display: flex; justify-content: space-around">
-												<ul style="list-style: none">
+												<ul style="list-style: none; width: 335px; display: flex; flex-direction: column">
 													<li style="text-align: center"><img src="assets/img/icon/envelope.svg" style="hieght: 40px; width: 40px;"></li>
 													<li style="margin-top: 10px; text-align:center"><strong>Email</strong></li>
-													<li style="margin-top: 10px;">[[${hostInfo.memId}]]</li>
+													<li style="margin-top: 10px; text-align:center">[[${hostInfo.memId}]]</li>
 												</ul>
-												<ul style="list-style: none">
+												<ul style="list-style: none; width: 335px; display: flex; flex-direction: column">
 													<li style="text-align: center"><img src="assets/img/icon/phone-call.svg" style="hieght: 40px; width: 40px;"></li>
 													<li style="margin-top: 10px; text-align:center"><strong>Tel</strong></li>
-													<li style="margin-top: 10px;">[[${hostInfo.phoneNo}]]</li>
+													<li style="margin-top: 10px; text-align:center">[[${hostInfo.phoneNo}]]</li>
 												</ul>
-												<ul style="list-style: none; display: flex; flex-direction: column">
+												<ul style="list-style: none; width: 335px; display: flex; flex-direction: column">
 													<li style="text-align: center"><img src="assets/img/icon/marker.svg" style="hieght: 40px; width: 40px;"></li>
 													<li style="margin-top: 10px; text-align:center"><strong>Court</strong></li>
-													<li style="margin-top: 10px;">[[${courtDetail.crtroomLocation}]]</li>
+													<li style="margin-top: 10px; text-align:center">[[${courtDetail.crtroomLocation}]]</li>
 												</ul>
 											</div>
 											<br>
@@ -521,7 +516,7 @@ body{
 			<div class="row">
 				<div class="col-12">
 					<div class="section-title" style="margin: 50px 0 0 0">
-						<h2><span style="font-size: 25px; font-family: 'NanumSquareNeo-Variable';">Nearby Court</span></h2>
+						<h2><span style="font-size: 25px; font-family: 'Noto Sans KR', sans-serif; color: #134631;">인근 코트장 추천</span></h2>
 					</div>
 				</div>
 			</div>
@@ -578,42 +573,42 @@ body{
 										<div class="product__content">
 											<div class="product__rating">
 												<th:block th:switch="${nearCrt.avgStar != null ? nearCrt.avgStar : 0}">
-													<ul th:case="0" class="star">
+													<ul th:case="0" class="star" style="padding: 0">
 														<li><i class="fa-regular fa-star"></i></li>
 														<li><i class="fa-regular fa-star"></i></li>
 														<li><i class="fa-regular fa-star"></i></li>
 														<li><i class="fa-regular fa-star"></i></li>
 														<li><i class="fa-regular fa-star"></i></li>
 													</ul>
-													<ul th:case="1" class="star">
+													<ul th:case="1" class="star" style="padding: 0">
 														<li><i class="fa-solid fa-star"></i></li>
 														<li><i class="fa-regular fa-star"></i></li>
 														<li><i class="fa-regular fa-star"></i></li>
 														<li><i class="fa-regular fa-star"></i></li>
 														<li><i class="fa-regular fa-star"></i></li>
 													</ul>
-													<ul th:case="2" class="star">
+													<ul th:case="2" class="star" style="padding: 0">
 														<li><i class="fa-solid fa-star"></i></li>
 														<li><i class="fa-solid fa-star"></i></li>
 														<li><i class="fa-regular fa-star"></i></li>
 														<li><i class="fa-regular fa-star"></i></li>
 														<li><i class="fa-regular fa-star"></i></li>
 													</ul>
-													<ul th:case="3" class="star">
+													<ul th:case="3" class="star" style="padding: 0">
 														<li><i class="fa-solid fa-star"></i></li>
 														<li><i class="fa-solid fa-star"></i></li>
 														<li><i class="fa-solid fa-star"></i></li>
 														<li><i class="fa-regular fa-star"></i></li>
 														<li><i class="fa-regular fa-star"></i></li>
 													</ul>
-													<ul th:case="4" class="star">
+													<ul th:case="4" class="star" style="padding: 0">
 														<li><i class="fa-solid fa-star"></i></li>
 														<li><i class="fa-solid fa-star"></i></li>
 														<li><i class="fa-solid fa-star"></i></li>
 														<li><i class="fa-solid fa-star"></i></li>
 														<li><i class="fa-regular fa-star"></i></li>
 													</ul>
-													<ul th:case="5" class="star">
+													<ul th:case="5" class="star" style="padding: 0">
 														<li><i class="fa-solid fa-star"></i></li>
 														<li><i class="fa-solid fa-star"></i></li>
 														<li><i class="fa-solid fa-star"></i></li>
@@ -626,18 +621,18 @@ body{
 											<div class="product__title">
 												<h5>
 													<a th:onclick="|location.href='@{/courtDetail(crtroomNo=${nearCrt.crtroomNo})}'|"
-														style="font-family: 'NanumSquareNeo-Variable';">[[${nearCrt.crtroomName}]]</a>
+														style="font-family: 'Noto Sans KR', sans-serif;">[[${nearCrt.crtroomName}]]</a>
 												</h5>
 											</div>
 											<div class="product__bottom">
-												<div class="product__price" style="font-family: 'NanumSquareNeo-Variable';">
+												<div class="product__price" style="font-family: 'Noto Sans KR', sans-serif;">
 													[[${#numbers.formatInteger(nearCrt.minPrice, 3, 'COMMA') + '원'}]] ~
 													<!-- <del>$22.00</del> -->
 												</div>
 												<div class="cart__action__btn">
 													<div class="cart__btn">
 														<button type="button" th:onclick="|location.href='@{/courtDetail(crtroomNo=${nearCrt.crtroomNo})}'|" class="btn btn-outline"
-														style="font-family: 'NanumSquareNeo-Variable';">상세보기</button>
+														style="font-family: 'Noto Sans KR', sans-serif;">상세보기</button>
 													</div>
 													<!-- <div class="quantity cart__quantity">
 														<button type="button" class="decressQnt">
@@ -686,7 +681,7 @@ body{
 		<!--review form Modal -->
 		<form method="POST" th:object="${crtroomVO}" id="addReview" enctype="multipart/form-data">
 		<input type="hidden" name="crtroomNo" th:value="${param.crtroomNo}">
-		<div class="modal fade text-left" id="inlineForm" style="font-family: 'NanumSquareNeo-Variable';"
+		<div class="modal fade text-left" id="inlineForm" style="font-family: 'Noto Sans KR', sans-serif;"
 			tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
 			aria-hidden="true">
 			<div
@@ -1092,14 +1087,14 @@ body{
 											}
 											
 											b = `
-												<tr class="navbar-brand" style="font-family: 'NanumSquareNeo-Variable';">
+												<tr class="navbar-brand" style="font-family: 'Noto Sans KR', sans-serif;">
 													<td class="text-center" style="width: 10%"><b>`+crtIndoorOutdoorName+`</b></td>
 													<td style="width: 50%; text-align: center;">`+reserveTimeCode[i][1]+`
 													<input type="hidden" class="reserveTime" value="`+reserveTimeCode[i][0]+`"></td>
 													<input type="hidden" class="reserveTimeName" value="`+reserveTimeCode[i][1]+`"></td>
 													<td style="width: 10%"><span class="tReserveTime">`+useUnitTime+`</span><span>시간</span></td>
 													<td style="width: 10%"><input type="hidden" class="reservePrice"  value="`+crtUsePrice+`"><span>`+Number(crtUsePrice).toLocaleString('ko-KR')+`</span>원</td>
-													<td class="text-end" style="width: 20%"><button class="btn btn-primary matchbtn1 reserveBtn">예약하기</button></td>
+													<td class="text-end" style="width: 20%"><button class="btn btn-primary matchbtn1 reserveBtn" style="background-color: #3C3C3C; border: #3C3C3C">예약하기</button></td>
 												</tr>
 											`;
 											
@@ -1108,7 +1103,7 @@ body{
 													console.log(reserve.reserveTime);
 													if(reserve.reserveTime === reserveTimeCode[i][0]){
 														b = `
-															<tr class="navbar-brand" style="font-family: 'NanumSquareNeo-Variable';">
+															<tr class="navbar-brand" style="font-family: 'Noto Sans KR', sans-serif;">
 																<td class="text-center" style="width: 10%"><b>`+crtIndoorOutdoorName+`</b></td>
 																<td style="width: 50%; text-align: center;">`+reserveTimeCode[i][1]+`
 																<input type="hidden" class="reserveTime" value="`+reserveTimeCode[i][0]+`"></td>
@@ -1131,13 +1126,13 @@ body{
 										console.log($("#matchList").length);	
 										if($(".navbar-brand").length == 0){
 											b = `<tr class="navbar-brand">
-												<td colspan="5" style="font-family: 'NanumSquareNeo-Variable';">예약 가능한 시간이 없습니다.</td>
+												<td colspan="5" style="font-family: 'Noto Sans KR', sans-serif;">예약 가능한 시간이 없습니다.</td>
 												</tr>`
 												$('#matchList').append(b);
 											return
 										}
 												$('#loadDiv').append(`
-														<button id="load" class="btn btn-primary" style="width: 200px;">More</button>
+														<button id="load" class="btn btn-primary" style="width: 200px; background-color: white; border-color: #3C3C3C; color: #3C3C3C">More</button>
 														`)
 												$('#matchList td').css('display','none');
 												$('#matchList td').slice(0,50).show();
