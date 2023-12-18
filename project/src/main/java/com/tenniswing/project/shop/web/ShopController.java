@@ -240,7 +240,7 @@ public class ShopController {
 	// 상품 구매한 사람인지 확인
 	@PostMapping("confirmOrder")
 	@ResponseBody
-	public Integer confirmReserve(ProdVO prodVO) {
+	public Integer confirmOrder(ProdVO prodVO) {
 		String memId = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(memId.equals("anonymousUser")){
 			return 0;

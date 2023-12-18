@@ -41,7 +41,7 @@ public interface ProdMapper {
 	public int updateOrderProd(int prodNo, int prodDetailSto);
 	
 	// 후기 등록 가능 확인
-	public int confirmInsertReview(ProdVO prodVO);
+	public Integer confirmInsertReview(ProdVO prodVO);
 	
 	// 후기 등록
 	public int insertProdReview(ProdVO prodVO);
