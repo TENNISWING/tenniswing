@@ -25,21 +25,21 @@
 						<!-- 코트 찾기 -->
 						<div class="d-flex flex-row justify-content-evenly mb-5">
 							<div class="col-6">
-								<label for="name">코트 선택</label>
+								<label for="crtroomNo">코트 찾기</label><br>
 								<div class="input-group">
-									<input type="text" class="form-control" autocomplete="off"
-										th:value="${clubMatchInfo.crtroomName}" placeholder="코트 찾기"
-										data-bs-toggle="collapse" data-bs-target="#collapseExample"
-										aria-expanded="false" aria-controls="collapseExample"
-										id="search1"> <input type="hidden" name="crtroomNo"
-										id="crtroomNo"  th:value="${clubMatchInfo.crtroomNo}">
-									<button type="button" class="input-group-text">
-										<i class="icon dripicons dripicons-search fs-3"></i>
-									</button>
+									<input type="text" class="form-control" placeholder="코트 입력"
+										aria-describedby="crtroomBtn" id="crtroomName"
+										name="crtroomName" th:value="${clubMatchInfo.crtroomName}">
+									<button class="btn btn-success" type="button" id="crtroomBtn">찾기</button>
+
+									<input type="text" class="form-control" placeholder="코트 입력"
+										aria-describedby="crtroomBtn" id="crtroomNo" name="crtroomNo"
+										hidden="true" th:value="${clubMatchInfo.crtroomNo}">
 								</div>
-								<div class="collapse z-3 position-absolute" id="searchArea1">
+								<div class="collapse z-3 position-absolute" id="searchcrt">
 									<div class="form-group">
-										<select class="form-select" id="searchItem1">
+										<select class="form-select" id="searchCrtItem">
+
 										</select>
 									</div>
 								</div>
@@ -47,41 +47,44 @@
 							<div class="col-4"></div>
 						</div>
 						<script>
-						$('#search1').on('propertychange change keyup paste input', function(e){						
-								let inputVal = $(e.target).val();								
-								$('#searchArea1').addClass('show');					
-								 $.ajax({
-								        type: 'get',
-								        url: 'searcharea',
-								        data: {inputVal},
-								        success: function (result) {
-								        	$('#searchItem1').empty();
-								        	//$('#searchItem').append('<optgroup label="코트">');
-								        	$.each(result, function(index, data) { // 데이터 =item
-								        		let b = `													 
-					                                 <option value="${data.crtroomNo}">${data.crtroomName}</option>  `  										
-					                                 $('#searchItem1').append(b)												
-											});								        	
-												b = '</optgroup>'
-											$('#searchItem1').append(b)
-								        },
-								        error: () => console.log(error)
-								    })
-								
-								if(inputVal == ''){
-									$('#searchArea1').removeClass('show');
-								}
-								 
-								
-							})
-						
-						 $('#searchItem1').on('change propertychange click', function(e){
-										console.log($(e.target).val())
-										let crtNo = $(e.target).val();
-										$('#crtroomNo').val(crtNo);
-										$('#search1').val(e.target.options[e.target.selectedIndex].text);
-										//location.href = `courtDetail?crtroomNo=${crtNo}`
-									})
+					$('#crtroomBtn').on('click', function (e) {
+					    let inputVal = $('#crtroomName').val();
+					    $('#searchcrt').addClass('show');
+					    $.ajax({
+					        type: 'get',
+					        url: 'searcharea',
+					        data: { inputVal },
+					        success: function (result) {
+					            $('#searchCrtItem').empty();
+					            $('#searchCrtItem').append('<option selected="">코트선택</option>')
+					            $.each(result, function (index, data) { // 데이터 =item
+					                let b = `													 
+										<option value="${data.crtroomNo}">${data.crtroomName}</option>`
+					                $('#searchCrtItem').append(b)
+					            });
+					            b = '</optgroup>'
+					            $('#searchCrtItem').append(b)
+					        },
+					        error: () => console.log(error)
+					    })
+
+					    if (inputVal == '') {
+					        $('#searchcrt').removeClass('show');
+					    }
+
+
+					})
+
+					$('#searchCrtItem').on('change', function (e) {
+					    let crtNo = $('#searchCrtItem option:selected').val();
+					    let crtName = $('#searchCrtItem option:selected').text();
+					    console.log(crtName)
+					    if (crtNo != null) {
+					        $('#crtroomNo').val(crtNo);
+					        $('#crtroomName').val(crtName);
+					        $('#searchcrt').removeClass('show');
+					    }
+					})
 					
 					</script>
 
@@ -340,8 +343,7 @@
 						</div>
 
 						<div class="ctrgbtns">
-							<br> <input type="number"
-								th:value="${clubMatchInfo.matchNo}" hidden="true" name="matchNo">
+							<br> <input type="number" th:value="${clubMatchInfo.matchNo}" hidden="true" name="matchNo">
 							<button class="btn btn-success" type="button" id="applyBtn">수정하기</button>
 							<button class="btn btn-success" type="button"
 								th:onclick="|location.href='@{/clubmatch}'|">취소</button>
@@ -350,7 +352,7 @@
 
 				</div>
 				<!-- <div class="col-3 "></div> -->
-			</div>
+			</div></div>
 		</form>
 	</div>
 	<script th:inline='javascript'>

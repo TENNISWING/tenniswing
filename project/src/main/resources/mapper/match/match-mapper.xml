@@ -341,6 +341,10 @@
 		, FIND_CATEGORY_NAME (c.crtroom_region) crtroom_region_name
 		, b.NAME
         , p.nick
+        , (SELECT ATTACH_PATH
+			FROM ATTACH
+			where  b.mem_no = attach_table_pk
+			AND attach_table_div = 'm') as ATTACH_PATH
 		FROM match m, crtroom c, mem b, pr p
 		WHERE m.crtroom_no = c.crtroom_no
 		AND m.mem_id = b.mem_id
@@ -664,7 +668,6 @@
 		, crt_use_amt = #{crtUseAmt}
 		, recruit_psn_num = #{recruitPsnNum}
 		, detail_ctt = #{detailCtt}
-		, crtroom_no = #{crtroomNo}
 		, age = #{age}
 		, update_date = sysdate
 		WHERE match_no = #{matchNo}
@@ -687,7 +690,6 @@
 		, lv = #{lv}
 		, crt_use_amt = #{crtUseAmt}
 		, detail_ctt = #{detailCtt}
-		, crtroom_no = #{crtroomNo}
 		, age = #{age}
 		WHERE match_no = #{matchNo}
 	</update>
@@ -706,7 +708,6 @@
 		, lv = #{lv}
 		, cont_attend_cost = #{contAttendCost}
 		, detail_ctt = #{detailCtt}
-		, crtroom_no = #{crtroomNo}
 		, age = #{age}
 		WHERE match_no = #{matchNo}
 	</update>
@@ -725,7 +726,6 @@
 		, rsPrice = #{rsPrice}
 		, recruit_psn_num = #{recruitPsnNum}
 		, detail_ctt = #{detailCtt}
-		, crtroom_no = #{crtroomNo}
 		, age = #{age}
 		WHERE match_no = #{matchNo}
 	</update>
