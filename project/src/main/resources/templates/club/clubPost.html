@@ -27,7 +27,7 @@
 }
 
 .postTable th {
-  background: #c1c1c1;
+  background: #3c3c3c;
   height: 45px;
   font-weight: lighter;
   color: white;
@@ -52,7 +52,7 @@ margin: 20px 0;
 }
 
 .postRep th{
-    background: #cbeadb;
+    background: #dddddd;
     height: 5px;
     font-weight: 500;
     color: #273a27;
@@ -87,6 +87,18 @@ margin: 20px 0;
   border-color: #ccc;
 }
 
+.form-control{
+border: 1px solid #dbdbdb;
+}
+
+.input-group-text {
+border: 1px solid #dbdbdb;
+font-weight: 700;
+color: #828282;
+}
+
+
+
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -116,7 +128,7 @@ margin: 20px 0;
 			</section>
 		</div>
 		<!-- table hover -->
-		<div class="postTable mb-0">
+		<div class="content__body postTable mb-0">
 			<table>
 				<thead>
 					<tr>
@@ -147,7 +159,7 @@ margin: 20px 0;
 			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title" id="myModalLabel33" style="color: black;">게시글 작성하기</h4>
+						<h4 class="modal-title" id="myModalLabel33" style="color: #3c3c3c;">게시글 작성하기</h4>
 						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
 							<i data-feather="x"></i>
 						</button>
@@ -508,6 +520,7 @@ margin: 20px 0;
 				})
 			} //게시글 리스트 아작스 끝
 
+			
 			//댓글 리스트 아작스
 			function repListAjax() {
 				if( $(event.currentTarget).parent().next().is(':visible')){

@@ -37,17 +37,16 @@
 							data-parsley-validate>
 							<div class="form-body">
 								<div class="row">
-									<div class="form-group mandatory col-10">
-										<label for="formClubName" data-parsley-required="true" class="form-label">클럽명</label>
-										 <input type="text" id="formClubName" class="form-control is-valid"
-											name="clubName" th:value="${clubName}" placeholder="클럽 이름을 정해주세요">
+								<label for="formClubName" data-parsley-required="true" class="form-label">클럽명</label> 
+									<div class="input-group mb-3" style="width: 50%;">
+										<input type="text" id="formClubName" class="form-control is-invalid" name="clubName" th:value="${clubName}" placeholder="클럽 이름을 정해주세요" autofocus required>
+										<button class="btn" type="button" id="duplicateBtn" style=" background-color: #3C3C3C; border-color: #3C3C3C; color: #ffffff;">중복확인</button>
+										<input type="checkbox" id="nameCk" hidden="true">
 									</div>
 									<div class="col-12">
-										<div class="form-group mandatory">
 											<label for="contact-info-vertical">프로필사진</label> 
 											<input type="file" class="image-preview-filepond" name="files"
 												data-parsley-required="true" placeholder="파일을 첨부해주세요." multiple>
-										</div>
 									</div>
 									<div class="col-12">
 										<div class="form-group mandatory">
@@ -55,7 +54,7 @@
 											<div>
 												<input class="form-check-input" type="radio"
 													name="clubDay" id="radio1" value="j1"
-													style="display: inline-block;"> <label
+													style="display: inline-block;" autofocus required> <label
 													class="form-check-label" for="radio1"
 													style="display: inline-block;">일요일</label>&nbsp; <input
 													class="form-check-input" type="radio" name="clubDay"
@@ -92,7 +91,7 @@
 											<label data-parsley-required="true" class="form-label">시간</label>
 											<div>
 												<input class="form-check-input" type="radio" name="clubTime" id="radio8" value="k1"
-													style="display: inline-block;"> 
+													style="display: inline-block;" autofocus required> 
 												<label class="form-check-label" for="radio8" style="display: inline-block;">오전</label>&nbsp;
 												 
 												<input class="form-check-input" type="radio" name="clubTime" id="radio9" value="k2" 
@@ -112,11 +111,12 @@
 									</div>
 									
 									<div class="col-6">
-										<div class="form-group ">
+										<div class="form-group mandatory">
 											<label for="exampleFormControlTextarea1" class="form-label">지역</label>
 											<select class="form-control"
 												name="clubRegion" data-parsley-required="true"
-		                                        th:field="*{clubRegion}">
+		                                        th:field="*{clubRegion}" autofocus required>
+		                                        <option value="">지역</option>
 												<option value="b1">서울</option>
 	                                            <option value="b2">경기</option>
 	                                            <option value="b3">인천</option>
@@ -138,10 +138,11 @@
 										</div>
 									</div>
 									<div class="col-6">
-										<div class="form-group ">
+										<div class="form-group mandatory">
 											<label for="exampleFormControlTextarea1" class="form-label">연령대</label>
 											<select class="form-control" name="clubAge" 
-											        data-parsley-required="true" th:field="*{clubAge}">
+											        data-parsley-required="true" th:field="*{clubAge}" autofocus required>
+											    <option value="">연령대</option>
 												<option value="a1">10대</option>
 	                                            <option value="a2">20대</option>
 	                                            <option value="a3">30대</option>
@@ -152,10 +153,11 @@
 										</div>
 									</div>
 									<div class="col-6">
-										<div class="form-group ">
+										<div class="form-group mandatory">
 											<label for="exampleFormControlTextarea1" class="form-label">성별</label>
 											<select class="form-control" name="clubGen" 
-											        data-parsley-required="true" th:field="*{clubGen}">
+											        data-parsley-required="true" th:field="*{clubGen}" autofocus required>
+											    <option value="">성별</option>    
 												<option value="c1">남성</option>
 	                                            <option value="c2">여성</option>
 	                                            <option value="c3">남녀모두</option>
@@ -170,12 +172,12 @@
 										</div>
 									</div>
 									<div class="col-6">
-										<div class="form-group ">
+										<div class="form-group mandatory">
 										<div>
 											<label for="exampleFormControlTextarea1" class="form-label">모집여부</label> 
 										</div>	
 											  <input class="form-check-input" type="radio"
-												name="clubRecruitment" value="l1" style="display: inline-block;">
+												name="clubRecruitment" value="l1" style="display: inline-block;" autofocus required>
 												<label class="form-check-label" for="indoor"
 												style="display: inline-block;">비활성화</label>&nbsp;
 											  <input class="form-check-input" type="radio" 
@@ -186,7 +188,7 @@
 									</div>
 
 									<div class="col-12 d-flex justify-content-end">
-										<button type="submit" class="btn btn-primary me-1 mb-1">개설</button>
+										<button type="submit" class="btn btn-dark me-1 mb-1 submitBtn">개설</button>
 										<button type="reset" class="btn btn-light-secondary me-1 mb-1">취소</button>
 									</div>
 								</div>
@@ -199,6 +201,45 @@
 
 	</div>
 	<script>
+	
+	
+	// 클럽명 중복체크
+	$('#duplicateBtn').on('click', function (e) {
+	    let clubName = $('#formClubName').val();
+	    console.log(clubName)
+	    if (clubName.length < 1) {
+	        Swal2.fire({
+	            icon: "error",
+	            title: "클럽명을 입력해주세요",
+	        })
+	        return;
+	    }
+	    
+	     $.ajax({
+	        type: 'POST',
+	        url: 'clubNamecheck',
+	        data: {clubName},
+	        dataType: 'json',
+	        success: function (result) {
+	            if (result) {
+	                $('#nameCk').prop('checked', true);
+	                $('#formClubName').prop("class", "form-control is-valid");
+	                Swal2.fire({
+	                    icon: "success",
+	                    title: "사용가능한 이름입니다.",
+	                })
+	            } else {
+	                $('#nameCk').prop('checked', false);
+	                Swal2.fire({
+	                    icon: "error",
+	                    title: "이미 사용중인 이름입니다.",
+	                })
+	            }
+	        },
+	        error: () => console.log(error)
+	    }) 
+	})
+	
 	
 	</script>
 

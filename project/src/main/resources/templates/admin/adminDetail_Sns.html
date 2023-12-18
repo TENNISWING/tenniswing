@@ -41,14 +41,14 @@ svg, path, i {
 					<div class="dashboard__breadcrumb">
 						<div class="breadcrumb__meta">
 							<ul style="padding: 0">
-								<li><a href="admin_member" class="link"><i
+								<li><a href="admin_sns" class="link"><i
 										class="fa-solid fa-arrow-left me-2"></i> Back</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="dashboard__header">
 						<div class="d__header--left">
-							<h2 class="title">회원 상세</h2>
+							<h2 class="title">SNS 상세</h2>
 						</div>
 					</div>
 
@@ -57,14 +57,49 @@ svg, path, i {
 							<div class="col-xxl-4">
 								<div class="dashboard-block">
 									<div class="dashboard-block__title">
-										<h4>프로필 사진</h4>
+										<h4>게시물</h4>
 									</div>
 									<div class="card block__card">
-										<div class="upload__drag p-0">
-											<!-- th:src="${attachList}" -->
-											<img th:src="${member.attachPath}" id="img"
-												alt="product-image" />
-										</div>
+										<div id="myCarousel"
+														class="carousel slide" data-ride="carousel">
+													
+														<div class="carousel-inner">
+															<!-- 사진 / 동영상 반복문 -->
+															<th:block th:each="simg : ${sns.attachList}">
+																<div class="carousel-item"
+																	th:if="${simg.attachExt=='.mp4'}"
+																	th:classappend="${simgStat.count==1}?active:_">
+																	<video class="main-top-promotion-video detailVideo"
+																		autoplay="autoplay" loop="loop"  controls="controls">
+																		<source th:src="${simg.attachPath}" type="video/mp4">
+																	</video>
+																</div>
+																<div class="carousel-item"
+																	th:unless="${simg.attachExt=='.mp4'}"
+																	th:classappend="${simgStat.count==1}?active:_">
+																	<img th:src="${simg.attachPath}" class="d-block w-100"
+																		alt="...">
+																</div>
+															</th:block>
+															<!-- 사진 / 동영상 반복문 end -->
+														</div>
+														<th:block th:each="simg : ${sns.attachList}">
+														<th:block th:if="${simg.attachExt!='.mp4'} and ${simgStat.count == 1} and ${#arrays.length(sns.attachList) != 1}">
+														<a class="carousel-control-prev" href="#myCarousel"
+															role="button"
+															data-bs-slide="prev"> <span
+															class="carousel-control-prev-icon" aria-hidden="true"></span>
+															<span class="visually-hidden">Previous</span>
+														</a> 
+														<a class="carousel-control-next" href="#myCarousel"
+															 role="button"
+															data-bs-slide="next"> <span
+															class="carousel-control-next-icon" aria-hidden="true"></span>
+															<span class="visually-hidden">Next</span>
+														</a>
+														</th:block>
+														</th:block>
+													</div>
 									</div>
 									<div></div>
 
@@ -79,74 +114,60 @@ svg, path, i {
 									<div class="form__wrapper form-padding">
 										<div class="flex__form c-3">
 											<div class="form-group">
-												<label for="MemNo">회원 번호</label> <input type="text"
+												<label for="MemNo">글 번호</label> <input type="text"
 													name="memNo" id="memNo" class="form-control"
-													placeholder="회원 번호" th:value="${member.memNo}"
+													placeholder="회원 번호" th:value="${sns.snsWrtNo}"
 													readonly="readonly" />
 											</div>
-											<div class="form-group">
-												<label for="name">회원 아이디</label> <input type="text"
-													name="name" id="name" class="form-control"
-													placeholder="아이디" th:value="${member.memId}"
-													readonly="readonly" />
-											</div>
-											<div class="form-group">
-												<label for="product_brand">회원 이름</label> <input type="text"
-													name="product_brand" id="product_brand"
-													class="form-control" placeholder="이름"
-													th:value="${member.name}" readonly="readonly" />
-											</div>
-										</div>
-										<div class="flex__form c-3">
-											<div class="form-group">
-												<label for="nick">회원 닉네임</label> <input type="text"
+												<div class="form-group">
+												<label for="nick">글 제목</label> <input type="text"
 													name="nick" id="nick" class="form-control"
-													placeholder="닉네임" th:value="${member.nick}"
+													placeholder="닉네임" th:value="${sns.snsTitle}"
 													readonly="readonly" />
 											</div>
 											<div class="form-group">
-												<label for="phoneNo">폰 번호</label> <input type="text"
+												<label for="phoneNo">글 내용</label> <input type="text"
 													name="phoneNo" id="phoneNo" class="form-control"
-													placeholder="폰 번호" th:value="${member.phoneNo}"
+													placeholder="폰 번호" th:value="${sns.snsCtt}"
 													readonly="readonly" />
 											</div>
-											<div class="form-group">
-												<label for="gen">성별</label> <input type="text" name="gen"
-													id="gen" class="form-control" placeholder="성별"
-													th:value="${member.gen}" readonly="readonly" />
-											</div>
+											
 										</div>
 										<div class="flex__form c-3">
 											<div class="form-group">
-												<label for="mannerPoint">매너점수</label> <input type="text"
-													name="mannerPoint" id="mannerPoint" class="form-control"
-													placeholder="매너점수" th:value="${member.mannerPoint}"
+												<label for="name">게시자</label> <input type="text"
+													name="name" id="name" class="form-control"
+													placeholder="아이디" th:value="${sns.memId}"
 													readonly="readonly" />
 											</div>
+							
+										
 											<div class="form-group">
-												<label for="joinDate">가입일</label> <input type="text"
+												<label for="joinDate">게시일</label> <input type="text"
 													name="JoinDate" id="joinDate" class="form-control"
 													placeholder="회원 가입일"
-													th:value="${#dates.format(member.joinDate, 'yyyy-MM-dd')}"
+													th:value="${#dates.format(sns.snsWriteDate, 'yyyy-MM-dd')}"
 													readonly="readonly" />
 											</div>
 											<div class="form-group">
-												<label>회원 상태</label>
+												<label>게시 상태</label>
 												<div class="custom-checkbox">
-													<th:block th:if="${member.state} == '정상'">
+													<th:block th:if="${sns.snsState} == '게시중'">
 														<input type="checkbox" name="state" id="state"
 															checked="checked" />
 													</th:block>
-													<th:block th:unless="${member.state} == '정상'">
+													<th:block th:unless="${sns.snsState} == '게시중'">
 														<input type="checkbox" name="state" id="state"
 															readonly="readonly" />
 													</th:block>
-													<label for="state"> <span class="active">정상</span>
-														<span class="inactive">정지</span>
+													<label for="state"> <span class="active">게시중</span>
+														<span class="inactive">미게시중</span>
 													</label>
 												</div>
 											</div>
+											
 										</div>
+									
 									</div>
 								</div>
 							</div>
@@ -174,7 +195,7 @@ svg, path, i {
 				cancelButtonText: "아니오"
 			}).then(result => {
 				if(result.isConfirmed){					
-				let memId = '[[${member.memId}]]'
+				let memId = '[[${sns.memId}]]'
 				$.ajax({
 		            type: 'POST',
 		            url: 'memberquit',
@@ -209,7 +230,7 @@ svg, path, i {
 					cancelButtonText: "아니오"
 				}).then(result => {
 					if(result.isConfirmed){					
-					let memId = '[[${member.memId}]]'
+					let memId = '[[${sns.memId}]]'
 					$.ajax({
 			            type: 'POST',
 			            url: 'memberquit',

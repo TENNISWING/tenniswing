@@ -171,5 +171,16 @@ public class ClubServiceImpl implements ClubService {
 		return clubMapper.selectCheckMem(clubVO);
 	}
 
+	//클럽이름 중복체크
+	@Override
+	public boolean clubNameCheck(String clubName) {
+		int result = clubMapper.clubNameCheck(clubName);
+		
+		if(result == 0) {
+			return true;
+		}
+		return false;
+	}
+
 	
 }

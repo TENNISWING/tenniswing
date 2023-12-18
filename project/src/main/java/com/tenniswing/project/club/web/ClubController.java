@@ -110,6 +110,15 @@ public class ClubController {
 
 	}
 	
+	//클럽이름 중복체크
+	@PostMapping("clubNamecheck")
+	@ResponseBody
+	public boolean clubCheck(@RequestParam("clubName") String clubName) {
+		boolean check = clubService.clubNameCheck(clubName);
+		return check;
+	}
+
+	
 	//클럽 가입 신청
 	@PostMapping("insertClubMem")
 	@ResponseBody

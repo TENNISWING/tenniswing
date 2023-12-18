@@ -410,10 +410,10 @@ public class AdminController {
 
 	// sns 상세페이지
 	@GetMapping("adminDetail_sns")
-	public String adminSnsDetailPage(Model model, Integer SnsNo) {
-
+	public String adminSnsDetailPage(Model model, Integer snsWrtNo) {
+		System.out.println(snsWrtNo);
 		SnsVO snsVO = new SnsVO();
-		snsVO.setSnsWrtNo(SnsNo);
+		snsVO.setSnsWrtNo(snsWrtNo);
 		model.addAttribute("sns", snsService.selectSnsInfo(snsVO));
 
 		return "admin/adminDetail_Sns";

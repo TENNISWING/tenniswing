@@ -156,7 +156,7 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="product__wrapper swiper__pagination">
-						<div class="swiper trending__Swiper">
+						<div class="swiper mtrending__Swiper">
 							<div class="swiper-wrapper">
 
 								<div th:block th:each="v : ${viewList}" class="swiper-slide">
@@ -520,6 +520,19 @@
 								dynamicBullets : true,
 								clickable : true,
 							},
+						});
+                        
+                        new Swiper(".mtrending__Swiper", {
+							loopPreventsSliding : true,
+							grabCursor : true,
+							slidesPerView : 5,
+							spaceBetween : 20,
+
+							/* autoplay : {
+								delay : 2000,
+								pauseOnMouseEnter : true,
+								disableOnInteraction : false
+							}, */
 						});
                         
                                                 
