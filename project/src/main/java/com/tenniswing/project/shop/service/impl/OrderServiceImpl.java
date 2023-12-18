@@ -191,6 +191,11 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderDetailVO> selectOrderDetail(int orderNo) {
 		return orderMapper.selectOrderDetail(orderNo);
 	}
+
+	@Override
+	public int selectAdminAllOrderCount(OrderTableVO orderTableVO) {
+		return orderMapper.selectAdminAllOrderCount(orderTableVO);
+	}
 	
 	
 }

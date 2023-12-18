@@ -35,36 +35,58 @@
 									<div class="dashboard-block__title">
 										<h4>Product Image</h4>
 									</div>
-									<div class="card block__card" style="padding: 20px">
-										<div class="upload__drag">
-											<label for="imageUpload"> 
-												<img src="assets/admin/images/upload-icon.png" class="upload-icon"
-													alt="icon" /> <span> <a href="#">Click to upload</a>
-														or drag and drop
-												</span> <span>SVG, PNG, JPG or GIF (max. 2Mb)</span>
-											</label> 
-											<input type="file" id="imageUpload"
-												accept=".png, .jpg, .jpeg, .svg, .gif" multiple="multiple" onchange="setThumbnail(event)"/>
-										</div>
-										
-										<div class="preview__wrapper">
-											<!--
-											<div class="preview__item__wrapper">
-												<div class="preview__item">
-													<img src="assets/admin/images/upload-icon.png"
-														class="upload-icon" alt="upload-icon" />
-													<button class="close-btn">
-														<i class="fa-solid fa-xmark"></i>
-													</button>
-													<input type="file" id="imageUpload"
-													accept=".png, .jpg, .jpeg, .svg, .gif" />
+									<div class="card block__card">
+										<!-- <div class="upload__drag p-0"> -->
+										<!-- th:src="${attachList}" -->
+										<!-- 	<img th:src="${attachList}"
+												id="img" alt="product-image" />
+										</div> -->
+										<div class="card" style="margin: 0">
+											<div class="card-body">
+												<div id="carouselExampleCaptions" class="carousel slide"
+													data-bs-ride="carousel">
+													<!-- <ol class="carousel-indicators">
+														<th:block th:if="${attachList} != null">
+															<th:block th:each="num, stat : ${attachList}">
+																<li data-bs-target="#carouselExampleCaptions"
+																	th:data-bs-slide-to="${stat.index}" class="indicators"></li>
+															</th:block>
+														</th:block>
+													</ol> -->
+													<div class="carousel-inner">
+
+														<th:block th:each="attachList : ${attachList}">
+															<div class="carousel-item">
+																<img th:src="${attachList.attachPath}"
+																	class="d-block w-100" alt="..."
+																	style="object-fit: cover;">
+																<!-- <div class="carousel-caption d-none d-md-block">
+																	<h5>Second slide label</h5>
+																	<p>Nulla vitae elit libero, a pharetra augue mollis
+																		interdum.</p>
+																</div> -->
+															</div>
+														</th:block>
+														<script th:inline="javascript">
+															$('.carousel-item').eq(0).addClass('active');
+															$('.indicators').eq(0).addClass('active');
+														</script>
+
+													</div>
+													<a class="carousel-control-prev"
+														href="#carouselExampleCaptions" role="button"
+														data-bs-slide="prev"> <span
+														class="carousel-control-prev-icon" aria-hidden="true"></span>
+														<span class="visually-hidden">Previous</span>
+													</a> <a class="carousel-control-next"
+														href="#carouselExampleCaptions" role="button"
+														data-bs-slide="next"> <span
+														class="carousel-control-next-icon" aria-hidden="true"></span>
+														<span class="visually-hidden">Next</span>
+													</a>
 												</div>
 											</div>
-											-->
 										</div>
-										<!-- <p>
-											<a href="#" class="btn btn-outline">Add more image</a>
-										</p> -->
 									</div>
 								</div>
 							</div>
@@ -192,7 +214,7 @@
 			}
 		}
 	</script>
-	<script type="text/javascript">
+	<script th:inline="javascript">
 		$('#editBnt').on('click', updateProd);
 		
 		function updateProd(e) {
@@ -231,8 +253,24 @@
 
 		function getProdInfo() {
 			let formData = $('#editProdForm').serializeArray();
+			let orginProdSaleSts = [[ ${prod.prodSaleSts} ]];
+			
+			if(orginProdSaleSts == '판매중')
+				orginProdSaleSts = 'p1';
+			else
+				orginProdSaleSts = 'p2';
+			
+			//console.log('qwe'+formData.prodSaleSts);
+			
 			let prodSaleSts = $('#prodSaleSts').is(':checked') ? 'p1' : 'p2';
-			formData.push({name: 'prodSaleSts', value:prodSaleSts});
+			if(orginProdSaleSts == prodSaleSts) {	
+				formData.splice(5, 1);
+				formData.push({name: 'prodSaleSts', value: null});
+				//console.log(formData);
+			} else {				
+				formData.push({name: 'prodSaleSts', value:prodSaleSts});
+			}
+			
 			formData.push({name: 'prodNo', value:[[${prod.prodNo}]]})
 			console.log(formData);
 			//console.log([[${prod.prodNo}]]);

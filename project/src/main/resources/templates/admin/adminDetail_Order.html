@@ -73,7 +73,7 @@
 							<ul class="address__list">
 								<li>결제 번호: <span>[[ ${orderSelect.impUid} ]]</span></li>
 								<li>결제 수단: <span>[[ ${orderPay.payMethod} ]]</span></li>
-								<li>결제 금액: <span>[[ ${orderPay.payAmt} ]]</span></li>
+								<li>결제 금액: <span class="orderPrice" th:id="payPrice">[[ ${orderPay.payAmt} ]]</span></li>
 								<li>결제 일자: <span>[[ ${#dates.format(orderPay.payDate, 'yyyy-MM-dd')} ]]</span></li>
 							</ul>
 						</div>
@@ -117,7 +117,7 @@
 											<td class="cart-pd__status" data-title="Status">
 												<div class="primary__btn border-30">[[ ${orderSelect.orderState} ]]</div>
 											</td>
-											<td class="cart-pd__Price" data-title="Price">[[ ${orderProd.orderDetailAmt} ]]</td>
+											<td class="cart-pd__Price orderPrice" data-title="Price" th:id="payPrice_+${orderProd.prodDetailNo}">[[ ${orderProd.orderDetailAmt} ]]</td>
 										</tr>
 									</th:block>	
 										<tr>
@@ -130,7 +130,7 @@
 											<td class="border-none pt-10" style="border: 0">&nbsp;</td>
 											<td class="border-none pt-10" style="border: 0">&nbsp;</td>
 											<td class="border-none pt-10 text-end"><strong>Total</strong></td>
-											<td class="border-none pt-10"><strong>[[ ${orderSelect.orderTPayAmt} ]]</strong></td>
+											<td class="border-none pt-10 orderPrice" id="payTotalPrice"><strong>[[ ${orderSelect.orderTPayAmt} ]]</strong></td>
 										</tr>
 									</tbody>
 								</table>
