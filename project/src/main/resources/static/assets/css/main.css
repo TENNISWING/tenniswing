@@ -68,12 +68,14 @@
 
 .carousel-item img {
 	height : 500px;
+	width: 520px !important;
+	object-fit: cover;
 }
 
 .snsVideo{
-	
-	width: 400px;
+	width: 520px;
 	height : 500px;
+	object-fit: cover;
 }
 .detailVideo{
 	width: 480px;
@@ -86,13 +88,21 @@
 } */
 
 .snsimg{
-	width: 400px;
-	margin-left : 100px;
+	/* width: 400px; */
+	/* margin-left : 100px; */
 }
 .dSnsimg{
     width: 500px;
     padding: 10px;
     margin: 0 auto;
+}
+.snsimg .card-body .sns-title {
+	font-size: 24px;
+	margin-left: 5px;
+	margin-bottom: 20px;
+}
+.sns-info-wrap .card-subtitle {
+	margin-top: 0;
 }
 
 /*--------------------------------------------------------------

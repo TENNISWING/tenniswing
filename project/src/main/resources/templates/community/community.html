@@ -5,7 +5,7 @@
 <head>
 <style>
 .swiper {
-	width: 600px;
+	width: 100%;
 	height: 1200px;
 }
 .repTr{
@@ -33,15 +33,22 @@ section pre{
 	/*  margin-top:20px;*/
 }
 section pre{
-	    font-size: 17px;
-	
+	font-size: 18px;
+	margin-bottom: 0;
+	white-space: break-spaces;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 .repBody{
 	padding:0px !important;
 	
 }
 .insertBtn{
-	display: inline-grid;	
+	/* display: inline-grid; */
+	display: flex !important;
+	justify-content: flex-end;
 	gap:15px;
 }
 .insertBtn a{
@@ -139,9 +146,52 @@ html {
             height: 28px;
         }
     }
-
-
-
+	.swiper-slide {
+		padding-top: 30px;
+		box-sizing: border-box !important;
+	}
+	.card-content {
+		border-radius: 10px;
+		background: #f5f8f7 !important;
+		border: 1px solid #d3d3d3;
+	}
+	.card-subtitle a {
+		background: #fff;
+	}
+	.hashtag {
+		background: #e6e6e6 !important;
+		padding: 5px 8px;
+		border-radius: 5px;
+	}
+	.hashtag .tagVal {
+		font-size: 17px;
+	}
+	.card-title {
+		font-family: 'Noto Sans KR', sans-serif !important;
+	}
+	.like-cnt {
+		display: inline-block;
+		margin-left: 10px;
+		font-size: 18px;
+	}
+	.buttons .btn {
+		margin: 0;
+		height: 42px;
+	    display: flex;
+	    align-items: center;
+	}
+	/* .buttons .btn:hover,
+	.buttons .btn:focus-visible,
+	.buttons .btn:active,
+	.target-btns:focus-visible,
+	.outline-none {
+		border: none !important;
+		outline: none;
+	} */
+	.sns-container {
+		display: flex;
+		flex-direction: column;
+	}
 </style>
 <!-- tagify 소스 다운 -->
 <script src="https://unpkg.com/@yaireo/tagify"></script>
@@ -151,28 +201,20 @@ html {
 </head>
 
 <th:block layout:fragment="content">
-
 	<div class="container">
-		<div class="row" id="row">
-			<div class="col-3"></div>
-			<div class="col-6">
-
-			<!-- 	<div class="input-group">
-					<input type="text" class="form-control" placeholder="">
-					<button type="button" class="input-group-text">
-						<i class="icon dripicons dripicons-search fs-3"></i>
-					</button>
-				</div> -->
-			<!-- 	<div class="insertBtn">
-					<a href="#" class="btn rounded-pill snsTopBtn"
-						th:onclick="|location.href='@{snsMyList}'|">내가 등록한 sns 보기</a> 
-					<a class="btn rounded-pill snsTopBtn"
-						th:onclick="|location.href='@{snsRegister}'|">등록</a>
-					<a class="btn rounded-pill snsTopBtn" th:onclick="|location.href='@{sns}'|">목록으로</a>	
-				</div> -->
-
-				<!-- Basic card section start -->
-
+		<div class="row sns-container" id="row">
+			<!-- dribbble start -->
+			<div class="button-list insertBtn col-12">
+				<button class="fast white snsTopBtn"
+					th:onclick="|location.href='@{snsRegister}'|">등록</button>
+				<button class="fast white snsTopBtn"
+					th:onclick="|location.href='@{snsMyList}'|" >나의 그룹</button> 
+				<button class="fast white snsTopBtn" th:onclick="|location.href='@{sns}'|">목록으로</button>	
+			</div>
+			<a class="dribbble" href="https://dribbble.com/shots/7441241-Button-Hover-Effects" target="_blank"><img src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg" alt=""></a>
+			<!-- dribbble end -->
+			
+			<div class="col-12">
 				<!-- Slider main container -->
 				<div class="swiper">
 					<!-- Additional required wrapper -->
@@ -182,148 +224,156 @@ html {
 							<div class="swiper-slide" th:id="${s.snsWrtNo}">
 								<section id="content-types" style="height: 800px">
 									<div class="row">
-										<div class="snsdiv col-xl-12 border border-1 rounded-4">
+										<div class="snsdiv col-12 rounded-4">
 											<div class="card snsimg mb-0">
 												<div class="card-content">
-													<div class="card-body">
-														<span class="card-title" style="font-weight: bold;">[[${s.snsTitle}]]</span>
-														<div class="edBtns" style="float: right;">
-														</div>
-														<br>
-
-														<th:block
-															th:each=" lang : ${#strings.arraySplit(s.snsTag,',')}">
-															<a class="text-primary" th:href="@{sns(snsTag=${lang})}"> <span class="card-title tagVal">#[[${lang}]]</span></a>
-															<!-- <input th:each="tagg:${#strings.arraySplit(s.snsTag,',')}" type="text" class="tags4" name="tags4" th:value="${lang}" readonly> -->
-														</th:block>
-														<h6 class="card-subtitle" style="font-weight: 300;">[[${s.grpName}]]</h6>
-													</div>
-													<div id="myCarousel" th:attrappend="id=${sStat.count}"
-														class="carousel slide" data-ride="carousel">
-														<div class="carousel-inner">
-															<!-- 사진 / 동영상 반복문 -->
+													<div class="d-flex gap-3" style="padding: 1.5rem;">
+														<div id="myCarousel" th:attrappend="id=${sStat.count}"
+															class="carousel slide" data-ride="carousel">
+															<div class="carousel-inner">
+																<!-- 사진 / 동영상 반복문 -->
+																<th:block th:each="simg : ${s.attachList}">
+																	<div class="carousel-item"
+																		th:if="${simg.attachExt=='.mp4'}"
+																		th:classappend="${simgStat.count==1}?active:_">
+																		<video class="main-top-promotion-video snsVideo"
+																			autoplay="autoplay" loop="loop" controls="controls" muted="muted">
+																			<source th:src="${simg.attachPath}" type="video/mp4">
+																		</video>
+																	</div>
+																	<div class="carousel-item"
+																		th:unless="${simg.attachExt=='.mp4'}"
+																		th:classappend="${simgStat.count==1}?active:_">
+																		<img th:src="${simg.attachPath}" class="d-block w-100"
+																			alt="...">
+																	</div>
+																</th:block>
+																<!-- 사진 / 동영상 반복문 end -->
+															</div>
 															<th:block th:each="simg : ${s.attachList}">
-																<div class="carousel-item"
-																	th:if="${simg.attachExt=='.mp4'}"
-																	th:classappend="${simgStat.count==1}?active:_">
-																	<video class="main-top-promotion-video snsVideo"
-																		autoplay="autoplay" loop="loop" controls="controls" muted="muted">
-																		<source th:src="${simg.attachPath}" type="video/mp4">
-																	</video>
-																</div>
-																<div class="carousel-item"
-																	th:unless="${simg.attachExt=='.mp4'}"
-																	th:classappend="${simgStat.count==1}?active:_">
-																	<img th:src="${simg.attachPath}" class="d-block w-100"
-																		alt="...">
-																</div>
+															<th:block th:if="${simg.attachExt!='.mp4'} and ${simgStat.count == 1} and ${#arrays.length(s.attachList) != 1}">
+															<a class="carousel-control-prev" href="#myCarousel"
+																th:attrappend="href=${sStat.count}" role="button"
+																data-bs-slide="prev"> <span
+																class="carousel-control-prev-icon" aria-hidden="true"></span>
+																<span class="visually-hidden">Previous</span>
+															</a> <a class="carousel-control-next" href="#myCarousel"
+																th:attrappend="href=${sStat.count}" role="button"
+																data-bs-slide="next"> <span
+																class="carousel-control-next-icon" aria-hidden="true"></span>
+																<span class="visually-hidden">Next</span>
+															</a>
 															</th:block>
-															<!-- 사진 / 동영상 반복문 end -->
+															</th:block>
 														</div>
-														<th:block th:each="simg : ${s.attachList}">
-														<th:block th:if="${simg.attachExt!='.mp4'} and ${simgStat.count == 1} and ${#arrays.length(s.attachList) != 1}">
-														<a class="carousel-control-prev" href="#myCarousel"
-															th:attrappend="href=${sStat.count}" role="button"
-															data-bs-slide="prev"> <span
-															class="carousel-control-prev-icon" aria-hidden="true"></span>
-															<span class="visually-hidden">Previous</span>
-														</a> <a class="carousel-control-next" href="#myCarousel"
-															th:attrappend="href=${sStat.count}" role="button"
-															data-bs-slide="next"> <span
-															class="carousel-control-next-icon" aria-hidden="true"></span>
-															<span class="visually-hidden">Next</span>
-														</a>
-														</th:block>
-														</th:block>
+														<div class="card-body d-flex flex-column justify-content-between">
+															<div class="sns-info-wrap">
+																<div class="card-title sns-title" style="font-weight: bold;">[[${s.snsTitle}]]</div>
+																<hr>
+																<h6 class="card-subtitle ms-2">
+																	<a href="#" class="btn btn-outline-secondary rounded-pill mb-2"
+																	   th:onclick="|location.href='@{snsMyList(memId=${s.memId})}'|" >[[${s.name}]]</a>
+																</h6>
+																<div class="d-flex flex-column gap-3 ms-2 mt-3">
+																	<pre class="card-text">[[${s.snsCtt}]]</pre>
+																	<div class="tag-wrap">
+																		<th:block
+																			th:each=" lang : ${#strings.arraySplit(s.snsTag,',')}">
+																			<a class="text-primary hashtag" th:href="@{sns(snsTag=${lang})}"> <span class="card-title tagVal">#[[${lang}]]</span></a>
+																			<!-- <input th:each="tagg:${#strings.arraySplit(s.snsTag,',')}" type="text" class="tags4" name="tags4" th:value="${lang}" readonly> -->
+																		</th:block>
+																	</div>
+																</div>
+															</div>
+															<!-- button start -->
+															<div class="buttons" style="float: right">
+																<ul class="nav d-flex justify-content-around text-center"
+																	style="float: right">
+			
+																	<!-- 좋아요 버튼 -->
+																	<li class="d-flex flex-column outline-none">
+																		<div class="target-btns">
+																			<a th:if="${s.likeNo != null}" class="btn icon btn-white">
+																				<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC"
+																				th:data-likeno="${s.likeNo}"
+																				th:data-snsWrtNo="${s.snsWrtNo}"
+																				id="likeBtn" th:attrappend="id=${sStat.count}"></i>
+																				<span class="like-cnt">[[${s.likeCnt}]]</span>
+																			</a>
+																			<a th:unless="${s.likeNo != null}" class="btn icon btn-white"
+																				>
+																				<i class="fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active"
+																				th:data-likeno="${s.likeNo}" th:data-snsWrtNo="${s.snsWrtNo}" id="likeBtn"
+																				th:attrappend="id=${sStat.count}" ></i>
+																				<span class="like-cnt">[[${s.likeCnt}]]</span>
+																			</a>
+																			
+																		<!-- <span class="likeCnt"></span> -->
+																		</div> 
+																	</li>
+			
+																	<!-- 댓글 버튼 -->
+																	<li class="d-flex flex-column ss outline-none">
+																		<div class="target-btns">
+																			<a class="btn icon btn-white" data-bs-toggle="modal"
+																				data-bs-target="#large" th:data-snsid="${s.snsWrtNo}">
+																				<i class="fa-solid fa-comment fs-5 text-secondary"
+																				th:id="${sStat.count}"></i>
+																			</a>
+																		</div>
+																	</li>
+			
+																	<!-- 공유하기 버튼 -->
+																	<li class="d-flex flex-column outline-none">
+																		<div class="target-btns">
+																			<a class="btn icon btn-white snsBtns"
+																				data-bs-toggle="collapse"
+																				data-bs-target="#collapseExample"
+																				th:attrappend="aria-controls=${sStat.count}"
+																				aria-expanded="false" aria-controls="collapseExample"><i
+																				class="fa-solid fa-share-from-square fs-5 text-secondary"
+																				th:id="${sStat.count}"></i></a>
+																		</div> <!-- 콜랩스 추가 -->
+																		<div class="collapse snsBtnsCol" id="collapseExample"
+																			th:attrappend="id=${sStat.count}">
+																			<span onclick="shareNaver()"> <script
+																					type="text/javascript"
+																					src="https://ssl.pstatic.net/share/js/naver_sharebutton.js">
+																				</script> <script type="text/javascript">
+																				new ShareNaver.makeButton(
+																						{
+																							"type" : "a"
+																						});
+																				</script>
+																			</span> <span th:onclick="javascript:kakaoShare()"
+																				id="kakao-link-btn"><img
+																				src="assets/img/sns/kakaoTalk.png"
+																				style="width: 16px; height: 16px;"> </span>
+																		</div> <!-- 콜랩스 추가 끝 -->
+																	</li>
+			
+																	<!-- 스크랩 버튼 -->
+																	<li class="d-flex flex-column outline-none">
+																		<div class="target-btns">
+																			<a th:if="${s.scrapNo != null}" class="btn icon btn-white bmark"> 
+																				<i class="fa-solid fa-bookmark fs-5 text-secondary iBmark" th:data-scrapno="${s.scrapNo}" th:data-snswrtno="${s.snsWrtNo}" id="scrapBtn" th:attrappend="id=${sStat.count}"></i>
+																			</a>
+																			<a th:unless="${s.scrapNo != null}" class="btn icon btn-white bmark"> 
+																				<i class="fa-regular fa-bookmark fs-5 text-secondary iBmark active" th:data-scrapno="${s.scrapNo}" th:data-snswrtno="${s.snsWrtNo}" id="scrapBtn" th:attrappend="id=${sStat.count}"
+																				data-swal-toast-template="#my-template"
+																				></i>
+																			</a>
+																		</div>
+																	</li>
+			
+																</ul>
+															</div>
+															<!-- button end -->
+														</div>
 													</div>
-													<div class="card-body">
-														<h6 class="card-subtitle"><a href="#" class="btn btn-outline-secondary rounded-pill mb-2"
-						th:onclick="|location.href='@{snsMyList(memId=${s.memId})}'|" >[[${s.name}]]</a></h6>
-														<pre class="card-text">[[${s.snsCtt}]]</pre>
-													</div>
-
 												</div>
 												<!-- 카드콘텐트 END -->
 
-												<div class="buttons" style="float: right">
-													<ul class="nav d-flex justify-content-around text-center"
-														style="float: right">
-
-														<!-- 좋아요 버튼 -->
-														<li class="d-flex flex-column">
-															<div>
-																<a th:if="${s.likeNo != null}" class="btn icon btn-white">
-																	<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC "
-																	th:data-likeno="${s.likeNo}"
-																	th:data-snsWrtNo="${s.snsWrtNo}"
-																	id="likeBtn" th:attrappend="id=${sStat.count}">[[${s.likeCnt}]]</i>
-																</a>
-																<a th:unless="${s.likeNo != null}" class="btn icon btn-white"
-																	>
-																	<i class="fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active"
-																	th:data-likeno="${s.likeNo}" th:data-snsWrtNo="${s.snsWrtNo}" id="likeBtn"
-																	th:attrappend="id=${sStat.count}" >[[${s.likeCnt}]]</i>
-																</a>
-																
-															<!-- <span class="likeCnt"></span> -->
-															</div> 
-														</li>
-
-														<!-- 댓글 버튼 -->
-														<li class="d-flex flex-column ss"><div>
-																<a class="btn icon btn-white" data-bs-toggle="modal"
-																	data-bs-target="#large" th:data-snsid="${s.snsWrtNo}">
-																	<i class="fa-solid fa-comment fs-5 text-secondary"
-																	th:id="${sStat.count}"></i>
-																</a>
-															</div></li>
-
-														<!-- 공유하기 버튼 -->
-														<li class="d-flex flex-column">
-															<div>
-																<a class="btn icon btn-white snsBtns"
-																	data-bs-toggle="collapse"
-																	data-bs-target="#collapseExample"
-																	th:attrappend="aria-controls=${sStat.count}"
-																	aria-expanded="false" aria-controls="collapseExample"><i
-																	class="fa-solid fa-share-from-square fs-5 text-secondary"
-																	th:id="${sStat.count}"></i></a>
-															</div> <!-- 콜랩스 추가 -->
-															<div class="collapse snsBtnsCol" id="collapseExample"
-																th:attrappend="id=${sStat.count}">
-																<span onclick="shareNaver()"> <script
-																		type="text/javascript"
-																		src="https://ssl.pstatic.net/share/js/naver_sharebutton.js">
-																	</script> <script type="text/javascript">
-																	new ShareNaver.makeButton(
-																			{
-																				"type" : "a"
-																			});
-																	</script>
-																</span> <span th:onclick="javascript:kakaoShare()"
-																	id="kakao-link-btn"><img
-																	src="assets/img/sns/kakaoTalk.png"
-																	style="width: 16px; height: 16px;"> </span>
-															</div> <!-- 콜랩스 추가 끝 -->
-														</li>
-
-														<!-- 스크랩 버튼 -->
-														<li class="d-flex flex-column">
-															<div>
-																<a th:if="${s.scrapNo != null}" class="btn icon btn-white bmark"> 
-																	<i class="fa-solid fa-bookmark fs-5 text-secondary iBmark" th:data-scrapno="${s.scrapNo}" th:data-snswrtno="${s.snsWrtNo}" id="scrapBtn" th:attrappend="id=${sStat.count}"></i>
-																</a>
-																<a th:unless="${s.scrapNo != null}" class="btn icon btn-white bmark"> 
-																	<i class="fa-regular fa-bookmark fs-5 text-secondary iBmark active" th:data-scrapno="${s.scrapNo}" th:data-snswrtno="${s.snsWrtNo}" id="scrapBtn" th:attrappend="id=${sStat.count}"
-																	data-swal-toast-template="#my-template"
-																	></i>
-																</a>
-															</div>
-														</li>
-
-													</ul>
-												</div>
-												<!-- button end -->
 											</div>
 											<!-- snsimg -->
 
@@ -334,28 +384,13 @@ html {
 								</section>
 							</div>
 						</th:block>
-
-
 					</div>
-
-
 				</div>
 			</div>
 			<!-- col6 end -->
-	<div class="col-3">	
-
-<!-- dribbble -->
-			<div class="button-list insertBtn ">
-				<button class="fast white snsTopBtn"
-					th:onclick="|location.href='@{snsRegister}'|">등록</button>
-				<button class="fast white snsTopBtn"
-					th:onclick="|location.href='@{snsMyList}'|" >나의 그룹</button> 
-				<button class="fast white snsTopBtn" th:onclick="|location.href='@{sns}'|">목록으로</button>	
-			</div>
-<a class="dribbble" href="https://dribbble.com/shots/7441241-Button-Hover-Effects" target="_blank"><img src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg" alt=""></a>
 		</div>
-		</div>
-		<!-- div row end -->
+	</div>
+	<!-- div row end -->
 
 	
 
@@ -428,7 +463,7 @@ html {
 	
 
 	// scroll to element
-	document.querySelector('.snsdiv').scrollIntoView({ block: "end" });
+	//document.querySelector('.snsdiv').scrollIntoView({ block: "end" });
 
 	let message = [[${message}]]
 	if(message!= null){
@@ -633,9 +668,11 @@ html {
 								
 									//location.href="/sns";
 									console.log($(e.target))
+									let likeCnt = $(e.target).closest('.btn').find('.like-cnt');
+									
 									target.attr('class','fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC')
 								    target.removeClass("active");
-									target.text(result.cnt);
+									likeCnt.text(result.cnt);
 									target.attr('data-likeNo', result.likeNo);
 									
 								
@@ -665,8 +702,9 @@ html {
 								  timer: 1300
 								})
 	            		   //alert("delete 성공")
+	            		   let likeCnt = $(e.target).closest('.btn').find('.like-cnt')
 	            		   target.attr('class','fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active')
-	            		   target.text(result.cnt);
+	            		   likeCnt.text(result.cnt);
 	            		   target.removeAttr('data-likeNo');
 	            	   },
 						error : function() {
