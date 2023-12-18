@@ -2769,7 +2769,7 @@ h4 {
   padding: 7px 15px;
 }
 .select__style .nice-select .option:hover, .select__style .nice-select .option.selected.focus {
-  background: rgba(235, 94, 40, 0.1);
+  background: rgb(103 103 103 / 10%);
   color: #252522;
 }
 .select__style .nice-select .current, .select__style .nice-select .list li {
