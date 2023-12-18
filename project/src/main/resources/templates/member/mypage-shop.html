@@ -14,6 +14,11 @@
 			font-family: 'Noto Sans KR', sans-serif !important;
 			font-weight: 700;
 		}
+		#tableOrder tbody tr td,
+		#tableOrder tbody tr td button{
+			text-align: center;
+			font-family: 'Noto Sans KR', sans-serif !important;
+		}
 		.container {
 			font-family: 'Noto Sans KR', sans-serif !important;
 		}
@@ -29,21 +34,65 @@
 			<div class="col-lg-4 col-md-auto">
 				<div th:replace="member/mypage-sidemenu :: sidemenu"></div>
 			</div>
-			<div class="col-lg-8 col-md-auto">
-				<ul class="nav nav-pills" id="myTab" role="tablist" style="gap: 3rem;">
-					<li class="nav-item" role="presentation"><a
-						class="nav-link active" id="like-tab" data-bs-toggle="tab"
-						href="#like" role="tab" aria-controls="like" aria-selected="true"
-						style="border: 1px solid #eaecf0; border-radius: 6px;">위시리스트</a>
-					</li>
-					<li class="nav-item" role="presentation"><a class="nav-link"
+			<div class="col-lg-8 col-md-auto tab_wrap">
+				<ul class="nav nav-pills tit_list" id="myTab" role="tablist" style="gap: 3rem;">
+					<li class="nav-item" role="presentation"><a class="nav-link active" 
 						id="scrap-tab" data-bs-toggle="tab" href="#scrap" role="tab"
-						aria-controls="scrap" aria-selected="false"
+						aria-controls="scrap" aria-selected="true"
 						style="border: 1px solid #eaecf0; border-radius: 6px;">주문 내역</a>
+					</li>
+					<li class="nav-item" role="presentation"><a
+						class="nav-link" id="like-tab" data-bs-toggle="tab"
+						href="#like" role="tab" aria-controls="like" aria-selected="false"
+						style="border: 1px solid #eaecf0; border-radius: 6px;">위시리스트</a>
 					</li>
 				</ul>
 				<div class="tab-content" >
-					<div class="tab-pane fade show active" id="like" role="tabpanel" aria-labelledby="like-tab">
+					<div class="tab-pane fade show active tab_list" id="scrap" role="tabpanel" aria-labelledby="scrap-tab">
+						<div class="cart__form mt-3">
+							<table class="table" id="tableOrder">
+								<thead>
+									<tr>
+										<th style="display: none">번호</th>
+										<th style="text-align: left; padding-left: 10px;">주문 번호</th>
+										<!-- <th>주문 수량</th> -->
+										<th>주문 금액</th>
+										<th>주문 일자</th>
+										<th>주문 상태</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:each="orderList : ${orderList}">
+										<tr>
+											<td style="display: none">[[ ${orderList.orderNo} ]]</td>
+											<td style="text-align: left;">[[ ${orderList.merchantUid} ]]</td>
+											<!-- <td>[[ ${orderList.orderProdCnt} ]]</td> -->
+											<td class="orderMemPrice" th:id="orderMemPrice+${orderList.orderNo}">[[ ${orderList.orderTPayAmt} ]]</td>
+											<td>[[ ${#dates.format(orderList.orderDate, 'yyyy-MM-dd')} ]]</td>
+											<td><span class="badge bg-success stateOrder" th:id="stateOrder_+${orderList.orderNo}">[[ ${orderList.orderState} ]]</span></td>
+											<td>
+												<div class="cart__action__btn" style="display: flex; justify-content: space-around;">
+													<div class="cart__btn" style="display: inline;">
+														<a th:onclick="|location.href='@{/mypage-shopDetail(orderNo=${orderList.orderNo})}'|"
+															class="btn btn-outline"
+															style="width: auto; padding: 7px 15px;">보기</a>
+													</div>
+
+													<div class="cart__btn" style="display: inline;">
+														<button type="button"
+															class="btn btn-outline cancleOrder" th:id="cancleOrder_+${orderList.orderNo}"
+															style="width: auto; padding: 7px 15px; color: #d92d20; background: rgba(217, 45, 32, 0.1);">취소</button>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</th:block>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="tab-pane fade tab_list" id="like" role="tabpanel" aria-labelledby="like-tab">
 						<div class="cart__form mt-3">
 							<table class="table" id="table1">
 								<thead>
@@ -105,7 +154,7 @@
 														</div>
 													</div>
 													<button type="button" class="danger__btn wishDelBnt"
-														th:id="delWish_+${wishList.wishNo}">
+														th:id="delWish_+${wishList.wishNo}" style="height: 40px;">
 														<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 				                                        	<path
 																d="M1.25 3.5H2.75M2.75 3.5H14.75M2.75 3.5V14C2.75 14.3978 2.90804 14.7794 3.18934 15.0607C3.47064 15.342 3.85218 15.5 4.25 15.5H11.75C12.1478 15.5 12.5294 15.342 12.8107 15.0607C13.092 14.7794 13.25 14.3978 13.25 14V3.5H2.75ZM5 3.5V2C5 1.60218 5.15804 1.22064 5.43934 0.93934C5.72064 0.658035 6.10218 0.5 6.5 0.5H9.5C9.89782 0.5 10.2794 0.658035 10.5607 0.93934C10.842 1.22064 11 1.60218 11 2V3.5M6.5 7.25V11.75M9.5 7.25V11.75"
@@ -113,48 +162,6 @@
 																stroke-linejoin="round"></path>
 				                                        </svg>
 													</button>
-												</div>
-											</td>
-										</tr>
-									</th:block>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div class="tab-pane fade" id="scrap" role="tabpanel" aria-labelledby="scrap-tab">
-						<div class="cart__form mt-3">
-							<table class="table" id="tableOrder">
-								<thead>
-									<tr>
-										<th style="text-align: left; padding-left: 10px;">주문 번호</th>
-										<!-- <th>주문 수량</th> -->
-										<th>주문 금액</th>
-										<th>주문 일자</th>
-										<th>주문 상태</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									<th:block th:each="orderList : ${orderList}">
-										<tr>
-											<td style="text-align: left;">[[ ${orderList.merchantUid} ]]</td>
-											<!-- <td>[[ ${orderList.orderProdCnt} ]]</td> -->
-											<td>[[ ${orderList.orderTPayAmt} ]]</td>
-											<td>[[ ${#dates.format(orderList.orderDate, 'yyyy-MM-dd')} ]]</td>
-											<td><span class="badge bg-success orderStateClass">[[ ${orderList.orderState} ]]</span></td>
-											<td>
-												<div class="cart__action__btn">
-													<div class="cart__btn" style="display: inline;">
-														<a th:onclick="|location.href='@{/mypage-shopDetail(orderNo=${orderList.orderNo})}'|"
-															class="btn btn-outline"
-															style="width: auto; padding: 7px 15px;">보기</a>
-													</div>
-
-													<div class="cart__btn" style="display: inline;">
-														<a
-															class="btn btn-outline " th:id="cancleOrder_+${orderList.orderNo}"
-															style="width: auto; padding: 7px 15px; color: #d92d20; background: rgba(217, 45, 32, 0.1);">취소</a>
-													</div>
 												</div>
 											</td>
 										</tr>
@@ -186,7 +193,26 @@
 				}
 			})
 		}
-	
+		
+		changeOrderMemPrice();
+		function changeOrderMemPrice() {		
+			let price = $('.orderMemPrice');
+			console.log(price);
+			
+			price.each(function(){
+				priceId = $(this).attr('id');
+				// jQuery id 찾을 때 변수 넣어서 찾기
+				console.log(priceId);
+				
+				let changePrice = $('#'+priceId).text();
+				//console.log(changePrice);
+				changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				
+				changePrice = changePrice + '원';
+				$('#'+priceId).text(changePrice);
+			});
+		}
+		
 		changeWishtPrice();
 		/* 가격 */
 		function changeWishtPrice() {		
@@ -256,7 +282,10 @@
 								  title: "삭제 성공",
 								  text: "위시리스트가 삭제되었습니다.",
 							}).then(function(){
+								//$('#mypage').load(window.location.href+' #mypage');
 								location.reload();
+								/* $('#like-tab').trigger('click'); */
+								//$("#like-tab").get(0).click();
 							});
 						} else {
 							Swal.fire({
@@ -283,6 +312,83 @@
 			});
 		}
 		
+		// 결제 취소 (상품준비중, 배송중, 배송완료일 때는 취소 못하게)
+		stateOrderToCancle();
+		function stateOrderToCancle() {
+			let state = $('.stateOrder');
+			let orderId;
+			
+			state.each(function() {
+				orderId = $(this).attr('id');
+				console.log($(this).text());
+				let no = orderId.split('_');
+				
+				if($(this).text() == '결제완료' || $(this).text() == '상품준비중') {
+					console.log($('#cancleOrder_' + no[1]));
+					$('#cancleOrder_' + no[1]).attr('disabled', false);
+				} else {
+					console.log($('#cancleOrder_' + no[1]));
+					$('#cancleOrder_' + no[1]).attr('disabled', true);
+					$('#cancleOrder_' + no[1]).css('color', 'white');
+					$('#cancleOrder_' + no[1]).css('background', '#c1c1c1');
+				}
+				
+			})	
+		}
+		
+		cancleOrderPay();
+		function cancleOrderPay() {
+			let cancleBtn = $('.cancleOrder');
+			
+			cancleBtn.each(function() {
+				$(this).on('click', function() {
+					console.log(this);
+					let orderId = $(this).attr('id');
+					let orderNo = orderId.split('_');
+					
+					let orderData = {orderNo : orderNo[1]};
+					console.log('==='+orderData.orderNo);
+					
+					// 통신해서 결제 취소 시키기
+					$.ajax('orderCancel', {
+						type : 'POST',
+						contentType: 'application/json',
+					    data: JSON.stringify(orderData)
+					})
+					.done(result => {
+						if(result) {
+							Swal.fire({
+								  icon: "success",
+								  title: "환불 완료",
+								  text: "환불처리가 완료되었습니다.",
+							}).then(function(){
+								location.reload();
+							})		
+						} else {
+							Swal.fire({
+								  icon: "error",
+								  title: "환불 실패",
+								  text: "환불처리가 완료되지 않았습니다.",
+							}).then(function(){
+								location.reload();
+							})
+						}
+					})
+					.fail(err => {
+						console.log(err);
+						Swal.fire({
+							  icon: "error",
+							  title: "환불 실패",
+							  text: "환불 시스템 확인 중 입니다.",
+						}).then(function(){
+							location.reload();
+						})
+					})
+				})
+			})
+		}
+		
+		
 		/* $('#table1').DataTable(
 				{
 					pagingType: 'simple',	
@@ -301,11 +407,90 @@
 				    },
 				})	 */
 		$(document).ready(function() {
-			  $('#table1').DataTable();
 			  $('#tableOrder').DataTable({
+				  /* aaSorting : [], */
+				  /* [] 타임리프로 인식해서 띄어줘야함 */
+				  order: [ [0, 'desc'] ] 
+			  });
+			  $('#table1').DataTable({ 
 				  autoWidth: false,
+				  order: [ [0, 'desc'] ]
 			  });
 			});
+		
+		$(window).on('load', function() {
+		    tab();
+		})
+
+		function tab() {
+		    //탭 구분 파라미터 이름
+		    const paramName = 'tabName';
+
+		    //탭메뉴 실행 함수
+		    function activateTab(tabId, updateUrlParam) {
+		        //tabId 값이 first 일 때 첫번째 탭 선택
+		        tabId = tabId === 'first' ? $('.tab_wrap .tit_list > li:first-child a').attr('href') : tabId;
+				console.log(tabId);
+		        
+		        //초기화
+		        $(".tab_wrap .tit_list > li").removeClass("active");
+		        $(".tab_wrap .tit_list > li a").removeClass("active");
+		        $(".tab_wrap .tab_list").removeClass("active");
+		        $(".tab_wrap .tab_list").removeClass("show");
+
+		        //실행
+		        $(`.tab_wrap .tit_list > li a[href*="${tabId}"]`).parent().addClass("active");
+		        $(`.tab_wrap .tit_list > li a[href*="${tabId}"]`).addClass("active");
+		        $(tabId).addClass("active");
+		        $(tabId).addClass("show");
+
+		        //탭메뉴 클릭할 때 url 파라미터 변경
+		        if (updateUrlParam) {
+		            setUrlParam(tabId);
+		        }
+		    }
+
+		    //파라미터 값 변경 함수
+		    function setUrlParam(tabId) {
+		        const params = new URLSearchParams(location.search);
+		        params.set(paramName, tabId.slice(1));
+		        history.pushState(null, null, `${location.origin}${location.pathname}?${params.toString()}`);
+		    }
+
+		    //파라미터 확인 함수
+		    function getUrlParam() {
+		        const urlParams = new URLSearchParams(location.search);
+		        return urlParams.get(paramName);
+		    }
+
+		    //파라미터 값 확인
+		    const tabName = getUrlParam();
+
+		    //탭메뉴 클릭할 때 실행
+		    $(".tab_wrap .tit_list > li a").on("click", function(e) {
+		        e.preventDefault();
+		        let tabId = $(this).attr("href");
+		        activateTab(tabId, true);
+		    });
+
+		    //페이지 로드 했을 때 탭메뉴 선택
+		    if (tabName) {
+		        const tabTop = $('.tab_wrap').offset().top;
+		        requestAnimationFrame(function() {
+		            /* $('html, body').scrollTop(tabTop - 100); */
+		        });
+		        activateTab(`#${tabName}`);
+		    } else {
+		        activateTab('first');
+		    }
+
+		    //뒤로가기, 앞으로가기 버튼 눌렀을 때 탭메뉴 활성화 복원
+		    $(window).on('popstate', function() {
+		        const newTabName = getUrlParam();
+		        activateTab(newTabName ? `#${newTabName}` : 'first');
+		    });
+		}
+
 	</script>
 
 </th:block>

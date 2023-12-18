@@ -207,4 +207,78 @@
   		DELETE FROM prod
   		WHERE prod_no = #{prodNo}
   	</delete>
+  	
+  	<!-- 후기 등록 권한여부 -->
+  	<select id="confirmInsertReview" resultType="int">
+  		SELECT *
+  		FROM   (SELECT ot.order_no
+			    FROM order_table ot, order_detail od
+			    WHERE ot.order_no = od.order_no
+			    AND od.prod_detail_no IN (SELECT prod_detail_no
+			                              FROM prod_detail
+			                              WHERE prod_no = #{prodNo})
+			    AND ot.mem_id = #{memId}
+			    AND ot.order_state = 's5'
+			    ORDER BY ot.order_no desc)
+  		WHERE <![CDATA[rownum = 1]]>
+  	</select>
+  	
+  	<!-- 후기 등록 -->
+	<insert id="insertProdReview" parameterType="prodVO">
+  		<selectKey keyProperty="prodReviewNo" resultType="int" order="BEFORE">
+  			SELECT NVL(MAX(prod_review_no), 0) + 1
+  			FROM prod_review		   
+  		</selectKey>
+  		INSERT INTO prod_review
+  			(
+  				PROD_REVIEW_NO
+				, MEM_ID
+				, PROD_REVIEW_CTT
+				, PROD_REVIEW_STAR
+				, PROD_REVIEW_REGI_DATE
+				, ORDER_TABLE_NO
+				, PROD_NO
+  			)
+  			VALUES
+  			(
+  				#{prodReviewNo}
+  				, #{memId}
+  				, #{prodReviewCtt}
+  				, #{prodReviewStar}
+  				, SYSDATE
+  				, #{orderTableNo}
+  				, #{prodNo}
+  			)
+  	</insert>
+  	
+  	<!-- 상품별 후기 조회 -->
+	<select id="selectProdReview" resultType="prodVO">
+		SELECT r.mem_id
+				, r.prod_review_ctt
+				, r.prod_review_star
+				, r.prod_review_regi_date
+				, r.prod_review_edit_date
+				, r.order_table_no
+				, a.attach_path
+				, r.prod_review_no
+		FROM prod_review r LEFT OUTER JOIN attach a
+						ON r.prod_review_no = a.attach_table_pk
+						AND a.attach_table_div = 'pr'
+		WHERE r.prod_no = #{prodNo}
+		ORDER BY 4 desc
+	</select>
+	
+	<!-- 후기 삭제 -->
+  	<delete id="deleteProdReview" parameterType="int">
+  		DELETE FROM prod_review
+  		WHERE prod_review_no = #{prodReviewNo}
+  	</delete>
+  	
+  	<!-- 후기 사진 삭제 -->
+  	<delete id="deleteReviewImg" parameterType="int">
+  		DELETE FROM attach
+  		WHERE attach_table_div = 'pr'
+  		AND attach_table_pk = #{prodReviewNo}
+  	</delete>
+  	
   </mapper>

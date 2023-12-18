@@ -2,6 +2,7 @@ package com.tenniswing.project.shop.mapper;
 
 import java.util.List;
 
+import com.tenniswing.project.court.service.CrtroomVO;
 import com.tenniswing.project.shop.service.ProdVO;
 
 public interface ProdMapper {
@@ -37,4 +38,19 @@ public interface ProdMapper {
 	
 	// 주문시 재고 처리
 	public int updateOrderProd(int prodNo, int prodDetailSto);
+	
+	// 후기 등록 가능 확인
+	public int confirmInsertReview(ProdVO prodVO);
+	
+	// 후기 등록
+	public int insertProdReview(ProdVO prodVO);
+	
+	// 코트 후기 조회
+	public List<ProdVO> selectProdReview(int prodNo);
+	
+	// 후기 삭제
+	public int deleteProdReview(int prodReviewNo);
+	
+	// 후기 사진 삭제
+	public int deleteReviewImg(int prodReviewNo);
 }

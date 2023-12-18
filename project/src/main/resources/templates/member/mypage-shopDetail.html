@@ -53,8 +53,8 @@
 							${orderSelect.merchantUid} ]]</h2>
 						<!-- <div class="danger__btn border-30">30 order</div> -->
 					</div>
-					<a th:onclick="|location.href='@{/mypage-shop}'|" class="link"><i
-									style="font-family: 'Font Awesome 6 Free' !important; cursor: pointer;"
+					<a th:onclick="|location.href='@{/mypage-shop}'|" class="link" style="cursor: pointer;"><i
+									style="font-family: 'Font Awesome 6 Free' !important;"
 									class="fa-solid fa-arrow-left me-2"></i> Back</a>
 					<!--/* <div class="add__btn">
                                 <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i>Add product</a>
@@ -86,7 +86,7 @@
 						<ul class="address__list">
 							<li>결제자: <span>[[ ${orderSelect.name} ]]</span></li>
 							<li>결제 수단: <span>[[ ${orderPay.payMethod} ]]</span></li>
-							<li>결제 금액: <span>[[ ${orderPay.payAmt} ]]</span></li>
+							<li>결제 금액: <span class="totalDetailPrice" id="totalPayPrice">[[ ${orderPay.payAmt} ]]</span></li>
 							<li>결제 일자: <span>[[ ${#dates.format(orderPay.payDate,
 									'yyyy-MM-dd')} ]]</span></li>
 						</ul>
@@ -137,7 +137,7 @@
 												<div class="primary__btn border-30 orderState">[[
 													${orderSelect.orderState} ]]</div>
 											</td>
-											<td class="cart-pd__Price" data-title="Price">[[
+											<td class="cart-pd__Price orderDetailPrice" th:id="detailPrice+${orderProd.prodDetailNo}" data-title="Price">[[
 												${orderProd.orderDetailAmt} ]]</td>
 										</tr>
 									</th:block>
@@ -154,7 +154,7 @@
 										<td class="border-none pt-10" style="border: 0">&nbsp;</td>
 										<td class="border-none pt-10" style="border: 0">&nbsp;</td>
 										<td class="border-none pt-10 text-end"><strong>Total</strong></td>
-										<td class="border-none pt-10"><strong>[[
+										<td class="border-none pt-10 totalDetailPrice" id="totalProdPrice"><strong>[[
 												${orderSelect.orderTPayAmt} ]]</strong></td>
 									</tr>
 								</tbody>
@@ -180,6 +180,43 @@
 					$(item).attr('style', 'background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important');
 				}
 			})
+		}
+		
+		changeTotalDetailPrice();
+		function changeTotalDetailPrice() {		
+			let price = $('.totalDetailPrice');
+			console.log(price);
+			
+			price.each(function(){
+				priceId = $(this).attr('id');
+				// jQuery id 찾을 때 변수 넣어서 찾기
+				console.log(priceId);
+				
+				let changePrice = $('#'+priceId).text();
+				//console.log(changePrice);
+				changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				
+				changePrice = changePrice + '원';
+				$('#'+priceId).text(changePrice);
+			});
+		}
+		changeOrderDetailPrice();
+		function changeOrderDetailPrice() {		
+			let price = $('.orderDetailPrice');
+			console.log(price);
+			
+			price.each(function(){
+				priceId = $(this).attr('id');
+				// jQuery id 찾을 때 변수 넣어서 찾기
+				console.log(priceId);
+				
+				let changePrice = $('#'+priceId).text();
+				//console.log(changePrice);
+				changePrice = changePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				
+				changePrice = changePrice + '원';
+				$('#'+priceId).text(changePrice);
+			});
 		}
 	</script>
 </th:block>

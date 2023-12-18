@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
 import com.tenniswing.project.common.FileUtils;
+import com.tenniswing.project.court.service.CrtroomVO;
 import com.tenniswing.project.member.service.MemberService;
 import com.tenniswing.project.member.service.MemberVO;
 import com.tenniswing.project.shop.service.CartService;
@@ -105,6 +106,7 @@ public class ShopController {
 		log.warn("=============="+prodService.relatedSwiperProd(prodVO));
 		model.addAttribute("prodDetailList", prodDetailService.selectAllProdDetail(prodVO));
 		model.addAttribute("prodDetail", new ProdDetailVO());
+		model.addAttribute("prodReview", prodService.selectProdReview(prodVO.getProdNo()));
 		return "shop/shopDetail";
 	}
 	
@@ -234,13 +236,67 @@ public class ShopController {
 		return result;
 	}
 	
+	// 상품 구매한 사람인지 확인
+	@PostMapping("confirmOrder")
+	@ResponseBody
+	public Integer confirmReserve(ProdVO prodVO) {
+		String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+		if(memId.equals("anonymousUser")){
+			return 0;
+		}else {
+			prodVO.setMemId(memId);
+		}
+		Integer orderNum = prodService.confirmInsertReview(prodVO);
+		if(orderNum == null || orderNum == 0) {
+			return 0;
+		} else {
+			return prodService.confirmInsertReview(prodVO);
+		}
+	}
+	
+	// 리뷰 등록하기
+	@PostMapping("insertProdReview")
+	@ResponseBody
+	public Map<String, Object> insertProdReview(ProdVO prodVO, Model model) {
+		Map<String, Object> map = new HashMap<>();
+		String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+		prodVO.setMemId(memId);
+		
+		Integer orderTableNo = prodService.confirmInsertReview(prodVO);
+		if(orderTableNo == null) {
+			map.put("result", false);
+			map.put("review", "이용 전이거나 예약건이 없습니다.");
+			return map;
+		}
+		prodVO.setOrderTableNo(orderTableNo);
+		//사진 등록
+		//테이블 구분, 게시글 번호, 파일목록
+		//int n = 0;
+		boolean isSuccessed = false;
+		
+		List<AttachVO> files = fileUtils.uploadFiles(prodVO.getFiles());
+		int reviewNo = prodService.insertProdReview(prodVO, files);
+		
+		if(reviewNo != -1) {
+			isSuccessed = true;
+		}
+		
+		//CrtroomVO review = prodService.selectReview(reviewNo);
+		//map.put("reviews", review);
+		map.put("result", isSuccessed);
+		map.put("memId", memId);
+		return map;
+	}
 	
 	
-	
-	
-	
-	
-	
+	// 리뷰 삭제
+	@PostMapping("deleteProdReview")
+	@ResponseBody
+	public boolean deleteReview(@RequestParam Integer prodReviewNo) {
+		boolean result = prodService.deleteProdReview(prodReviewNo);
+		
+		return result;
+	}
 	
 	
 }

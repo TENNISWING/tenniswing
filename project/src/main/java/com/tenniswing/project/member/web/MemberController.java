@@ -1,6 +1,7 @@
 package com.tenniswing.project.member.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,10 +29,22 @@ import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.match.service.MatchHistService;
 import com.tenniswing.project.member.service.MemberService;
 import com.tenniswing.project.member.service.MemberVO;
+import com.tenniswing.project.shop.mapper.ProdDetailMapper;
+import com.tenniswing.project.shop.mapper.ProdMapper;
+import com.tenniswing.project.shop.service.OrderDetailVO;
 import com.tenniswing.project.shop.service.OrderService;
 import com.tenniswing.project.shop.service.OrderTableVO;
+import com.tenniswing.project.shop.service.PayCancelVO;
+import com.tenniswing.project.shop.service.ProdDetailService;
+import com.tenniswing.project.shop.service.ProdDetailVO;
+import com.tenniswing.project.shop.service.ProdService;
+import com.tenniswing.project.shop.service.ProdVO;
 import com.tenniswing.project.shop.service.WishService;
+import com.tenniswing.project.shop.web.PayService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class MemberController {
 
@@ -54,6 +67,14 @@ public class MemberController {
 	@Autowired WishService wishService;
 	
 	@Autowired OrderService orderService;
+	
+	@Autowired PayService payService;
+	
+	@Autowired
+	ProdDetailMapper prodDetailMapper;
+
+	@Autowired
+	ProdMapper prodMapper;
 
 	// 로그인 폼 이동
 	@GetMapping("loginform")
@@ -260,5 +281,64 @@ public class MemberController {
 		model.addAttribute("nowpage", 4);
 		return "member/mypage-shopDetail";
 	}
+	
+	// 주문 취소 (환불)
+	@PostMapping("orderCancel")
+	@ResponseBody
+	public Boolean adminOrderCancel(@RequestBody OrderTableVO vo) throws Exception {
+		OrderTableVO orderTableVO = new OrderTableVO();
+		orderTableVO = orderService.selectOrder(vo.getOrderNo());
+		PayCancelVO payCancelVO = new PayCancelVO();
+		OrderTableVO updateOrderTableVO = new OrderTableVO();
 
+		List<OrderDetailVO> orderDetailList = new ArrayList<OrderDetailVO>();
+		int orderNo = vo.getOrderNo();
+
+		String token = payService.getToken();
+		String refundPrice = String.valueOf(orderTableVO.getOrderTPayAmt());
+		String imp_uid = orderTableVO.getImpUid();
+
+		payService.payMentCancle(token, imp_uid, refundPrice, "주문취소");
+
+		// 결제 취소 테이블에 insert
+		payCancelVO.setOrderNo(vo.getOrderNo());
+		payCancelVO.setPayCancelAMt(orderTableVO.getOrderTPayAmt());
+		payCancelVO.setPayCancelApplyPart("v2");
+		int result = orderService.insertPayCancel(payCancelVO);
+
+		ProdDetailVO prodDetailVO = new ProdDetailVO();
+		if (result > 0) {
+			// order_table update - orderState
+			updateOrderTableVO.setOrderState("s7");
+			updateOrderTableVO.setOrderNo(vo.getOrderNo());
+			orderService.updateOrderState(updateOrderTableVO);
+
+			// 상품 재고 다시 추가
+			// prod_detail_no별 판매 재고를 가져온다
+			// prod_detail_no의 재고를 추가한다.
+			orderDetailList = orderService.selectOrderDetail(orderNo);
+			log.warn("===orderDetailVO===" + orderDetailList);
+			for (OrderDetailVO detVO : orderDetailList) {
+				prodDetailVO.setProdDetailNo(detVO.getProdDetailNo());
+				prodDetailVO.setProdDetailSto(detVO.getOrderDetailCnt());
+
+				log.warn("====prodDetailVO====" + prodDetailVO);
+				// 상품 상세 재고 추가
+				prodDetailMapper.updateProdDetailCancel(prodDetailVO);
+
+				// 상품 번호 가져오기
+				ProdDetailVO prodDetail = new ProdDetailVO();
+				prodDetail = prodDetailMapper.selectProdDetail(prodDetailVO);
+
+				int prodTSto = prodDetailMapper.selectSumOrderProdNo(prodDetail.getProdNo());
+				ProdVO prodVO = new ProdVO();
+				prodVO.setProdNo(prodDetail.getProdNo());
+				prodVO.setProdTSto(prodTSto);
+				prodMapper.updateProd(prodVO);
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

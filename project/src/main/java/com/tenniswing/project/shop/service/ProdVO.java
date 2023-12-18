@@ -55,4 +55,15 @@ public class ProdVO {
 	
 	//이미지 리스트
 	private List<AttachVO> attachList;
+	
+	// 상품 후기
+	private int prodReviewNo;
+	private String prodReviewCtt;
+	private int prodReviewStar;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date prodReviewRegiDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date prodReviewEditDate;
+	private String memId;
+	private int orderTableNo;
 }
