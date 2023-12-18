@@ -325,8 +325,9 @@ section pre{
 	}
 
 	// scroll to element
-	const element = document.getElementById("content-types");
-	element.scrollIntoView();
+	document.querySelector('.snsdiv').scrollIntoView({ block: "end" });
+	/* const element = document.getElementById("content-types");
+	element.scrollIntoView(); */
 
 	let message = [[${message}]]
 	if(message!= null){

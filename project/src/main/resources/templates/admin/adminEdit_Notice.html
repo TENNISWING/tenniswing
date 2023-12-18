@@ -9,6 +9,12 @@
 <link rel="stylesheet"
 	href="/assets/compiled/css/form-editor-summernote.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style type="text/css">
+.btns{
+	display: flex;
+    gap: 10px;
+}
+</style>
 </head>
 <th:block layout:fragment="admincontent">
 	<!-- Main__container Start-->
@@ -59,7 +65,7 @@
 																					</div>
 																				</div>
 																				<div class="card-body smNote">
-																					<textarea class="summernote" name="brdCtt">[[${notice.brdCtt}]]</textarea>
+																					<textarea class="summernote" name="brdCtt" autofocus="autofocus">[[${notice.brdCtt}]]</textarea>
 																				</div>
 																			</div>
 
@@ -67,13 +73,15 @@
 																	</div>
 																</section>
 
-																<div class="col-12 d-flex justify-content-end">
-																	<button type="submit" class="btn btn-primary me-1 mb-1">수정</button>
+																<div class="col-12 d-flex justify-content-end btns">
+																<div class="goList">
+																	<button type="button"
+																		class="btn btn-primary me-1 mb-1"
+																		th:onclick="|location.href='@{admin_notice}'|">목록으로</button>
+																</div>
 																	<button type="reset"
 																		class="btn btn-light-secondary me-1 mb-1">취소</button>
-																	<button type="button"
-																		class="btn btn-primary -o me-auto"
-																		th:onclick="|location.href='@{admin_notice}'|">목록으로</button>
+																	<button type="submit" class="btn btn-primary me-1 mb-1">수정</button>
 																</div>
 															</div>
 														</div>

@@ -20,6 +20,23 @@
 	height: 24px !important;
 }
 
+section a,
+	section span,
+	section button,
+	section input,
+	section h1,
+	section h2,
+	section h3,
+	section h4,
+	section h5,
+	section h6,
+	section tr,
+	section td,
+	section th,
+	section pre{
+		font-family: 'Noto Sans KR', sans-serif !important;
+	}
+
 #table1 {
 	width: 100% !important;
 }
@@ -32,6 +49,13 @@ svg, path, i {
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
+.form-group{
+	display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -54,7 +78,7 @@ svg, path, i {
 			
 					<div class="dashboard__header">
 						<div class="d__header--left">
-							<h2 class="title">공지사항 게시글</h2>
+							<h2 class="title">공지사항</h2>
 						</div>
 					</div>
 
@@ -62,34 +86,31 @@ svg, path, i {
         <!-- 테이블시작  -->
         <div class="container mt-5">
             <div class="dashboard-block">               
-                <div class="form__wrapper form-padding">
+                <div class="form__wrapper form-padding" style="border: 1px solid #ccc;" >
                     <div class="flex__form c-3">
-                        <div class="form-group">
-                            <label for="product_name">제목</label>
-                            <div th:text="${notice.brdTitle}"></div>
-                        </div>
+                     
 						
+						  	   <div class="form-group">
+                            <label class="label" for="stock" style="margin: 0;" >작성 일자</label>
+                            <div th:text="${#dates.format(notice.brdWriteDate,'yyyy-MM-dd')}"></div>
+                        </div>
                      
                         <div class="form-group">
-                            <label for="slug">작성자</label>
+                            <label class="label" for="slug" style="margin: 0;" 
+                            >작성자</label>
                             <div th:text="${notice.name}"></div>
                         </div>
                          <div class="form-group">
-	                            <label for="slug">조회수</label>
+	                            <label class="label" for="slug" style="margin: 0;" >조회수</label>
 	                            <div th:text="${notice.brdHit}"></div>
 	                        </div>
-	                        
-                        <div class="flex__form c-3">
-                        	   <div class="form-group">
-                            <label for="stock">작성 일자</label>
-                            <div th:text="${#dates.format(notice.brdWriteDate,'yyyy-MM-dd')}"></div>
-                        </div>
-	                       
-                        </div>
                     </div>
+                          <div class="form-group">
+                            <label class="label " for="product_name" style="margin: 0;" >제목</label>
+                            <div th:text="${notice.brdTitle}"></div>
+                        </div>
                     <hr>
-                    <div class="form-group" style="height:200px;">
-                        <label for="description">내용</label>
+                    <div class="overflow-auto" style="height:500px; margin-bottom: 0px;">
                         <div th:utext="${notice.brdCtt}"></div>
                     </div>
 
@@ -115,22 +136,48 @@ svg, path, i {
     <script>
 	$('.brdDelBtn').on('click', function(e){
 		let brdWrtNo = $(e.target).attr("id");
-       	$.ajax({
-        		type:'POST',
-        		url: 'brdDelete',
-        		data:{brdWrtNo},
-        		success:function(result){
-        			if(result){
-        				alert("게시글 정상삭제");
-        				location.href="/admin_notice";
-        			}else{
-        				alert("삭제실패. 재시도해주세요.");
-        			}
-        		},
-        		error : function() {
-					alert("삭제 실패");
-				}
-		})
+		
+		Swal.fire({
+			  title: "Are you sure?",
+			  text: "You won't be able to revert this!",
+			  icon: "warning",
+			  showCancelButton: true,
+			  confirmButtonColor: "#3085d6",
+			  cancelButtonColor: "#d33",
+			  confirmButtonText: "Yes, delete it!"
+			}).then((result) => {
+			  if (result.isConfirmed) {
+				   	$.ajax({
+		        		type:'POST',
+		        		url: 'brdDelete',
+		        		data:{brdWrtNo},
+		        		success:function(result){
+		        			if(result){
+		        				   Swal.fire({
+		        					      title: "공지사항 삭제",
+		        					      text: "게시글이 삭제되었습니다.",
+		        					      icon: "success",
+		        					      //showConfirmButton: true,
+		        					   	  timer: 1300
+		        					    });
+		        				   
+		        				   setTimeout(function() {
+		        						location.href="/admin_notice";
+		        					 }, 1300);
+		        			}else{
+		        				alert("삭제실패. 재시도해주세요.");
+		        			}
+		        		},
+		        		error : function() {
+							alert("삭제 실패");
+						}
+				})
+			 
+			  }
+			});
+		
+		
+    
 	})
 
 
