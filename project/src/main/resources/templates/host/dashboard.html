@@ -15,6 +15,13 @@
 	tr:hover td{
 		background-color: rgba(234, 241, 247, 0.71);
 	}
+	body{
+		background-color: #f5f5f5;
+	}
+	*{
+		font-family: 'Noto Sans KR', sans-serif !important;
+		
+	}
 </style>
 </head>
 <th:block layout:fragment="hostcontent">
@@ -26,7 +33,9 @@
 	</header>
 
 	<div class="page-heading">
-		<h3>대쉬보드</h3>
+		<div class="section-title" style="margin: 0; padding: 0">
+			<h2 style="color: #3C3C3C; font-size: 30px;">Main</h2>
+		</div>
 	</div>
 	<div class="page-content">
 		<section class="row">
@@ -44,7 +53,7 @@
 									</div>
 									<div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
 										<h6 class="text-muted font-semibold">예약금액</h6>
-										<h6 class="font-extrabold mb-0">[[${#numbers.formatInteger(hostMonthReserve.monthReservePrice, 3, 'COMMA') + '원'}]]</h6>
+										<h6 class="font-extrabold mb-0" style="color: #3C3C3C">[[${#numbers.formatInteger(hostMonthReserve.monthReservePrice, 3, 'COMMA') + '원'}]]</h6>
 									</div>
 								</div>
 							</div>
@@ -62,7 +71,7 @@
 									</div>
 									<div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
 										<h6 class="text-muted font-semibold">예약건수</h6>
-										<h6 class="font-extrabold mb-0">[[${hostMonthReserve.monthReserveCount}]]건</h6>
+										<h6 class="font-extrabold mb-0" style="color: #3C3C3C">[[${hostMonthReserve.monthReserveCount}]]건</h6>
 									</div>
 								</div>
 							</div>
@@ -81,10 +90,10 @@
 									<div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
 										<h6 class="text-muted font-semibold">환불금액</h6>
 										<th:block th:if="${hostMonthRefund.monthRefundPrice == 0}">
-											<h6 class="font-extrabold mb-0">[[${#numbers.formatInteger(hostMonthRefund.monthRefundPrice, 1, 'COMMA') + '원'}]]</h6>
+											<h6 class="font-extrabold mb-0" style="color: #3C3C3C">[[${#numbers.formatInteger(hostMonthRefund.monthRefundPrice, 1, 'COMMA') + '원'}]]</h6>
 										</th:block>
 										<th:block th:unless="${hostMonthRefund.monthRefundPrice == 0}">
-											<h6 class="font-extrabold mb-0">[[${#numbers.formatInteger(hostMonthRefund.monthRefundPrice, 3, 'COMMA') + '원'}]]</h6>
+											<h6 class="font-extrabold mb-0" style="color: #3C3C3C">[[${#numbers.formatInteger(hostMonthRefund.monthRefundPrice, 3, 'COMMA') + '원'}]]</h6>
 										</th:block>
 									</div>
 								</div>
@@ -103,7 +112,7 @@
 									</div>
 									<div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
 										<h6 class="text-muted font-semibold">환불건수</h6>
-										<h6 class="font-extrabold mb-0">[[${hostMonthRefund.monthRefundCount}]]건</h6>
+										<h6 class="font-extrabold mb-0" style="color: #3C3C3C">[[${hostMonthRefund.monthRefundCount}]]건</h6>
 									</div>
 								</div>
 							</div>
@@ -114,7 +123,9 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-header">
-								<h4>월별 매출액</h4>
+								<div class="section-title" style="margin: 0; padding: 0">
+									<h2 style="color: #3C3C3C; font-size: 20px;">월별 매출액</h2>
+								</div>
 							</div>
 							<div class="card-body">
 								<div id="chart-profile-visit"></div>
@@ -190,7 +201,9 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-header">
-								<h4>최근 등록된 후기</h4>
+								<div class="section-title" style="margin: 0; padding: 0">
+									<h2 style="color: #3C3C3C; font-size: 20px;">최근 등록된 후기</h2>
+								</div>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
@@ -205,7 +218,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
+											<tr th:each="recentReview : ${recentReview}">
 												<td class="col-3">
 													<p class="ms-3 mb-0" style="color: #333">[[${recentReview.crtroomName}]]</p>
 												</td>
@@ -243,7 +256,7 @@
 							</th:block>
 							</div>
 							<div class="ms-3 name">
-								<h5 class="font-bold">[[${hostInfo.name}]]</h5>
+								<h5 class="font-bold" style="color: #3C3C3C">[[${hostInfo.name}]]</h5>
 								<h6 class="text-muted mb-0">[[${hostInfo.memId}]]</h6>
 							</div>
 						</div>
@@ -251,30 +264,34 @@
 				</div> 
 				<div class="card">
 					<div class="card-header">
-						<h4>오늘의 예약</h4>
-						<div class="danger__btn border-30">총 [[${#lists.size(todayReserve)}]]건</div>
+						<div class="section-title" style="margin: 0; padding: 0">
+							<h2 style="color: #3C3C3C; font-size: 20px;">오늘의 예약</h2><div class="danger__btn border-30">총 [[${#lists.size(todayReserve)}]]건</div>
+						</div>
+						
 					</div>
 					<div class="card-content pb-4">
 					<th:block th:each="todayReserve : ${todayReserve}">
 						<div class="recent-message d-flex px-4 py-3">
-							<div class="name ms-4">
-								<h5 class="mb-1">[[${todayReserve.crtroomName}]]</h5>
-								<h6 class="text-muted mb-0">[[${#dates.format(todayReserve.reserveDate, 'yyyy-MM-dd')}]]</h6>
-								<h6 class="text-muted mb-0">[[${todayReserve.memId}]]</h6>
+							<div class="name ms-4" style="padding: 10px 60px 10px 10px; box-shadow: 5px 5px 5px #ddd; border-radius: 10px">
+								<h5 class="mb-1" style="color: #fc5356; padding: 3px; font-size: 15px;">[[${todayReserve.crtroomName}]]</h5>
+								<h6 class="text-muted mb-0" style="color: #3C3C3C; padding: 3px; font-size: 13px;">[[${#dates.format(todayReserve.reserveDate, 'yyyy-MM-dd')}]]</h6>
+								<h6 class="text-muted mb-0" style="padding: 3px; font-size: 13px;">[[${todayReserve.memId}]]</h6>
 							</div>
 						</div>
 					</th:block>
 						<div class="px-4">
 							<button
-								class='btn btn-block btn-xl btn-outline-primary font-bold mt-3'
-								onclick="location.href='/reserveList'">
+								class='btn btn-block btn-xl btn-outline font-bold mt-3'
+								onclick="location.href='/reserveList'" style="color: #3C3C3C; border:1px solid #3C3C3C;">
 								예약관리</button>
 						</div>
 					</div>
 				</div>
 				<div class="card">
 					<div class="card-header">
-						<h4>Visitors Profile</h4>
+						<div class="section-title" style="margin: 0; padding: 0">
+							<h2 style="color: #3C3C3C; font-size: 20px;">총 별점 비율</h2>
+						</div>
 					</div>
 					<div class="card-body">
 						<div id="chart-visitors-profile"></div>
