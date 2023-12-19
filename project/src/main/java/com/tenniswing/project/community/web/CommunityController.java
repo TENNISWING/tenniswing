@@ -69,7 +69,7 @@ public class CommunityController {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		snsVO.setMemId(id);
 		model.addAttribute("sDetail", snsService.selectSnsInfo(snsVO));
-		return "community/snsDetail";
+		return "community/snsDetail3";
 	}
 
 	// sns 등록폼 페이지
