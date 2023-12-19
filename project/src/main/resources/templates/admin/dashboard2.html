@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/admin/admin-layout}">
+
+<th:block layout:fragment="admincontent">
+	<div class="page-heading">
+		<div class="section-title" style="margin: 0; padding: 0">
+			<h2 style="color: #3C3C3C; font-size: 30px;">Main</h2>
+		</div>
+	</div>
+	<div class="page-content">
+		<section class="row">
+			<div class="col-12 col-lg-9">
+				<div class="row">
+					<div class="col-6 col-lg-3 col-md-6">
+						<div class="card">
+							<div class="card-body px-4 py-4-5">
+								<div class="row">
+									<div
+										class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+										<div class="stats-icon purple mb-2">
+											<i class="iconly-boldShow"></i>
+										</div>
+									</div>
+									<div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+										<h6 class="text-muted font-semibold">회원수</h6>
+										<h6 class="font-extrabold mb-0" style="color: #3C3C3C">[[${#numbers.formatInteger(hostMonthReserve.monthReservePrice, 3, 'COMMA') + '원'}]]</h6>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-6 col-lg-3 col-md-6">
+						<div class="card">
+							<div class="card-body px-4 py-4-5">
+								<div class="row">
+									<div
+										class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+										<div class="stats-icon blue mb-2">
+											<i class="iconly-boldProfile"></i>
+										</div>
+									</div>
+									<div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+										<h6 class="text-muted font-semibold">매치등록수</h6>
+										<h6 class="font-extrabold mb-0" style="color: #3C3C3C">[[${hostMonthReserve.monthReserveCount}]]건</h6>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-6 col-lg-3 col-md-6">
+						<div class="card">
+							<div class="card-body px-4 py-4-5">
+								<div class="row">
+									<div
+										class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+										<div class="stats-icon green mb-2">
+											<i class="iconly-boldAdd-User"></i>
+										</div>
+									</div>
+									<div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+										<h6 class="text-muted font-semibold">코트예약수</h6>
+										<th:block th:if="${hostMonthRefund.monthRefundPrice == 0}">
+											<h6 class="font-extrabold mb-0" style="color: #3C3C3C">[[${#numbers.formatInteger(hostMonthRefund.monthRefundPrice, 1, 'COMMA') + '원'}]]</h6>
+										</th:block>
+										<th:block th:unless="${hostMonthRefund.monthRefundPrice == 0}">
+											<h6 class="font-extrabold mb-0" style="color: #3C3C3C">[[${#numbers.formatInteger(hostMonthRefund.monthRefundPrice, 3, 'COMMA') + '원'}]]</h6>
+										</th:block>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-6 col-lg-3 col-md-6">
+						<div class="card">
+							<div class="card-body px-4 py-4-5">
+								<div class="row">
+									<div
+										class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+										<div class="stats-icon red mb-2">
+											<i class="iconly-boldBookmark"></i>
+										</div>
+									</div>
+									<div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+										<h6 class="text-muted font-semibold">환불건수</h6>
+										<h6 class="font-extrabold mb-0" style="color: #3C3C3C">[[${hostMonthRefund.monthRefundCount}]]건</h6>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-header">
+								<div class="section-title" style="margin: 0; padding: 0">
+									<h2 style="color: #3C3C3C; font-size: 20px;">월별 매출액</h2>
+								</div>
+							</div>
+							<div class="card-body">
+								<div id="chart-profile-visit"></div>
+							</div>
+						</div>
+					</div>
+				</div>				
+				<div class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-header">
+								<div class="section-title" style="margin: 0; padding: 0">
+									<h2 style="color: #3C3C3C; font-size: 20px;">최근 등록된 후기</h2>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table table-lg" >
+										<thead>
+											<tr>
+												<th style="color: #333; font-size: 16px;">Court Name</th>
+												<th style="color: #333; font-size: 16px;">Comment</th>
+												<th style="color: #333; font-size: 16px;">Star</th>
+												<!-- <th>Writer</th> -->
+												<th style="color: #333; font-size: 16px;">Write Date</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="recentReview : ${recentReview}">
+												<td class="col-3">
+													<p class="ms-3 mb-0" style="color: #333">[[${recentReview.crtroomName}]]</p>
+												</td>
+												<td class="col-auto">
+													<p class=" mb-0" style="color: #333">[[${recentReview.reviewCtt}]]</p>
+												</td>
+												<td class="col-auto">
+													<p class=" mb-0" style="color: #333">[[${recentReview.reviewStar}]]</p>
+												</td>
+												<!--  <td class="col-auto">
+													<p class=" mb-0">[[${recentReview.memId}]]</p>
+												</td> -->
+												<td class="col-auto">
+													<p class=" mb-0" style="color: #333">[[${#dates.format(recentReview.reviewWriteDate,'yyyy-MM-dd')}]]</p>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-lg-3">
+				<div class="card">
+					<div class="card-body py-4 px-4">
+						<div class="d-flex align-items-center">
+							<div class="avatar avatar-xl">
+							<th:block th:if="${hostInfo.attachPath != null}">
+								<img src="${hostInfo.attachPath}" alt="Face 1">
+							</th:block>
+							<th:block th:unless="${hostInfo.attachPath != null}">
+								<img src="./assets/img/logo.png" alt="Face 2">
+							</th:block>
+							</div>
+							<div class="ms-3 name">
+								<h5 class="font-bold" style="color: #3C3C3C">[[${hostInfo.name}]]</h5>
+								<h6 class="text-muted mb-0">[[${hostInfo.memId}]]</h6>
+							</div>
+						</div>
+					</div>
+				</div> 
+				<div class="card">
+					<div class="card-header">
+						<div class="section-title" style="margin: 0; padding: 0">
+							<h2 style="color: #3C3C3C; font-size: 20px;">오늘의 예약</h2><div class="danger__btn border-30">총 [[${#lists.size(todayReserve)}]]건</div>
+						</div>
+						
+					</div>
+					<div class="card-content pb-4">
+					<th:block th:each="todayReserve : ${todayReserve}">
+						<div class="recent-message d-flex px-4 py-3">
+							<div class="name ms-4" style="padding: 10px 60px 10px 10px; box-shadow: 5px 5px 5px #ddd; border-radius: 10px">
+								<h5 class="mb-1" style="color: #fc5356; padding: 3px; font-size: 15px;">[[${todayReserve.crtroomName}]]</h5>
+								<h6 class="text-muted mb-0" style="color: #3C3C3C; padding: 3px; font-size: 13px;">[[${#dates.format(todayReserve.reserveDate, 'yyyy-MM-dd')}]]</h6>
+								<h6 class="text-muted mb-0" style="padding: 3px; font-size: 13px;">[[${todayReserve.memId}]]</h6>
+							</div>
+						</div>
+					</th:block>
+						<div class="px-4">
+							<button
+								class='btn btn-block btn-xl btn-outline font-bold mt-3'
+								onclick="location.href='/reserveList'" style="color: #3C3C3C; border:1px solid #3C3C3C;">
+								예약관리</button>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header">
+						<div class="section-title" style="margin: 0; padding: 0">
+							<h2 style="color: #3C3C3C; font-size: 20px;">총 별점 비율</h2>
+						</div>
+					</div>
+					<div class="card-body">
+						<div id="chart-visitors-profile"></div>
+					</div>
+				</div> 
+			</div>
+		</section>
+	</div>
+	
+	<!-- Need: Apexcharts -->
+	<script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
+	<script src="assets/static/js/pages/dashboard.js"></script>
+</th:block>
+
+</html>
