@@ -58,12 +58,14 @@
 									<td class="reserveState"><span class="badge bg-light-warning">[[${m.matchState}]]</span></td>
 									</th:block>
 									<th:block th:unless="${m.matchState == '승인대기'}">
-									<td class="reserveState"><span class="badge bg-light-success">[[${m.matchState}]]</span></td>
+									<td class="reserveState"><span class="badge bg-light-success">매치상대찾는중</span></td>
 									</th:block>
-										<td><span class="badge"	style="border: 1px solid rgb(18, 183, 106, .5); color: #12b76a">신청취소</span>
-										</td>
-								
-														
+									<th:block th:if="${m.matchState == '승인대기'}">
+									<td class="reserveState"><button class="badge bg-light-warning">신청취소</button></td>
+									</th:block>
+									<th:block th:unless="${m.matchState == '승인대기'}">
+									<td class="reserveState"><button class="badge bg-light-success disabled">신청취소</button></td>
+									</th:block>
 								</tr>
 							</th:block>
 						</tbody>
