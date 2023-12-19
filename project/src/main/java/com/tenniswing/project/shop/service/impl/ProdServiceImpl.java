@@ -46,6 +46,11 @@ public class ProdServiceImpl implements ProdService{
 		return prodMapper.selectAdminAllProd(prodVO);
 	}
 	
+	@Override
+	public int selectAdminAllCount(ProdVO prodVO) {
+		return prodMapper.selectAdminAllCount(prodVO);
+	}
+	
 //	페이징 전체 갯수 조회
 	public int selectCount(ProdVO prodVO) {
 		return prodMapper.selectCount(prodVO);
@@ -186,4 +191,11 @@ public class ProdServiceImpl implements ProdService{
 			return false;
 		}
 	}
+	
+	// 별점
+	@Override
+	public ProdVO prodStar(int prodNo) {
+		return prodMapper.prodStar(prodNo);
+	}
+
 }

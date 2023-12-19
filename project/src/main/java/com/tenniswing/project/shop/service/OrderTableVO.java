@@ -61,6 +61,8 @@ public class OrderTableVO {
 	
 	private String impUid;
 	private String merchantUid;
+	
+	private Integer orderAllCount;
 }
 
 

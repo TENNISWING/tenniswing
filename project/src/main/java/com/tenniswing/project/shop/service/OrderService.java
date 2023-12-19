@@ -34,5 +34,5 @@ public interface OrderService {
 	// 등록 카트에서
 	public Map<String, Object> insertCartOrder(OrderTableVO orderTableVO, List<CartVO> cartList);
 	
-	
+	public int selectAdminAllOrderCount(OrderTableVO orderTableVO);
 }

@@ -146,6 +146,7 @@ html {
             height: 28px;
         }
     }
+
 	.swiper-slide {
 		padding-top: 30px;
 		box-sizing: border-box !important;
@@ -192,6 +193,7 @@ html {
 		display: flex;
 		flex-direction: column;
 	}
+
 </style>
 <!-- tagify 소스 다운 -->
 <script src="https://unpkg.com/@yaireo/tagify"></script>
@@ -370,6 +372,30 @@ html {
 															</div>
 															<!-- button end -->
 														</div>
+
+                          <!--
+														<th:block th:each="simg : ${s.attachList}">
+														<th:block th:if="${simg.attachExt!='.mp4'} and ${simgStat.count == 1} and ${#arrays.length(s.attachList) != 1}">
+														<a class="carousel-control-prev" href="#myCarousel"
+															th:attrappend="href=${sStat.count}" role="button"
+															data-bs-slide="prev"> <span
+															class="carousel-control-prev-icon" aria-hidden="true"></span>
+															<span class="visually-hidden">Previous</span>
+														</a> <a class="carousel-control-next" href="#myCarousel"
+															th:attrappend="href=${sStat.count}" role="button"
+															data-bs-slide="next"> <span
+															class="carousel-control-next-icon" aria-hidden="true"></span>
+															<span class="visually-hidden">Next</span>
+														</a>
+														</th:block>
+														</th:block>
+													</div>
+													<div class="card-body">
+														<h6 class="card-subtitle"><a href="#" class="btn btn-outline-secondary rounded-pill mb-2"
+						                th:onclick="|location.href='@{snsMyList(memId=${s.memId})}'|" >[[${s.name}]]</a></h6>
+														<pre class="card-text">[[${s.snsCtt}]]</pre>
+                        -->
+
 													</div>
 												</div>
 												<!-- 카드콘텐트 END -->
@@ -388,6 +414,20 @@ html {
 				</div>
 			</div>
 			<!-- col6 end -->
+
+	<div class="col-3">	
+
+<!-- dribbble -->
+			<div class="button-list insertBtn ">
+				<button class="fast white snsTopBtn"
+					th:onclick="|location.href='@{snsRegister}'|">등록</button>
+				<button class="fast white snsTopBtn"
+					th:onclick="|location.href='@{snsMyList}'|" >나의 그룹</button> 
+				<button class="fast white snsTopBtn" th:onclick="|location.href='@{sns}'|">목록으로</button>	
+			</div>
+<a class="dribbble" href="https://dribbble.com/shots/7441241-Button-Hover-Effects" target="_blank"><img src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg" alt=""></a>
+		</div>
+
 		</div>
 	</div>
 	<!-- div row end -->

@@ -2,7 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/main-layout}">
-
+<style>
+.fontt {
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+</style>
 <th:block layout:fragment="content">
 	<!-- match sub menu
 	<div class="container mb-4">
@@ -139,25 +143,25 @@
 						<div class="product-detail__qty">
 							<div class="product__bottom mtdbtn">
 								<div class="cart__action__btn">
-									<button type="button" class="btn btn-primary matchbtn4"
-										id="applyBtn" style="font-size: 12.5px">신청하기</button>
+									<button type="button" class="btn btn-outline psbBtn"
+										id="applyBtn" style="color: #00b96d;">신청하기</button>
 								</div>
 								<th:block th:if="${auth==true}">
 								<div class="cart__action__btn">
 									<button type="button" class="btn btn-primary matchbtn4"
-										style="font-size: 12.5px" id="updateBtn"
+										style="background: rgba(105, 65, 198, 0.1) !important; color: #6941c6 !important;" id="updateBtn"
 										th:onclick="|location.href='@{/matchupdateregi(matchNo=${matchInfo.matchNo})}'|">
 										수정하기</a>
 									</button>
 								</div>
 								<div class="cart__action__btn">
 									<button type="button" class="btn btn-primary matchbtn4"
-										style="font-size: 12.5px" id="deleteBtn">삭제하기</button>
+										style="width: auto; color: #d92d20; background: rgba(217, 45, 32, 0.1);" id="deleteBtn">삭제하기</button>
 								</div>
 								</th:block>
 								<div class="cart__action__btn">
-									<button type="button" class="btn btn-primary matchbtn4"
-										style="font-size: 12.5px" th:onclick="|location.href='@{/}'|">
+									<button type="button" class="btn btn-outline"
+										style="font-size: 12px" th:onclick="|location.href='@{/}'|">
 										목록으로</a>
 									</button>
 								</div>

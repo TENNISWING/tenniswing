@@ -25,16 +25,27 @@
 		svg, path, span, i {
 			pointer-events: none;
 		}
+		.cart__action__btn a,
+		.cart__action__btn button {	
+		    width: auto !important;
+		    height: auto !important;
+		    padding: 7px 15px !important;
+		    font-size: 12px !important;
+		    font-weight: 600 !important;
+		}
+		.stateOrder {
+		    font-weight: 500;
+		}
 	</style>
 </head>
 <th:block layout:fragment="content">
 	<h3 class="container p-3">쇼핑</h3>
 	<div class="container" id="mypage">
 		<div class="row">
-			<div class="col-lg-4 col-md-auto">
+			<div class="col-lg-3 col-md-auto">
 				<div th:replace="member/mypage-sidemenu :: sidemenu"></div>
 			</div>
-			<div class="col-lg-8 col-md-auto tab_wrap">
+			<div class="col-lg-9 col-md-auto tab_wrap">
 				<ul class="nav nav-pills tit_list" id="myTab" role="tablist" style="gap: 3rem;">
 					<li class="nav-item" role="presentation"><a class="nav-link active" 
 						id="scrap-tab" data-bs-toggle="tab" href="#scrap" role="tab"
@@ -78,7 +89,11 @@
 															class="btn btn-outline"
 															style="width: auto; padding: 7px 15px;">보기</a>
 													</div>
-
+													<!-- <div class="cart__btn" style="display: inline;">
+														<button type="button" th:onclick="|location.href='@{/shopDetail(prodNo=${orderList.prodNo})}&tabName=women'|"
+															class="btn btn-outline reviewOrder" th:id="reviewOrder_+${orderList.orderNo}"
+															style="width: auto; padding: 7px 15px; background-color: #eef8f1; color: #00b96d;">후기</button>
+													</div> -->
 													<div class="cart__btn" style="display: inline;">
 														<button type="button"
 															class="btn btn-outline cancleOrder" th:id="cancleOrder_+${orderList.orderNo}"
@@ -184,10 +199,10 @@
 			//console.log($('#table1 span').text());
 			$('#tableOrder span').each((idx, item) => {
 				//console.log(item);
-				if($(item).text() == '결제완료'){
-					$(item).attr('style', 'background: rgba(18, 183, 106, 0.1) !important; color: #12b76a !important;');				
-				} else if($(item).text() == '상품준비중' || $(item).text() == '배송중' || $(item).text() == '배송완료') {
-					$(item).attr('style', 'background: rgba(105, 65, 198, 0.1) !important; color: #6941c6 !important;');
+				if($(item).text() == '결제완료' || $(item).text() == '상품준비중'){
+					$(item).attr('style', 'background-color: #fff !important; border: 1px solid rgb(18, 183, 106, .5); color: #12b76a !important;');				
+				} else if($(item).text() == '배송중' || $(item).text() == '배송완료') {
+					$(item).attr('style', 'background-color: #fff !important; border: 1px solid rgb(46, 144, 250, .5); color: #2e90fa;');
 				} else {
 					$(item).attr('style', 'background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important');
 				}
@@ -311,6 +326,31 @@
 				}
 			});
 		}
+		// 후기 ( 배송완료일 때는 후기 가능)
+		stateOrderToReview();
+		function stateOrderToReview() {
+			let state = $('.stateOrder');
+			let orderId;
+			
+			state.each(function() {
+				orderId = $(this).attr('id');
+				console.log($(this).text());
+				let no = orderId.split('_');
+				
+				if($(this).text() == '배송완료') {
+					console.log($('#reviewOrder_' + no[1]));
+					$('#reviewOrder_' + no[1]).attr('disabled', false);
+				} else {
+					console.log($('#reviewOrder_' + no[1]));
+					$('#reviewOrder_' + no[1]).attr('disabled', true);
+					$('#reviewOrder_' + no[1]).css('color', '#344054');
+					$('#reviewOrder_' + no[1]).css('font-weight', '800 !important');
+					$('#reviewOrder_' + no[1]).css('border', '1px solid rgba(52, 64, 84, 0.1)');
+					$('#reviewOrder_' + no[1]).css('background', 'rgba(52, 64, 84, 0.1)');
+				}
+				
+			})	
+		}
 		
 		// 결제 취소 (상품준비중, 배송중, 배송완료일 때는 취소 못하게)
 		stateOrderToCancle();
@@ -320,17 +360,19 @@
 			
 			state.each(function() {
 				orderId = $(this).attr('id');
-				console.log($(this).text());
+				//console.log($(this).text());
 				let no = orderId.split('_');
 				
 				if($(this).text() == '결제완료' || $(this).text() == '상품준비중') {
-					console.log($('#cancleOrder_' + no[1]));
+					//console.log($('#cancleOrder_' + no[1]));
 					$('#cancleOrder_' + no[1]).attr('disabled', false);
 				} else {
-					console.log($('#cancleOrder_' + no[1]));
+					//console.log($('#cancleOrder_' + no[1]));
 					$('#cancleOrder_' + no[1]).attr('disabled', true);
-					$('#cancleOrder_' + no[1]).css('color', 'white');
-					$('#cancleOrder_' + no[1]).css('background', '#c1c1c1');
+					$('#cancleOrder_' + no[1]).css('color', '#344054');
+					$('#cancleOrder_' + no[1]).css('font-weight', '800 !important');
+					$('#cancleOrder_' + no[1]).css('border', '1px solid rgba(52, 64, 84, 0.1)');
+					$('#cancleOrder_' + no[1]).css('background', 'rgba(52, 64, 84, 0.1)');
 				}
 				
 			})	

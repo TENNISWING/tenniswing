@@ -6,6 +6,7 @@ import com.tenniswing.project.shop.service.CartVO;
 import com.tenniswing.project.shop.service.OrderDetailVO;
 import com.tenniswing.project.shop.service.OrderTableVO;
 import com.tenniswing.project.shop.service.PayCancelVO;
+import com.tenniswing.project.shop.service.ProdVO;
 
 public interface OrderMapper {
 	// 전체 조회 어드민
@@ -36,4 +37,6 @@ public interface OrderMapper {
 
 	// 등록 상세 카트에서
 	public int insertCartDetailOrder(List<CartVO> cartList);
+	
+	public int selectAdminAllOrderCount(OrderTableVO orderTableVO);
 }
