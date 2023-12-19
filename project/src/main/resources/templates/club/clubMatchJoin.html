@@ -49,7 +49,8 @@
 							data-parsley-validate>
 							<div class="modal-body">
 								<div class="input-group mb-3">
-									<label for="clubMatchDate">매치 일자</label><br> <input type="date" id="clubMatchDate"
+									<label for="clubMatchDate">매치 일자</label><br> 
+									<input type="date" id="clubMatchDate"
 										name="clubMatchDate" class="form-control flatpickr-always-open"
 										placeholder="Select date..">
 								</div>
@@ -164,6 +165,11 @@
 							$('#recruitList').append(List)
 
 						}//반복문
+						
+						if(data.length == 0){
+							List = `<h6 style="text-align: center; padding: 10px; color: #3c3c3c;">모집중인 매치가 없습니다.</h6>`
+								$('#recruitList').append(List)
+						}
 
 						$('.joinBtn').on("click", function (e) {
 

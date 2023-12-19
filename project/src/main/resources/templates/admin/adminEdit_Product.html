@@ -7,6 +7,18 @@
 </head>
 
 <th:block layout:fragment="admincontent">
+	<style>
+		.nice-select span,
+		.nice-select li {
+			font-family: 'Noto Sans KR', sans-serif;
+			font-size: 15px;
+  			font-weight: 500;
+  			color: #667085;
+		}
+		.btn__group button {
+			font-family: 'Noto Sans KR', sans-serif;
+		}
+	</style>
 	<!-- Main__container Start-->
 	<div class="main__container">
 		<!-- Main Inner Wrapper Start -->
@@ -17,14 +29,14 @@
 					<div class="dashboard__breadcrumb">
 						<div class="breadcrumb__meta">
 							<ul style="padding: 0;">
-								<li><a onclick="history.back()" class="link"><i
-										class="fa-solid fa-arrow-left me-2"></i> Back</a></li>
+								<li><a onclick="history.back()" class="link" style="cursor:pointer;"><i
+										class="fa-solid fa-arrow-left me-2" style="cursor:pointer;"></i> Back</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="dashboard__header">
 						<div class="d__header--left">
-							<h2 class="title">Update product</h2>
+							<h2 class="title">상품 정보 수정</h2>
 						</div>
 					</div>
 
@@ -171,8 +183,9 @@
 												placeholder="Write about your product description briefly">[[ ${prod.prodExp} ]]</textarea>
 										</div>
 										<div class="btn__group flex-wrap">
-											<button type="button" th:onclick="|location.href='@{/adminDetail_Product(prodNo=${prod.prodNo})}'|" class="btn btn-outline">Cancel</button>
-											<button type="button" id="editBnt" class="btn btn-gray-filled">EditProduct</button>
+											<button type="button" th:onclick="|location.href='@{/adminDetail_Product(prodNo=${prod.prodNo})}'|" class="btn btn-outline"
+												style="font-family: 'Noto Sans KR', sans-serif; color: #3c3c3c; font-weight: 500">수정 취소</button>
+											<button type="button" id="editBnt" class="btn btn-dark" style="font-weight: 500;">수정 완료</button>
 										</div>
 									</div>
 								</div>

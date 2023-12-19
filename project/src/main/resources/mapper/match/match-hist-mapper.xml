@@ -302,7 +302,7 @@
                 ON m.match_no = mh.match_no
                  LEFT OUTER JOIN match_hist_rep mhr
                  ON m.match_no = mhr.match_no
-        where m.mem_id = #{memId}
+        where mh.mem_id = #{memId}
   		ORDER BY match_hist_no
    	</select>   	
   </mapper>

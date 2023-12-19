@@ -51,7 +51,7 @@
 					</div> -->
 					<div class="dashboard__header">
 						<div class="d__header--left">
-							<h2 class="title">List of order</h2>
+							<h2 class="title" style="margin-right: 30px;">주문 통합 관리</h2>
 							<div class="danger__btn border-30">[[ ${orderCount} ]] orders</div>
 						</div>
 					</div>
@@ -86,7 +86,7 @@
 													<td><span class="badge bg-success orderStateClass">[[ ${orderList.orderState} ]]</span></td>
 													<td>
 														<div class="card__action" style="display: flex; justify-content: space-around;">
-															<a th:onclick="|location.href='@{/adminDetail_Order(orderNo=${orderList.orderNo})}'|" class="action__btn ml-10"> <svg width="20"
+															<a th:onclick="|location.href='@{/adminDetail_Order(orderNo=${orderList.orderNo})}'|" class="action__btn ml-10" style="cursor:pointer;"> <svg width="20"
 																	height="20" viewBox="0 0 20 20" fill="none"
 																	xmlns="http://www.w3.org/2000/svg">
 	                                                                <g
@@ -108,7 +108,7 @@
 	                                                                </defs>
 	                                                            </svg>
 															</a>
-															<a class="action__btn ml-10 orderEditBnt" data-bs-toggle="modal" data-bs-target="#editStateModal">
+															<a class="action__btn ml-10 orderEditBnt" data-bs-toggle="modal" data-bs-target="#editStateModal" style="cursor:pointer;">
 																<svg width="20" height="20" viewBox="0 0 20 20"
 																	fill="none" xmlns="http://www.w3.org/2000/svg">
 	                                                                <path

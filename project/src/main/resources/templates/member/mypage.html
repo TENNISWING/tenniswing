@@ -18,7 +18,7 @@
 			<div class="col-lg-9 col-md-auto">
 				<!-- Profile Table Start -->
 				<div class="cart__form">
-					<table class="table" id="match">
+					<table class="table" id="matchtable">
 						<thead>
 							<tr>
 								<th class="cart-pd__thumb">일자</th>
@@ -31,10 +31,15 @@
 							<th:block th:each="m : ${match}">
 								<tr>
 									<td class="cart-pd__date text-start" data-title="Date">
-									[[${#dates.format(m.match_date,'yyyy-MM-dd')}]]</td>
-									<td class="cart-pd__thumb">[[${m.crtroom_name}]]</td>
-									<td class="cart-pd__thumb">[[${m.opp_match}]]</td>
-									<td class="cart-pd__thumb">[[${m.match_state}]]</td>
+									[[${#dates.format(m.MATCH_DATE,'yyyy-MM-dd')}]]</td>
+									<td class="cart-pd__thumb">[[${m.CRTROOM_NAME}]]</td>
+									<td class="cart-pd__thumb">[[${m.OPP_MATCH}]]</td>
+									<th:block th:if="${m.MATCH_STATE == '승인대기'}">
+									<td class="reserveState"><span class="badge bg-light-warning">[[${m.MATCH_STATE}]]</span></td>
+									</th:block>
+									<th:block th:if="${m.MATCH_STATE == '이용전'}">
+									<td class="reserveState"><span class="badge bg-light-success">[[${m.MATCH_STATE}]]</span></td>
+									</th:block>
 								</tr>
 							</th:block>
 						</tbody>						
@@ -49,56 +54,17 @@
 
 
 
-	<script>
-	$(document).ready(function() {
-		$("#match").DataTable(
-				{
-					responsive : true,
-					pagingType: 'simple',
-				    "language": {
-				        "info": "Page _PAGE_ of _PAGES_",
-				        "lengthMenu": "_MENU_ ",
-				        "search": "",
-				        "searchPlaceholder": "검색.."
-				    },
-				    columnDefs: [
-				        // 2번째 항목 넓이를 100px로 설정
-				        { targets: 1, width: 200 }
-				    ]
-				})
-		});
-/* 	function myPageAjax(page) {
-		
-		$.ajax({
-			type: 'GET',
-			url: 'matchList',
-			data: {matchDate, page, gameWay, gen, location, ntrp},
-			success: function(result) {
-				//리스트
-				$('#matchList').empty();
-				for(let matchInfo of result.matchList){
-					let b = `<tr class="navbar-brand">					
-					<td class="text-center"><b>${dateFormat(matchInfo.matchDate)}</b></td>
-					<td>${matchInfo.time}시</td>
-					<td>${matchInfo.gameWayName}</td>
-					<td>${matchInfo.crtroomName}</td>
-					<td>${matchInfo.genName}</td>
-					<td class="text-end mtbt">
-						<a class="btn btn-primary matchbtn1" href="matchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>
-					</td>
-				</tr>`
-					$('#matchList').append(b)
-				}
-				
-				showPage(result.selectCount);
-			}
-		})
-	} */
+		<script src="/assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+<script>
+$(document).ready(function() {
+	  $('#matchtable').DataTable({
+	  });
+
+	});
+
+	
 	</script>
-<script
-		src="assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script
-		src="assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
 
 </th:block>
 

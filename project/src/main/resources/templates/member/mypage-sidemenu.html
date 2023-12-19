@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet"
+		href="/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+	<link rel="stylesheet"
+		href="/assets/compiled/css/table-datatable-jquery.css">
+		
+	<style type="text/css">
+		div, ul, li {
+			font-family: 'Noto Sans KR', sans-serif !important;
+			width: auto !important;
+		    height: auto !important;
+		    padding: 7px 15px !important;
+		    font-size: 12px !important;
+		    font-weight: 600 !important;
+		}
+		.btn .reviewOrder {	
+		    width: auto !important;
+		    height: auto !important;
+		    padding: 7px 15px !important;
+		    font-size: 12px !important;
+		    font-weight: 600 !important;
+		    width: auto; padding: 7px 15px; background-color: #eef8f1; color: #00b96d;
+		}
+	</style>
+</head>
 <th:block th:fragment="sidemenu">
 	<ul class="list-group mb-3">
-		<li class="list-group-item d-flex justify-content-between p-4">
-			<div class="avatar avatar-xl col-lg-3 col-md-auto" data-bs-toggle="modal" data-bs-target="#galleryModal">
+		<li class="list-group-item d-flex justify-content-between">
+			<div class="avatar avatar-lg col-lg-3 col-md-auto" data-bs-toggle="modal" data-bs-target="#galleryModal">
 				<img th:src="${member.attachPath}" style="cursor: pointer;">
 			</div>
-			<div class="name col-lg-9 col-md-auto" style="padding-left: 20px;">
-				<h5 class="font-bold">[[${member.nick}]]</h5>
-				<h6 class="text-muted mb-0">[[${member.memId}]]</h6>
+			<div class="name col-lg-9 col-md-auto" >
+				<h5 class="font-bold fs-6">[[${member.nick}]]</h5>
+				<h6 class="text-muted mb-0 fs-6">[[${member.memId}]]</h6>
 			</div>
 
 		</li>
@@ -27,23 +52,23 @@
 	<ul class="list-group mb-3">
 		<li class="list-group-item d-flex justify-content-evenly p-3">
 			<div class="text-center cotainer">
-				<button type="button" class="btn btn-success" th:onclick="|location.href='@{/mypage-profile}'|">프로필
+				<button type="button" class="btn btn-outline reviewOrder" th:onclick="|location.href='@{/mypage-profile}'|">프로필
 					보기</button>
 			</div>
 			<div class="text-center ">
 				<!-- Profile Card End -->
-				<button class="btn btn-success" type="button" th:onclick="|location.href='@{/logout}'|">로그아웃</button>
+				<button class="btn btn-outline reviewOrder" type="button" th:onclick="|location.href='@{/logout}'|">로그아웃</button>
 			</div>
 		</li>
 	</ul>
 
 	<ul class="list-group mb-5">
-		<li class="list-group-item btn btn-outline-success p-3">매치
+		<li class="list-group-item btn btn-outline reviewOrder p-3">매치
 			이력</li>
-		<li class="list-group-item btn btn-outline-success p-3">나의 클럽목록</li>
-		<li class="list-group-item btn btn-outline-success p-3">코트 예약</li>
-		<li class="list-group-item btn btn-outline-success p-3">MY SNS</li>
-		<li class="list-group-item btn btn-outline-success p-3 mb-5">쇼핑</li>
+		<li class="list-group-item btn btn-outline reviewOrder p-3">나의 클럽목록</li>
+		<li class="list-group-item btn btn-outline reviewOrder p-3">코트 예약</li>
+		<li class="list-group-item btn btn-outline reviewOrder p-3">MY SNS</li>
+		<li class="list-group-item btn btn-outline reviewOrder p-3 mb-5">쇼핑</li>
 	</ul>
 
 	<div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalTitle"

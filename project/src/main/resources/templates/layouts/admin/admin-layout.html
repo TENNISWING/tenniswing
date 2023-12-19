@@ -20,6 +20,10 @@
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+	
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="/assets/extensions/sweetalert2/sweetalert2.min.css">
 	<link rel="shortcut icon" href="./assets/compiled/svg/favicon.svg" type="image/x-icon">
@@ -58,7 +62,11 @@
 	<link rel="stylesheet" href="assets/css/style.css" />
 	
 	<style type="text/css">
-    	*{
+    	table th,
+    	table td{
+    		font-family: 'Noto Sans KR', sans-serif;
+    	}
+    	h1, h2, h3, h4, h5, h6 {
     		font-family: 'Noto Sans KR', sans-serif;
     	}
     </style>
@@ -78,7 +86,7 @@
 			<header th:replace="layouts/admin/admin-side :: adminside"></header>
 
 			<!-- content -->
-			<th:block layout:fragment="admincontent"></th:block>
+			<th:block layout:fragment="admincontent" style="min-height: 1025px;"></th:block>
 
 			<!-- footer -->
 			<footer th:replace="layouts/admin/admin-footer :: adminfooter"></footer>
