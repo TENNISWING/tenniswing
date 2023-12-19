@@ -546,7 +546,7 @@
 				//console.log(item);
 				if($(item).text() == '판매중'){
 //					$(item).css('color', '#12b76a');				
-					$(item).attr('style', 'background: rgba(18, 183, 106, 0.1) !important; color: #12b76a !important;');				
+					$(item).attr('style', 'background-color: #fff !important; border: 1px solid rgb(18, 183, 106, .5); color: #12b76a !important;');				
 					//$(item).attr('style', 'color: #12b76a');				
 				} else {
 					$(item).attr('style', 'background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important');
@@ -767,8 +767,8 @@
 			deleteObjData.prodNo = deleteProdNo;
 			
 			Swal.fire({
-				title: "Are you sure?",
-				text: "You won't be able to revert this!",
+				title: "상품 상세 삭제",
+				text: "상품 상세 정보를 삭제하시겠습니까?",
 				icon: "warning",
 				showCancelButton: true,
 				confirmButtonColor: "#3085d6",

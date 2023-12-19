@@ -110,12 +110,19 @@
 # Match
 --------------------------------------------------------------*/
 
+
+page-link.active, .active > .page-link {
+	/* background-color: lightgray; */
+
+}
+
 #crtroomBtn {
 	color: #526e8a;
     text-align: center;
     white-space: nowrap;
     background-color: #f9f9f9;
     border: 1px solid #dce7f1;
+
 }
 
 .sdbctnn:hover {
