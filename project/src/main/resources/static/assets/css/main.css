@@ -111,7 +111,7 @@
 --------------------------------------------------------------*/
 
 page-link.active, .active > .page-link {
-	background-color: lightgray;
+	/* background-color: lightgray; */
 }
 
 .sdbctnn:hover {
