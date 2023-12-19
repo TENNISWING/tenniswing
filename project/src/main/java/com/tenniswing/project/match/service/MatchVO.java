@@ -53,7 +53,7 @@ public class MatchVO {
 	
 	private int page;
 	private int rn;
-	private int pageUnit=5;
+	private int pageUnit=10;
 	
 	private String crtroomName;
 	private String crtroomLocation;
