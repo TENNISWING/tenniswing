@@ -92,6 +92,13 @@ public class AdminController {
 
 	@Autowired
 	AdminCourtCalcService adminCalcService;
+	
+	//admin 대시보드
+	@GetMapping("/admin")
+	public String adminPage(Model model) { 			
+		return "admin/dashboard";
+	}
+	
 
 	// 상품 목록
 	@GetMapping("admin_Product")

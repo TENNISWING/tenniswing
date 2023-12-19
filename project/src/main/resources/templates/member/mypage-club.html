@@ -4,9 +4,9 @@
 	layout:decorate="~{layouts/main-layout}">
 <head>
 <link rel="stylesheet"
-	href="/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
-<link rel="stylesheet"
-	href="/assets/compiled/css/table-datatable-jquery.css">
+		href="/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+	<link rel="stylesheet"
+		href="/assets/compiled/css/table-datatable-jquery.css">
 </head>
 <th:block layout:fragment="content">
 	<h3 class="container p-3">나의 클럽목록</h3>
@@ -17,7 +17,7 @@
 			</div>
 			<div class="col-lg-9 col-md-auto">
 				<div class="cart__form mt-3">
-					<table class="table" id="club">
+					<table class="table" id="clubtable">
 						<thead>
 							<tr>
 								<th>가입일자</th>
@@ -47,29 +47,14 @@
 		</div>
 	</div>
 
-	<script
-	src="/assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
-<script
-	src="/assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+	<script src="/assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
 <script>
 $(document).ready(function() {
-	$("#club").DataTable(
-			{
-				responsive : true,
-				pagingType: 'simple',
-			    "language": {
-			        "info": "Page _PAGE_ of _PAGES_",
-			        "lengthMenu": "_MENU_ ",
-			        "search": "",
-			        "searchPlaceholder": "검색.."
-			    },
-			    columnDefs: [
-			        // 2번째 항목 넓이를 100px로 설정
-			        { targets: 1, width: 200 }
-			    ]
-			})
-	});
+	  $('#clubtable').DataTable({
+	  });
 
+	});
 
 	
 	</script>

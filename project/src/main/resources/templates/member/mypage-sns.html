@@ -83,39 +83,18 @@
 		</div>
 	</div>
 	
-	<script>
-	$(document).ready(function() {
-		$("#tablelike").DataTable(
-				{
-					pagingType: 'simple',	
-				    "language": {		
-				        "search": "",
-				        "searchPlaceholder": "검색.."
-				    },
-				    columnDefs: [
-				        // 항목 넓이를 설정
-				        { targets: 0, width: 20 },
-				        { targets: 1, width: 100 },
-				        { targets: 2, width: 30 }
-				    ]
-				})
-		 $("#tablescrap").DataTable(
-				{					
-					pagingType: 'simple',	
-				    "language": {
-				        "search": "",
-				        "searchPlaceholder": "검색.."
-				    },				   
-				  
-				})
-	})
-	
-				
+		<script src="/assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+<script>
+$(document).ready(function() {
+	  $('#tablelike').DataTable({
+	  });
+	  $('#tablescrap').DataTable({
+	  });
+
+	});
+
 	
 	</script>
-	<script
-		src="/assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script
-		src="/assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
 </th:block>
 </html>

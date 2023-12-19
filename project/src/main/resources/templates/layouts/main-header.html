@@ -55,7 +55,7 @@ span {
 							<!-- <i class="icon dripicons dripicons-search fs-3"></i> -->
 							<img src="assets/img/search.png" alt="search" />
 						</button>
-						<div class="z-3 position-absolute mt-5" id="searchArea">
+						<div class="z-3 position-absolute mt-5 collapse" id="searchArea">
 
 							<div class="list-group" id="searchItem"></div>
 
@@ -99,7 +99,10 @@ span {
 								        error: () => console.log(error)
 								    })
 								
-							
+								    if(inputVal.length < 1 || inputVal == ''){
+										$('#searchArea').removeClass('show');
+										return
+									}
 								 
 								
 							})
