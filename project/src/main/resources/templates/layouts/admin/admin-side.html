@@ -1,30 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<th:block th:fragment="adminside">
+	<style type="text/css">
+		sidebar-menu a,
+		sidebar-menu li sapn {
+			font-family: 'Noto Sans KR', sans-serif !important;
+		}
+		.sidebar-item span {
+			font-family: 'Noto Sans KR', sans-serif !important;
+			font-weight: 800;
+		}
+		.sidebar-item a {
+			font-family: 'Noto Sans KR', sans-serif !important;
+		}
+		.sidebar-item i {
+			color: #3c3c3c !important;
+			opacity: .7;
+		}
+	</style>
 		<div id="sidebar">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="admin"><img src="./assets/compiled/svg/logo.svg" alt="Logo"></a>
+                            <!-- <a href="admin"><img src="./assets/compiled/svg/logo.svg" alt="Logo"></a> -->
+                            <div class="footer__logo">
+								<h3
+									style="font-family: 'Bungee', sans-serif; color: #3c3c3c; margin-bottom: 0;">
+									<a href="/" style="font-size: 1.8rem; padding: 0;"> 
+										<img src="assets/img/logo.png" alt="logo" 
+											style="padding-right: 7px; margin-bottom: 5px; color: #3c3c3c; width: 3rem; display: inline-block; width: 3rem; height: auto;"/>
+										<span style="color: #3c3c3c; font-size: 1.5rem;">TennisWing</span>
+									</a>
+								</h3>
+							</div>
                         </div>
-                        <div class="sidebar-toggler x">
+                        <!-- <div class="sidebar-toggler x">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="sidebar-menu">
-                    <ul class="menu">
+                    <ul class="menu" style="margin-top: 0px;">
 						
 						<!-- ------------------------------------------- admin main tab -->
                         <li class="sidebar-item active">
                             <a href="admin" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
+                                <i class="bi bi-grid-fill" style="color: #fff !important"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                             
-                        <li class="sidebar-title">CUSTOMER</li>
+                        <li class="sidebar-title" style="font-family: 'Noto Sans KR', sans-serif !important; font-weight: 900; opacity: .7">CUSTOMER</li>
 						
 						<!-- ------------------------------------------- 회원관리 tab -->
                         
@@ -32,7 +59,7 @@
                         <li class="sidebar-item">
                             <a href="admin_member" class='sidebar-link'>
                                 <i class="bi bi-person-badge-fill"></i>
-                                <span>Users</span>
+                                <span>회원 관리</span>
                             </a>       
                         </li>
                         
@@ -40,13 +67,13 @@
                         <li class="sidebar-item  ">
                             <a href="https://desk.channel.io/#/channels/155840/user_chats/6572d73457a8231a20ad" class='sidebar-link' target="_blank">
                                 <i class="bi bi-chat-dots-fill"></i>
-                                <span>Inquire</span>
+                                <span>문의 관리</span>
                             </a>
 
                         </li>
                         
 						
-						<li class="sidebar-title">SERVICE</li>
+						<li class="sidebar-title" style="font-family: 'Noto Sans KR', sans-serif !important; font-weight: 900; opacity: .7">SERVICE</li>
                         
                         <!-- ------------------------------------------- 매치관리 tab -->
                         
@@ -54,7 +81,7 @@
                         <li class="sidebar-item">
                             <a href="admin_match" class='sidebar-link'>
                                 <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Match</span>
+                                <span>매치 관리</span>
                             </a>       
                         </li>
 						
@@ -63,7 +90,7 @@
                         <li class="sidebar-item  has-sub">
                             <a href="javascipt:void(0)" class='sidebar-link'>
                                 <i class="bi bi-life-preserver"></i>
-                                <span>Court</span>
+                                <span>코트 관리</span>
                             </a>
 
                             <ul class="submenu ">
@@ -98,7 +125,7 @@
                         <li class="sidebar-item">
                             <a href="admin_club" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-medical-fill"></i>
-                                <span>Club</span>
+                                <span>클럽 관리</span>
                             </a>       
                         </li>
                         
@@ -106,7 +133,7 @@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>Community</span>
+                                <span>커뮤니티 관리</span>
                             </a>
 
                             <ul class="submenu ">
@@ -116,7 +143,7 @@
                                 </li>
 
                                 <li class="submenu-item  ">
-                                    <a href="admin_notice" class="submenu-link">게시판 관리</a>
+                                    <a href="admin_notice" class="submenu-link">공지사항 관리</a>
                                 </li>
 
                             </ul>
@@ -124,7 +151,7 @@
                         </li>
                         
                         
-                        <li class="sidebar-title">SHOP</li>
+                        <li class="sidebar-title" style="font-family: 'Noto Sans KR', sans-serif !important; font-weight: 900; opacity: .7">SHOP</li>
                          
                         <!-- --------------------------------------------- 상품 관리 tab -->
 						
@@ -132,12 +159,18 @@
                         <li class="sidebar-item">
                             <a href="admin_Product" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
-                                <span>Product</span>
+                                <span>상품 관리</span>
                             </a>       
                         </li>
                         
                         <!-- ---------------------------------------------- 판매 관리 tab -->
-                        <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item">
+                            <a href="admin_Order" class='sidebar-link'>
+                                <i class="bi bi-basket-fill"></i>
+                                <span>주문 관리</span>
+                            </a>       
+                        </li>
+                        <!-- <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-basket-fill"></i>
                                 <span>Sales</span>
@@ -162,15 +195,11 @@
 
                                 <li class="submenu-item  ">
                                     <a href="layout-rtl.html" class="submenu-link">상품 반품 관리</a>
-
                                 </li>
-
                             </ul>
-						
-
-                        </li>            
+                        </li>      -->       
                         
-                        <li class="sidebar-title">OTHER</li>                                 
+                        <li class="sidebar-title" style="font-family: 'Noto Sans KR', sans-serif !important; font-weight: 900; opacity: .7">OTHER</li>                                 
 
 						
                         <li class="sidebar-item">
@@ -186,14 +215,14 @@
             </div>
         </div>
         <script type="text/javascript">
-			let liTag = document.querySelectorAll('.menu > li');
+			/* let liTag = document.querySelectorAll('.menu > li');
         	liTag.forEach(item => {
                 item.addEventListener('click', function(e) {
-                    /* e.preventDefault(); */
+                    e.preventDefault();
                     console.log(e.target.parentElement);
                     e.target.parentElement.classList.add('active');
                 })
-            });
+            }); */
         	
         	/* if (window.location.pathname == '/adminProduct') {
         		

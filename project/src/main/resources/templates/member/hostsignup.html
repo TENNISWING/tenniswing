@@ -1,7 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/main-layout}">
-
+<head>
+	<link rel="stylesheet"
+		href="/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+	<link rel="stylesheet"
+		href="/assets/compiled/css/table-datatable-jquery.css">
+		
+	<style type="text/css">
+		form {
+			font-family: 'Noto Sans KR', sans-serif !important;
+			width: auto !important;
+		    height: auto !important;
+		    padding: 7px 15px !important;
+		    font-size: 12px !important;
+		    font-weight: 600 !important;
+		}
+		.reviewOrder {	
+		    width: auto !important;
+		    height: auto !important;
+		    padding: 7px 15px !important;
+		    font-size: 12px !important;
+		    font-weight: 600 !important;
+		}
+	</style>
+</head>
 <th:block layout:fragment="content">
 
 	<!-- signup form -->
@@ -39,7 +62,7 @@
 							<input type="text" class="form-control is-invalid" placeholder="영문 | 숫자만 입력 가능"
 								aria-describedby="duplicateBtn" id="memId" name="memId" maxlength="40" autofocus
 								required>
-							<button class="btn btn-success" type="button" id="duplicateBtn">중복확인</button>
+							<button class="btn btn-outline reviewOrder" type="button" id="duplicateBtn">중복확인</button>
 							<div class="invalid-feedback" id="memIdFeedback"></div>
 							<input type="checkbox" id="idck" hidden="true">
 						</div>
@@ -49,7 +72,7 @@
 								<input type="password" class="form-control is-invalid" placeholder="비밀번호 8자리이상"
 									aria-describedby=pwview id="pwd" name="pwd" pattern=".{8,50}" title="최소8자리입력해주세요"
 									required>
-								<button class="btn btn-success" type="button" id="pwview">
+								<button class="btn btn-outline reviewOrder" type="button" id="pwview">
 									<i class="fa-regular fa-eye-slash"></i>
 								</button>
 							</div>
@@ -68,7 +91,7 @@
 									<input type="text" class="form-control is-invalid" placeholder="숫자만 입력 해주세요"
 										aria-describedby="phoneNoBtn" id="phoneNo" name="phoneNo" maxlength="11"
 										required>
-									<button class="btn btn-success" type="button" id="phoneNoBtn">인증하기</button>
+									<button class="btn btn-outline reviewOrder" type="button" id="phoneNoBtn">인증하기</button>
 								</div>
 							</div>
 						</div>
@@ -104,9 +127,9 @@
 							</div>
 						</div>
 
-						<button class="btn btn-success" type="submit">회원 가입</button>
-						<button class="btn btn-success" type="reset">취소</button>
-						<button class="btn btn-success" type="button"
+						<button class="btn btn-outline reviewOrder" type="submit">회원 가입</button>
+						<button class="btn btn-outline reviewOrder" type="reset">취소</button>
+						<button class="btn btn-outline reviewOrder" type="button"
 							th:onclick="|location.href='@{/loginform}'|">돌아가기</button>
 
 					</div>

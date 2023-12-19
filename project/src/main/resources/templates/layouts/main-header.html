@@ -32,7 +32,7 @@ span {
 			<div class="container">
 				<div class="logo">
 					<h3
-						style="font-family: 'Bungee', sans-serif; color: #3c3c3c; margin-bottom: 0;">
+						style="font-family: 'Bungee', sans-serif !important; color: #3c3c3c; margin-bottom: 0;">
 						<a href="/" style="font-size: 1.8rem; padding: 0;"> <img
 							src="assets/img/logo.png" alt="logo"
 							style="padding-right: 7px; margin-bottom: 5px; color: #3c3c3c;" />
@@ -55,7 +55,7 @@ span {
 							<!-- <i class="icon dripicons dripicons-search fs-3"></i> -->
 							<img src="assets/img/search.png" alt="search" />
 						</button>
-						<div class="z-3 position-absolute mt-5" id="searchArea">
+						<div class="z-3 position-absolute mt-5 collapse" id="searchArea">
 
 							<div class="list-group" id="searchItem"></div>
 
@@ -99,7 +99,10 @@ span {
 								        error: () => console.log(error)
 								    })
 								
-							
+								    if(inputVal.length < 1 || inputVal == ''){
+										$('#searchArea').removeClass('show');
+										return
+									}
 								 
 								
 							})
@@ -221,8 +224,8 @@ span {
 			<!-- Cart Button Start -->
 			<div class="cart__btns">
 				<a href="checkout?type=cart" id="cartCheckout"
-					class="btn btn-primary">상품 주문</a> <a href="shop"
-					class="btn btn-outline" style="border: 1px solid">쇼핑 하기</a>
+					class="btn btn-dark">상품 주문</a> <a href="shop"
+					class="btn btn-outline" style="color: #3c3c3c;">쇼핑 하기</a>
 			</div>
 			<!-- Cart Button End -->
 		</div>

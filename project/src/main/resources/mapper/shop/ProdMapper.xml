@@ -236,7 +236,7 @@
   	</delete>
   	
   	<!-- 후기 등록 권한여부 -->
-  	<select id="confirmInsertReview" resultType="int">
+  	<select id="confirmInsertReview" resultType="Integer">
   		SELECT *
   		FROM   (SELECT ot.order_no
 			    FROM order_table ot, order_detail od

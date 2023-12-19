@@ -271,6 +271,12 @@ background: linear-gradient(0deg, rgb(143 143 143) 0%, rgb(233 233 233) 100%);
 						$('#matchEndList').append(List);
 					}
 					
+					if(data.length == 0){
+						List = `<h6 style="text-align: center; padding: 40px; color: #3c3c3c;">참여한 매치가 없습니다.</h6>`
+							$('#matchEndList').append(List)
+					}
+
+					
 					
 					//결과 입력
 					$('.saveBtn').on("click", function (e) {

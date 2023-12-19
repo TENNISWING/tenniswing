@@ -31,6 +31,16 @@
 	section pre{
 		font-family: 'Noto Sans KR', sans-serif !important;
 	}
+	section span,
+	section h1,
+	section h2,
+	section h3,
+	section h4,
+	section h5,
+	section h6,
+	section pre{
+		color: #3c3c3c !important;
+	}
 </style>
 
 <!-- 아임포트 라이브러리 -->
@@ -120,7 +130,7 @@
 									<label>받으실 곳</label>
 									<input type="text" id="sample6_postcode" name="orderAdr1" class="form-control border" placeholder="우편번호" readonly="readonly">								
 								</div>							
-								<input type="button" onclick="sample6_execDaumPostcode()" class="btn btn-primary" style="margin-top: 0;" value="우편번호 찾기">
+								<input type="button" onclick="sample6_execDaumPostcode()" class="btn btn-dark" style="margin-top: 0;" value="우편번호 찾기">
 							</div>
 							<br>
 							<input type="text" id="sample6_address" name="orderAdr2" class="form-control" placeholder="주소" readonly="readonly">
@@ -134,8 +144,8 @@
 							<br />
 							
 							<div class="cta__form justify-content align-items-end mt-15" style="margin: 0; justify-content: space-around;">							
-								<button type="button" class="btn btn-primary mt-10" style="border-radius: 20px;" id="iamportPayment">결제하기</button>
-								<a class="btn btn-transparent mt-10" onclick="history.back()" style="border: 1px solid; border-radius: 20px">취소하기</a>
+								<button type="button" class="btn btn-dark mt-10" style="border-radius: 20px;" id="iamportPayment">결제하기</button>
+								<a class="btn btn-outline mt-10" onclick="history.back()" style="border: 1px solid; border-radius: 20px">취소하기</a>
 							</div>
 						</form>
 					</div>

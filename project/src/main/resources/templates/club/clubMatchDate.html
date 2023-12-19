@@ -54,13 +54,8 @@ font-family: 'Noto Sans KR', sans-serif !important;
 				data: { clubNo },
 				success: function (data) {
 					$('#matchList').empty();
-					let List = ''
-					
-					if (data.length == 0) {
-						List = `<p>등록한 클럽 매치가 없습니다.</p>`
-					} 
 						for (let match of data) {
-							List = `
+						let List = `
 						<li>
 						<div class="recent-message d-flex px-4 py-3"
 						style="border-bottom: 1px solid #e1e1e1; display: flex; justify-content: space-between; align-items: center;">
@@ -80,42 +75,47 @@ font-family: 'Noto Sans KR', sans-serif !important;
 						</li>
 					`
 							$('#matchList').append(List);
-							$('.joinBtn').on("click", function (e) {
-								Swal.fire({
-									title: "매치날짜",
-									text: "상대클럽이름 수락하시겠습니까?",
-									icon: "warning",
-									showCancelButton: true,
-									confirmButtonColor: "#3085d6",
-									cancelButtonColor: "#d33",
-									cancelButtonText: '거절',
-									confirmButtonText: "수락"
-								}).then((result) => {
-									if (result.isConfirmed) {
-										Swal.fire({
-											icon: "success",
-											title: "매치 성사",
-											text: "매치가 성공적으로 성사되었습니다.",
-										}).then(
-											//realMemListAjax()
-										)
-									} else {
-										Swal.fire({
-											icon: "error",
-											title: "매치 취소",
-											text: "매치를 거절하였습니다",
-										}).then(function () {
-											//location.reload();
-										})
-									}
+					
 
-								})
+						}
+						if(data.length == 0){
+							List = `<h6 style="text-align: center; padding: 10px; color: #3c3c3c;">등록한 매치가 없습니다.</h6>`
+								$('#matchList').append(List)
+						}
+						
+						$('.joinBtn').on("click", function (e) {
+							Swal.fire({
+								title: "매치날짜",
+								text: "상대클럽이름 수락하시겠습니까?",
+								icon: "warning",
+								showCancelButton: true,
+								confirmButtonColor: "#3085d6",
+								cancelButtonColor: "#d33",
+								cancelButtonText: '거절',
+								confirmButtonText: "수락"
+							}).then((result) => {
+								if (result.isConfirmed) {
+									Swal.fire({
+										icon: "success",
+										title: "매치 성사",
+										text: "매치가 성공적으로 성사되었습니다.",
+									}).then(
+										//realMemListAjax()
+									)
+								} else {
+									Swal.fire({
+										icon: "error",
+										title: "매치 취소",
+										text: "매치를 거절하였습니다",
+									}).then(function () {
+										//location.reload();
+									})
+								}
 
 							})
 
-						}
+						})
 
-					
 				}
 			})
 		}
@@ -153,6 +153,10 @@ font-family: 'Noto Sans KR', sans-serif !important;
 						$('#histList').append(List);
 
 
+					}
+					if(data.length == 0){
+						List = `<h6 style="text-align: center; padding: 10px; color: #3c3c3c;">신청한 매치가 없습니다.</h6>`
+							$('#histList').append(List)
 					}
 				}
 			})
