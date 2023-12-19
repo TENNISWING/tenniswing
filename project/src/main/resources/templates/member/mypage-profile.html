@@ -57,12 +57,12 @@
 													name="files" multiple>
 											</div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-info ms-1"
+												<button type="button" class="btn btn-dark ms-1"
 													id="filesBtn" data-bs-dismiss="modal">
 													<i class="bx bx-check d-block d-sm-none"></i> <span
 														class="d-none d-sm-block">저장하기</span>
 												</button>
-												<button type="button" class="btn btn-primary ms-1"
+												<button type="button" class="btn btn-outline ms-1"
 													data-bs-dismiss="modal">
 													<i class="bx bx-check d-block d-sm-none"></i> <span
 														class="d-none d-sm-block">닫기</span>
@@ -87,7 +87,7 @@
 										<input type="password" class="form-control"
 											placeholder="비밀번호 8자리이상" aria-describedby=pwview id="pwd"
 											name="pwd" pattern=".{8,50}" title="최소8자리입력해주세요" required>
-										<button class="btn btn-success" type="button" id="pwview">
+										<button class="btn btn-outline" type="button" id="pwview">
 											<i class="fa-regular fa-eye-slash"></i>
 										</button>
 									</div>
@@ -97,7 +97,7 @@
 											placeholder="비밀번호변경을 원하시면 입력해주세요" aria-describedby=pwview
 											id="pwdUpdate" name="pwdUpdate" pattern=".{8,50}"
 											title="최소8자리입력해주세요">
-										<button class="btn btn-success" type="button" id="pwview1">
+										<button class="btn btn-outline" type="button" id="pwview1">
 											<i class="fa-regular fa-eye-slash"></i>
 										</button>
 									</div>
@@ -118,7 +118,7 @@
 												placeholder="숫자만 입력 해주세요" aria-describedby="phoneNoBtn"
 												id="phoneNo" name="phoneNo" maxlength="11" required
 												th:value="${member.phoneNo}">
-											<button class="btn btn-success" type="button" id="phoneNoBtn">인증하기</button>
+											<button class="btn btn-outline" type="button" id="phoneNoBtn">인증하기</button>
 										</div>
 									</div>
 								</div>
@@ -256,7 +256,7 @@
 											<input type="text" class="form-control" placeholder="코트 입력"
 												aria-describedby="crtroomBtn" id="crtroomName"
 												name="crtroomName" th:value="${member.crtroomName}">
-											<button class="btn btn-success" type="button" id="crtroomBtn">찾기</button>
+											<button class="btn btn-outline" type="button" id="crtroomBtn">찾기</button>
 
 											<input type="text" class="form-control" placeholder="코트 입력"
 												aria-describedby="crtroomBtn" id="crtroomNo"
@@ -272,7 +272,7 @@
 									</div>
 								</div>
 								<div class="d-flex justify-content-between">
-									<button class="btn btn-success" type="submit">수정하기</button>
+									<button class="btn btn-dark" type="submit">수정하기</button>
 									<button class="btn btn-danger" type="button" id="quitBtn">회원
 										탈퇴</button>
 								</div>
