@@ -4,18 +4,39 @@
 	layout:decorate="~{layouts/main-layout}">
 
 <head>
-	<style type="text/css">
-		.nav p {
-			color: #3c3c3c;
-		    opacity: 0.7;
-		    font-weight: 500;
-		}
-		
-		.sdbctn {
-			border-bottom: 2px solid #00b96d;
-			color: #00b96d !important;	
-		}
-	</style>
+<style type="text/css">
+.nav p {
+	color: #3c3c3c;
+	opacity: 0.7;
+	font-weight: 500;
+}
+
+.sdbctn {
+	border-bottom: 2px solid #00b96d;
+	color: #00b96d !important;
+}
+
+.fontt {
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+
+section a,
+section span,
+section button,
+section input,
+section h1,
+section h2,
+section h3,
+section h4,
+section h5,
+section h6,
+section tr,
+section td,
+section th,
+section pre{
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+</style>
 </head>
 <th:block layout:fragment="content">
 	<!-- match sub menu -->
@@ -74,7 +95,7 @@
 		<div class="row align-items-center">
 			<div class="col-12">
 				<div class="filter__area">
-					<div class="section-title__wrap">
+					<div class="section-title__wrap fontt">
 						<!-- 필터처리 -->
 						<form action="#" class="product-filter">
 							<!-- 성별 -->
@@ -108,15 +129,16 @@
 						</form>
 					</div>
 					<div class="col-lg-2 text-end">
-						<button type="button" class="btn btn-primary" id="regiBtn"
-							th:onclick="|location.href='@{clubmatchregi}'|">매치 등록</button>
+						<button type="button" class="btn btn-outline" id="regiBtn"
+							style="width: auto; font-weight: 600 !important;"
+							th:onclick="|location.href='@{clubmatchregi}'|">매치등록</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		
 		<!-- Default Table -->
-		<table class="table">
+		<table class="table fontt">
 			<thead>
 				<tr>
 					<th>날짜</th>
@@ -305,9 +327,9 @@
 					<td>${matchInfo.crtroomLocation}</td>
 					<td class="text-end mtbt">`
 					if(matchInfo.progStateName=='모집마감'){
-					b += `<a class="btn btn-secondary disabled matchbtn2" href="clubmatchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>`
+					b += `<button class="btn completeBtn" disabled="disabled" style="width: auto; color: rgb(52, 64, 84); background: rgba(52, 64, 84, 0.1); border: 1px solid rgba(52, 64, 84, 0.1);" href="clubmatchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</button>`
 					} else {
-					b += `<a class="btn btn-primary matchbtn1" href="clubmatchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</a>`
+					b += `<a class="btn btn-outline psbBtn" href="clubmatchdetail?matchNo=${matchInfo.matchNo}" style="color: #00b96d;">${matchInfo.progStateName}</a>`
 					}
 					b += '</td></tr>'
 					$('#matchList').append(b)
@@ -435,28 +457,27 @@
                         }
                     
                         $.each(dateArry, (idx, ele) => {
-                        	console.log(ele.dayNo);
                         	if (idx == 0) {
                                 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                                    <div class="btn btn-outline-success active" data-day="${ele.allDate}">
-                                                    ${ele.date}<br>
-                                                    ${ele.day}</div></div>`)
-                            } else if (ele.dayNo == 0) {
-                        		 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                         <div class="btn btn-outline-danger" data-day="${ele.allDate}">
+                                                     <div class="btn btn-outline active date" style="background-color: #F9F9F9" data-day="${ele.allDate}">
+                                                     ${ele.date}<br>
+                                                     ${ele.day}</div></div>`)
+                             } else if (ele.dayNo == 0) {
+                         		 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
+                                          <div class="btn btn-outline date" style="background-color: #F9F9F9; color: #ff6c6c" data-day="${ele.allDate}">
+                                          ${ele.date}<br>
+                                          ${ele.day}</div></div>`)
+                         	} else if (ele.dayNo == 6) {
+                         		 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
+                                          <div class="btn btn-outline date" style="background-color: #F9F9F9; color: #5353ff" data-day="${ele.allDate}">
+                                          ${ele.date}<br>
+                                          ${ele.day}</div></div>`)
+                         	} else {
+                         		$('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
+                                         <div class="btn btn-outline date" style="background-color: #F9F9F9" data-day="${ele.allDate}">
                                          ${ele.date}<br>
                                          ${ele.day}</div></div>`)
-                        	} else if (ele.dayNo == 6) {
-                        		 $('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                         <div class="btn btn-outline-primary" data-day="${ele.allDate}">
-                                         ${ele.date}<br>
-                                         ${ele.day}</div></div>`)
-                        	} else {
-                        		$('.swiper-wrapper.dateslide').append(`<div class="swiper-slide dateslide text-center">
-                                        <div class="btn btn-outline-success" data-day="${ele.allDate}">
-                                        ${ele.date}<br>
-                                        ${ele.day}</div></div>`)
-                        	}
+                         	}       
                         	
                         })
                         $('.swiper-wrapper.dateslide > div div').on('click', function (e) {
