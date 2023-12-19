@@ -88,9 +88,6 @@ border: 3px solid white;
 								<button class="btn btn-outline my-4" id="clubDel"><div class="icon dripicons dripicons-exit"> 클럽 삭제</div></button>
 							</th:block>		
 							
-							<th:block th:unless="${#strings.equals(club.memId,loginId)}">
-								<button class="btn btn-outline my-4" id="clubOut"><div class="icon dripicons dripicons-exit"> 클럽 탈퇴</div></button>
-							</th:block>	
 							
 							
 							
@@ -461,24 +458,6 @@ border: 3px solid white;
 			})
 		};
 		
-		//클럽 탈퇴하기
-		$('#clubOut').on('click', function (e) {
-			Swal.fire({
-				title: "클럽을 정말로 탈퇴하시겠습니까?",
-				text: "탈퇴 후 클럽활동 내역은 복구할 수 없습니다.",
-				icon: "warning",
-				showCancelButton: true,
-				confirmButtonColor: "#3085d6",
-				cancelButtonColor: "#d33",
-				cancelButtonText: '취소',
-				confirmButtonText: "삭제"
-			}).then((result) => {
-				if (result.isConfirmed) {
-					clubOutAjax();
-				}
-			});
-
-		});
 		
 		
 		
