@@ -68,7 +68,7 @@ public class MatchHistServiceImpl implements MatchHistService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectAllMyMatchHist(String memId) {
+	public List<MatchHistVO> selectAllMyMatchHist(String memId) {
 	
 		return matchHistMapper.selectAllMyMatchHist(memId);
 	}

@@ -12,7 +12,7 @@
 				<div class="card-header">
 					<h3 class="text-center mt-2 mb-4">아이디 찾기</h3>
 				</div>
-				<div class="p-5 border border-success-subtle mb-5">
+				<div class="p-5 border border-dark-subtle mb-5">
 					<input type="text" id="message" hidden="true" th:value="${message}">
 					<input class="form-check-input" type="checkbox" name="phoneCk"
 						id="phoneCk" hidden="true">
@@ -22,7 +22,7 @@
 							<input type="text" class="form-control is-invalid"
 								placeholder="숫자만 입력 해주세요" aria-describedby="phoneNoBtn"
 								id="phoneNo" name="phoneNo" maxlength="11" required>
-							<button class="btn btn-success" type="button" id="forgotphoneNoBtn">인증하기</button>
+							<button class="btn btn-outline" type="button" id="forgotphoneNoBtn">인증하기</button>
 						</div>
 					</div>
 					<div class="col-12 text-start" id="myId" hidden >
@@ -33,7 +33,7 @@
 						</div>			
 					</div>
 				</div>
-				<button class="btn btn-success" type="button"
+				<button class="btn btn-outline" type="button"
 					th:onclick="|location.href='@{/loginform}'|">돌아가기</button>
 			</div>
 		</div>

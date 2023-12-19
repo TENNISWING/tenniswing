@@ -37,5 +37,5 @@ public interface MatchHistMapper {
 	public int deleteStarterMatchHist(MatchHistVO matchHistVO);
 	
 	//마이페이지
-	public List<Map<String, Object>> selectAllMyMatchHist(String memId);
+	public List<MatchHistVO> selectAllMyMatchHist(String memId);
 }
