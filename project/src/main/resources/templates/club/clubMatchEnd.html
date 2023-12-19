@@ -308,14 +308,27 @@ background: linear-gradient(0deg, rgb(143 143 143) 0%, rgb(233 233 233) 100%);
 				type: 'POST',
 				dataType: 'text',
 				success: function (result) {
-					alert("저장완료")
+					Swal.fire({
+						backdrop: `
+							 rgba(100, 100, 100, 0.6)`,
+						title: '등록 완료',
+						text: '매치 결과를 등록했습니다.',
+						showConfirmButton: false,
+						timer: 1700
+					})
 					//postListAjax(); //등록후 리스트 불러오기
 					//$('#postForm')[0].reset();	//폼값 초기화
 					matchListAjax()
 
 				},
 				error: function () {
-					alert("저장실패")
+					Swal.fire({
+						backdrop: `
+							 rgba(100, 100, 100, 0.6)`,
+						title: '등록 실패',
+						showConfirmButton: false,
+						timer: 1700
+					})
 
 				}
 
@@ -330,12 +343,25 @@ background: linear-gradient(0deg, rgb(143 143 143) 0%, rgb(233 233 233) 100%);
 				type: 'POST',
 				dataType: 'text',
 				success: function (result) {
-					alert("수정성공")
+					Swal.fire({
+						backdrop: `
+							 rgba(100, 100, 100, 0.6)`,
+						title: '저장',
+						text: '매치 결과를 수정했습니다.',
+						showConfirmButton: false,
+						timer: 1700
+					})
 					matchListAjax()
 
 				},
 				error: function () {
-					alert("수정실패")
+					Swal.fire({
+						backdrop: `
+							 rgba(100, 100, 100, 0.6)`,
+						title: '저장실패',
+						showConfirmButton: false,
+						timer: 1700
+					})
 
 				}
 
