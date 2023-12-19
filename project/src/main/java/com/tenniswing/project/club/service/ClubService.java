@@ -26,6 +26,9 @@ public interface ClubService {
 	public boolean deleteClub(int clubNo);
 	public boolean clubMemDelete(int clubNo);
 	
+	//클럽 탈퇴
+	public boolean clubOut(int clubMemNo);
+	
 	//수정
 	public Map<String, Object> updateClub(ClubVO clubVO);
 	
