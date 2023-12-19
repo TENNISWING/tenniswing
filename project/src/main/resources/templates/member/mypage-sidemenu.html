@@ -7,14 +7,6 @@
 		href="/assets/compiled/css/table-datatable-jquery.css">
 		
 	<style type="text/css">
-		div, ul, li {
-			font-family: 'Noto Sans KR', sans-serif !important;
-			width: auto !important;
-		    height: auto !important;
-		    padding: 7px 15px !important;
-		    font-size: 12px !important;
-		    font-weight: 600 !important;
-		}
 		.btn .reviewOrder {	
 		    width: auto !important;
 		    height: auto !important;
@@ -26,8 +18,23 @@
 	</style>
 </head>
 <th:block th:fragment="sidemenu">
+<style>
+	h5, h6 {
+		font-family: 'Noto Sans KR', sans-serif !important;
+	}
+	.text-center button {
+		font-family: 'Noto Sans KR', sans-serif !important;
+		font-weight: 600;
+		color: #3c3c3c;
+	}
+	#tabMenus li {
+		font-family: 'Noto Sans KR', sans-serif !important;
+		font-weight: 600;
+	}
+</style>
 	<ul class="list-group mb-3">
-		<li class="list-group-item d-flex justify-content-between">
+
+		<li class="list-group-item d-flex justify-content-between" style="padding-top: 20px; padding-bottom: 20px;">
 			<div class="avatar avatar-lg col-lg-3 col-md-auto" data-bs-toggle="modal" data-bs-target="#galleryModal">
 				<img th:src="${member.attachPath}" style="cursor: pointer;">
 			</div>
@@ -37,38 +44,41 @@
 			</div>
 
 		</li>
-		<li class="list-group-item d-flex justify-content-evenly p-3">
+		<li class="list-group-item d-flex justify-content-evenly p-3" style="padding: 20px 16px 20px 16px !important;">
 			<div class="text-center">
-				<i class="fa-regular fa-face-grin-beam fs-6 text-warning">매너
-					[[${member.mannerPoint}]]</i>
+				<i class="fa-regular fa-face-grin-beam fs-6 text-warning" style="color: #12b76a !important; font-size: 1.1rem !important;"> <span
+					style="font-family: 'Noto Sans KR', sans-serif !important; font-weight: 700; font-size: middle;">매너
+					[[${member.mannerPoint}]]</span></i>
 			</div>
 			<div class="text-center">
-				<i class="fa-solid fa-trophy fs-6 text-primary" id="level">LV
-					[[${member.ntrp}]]</i>
+				<i class="fa-solid fa-trophy fs-6 text-primary" id="level" style="color: #3c3c3c !important; font-size: 1.1rem !important;"> <span
+					style="font-family: 'Noto Sans KR', sans-serif !important; font-weight: 700; font-size: middle;">LV
+					[[${member.ntrp}]]</span></i>
 			</div>
 
 		</li>
 	</ul>
 	<ul class="list-group mb-3">
-		<li class="list-group-item d-flex justify-content-evenly p-3">
+		<li class="list-group-item d-flex justify-content-evenly p-3" style="padding: 20px 16px 20px 16px !important;">
 			<div class="text-center cotainer">
-				<button type="button" class="btn btn-outline reviewOrder" th:onclick="|location.href='@{/mypage-profile}'|">프로필
+				<button type="button" class="btn btn-outline reviewOrder" th:onclick="|location.href='@{/mypage-profile}'|"
+					style="background-color: #eef8f1; color: #00b96d;">프로필
 					보기</button>
 			</div>
 			<div class="text-center ">
 				<!-- Profile Card End -->
-				<button class="btn btn-outline reviewOrder" type="button" th:onclick="|location.href='@{/logout}'|">로그아웃</button>
+				<button class="btn btn-dark reviewOrder" type="button" th:onclick="|location.href='@{/logout}'|">로그아웃</button>
 			</div>
 		</li>
 	</ul>
 
-	<ul class="list-group mb-5">
-		<li class="list-group-item btn btn-outline reviewOrder p-3">매치
-			이력</li>
-		<li class="list-group-item btn btn-outline reviewOrder p-3">나의 클럽목록</li>
-		<li class="list-group-item btn btn-outline reviewOrder p-3">코트 예약</li>
-		<li class="list-group-item btn btn-outline reviewOrder p-3">MY SNS</li>
-		<li class="list-group-item btn btn-outline reviewOrder p-3 mb-5">쇼핑</li>
+
+	<ul class="list-group mb-5" id="tabMenus">
+		<li class="list-group-item btn btn-primary reviewOrder p-3">매치 이력</li>
+		<li class="list-group-item btn btn-primary reviewOrder p-3">나의 클럽목록</li>
+		<li class="list-group-item btn btn-primary reviewOrder p-3">코트 예약</li>
+		<li class="list-group-item btn btn-primary reviewOrder p-3">MY SNS</li>
+		<li class="list-group-item btn btn-primary reviewOrder p-3 mb-5">쇼핑</li>
 	</ul>
 
 	<div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalTitle"

@@ -55,7 +55,7 @@ layout:decorate="~{layouts/main-layout}">
 
 					<!-- ============= 코트장 정보 ============= -->
 
-					<div class="col-md-6" style="margin-top: 20px; width: 30%">
+					<div class="col-md-6" style="margin-top: 20px; width: 30%; font-family: 'Noto Sans KR', sans-serif !important;">
 						<div class="product-detail__wrapper">
 							<h2 class="product-detail__title"
 								style="font-family: 'NanumSquareNeo-Variable';">[[ ${starterMatchInfo.crtroomName} ]]</h2>
@@ -124,25 +124,25 @@ layout:decorate="~{layouts/main-layout}">
 						<div class="product-detail__qty">
 							<div class="product__bottom mtdbtn">
 								<div class="cart__action__btn">
-									<button type="button" class="btn btn-primary matchbtn4"
-										id="applyBtn" style="font-size: 12.5px">신청하기</button>
+									<button type="button" class="btn btn-outline psbBtn"
+										id="applyBtn" style="color: #00b96d;">신청하기</button>
 								</div>
 								<th:block th:if="${auth==true}">
 								<div class="cart__action__btn">
 									<button type="button" class="btn btn-primary matchbtn4"
-										style="font-size: 12.5px" id="updateBtn"
+										style="background: rgba(105, 65, 198, 0.1) !important; color: #6941c6 !important;" id="updateBtn"
 										th:onclick="|location.href='@{/startermatchupdateregi(matchNo=${starterMatchInfo.matchNo})}'|">
 										수정하기</a>
 									</button>
 								</div>
 								<div class="cart__action__btn">
 									<button type="button" class="btn btn-primary matchbtn4"
-										style="font-size: 12.5epx" id="deleteBtn">삭제하기</button>
+									 style="width: auto; color: #d92d20; background: rgba(217, 45, 32, 0.1);" id="deleteBtn">삭제하기</button>
 								</div>
 								</th:block>
 								<div class="cart__action__btn">
-									<button type="button" class="btn btn-primary matchbtn4"
-										style="font-size: 12.5px" th:onclick="|location.href='@{/startermatch}'|">
+									<button type="button" class="btn btn-outline"
+										style="font-size: 12px; font-weight: 600 !important;" th:onclick="|location.href='@{/startermatch}'|">
 										목록으로</a>
 									</button>
 								</div>

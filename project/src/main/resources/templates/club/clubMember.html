@@ -24,8 +24,8 @@ font-family: 'Noto Sans KR', sans-serif !important;
 			<ul style="list-style: none;" id="realMemList">
 				<!-- 여기에 멤버 리스트 -->
 			</ul>
-			<div id="lastDiv" style="display: flex; justify-content: center;"></div>
-			<div id="loadDiv" style="display: flex; justify-content: center"></div>
+			<!-- <div id="lastDiv" style="display: flex; justify-content: center;"></div>
+			<div id="loadDiv" style="display: flex; justify-content: center"></div> -->
 		</div>
 		
 		<br>
@@ -92,11 +92,11 @@ font-family: 'Noto Sans KR', sans-serif !important;
 							}
 						});
 					});
-					$('#loadDiv').append(`
+				/* 	$('#loadDiv').append(`
 							<button id="load" class="btn" style="width: 200px;">More</button>
 							`)
 					$('#realMemList li').css('display','none');
-					$('#realMemList li').slice(0,10).show();
+					$('#realMemList li').slice(0,20).show();
 					$('#load').click(function(e){
 						e.preventDefault();
 						$('#realMemList li:hidden').slice(0,10).show();
@@ -106,28 +106,11 @@ font-family: 'Noto Sans KR', sans-serif !important;
 												   `);
 				            $('#load').fadeOut(100); // 컨텐츠 없을 시 버튼 사라짐
 				        }
-					})	
+					}) */	
 				} //success 끝
 			})
 		}//
 		
-		/* function memberDeleteAjax(clubMemNo){
-			$.ajax({
-				type: 'POST',
-				url: 'clubMemDelete',
-				data: { paramMemNo: clubMemNo },
-				dataType: 'JSON',
-				success: function (result) {
-					if (result) {
-						//삭제되면 리스트 다시 불러오기
-						realMemListAjax()
-					}
-				},
-				error: function () {
-					alert("삭제실패");
-				}
-			})
-		  }; */
 		  
 		  function memberDeleteAjax(clubMemNo){
 				$.ajax({

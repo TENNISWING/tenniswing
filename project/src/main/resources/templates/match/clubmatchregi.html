@@ -6,12 +6,15 @@
 <th:block layout:fragment="content">
 
 	<!-- signup form -->
-	<div class="container" id="signupForm">
-		<form class="form form-vertical col-lg-10 mx-auto" action="clubmatchregi" method="POST"
-		 name="clubmatchregi">
+	<div class="container" id="signupForm"
+		style="font-family: 'Noto Sans KR', sans-serif !important; font-size: 15px;">
+		<form class="form form-vertical col-lg-10 mx-auto"
+			action="clubmatchregi" method="POST" name="clubmatchregi">
 			<div class="form-body">
 				<div class="text-center">
-					<h3 class="my-4">클럽 매치 등록</h3>
+					<h3 class="my-4"
+						style="font-family: 'Noto Sans KR', sans-serif !important; color: #4C4C4C">클럽
+						매치 등록</h3>
 				</div>
 				<div th:text="${msg}"></div>
 			</div>
@@ -19,33 +22,34 @@
 			<div class="justify-content-center">
 				<div class="row justify-content-center" id="memberForm">
 
-					<div class="p-5 text-start shadow mb-5 ">
+					<div class="p-5 text-start shadow mb-4">
 						<div class="col-lg-12 p-5 mx-auto">
-						<!-- 코트 찾기 -->
-						<div class="d-flex flex-row justify-content-evenly mb-5">
-							<div class="col-6">
-								<label for="crtroomNo">코트 찾기</label><br>
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="코트 입력"
-										aria-describedby="crtroomBtn" id="crtroomName"
-										name="crtroomName">
-									<button class="btn btn-success" type="button" id="crtroomBtn">찾기</button>
+							<!-- 코트 찾기 -->
+							<div class="d-flex flex-row justify-content-evenly mb-4">
+								<div class="col-4 mb-2">
+									<label for="crtroomNo" class="mb-3">코트 찾기</label><br>
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="코트 입력"
+											style="font-size: 15px;" aria-describedby="crtroomBtn"
+											id="crtroomName" name="crtroomName">
+										<button class="btn btn-success" style="font-size: 15px;"
+											type="button" id="crtroomBtn">찾기</button>
 
-									<input type="text" class="form-control" placeholder="코트 입력"
-										aria-describedby="crtroomBtn" id="crtroomNo" name="crtroomNo"
-										hidden="true">
-								</div>
-								<div class="collapse z-3 position-absolute" id="searchcrt">
-									<div class="form-group">
-										<select class="form-select" id="searchCrtItem">
+										<input type="text" class="form-control" placeholder="코트 입력"
+											aria-describedby="crtroomBtn" id="crtroomNo" name="crtroomNo"
+											hidden="true">
+									</div>
+									<div class="collapse z-3 position-absolute" id="searchcrt">
+										<div class="form-group">
+											<select class="form-select" id="searchCrtItem">
 
-										</select>
+											</select>
+										</div>
 									</div>
 								</div>
+								<div class="col-6"></div>
 							</div>
-							<div class="col-4"></div>
-						</div>
-						<script>
+							<script>
 					$('#crtroomBtn').on('click', function (e) {
 					    let inputVal = $('#crtroomName').val();
 					    $('#searchcrt').addClass('show');
@@ -85,257 +89,254 @@
 					    }
 					})					
 					</script>
-
-						<div class="d-flex flex-row justify-content-evenly">
-							<div class="col-6 mb-4">
-								<label for="crtroomNo">신청 할 클럽</label>
-								<div class="form-group ">
-									<select class="choices form-select" id="clubNo" name="clubNo">
-										<option th:each="club : ${clubList}" th:value="${club.clubNo}"
-											th:text="${club.clubName}">
-									</select>									
-								</div>
-							</div>
-							<div class="col-4"></div>
-						</div>
-
-						<div class="d-flex flex-row justify-content-evenly">
-							<div class="col-6 mb-4">
-								<label for="region">매치 일자</label><br> <input type="date"
-									id="matchDate" name="matchDate"
-									class="form-control flatpickr-always-open"
-									placeholder="예약 일자 선택">
-							</div>
-
-							<div class="col-4 mb-4">
-								<label for="time">경기 시작 시간</label>
-								<div class="form-group ">
-									<select class="choices form-select" id="time" name="time">
-										<optgroup label="경기시간">
-											<option>01:00</option>
-											<option>02:00</option>
-											<option>03:00</option>
-											<option>04:00</option>
-											<option>05:00</option>
-											<option>06:00</option>
-											<option>07:00</option>
-											<option>08:00</option>
-											<option>09:00</option>
-											<option>10:00</option>
-											<option>11:00</option>
-											<option>12:00</option>
-											<option>13:00</option>
-											<option>14:00</option>
-											<option>15:00</option>
-											<option>16:00</option>
-											<option>17:00</option>
-											<option>18:00</option>
-											<option>19:00</option>
-											<option>20:00</option>
-											<option>21:00</option>
-											<option>22:00</option>
-											<option>23:00</option>
-											<option>24:00</option>
-										</optgroup>
-									</select>
-								</div>
-							</div>
-						</div>
-
-						<br>
-
-						<div class="row">
-							
-						</div>
-
-						<div class="d-flex flex-row justify-content-evenly">
-							<div class="col-4 ">
-								<label for="age">연령대</label>
-								<div class="form-group">
-									<select class="choices form-select" name="age" id="age">
-										<optgroup label="연령대">
-											<option value="a1">10대</option>
-											<option value="a2">20대</option>
-											<option value="a3">30대</option>
-											<option value="a4">40대</option>
-											<option value="a5">50대</option>
-											<option value="a6">60대이상</option>
-										</optgroup>
-									</select>
-								</div>
-							</div>
-							<div class="col-1"></div>
-							<div class="col-4">
-								<label for="lv">구력</label>
-								<div class="form-group">
-									<select class="choices form-select" name="lv" id="lv">
-										<optgroup label="구력">
-											<option value="d1">입문</option>
-											<option value="d2">2~5년</option>
-											<option value="d3">5년이상</option>
-										</optgroup>
-									</select>
-								</div>
-							</div>
-						</div>
-
+					
 							<div class="d-flex flex-row justify-content-evenly">
-							<div class="col-4">
-								<label for="gameWay">경기 방식</label>
-								<div class="form-group">
-									<select class="choices form-select" id="gameWay" name="gameWay">
-										<optgroup label="경기방식">
-											<option value="f1">단식</option>
-											<option value="f2">남복</option>
-											<option value="f3">여복</option>
-											<option value="f4">랠리</option>
-											<option value="f5">혼복</option>
-										</optgroup>
-									</select>
-								</div>								
-							</div>
-							<div class="col-1"></div>
-							<div class="col-4"></div>
-							</div>
-							
-							<div class="d-flex flex-row justify-content-evenly">
-							<div class="col-4">
-								<label for="ntrp">ntrp</label>
-								<div class="form-group">
-									<select class="choices form-select" id="ntrp" name="ntrp">
-										<optgroup label="ntpr">
-											<option value="e1">1.0</option>
-											<option value="e2">1.5</option>
-											<option value="e3">2.0</option>
-											<option value="e4">2.5</option>
-											<option value="e5">3.0</option>
-											<option value="e6">3.5</option>
-											<option value="e7">4.0이상</option>
-										</optgroup>
-									</select>
+								<div class="col-4 mb-4">
+									<label for="region" class="mb-2">매치 일자</label><br> <input
+										type="date" id="matchDate" name="matchDate" style="font-size:15px;"
+										class="form-control flatpickr-match" placeholder="예약 일자 선택">
 								</div>
-							</div>
-							<div class="col-1"></div>
-							<!-- ntrp modal start -->
-							<div class="col-4">
-								<br>
-								<h5>
-									<button type="button" class="btn btn-success" id="ntrpQ"
-										href="javascript:void(0)" data-bs-toggle="modal"
-										data-bs-target="#ntrpModal">NTRP이란?</button>
-								</h5>
-							</div>
-							<div class="modal fade" id="ntrpModal" tabindex="-1"
-								role="dialog" aria-labelledby="exampleModalCenterTitle"
-								aria-hidden="true">
-								<div
-									class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable modal-lg"
-									role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalCenterTitle">ntrp이란?
-											</h5>
-											<button type="button" class="close" data-bs-dismiss="modal"
-												aria-label="Close">
-												<i data-feather="x"></i>
-											</button>
-										</div>
-										<div class="modal-body">
-											<p>
-												NTRP란 National Tennis Rating Program의 약자입니다.<br> 이는 미국
-												테니스 협회(USTA)에서 개인의 테니스 실력을 평가하기 위해 만든 기준으로,<br> 세계에서 가장
-												널리 통용되는 테니스 실력의 기준입니다.
-											</p>
-											<table class="table">
-												<thead>
-													<tr>
-														<th>ntrp rating</th>
-														<th>설명</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>1.0</td>
-														<td>테니스 라켓을 이제 막 들어 시작한 상태</td>
-													</tr>
-													<tr>
-														<td>1.5</td>
-														<td>테니스 경험이 있으나 게임을 하기엔 아직 미숙한 상태</td>
-													</tr>
-													<tr>
-														<td>2.0</td>
-														<td>랠리는 어느정도 가능하나 플레이를 지속하기엔 어려운 상태</td>
-													</tr>
-													<tr>
-														<td>2.5</td>
-														<td>일관성이 있는 랠리가 가능한 상태</td>
-													</tr>
-													<tr>
-														<td>3.0</td>
-														<td>코트 인식이 좋고, 스핀 및 고급 기술 사용가능한 상태</td>
-													</tr>
-													<tr>
-														<td>3.5</td>
-														<td>일관된 방향으로 공을 칠수 있는 레벨</td>
-													</tr>
-													<tr>
-														<td>4.0</td>
-														<td>정밀하고 지속적인 샷 랠리 가능한 레벨</td>
-													</tr>
-													<tr>
-														<td>4.5이상</td>
-														<td>대회 참가 가능 레벨</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-primary ms-1"
-												data-bs-dismiss="modal">
-												<i class="bx bx-check d-block d-sm-none"></i> <span
-													class="d-none d-sm-block">닫기</span>
-											</button>
-										</div>
+								<div class="col-1"></div>
+								<div class="col-4 mb-4">
+									<label for="time" class="mb-2">경기 시작 시간</label>
+									<div class="form-group">
+										<select class="choices form-select" style="font-size:15px;" id="time" name="time">
+											<optgroup label="경기시간">
+												<option>01:00</option>
+												<option>02:00</option>
+												<option>03:00</option>
+												<option>04:00</option>
+												<option>05:00</option>
+												<option>06:00</option>
+												<option>07:00</option>
+												<option>08:00</option>
+												<option>09:00</option>
+												<option>10:00</option>
+												<option>11:00</option>
+												<option>12:00</option>
+												<option>13:00</option>
+												<option>14:00</option>
+												<option>15:00</option>
+												<option>16:00</option>
+												<option>17:00</option>
+												<option>18:00</option>
+												<option>19:00</option>
+												<option>20:00</option>
+												<option>21:00</option>
+												<option>22:00</option>
+												<option>23:00</option>
+												<option>24:00</option>
+											</optgroup>
+										</select>
 									</div>
 								</div>
 							</div>
-							<!-- ntrp modal end -->
-						</div>
 
-						<div class="d-flex flex-row justify-content-evenly">
-							<div class="col-6">
-								<label for="name">코트비</label><br>
-								<div class="input-group mb-3">
-									<input type="text" class="form-control"
-										placeholder="코트비 입력" id="crtUseAmt" name="crtUseAmt"
-										maxlength="10" required>
+							<div class="d-flex flex-row justify-content-evenly">
+								<div class="col-4 mb-4">
+									<label for="crtroomNo" class="mb-2">신청 할 클럽</label>
+									<div class="form-group ">
+										<select class="choices form-select" id="clubNo" style="font-size:15px;" name="clubNo">
+											<option th:each="club : ${clubList}"
+												th:value="${club.clubNo}" th:text="${club.clubName}">
+										</select>
+									</div>
+								</div>
+								<div class="col-1"></div>
+								<div class="col-4 mb-4">
+									<label for="gameWay" class="mb-2">경기 방식</label>
+									<div class="form-group">
+										<select class="choices form-select" style="font-size:15px;" id="gameWay"
+											name="gameWay">
+											<optgroup label="경기방식">
+												<option value="f1">단식</option>
+												<option value="f2">남복</option>
+												<option value="f3">여복</option>
+												<option value="f4">랠리</option>
+												<option value="f5">혼복</option>
+											</optgroup>
+										</select>
+									</div>
+								</div>
+								
+							</div>
+
+
+							<div class="d-flex flex-row justify-content-evenly">
+								<div class="col-4 mb-4">
+									<label for="age" class="mb-2">연령대</label>
+									<div class="form-group">
+										<select class="choices form-select" style="font-size: 15px;"
+											name="age" id="age">
+											<optgroup label="연령대">
+												<option value="a1">10대</option>
+												<option value="a2">20대</option>
+												<option value="a3">30대</option>
+												<option value="a4">40대</option>
+												<option value="a5">50대</option>
+												<option value="a6">60대이상</option>
+											</optgroup>
+										</select>
+									</div>
+								</div>
+								<div class="col-1"></div>
+								<div class="col-4 mb-4">
+									<label for="lv" class="mb-2">구력</label>
+									<div class="form-group">
+										<select class="choices form-select" style="font-size:15px;" name="lv" id="lv">
+											<optgroup label="구력">
+												<option value="d1">입문</option>
+												<option value="d2">2~5년</option>
+												<option value="d3">5년이상</option>
+											</optgroup>
+										</select>
+									</div>
 								</div>
 							</div>
-							<div class="col-4"></div>
-						</div>
 
-						<div class="d-flex flex-row justify-content-evenly">
-							<div class="col-6">
-								<label for="name">코멘트</label><br>
-								<div class="input-group mb-3">
-									<textarea class="form-control"
-										placeholder="코멘트 입력" id="detailCtt" name="detailCtt"></textarea>
+
+							<div class="d-flex flex-row justify-content-evenly">
+								<div class="col-4 mb-4">
+									<label for="ntrp" class="mb-2">ntrp</label>
+									<div class="form-group">
+										<select class="choices form-select" style="font-size:15px;" id="ntrp" name="ntrp">
+											<optgroup label="ntpr">
+												<option value="e1">1.0</option>
+												<option value="e2">1.5</option>
+												<option value="e3">2.0</option>
+												<option value="e4">2.5</option>
+												<option value="e5">3.0</option>
+												<option value="e6">3.5</option>
+												<option value="e7">4.0이상</option>
+											</optgroup>
+										</select>
+									</div>
 								</div>
+								<!-- ntrp modal start -->
+								<div class="col-4">
+									<br>
+									<h5>
+										<button type="button" class="btn btn-success matchntrpbtn mt-2" id="ntrpQ"
+											href="javascript:void(0)" data-bs-toggle="modal"
+											style="background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important"
+											data-bs-target="#ntrpModal">NTRP이란?</button>
+									</h5>
+								</div>
+								<div class="modal fade" id="ntrpModal" tabindex="-1"
+									role="dialog" aria-labelledby="exampleModalCenterTitle"
+									aria-hidden="true">
+									<div
+										class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable modal-lg"
+										role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalCenterTitle">ntrp이란?
+												</h5>
+												<button type="button" class="close" data-bs-dismiss="modal"
+													aria-label="Close">
+													<i data-feather="x"></i>
+												</button>
+											</div>
+											<div class="modal-body">
+												<p>
+													NTRP란 National Tennis Rating Program의 약자입니다.<br> 이는 미국
+													테니스 협회(USTA)에서 개인의 테니스 실력을 평가하기 위해 만든 기준으로,<br> 세계에서
+													가장 널리 통용되는 테니스 실력의 기준입니다.
+												</p>
+												<table class="table">
+													<thead>
+														<tr>
+															<th>ntrp rating</th>
+															<th>설명</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>1.0</td>
+															<td>테니스 라켓을 이제 막 들어 시작한 상태</td>
+														</tr>
+														<tr>
+															<td>1.5</td>
+															<td>테니스 경험이 있으나 게임을 하기엔 아직 미숙한 상태</td>
+														</tr>
+														<tr>
+															<td>2.0</td>
+															<td>랠리는 어느정도 가능하나 플레이를 지속하기엔 어려운 상태</td>
+														</tr>
+														<tr>
+															<td>2.5</td>
+															<td>일관성이 있는 랠리가 가능한 상태</td>
+														</tr>
+														<tr>
+															<td>3.0</td>
+															<td>코트 인식이 좋고, 스핀 및 고급 기술 사용가능한 상태</td>
+														</tr>
+														<tr>
+															<td>3.5</td>
+															<td>일관된 방향으로 공을 칠수 있는 레벨</td>
+														</tr>
+														<tr>
+															<td>4.0</td>
+															<td>정밀하고 지속적인 샷 랠리 가능한 레벨</td>
+														</tr>
+														<tr>
+															<td>4.5이상</td>
+															<td>대회 참가 가능 레벨</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-primary ms-1"
+													data-bs-dismiss="modal">
+													<i class="bx bx-check d-block d-sm-none"></i> <span
+														class="d-none d-sm-block">닫기</span>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-1"></div>
+								<!-- ntrp modal end -->
 							</div>
-							<div class="col-4"></div>	
+
+							<div class="d-flex flex-row justify-content-evenly">
+								<div class="col-4 mb-4">
+									<label for="name" class="mb-2">코트비</label><br>
+									<div class="input-group mb-3">
+										<input type="text" class="form-control" placeholder="코트비 입력"
+											style="font-size:15px;" 
+											id="crtUseAmt" name="crtUseAmt" maxlength="10" required>
+									</div>
+								</div>
+								<div class="col-6"></div>
+							</div>
+
+							<div class="d-flex flex-row justify-content-evenly">
+								<div class="col-6 mb-4">
+									<label for="name" class="mb-2">코멘트</label><br>
+									<div class="input-group mb-3">
+										<textarea class="form-control" placeholder="코멘트 입력"
+											style="font-size:15px;" 
+											id="detailCtt" name="detailCtt"></textarea>
+									</div>
+								</div>
+								<div class="col-4"></div>
+							</div>
+
+							<div class="ctrgbtns">
+								<br>
+								<button class="btn btn-outline psbBtn" style="color: #00b96d;" type="submit" id="regiBtn">등록하기</button>
+								<button class="btn btn-outline" type="button"
+									style="font-size: 12px; font-weight: 600 !important;"
+									th:onclick="|location.href='@{/clubmatch}'|">취소</button>
+							</div>
 						</div>
 
-						<div class="ctrgbtns">
-							<br>
-							<button class="btn btn-success" type="submit" id="regiBtn">등록하기</button>
-							<button class="btn btn-success" type="button"
-								th:onclick="|location.href='@{/clubmatch}'|">취소</button>
-						</div>
 					</div>
-
+					<!-- <div class="col-3 "></div> -->
 				</div>
-				<!-- <div class="col-3 "></div> -->
-			</div></div>
+			</div>
 		</form>
 	</div>
 	<script th:inline='javascript'>	
