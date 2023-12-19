@@ -8,32 +8,35 @@
 
 <link rel="stylesheet"
 	href="./assets/compiled/css/form-editor-summernote.css">
+	
+<style type="text/css">
+	section a,
+	section span,
+	section button,
+	section input,
+	section h1,
+	section h2,
+	section h3,
+	section h4,
+	section h5,
+	section h6,
+	section tr,
+	section td,
+	section th,
+	section pre{
+		font-family: 'Noto Sans KR', sans-serif !important;
+	}
+
+</style>
 </head>
 <th:block layout:fragment="content">
-	<!-- community sub menu -->
-	<div class="container mb-4">
-		<ul class="nav d-flex justify-content-around text-center">
-			<li class="d-flex flex-column"><a href="sns"><div>
-						<i class="fa-solid fa-photo-film fs-3 text-info"></i>
-					</div>SNS</a></li>
-			<li class="d-flex flex-column"><a href="freeboardList"><div>
-						<i class="fa-solid fa-chalkboard-teacher fs-3 text-primary"></i>
-					</div>자유게시판</a></li>
-			<li class="d-flex flex-column"><a href="noticeList"><div>
-						<i class="fa-solid fa-clipboard-list fs-3 text-warning"></i>
-					</div>공지사항</a></li>
-		</ul>
-	</div>
-	<!-- End community sub menu  -->
-
-
 	<!-- freeBrd insert Form -->
 	<div class="container">
 		<div class="page-heading email-application overflow-hidden">
 			<div class="page-title">
 				<div class="row">
 					<div class="col-12 col-md-6 order-md-1 order-last">
-						<h3 style="color: green">공지사항 등록</h3>
+						<h3 style="color: #4b4b4b; font-family: 'Noto Sans KR', sans-serif !important;">공지사항 등록</h3>
 						<br>
 					</div>
 					<div class="col-12 col-md-6 order-md-2 order-first">
@@ -98,9 +101,11 @@
 												</div> -->
 
 												<div class="col-12 d-flex justify-content-end">
-													<button type="submit" class="btn btn-primary me-1 mb-1">등록</button>
+													<button type="button" class="btn btn-outline -o me-auto"
+                        th:onclick="|location.href='@{noticeList}'|" style="font-family: 'Noto Sans KR', sans-serif !important;">목록으로</button>
+													<button type="submit" class="btn btn-dark me-1 mb-1">등록</button>
 													<button type="reset"
-														class="btn btn-light-secondary me-1 mb-1">취소</button>
+														class="btn btn-outline me-1 mb-1">취소</button>
 												</div>
 											</div>
 										</div>

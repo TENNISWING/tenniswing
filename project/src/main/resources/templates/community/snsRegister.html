@@ -22,6 +22,24 @@
     margin: 0 auto;
     justify-content: center;
 }
+section a,
+section span,
+section button,
+section input,
+section h1,
+section h2,
+section h3,
+section h4,
+section h5,
+section h6,
+section tr,
+section td,
+section th,
+section pre,
+section label{
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+
 </style>
 </head>
 <th:block layout:fragment="content">
@@ -31,7 +49,7 @@
 			<div class="page-title">
 				<div class="row">
 					<div class="col-12 col-md-6 order-md-1 order-last">
-						<h3 style="color: green">SNS 등록</h3>
+						<h3 style="color: #4b4b4b; font-family: 'Noto Sans KR', sans-serif !important; ">SNS 등록</h3>
 						<br>
 					</div>
 					<div class="col-12 col-md-6 order-md-2 order-first">
@@ -77,7 +95,8 @@
 																</select> 
 																<label class="input-group-text"
 																	for="grpName" data-bs-toggle="modal"
-																	data-bs-target="#inlineForm">그룹 생성</label>
+																	data-bs-target="#inlineForm" style="cursor:pointer;"
+																	>그룹 생성</label>
 															</div>
 															<!--   <input type="text" id="password-vertical" class="form-control"
                                                     name="grpName" placeholder=""> -->
@@ -146,7 +165,7 @@
 			role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel33">SNS 나의 그룹 등록</h4>
+					<h4 class="modal-title" id="myModalLabel33" style="font-family: 'Noto Sans KR', sans-serif !important;">SNS 나의 그룹 등록</h4>
 					<button type="button" class="close" data-bs-dismiss="modal"
 						aria-label="Close">
 						<i data-feather="x"></i>
@@ -154,39 +173,39 @@
 				</div>
 				<form action="#">
 					<div class="modal-body">
-						<label for="email">그룹 생성</label>
+						<label for="email"style="font-family: 'Noto Sans KR', sans-serif !important;">그룹 생성</label>
 						<div class="form-group">
 							<input id="text" type="text" placeholder="생성할 그룹 이름을 입력하세요"
-								class="form-control grpInput">
+								class="form-control grpInput" style="font-family: 'Noto Sans KR', sans-serif !important;">
 						</div>
 					</div>
 					<div class="modal-body">
-						<label for="text">그룹 이미지 선택</label>
+						<label for="text" style="font-family: 'Noto Sans KR', sans-serif !important;">그룹 이미지 선택</label>
 					</div>
 					<div class="modal-body img-wrap">
-						<label for="attachPath_1"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis3.jpg"></label>
+						<label for="attachPath_1"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis3.jpg" style="cursor:pointer;"></label>
 						<input type="radio" id="attachPath_1" name="attachPath" value="assets/img/sns/Tennis3.jpg" style="display: none;">
-						<label for="attachPath_2"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis8.jpg"></label>
+						<label for="attachPath_2"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis8.jpg" style="cursor:pointer;"></label>
 						<input type="radio" id="attachPath_2" name="attachPath" value="assets/img/sns/Tennis8.jpg" style="display: none;">
-						<label for="attachPath_3"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis4.jpg"></label>
+						<label for="attachPath_3"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis4.jpg" style="cursor:pointer;"></label>
 						<input type="radio" id="attachPath_3" name="attachPath" value="assets/img/sns/Tennis4.jpg" style="display: none;">
-						<label for="attachPath_4"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis5.jpg"></label>
+						<label for="attachPath_4"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis5.jpg" style="cursor:pointer;"></label>
 						<input type="radio" id="attachPath_4" name="attachPath" value="assets/img/sns/Tennis5.jpg" style="display: none;">
-						<label for="attachPath_5"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis6.jpg"></label>
+						<label for="attachPath_5"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis6.jpg" style="cursor:pointer;"></label>
 						<input type="radio" id="attachPath_5" name="attachPath" value="assets/img/sns/Tennis6.jpg" style="display: none;">
-						<label for="attachPath_6"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis7.jpg"></label>
+						<label for="attachPath_6"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis7.jpg" style="cursor:pointer;"></label>
 						<input type="radio" id="attachPath_6" name="attachPath" value="assets/img/sns/Tennis7.jpg" style="display: none;">
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-outline"
 							data-bs-dismiss="modal">
 							<i class="bx bx-x d-block d-sm-none"></i> 
-							<span class="d-none d-sm-block">Close</span>
+							<span class="d-none d-sm-block" style="font-family: 'Noto Sans KR', sans-serif !important;">Close</span>
 						</button>
 						<button type="button" class="btn btn-dark ms-1 myGrpBtn"
 							data-bs-dismiss="modal">
 							<i class="bx bx-check d-block d-sm-none"></i> 
-							<span class="d-none d-sm-block">등록</span>
+							<span class="d-none d-sm-block" style="font-family: 'Noto Sans KR', sans-serif !important;">등록</span>
 						</button>
 					</div>
 				</form>
