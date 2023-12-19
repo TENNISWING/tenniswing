@@ -23,23 +23,23 @@
 </head>
 <th:block layout:fragment="admincontent">
 	<!-- Main__container Start-->
-	<div class="main__container">
+	<div class="main__container" style="min-height: 1025px;">
 		<!-- Main Inner Wrapper Start -->
 		<div class="main__inner--wrapper" style="padding: 40px 0;">
 			<!-- Product List Start -->
 			<div class="row">
 				<div class="col-12">
-					<div class="dashboard__breadcrumb">
+					<!-- <div class="dashboard__breadcrumb">
 						<div class="breadcrumb__meta">
 							<ul style="padding: 0">
 								<li><a href="dashboard.html" class="link">Dashboard</a></li>
 								<li>Product</li>
 							</ul>
 						</div>
-					</div>
+					</div> -->
 					<div class="dashboard__header">
 						<div class="d__header--left">
-							<h2 class="title">List of products</h2>
+							<h2 class="title" style="margin-right: 30px;">상품 통합 목록</h2>
 							<div class="danger__btn border-30">[[ ${prodCount} ]] products</div>
 						</div>
 						<div class="add__btn" style="margin-right: 1.5rem">
@@ -80,7 +80,7 @@
 													<td><span class="badge bg-success">[[ ${prodList.prodSaleSts} ]]</span></td>
 													<td>
 														<div class="card__action">
-															<a th:onclick="|location.href='@{/adminDetail_Product(prodNo=${prodList.prodNo})}'|" class="action__btn ml-10"> 
+															<a th:onclick="|location.href='@{/adminDetail_Product(prodNo=${prodList.prodNo})}'|" class="action__btn ml-10" style="cursor:pointer;"> 
 																<svg width="20"
 																	height="20" viewBox="0 0 20 20" fill="none"
 																	xmlns="http://www.w3.org/2000/svg">
@@ -103,7 +103,7 @@
 	                                                                </defs>
 	                                                            </svg>
 															</a> 
-															<a th:onclick="|location.href='@{/adminEdit_Product(prodNo=${prodList.prodNo})}'|" class="action__btn ml-10">
+															<a th:onclick="|location.href='@{/adminEdit_Product(prodNo=${prodList.prodNo})}'|" class="action__btn ml-10" style="cursor:pointer;">
 																<svg width="20" height="20" viewBox="0 0 20 20"
 																	fill="none" xmlns="http://www.w3.org/2000/svg">
 	                                                                <path

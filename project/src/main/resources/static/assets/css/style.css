@@ -1538,6 +1538,7 @@ h4 {
 }
 .shop-btn-primary:focus, .shop-btn-primary:hover {
   background: #87e585;
+  color: #fff;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
@@ -10347,10 +10348,10 @@ h4 {
 }
 .form__wrapper label {
   font-family: 'Noto Sans KR', sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 20px;
-  color: #344054;
+  color: #3c3c3c;
   display: block;
   text-align: left;
   margin-bottom: 6px;
@@ -10359,7 +10360,7 @@ h4 {
 .form__wrapper .form-control {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 24px !important;
   background: transparent;
   color: #667085;
@@ -11062,7 +11063,7 @@ h4 {
   }
 }
 .footer__widget .footer__logo {
-  margin-bottom: 32px;
+  margin-bottom: 26px;
 }
 .footer__widget .footer__logo img {
   width: auto;
@@ -11077,7 +11078,7 @@ h4 {
   margin-bottom: 16px;
 }
 .footer__widget .title h5 {
-  font-family: "Inter", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
@@ -11099,7 +11100,7 @@ h4 {
   -webkit-box-pack: inherit;
       -ms-flex-pack: inherit;
           justify-content: inherit;
-  font-family: "Inter", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
@@ -11149,7 +11150,7 @@ h4 {
   visibility: visible;
 }
 .footer__widget ul li a span {
-  font-family: 'Noto Sans KR', sans-serif !important;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;
@@ -11225,7 +11226,7 @@ h4 {
   }
 }
 .footer__bottom .content p {
-  font-family: 'Noto Sans KR', sans-serif !important;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   line-height: 24px;
   color: #98a2b3;
@@ -11235,7 +11236,7 @@ h4 {
   color: #3c3c3c;
 }
 .footer__bottom .link a {
-  font-family: 'Noto Sans KR', sans-serif !important;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 26px;
@@ -13264,7 +13265,7 @@ h4 {
           justify-content: flex-start;
 }
 .dashboard__header .d__header--left .title {
-  font-weight: 600;
+  font-weight: 800;
   margin-bottom: 0;
   margin-right: 8px;
 }
