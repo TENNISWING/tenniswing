@@ -54,9 +54,7 @@
   	
   	<select id="selectCount" resultType="int">
    		select count(*)
-   		FROM crtroom c JOIN crt_detail_inf d
-                       ON c.crtroom_no = d.crtroom_no
-                       JOIN attach a
+   		FROM crtroom c JOIN attach a
                        ON c.crtroom_no = a.attach_table_pk
         WHERE a.attach_table_div = 'cd'
         AND a.attach_turn = 1   
