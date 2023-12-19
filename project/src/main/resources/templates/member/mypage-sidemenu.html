@@ -21,6 +21,7 @@
 <style>
 	h5, h6 {
 		font-family: 'Noto Sans KR', sans-serif !important;
+		font-size: 0.9rem !important;
 	}
 	.text-center button {
 		font-family: 'Noto Sans KR', sans-serif !important;
@@ -39,19 +40,19 @@
 				<img th:src="${member.attachPath}" style="cursor: pointer;">
 			</div>
 			<div class="name col-lg-9 col-md-auto" >
-				<h5 class="font-bold fs-6">[[${member.nick}]]</h5>
-				<h6 class="text-muted mb-0 fs-6">[[${member.memId}]]</h6>
+				<h5 class="font-bold">[[${member.nick}]]</h5>
+				<h6 class="text-muted mb-0">[[${member.memId}]]</h6>
 			</div>
 
 		</li>
 		<li class="list-group-item d-flex justify-content-evenly p-3" style="padding: 20px 16px 20px 16px !important;">
 			<div class="text-center">
-				<i class="fa-regular fa-face-grin-beam fs-6 text-warning" style="color: #12b76a !important; font-size: 1.1rem !important;"> <span
+				<i class="fa-regular fa-face-grin-beam fs-6 text-warning" style=" font-size: 1.1rem !important;"> <span
 					style="font-family: 'Noto Sans KR', sans-serif !important; font-weight: 700; font-size: middle;">매너
 					[[${member.mannerPoint}]]</span></i>
 			</div>
 			<div class="text-center">
-				<i class="fa-solid fa-trophy fs-6 text-primary" id="level" style="color: #3c3c3c !important; font-size: 1.1rem !important;"> <span
+				<i class="fa-solid fa-trophy fs-6 text-primary" id="level" style=" font-size: 1.1rem !important;"> <span
 					style="font-family: 'Noto Sans KR', sans-serif !important; font-weight: 700; font-size: middle;">LV
 					[[${member.ntrp}]]</span></i>
 			</div>
@@ -67,7 +68,7 @@
 			</div>
 			<div class="text-center ">
 				<!-- Profile Card End -->
-				<button class="btn btn-dark reviewOrder" type="button" th:onclick="|location.href='@{/logout}'|">로그아웃</button>
+				<button class="btn btn-outline" type="button" th:onclick="|location.href='@{/logout}'|">로그아웃</button>
 			</div>
 		</li>
 	</ul>
