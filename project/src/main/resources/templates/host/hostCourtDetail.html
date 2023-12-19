@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/host/host-layout}">
+
 <head>
 <style>
 body {
@@ -27,41 +28,128 @@ body {
 
 /*요일*/
 .fc-col-header-cell-cushion {
-	color: #000;
+	color: #3C3C3C;
 }
 
 .fc-col-header-cell-cushion:hover {
 	text-decoration: none;
-	color: #000;
+	color: #3C3C3C;
 }
 /*일자*/
 .fc-daygrid-day-number {
-	color: #000;
+	color: #3C3C3C;
 	font-size: 1em;
 }
 
 /*more버튼*/
 .fc-daygrid-more-link.fc-more-link {
-	color: #000;
+	color: #3C3C3C;
 }
 /*일정시간*/
 .fc-daygrid-event>.fc-event-time {
-	color: #000;
+	color: #3C3C3C;
 }
 /*시간제목*/
 .fc-daygrid-dot-event>.fc-event-title {
-	color: #000 !important;
+	color: #3C3C3C !important;
 }
 /*month/week/day*/
 .fc-button-active {
-	border-color: #ffc107 !important;
-	background-color: #ffc107 !important;
-	color: #000 !important;
+	border-color: #FFECA6 !important;
+	background-color: #FFECA6 !important;
+	color: #3C3C3C !important;
 	font-weight: bold !important;
 }
 /*노란버튼*/
 .btn-warning {
 	font-weight: bold;
+}
+.carousel-item img {
+	width: 100%;
+	height: 100% !important;
+}
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+	color: #3C3C3C
+}
+.product-card .product__content .product__rating {
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: inherit;
+      -ms-flex-pack: inherit;
+          justify-content: inherit;
+}
+.product-card .product__content .product__rating ul {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: inherit;
+      -ms-flex-pack: inherit;
+          justify-content: inherit;
+  list-style: none;
+}
+.product-card .product__content .product__rating ul li {
+  font-size: 11px;
+  color: #ffd600;
+  height: 14px;
+  width: 14px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.star-rating {
+    width: 0;
+    position: relative;
+    display:inline-block;
+    background-image: url(star_0.svg);
+    background-position: 0 0;
+    background-repeat: repeat-x;
+    cursor: pointer;
+}
+
+.star-rating .star-value {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: url('./star_1.svg') ;
+    background-repeat: repeat-x;
+}
+
+.star-rating.disabled {
+    cursor: default;
+}
+
+.star-rating.is-busy {
+    cursor: wait;
+}
+
+.star-rating .star-value.rtl {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+    right: 0;
+    left: auto;
 }
 </style>
 </head>
@@ -93,7 +181,6 @@ body {
 								<div class="card-body">
 									<div class="container">
 										<!-- 코트 사진 -->
-										<div>
 											<div class="card">
 												<div class="card-body">
 													<div id="carouselExampleCaptions" class="carousel slide"
@@ -111,13 +198,12 @@ body {
 																th:each="courtDetail, stat : ${courtDetail.attachList}">
 																<div class="carousel-item" style="height: 400px; width: 100%;">
 																	<img th:src="${courtDetail.attachPath}"
-																		class="d-block w-100" alt="..."
-																		style="object-fit: cover; height: 400px; width: 100%;">
-																	<div class="carousel-caption d-none d-md-block">
+																		alt="..." style="object-fit: cover; height: 100%; width: 100%;">
+																	<!-- <div class="carousel-caption d-none d-md-block">
 																		<h5>Second slide label</h5>
 																		<p>Nulla vitae elit libero, a pharetra augue mollis
 																			interdum.</p>
-																	</div>
+																	</div> -->
 																</div>
 															</th:block>
 															<script th:inline="javascript">
@@ -140,9 +226,11 @@ body {
 												</div>
 											</div>
 											<!-- 코트정보 -->
-											<div style="display: block">
 												<div class="card">
 													<div class="card-content">
+														<div class="card-header" style="padding-top: 0;">
+															<h5 style="box-shadow: 0px 8px 6px -6px #aaa; width: 20%; padding: 10px; padding-left: 15px">코트장 정보</h5>
+														</div>
 														<div class="card-body">
 															<!-- <form class="form form-horizontal"> -->
 															<div class="form-body">
@@ -189,7 +277,7 @@ body {
 																		<label for="email-horizontal">코트장 설명</label>
 																	</div>
 																	<div class="col-md-9 form-group">
-																		<textarea id="crtroomExp" rows="3" class="form-control"
+																		<textarea id="crtroomExp" rows="6"  class="form-control"
 																			readonly>
 																			[[ ${courtDetail.crtroomExp} ]]
 																		</textarea>
@@ -198,7 +286,7 @@ body {
 																		<label for="password-horizontal">주의사항</label>
 																	</div>
 																	<div class="col-md-9 form-group">
-																		<textarea id="crtroomCaution" rows="3"
+																		<textarea id="crtroomCaution" rows="6" 
 																			class="form-control" readonly>
 																			[[ ${courtDetail.crtroomCaution} ]]
 																		</textarea>
@@ -207,7 +295,7 @@ body {
 																		<label for="password-horizontal">이용안내</label>
 																	</div>
 																	<div class="col-md-9 form-group">
-																		<textarea id="crtroomUseGuide" rows="3"
+																		<textarea id="crtroomUseGuide" rows="6" 
 																			class="form-control" readonly>
 																			[[ ${courtDetail.crtroomUseGuide} ]]
 																		</textarea>
@@ -216,7 +304,7 @@ body {
 																		<label for="password-horizontal">환불안내</label>
 																	</div>
 																	<div class="col-md-9 form-group">
-																		<ul>
+																		<ul style="list-style-type: square; margin: 0">
 																			<li>7일 전 취소시: [[${refundInf.sevenDayBefore}]]% 환불</li>
 																			<li>5일 전 취소시: [[${refundInf.fiveDayBefore}]]% 환불</li>
 																			<li>3일 전 취소시: [[${refundInf.threeDayBefore}]]% 환불</li>
@@ -235,10 +323,10 @@ body {
 																			th:value="${#dates.format(courtDetail.crtroomRegiDate, 'yyyy년MM월dd일')}"
 																			readonly>
 																	</div>
-																	<div class="col-sm-12 d-flex justify-content-end">
+																	<div class="col-sm-12 d-flex justify-content-end" style="margin-top: 15px">
 																		<button type="button"
 																			th:onclick="|location.href='@{/hosteditCourtroom(crtroomNo=${param.crtroomNo})}'|"
-																			class="btn btn-primary me-1 mb-1">코트장 수정하기</button>
+																			class="btn btn-light-secondary me-1 mb-1" style="background-color: #3c3c3c; color: white">코트장 수정하기</button>
 																		<!-- <button type="button" th:onclick="|location.href='@{/deleteCourtroom(crtroomNo=${param.crtroomNo})}'|"
 													class="btn btn-primary me-1 mb-1">코트장 삭제하기</button> -->
 																		<!-- <button type="reset"
@@ -250,8 +338,6 @@ body {
 														</div>
 													</div>
 												</div>
-											</div>
-										</div>
 										<!-- 코트 상세 내역 -->
 										<div class="row product-info">
 											<div class="col-12">
@@ -299,53 +385,16 @@ body {
 															<div class="content__body" style="padding-top: 10px;">
 																<div class="col-md-6" 
 																	style="display: inline-block; float: center; margin-left: 25%">
-																	
-																	<!-- <div style="overflow: hidden">
-																		<table>
-																			<thead>
-																				<tr>
-																					<th th:each="num : ${#numbers.sequence(1,10)}"
-																						style="background-color: green; width: 50px; height: 30px; border: 3px solid #fff">
-																					</th>
-																					<th th:each="num1 : ${#numbers.sequence(1,6)}"
-																						style="background-color: lightgreen; width: 50px; height: 30px; border: 3px solid #fff">
-																					</th>
-																				</tr>
-																			</thead>
-																			<tbody>
-																				<tr>
-																					<td
-																						style="width: 50px; height: 30px; font-size: 10px">9시</td>
-																					<td th:each="num2 : ${#numbers.sequence(1,4)}"></td>
-																					<td
-																						style="width: 50px; height: 30px; font-size: 10px">14시</td>
-																					<td th:each="num2 : ${#numbers.sequence(1,4)}"></td>
-																					<td
-																						style="width: 50px; height: 30px; font-size: 10px">19시</td>
-																					<td th:each="num2 : ${#numbers.sequence(1,4)}"></td>
-																					<td
-																						style="width: 50px; height: 30px; font-size: 10px">24시</td>
-																				</tr>
-																			</tbody>
-																		</table>
-																		<table style="float: right">
-																			<tbody>
-																				<tr>
-																					<th
-																						style="background-color: green; width: 30px; height: 10px; border: 2px solid #fff">
-																					</th>
-																					<td
-																						style="width: 50px; height: 10px; font-size: 10px">예약불가</td>
-																					<th
-																						style="background-color: lightgreen; width: 30px; height: 10px; border: 2px solid #fff">
-																					</th>
-																					<td
-																						style="width: 50px; height: 10px; font-size: 10px">예약가능</td>
-																				</tr>
-																			</tbody>
-																		</table>
-																	</div> -->
-																	<br>
+																	<div class="card-header" style="padding: 0; padding-bottom: 10px;">
+																		<h5 style="box-shadow: 0px 8px 6px -6px #aaa; width: 40%; padding: 10px; padding-left: 15px;">[[${stat.index}+1]]코트 정보</h5>
+																		<div style="text-align: right;">
+																			<button type="button"
+																				th:onclick="|location.href='@{/hosteditCourtDetail(crtDetailNo=${courtDetail.crtDetailNo})}'|"
+																				class="btn btn-outline me-1 mb-1"
+																				style="width: 30%; display: inline-block;">[[${stat.index}+1]]코트
+																				세부 수정하기</button>
+																		</div>
+																	</div>
 																	<div class="card">
 																		<div class="row">
 																			<div class="col-md-4">
@@ -354,7 +403,7 @@ body {
 																			<div class="col-md-8 form-group">
 																				<input type="number" id="first-name-horizontal"
 																					class="form-control" name="fname"
-																					th:value="${courtDetail.useUnitTime}">
+																					th:value="${courtDetail.useUnitTime}" readonly>
 																			</div>
 																			<div class="col-md-4">
 																				<label for="first-name-horizontal">이용 가격</label>
@@ -362,7 +411,7 @@ body {
 																			<div class="col-md-8 form-group">
 																				<input type="text" id="first-name-horizontal"
 																					class="form-control" name="fname"
-																					th:value="${courtDetail.crtUsePrice}">
+																					th:value="${courtDetail.crtUsePrice}" readonly>
 																			</div>
 																			<div class="col-md-4">
 																				<label for="email-horizontal">실내외</label>
@@ -372,23 +421,12 @@ body {
 														name="email-id" th:attr="value=${courtDetail.crtIndoorOutdoor == 1 ? '실내' : '실외'}"> -->
 																				<input type="text" id="email-horizontal"
 																					class="form-control" name="email-id"
-																					th:value="${courtDetail.crtIndoorOutdoorName}">
+																					th:value="${courtDetail.crtIndoorOutdoorName}" readonly>
 																			</div>
 																			<input type="hidden" id="crtDetailNo"
 																				th:attrappend="id=${courtDetail.crtDetailNo}" class="form-control"
 																				name="fname" th:value="${courtDetail.crtDetailNo}">
-																			<div style="text-align: right;">
-																				<button type="button"
-																					th:onclick="|location.href='@{/hosteditCourtDetail(crtDetailNo=${courtDetail.crtDetailNo})}'|"
-																					class="btn btn-primary me-1 mb-1"
-																					style="width: 30%; display: inline-block;">[[${stat.index}+1]]코트
-																					세부 수정하기</button>
-																				<!-- <button type="button"
-																					class="btn btn-primary me-1 mb-1 crtDetail"
-																					id="crtDetailDelete" th:attrappend="id=${courtDetail.crtDetailNo}"
-																					style="width: 30%; display: inline-block;">[[${stat.index}+1]]코트
-																					세부 삭제하기</button> -->
-																			</div>
+																			
 																			<br><br><br><br><br>
 																		</div>
 																	</div>
@@ -404,96 +442,16 @@ body {
 															</div>
 														</div>
 													</th:block>
-													<!-- <div class="tab-pane fade" id="groceries-tab-pane" role="tabpanel"
-								aria-labelledby="groceries-tab" tabindex="0">
-								<div class="content__body" style="padding-top: 10px;">
-									<div class="col-md-6"
-										style="margin-left: 50px; margin-bottom: 50px; margin-right: 150px; width: 25.5%; display: inline-block; float: left">
-										<h5>날짜 선택</h5>
-										<input type="date" class="form-control flatpickr-always-open"
-											placeholder="Select date..">
-									</div>
-									<div class="col-md-6"
-										style="width: 75.5; display: inline-block; float: left">
-										<h5>예약 시간 조회</h5>
-										<div style="overflow: hidden">
-											<table>
-												<thead>
-													<tr>
-														<th th:each="num : ${#numbers.sequence(1,10)}"
-															style="background-color: green; width: 50px; height: 30px; border: 3px solid #fff">
-														</th>
-														<th th:each="num1 : ${#numbers.sequence(1,6)}"
-															style="background-color: lightgreen; width: 50px; height: 30px; border: 3px solid #fff">
-														</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td style="width: 50px; height: 30px; font-size: 10px">9시</td>
-														<td th:each="num2 : ${#numbers.sequence(1,4)}"></td>
-														<td style="width: 50px; height: 30px; font-size: 10px">14시</td>
-														<td th:each="num2 : ${#numbers.sequence(1,4)}"></td>
-														<td style="width: 50px; height: 30px; font-size: 10px">19시</td>
-														<td th:each="num2 : ${#numbers.sequence(1,4)}"></td>
-														<td style="width: 50px; height: 30px; font-size: 10px">24시</td>
-													</tr>
-												</tbody>
-											</table>
-											<table style="float: right">
-												<tbody>
-													<tr>
-														<th
-															style="background-color: green; width: 30px; height: 10px; border: 2px solid #fff">
-														</th>
-														<td style="width: 50px; height: 10px; font-size: 10px">예약불가</td>
-														<th
-															style="background-color: lightgreen; width: 30px; height: 10px; border: 2px solid #fff">
-														</th>
-														<td style="width: 50px; height: 10px; font-size: 10px">예약가능</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<br>
-										<div class="card">
-											<div class="row">
-												<div class="col-md-4">
-													<label for="first-name-horizontal">코트 이용 단위 시간</label>
-												</div>
-												<div class="col-md-8 form-group">
-													<input type="number" id="first-name-horizontal"
-														class="form-control" name="fname">
-												</div>
-												<div class="col-md-4">
-													<label for="first-name-horizontal">이용 가격</label>
-												</div>
-												<div class="col-md-8 form-group">
-													<input type="text" id="first-name-horizontal"
-														class="form-control" name="fname">
-												</div>
-												<div class="col-md-4">
-													<label for="email-horizontal">실내외</label>
-												</div>
-												<div class="col-md-8 form-group">
-													<input type="text" id="email-horizontal" class="form-control"
-														name="email-id">
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div> -->
 													<!-- 후기 -->
 													<div class="tab-pane fade" id="women-tab-pane"
 														role="tabpanel" aria-labelledby="women-tab" tabindex="0">
 														<div class="client__review"
-															style="padding: 10px; margin-bottom: 50px;">
+															style="padding: 10px; margin-bottom: 50px; padding-top:40px;">
 															<div class="table-responsive">
 																<table class="table" id="table1">
 																	<thead>
-																		<tr>
-																			<th>후기 번호</th>
+																		<tr style="background-color: #F9F9F9">
+																			<th>후기번호</th>
 																			<th>이미지</th>
 																			<th>별점</th>
 																			<th>후기 내용</th>
@@ -504,91 +462,74 @@ body {
 																	<tbody>
 																		<th:block th:each="review : ${review}">
 																			<tr>
-																				<td>[[ ${review.reviewNo} ]]</td>
-																				<td>
+																				<td style="width: 8%; text-align: left;">[[ ${review.reviewNo} ]]</td>
+																				<td style="width: 15%; text-align: left;">
 																				<th:block th:if="${review.attachPath != null}">
-																					<img th:src="${review.attachPath}" alt="avatar" style="width: 150px; height: 100px; over-fit:cover"/>
+																					<img th:src="${review.attachPath}" alt="avatar" style="border-radius: 10px; width: 150px; height: 100px; object-fit:cover"/>
 																				</th:block>
 																				<th:block th:unless="${review.attachPath != null}">
-																					<img src="/assets/img/default img.jpg" alt="avatar" style="width: 150px; height: 100px; over-fit:cover"/>
+																					<img src="/assets/img/default img.jpg" alt="avatar" style="border-radius: 10px; width: 150px; height: 100px; object-fit:cover"/>
 																				</th:block>
 																				</td>
-																				<td>[[ ${review.reviewStar} ]]</td>
-																				<td>[[ ${review.reviewCtt} ]]</td>
-																				<td>[[ ${review.memId} ]]</td>
-																				<td>[[ ${#dates.format(review.reviewWriteDate, 'yyyy-MM-dd')} ]]</td>
+																				<td style="width: 10%; text-align: left;">
+																				[[ ${review.reviewStar} ]]
+																				<!-- <ul class="list-group list-group-flush">
+                         															<li class="list-group-item rating" style="border: 0;">
+																					<th:block th:switch="${review.reviewStar != null ? review.reviewStar : 0}">
+																						<ul th:case="0" class="star" style="padding: 0; margin: 0;">
+																							<li><i class="fa-regular fa-star"></i></li>
+																							<li><i class="fa-regular fa-star"></i></li>
+																							<li><i class="fa-regular fa-star"></i></li>
+																							<li><i class="fa-regular fa-star"></i></li>
+																							<li><i class="fa-regular fa-star"></i></li>
+																						</ul>
+																						<ul th:case="1" class="star" style="padding: 0; margin: 0;">
+																							<li><i class="fa-solid fa-star"></i></li>
+																							<li><i class="fa-regular fa-star"></i></li>
+																							<li><i class="fa-regular fa-star"></i></li>
+																							<li><i class="fa-regular fa-star"></i></li>
+																							<li><i class="fa-regular fa-star"></i></li>
+																						</ul>
+																						<ul th:case="2" class="star" style="padding: 0; margin: 0;">
+																							<li><i class="fa-solid fa-star"></i></li>
+																							<li><i class="fa-solid fa-star"></i></li>
+																							<li><i class="fa-regular fa-star"></i></li>
+																							<li><i class="fa-regular fa-star"></i></li>
+																							<li><i class="fa-regular fa-star"></i></li>
+																						</ul>
+																						<ul th:case="3" class="star" style="padding: 0; margin: 0;">
+																							<li><i class="fa-solid fa-star"></i></li>
+																							<li><i class="fa-solid fa-star"></i></li>
+																							<li><i class="fa-solid fa-star"></i></li>
+																							<li><i class="fa-regular fa-star"></i></li>
+																							<li><i class="fa-regular fa-star"></i></li>
+																						</ul>
+																						<ul th:case="4" class="star" style="padding: 0; margin: 0;">
+																							<li><i class="fa-solid fa-star"></i></li>
+																							<li><i class="fa-solid fa-star"></i></li>
+																							<li><i class="fa-solid fa-star"></i></li>
+																							<li><i class="fa-solid fa-star"></i></li>
+																							<li><i class="fa-regular fa-star"></i></li>
+																						</ul>
+																						<ul th:case="5" class="star" style="padding: 0; margin: 0;">
+																							<li><i class="fa-solid fa-star"></i></li>
+																							<li><i class="fa-solid fa-star"></i></li>
+																							<li><i class="fa-solid fa-star"></i></li>
+																							<li><i class="fa-solid fa-star"></i></li>
+																							<li><i class="fa-solid fa-star"></i></li>
+																						</ul>
+																					</th:block>
+																					</li>
+																				</ul> -->
+																				</td>
+																				<td style="width: 40%; text-align: left;">[[ ${review.reviewCtt} ]]</td>
+																				<td style="width: 17%; text-align: left;">[[ ${review.memId} ]]</td>
+																				<td style="width: 10%; text-align: left;">[[ ${#dates.format(review.reviewWriteDate, 'yyyy-MM-dd')} ]]</td>
 																			</tr>
 																		</th:block>
 																	</tbody>
 																</table>
 															</div>
-															<!-- <div class="outline"
-																style="margin: 30px 0 30px 0; overflow: hidden;">
-																<h3 class="sec__title" style="margin: 0; float: left">Comments
-																	(2)</h3>
-															</div> -->
-															<!-- <div class="review__wrapper">
-																<div class="review__item">
-																	<div class="avatar">
-																		<img src="assets/img/shop/teni.jpg" alt="avatar" />
-																	</div>
-																	<div class="review__content">
-																		<div class="review__desc">
-																			<div class="review__wrap">
-																				<h5>
-																					<a href="#">Hena Sinha</a>
-																				</h5>
-																				<div class="rating">
-																					<ul>
-																						<li><i class="fa-solid fa-star"></i></li>
-																						<li><i class="fa-solid fa-star"></i></li>
-																						<li><i class="fa-solid fa-star"></i></li>
-																						<li><i class="fa-solid fa-star"></i></li>
-																						<li><i class="fa-regular fa-star"></i></li>
-																					</ul>
-																				</div>
-																			</div>
-																			<div class="date">18 Jun 2022</div>
-																		</div>
-																		<div class="review__para">
-																			<p>There are many variations of passages of Lorem
-																				Ipsum available, but the majority have thank you
-																				suffered alteration in some form, by injected humour,
-																				or randomised words which don't look.</p>
-																		</div>
-																	</div>
-																</div>
-																<div class="review__item">
-																	<div class="avatar">
-																		<img src="assets/img/shop/teni.jpg" alt="avatar" />
-																	</div>
-																	<div class="review__content">
-																		<div class="review__desc">
-																			<div class="review__wrap">
-																				<h5>
-																					<a href="#">Brenna Das</a>
-																				</h5>
-																				<div class="rating">
-																					<ul>
-																						<li><i class="fa-solid fa-star"></i></li>
-																						<li><i class="fa-solid fa-star"></i></li>
-																						<li><i class="fa-solid fa-star"></i></li>
-																						<li><i class="fa-solid fa-star"></i></li>
-																						<li><i class="fa-regular fa-star"></i></li>
-																					</ul>
-																				</div>
-																			</div>
-																			<div class="date">18 Jun 2022</div>
-																		</div>
-																		<div class="review__para">
-																			<p>There are many variations of passages of Lorem
-																				Ipsum available, but the majority have thank you
-																				suffered alteration in some form, by injected humour,
-																				or randomised words which don't look.</p>
-																		</div>
-																	</div>
-																</div>
-															</div> -->
 														</div>
 													</div>
 													<div class="tab-pane fade firstload" id="electronics-tab-pane"
@@ -596,7 +537,7 @@ body {
 														tabindex="0">
 														<br>
 															<div style="display: flex; justify-content: center;">
-																<div id='calendar' style="width: 70%; height: 100%"></div>
+																<div id='calendar' style="width: 70%; height: 100%; padding-top: 30px;"></div>
 															</div>
 														<br><br>
 													</div>
@@ -606,10 +547,10 @@ body {
 										<div style="text-align: center;">
 											<button type="button"
 												th:onclick="|location.href='@{/hostregisterCourtDetail(crtroomNo=${param.crtroomNo})}'|"
-												class="btn btn-primary me-1 mb-1">코트장 내의 코트 추가하기</button>
+												class="btn btn-light-secondary me-1 mb-1" style="background-color: #3c3c3c; color: white">코트 추가하기</button>
 											<button type="button"
 												th:onclick="|location.href='@{/hostCourtList}'|"
-												class="btn btn-primary me-1 mb-1">목록보기</button>
+												class="btn btn-light-secondary me-1 mb-1">목록보기</button>
 										</div>
 									</div>
 		
@@ -659,7 +600,7 @@ body {
 							Swal.fire({
 								  icon: "error",
 								  title: "",
-								  text: "정상적으로 삭제되지 않았습니다. \n정보를 확인해주시기바랍니다.",
+								  html: `<div style="padding-bottom: 10px">정상적으로 삭제되지 않았습니다.</div><div>정보를 확인해주시기바랍니다.</div>`,
 								})
 						}
 					}
@@ -698,11 +639,11 @@ document.addEventListener('DOMContentLoaded', function() {
 					console.log(result);
 					result.forEach(event => {
 						allEvents.push({
-							title : event.crtroomName,
+							title : event.reserveTimeName,
 							start : event.reserveDate,
 							groupId : event.reserveStateName,
 							writer : event.memId,
-							content : event.reserveTimeName,
+							content : event.crtroomName,
 							id : event.reservePrice,
 							allDay: true
 						})
@@ -732,15 +673,15 @@ document.addEventListener('DOMContentLoaded', function() {
 				eventClick : function(arg) {
 					console.log(arg);
 					Swal.fire({
-						title: "예약 정보",
-						html: "<br><div><strong>코트장 이름:&nbsp;&nbsp;&nbsp;</strong>"+arg.event.title+"</div><br>"
-							+"<div><strong>예약날짜:&nbsp;&nbsp;&nbsp;</strong>"+dateToFormat(arg.event.start)+"</div><br>"
-							+"<div><strong>예약시간:&nbsp;&nbsp;&nbsp;</strong>"+arg.event.extendedProps.content+"</div><br>"
-							+"<div><strong>예약자:&nbsp;&nbsp;&nbsp;</strong>"+arg.event.extendedProps.writer+"</div><br>"
-							+"<div><strong>예약금액:&nbsp;&nbsp;&nbsp;</strong>"+arg.event.id+" 원</div><br>"
-							+"<div><strong>예약상태:&nbsp;&nbsp;&nbsp;</strong>"+arg.event.groupId+"</div>",
+						title: "예약 상세 정보",
+						html: "<br><div class='col-md-3' style='font-weight: bold; text-align: left; display: inline-block;'>코트장 이름:</div><div class='col-md-7 form-group' style='display: inline-block; text-align: left;'>"+arg.event.title+"</div><br>"
+							+"<div class='col-md-3' style='font-weight: bold; text-align: left; display: inline-block;'>예약날짜:</div><div class='col-md-7 form-group' style='display: inline-block; text-align: left;'>"+dateToFormat(arg.event.start)+"</div><br>"
+							+"<div class='col-md-3' style='font-weight: bold; text-align: left; display: inline-block;'>예약시간:</div><div class='col-md-7 form-group' style='display: inline-block; text-align: left;'>"+arg.event.extendedProps.content+"</div><br>"
+							+"<div class='col-md-3' style='font-weight: bold; text-align: left; display: inline-block;'>예약자:</div><div class='col-md-7 form-group' style='display: inline-block; text-align: left;'>"+arg.event.extendedProps.writer+"</div><br>"
+							+"<div class='col-md-3' style='font-weight: bold; text-align: left; display: inline-block;'>예약금액:</div><div class='col-md-7 form-group' style='display: inline-block; text-align: left;'>"+arg.event.id+" 원</div><br>"
+							+"<div class='col-md-3' style='font-weight: bold; text-align: left; display: inline-block;'>예약상태:</div><div class='col-md-7 form-group' style='display: inline-block; text-align: left;'>"+arg.event.groupId+"</div>",
 	      	            showCancelButton: false,
-	      	            confirmButtonColor: 'orange',
+	      	            confirmButtonColor: '#FFECA6',
 	      	            cancelButtonColor: '#d33',
 	      	            confirmButtonText: 'OK'
 					})

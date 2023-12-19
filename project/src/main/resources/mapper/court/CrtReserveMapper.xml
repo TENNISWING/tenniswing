@@ -304,6 +304,7 @@
 	SELECT m.mem_id , m.name, a.attach_path 
 	FROM mem m LEFT OUTER JOIN attach a
 	ON m.mem_no = a.attach_table_pk
+	AND a.attach_table_div = 'm'
 	WHERE m.mem_id = #{hostId}
 </select>
 
