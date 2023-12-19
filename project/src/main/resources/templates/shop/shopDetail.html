@@ -66,13 +66,13 @@ section h2, section h3, section h4, section h5, section h6, section pre {
 
 .rate input:checked ~ label, .rate label:hover, .rate label:hover ~
 	label {
-	color: #f73c32 !important;
+	color: #FFD600 !important;
 }
 
 .rate input:checked+.rate label:hover, .rate input input:checked ~ label:hover,
 	.rate input:checked ~ .rate label:hover ~ label, .rate label:hover ~
 	input:checked ~ label {
-	color: #f73c32 !important;
+	color: #FFD600 !important;
 }
 .rating ul{
 	padding: 0;
@@ -256,7 +256,7 @@ section h2, section h3, section h4, section h5, section h6, section pre {
 							</ul>
 						</div>
 						<!-- 상품 가격 -->
-						<h3 class="product-detail__price" id="prodPrice" style="color: #222222">[[ ${prod.prodPrice} ]]</h3>
+						<h3 class="product-detail__price" id="prodPrice" style="color: #3c3c3c">[[ ${prod.prodPrice} ]]</h3>
 						<!-- <p class="product-detail__short_desc">There are many
 							variations of passages of Lorem Ipsum and available,majority have
 							suffered alteration in somey form, by injected humour, or
@@ -380,12 +380,12 @@ section h2, section h3, section h4, section h5, section h6, section pre {
 								<div class="item">
 									<div class="header__cart">
 										<div class="cart__btn">								
-											<a href="#" class="btn btn-primary btn-outline" id="myCart">장바구니</a>
+											<a href="#" class="btn btn-outline" id="myCart">장바구니</a>
 										</div>
 									</div>
 								</div>
 								<div class="item">
-									<a type="button" id="goCheckout" class="btn btn-primary btn-filled">구매하기</a>
+									<a type="button" id="goCheckout" class="btn btn-dark">구매하기</a>
 								</div>
 							</div>
 						</form>
@@ -465,7 +465,7 @@ section h2, section h3, section h4, section h5, section h6, section pre {
 							</ul>
 						</div>
 					</div>
-					<div class="tab-content" id="myTabContent">
+					<div class="tab-content" id="myTabContent" style="min-height: 300px;">
 						<div class="tab-pane tab_list fade show active" id="home"
 							role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 							<div class="content__body">
@@ -594,7 +594,7 @@ section h2, section h3, section h4, section h5, section h6, section pre {
 													<i class="bx bx-x d-block d-sm-none"></i> <span
 														class="d-none d-sm-block">취소</span>
 												</button>
-												<button type="button" class="btn btn-primary ms-1"
+												<button type="button" class="btn btn-dark ms-1"
 													data-bs-dismiss="modal" id="reviewProdRegi">
 													<i class="bx bx-check d-block d-sm-none"></i> <span
 														class="d-none d-sm-block">등록</span>
@@ -608,7 +608,7 @@ section h2, section h3, section h4, section h5, section h6, section pre {
 							<div class="client__review">
 								<div class="outline" style="margin: 30px 0 30px 0;">
 									<h3 class="sec__title" style="margin: 0;">Reviews</h3>
-									<button type="button" class="btn btn-outline-success"
+									<button type="button" class="btn btn-dark"
 									data-bs-toggle="modal" data-bs-target="#inlineForm" id="reviewBtn">
 									리뷰 등록</button>
 								</div>
@@ -673,8 +673,8 @@ section h2, section h3, section h4, section h5, section h6, section pre {
 													<div class="col-md-5">
 														<div class="date" style="text-align: right; color: #3c3c3c">[[${#dates.format(prodReview.prodReviewRegiDate, 'yyyy년 MM월 dd일')}]]</div>
 														<th:block th:if="${#strings.equals(prodReview.memId, #authentication.name)}">
-															<button type="button" class="btn icon btn-danger prodReviewDel" th:id="reviewDel_+${prodReview.prodReviewNo}" 
-																style="float: right; display: inline-block; background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important;">삭제</button>
+															<button type="button" class="btn btn-outline prodReviewDel" th:id="reviewDel_+${prodReview.prodReviewNo}" 
+																style="float: right; display: inline-block; background: rgba(217, 45, 32, 0.1); color: #eb5e28 !important;">삭제</button>
 														</th:block>
 													</div>
 												</div>
@@ -843,7 +843,7 @@ section h2, section h3, section h4, section h5, section h6, section pre {
 	
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
-	<script type="text/javascript">
+	<script th:inline="javascript">
 		// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
 		Kakao.init('5cb79bd417ece35ea33fa7b756305a02');
 
@@ -855,7 +855,7 @@ section h2, section h3, section h4, section h5, section h6, section pre {
 				objectType : 'feed',
 				content : {
 					title : 'TENNISWING-SHOP',
-					description : '윌슨 블레이드',
+					description : [[ ${prod.prodName} ]],
 					imageUrl : 'https://tm.ajlabs.co.kr/common/prdAssets/008/WR142011U2/2.jpg',
 					link : {
 						mobileWebUrl : '카카오공유하기 시 클릭 후 이동 경로',

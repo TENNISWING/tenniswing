@@ -12,6 +12,18 @@
 	</style>
 </head>
 <th:block layout:fragment="admincontent">
+	<style>
+		.nice-select span,
+		.nice-select li {
+			font-family: 'Noto Sans KR', sans-serif;
+			font-size: 15px;
+  			font-weight: 500;
+  			color: #667085;
+		}
+		.btn__group button {
+			font-family: 'Noto Sans KR', sans-serif;
+		}
+	</style>
 	<!-- Main__container Start-->
 	<div class="main__container">
 		<!-- Main Inner Wrapper Start -->
@@ -22,14 +34,14 @@
 					<div class="dashboard__breadcrumb">
 						<div class="breadcrumb__meta">
 							<ul style="padding: 0;">
-								<li><a onclick="history.back()" class="link"><i class="fa-solid fa-arrow-left me-2"></i>
+								<li><a onclick="history.back()" class="link" style="cursor:pointer;"><i class="fa-solid fa-arrow-left me-2"></i>
 										Back</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="dashboard__header">
 						<div class="d__header--left">
-							<h2 class="title">Create product</h2>
+							<h2 class="title">상품 정보 등록</h2>
 						</div>
 					</div>
 
@@ -55,7 +67,7 @@
 												<!-- File uploader with image preview -->
 												<label style="margin-bottom: 6px; font-size: 15px; text-align: left;">상품 사진</label>
 												<input type="file" class="image-preview-filepond" id="files"
-													name="files" multiple>
+													name="files" multiple style="font-family: 'Noto Sans KR', sans-serif !important;">
 												<!-- File uploader with multiple files upload -->
                             					<!-- <input type="file" class="multiple-files-filepond" multiple> -->
 											</div>
@@ -165,13 +177,14 @@
 											<label for="description">상품 설명</label>
 											<!-- name="description" id="description" -->
 											<textarea class="form-control" cols="30" rows="7"
-												placeholder="Write about your product description briefly"
+												placeholder="상품 상세 설명을 입력해주세요."
 												th:field="*{prodExp}"></textarea>
 										</div>
 										
 										<div class="btn__group flex-wrap">
-											<button type="button" class="btn btn-outline" th:onclick="|location.href='@{/admin_Product}'|">Cancel</button>
-											<button type="button" id="addBnt" class="btn btn-gray-filled">Add Product</button>
+											<button type="button" class="btn btn-outline" th:onclick="|location.href='@{/admin_Product}'|"
+												style="font-family: 'Noto Sans KR', sans-serif; color: #3c3c3c; font-weight: 500">등록 취소</button>
+											<button type="button" id="addBnt" class="btn btn-dark" style="font-weight: 500;">등록 완료</button>
 										</div>
 									</div>
 								</div>

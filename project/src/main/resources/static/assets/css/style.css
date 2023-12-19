@@ -1538,6 +1538,7 @@ h4 {
 }
 .shop-btn-primary:focus, .shop-btn-primary:hover {
   background: #87e585;
+  color: #fff;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
@@ -4801,7 +4802,7 @@ h4 {
   font-size: 16px;
   font-weight: 800;
   line-height: 20px;
-  color: #403c39;
+  color: #3c3c3c;
 }
 @media screen and (max-width: 1440px) {
   .product-card .product__content .product__price {
@@ -6948,10 +6949,10 @@ h4 {
 }
 .product-detail__title {
   font-size: 36px;
-  font-weight: 600;
+  font-weight: 800;
   line-height: 44px;
   letter-spacing: -0.02em;
-  color: #252522;
+  color: #3c3c3c;
   text-transform: capitalize;
 }
 @media screen and (max-width: 991px) {
@@ -7018,8 +7019,8 @@ h4 {
   }
 }
 .product-detail__meta .stock__item {
-  background: #12b76a;
-  color: #fff;
+  background: #eef8f1;
+  color: #00b96d;
   font-size: 16px;
   line-height: 20px;
   border-radius: 4px;
@@ -7029,7 +7030,7 @@ h4 {
 .product-detail__price {
   font-family: "Inter", sans-serif;
   font-size: 30px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 38px;
   letter-spacing: 0em;
   color: #eb5e28;
@@ -10212,7 +10213,7 @@ h4 {
   font-weight: 700;
   line-height: 38px;
   margin-bottom: 30px;
-  color: #252522;
+  color: #3c3c3c;
   margin-top: 30px;
 }
 
@@ -10347,10 +10348,10 @@ h4 {
 }
 .form__wrapper label {
   font-family: 'Noto Sans KR', sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 20px;
-  color: #344054;
+  color: #3c3c3c;
   display: block;
   text-align: left;
   margin-bottom: 6px;
@@ -10359,7 +10360,7 @@ h4 {
 .form__wrapper .form-control {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 24px !important;
   background: transparent;
   color: #667085;
@@ -11040,10 +11041,10 @@ h4 {
 /*********************************
 /*  Footer Start
 *********************************/
-/* .footer__section {
+.footer__section {
   padding-top: 50px;
-  background: -webkit-gradient(linear, left bottom, left top, from(rgba(255, 157, 120, 0.02)), to(rgba(255, 157, 120, 0.02))), -webkit-gradient(linear, left bottom, left top, from(#ffffff), to(#ffffff));
-  background: linear-gradient(0deg, rgba(255, 157, 120, 0.02), rgba(255, 157, 120, 0.02)), linear-gradient(0deg, #ffffff, #ffffff);
+  background: -webkit-gradient(linear, left bottom, left top, from(#F9F9F9), to(#F9F9F9)), -webkit-gradient(linear, left bottom, left top, from(#ffffff), to(#ffffff));
+  background: linear-gradient(0deg, #F9F9F9, #F9F9F9), linear-gradient(0deg, #ffffff, #ffffff);
 }
 
 .footer__widget {
@@ -11062,7 +11063,7 @@ h4 {
   }
 }
 .footer__widget .footer__logo {
-  margin-bottom: 32px;
+  margin-bottom: 26px;
 }
 .footer__widget .footer__logo img {
   width: auto;
@@ -11077,7 +11078,7 @@ h4 {
   margin-bottom: 16px;
 }
 .footer__widget .title h5 {
-  font-family: "Inter", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
@@ -11099,7 +11100,7 @@ h4 {
   -webkit-box-pack: inherit;
       -ms-flex-pack: inherit;
           justify-content: inherit;
-  font-family: "Inter", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
@@ -11149,7 +11150,7 @@ h4 {
   visibility: visible;
 }
 .footer__widget ul li a span {
-  font-family: "Inter", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;
@@ -11225,17 +11226,17 @@ h4 {
   }
 }
 .footer__bottom .content p {
-  font-family: "Inter", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   line-height: 24px;
   color: #98a2b3;
   margin-bottom: 0;
 }
 .footer__bottom .content p a {
-  color: #eb5e28;
+  color: #3c3c3c;
 }
 .footer__bottom .link a {
-  font-family: "Inter", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 26px;
@@ -11253,7 +11254,7 @@ h4 {
   .footer__bottom .link {
     margin-bottom: 10px;
   }
-} */
+}
 
 /*********************************
 /*  Footer End
@@ -13264,7 +13265,7 @@ h4 {
           justify-content: flex-start;
 }
 .dashboard__header .d__header--left .title {
-  font-weight: 600;
+  font-weight: 800;
   margin-bottom: 0;
   margin-right: 8px;
 }
