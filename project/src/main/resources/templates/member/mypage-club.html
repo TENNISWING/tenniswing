@@ -29,10 +29,11 @@
 								<tr>
 									<td class="cart-pd__date text-start" data-title="Date">
 										[[${#dates.format(c.APPLY_DATE,'yyyy-MM-dd')}]]</td>
-									<td class="cart-pd__thumb">
+									<td class="cart-pd__thumb" style="cursor: pointer;"
+									th:onclick="|location.href='@{/clubdetail?clubNo=${c.clubNo})}'|">
 										<div class="product-card--inline">
 											<div class="product__content">
-												<h5 class="product__title">[[${c.CLUB_NAME}]]</h5>
+												<h5 class="product__title" style="margin: 0;">[[${c.CLUB_NAME}]]</h5>
 											</div>
 										</div>
 									</td>
