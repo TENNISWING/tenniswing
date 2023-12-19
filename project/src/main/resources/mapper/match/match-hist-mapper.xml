@@ -284,7 +284,7 @@
   	</delete>
   	
   	<!-- 마이페이지 매치 이력 리스트 -->
-  	<select id="selectAllMyMatchHist" resultType="map">
+  	<select id="selectAllMyMatchHist" resultType="MatchHistVO">
   		SELECT  m.match_no
   				, m.match_date
         		,(select crtroom_name
@@ -292,17 +292,20 @@
        				WHERE crtroom_no = m.crtroom_no) as crtroom_name  				
                 , (select nick
                 	FROM pr
-                	WHERE mem_id = mh.mem_id) as opp_match
+                	WHERE mem_id = m.mem_id) as open_name
+                 , (select nick
+                	FROM pr
+                	WHERE mem_id = mh.mem_id) as depen_name 
+                , m.mem_id
+                , mh.mem_id as mh_mem_id
   				, mh.match_apply_date
   				, mh.wrt_regi_date
   				, FIND_CATEGORY_NAME(mh.match_state) match_state
-                , mhr.MATCH_REP_NO
-                , mhr.REP_CTT
-  		FROM match m JOIN match_hist mh
+                , mh.match_hist_no
+  		FROM match m LEFT OUTER JOIN match_hist mh
                 ON m.match_no = mh.match_no
-                 LEFT OUTER JOIN match_hist_rep mhr
-                 ON m.match_no = mhr.match_no
         where mh.mem_id = #{memId}
+        OR m.mem_id = #{memId}
   		ORDER BY match_hist_no
    	</select>   	
   </mapper>

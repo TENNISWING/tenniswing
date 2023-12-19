@@ -4,22 +4,6 @@
 	layout:decorate="~{layouts/main-layout}">
 
 <th:block layout:fragment="content">
-	<!-- match sub menu
-	<div class="container mb-4">
-		<ul class="nav d-flex justify-content-around text-center matchsidevar">
-			<li class="d-flex flex-column"><a href="/"><img
-					src="assets/img/match/icon/icon1.png" class=" miconimg">매치</a></li>
-			<li class="d-flex flex-column"><a href="clubmatch"><img
-					src="assets/img/match/icon/icon2.png" class=" miconimg">클럽</a></li>
-			<!-- <li class="d-flex flex-column"><a href="contestmatch"><img
-					src="assets/img/match/icon/icon3.png" class=" miconimg">대회</a></li>
-			<li class="d-flex flex-column"><a href="startermatch"><img
-					src="assets/img/match/icon/icon4.png" class=" miconimg">스타터</a></li>
-		</ul>
-	</div>
-	End match sub menu  -->
-
-
 	<div class="container">
 		<section class="product-main">
 			<div class="container">
@@ -58,7 +42,8 @@
 
 					<!-- ============= 코트장 정보 ============= -->
 
-					<div class="col-md-6" style="margin-top: 20px; width: 30%">
+					<div class="col-md-6"
+						style="margin-top: 20px; width: 30%; font-family: 'Noto Sans KR', sans-serif !important;">
 						<div class="product-detail__wrapper">
 							<h2 class="product-detail__title"
 								style="font-family: 'NanumSquareNeo-Variable';">[[
@@ -91,18 +76,16 @@
 							</div>
 
 							<div class="product-detail__qty" style="display: flex">
-								<span class="product-detail--stroke" 
+								<span class="product-detail--stroke"
 									style="font-weight: bold; font-family: 'NanumSquareNeo-Variable';">코트장
-									위치</span>
-									<span style="border: 0; text-align:left; width:175px;"
-										th:text="${clubMatchInfo.crtroomLocation}"></span><input
-										type="hidden" style="border: 0; text-align: center"
-										name="crtroomLocation"
-										th:value="${clubMatchInfo.crtroomLocation}">
+									위치</span> <span style="border: 0; text-align: left; width: 175px;"
+									th:text="${clubMatchInfo.crtroomLocation}"></span><input
+									type="hidden" style="border: 0; text-align: center"
+									name="crtroomLocation"
+									th:value="${clubMatchInfo.crtroomLocation}">
 							</div>
 						</div>
-						<br>
-						<br>
+						<br> <br>
 
 						<div class="review__wrapper">
 							<div class="review__item" style="align-items: center;">
@@ -128,35 +111,38 @@
 						<br>
 
 						<!-- button -->
-						<select name="clubNo" id="selectClub">
-							<option th:each="club : ${clubList}" th:value="${club.clubNo}"
-								th:text="${club.clubName}">
-						</select>
+
+						<div class="form-group col-7">
+							<select class="choices form-select" style="font-size:15px;" id="selectClub" name="clubNo">
+								<option th:each="club : ${clubList}" th:value="${club.clubNo}"
+									th:text="${club.clubName}">
+							</select>
+						</div>
+
 						<div class="product-detail__qty">
 							<div class="product__bottom mtdbtn">
 								<div class="cart__action__btn">
-									<button type="button" class="btn btn-primary matchbtn4"
-										id="applyBtn" style="font-size: 12.5px">신청하기</button>
+									<button type="button" class="btn btn-outline psbBtn"
+										id="applyBtn" style="color: #00b96d;">신청하기</button>
 								</div>
 								<th:block th:if="${auth==true}">
-								<div class="cart__action__btn">
-									<button type="button" class="btn btn-primary matchbtn4" id="updateBtn"
-										style="font-size: 12.5px"
-										th:onclick="|location.href='@{/clubmatchupdateregi(matchNo=${clubMatchInfo.matchNo})}'|">
-										수정하기</a>
-									</button>
-								</div>
-								<div class="cart__action__btn">
-									<button type="button" class="btn btn-primary matchbtn4"
-										style="font-size: 12.5epx" id="deleteBtn">삭제하기</button>
-								</div>
+									<div class="cart__action__btn">
+										<button type="button" class="btn btn-primary matchbtn4"
+											id="updateBtn"
+											style="background: rgba(105, 65, 198, 0.1) !important; color: #6941c6 !important;"
+											th:onclick="|location.href='@{/clubmatchupdateregi(matchNo=${clubMatchInfo.matchNo})}'|">
+											수정하기</button>
+									</div>
+									<div class="cart__action__btn">
+										<button type="button" class="btn btn-primary matchbtn4"
+											style="width: auto; color: #d92d20; background: rgba(217, 45, 32, 0.1);"
+											id="deleteBtn">삭제하기</button>
+									</div>
 								</th:block>
 								<div class="cart__action__btn">
-									<button type="button" class="btn btn-primary matchbtn4"
-										style="font-size: 12.5px"
-										th:onclick="|location.href='@{/clubmatch}'|">
-										목록으로</a>
-									</button>
+									<button type="button" class="btn btn-outline"
+										style="font-size: 12px; font-weight: 600 !important;"
+										th:onclick="|location.href='@{/clubmatch}'|">목록으로</button>
 								</div>
 							</div>
 						</div>
@@ -164,7 +150,7 @@
 					</div>
 				</div>
 			</div>
-			</section>
+		</section>
 	</div>
 	<br>
 	<br>

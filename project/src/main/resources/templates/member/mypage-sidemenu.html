@@ -7,14 +7,6 @@
 		href="/assets/compiled/css/table-datatable-jquery.css">
 		
 	<style type="text/css">
-		div, ul, li {
-			font-family: 'Noto Sans KR', sans-serif !important;
-			width: auto !important;
-		    height: auto !important;
-		    padding: 7px 15px !important;
-		    font-size: 12px !important;
-		    font-weight: 600 !important;
-		}
 		.btn .reviewOrder {	
 		    width: auto !important;
 		    height: auto !important;
@@ -41,6 +33,7 @@
 	}
 </style>
 	<ul class="list-group mb-3">
+
 		<li class="list-group-item d-flex justify-content-between" style="padding-top: 20px; padding-bottom: 20px;">
 			<div class="avatar avatar-lg col-lg-3 col-md-auto" data-bs-toggle="modal" data-bs-target="#galleryModal">
 				<img th:src="${member.attachPath}" style="cursor: pointer;">
@@ -74,10 +67,11 @@
 			</div>
 			<div class="text-center ">
 				<!-- Profile Card End -->
-				<button class="btn btn-outline reviewOrder" type="button" th:onclick="|location.href='@{/logout}'|">로그아웃</button>
+				<button class="btn btn-dark reviewOrder" type="button" th:onclick="|location.href='@{/logout}'|">로그아웃</button>
 			</div>
 		</li>
 	</ul>
+
 
 	<ul class="list-group mb-5" id="tabMenus">
 		<li class="list-group-item btn btn-primary reviewOrder p-3">매치 이력</li>

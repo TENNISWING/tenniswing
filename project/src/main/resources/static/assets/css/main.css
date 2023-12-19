@@ -68,7 +68,7 @@
 
 .carousel-item img {
 	height : 500px;
-	width: 520px !important;
+	width: 520px;
 	object-fit: cover;
 }
 
@@ -110,8 +110,19 @@
 # Match
 --------------------------------------------------------------*/
 
+
 page-link.active, .active > .page-link {
 	/* background-color: lightgray; */
+
+}
+
+#crtroomBtn {
+	color: #526e8a;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #f9f9f9;
+    border: 1px solid #dce7f1;
+
 }
 
 .sdbctnn:hover {
@@ -352,6 +363,12 @@ margin-bottom: 3px;
     border-radius: 8px;
 }
 
+.matchntrpbtn {
+	font-size: 12px !important;
+    font-weight: 600 !important;
+    border: 1px solid #eaecf0;
+}
+
 .matchbtn3 {
 	font-size:13px;
     border-radius: 8px;
@@ -407,7 +424,7 @@ margin-bottom: 3px;
 .completeBtn {
     color: #838B97;
     font-size: 12px !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
 }
 
 /* matchdetail bootstrap css start */

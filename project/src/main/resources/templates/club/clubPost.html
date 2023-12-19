@@ -374,14 +374,14 @@ color: #828282;
 							let List = `
 							<tr class="accordion-header" style="height: 70px;" 
 								data-bs-target="${clubPost.clubPostNo}" aria-expanded="false">
-								<td>${new Date(clubPost.clubPostWriteDate).toLocaleDateString()}</td>
+								<td style="width: 20%;">${new Date(clubPost.clubPostWriteDate).toLocaleDateString()}</td>
 								<td class="accordion">
 									<div class="boardContainer toggleBoardTitle" data-value="${clubPost.clubPostNo}">
 										<p class="toggleBoardTitle" style="text-align: left;">${clubPost.clubPostTitle}</p>
 								    </div>
 								</td>
-								<td  style="text-align: left;">${clubPost.name}</td>
-								<td class="postHit">${clubPost.clubPostHit}</td>
+								<td  style="text-align: left; width: 15%;">${clubPost.name}</td>
+								<td class="postHit" style="width: 10%; text-align: center;">${clubPost.clubPostHit}</td>
 								
 								<td>`
 								if(memId==clubPost.memId){
@@ -429,16 +429,6 @@ color: #828282;
 							$('#postList').append(List)
 						}
 						
-						if(data.clubPost.length == 0){
-							List = `
-							<tr>
-							<td colspan="5">
-							<h6 style="text-align: center; padding: 10px; color: #3c3c3c;">작성된 게시글이 없습니다.</h6>
-							</td>
-							</tr>`
-								$('#postList').append(List)
-						}
-						
 						
 						showPage(data.selectCount);
 						
@@ -449,11 +439,11 @@ color: #828282;
 							var prev = startNum != 1;
 							var next = false;
 							
-							if(endNum * 10 >= replyCnt) {
+							if(endNum * 7 >= replyCnt) {
 								endNum = Math.ceil(replyCnt/pageUnit);
 							}
 							
-							if(endNum * 10 < replyCnt) {
+							if(endNum * 7 < replyCnt) {
 								next = true;
 							}
 							
@@ -626,7 +616,13 @@ color: #828282;
 						repList(clubPostNo);
 					},
 					error: function () {
-						alert("등록 실패")
+						Swal.fire({
+							backdrop: `
+								 rgba(100, 100, 100, 0.6)`,
+							title: '댓글 등록 실패',
+							showConfirmButton: false,
+							timer: 1700
+						})
 					}
 				})
 			};
@@ -645,7 +641,13 @@ color: #828282;
 						}
 					},
 					error: function () {
-						alert("삭제실패");
+						Swal.fire({
+							backdrop: `
+								 rgba(100, 100, 100, 0.6)`,
+							title: '댓글 삭제 실패',
+							showConfirmButton: false,
+							timer: 1700
+						})
 					}
 				})
 			};
@@ -674,13 +676,25 @@ color: #828282;
 						contentType: false,
 						processData: false,
 						success: function (result) {
-							alert("등록성공")
+							Swal.fire({
+								backdrop: `
+									 rgba(100, 100, 100, 0.6)`,
+								title: '게시글이 등록되었습니다.',
+								showConfirmButton: false,
+								timer: 1300
+							})
 							$('#postForm')[0].reset();	//폼값 초기화
 							postListPage(1); //등록후 리스트 불러오기
 
 						},
 						error: function () {
-							alert("등록 실패")
+							Swal.fire({
+								backdrop: `
+									 rgba(100, 100, 100, 0.6)`,
+								title: '등록 실패',
+								showConfirmButton: false,
+								timer: 1300
+							})
 							postListPage(1);
 
 						}
@@ -699,13 +713,25 @@ color: #828282;
 					data: { paramPostNo: clubPostNo },
 					dataType: 'JSON',
 					success: function (result) {
-						if (result) {
+						Swal.fire({
+							backdrop: `
+								 rgba(100, 100, 100, 0.6)`,
+							title: '게시글이 삭제되었습니다.',
+							showConfirmButton: false,
+							timer: 1300
+						})
 							//삭제되면 리스트 다시 불러오기
 							postListAjax(1)
-						}
+						
 					},
 					error: function () {
-						alert("삭제실패");
+						Swal.fire({
+							backdrop: `
+								 rgba(100, 100, 100, 0.6)`,
+							title: '삭제 실패',
+							showConfirmButton: false,
+							timer: 1300
+						})
 						postListPage(1);
 					}
 				})

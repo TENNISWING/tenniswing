@@ -27,6 +27,7 @@ import com.tenniswing.project.community.service.SnsService;
 import com.tenniswing.project.community.service.SnsVO;
 import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.match.service.MatchHistService;
+import com.tenniswing.project.match.service.MatchHistVO;
 import com.tenniswing.project.member.service.MemberService;
 import com.tenniswing.project.member.service.MemberVO;
 import com.tenniswing.project.shop.mapper.ProdDetailMapper;
@@ -165,7 +166,7 @@ public class MemberController {
 		model.addAttribute("match", matchHistService.selectAllMyMatchHist(id));
 		model.addAttribute("member", memberVO);
 		model.addAttribute("nowpage", 0);
-
+		System.out.println(matchHistService.selectAllMyMatchHist(id));
 		if (memberVO.getMemDiv().equals("ROLE_ADMIN")) {
 			return "redirect:admin";
 		} else if (memberVO.getMemDiv().equals("ROLE_HOST")) {
@@ -173,6 +174,14 @@ public class MemberController {
 		}
 
 		return "member/mypage";
+	}
+	
+	// 매치 취소
+	@PostMapping("matchDel")
+	@ResponseBody
+	public int matchDelete(MatchHistVO matchHistVO) {
+		
+		return matchHistService.deleteMatchHist(matchHistVO);
 	}
 
 	// 프로필보기

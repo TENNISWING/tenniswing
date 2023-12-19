@@ -4,7 +4,6 @@
 	layout:decorate="~{layouts/main-layout}">
 <head>
 <script src="/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
-<script src="/assets/static/js/pages/sweetalert2.js"></script>
 </head>
 
 <th:block layout:fragment="content">
@@ -23,7 +22,7 @@
 						</h3>
 					</div>
 				</div>
-				<div class="p-5 border border-success-subtle mb-5">
+				<div class="p-5 border border-dark-subtle mb-5">
 					<input type="text" id="message" hidden="true" th:value="${message}">
 					<div th:if="${param.error}" class="text-danger mb-2"
 						th:text="${message}"></div>
@@ -45,11 +44,11 @@
 
 						</div>
 
-						<button type="submit" class="btn btn-primary btn-block btn-lg">로그인</button>
+						<button type="submit" class="btn btn-dark btn-block btn-lg">로그인</button>
 					</form>
 					<p class="nav-link mt-5 fw-bold text-center">
 						<button th:onclick="|location.href='@{/signup}'|"
-							class="btn btn-success inline-block">회원가입</button>
+							class="btn btn-outline inline-block">회원가입</button>
 					</p>
 					<p class="nav-link mt-2 fw-bold text-center">
 						<a href="forgotid">아이디찾기</a> | <a href="forgotpw">패스워드찾기</a>

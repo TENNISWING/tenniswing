@@ -1,12 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/main-layout}">
+
 <head>
-<link rel="stylesheet"
-		href="/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
-	<link rel="stylesheet"
-		href="/assets/compiled/css/table-datatable-jquery.css">
+	<link rel="stylesheet" href="/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+	<link rel="stylesheet" href="/assets/compiled/css/table-datatable-jquery.css">
+
+	<script src="/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
+
+	<style>
+		.reserveState button {
+			width: auto !important;
+			height: auto !important;
+			padding: 7px 15px !important;
+			font-size: 12px !important;
+			font-weight: 600 !important;
+		}
+
+		.stateOrder {
+			font-weight: 500;
+		}
+	</style>
 </head>
 <th:block layout:fragment="content">
 	<h3 class="container p-3" style="font-family: 'Noto Sans KR', sans-serif !important; font-weight: 800;">매치 이력</h3>
@@ -23,26 +37,36 @@
 							<tr>
 								<th class="cart-pd__thumb">일자</th>
 								<th class="cart-pd__qty">코트장이름</th>
+								<th class="cart-pd__price">매치(나)</th>
 								<th class="cart-pd__price">매치상대</th>
 								<th class="cart-pd__qty">매치상태</th>
+								<th class="cart-pd__qty">Action</th>
+
 							</tr>
 						</thead>
 						<tbody>
 							<th:block th:each="m : ${match}">
 								<tr>
 									<td class="cart-pd__date text-start" data-title="Date">
-									[[${#dates.format(m.MATCH_DATE,'yyyy-MM-dd')}]]</td>
-									<td class="cart-pd__thumb">[[${m.CRTROOM_NAME}]]</td>
-									<td class="cart-pd__thumb">[[${m.OPP_MATCH}]]</td>
-									<th:block th:if="${m.MATCH_STATE == '승인대기'}">
-									<td class="reserveState"><span class="badge bg-light-warning">[[${m.MATCH_STATE}]]</span></td>
+										[[${#dates.format(m.matchDate,'yyyy-MM-dd')}]]</td>
+									<td class="cart-pd__thumb">[[${m.crtroomName}]]</td>
+									<td th:if="${m.mhMemId == null}" class="cart-pd__thumb">[[${m.openName}]]</td>
+									<td th:unless="${m.mhMemId == null}" class="cart-pd__thumb">[[${m.depenName}]]</td>								
+									<td th:if="${m.mhMemId == null}" class="cart-pd__thumb">[[${m.depenName}]]</td>
+									<td th:unless="${m.mhMemId == null}" class="cart-pd__thumb">[[${m.openName}]]</td>								
+									<th:block th:if="${m.matchState == '승인대기'}">
+									<td class="reserveState"><span class="badge bg-light-warning">[[${m.matchState}]]</span></td>
 									</th:block>
-									<th:block th:if="${m.MATCH_STATE == '이용전'}">
-									<td class="reserveState"><span class="badge bg-light-success">[[${m.MATCH_STATE}]]</span></td>
+									<th:block th:unless="${m.matchState == '승인대기'}">
+									<td class="reserveState"><span class="badge bg-light-success">[[${m.matchState}]]</span></td>
 									</th:block>
+										<td><span class="badge"	style="border: 1px solid rgb(18, 183, 106, .5); color: #12b76a">신청취소</span>
+										</td>
+								
+														
 								</tr>
 							</th:block>
-						</tbody>						
+						</tbody>
 					</table>
 				</div>
 				<!-- Profile Card End -->
@@ -54,16 +78,61 @@
 
 
 
-		<script src="/assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="/assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
 	<script src="/assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-<script>
-$(document).ready(function() {
-	  $('#matchtable').DataTable({
-	  });
+	<script>
+		$(document).ready(function () {
+			$('#matchtable').DataTable({
+			});
 
-	});
+			let btnText = $('.reserveState button').text()
+			if (btnText == '승인') {
+				$('.reserveState button').attr('disabled', true);
+				$('.reserveState button').css('color', '#344054');
+				$('.reserveState button').css('font-weight', '800 !important');
+				$('.reserveState button').css('border', '1px solid rgba(52, 64, 84, 0.1)');
+				$('.reserveState button').css('background', 'rgba(52, 64, 84, 0.1)');
+			}
 
-	
+			$('.reserveState button').on('click', function (e) {
+				let reserveBtn = $(e.target).text();
+				if (reserveBtn == '신청취소') {
+					Swal.fire({
+						icon: "info",
+						title: "신청을 취소하시겠습니까?",
+						showCancelButton: true,
+						confirmButtonText: "네",
+						cancelButtonText: "아니오"
+					}).then(result => {
+						let matchHistNo = $(e.target).prop('id'); 
+						$.ajax({
+			                    type: 'POST',
+			                    url: 'matchDel',
+			                    data: { matchHistNo: matchHistNo },
+			                    success: function (result) {
+			                        if(result > 0){
+			                        	 Swal.fire({
+					                            icon: "success",
+					                            title: "취소 완료",
+					                        }).then(result => {
+					                        	location.reload();
+					                        })
+					                    
+			                        }                     
+			                       
+			                    }
+			                    ,
+			                    error: () => console.log(error)
+			                })
+					})
+				}
+			})
+
+
+
+		});
+
+
 	</script>
 
 </th:block>

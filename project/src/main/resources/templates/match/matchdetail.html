@@ -2,28 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/main-layout}">
-<style>
-.fontt {
-	font-family: 'Noto Sans KR', sans-serif !important;
-}
-</style>
 <th:block layout:fragment="content">
-	<!-- match sub menu
-	<div class="container mb-4">
-		<ul class="nav d-flex justify-content-around text-center matchsidevar">
-			<li class="d-flex flex-column"><a href="/"><img
-					src="assets/img/match/icon/icon1.png" class=" miconimg">매치</a></li>
-			<li class="d-flex flex-column"><a href="clubmatch"><img
-					src="assets/img/match/icon/icon2.png" class=" miconimg">클럽</a></li>
-			<!-- <li class="d-flex flex-column"><a href="contestmatch"><img
-					src="assets/img/match/icon/icon3.png" class=" miconimg">대회</a></li>
-			<li class="d-flex flex-column"><a href="startermatch"><img
-					src="assets/img/match/icon/icon4.png" class=" miconimg">스타터</a></li>
-		</ul>
-	</div>
-	End match sub menu  -->
-
-
 	<div class="container">
 		<section class="product-main">
 			<div class="container">
@@ -73,7 +52,7 @@
 
 					<!-- ============= 코트장 정보 ============= -->
 
-					<div class="col-md-6" style="margin-top: 20px; width: 30%">
+					<div class="col-md-6" style="margin-top: 20px; width: 30%; font-family: 'Noto Sans KR', sans-serif !important;">
 						<div class="product-detail__wrapper">
 							<h2 class="product-detail__title"
 								style="font-family: 'NanumSquareNeo-Variable';">[[
@@ -151,7 +130,7 @@
 									<button type="button" class="btn btn-primary matchbtn4"
 										style="background: rgba(105, 65, 198, 0.1) !important; color: #6941c6 !important;" id="updateBtn"
 										th:onclick="|location.href='@{/matchupdateregi(matchNo=${matchInfo.matchNo})}'|">
-										수정하기</a>
+										수정하기
 									</button>
 								</div>
 								<div class="cart__action__btn">
@@ -161,8 +140,8 @@
 								</th:block>
 								<div class="cart__action__btn">
 									<button type="button" class="btn btn-outline"
-										style="font-size: 12px" th:onclick="|location.href='@{/}'|">
-										목록으로</a>
+										style="font-size: 12px; font-weight: 600 !important;" th:onclick="|location.href='@{/}'|">
+										목록으로
 									</button>
 								</div>
 							</div>

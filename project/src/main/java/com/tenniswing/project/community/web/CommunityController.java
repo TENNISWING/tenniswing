@@ -352,6 +352,9 @@ public class CommunityController {
 	// 공지사항 게시판 메인(리스트 페이지)
 	@GetMapping("noticeList")
 	public String noticeListPage(BrdVO brdVO, Model model, PagingVO pagingVO) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		brdVO.setMemId(id);
+		
 		//페이징처리
 		pagingVO.setTotalRecord(brdService.selectCount(brdVO));
 		
@@ -363,6 +366,8 @@ public class CommunityController {
 	// 공지사항 상세 페이지
 	@GetMapping("noticeDetail")
 	public String noticeDetailPage(BrdVO brdVO, Model model) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName();
+		brdVO.setMemId(id);
 		//brdService.updateBrdHit(brdVO.getBrdWrtNo());
 		model.addAttribute("nbrd", brdService.selectBrdInfo(brdVO));
 		return "community/noticeDetail";

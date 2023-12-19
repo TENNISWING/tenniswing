@@ -7,7 +7,42 @@
 	<script src="https://unpkg.com/@yaireo/tagify"></script>
 	<!-- 폴리필 (구버젼 브라우저 지원) -->
 	<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
-	
+
+
+<style type="text/css">
+section a,
+section span,
+section button,
+section input,
+section h1,
+section h2,
+section h3,
+section h4,
+section h5,
+section h6,
+section tr,
+section td,
+section th,
+section pre,
+section label{
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+.grpImg{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+.img-wrap{
+	display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 400px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+
+</style>	
 </head>
 <th:block layout:fragment="content">
 	<div class="container">
@@ -15,7 +50,7 @@
 			<div class="page-title">
 				<div class="row">
 					<div class="col-12 col-md-6 order-md-1 order-last">
-						<h3 style="color: green">SNS 수정</h3>
+						<h3 style="color: #4b4b4b; font-family: 'Noto Sans KR', sans-serif !important;">SNS 수정</h3>
 						<br>
 					</div>
 					<div class="col-12 col-md-6 order-md-2 order-first">
@@ -45,18 +80,6 @@
                                 <div class="form-body">
                                     <div class="row">
                                          <div class="col-12">
-                                            <div class="form-group mandatory">
-                                                <label for="password-vertical" data-parsley-required="true" class="form-label" >제목</label>
-                                                <input type="text" id="password-vertical" class="form-control"
-                                                    name="snsTitle" th:value="${editList.snsTitle}" autofocus="autofocus">
-                                            </div>
-                                        </div>
-                                         <div class="col-12">
-                                        <!--     <div class="form-group">
-                                                <label for="password-vertical" data-parsley-required="true" >그룹 이름</label>
-                                                <input type="text" id="password-vertical" class="form-control"
-                                                    name="grpName"  th:value="${editList.grpName!=null}?${editList.grpName}:''">
-                                            </div> -->
                                             <!-- 그룹 셀렉트 추가 -->
                                             		<div class="form-group">
 														<div>
@@ -66,14 +89,14 @@
 
 															<div class="input-group mb-3">
 																<select class="form-select" id="snsGrpNo" th:field="*{snsGrpNo}">
-																	<option selected value="">그룹선택 안함</option>
+																	<!-- <option selected value="">그룹선택 안함</option> -->
 																	<th:block th:each="g : ${grpList}">
 																		<option th:value="${g.snsGrpNo}">[[${g.grpName}]]</option>
 																	</th:block>
 																</select> 
 																<label class="input-group-text"
 																	for="grpName" data-bs-toggle="modal"
-																	data-bs-target="#inlineForm">그룹 생성</label>
+																	data-bs-target="#inlineForm" style="cursor:pointer;">그룹 생성</label>
 															</div>
 															<!--   <input type="text" id="password-vertical" class="form-control"
                                                     name="grpName" placeholder=""> -->
@@ -84,15 +107,22 @@
                                         </div>
                                          <div class="col-12">
                                             <div class="form-group mandatory">
+                                                <label for="password-vertical" data-parsley-required="true" class="form-label" >제목</label>
+                                                <input type="text" id="password-vertical" class="form-control"
+                                                    name="snsTitle" th:value="${editList.snsTitle}" autofocus="autofocus" style="font-family: 'Noto Sans KR', sans-serif !important;">
+                                            </div>
+                                        </div>
+                                         <div class="col-12">
+                                            <div class="form-group mandatory">
                                                 <label for="password-vertical" class="form-label">내용</label>
-                                                 <textarea class="form-control" id="exampleFormControlTextarea1" name="snsCtt" rows="3">[[${editList.snsCtt}]]</textarea>
+                                                 <textarea class="form-control" id="exampleFormControlTextarea1" name="snsCtt" rows="3" style="font-family: 'Noto Sans KR', sans-serif !important;">[[${editList.snsCtt}]]</textarea>
                                             </div>
                                         </div>
                                          <div class="col-12">
                                             <div class="form-group">
-                                                <label for="contact-info-vertical" data-parsley-required="true" >태그</label>
+                                                <label for="contact-info-vertical" data-parsley-required="true" style="font-family: 'Noto Sans KR', sans-serif !important;">태그</label>
                                                 <input type="text" id="snsTag" class="form-control"
-                                                    name="snsTag"  th:value="${editList.snsTag}">
+                                                    name="snsTag"  th:value="${editList.snsTag}" style="font-family: 'Noto Sans KR', sans-serif !important;">
                                             </div>
                                         </div>
                                                
@@ -104,9 +134,9 @@
                                         </div> 
                                          -->
                                         <div class="col-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">수정</button>
+                                            <button type="submit" class="btn btn-dark me-1 mb-1">수정</button>
                                             <button type="reset"
-                                                class="btn btn-light-secondary me-1 mb-1">취소</button>
+                                                class="btn btn-outline me-1 mb-1">취소</button>
                                         </div>
                                     </div>
                                 </div>
@@ -139,22 +169,42 @@
 				</div>
 				<form action="#">
 					<div class="modal-body">
-						<label for="email">그룹 생성</label>
+						<label for="email" style="font-family: 'Noto Sans KR', sans-serif !important;">그룹 생성</label>
 						<div class="form-group">
 							<input id="text" type="text" placeholder="생성할 그룹 이름을 입력하세요"
-								class="form-control grpInput">
+								class="form-control grpInput" style="font-family: 'Noto Sans KR', sans-serif !important;">
 						</div>
 					</div>
+					<!-- 그룹이미지 -->
+					<div class="modal-body">
+						<label for="text" style="font-family: 'Noto Sans KR', sans-serif !important;">그룹 이미지 선택</label>
+					</div>
+					<div class="modal-body img-wrap">
+						<label for="attachPath_1"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis3.jpg" style="cursor:pointer;"></label>
+						<input type="radio" id="attachPath_1" name="attachPath" value="assets/img/sns/Tennis3.jpg" style="display: none;">
+						<label for="attachPath_2"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis8.jpg" style="cursor:pointer;"></label>
+						<input type="radio" id="attachPath_2" name="attachPath" value="assets/img/sns/Tennis8.jpg" style="display: none;">
+						<label for="attachPath_3"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis4.jpg" style="cursor:pointer;"></label>
+						<input type="radio" id="attachPath_3" name="attachPath" value="assets/img/sns/Tennis4.jpg" style="display: none;">
+						<label for="attachPath_4"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis5.jpg" style="cursor:pointer;"></label>
+						<input type="radio" id="attachPath_4" name="attachPath" value="assets/img/sns/Tennis5.jpg" style="display: none;">
+						<label for="attachPath_5"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis6.jpg" style="cursor:pointer;"></label>
+						<input type="radio" id="attachPath_5" name="attachPath" value="assets/img/sns/Tennis6.jpg" style="display: none;">
+						<label for="attachPath_6"><img class="grpImg" alt="groupImg" src="assets/img/sns/Tennis7.jpg" style="cursor:pointer;"></label>
+						<input type="radio" id="attachPath_6" name="attachPath" value="assets/img/sns/Tennis7.jpg" style="display: none;">
+					</div>
+					<!-- 그룹이미지 변경 -->
+					
 					<div class="modal-footer">
-						<button type="button" class="btn btn-light-secondary"
+						<button type="button" class="btn btn-outline"
 							data-bs-dismiss="modal">
 							<i class="bx bx-x d-block d-sm-none"></i> 
-							<span class="d-none d-sm-block">Close</span>
+							<span class="d-none d-sm-block" style="font-family: 'Noto Sans KR', sans-serif !important;">Close</span>
 						</button>
-						<button type="button" class="btn btn-primary ms-1 myGrpBtn"
+						<button type="button" class="btn btn-dark ms-1 myGrpBtn"
 							data-bs-dismiss="modal">
 							<i class="bx bx-check d-block d-sm-none"></i> 
-							<span class="d-none d-sm-block">등록</span>
+							<span class="d-none d-sm-block" style="font-family: 'Noto Sans KR', sans-serif !important;">등록</span>
 						</button>
 					</div>
 				</form>
@@ -176,20 +226,36 @@
         //console.log(data.value)
         //loadOriginalValues
     }
+    
+	$('input[name=attachPath]').click((e)=>{
+		$('.grpImg').css('border','none');
+		let id = $(e.target).attr('id');
+		let img = $(`label[for="${id}"]`).find('.grpImg');
+		$(img).css('border', '5px solid green');
+	})
  
  // select에서 사용할 그룹 이름 등록하기
 	 $('.myGrpBtn').on('click', function() {
 			let grpName = $('.grpInput').val();
+			let attachPath = $('input[name=attachPath]:checked').val();
 			$.ajax({
 				url: 'snsGrpInsert',
-				data: {grpName},
+				data: {grpName,attachPath},
 				type : 'post',
 				datatype : 'text',
-				success: function(result){
-					if(result>0){
-					alert("그룹 등록 성공");
-					}
+				success: function(data){
+					if(data.result>0){
+						Swal.fire({
+							  position: "center",
+							  icon: "success",
+							  title: "그룹이 등록되었습니다.",
+							  showConfirmButton: false,
+							  timer: 1500
+							});
+						}
+					$('#snsGrpNo').append(`<option selected value="` + data.resVO.snsGrpNo + `">`+ data.resVO.grpName +`</option>`);
 					$('.grpInput').val('');
+					
 				},
 				error : function(){
 					alert("등록 실패");

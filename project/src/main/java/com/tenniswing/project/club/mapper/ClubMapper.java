@@ -30,6 +30,9 @@ public interface ClubMapper {
 	//삭제
 	public int deleteClub(HashMap<String, Long> map);
 	public int clubMemDelete(int ClubVO);
+	
+	//클럽 탈퇴
+	public int clubOut(int ClubVO);
 
 	//재은
 	public ClubVO selectMatchClub(ClubVO clubVO);
