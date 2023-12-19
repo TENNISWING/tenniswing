@@ -4,7 +4,6 @@
 	layout:decorate="~{layouts/main-layout}">
 <head>
 <script src="/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
-<script src="/assets/static/js/pages/sweetalert2.js"></script>
 </head>
 
 <th:block layout:fragment="content">
@@ -23,7 +22,7 @@
 						</h3>
 					</div>
 				</div>
-				<div class="p-5 border border-success-subtle mb-5">
+				<div class="p-5 border border-dark-subtle mb-5">
 					<input type="text" id="message" hidden="true" th:value="${message}">
 					<div th:if="${param.error}" class="text-danger mb-2"
 						th:text="${message}"></div>

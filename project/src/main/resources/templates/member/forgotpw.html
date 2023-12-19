@@ -12,7 +12,7 @@
 				<div class="card-header">
 					<h3 class="text-center mt-2 mb-4">비밀번호 찾기</h3>
 				</div>
-				<div class="p-5 border border-success-subtle mb-5">
+				<div class="p-5 border border-dark-subtle mb-5">
 					<input type="text" id="message" hidden="true" th:value="${message}">
 					<div class="col-12 text-start">
 						<label for="memId">아이디(이메일)</label><br>
@@ -32,24 +32,24 @@
 								class="form-control is-invalid" placeholder="숫자만 입력 해주세요"
 								aria-describedby="phoneNoBtn" id="phoneNo" name="phoneNo"
 								maxlength="11" aria-label="Text input with checkbox" value="" required  >
-							<button class="btn btn-success" type="button"
+							<button class="btn btn-outline" type="button"
 								id="forgotpwphoneNoBtn">인증하기</button>
 						</div>
 					</div>
-					<div class="col-12 text-start" id="myPw" >
+					<div class="col-12 text-start" id="myPw" hidden>
 						<label for="pwd">비밀 번호 수정</label><br>
 						<div class="input-group mb-3">
 							<input type="password" class="form-control is-invalid"
 								placeholder="비밀번호 8자리이상" aria-describedby=pwview id="pwd"
 								name="pwd" pattern=".{8,50}" title="최소8자리입력해주세요" required>
-							<button class="btn btn-success" type="button" id="pwview">
+							<button class="btn btn-outline" type="button" id="pwview">
 								<i class="fa-regular fa-eye-slash"></i>
 							</button>
 						</div>
-						<button type="button" class="btn btn-success" id="pwUpdate">비밀번호 수정</button>					
+						<button type="button" class="btn btn-dark" id="pwUpdate">비밀번호 수정</button>					
 					</div>
 				</div>
-				<button class="btn btn-success" type="button"
+				<button class="btn btn-outline" type="button"
 					th:onclick="|location.href='@{/loginform}'|">돌아가기</button>
 			</div>
 		</div>
