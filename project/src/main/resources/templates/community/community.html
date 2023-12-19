@@ -30,6 +30,7 @@ section pre{
 .snsTopBtn{
 	font-family: 'Noto Sans KR', sans-serif !important;
 	border: 1px solid #ccc;
+	color: #134631;
 	/*  margin-top:20px;*/
 }
 section pre{
@@ -55,13 +56,13 @@ section pre{
 	height:100px;
 }
 
-button {
+/* button {
     &.fast {
         --duration: .32s;
     }
-}
+} */
 
-button {
+/* button {
     --background: #fff;
     --text: #828282;
     --font-size: 16px;
@@ -121,7 +122,7 @@ button {
             }
         }
     }
-}
+} */
 
 html {
     box-sizing: border-box;
@@ -136,7 +137,7 @@ html {
     }
 }
 
-    .dribbble {
+/*     .dribbble {
         position: fixed;
         display: block;
         right: 20px;
@@ -145,7 +146,7 @@ html {
             display: block;
             height: 28px;
         }
-    }
+    } */
 
 	.swiper-slide {
 		padding-top: 30px;
@@ -153,7 +154,7 @@ html {
 	}
 	.card-content {
 		border-radius: 10px;
-		background: #f5f8f7 !important;
+		background: #f9f9f9 !important;
 		border: 1px solid #d3d3d3;
 	}
 	.card-subtitle a {
@@ -207,13 +208,13 @@ html {
 		<div class="row sns-container" id="row">
 			<!-- dribbble start -->
 			<div class="button-list insertBtn col-12">
-				<button class="fast white snsTopBtn"
+				<button class="btn btn-outline fast white snsTopBtn"
 					th:onclick="|location.href='@{snsRegister}'|">등록</button>
-				<button class="fast white snsTopBtn"
+				<button class="btn btn-outline fast white snsTopBtn"
 					th:onclick="|location.href='@{snsMyList}'|" >나의 그룹</button> 
-				<button class="fast white snsTopBtn" th:onclick="|location.href='@{sns}'|">목록으로</button>	
+				<button class="btn btn-outline fast white snsTopBtn" th:onclick="|location.href='@{sns}'|">목록으로</button>	
 			</div>
-			<a class="dribbble" href="https://dribbble.com/shots/7441241-Button-Hover-Effects" target="_blank"><img src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg" alt=""></a>
+			<!-- <a class="dribbble" href="https://dribbble.com/shots/7441241-Button-Hover-Effects" target="_blank"><img src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg" alt=""></a> -->
 			<!-- dribbble end -->
 			
 			<div class="col-12">
@@ -231,7 +232,7 @@ html {
 												<div class="card-content">
 													<div class="d-flex gap-3" style="padding: 1.5rem;">
 														<div id="myCarousel" th:attrappend="id=${sStat.count}"
-															class="carousel slide" data-ride="carousel">
+															class="carousel slide" data-ride="carousel" style="width:520px;">
 															<div class="carousel-inner">
 																<!-- 사진 / 동영상 반복문 -->
 																<th:block th:each="simg : ${s.attachList}">
@@ -415,9 +416,9 @@ html {
 			</div>
 			<!-- col6 end -->
 
-	<div class="col-3">	
+	<!-- <div class="col-3">	
 
-<!-- dribbble -->
+dribbble
 			<div class="button-list insertBtn ">
 				<button class="fast white snsTopBtn"
 					th:onclick="|location.href='@{snsRegister}'|">등록</button>
@@ -427,7 +428,7 @@ html {
 			</div>
 <a class="dribbble" href="https://dribbble.com/shots/7441241-Button-Hover-Effects" target="_blank"><img src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg" alt=""></a>
 		</div>
-
+ -->
 		</div>
 	</div>
 	<!-- div row end -->
@@ -447,7 +448,7 @@ html {
 
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="myModalLabel1" style="color:#828282;">댓글</h5>
+					<h5 class="modal-title" id="myModalLabel1" style="color:#828282; font-family: 'Noto Sans KR', sans-serif !important;">댓글</h5>
 					<button type="button" class="close rounded-pill"
 						data-bs-dismiss="modal" aria-label="Close">
 						<i data-feather="x"></i>
@@ -457,7 +458,7 @@ html {
 					<div class="card">
 						<!-- <div class="card-header"></div> -->
 						<div class="card-body repBody">
-							<table class="table" id="tableRep">
+							<table class="table" id="tableRep" style="font-family: 'Noto Sans KR', sans-serif !important;">
 								<thead>
 									<tr>
 										<th>작성자</th>
@@ -466,7 +467,7 @@ html {
 										<th></th>
 									</tr>
 								</thead>
-								<tbody id="replyList" class="replyList">
+								<tbody id="replyList" class="replyList" style="font-family: 'Noto Sans KR', sans-serif !important;">
 									<!-- 댓글리스트 아작스 -->
 								</tbody>
 							</table>
@@ -482,10 +483,10 @@ html {
 							placeholder="enter your comment"
 							aria-label="Recipient's user" aria-describedby="basic-addon2"
 							id="replyContents">
-						<button type="button" class="input-group-text" id="repSubmit">등록</button>
+						<button type="button" class="input-group-text" id="repSubmit" style=" font-family: 'Noto Sans KR', sans-serif !important;">등록</button>
 					</div>
 
-					<button type="button" class="btn" data-bs-dismiss="modal">
+					<button type="button" class="btn" data-bs-dismiss="modal" style=" font-family: 'Noto Sans KR', sans-serif !important;">
 						<i class="bx bx-x d-block d-sm-none"></i> <span
 							class="d-none d-sm-block">Close</span>
 					</button>
@@ -595,6 +596,21 @@ html {
 
 		// 스크랩 등록, 삭제
 		$('.iBmark').on('click', function(e){
+			let auto = [[${#authentication.name}]]
+			console.log(auto);
+			if(auto == "anonymousUser"){
+				Swal2.fire({
+					icon: "error",
+					html: "로그인이 필요한 서비스입니다.<br>로그인 페이지로 이동하시겠습니까?",
+					showCancelButton: true,
+					confirmButtonText: "yes",
+				}).then((result) => {
+					  if (result.isConfirmed) {
+					    location.href = '/loginform';
+					    return;
+					  }
+				})
+			}else{
 			let snsWrtNo = $(this).attr('data-snswrtno');
 			let target = $(e.target);
 			if($(this).hasClass("active")){
@@ -670,6 +686,7 @@ html {
 						}
 				})
 			}
+			}
 		})
 			//assets/img/sns/heart.png
 		
@@ -677,82 +694,99 @@ html {
 		
 		//좋아요 insert, delete
 		$('.likeBtnC').on('click', function(e){
-			let target = $(e.target);
-			let snsWrtNo = $(this).attr('data-snsWrtNo');
-		      if($(this).hasClass("active")){
-	                console.log('액티브있는거찍는중');
-					//인서트
-					$.ajax({
-							url : 'snsLikeInsert',
-							data : {snsWrtNo},
-							type : 'post',
-							datatype : 'text',
-							success : function(result) {
-								Swal.fire({
-									 title: '좋아요 등록 완료!',
-									 text: '마이페이지에서 확인하실 수 있습니다.',
-									//background: "url(assets/img/sns/heartboom.gif)",
-									 backdrop: `
-										 	rgba(230, 134, 163, 0.3)
-										    url("assets/img/sns/heartboom.gif")
-										    center
-										    no-repeat
-										  `,
-									  //imageUrl: 'assets/img/sns/heartboom.gif',
-									  //imageWidth: 400,
-									  //imageHeight: 200,
-									  //imageAlt: 'Custom image',
+			let auto = [[${#authentication.name}]]
+			console.log(auto);
+			if(auto == "anonymousUser"){
+				Swal2.fire({
+					icon: "error",
+					html: "로그인이 필요한 서비스입니다.<br>로그인 페이지로 이동하시겠습니까?",
+					showCancelButton: true,
+					confirmButtonText: "yes",
+				}).then((result) => {
+					  if (result.isConfirmed) {
+					    location.href = '/loginform';
+					    return;
+					  }
+				})
+			}else{
+				let target = $(e.target);
+				let snsWrtNo = $(this).attr('data-snsWrtNo');
+			      if($(this).hasClass("active")){
+		                console.log('액티브있는거찍는중');
+						//인서트
+						$.ajax({
+								url : 'snsLikeInsert',
+								data : {snsWrtNo},
+								type : 'post',
+								datatype : 'text',
+								success : function(result) {
+									Swal.fire({
+										 title: '좋아요 등록 완료!',
+										 text: '마이페이지에서 확인하실 수 있습니다.',
+										//background: "url(assets/img/sns/heartboom.gif)",
+										 backdrop: `
+											 	rgba(230, 134, 163, 0.3)
+											    url("assets/img/sns/heartboom.gif")
+											    center
+											    no-repeat
+											  `,
+										  //imageUrl: 'assets/img/sns/heartboom.gif',
+										  //imageWidth: 400,
+										  //imageHeight: 200,
+										  //imageAlt: 'Custom image',
+										  showConfirmButton: false,
+										  timer: 1500
+										})
+									
+										//location.href="/sns";
+										console.log($(e.target))
+										let likeCnt = $(e.target).closest('.btn').find('.like-cnt');
+										
+										target.attr('class','fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC')
+									    target.removeClass("active");
+										likeCnt.text(result.cnt);
+										target.attr('data-likeNo', result.likeNo);
+										
+									
+								},
+								error : function() {
+									alert("좋아요 실패")
+							}
+		            })
+			      }else{
+		               //딜리트
+		               let likeNo = $(this).attr('data-likeno');
+		               $.ajax({
+		            	   url:'snsLikeDel',
+		            	   data:{likeNo , snsWrtNo},
+		            	   type:'post',
+		            	   datatype:'json',
+		            	   success: function(result){
+		            		   Swal.fire({
+		            		
+		            			   	 //icon: "info",
+		            			   	 backdrop: `
+											 	rgba(230, 134, 163, 0.3)`,
+		            			   	 //background: "rgba(230, 134, 163, 0.3)",
+									 title: '좋아요 취소',
+									 text:'좋아요가 해제 되었습니다.',
 									  showConfirmButton: false,
-									  timer: 1500
+									  timer: 1300
 									})
-								
-									//location.href="/sns";
-									console.log($(e.target))
-									let likeCnt = $(e.target).closest('.btn').find('.like-cnt');
-									
-									target.attr('class','fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC')
-								    target.removeClass("active");
-									likeCnt.text(result.cnt);
-									target.attr('data-likeNo', result.likeNo);
-									
-								
-							},
+		            		   //alert("delete 성공")
+		            		   let likeCnt = $(e.target).closest('.btn').find('.like-cnt');
+		            		   target.attr('class','fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active')
+		            		   likeCnt.text(result.cnt);
+		            		   target.removeAttr('data-likeNo');
+		            	   },
 							error : function() {
-								alert("좋아요 실패")
-						}
-	            })
-		      }else{
-	               //딜리트
-	               let likeNo = $(this).attr('data-likeno');
-	               $.ajax({
-	            	   url:'snsLikeDel',
-	            	   data:{likeNo , snsWrtNo},
-	            	   type:'post',
-	            	   datatype:'json',
-	            	   success: function(result){
-	            		   Swal.fire({
-	            		
-	            			   	 //icon: "info",
-	            			   	 backdrop: `
-										 	rgba(230, 134, 163, 0.3)`,
-	            			   	 //background: "rgba(230, 134, 163, 0.3)",
-								 title: '좋아요 취소',
-								 text:'좋아요가 해제 되었습니다.',
-								  showConfirmButton: false,
-								  timer: 1300
-								})
-	            		   //alert("delete 성공")
-	            		   let likeCnt = $(e.target).closest('.btn').find('.like-cnt');
-	            		   target.attr('class','fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active')
-	            		   likeCnt.text(result.cnt);
-	            		   target.removeAttr('data-likeNo');
-	            	   },
-						error : function() {
-							alert("좋아요 취소 실패")
-						}
-	     
-	               })
-	           }
+								alert("좋아요 취소 실패")
+							}
+		     
+		               })
+		           }
+			}
+			
 		
 		})
 

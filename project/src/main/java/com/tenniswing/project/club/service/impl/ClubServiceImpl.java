@@ -147,6 +147,19 @@ public class ClubServiceImpl implements ClubService {
 			return false;
 		}
 	}
+	
+	//클럽 탈퇴
+		@Override
+		public boolean clubOut(int clubMemNo) {
+			int result = clubMapper.clubOut(clubMemNo);
+			
+			if(result == 1) {
+				return true;
+			}else {
+				return false;
+			}
+		}
+
 
 
 	//재은
@@ -182,5 +195,6 @@ public class ClubServiceImpl implements ClubService {
 		return false;
 	}
 
+	
 	
 }

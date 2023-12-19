@@ -251,7 +251,12 @@ section h2, section h3, section h4, section h5, section h6, section pre {
 								</a></li>
 								<!-- 재고 있는지 -->
 								<li>
-									<div class="stock__item">In-stock</div>
+									<th:block th:if="${prod.prodSaleSts} == '판매중'">													
+										<div class="stock__item">In-stock</div>
+									</th:block>
+									<th:block th:unless="${prod.prodSaleSts} == '판매중'">
+										<div class="stock__item" style="color: #d92d20; background: rgba(217, 45, 32, 0.1);">Sold-out</div>
+									</th:block>
 								</li>
 							</ul>
 						</div>
@@ -438,7 +443,7 @@ section h2, section h3, section h4, section h5, section h6, section pre {
 			</div>
 
 			<div class="row product-info" id="tabMenus">
-				<div class="col-12 tab_wrap">
+				<div class="col-12 tab_wrap" style="min-height: 370px;">
 					<div class="tabs__wrapper tabs__wrapper--v3">
 						<div class="tabs__filter">
 							<ul class="nav nav-tabs tit_list" id="myTab" role="tablist">
@@ -686,8 +691,8 @@ section h2, section h3, section h4, section h5, section h6, section pre {
 									</th:block>
 									<br>
 									<div style="display: flex; justify-content: center">
-										<button id="reviewLoad" class="btn btn-primary" 
-											style="width: 200px; background-color: white; border-color: #3C3C3C; color: #3C3C3C;">More</button>
+										<button id="reviewLoad" class="btn btn-outline" 
+											style="width: 200px; background-color: white;">More</button>
 									</div>
 								</div>
 							</div>

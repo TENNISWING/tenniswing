@@ -21,3 +21,6 @@ flatpickr('.flatpickr-time-picker-24h', {
     dateFormat: "H:i",
     inline: true
 })
+
+flatpickr('.flatpickr-match', {
+})

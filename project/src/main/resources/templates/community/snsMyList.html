@@ -108,7 +108,7 @@
 															th:data-snsgrpno="${mg.snsGrpNo}"
 															data-bs-target="#collapseExample" aria-expanded="false"
 															aria-controls="collapseExample"
-															th:attrappend="data-bs-target=${mgStat.count}">그룹
+															th:attrappend="data-bs-target=${mgStat.count}" style="background-color: rgb(234 236 238);">그룹
 															목록보기</button>
 													</div>
 												</div>
@@ -233,25 +233,25 @@
 			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title" id="myModalLabel33">그룹 이름 변경</h4>
+						<h4 class="modal-title" id="myModalLabel33" style="font-family: 'Noto Sans KR', sans-serif !important;">그룹 이름 변경</h4>
 						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
 							<i data-feather="x"></i>
 						</button>
 					</div>
 					<form action="#">
 						<div class="modal-body">
-							<label for="email">그룹 이름</label>
+							<label for="email" style="font-family: 'Noto Sans KR', sans-serif !important;">그룹 이름</label>
 							<div class="form-group">
 								<input id="text" type="text" name="grpName" placeholder="변경할 그룹 이름을 입력하세요"
-									class="form-control grpInput">
+									class="form-control grpInput" style="font-family: 'Noto Sans KR', sans-serif !important;">
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+							<button type="button" class="btn btn-outline" data-bs-dismiss="modal" style="font-family: 'Noto Sans KR', sans-serif !important;">
 								<i class="bx bx-x d-block d-sm-none"></i> <span class="d-none d-sm-block">Close</span>
 							</button>
-							<button type="button" class="btn btn-primary ms-1 nameEditBtn" th:no="${mg.snsGrpNo}"
-								data-bs-dismiss="modal" th:onclick="myfunction(this.getAttribute('no'))">
+							<button type="button" class="btn btn-dark ms-1 nameEditBtn" th:no="${mg.snsGrpNo}"
+								data-bs-dismiss="modal" th:onclick="myfunction(this.getAttribute('no'))" style="font-family: 'Noto Sans KR', sans-serif !important;">
 								<i class="bx bx-check d-block d-sm-none"></i> <span class="d-none d-sm-block">수정</span>
 							</button>
 						</div>

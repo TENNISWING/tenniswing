@@ -2,16 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/main-layout}">
-
+<style>
+	input-group {
+		margin-top:10px;
+	}
+</style>
 <th:block layout:fragment="content">
 
 	<!-- signup form -->
-	<div class="container" id="signupForm">
+	<div class="container" id="signupForm" style="font-family: 'Noto Sans KR', sans-serif !important; font-size:15px;">
 		<form class="form form-vertical col-lg-10 mx-auto" action="matchregi" method="POST"
 			name="matchregi">
 			<div class="form-body">
-				<div class="text-center" >
-					<h3 class="my-4" style="color:#4C4C4C">매치 등록</h3>
+				<div class="text-center">
+					<h3 class="my-4" style="font-family: 'Noto Sans KR', sans-serif !important; color:#4C4C4C">매치 등록</h3>
 				</div>
 				<div th:text="${msg}"></div>
 			</div>
@@ -19,17 +23,17 @@
 			<div class="justify-content-center">
 				<div class="row justify-content-center" id="memberForm">
 
-					<div class="p-5 text-start shadow mb-5 ">
+					<div class="p-5 text-start shadow mb-5">
 						<div class="col-lg-12 p-5 mx-auto">
 						<!-- 코트 찾기 -->
-						<div class="d-flex flex-row justify-content-evenly mb-5">
-							<div class="col-6">
-								<label for="crtroomNo">코트 찾기</label><br>
+						<div class="d-flex flex-row justify-content-evenly mb-4">
+							<div class="col-4 mb-2">
+								<label for="crtroomNo" class="mb-3">코트 찾기</label><br>
 								<div class="input-group">
 									<input type="text" class="form-control" placeholder="코트 입력"
-										aria-describedby="crtroomBtn" id="crtroomName"
+										 style="font-size:15px;" aria-describedby="crtroomBtn" id="crtroomName"
 										name="crtroomName">
-									<button class="btn btn-success" type="button" id="crtroomBtn">찾기</button>
+									<button class="btn btn-success" style="font-size:15px;" type="button" id="crtroomBtn">찾기</button>
 
 									<input type="text" class="form-control" placeholder="코트 입력"
 										aria-describedby="crtroomBtn" id="crtroomNo" name="crtroomNo"
@@ -44,7 +48,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-4"></div>
+							<div class="col-6"></div>
 						</div>
 						<script>
 					$('#crtroomBtn').on('click', function (e) {
@@ -89,59 +93,35 @@
 					</script>
 
 						<div class="d-flex flex-row justify-content-evenly">
-							<div class="col-6 mb-4">
-								<label for="region">매치 일자</label> <input type="date"
+							<div class="col-4 mb-4">
+								<label for="region" class="mb-2">매치 일자</label> <input type="date"
 									id="matchDate" name="matchDate"
-									class="form-control flatpickr-always-open"
+									class="form-control flatpickr-match" style="font-size:15px;" 
 									placeholder="예약 일자 선택" required="required">
 							</div>
-							
+							<div class="col-1"></div>
 							<div class="col-4 mb-4">
-								<label for="time">경기 시작 시간</label>
-								<div class="form-group ">
-									<select class="choices form-select" id="time" name="time">
+								<label for="time" class="mb-2">경기 시작 시간</label>
+								<div class="form-group">
+									<select class="choices form-select" style="font-size:15px;" id="time" name="time">
 										<optgroup label="경기시간">
-											<option>01:00</option>
-											<option>02:00</option>
-											<option>03:00</option>
-											<option>04:00</option>
-											<option>05:00</option>
-											<option>06:00</option>
-											<option>07:00</option>
-											<option>08:00</option>
-											<option>09:00</option>
-											<option>10:00</option>
-											<option>11:00</option>
-											<option>12:00</option>
-											<option>13:00</option>
-											<option>14:00</option>
-											<option>15:00</option>
-											<option>16:00</option>
-											<option>17:00</option>
-											<option>18:00</option>
-											<option>19:00</option>
-											<option>20:00</option>
-											<option>21:00</option>
-											<option>22:00</option>
-											<option>23:00</option>
-											<option>24:00</option>
+										<th:block th:each="num : ${#numbers.sequence(1,9)}">
+											<option>0[[${num}]]:00</option>											
+										</th:block>
+										<th:block th:each="num : ${#numbers.sequence(10,24)}">
+											<option>[[${num}]]:00</option>											
+										</th:block>
 										</optgroup>
 									</select>
 								</div>
 							</div>							
 						</div>
-						<br>
-
-						<div class="row">
-							
-						</div>
-
 
 						<div class="d-flex flex-row justify-content-evenly">
-							<div class="col-4 ">
-								<label for="age">연령대</label>
+							<div class="col-4 mb-4">
+								<label for="age" class="mb-2">연령대</label>
 								<div class="form-group">
-									<select class="choices form-select" name="age" id="age">
+									<select class="choices form-select" style="font-size:15px;" name="age" id="age">
 										<optgroup label="연령대">
 											<option value="a1">10대</option>
 											<option value="a2">20대</option>
@@ -154,10 +134,10 @@
 								</div>
 							</div>
 							<div class="col-1"></div>
-							<div class="col-4">
-								<label for="gen">모집 성별</label>
+							<div class="col-4 mb-4">
+								<label for="gen" class="mb-2">모집 성별</label>
 								<div class="form-group">
-									<select class="choices form-select" name="gen" id="gen">
+									<select class="choices form-select" style="font-size:15px;" name="gen" id="gen">
 										<optgroup label="성별">
 											<option value="c1">남성</option>
 											<option value="c2">여성</option>
@@ -168,10 +148,10 @@
 						</div>
 
 						<div class="d-flex flex-row justify-content-evenly">
-							<div class="col-4">
-								<label for="lv">구력</label>
+							<div class="col-4 mb-4">
+								<label for="lv" class="mb-2">구력</label>
 								<div class="form-group">
-									<select class="choices form-select" name="lv" id="lv">
+									<select class="choices form-select" style="font-size:15px;" name="lv" id="lv">
 										<optgroup label="구력">
 											<option value="d1">입문</option>
 											<option value="d2">2~5년</option>
@@ -182,10 +162,10 @@
 							</div>
 
 							<div class="col-1"></div>
-							<div class="col-4">
-								<label for="gameWay">경기 방식</label>
+							<div class="col-4 mb-4">
+								<label for="gameWay" class="mb-2">경기 방식</label>
 								<div class="form-group">
-									<select class="choices form-select" id="gameWay" name="gameWay">
+									<select class="choices form-select" style="font-size:15px;" id="gameWay" name="gameWay">
 										<optgroup label="경기방식">
 											<option value="f1">단식</option>
 											<option value="f2">남복</option>
@@ -200,10 +180,10 @@
 
 
 						<div class="d-flex flex-row justify-content-evenly">
-							<div class="col-4">
-								<label for="ntrp">ntrp</label>
+							<div class="col-4 mb-4">
+								<label for="ntrp" class="mb-2">ntrp</label>
 								<div class="form-group">
-									<select class="choices form-select" id="ntrp" name="ntrp">
+									<select class="choices form-select" style="font-size:15px;" id="ntrp" name="ntrp">
 										<optgroup label="ntpr">
 											<option value="e1">1.0</option>
 											<option value="e2">1.5</option>
@@ -215,14 +195,14 @@
 										</optgroup>
 									</select>
 								</div>
-							</div>
-							<div class="col-1"></div>
+							</div>							
 							<!-- ntrp modal start -->
 							<div class="col-4">
 								<br>
 								<h5>
-									<button type="button" class="btn btn-success" id="ntrpQ"
+									<button type="button" class="btn btn-success matchntrpbtn mt-2" id="ntrpQ"
 										href="javascript:void(0)" data-bs-toggle="modal"
+										style="background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important"
 										data-bs-target="#ntrpModal">NTRP이란?</button>
 								</h5>
 							</div>
@@ -300,26 +280,27 @@
 									</div>
 								</div>
 							</div>
+							<div class="col-1"></div>
 							<!-- ntrp modal end -->
 						</div>
 
 						<div class="d-flex flex-row justify-content-evenly">
-							<div class="col-6">
-								<label for="name">코트비</label>
+							<div class="col-4 mb-4">
+								<label for="name" class="mb-2">코트비</label>
 								<div class="input-group mb-3">
-									<input type="text" class="form-control"
+									<input type="text" class="form-control" style="font-size:15px;" 
 										placeholder="코트비 입력" id="crtUseAmt" name="crtUseAmt"
 										maxlength="10" required>
 								</div>
 							</div>
-							<div class="col-4"></div>
+							<div class="col-6"></div>
 						</div>
 
 						<div class="d-flex flex-row justify-content-evenly">
-							<div class="col-6">
-								<label for="name">코멘트</label>
+							<div class="col-6 mb-4">
+								<label for="name" class="mb-2">코멘트</label>
 								<div class="input-group mb-3">
-									<textarea class="form-control"
+									<textarea class="form-control" style="font-size:15px;" 
 										placeholder="코멘트 입력" id="detailCtt" name="detailCtt"></textarea>
 								</div>
 							</div>
@@ -327,8 +308,9 @@
 						</div>
 						<div class="ctrgbtns">
 								<br>
-								<button class="btn btn-success" type="submit" id="regiBtn">등록하기</button>
-								<button class="btn btn-success" type="button"
+								<button class="btn btn-outline psbBtn" style="color: #00b96d;" type="submit" id="regiBtn">등록하기</button>
+								<button class="btn btn-outline" type="button"
+								    style="font-size: 12px; font-weight: 600 !important;"
 									th:onclick="|location.href='@{/}'|">취소</button>
 							</div>
 					</div>

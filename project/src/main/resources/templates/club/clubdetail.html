@@ -87,6 +87,10 @@ border: 3px solid white;
 									th:data-club-no="${club.clubNo}" style="background-color: #ededed;"><div class="icon dripicons dripicons-gear"> 클럽 수정</div></button>
 								<button class="btn btn-outline my-4" id="clubDel"><div class="icon dripicons dripicons-exit"> 클럽 삭제</div></button>
 							</th:block>		
+							
+							
+							
+							
 							</div>
 
 						</div>
@@ -362,7 +366,7 @@ border: 3px solid white;
 						</div>
 						<div class="modal-footer">
 							<div class="col-12 d-flex justify-content-end">
-								<button type="button" id="updateBtn"
+								<button type="button" id="clubUpdateBtn"
 									class="btn btn-dark me-2 mb-1">수정</button>
 								<button type="button" class="close btn btn-light-secondary me-1 mb-1" data-bs-dismiss="modal" aria-label="Close">취소</button>
 								
@@ -429,16 +433,35 @@ border: 3px solid white;
 				data: { paramclubNo: clubNo },
 				dataType: 'JSON',
 				success: function (result) {
-					if (result) {
-						alert("클럽이 삭제되었습니다.");
+					
 						location.href = "/club";
-					}
+						Swal.fire({
+							backdrop: `
+								 rgba(100, 100, 100, 0.6)`,
+							title: '삭제 완료',
+							text: '클럽이 삭제되었습니다.',
+							showConfirmButton: false,
+							timer: 1700
+						})
+					
 				},
 				error: function () {
-					alert("삭제실패");
+
+					Swal.fire({
+						backdrop: `
+							 rgba(100, 100, 100, 0.6)`,
+						title: '삭제 실패',
+						showConfirmButton: false,
+						timer: 1700
+					})
 				}
 			})
 		};
+		
+		
+		
+		
+		
 
 		//클럽수정 아작스
 		$('.clubEditModal').on('show.bs.modal', function (e) {
@@ -448,7 +471,7 @@ border: 3px solid white;
 			let clubNo = $(e.relatedTarget).attr('data-club-no');
 			 
 			
-				$('#updateBtn').on("click", function(e) { //수정 버튼 눌렀을때
+				$('#clubUpdateBtn').on("click", function(e) { //수정 버튼 눌렀을때
 					console.log("수정 버튼 눌렀을때");
 					var clubData = $("#updateForm").serialize() ;
 					$.ajax({

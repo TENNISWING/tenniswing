@@ -272,10 +272,10 @@
 					<div class="card-content pb-4">
 					<th:block th:each="todayReserve : ${todayReserve}">
 						<div class="recent-message d-flex px-4 py-3">
-							<div class="name ms-4" style="padding: 10px 60px 10px 10px; box-shadow: 5px 5px 5px #ddd; border-radius: 10px">
-								<h5 class="mb-1" style="color: #fc5356; padding: 3px; font-size: 15px;">[[${todayReserve.crtroomName}]]</h5>
-								<h6 class="text-muted mb-0" style="color: #3C3C3C; padding: 3px; font-size: 13px;">[[${#dates.format(todayReserve.reserveDate, 'yyyy-MM-dd')}]]</h6>
-								<h6 class="text-muted mb-0" style="padding: 3px; font-size: 13px;">[[${todayReserve.memId}]]</h6>
+							<div class="name ms-4" style="margin: 0; width: 80%; padding: 3% 3% 3% 3%; box-shadow: 5px 5px 5px #ddd; border-radius: 10px">
+								<h5 class="mb-1" style="color: #fc5356; padding: 2%; font-size: 1rem;">[[${todayReserve.crtroomName}]]</h5>
+								<h6 class="text-muted mb-0" style="color: #3C3C3C; padding: 1%; font-size: 0.9rem;">[[${#dates.format(todayReserve.reserveDate, 'yyyy-MM-dd')}]]</h6>
+								<h6 class="text-muted mb-0" style="padding: 1%; font-size: 0.9rem;">[[${todayReserve.memId}]]</h6>
 							</div>
 						</div>
 					</th:block>

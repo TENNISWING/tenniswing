@@ -11,8 +11,8 @@
 }
 
 .sdbctn {
-	border-bottom: 2px solid lightgreen;
-	color: lightgreen !important;
+	border-bottom: 2px solid #00b96d;
+	color: #00b96d !important;
 }
 
 .fontt {
@@ -89,7 +89,6 @@ section pre{
 		<!-- Swiper -->
 		<div class="swiper mySwiper dateslide">
 			<div class="swiper-wrapper dateslide matchdate">
-				<!-- <div class="swiper-slide dateslide">resizeme</div>            -->
 			</div>
 			<div class="swiper-button-next dateslide text-green"></div>
 			<div class="swiper-button-prev dateslide text-green"></div>
@@ -99,7 +98,7 @@ section pre{
 	<!-- End date slide -->
 
 	<div class="container">
-		<div class="row align-items-center fontt">
+		<div class="row align-items-center">
 			<div class="col-12">
 				<div class="filter__area">
 					<div class="section-title__wrap">
@@ -143,8 +142,8 @@ section pre{
 					</div>
 					<div class="col-lg-2 text-end">
 						<button type="button" class="btn btn-outline" id="regiBtn"
-							style="width: auto;"
-							th:onclick="|location.href='@{matchregi}'|">매치 등록</button>
+							style="width: auto; font-weight: 600 !important;"
+							th:onclick="|location.href='@{matchregi}'|">매치등록</button>
 					</div>
 				</div>
 			</div>
@@ -211,7 +210,7 @@ section pre{
 													<div class="cart__btn">
 														<a
 															th:onclick="|location.href='@{matchdetail(matchNo=${v.matchNo})}'|"
-															class="btn btn-outline"> 상세보기</a>
+															class="btn btn-outline">상세보기</a>
 													</div>
 												</div>
 											</div>
@@ -345,7 +344,7 @@ section pre{
 					<td>${matchInfo.crtroomLocation}</td>
 					<td class="text-end mtbt">`					
 					if (matchInfo.progStateName=='신청완료'){
-					b += `<button class="btn completeBtn" disabled="disabled" style="width: auto; color: rgb(52, 64, 84); background: rgba(52, 64, 84, 0.1); border: 1px solid rgba(52, 64, 84, 0.1);" href="matchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</button>`
+					b += `<button class="btn completeBtn" disabled="disabled" style="width: auto; color: rgb(52, 64, 84); background: rgba(52, 64, 84, 0.1); border: 1px solid rgba(52, 64, 84, 0.1); font-weight: 600 !important;" href="matchdetail?matchNo=${matchInfo.matchNo}">${matchInfo.progStateName}</button>`
 					} else {
 					b += `<a class="btn btn-outline psbBtn" href="matchdetail?matchNo=${matchInfo.matchNo}" style="color: #00b96d;">${matchInfo.progStateName}</a>`
 					}

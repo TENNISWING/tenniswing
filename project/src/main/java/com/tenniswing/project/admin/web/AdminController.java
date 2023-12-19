@@ -95,8 +95,10 @@ public class AdminController {
 	
 	//admin 대시보드
 	@GetMapping("/admin")
-	public String adminPage(Model model) { 			
-		return "admin/dashboard";
+	public String adminPage(Model model, ProdVO prodVO) { 			
+		model.addAttribute("prodList", prodService.selectAdminAllProd(prodVO));
+		model.addAttribute("prodCount", prodService.selectAdminAllCount(prodVO));
+		return "admin/admin_Product";
 	}
 	
 
