@@ -5,7 +5,7 @@
 <head>
 <style>
 .swiper {
-	width: 100%;
+	width: 600px;
 	height: 1200px;
 }
 .repTr{
@@ -30,122 +30,25 @@ section pre{
 .snsTopBtn{
 	font-family: 'Noto Sans KR', sans-serif !important;
 	border: 1px solid #ccc;
-	/*  margin-top:20px;*/
 }
 section pre{
-	font-size: 18px;
-	margin-bottom: 0;
-	white-space: break-spaces;
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+	    font-size: 18px;
+	    margin-bottom: 0;
+		white-space: break-spaces;
+	    display: -webkit-box;
+	    -webkit-line-clamp: 5;
+	    -webkit-box-orient: vertical;
+	    overflow: hidden;
+	
 }
 .repBody{
 	padding:0px !important;
 	
 }
-.insertBtn{
-	/* display: inline-grid; */
-	display: flex !important;
-	justify-content: flex-end;
-	gap:15px;
+.snsBtnsCol{
+    display: flex;
+    gap: 20px;
 }
-.insertBtn a{
-	height:100px;
-}
-
-button {
-    &.fast {
-        --duration: .32s;
-    }
-}
-
-button {
-    --background: #fff;
-    --text: #828282;
-    --font-size: 16px;
-    --duration: .44s;
-    --move-hover: -4px;
-    --shadow: 0 2px 8px -1px #{rgba(#fff, .32)};
-    --shadow-hover: 0 4px 20px -2px #{rgba(#275efe, .5)};
-    --font-shadow: var(--font-size);
-    padding: 10px 12px;
-    font-family: 'Roboto';
-    font-weight: 400;
-    line-height: var(--font-size);
-    border-radius: 24px;
-    display: block;
-    outline: none;
-    appearance: none;
-    border: none;
-    text-decoration: none;
-    font-size: var(--font-size);
-    letter-spacing: .5px;
-    background: var(--background);
-    color: var(--text);
-    box-shadow: var(--shadow);
-    transform: translateY(var(--y)) translateZ(0);
-    transition: transform var(--duration) ease, box-shadow var(--duration) ease;
-    div {
-        display: flex;
-        overflow: hidden;
-        text-shadow: 0 var(--font-shadow) 0 var(--text);
-        span {
-            display: block;
-            backface-visibility: hidden;
-            font-style: normal;
-            transition: transform var(--duration) ease;
-            transform: translateY(var(--m)) translateZ(0);
-            $i: 1;
-            @while $i < 12 {
-                &:nth-child(#{$i}) {
-                    transition-delay: $i / 20 + s;
-                }
-                $i: $i + 1;
-            }
-        }
-    }
-    &:hover {
-        --y: var(--move-hover);
-        --shadow: var(--shadow-hover);
-        span {
-            --m: calc(var(--font-size) * -1);
-        }
-    }
-    &.reverse {
-        --font-shadow: calc(var(--font-size) * -1);
-        &:hover {
-            span {
-                --m: calc(var(--font-size));
-            }
-        }
-    }
-}
-
-html {
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-}
-
-* {
-    box-sizing: inherit;
-    &:before,
-    &:after {
-        box-sizing: inherit;
-    }
-}
-
-    .dribbble {
-        position: fixed;
-        display: block;
-        right: 20px;
-        bottom: 20px;
-        img {
-            display: block;
-            height: 28px;
-        }
-    }
 
 	.swiper-slide {
 		padding-top: 30px;
@@ -181,14 +84,6 @@ html {
 	    display: flex;
 	    align-items: center;
 	}
-	/* .buttons .btn:hover,
-	.buttons .btn:focus-visible,
-	.buttons .btn:active,
-	.target-btns:focus-visible,
-	.outline-none {
-		border: none !important;
-		outline: none;
-	} */
 	.sns-container {
 		display: flex;
 		flex-direction: column;
@@ -203,38 +98,27 @@ html {
 </head>
 
 <th:block layout:fragment="content">
+
 	<div class="container">
 		<div class="row sns-container" id="row">
-			<!-- dribbble start -->
-			<div class="button-list insertBtn col-12">
-				<button class="fast white snsTopBtn"
-					th:onclick="|location.href='@{snsRegister}'|">등록</button>
-				<button class="fast white snsTopBtn"
-					th:onclick="|location.href='@{snsMyList}'|" >나의 그룹</button> 
-				<button class="fast white snsTopBtn" th:onclick="|location.href='@{sns}'|">목록으로</button>	
-			</div>
-			<a class="dribbble" href="https://dribbble.com/shots/7441241-Button-Hover-Effects" target="_blank"><img src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg" alt=""></a>
-			<!-- dribbble end -->
-			
 			<div class="col-12">
-				<!-- Slider main container -->
-				<div class="swiper">
-					<!-- Additional required wrapper -->
-					<div class="swiper-wrapper">
+				<div class="insertBtn">
+					<a class="btn rounded-pill snsTopBtn" href="javascript:history.back();">목록으로</a>	
+				</div>
 						<!-- Slides -->
-						<th:block th:each="s : ${snsList}">
-							<div class="swiper-slide" th:id="${s.snsWrtNo}">
+						<th:block>
+							<div class="detailSns" id="${sDetail.snsWrtNo}">
 								<section id="content-types" style="height: 800px">
 									<div class="row">
 										<div class="snsdiv col-12 rounded-4">
 											<div class="card snsimg mb-0">
 												<div class="card-content">
 													<div class="d-flex gap-3" style="padding: 1.5rem;">
-														<div id="myCarousel" th:attrappend="id=${sStat.count}"
+														<div id="myCarousel"
 															class="carousel slide" data-ride="carousel">
 															<div class="carousel-inner">
 																<!-- 사진 / 동영상 반복문 -->
-																<th:block th:each="simg : ${s.attachList}">
+																<th:block th:each="simg : ${sDetail.attachList}">
 																	<div class="carousel-item"
 																		th:if="${simg.attachExt=='.mp4'}"
 																		th:classappend="${simgStat.count==1}?active:_">
@@ -252,17 +136,18 @@ html {
 																</th:block>
 																<!-- 사진 / 동영상 반복문 end -->
 															</div>
-															<th:block th:each="simg : ${s.attachList}">
-															<th:block th:if="${simg.attachExt!='.mp4'} and ${simgStat.count == 1} and ${#arrays.length(s.attachList) != 1}">
+															<th:block th:each="simg : ${sDetail.attachList}">
+															<th:block th:if="${simg.attachExt!='.mp4'} and ${simgStat.count == 1} and ${#arrays.length(sDetail.attachList) != 1}">
 															<a class="carousel-control-prev" href="#myCarousel"
-																th:attrappend="href=${sStat.count}" role="button"
-																data-bs-slide="prev"> <span
-																class="carousel-control-prev-icon" aria-hidden="true"></span>
+															    role="button"
+																data-bs-slide="prev"> 
+																<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 																<span class="visually-hidden">Previous</span>
-															</a> <a class="carousel-control-next" href="#myCarousel"
-																th:attrappend="href=${sStat.count}" role="button"
-																data-bs-slide="next"> <span
-																class="carousel-control-next-icon" aria-hidden="true"></span>
+															</a> 
+															<a class="carousel-control-next" href="#myCarousel"
+															    role="button"
+																data-bs-slide="next"> 
+																<span class="carousel-control-next-icon" aria-hidden="true"></span>
 																<span class="visually-hidden">Next</span>
 															</a>
 															</th:block>
@@ -270,19 +155,18 @@ html {
 														</div>
 														<div class="card-body d-flex flex-column justify-content-between">
 															<div class="sns-info-wrap">
-																<div class="card-title sns-title" style="font-weight: bold;">[[${s.snsTitle}]]</div>
+																<div class="card-title sns-title" style="font-weight: bold;">[[${sDetail.snsTitle}]]</div>
 																<hr>
 																<h6 class="card-subtitle ms-2">
 																	<a href="#" class="btn btn-outline-secondary rounded-pill mb-2"
-																	   th:onclick="|location.href='@{snsMyList(memId=${s.memId})}'|" >[[${s.name}]]</a>
+																	   th:onclick="|location.href='@{snsMyList(memId=${sDetail.memId})}'|" >[[${sDetail.name}]]</a>
 																</h6>
 																<div class="d-flex flex-column gap-3 ms-2 mt-3">
-																	<pre class="card-text">[[${s.snsCtt}]]</pre>
+																	<pre class="card-text">[[${sDetail.snsCtt}]]</pre>
 																	<div class="tag-wrap">
 																		<th:block
-																			th:each=" lang : ${#strings.arraySplit(s.snsTag,',')}">
+																			th:each=" lang : ${#strings.arraySplit(sDetail.snsTag,',')}">
 																			<a class="text-primary hashtag" th:href="@{sns(snsTag=${lang})}"> <span class="card-title tagVal">#[[${lang}]]</span></a>
-																			<!-- <input th:each="tagg:${#strings.arraySplit(s.snsTag,',')}" type="text" class="tags4" name="tags4" th:value="${lang}" readonly> -->
 																		</th:block>
 																	</div>
 																</div>
@@ -295,22 +179,19 @@ html {
 																	<!-- 좋아요 버튼 -->
 																	<li class="d-flex flex-column outline-none">
 																		<div class="target-btns">
-																			<a th:if="${s.likeNo != null}" class="btn icon btn-white">
+																			<a th:if="${sDetail.likeNo != null}" class="btn icon btn-white">
 																				<i class="fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC"
-																				th:data-likeno="${s.likeNo}"
-																				th:data-snsWrtNo="${s.snsWrtNo}"
-																				id="likeBtn" th:attrappend="id=${sStat.count}"></i>
-																				<span class="like-cnt">[[${s.likeCnt}]]</span>
+																				th:data-likeno="${sDetail.likeNo}"
+																				th:data-snsWrtNo="${sDetail.snsWrtNo}"
+																				id="likeBtn"></i>
+																				<span class="like-cnt">[[${sDetail.likeCnt}]]</span>
 																			</a>
-																			<a th:unless="${s.likeNo != null}" class="btn icon btn-white"
-																				>
+																			<a th:unless="${sDetail.likeNo != null}" class="btn icon btn-white">
 																				<i class="fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active"
-																				th:data-likeno="${s.likeNo}" th:data-snsWrtNo="${s.snsWrtNo}" id="likeBtn"
-																				th:attrappend="id=${sStat.count}" ></i>
-																				<span class="like-cnt">[[${s.likeCnt}]]</span>
+																				th:data-likeno="${sDetail.likeNo}" th:data-snsWrtNo="${sDetail.snsWrtNo}" id="likeBtn">
+																				</i>
+																				<span class="like-cnt">[[${sDetail.likeCnt}]]</span>
 																			</a>
-																			
-																		<!-- <span class="likeCnt"></span> -->
 																		</div> 
 																	</li>
 			
@@ -318,9 +199,8 @@ html {
 																	<li class="d-flex flex-column ss outline-none">
 																		<div class="target-btns">
 																			<a class="btn icon btn-white" data-bs-toggle="modal"
-																				data-bs-target="#large" th:data-snsid="${s.snsWrtNo}">
-																				<i class="fa-solid fa-comment fs-5 text-secondary"
-																				th:id="${sStat.count}"></i>
+																				data-bs-target="#large" th:data-snsid="${sDetail.snsWrtNo}">
+																				<i class="fa-solid fa-comment fs-5 text-secondary"></i>
 																			</a>
 																		</div>
 																	</li>
@@ -331,13 +211,11 @@ html {
 																			<a class="btn icon btn-white snsBtns"
 																				data-bs-toggle="collapse"
 																				data-bs-target="#collapseExample"
-																				th:attrappend="aria-controls=${sStat.count}"
 																				aria-expanded="false" aria-controls="collapseExample"><i
 																				class="fa-solid fa-share-from-square fs-5 text-secondary"
-																				th:id="${sStat.count}"></i></a>
+																				></i></a>
 																		</div> <!-- 콜랩스 추가 -->
-																		<div class="collapse snsBtnsCol" id="collapseExample"
-																			th:attrappend="id=${sStat.count}">
+																		<div class="collapse snsBtnsCol" id="collapseExample">
 																			<span onclick="shareNaver()"> <script
 																					type="text/javascript"
 																					src="https://ssl.pstatic.net/share/js/naver_sharebutton.js">
@@ -350,18 +228,19 @@ html {
 																			</span> <span th:onclick="javascript:kakaoShare()"
 																				id="kakao-link-btn"><img
 																				src="assets/img/sns/kakaoTalk.png"
-																				style="width: 16px; height: 16px;"> </span>
+																				style="width: 20px; height: 20px;"> </span>
+																			<span onclick="clip(); return false;" style="cursor:pointer;"><i class="fa-regular fa-copy fs-5"></i></span>
 																		</div> <!-- 콜랩스 추가 끝 -->
 																	</li>
 			
 																	<!-- 스크랩 버튼 -->
 																	<li class="d-flex flex-column outline-none">
 																		<div class="target-btns">
-																			<a th:if="${s.scrapNo != null}" class="btn icon btn-white bmark"> 
-																				<i class="fa-solid fa-bookmark fs-5 text-secondary iBmark" th:data-scrapno="${s.scrapNo}" th:data-snswrtno="${s.snsWrtNo}" id="scrapBtn" th:attrappend="id=${sStat.count}"></i>
+																			<a th:if="${sDetail.scrapNo != null}" class="btn icon btn-white bmark"> 
+																				<i class="fa-solid fa-bookmark fs-5 text-secondary iBmark" th:data-scrapno="${sDetail.scrapNo}" th:data-snswrtno="${sDetail.snsWrtNo}" id="scrapBtn"></i>
 																			</a>
-																			<a th:unless="${s.scrapNo != null}" class="btn icon btn-white bmark"> 
-																				<i class="fa-regular fa-bookmark fs-5 text-secondary iBmark active" th:data-scrapno="${s.scrapNo}" th:data-snswrtno="${s.snsWrtNo}" id="scrapBtn" th:attrappend="id=${sStat.count}"
+																			<a th:unless="${sDetail.scrapNo != null}" class="btn icon btn-white bmark"> 
+																				<i class="fa-regular fa-bookmark fs-5 text-secondary iBmark active" th:data-scrapno="${sDetail.scrapNo}" th:data-snswrtno="${sDetail.snsWrtNo}" id="scrapBtn"
 																				data-swal-toast-template="#my-template"
 																				></i>
 																			</a>
@@ -372,30 +251,6 @@ html {
 															</div>
 															<!-- button end -->
 														</div>
-
-                          <!--
-														<th:block th:each="simg : ${s.attachList}">
-														<th:block th:if="${simg.attachExt!='.mp4'} and ${simgStat.count == 1} and ${#arrays.length(s.attachList) != 1}">
-														<a class="carousel-control-prev" href="#myCarousel"
-															th:attrappend="href=${sStat.count}" role="button"
-															data-bs-slide="prev"> <span
-															class="carousel-control-prev-icon" aria-hidden="true"></span>
-															<span class="visually-hidden">Previous</span>
-														</a> <a class="carousel-control-next" href="#myCarousel"
-															th:attrappend="href=${sStat.count}" role="button"
-															data-bs-slide="next"> <span
-															class="carousel-control-next-icon" aria-hidden="true"></span>
-															<span class="visually-hidden">Next</span>
-														</a>
-														</th:block>
-														</th:block>
-													</div>
-													<div class="card-body">
-														<h6 class="card-subtitle"><a href="#" class="btn btn-outline-secondary rounded-pill mb-2"
-						                th:onclick="|location.href='@{snsMyList(memId=${s.memId})}'|" >[[${s.name}]]</a></h6>
-														<pre class="card-text">[[${s.snsCtt}]]</pre>
-                        -->
-
 													</div>
 												</div>
 												<!-- 카드콘텐트 END -->
@@ -410,30 +265,10 @@ html {
 								</section>
 							</div>
 						</th:block>
-					</div>
-				</div>
 			</div>
-			<!-- col6 end -->
-
-	<div class="col-3">	
-
-<!-- dribbble -->
-			<div class="button-list insertBtn ">
-				<button class="fast white snsTopBtn"
-					th:onclick="|location.href='@{snsRegister}'|">등록</button>
-				<button class="fast white snsTopBtn"
-					th:onclick="|location.href='@{snsMyList}'|" >나의 그룹</button> 
-				<button class="fast white snsTopBtn" th:onclick="|location.href='@{sns}'|">목록으로</button>	
-			</div>
-<a class="dribbble" href="https://dribbble.com/shots/7441241-Button-Hover-Effects" target="_blank"><img src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg" alt=""></a>
+			<!-- col12 end  -->
 		</div>
-
-		</div>
-	</div>
-	<!-- div row end -->
-
-	
-
+		<!-- div row end -->
 	</div>
 	<!-- div container end -->
 
@@ -447,7 +282,7 @@ html {
 
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="myModalLabel1" style="color:#828282;">댓글</h5>
+					<h5 class="modal-title" id="myModalLabel1">댓글</h5>
 					<button type="button" class="close rounded-pill"
 						data-bs-dismiss="modal" aria-label="Close">
 						<i data-feather="x"></i>
@@ -455,7 +290,7 @@ html {
 				</div>
 				<div class="modal-body">
 					<div class="card">
-						<!-- <div class="card-header"></div> -->
+						<div class="card-header"></div>
 						<div class="card-body repBody">
 							<table class="table" id="tableRep">
 								<thead>
@@ -470,9 +305,9 @@ html {
 									<!-- 댓글리스트 아작스 -->
 								</tbody>
 							</table>
-							<div id="lastDiv" style="display: flex; justify-content: center;"></div>
+								<!-- <a href="#" id="load" class="load">MORE</a> -->
+								<div id="lastDiv" style="display: flex; justify-content: center;"></div>
 							<div id="loadDiv" style="display: flex; justify-content: center"></div>
-
 						</div>
 					</div>
 				</div>
@@ -480,7 +315,7 @@ html {
 					<div class="input-group mb-3">
 						<input type="text" class="form-control"
 							placeholder="enter your comment"
-							aria-label="Recipient's user" aria-describedby="basic-addon2"
+							aria-label="Recipient's username" aria-describedby="basic-addon2"
 							id="replyContents">
 						<button type="button" class="input-group-text" id="repSubmit">등록</button>
 					</div>
@@ -499,11 +334,31 @@ html {
 
 	<!-- Initialize Swiper -->
 	<script th:inline="javascript">
-	//document.querySelectorAll('button').forEach(button => button.innerHTML = '<div><span>' + button.textContent.trim().split('').join('</span><span>') + '</span></div>');
 	
 
+	function clip(){
+
+		var url = '';
+		var textarea = document.createElement("textarea");
+		document.body.appendChild(textarea);
+		url = window.document.location.href;
+		textarea.value = url;
+		textarea.select();
+		document.execCommand("copy");
+		document.body.removeChild(textarea);
+		Swal.fire({
+			  position: "center",
+			  icon: "success",
+			  title: "URL이 복사되었습니다.",
+			  showConfirmButton: false,
+			  timer: 1500
+			});
+	}
+
 	// scroll to element
-	//document.querySelector('.snsdiv').scrollIntoView({ block: "end" });
+	document.querySelector('.snsdiv').scrollIntoView({ block: "end" });
+	/* const element = document.getElementById("content-types");
+	element.scrollIntoView(); */
 
 	let message = [[${message}]]
 	if(message!= null){
@@ -513,15 +368,6 @@ html {
 	// Tagify
 	var input = document.querySelector('input[name=tags4]'),
     tagify = new Tagify(input);
-
-	// 스와이퍼
-	const swiper = new Swiper('.swiper', {
-		  // Optional parameters
-		  direction: 'vertical',
-		  loop: false,
-		  mousewheel : true,
-		  centeredSlides: true, // 1번 슬라이드가 가운데 보이기
-	});
 
 
 	// sns 공유 버튼
@@ -540,9 +386,9 @@ html {
 			}
 	});
 
-
+		let tennisUrl = [[${sDetail.snsWrtNo}]];
 		// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
-		Kakao.init('5cb79bd417ece35ea33fa7b756305a02');
+		Kakao.init('a3f2337f2fab17974560df2e031393c0');
 
 		// SDK 초기화 여부를 판단합니다.
 		console.log(Kakao.isInitialized());
@@ -554,17 +400,19 @@ html {
 						content : {
 							title : 'TENNISWING-SNS',
 							description : '클럽매치데이 ',
-							imageUrl : 'https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800',
+							imageUrl : 'assets/img/logo.png',
 							link : {
-								mobileWebUrl : '카카오공유하기 시 클릭 후 이동 경로',
-								webUrl : '카카오공유하기 시 클릭 후 이동 경로',
+								mobileWebUrl : 'http://tenniswing.site/snsDetail?snsWrtNo='+tennisUrl,
+								webUrl : 'http://tenniswing.site/snsDetail?snsWrtNo='+tennisUrl, 
+							/* 	mobileWebUrl : 'http://localhost:8099/snsDetail?snsWrtNo='+tennisUrl,
+								webUrl : 'http://localhost:8099/snsDetail?snsWrtNo='+tennisUrl, */
 							},
 						},
 						buttons : [ {
 							title : '웹으로 보기',
 							link : {
-								mobileWebUrl : '카카오공유하기 시 클릭 후 이동 경로',
-								webUrl : '카카오공유하기 시 클릭 후 이동 경로',
+								mobileWebUrl : 'http://tenniswing.site/snsDetail?snsWrtNo='+tennisUrl,
+								webUrl : 'http://tenniswing.site/snsDetail?snsWrtNo='+tennisUrl,
 							},
 						}, ],
 						// 카카오톡 미설치 시 카카오톡 설치 경로이동
@@ -579,24 +427,23 @@ html {
 		}
 		// NAVER
 		function shareNaver() {
-			const title = "TENNISWING";
-			const url = "https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800";
+			const title = "TENNISWING-SNS";
+			const url = "http://tenniswing.site/snsDetail?snsWrtNo="+tennisUrl;
 			window.open("https://share.naver.com/web/shareView?url=" + url
 					+ "&title=" + title);
 		}
 		// Facebook
 		function shareFacebook() {
-			const title = "TENNISWING-SNS";
+			const title = tennisUrl;
 			const url = "https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800";
 			window.open("http://www.facebook.com/sharer/sharer.php?u=" + url
 					+ "&title=" + title);
 		}
 
-
 		// 스크랩 등록, 삭제
 		$('.iBmark').on('click', function(e){
-			let snsWrtNo = $(this).attr('data-snswrtno');
 			let target = $(e.target);
+			let snsWrtNo = $(this).attr('data-snswrtno');
 			if($(this).hasClass("active")){
 				console.log('액티브> 안눌린 스크랩버튼');
 				//인서트
@@ -615,18 +462,12 @@ html {
 								  timer: 1500
 								});
 						target.attr('class','fa-solid fa-bookmark fs-5 text-secondary iBmark');
-						target.attr('data-scrapNo', result)
+						target.attr('data-scrapNo', result);
 						target.removeClass("active");
-							
 						}
-						
 					},
 					error: function() {
-						Swal.fire({
-							  icon: "error",
-							  title: "Oops...",
-							  text: "스크랩 실패 잠시후 다시 시도해주세요!"
-							});
+						alert("좋아요 실패")
 					}
 				})
 			}else{
@@ -648,30 +489,12 @@ html {
 									  showConfirmButton: false,
 									  timer: 1500
 									}); 
-	            		/* 		Swal.bindClickHandler();
-	            				Swal.mixin({
-	            					  toast: true,
-	            					  position: 'center',
-	            					  icon:'info',
-	            					  title:'스크랩 해제 되었습니다.',
-	            					  iconColor: 'red',
-	            					  customClass: {
-	            					    popup: 'colored-toast',
-	            					  },
-	            					  showConfirmButton: false,
-	            					  timer: 1500,
-	            					  timerProgressBar: true,
-	            					  
-	            					}).bindClickHandler("data-swal-toast-template"); */
 	            		   }
-	            	 },
-	            	 error: function() {
-							alert("스크랩 삭제 실패")
-						}
+	            	 }
 				})
 			}
 		})
-			//assets/img/sns/heart.png
+			
 		
 		
 		
@@ -691,31 +514,21 @@ html {
 								Swal.fire({
 									 title: '좋아요 등록 완료!',
 									 text: '마이페이지에서 확인하실 수 있습니다.',
-									//background: "url(assets/img/sns/heartboom.gif)",
 									 backdrop: `
 										 	rgba(230, 134, 163, 0.3)
 										    url("assets/img/sns/heartboom.gif")
 										    center
 										    no-repeat
 										  `,
-									  //imageUrl: 'assets/img/sns/heartboom.gif',
-									  //imageWidth: 400,
-									  //imageHeight: 200,
-									  //imageAlt: 'Custom image',
 									  showConfirmButton: false,
 									  timer: 1500
 									})
-								
-									//location.href="/sns";
-									console.log($(e.target))
 									let likeCnt = $(e.target).closest('.btn').find('.like-cnt');
-									
+								
 									target.attr('class','fa-solid fa-thumbs-up fs-5 text-secondary likeBtnC')
-								    target.removeClass("active");
+									target.removeClass("active");
 									likeCnt.text(result.cnt);
 									target.attr('data-likeNo', result.likeNo);
-									
-								
 							},
 							error : function() {
 								alert("좋아요 실패")
@@ -726,12 +539,12 @@ html {
 	               let likeNo = $(this).attr('data-likeno');
 	               $.ajax({
 	            	   url:'snsLikeDel',
-	            	   data:{likeNo , snsWrtNo},
+	            	   data:{likeNo, snsWrtNo},
 	            	   type:'post',
 	            	   datatype:'json',
 	            	   success: function(result){
 	            		   Swal.fire({
-	            		
+	   	            		
 	            			   	 //icon: "info",
 	            			   	 backdrop: `
 										 	rgba(230, 134, 163, 0.3)`,
@@ -741,15 +554,11 @@ html {
 								  showConfirmButton: false,
 								  timer: 1300
 								})
-	            		   //alert("delete 성공")
-	            		   let likeCnt = $(e.target).closest('.btn').find('.like-cnt');
-	            		   target.attr('class','fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active')
+						   let likeCnt = $(e.target).closest('.btn').find('.like-cnt')
+	            		   target.attr('class','fa-regular fa-thumbs-up fs-5 text-secondary likeBtnC active');
 	            		   likeCnt.text(result.cnt);
 	            		   target.removeAttr('data-likeNo');
-	            	   },
-						error : function() {
-							alert("좋아요 취소 실패")
-						}
+	            	   }
 	     
 	               })
 	           }
@@ -778,20 +587,20 @@ html {
     function makeReply(index, repList){
     	let memId = [[${#authentication.name}]];
         let b = `
-            <tr class = "repTr" id = ${repList.snsRepNo}>
-					<td>${repList.name}</td>
-					<td class = "editCtt">${repList.snsRepCtt}</td>
-					<td>${new Date(repList.snsRepWriteDate).toLocaleDateString()}</td>
-					<td>
-					<i type="button" class="fa-regular fa-comment reWrtBtn" id="reWrtBtn${index}"></i>
-					`
-					if(memId==repList.memId){
-						b+=`<i type="button" class="fa-regular fa-pen-to-square repEditBtn" id="editBtn${index}"></i>
-							<i type="button" class="fa-regular fa-trash-can repDelBtn" id="delBtn${index}"></i></td>`
-					}
-						
-						
-				b+=`</tr>`
+        	 <tr class = "repTr" id = ${repList.snsRepNo}>
+			<td>${repList.name}</td>
+			<td class = "editCtt">${repList.snsRepCtt}</td>
+			<td>${new Date(repList.snsRepWriteDate).toLocaleDateString()}</td>
+			<td>
+			<i type="button" class="fa-regular fa-comment reWrtBtn" id="reWrtBtn${index}"></i>
+			`
+			if(memId==repList.memId){
+				b+=`<i type="button" class="fa-regular fa-pen-to-square repEditBtn" id="editBtn${index}"></i>
+					<i type="button" class="fa-regular fa-trash-can repDelBtn" id="delBtn${index}"></i></td>`
+			}
+				
+				
+		b+=`</tr>`
 				
             $('#replyList').append(b);
     }
@@ -815,8 +624,8 @@ html {
 			b+=`</tr>`
 		 $('#replyList').append(b);
 		}
-		$('#loadDiv').append(`
-				<button id="load" class="btn btn-outline-success" style="width: 200px;">More</button>
+    	$('#loadDiv').append(`
+				<button id="load" class="btn btn-primary" style="width: 200px;">More</button>
 				`)
 		$('#replyList td').css('display','none');
 		$('#replyList td').slice(0,16).show();
@@ -830,7 +639,6 @@ html {
 	            $('#load').fadeOut(100); // 컨텐츠 없을 시 버튼 사라짐
 	        }
 		})
-    
     }
     
 	//댓글 리스트
@@ -859,6 +667,7 @@ html {
 	
 	//댓글 이벤트 등록
 	function replyEvent(data){
+
         //수정 아이콘 눌렀을때 누른행 제외하고 사라지고 등록 버튼 수정버튼으로 변경
         $('.repEditBtn').on('click', function(e){
         	$('#replyList').empty();
@@ -886,8 +695,7 @@ html {
         	console.log(cnt);
 
         	snsRepNo = $(e.target).closest('tr').prop('id');
-        	/* sweetalert */
-        		Swal.fire({
+        	Swal.fire({
 				  title: "정말 삭제하시겠습니까?",
 				  text: "댓글 삭제시 복구가 불가합니다.",
 				  icon: "warning",
@@ -921,23 +729,11 @@ html {
 				    
 				  }
 				});
-        	
-        	/* sweetalert end */
-        	
-        	
-        	
-        	
-     
-        });
+		});
         
         // 대댓글 등록 이벤트
 		$('.reWrtBtn').on('click', function(e){
-			$('#loadDiv').empty();
-			$('#lastDiv').empty();
 			snsRepNo = $(e.target).closest('tr').prop('id');
-			//console.log(snsRepNo);
-			//console.log('대댓글 작성버튼 잘뜨는지');
-			//let snsRrepCtt = $("#replyContents").val();
 			$('#replyList').empty();
 	
 	    	let num = $(e.target).prop('id').replace('reWrtBtn','');
@@ -964,8 +760,8 @@ html {
         	//console.log("대댓글삭제클릭되나요");
 			let snsRrepNo = $(e.target).closest('tr').prop('id');
 			Swal.fire({
-				  title: "정말 삭제하시겠습니까?",
-				  text: "댓글 삭제시 복구가 불가합니다.",
+				  title: "Are you sure?",
+				  text: "You won't be able to revert this!",
 				  icon: "warning",
 				  showCancelButton: true,
 				  confirmButtonColor: "#3085d6",
@@ -982,7 +778,7 @@ html {
 				        			if(result){
 				        			    Swal.fire({
 				      				      title: "삭제되었습니다!",
-				      				     // text: "Your file has been deleted.",
+				      				      //text: "Your file has been deleted.",
 				      				      icon: "success"
 				      				    });
 				        				getRepList(snsWrtNo)
@@ -992,10 +788,11 @@ html {
 									alert("삭제 실패");
 							}
 						})
+					  
 				  }
 				});
-			/* alert */
-		});
+		
+		})
 		
 		//대댓글 수정 이벤트
 		$('.rrepEditBtn').on('click', function(e){
@@ -1037,7 +834,7 @@ html {
 					datatype : 'text',
 					success : function(result) {
 						$(e.target).text('등록');
-							Swal.fire({
+						Swal.fire({
 							  position: "center",
 							  icon: "success",
 							  title: "댓글이 수정되었습니다.",
@@ -1100,7 +897,7 @@ html {
 						Swal.fire({
 							  position: "center",
 							  icon: "success",
-							  title: "댓글이 등록되었습니다.",
+							  title: "대댓글이 등록되었습니다.",
 							  showConfirmButton: false,
 							  timer: 1500
 							});
@@ -1128,7 +925,7 @@ html {
 					success: function(result){
 						if(result){
 							$(e.target).text('등록')
-								Swal.fire({
+							Swal.fire({
 							  position: "center",
 							  icon: "success",
 							  title: "대댓글이 수정되었습니다.",
@@ -1145,8 +942,7 @@ html {
 		}
 	});
 
-
-	</script>
+		</script>
 </th:block>
 
 </html>
