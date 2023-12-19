@@ -68,7 +68,7 @@
 														<td>[[ ${#dates.format(calcList.calcStartDate,'yyyy-MM-dd')} ]] ~ [[ ${#dates.format(calcList.calcEndDate,'yyyy-MM-dd')} ]]</td>
 														<th:block th:switch="${calcList.calcState}">
 															<td th:case="bi1"><span class="badge bg-light-warning">[[ ${calcList.calcStateName} ]]</span></td>
-															<td th:case="bi2"><span class="badge bg-light-secondary">[[ ${calcList.calcStateName} ]]</span></td>
+															<td th:case="bi2"><span class="badge bg-light-secondary" style="color: #3C3C3C">[[ ${calcList.calcStateName} ]]</span></td>
 														</th:block>
 														<td>[[
 															${#dates.format(calcList.calcDate,'yyyy-MM-dd')}

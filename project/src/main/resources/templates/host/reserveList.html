@@ -72,9 +72,9 @@
 															${#dates.format(reserveList.payDate,'yyyy-MM-dd')}
 															]]</td>
 														<th:block th:switch="${reserveList.reserveState}">
-															<td th:case="i1"><span class="badge bg-light-warning">[[ ${reserveList.reserveStateName} ]]</span></td>
-															<td th:case="i2"><span class="badge bg-light-success">[[ ${reserveList.reserveStateName} ]]</span></td>
-															<td th:case="i3"><span class="badge bg-light-danger">[[ ${reserveList.reserveStateName} ]]</span></td>
+															<td th:case="i1"><span class="badge bg-light-warning" style="color: #ffc900">[[ ${reserveList.reserveStateName} ]]</span></td>
+															<td th:case="i2"><span class="badge bg-light-success" style="color: #00B96D">[[ ${reserveList.reserveStateName} ]]</span></td>
+															<td th:case="i3"><span class="badge bg-light-danger" style="color: #eb5e28;">[[ ${reserveList.reserveStateName} ]]</span></td>
 														</th:block>
 														<!-- <td>
 															<div

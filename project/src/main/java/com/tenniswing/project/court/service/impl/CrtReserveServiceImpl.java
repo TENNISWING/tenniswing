@@ -21,7 +21,7 @@ public class CrtReserveServiceImpl implements CrtReserveService {
 	@Autowired CrtReserveMapper crtReserveMapper;
 	
 	
-	@Scheduled(fixedRate = 3600000)
+	@Scheduled(fixedRate = 86400000)
 	public void reportCurrentTime() {
 		Date date = new Date();
 		CrtReserveVO crtReserveVO = new CrtReserveVO();
