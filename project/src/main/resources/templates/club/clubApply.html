@@ -86,6 +86,12 @@
 						`
 						$('#memList').append(List)
 					} // 반복문 끝
+					
+					if(data.length == 0){
+						List = `<h6 style="text-align: center; padding: 40px; color: #3c3c3c;">신청 목록이 없습니다.</h6>`
+							$('#memList').append(List)
+					}
+					
 					$(".okBtn").on("click", function(e){
 						console.log("승인버튼 클릭")
 						let clubApprove = $(event.currentTarget).attr('data-value');

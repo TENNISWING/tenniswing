@@ -73,6 +73,7 @@ font-family: 'Noto Sans KR', sans-serif !important;
 						$('#realMemList').append(List)
 					} // 반복문 끝
 					
+					
 					//삭제 아이콘 클릭
 					$(".memNoBtn").on("click", function(e){
 						let clubMemNo = $(this).data('mem-no');
@@ -95,10 +96,10 @@ font-family: 'Noto Sans KR', sans-serif !important;
 							<button id="load" class="btn" style="width: 200px;">More</button>
 							`)
 					$('#realMemList li').css('display','none');
-					$('#realMemList li').slice(0,2).show();
+					$('#realMemList li').slice(0,10).show();
 					$('#load').click(function(e){
 						e.preventDefault();
-						$('#realMemList li:hidden').slice(0,2).show();
+						$('#realMemList li:hidden').slice(0,10).show();
 						if($("#realMemList li:hidden").length == 0){ // 컨텐츠 남아있는지 확인
 							$('#lastDiv').append(`
 														<div>마지막 행입니다.</div>

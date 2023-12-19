@@ -428,6 +428,18 @@ color: #828282;
 							`
 							$('#postList').append(List)
 						}
+						
+						if(data.clubPost.length == 0){
+							List = `
+							<tr>
+							<td colspan="5">
+							<h6 style="text-align: center; padding: 10px; color: #3c3c3c;">작성된 게시글이 없습니다.</h6>
+							</td>
+							</tr>`
+								$('#postList').append(List)
+						}
+						
+						
 						showPage(data.selectCount);
 						
 						function showPage(replyCnt) {
@@ -571,6 +583,7 @@ color: #828282;
 							`
 							$('#r' + clubPostNo).append(List)
 						}
+						
 						
 						
 						//댓글 삭제 버튼 클릭

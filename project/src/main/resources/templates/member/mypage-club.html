@@ -22,6 +22,7 @@
 							<tr>
 								<th>가입일자</th>
 								<th>클럽명</th>
+								<th>구분</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -30,12 +31,16 @@
 									<td class="cart-pd__date text-start" data-title="Date">
 										[[${#dates.format(c.APPLY_DATE,'yyyy-MM-dd')}]]</td>
 									<td class="cart-pd__thumb" style="cursor: pointer;"
-									th:onclick="|location.href='@{/clubdetail?clubNo=${c.clubNo})}'|">
+									th:onclick="|location.href='@{/clubdetail(clubNo=${c.CLUB_NO})}'|">
 										<div class="product-card--inline">
 											<div class="product__content">
 												<h5 class="product__title" style="margin: 0;">[[${c.CLUB_NAME}]]</h5>
 											</div>
 										</div>
+									</td>
+									<td>
+									<span th:if="${#strings.equals(c.MEM_ID,loginId)}">클럽장</span>
+									<span th:unless="${#strings.equals(c.MEM_ID,loginId)}">회원</span>
 									</td>
 								</tr>
 

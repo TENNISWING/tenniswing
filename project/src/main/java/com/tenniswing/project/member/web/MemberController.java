@@ -223,7 +223,7 @@ public class MemberController {
 	@GetMapping("mypage-club")
 	public String clubMyPage(Model model) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
-
+		model.addAttribute("loginId", id);
 		model.addAttribute("clubList", clubService.selectAllMyClub(id));
 		model.addAttribute("member", memberService.memberInfo(id));
 		model.addAttribute("nowpage", 1);
