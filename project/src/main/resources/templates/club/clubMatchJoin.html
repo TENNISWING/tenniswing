@@ -334,15 +334,11 @@
 				// 더하기/빼기
 				if (type === 'plus') {
 					number = number * 1 + 1;
-					if (number >= 8) {
-						$('#checkCount').attr("disabled", true);
-					}
+					
 
 				} else if (type === 'minus') {
 					number = number * 1 - 1;
-					if (number <= 1) {
-						$('#minusCount').attr("disabled", true);
-					}
+					
 				}
 
 				$('.qnttinput').val(number)
