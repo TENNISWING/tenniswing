@@ -250,10 +250,10 @@ public class HostController {
 	@GetMapping("/host")
 	public String hostPage(Model model) { 		
 		String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
-		model.addAttribute("hostMonthReserve", crtReserveService.hostMonthReserve());
-		model.addAttribute("hostMonthRefund", crtReserveService.hostMonthRefund());
-		model.addAttribute("todayReserve", crtReserveService.todayReserve());
-		if(crtReserveService.thisYearMonthPrice() == null) {
+		model.addAttribute("hostMonthReserve", crtReserveService.hostMonthReserve(hostId));
+		model.addAttribute("hostMonthRefund", crtReserveService.hostMonthRefund(hostId));
+		model.addAttribute("todayReserve", crtReserveService.todayReserve(hostId));
+		if(crtReserveService.thisYearMonthPrice(hostId) == null) {
 			HostDashBoardVO vo = new HostDashBoardVO();
 			vo.setJan(0);
 			vo.setFeb(0);
@@ -269,7 +269,7 @@ public class HostController {
 			vo.setDec(0);
 			model.addAttribute("yearPrice", vo);
 		}else {
-			model.addAttribute("yearPrice", crtReserveService.thisYearMonthPrice());
+			model.addAttribute("yearPrice", crtReserveService.thisYearMonthPrice(hostId));
 		}
 		model.addAttribute("recentReview", crtReserveService.recentReview(hostId));
 		model.addAttribute("hostInfo", crtReserveService.hostInfo(hostId));
