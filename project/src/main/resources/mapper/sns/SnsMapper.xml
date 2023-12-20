@@ -43,7 +43,8 @@
 		 			 on s.sns_grp_no = g.sns_grp_no -->
 				join mem m
 					 on s.mem_id = m.mem_id
-		<if test='snsTag != null and snsTag != "".toString()'>WHERE s.sns_tag LIKE '%'||#{snsTag}||'%'</if>
+		<if test='snsTag != null and snsTag != "".toString()'>
+		WHERE s.sns_tag LIKE '%'||#{snsTag}||'%'</if>
 		ORDER BY s.sns_wrt_no DESC
 	</select>
 
