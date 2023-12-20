@@ -315,8 +315,9 @@
 					<div class="product__wrapper swiper__pagination">
 						<div class="swiper trending__Swiper">
 							<div class="swiper-wrapper">
-							
-								<div th:each="popularProd : ${popularProd}" class="swiper-slide">
+								<th:block th:each="popularProd : ${popularProd}">
+								
+								<div class="swiper-slide">
 									<div class="product-card">
 										<div class="product__image__wrapper">
 											<a th:onclick="|location.href='@{/shopDetail(prodNo=${popularProd.prodNo})}'|" class="product__image"> <img
@@ -403,7 +404,7 @@
 										</div>
 									</div>
 								</div>
-
+								</th:block>
 							</div>
 
 							<div class="swiper-button-next">
@@ -752,8 +753,9 @@
 			$('#'+priceId).text(changePrice);
 		});
 	</script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> -->
 	<script>
-		new Swiper(".trending__Swiper", {
+		new Swiper(".swiper-wrapper", {
 			/* loop : true, */
 			loopPreventsSliding : true,
 			grabCursor : true,

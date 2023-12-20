@@ -934,7 +934,7 @@ section h2, section h3, section h4, section h5, section h6, section pre {
 				processData : false
 			}).done(results => {
 				if (results.result) {
-					Swal2.fire({
+					Swal.fire({
 						icon: "success",
 						title: "리뷰 등록",
 						text: "정상적으로 등록되었습니다.",
@@ -942,7 +942,7 @@ section h2, section h3, section h4, section h5, section h6, section pre {
 						location.reload();
 					})
 				} else {
-					Swal2.fire({
+					Swal.fire({
 						icon: "error",
 						title: "리뷰 등록",
 						text: "정상적으로 등록되지 않았습니다.",
