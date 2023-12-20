@@ -4,6 +4,9 @@
 	layout:decorate="~{layouts/main-layout}">
 <head>
 <style>
+.swal2-container {
+  z-index: 100000;
+}
 .swiper {
 	width: 100%;
 	height: 1200px;
@@ -599,7 +602,7 @@ dribbble
 			let auto = [[${#authentication.name}]]
 			console.log(auto);
 			if(auto == "anonymousUser"){
-				Swal2.fire({
+				Swal.fire({
 					icon: "error",
 					html: "로그인이 필요한 서비스입니다.<br>로그인 페이지로 이동하시겠습니까?",
 					showCancelButton: true,
@@ -697,7 +700,7 @@ dribbble
 			let auto = [[${#authentication.name}]]
 			console.log(auto);
 			if(auto == "anonymousUser"){
-				Swal2.fire({
+				Swal.fire({
 					icon: "error",
 					html: "로그인이 필요한 서비스입니다.<br>로그인 페이지로 이동하시겠습니까?",
 					showCancelButton: true,
