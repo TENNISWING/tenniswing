@@ -59,74 +59,6 @@ section pre{
 	height:100px;
 }
 
-/* button {
-    &.fast {
-        --duration: .32s;
-    }
-} */
-
-/* button {
-    --background: #fff;
-    --text: #828282;
-    --font-size: 16px;
-    --duration: .44s;
-    --move-hover: -4px;
-    --shadow: 0 2px 8px -1px #{rgba(#fff, .32)};
-    --shadow-hover: 0 4px 20px -2px #{rgba(#275efe, .5)};
-    --font-shadow: var(--font-size);
-    padding: 10px 12px;
-    font-family: 'Roboto';
-    font-weight: 400;
-    line-height: var(--font-size);
-    border-radius: 24px;
-    display: block;
-    outline: none;
-    appearance: none;
-    border: none;
-    text-decoration: none;
-    font-size: var(--font-size);
-    letter-spacing: .5px;
-    background: var(--background);
-    color: var(--text);
-    box-shadow: var(--shadow);
-    transform: translateY(var(--y)) translateZ(0);
-    transition: transform var(--duration) ease, box-shadow var(--duration) ease;
-    div {
-        display: flex;
-        overflow: hidden;
-        text-shadow: 0 var(--font-shadow) 0 var(--text);
-        span {
-            display: block;
-            backface-visibility: hidden;
-            font-style: normal;
-            transition: transform var(--duration) ease;
-            transform: translateY(var(--m)) translateZ(0);
-            $i: 1;
-            @while $i < 12 {
-                &:nth-child(#{$i}) {
-                    transition-delay: $i / 20 + s;
-                }
-                $i: $i + 1;
-            }
-        }
-    }
-    &:hover {
-        --y: var(--move-hover);
-        --shadow: var(--shadow-hover);
-        span {
-            --m: calc(var(--font-size) * -1);
-        }
-    }
-    &.reverse {
-        --font-shadow: calc(var(--font-size) * -1);
-        &:hover {
-            span {
-                --m: calc(var(--font-size));
-            }
-        }
-    }
-} */
-
 html {
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
@@ -139,17 +71,6 @@ html {
         box-sizing: inherit;
     }
 }
-
-/*     .dribbble {
-        position: fixed;
-        display: block;
-        right: 20px;
-        bottom: 20px;
-        img {
-            display: block;
-            height: 28px;
-        }
-    } */
 
 	.swiper-slide {
 		padding-top: 30px;
@@ -286,7 +207,6 @@ html {
 																		<th:block
 																			th:each=" lang : ${#strings.arraySplit(s.snsTag,',')}">
 																			<a class="text-primary hashtag" th:href="@{sns(snsTag=${lang})}"> <span class="card-title tagVal">#[[${lang}]]</span></a>
-																			<!-- <input th:each="tagg:${#strings.arraySplit(s.snsTag,',')}" type="text" class="tags4" name="tags4" th:value="${lang}" readonly> -->
 																		</th:block>
 																	</div>
 																</div>
