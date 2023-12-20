@@ -100,7 +100,7 @@
 			charge : refundCharge,
 			reserveNo : reserveNo};
 	
-	Swal2.fire({
+	Swal.fire({
 		icon: "question",
 		text: "환불예정금액은 "+refundPrice+"원 입니다. 그래도 환불하시겠습니까?",
 		showDenyButton: true,
@@ -117,7 +117,7 @@
 		      success: function(result) {
 					if (result) {
 						//alert("환불 성공");
-						Swal2.fire({
+						Swal.fire({
 							icon: "success",
 							text: "환불 성공! 환불 금액: "+data.amount+"원"
 						}).then(function(){
@@ -125,7 +125,7 @@
 						})
 					} else {
 						//alert("환불 실패, 다시 시도해 주세요.");
-						Swal2.fire({
+						Swal.fire({
 							icon: "error",
 							text: "환불 실패, 다시 시도해 주세요."
 						})

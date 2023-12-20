@@ -133,7 +133,7 @@
 		let results = `[[${result}]]`;
 		//results = JSON.parse(results)
 		console.log(results);
-		Swal2.fire({
+		Swal.fire({
 			icon: "question",
 			text: "일괄 정산하시겠습니까?",
 			showDenyButton: true,
@@ -147,7 +147,7 @@
 					contentType : 'application/json',
 					data : results,
 					success: function(result){
-							Swal2.fire({
+							Swal.fire({
 								icon: "success",
 								text: "정산 완료되었습니다."
 							}).then(function(){
