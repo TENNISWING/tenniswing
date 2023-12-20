@@ -159,6 +159,7 @@
 		FROM sns_scrap p,  sns s
 		WHERE p.sns_wrt_no = s.sns_wrt_no
 		AND p.mem_id = #{memId}
+		ORDER BY p.scrap_in_date desc
 	</select>
 
 
@@ -168,6 +169,7 @@
 		FROM sns s, sns_like l
 		WHERE s.sns_wrt_no = l.sns_wrt_no
 		AND l.mem_id = #{memId}
+		ORDER BY l.like_in_date desc
 	</select>
 
 	<!-- 좋아요 카운트 -->
