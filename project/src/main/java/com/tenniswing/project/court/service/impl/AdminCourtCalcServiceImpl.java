@@ -84,8 +84,13 @@ public class AdminCourtCalcServiceImpl implements AdminCourtCalcService {
 			     }
 			}
 			
+			if(total <= 0) {
+				continue;
+			}
+			
 			double comm = total * 0.1;
-			Integer calcTotal = total - (int) comm;
+			Integer calcTotal = total - (int) comm;			
+		
 			
 			System.out.println(host.getMemId());
 			//calcT.setCalcNo(i+1);

@@ -315,8 +315,9 @@
 					<div class="product__wrapper swiper__pagination">
 						<div class="swiper trending__Swiper">
 							<div class="swiper-wrapper">
-							
-								<div th:each="popularProd : ${popularProd}" class="swiper-slide">
+								<th:block th:each="popularProd : ${popularProd}">
+								
+								<div class="swiper-slide">
 									<div class="product-card">
 										<div class="product__image__wrapper">
 											<a th:onclick="|location.href='@{/shopDetail(prodNo=${popularProd.prodNo})}'|" class="product__image"> <img
@@ -403,7 +404,7 @@
 										</div>
 									</div>
 								</div>
-
+								</th:block>
 							</div>
 
 							<div class="swiper-button-next">
@@ -442,30 +443,6 @@
 	<script th:inline="javascript">
 		prodPage(1);
 		//changePrice();
-		
-		$('#cateProd').on('change', function(e) {
-			pageNum = 1;
-			prodPage(1);
-		});
-		$('#cateGen').on('change', function(e) {
-			pageNum = 1;
-			prodPage(1);
-		});
-		$('#prodName').on('keydown', function(e) {
-			console.log($('#prodName').val());
-			pageNum = 1;
-			prodPage(1);
-		});
-		$('#prodName').on('input', function(e) {
-			console.log($('#prodName').val());
-			pageNum = 1;
-			prodPage(1);
-		});
-		$('#sortBy2').on('change', function(e) {
-			pageNum = 1;
-			prodPage(1);
-		})
-		
 		/* $('#btnsearch').on('click', function(e) {
 			pageNum = 1;
 			prodPage(1);
@@ -484,6 +461,29 @@
 			prodPage(1);
 		});
 		
+		$('#prodName').on('input', function(e) {
+			pageNum = 1;
+			prodPage(1);
+		});
+		
+		
+		$('#cateProd').on('change', function(e) {
+			pageNum = 1;
+			prodPage(1);
+		});
+		$('#cateGen').on('change', function(e) {
+			pageNum = 1;
+			prodPage(1);
+		});
+		$('#prodName').on('keydown', function(e) {
+			pageNum = 1;
+			prodPage(1);
+		});
+		$('#sortBy2').on('change', function(e) {
+			pageNum = 1;
+			prodPage(1);
+		})
+		
 		function prodPage(page) {
 			let cateProd = $('#cateProd').val();
 			let cateGen = $('#cateGen').val();
@@ -497,17 +497,14 @@
 				sort = 'prod_price';
 			else if(sort == 3)
 				sort = 'prod_price DESC';
-			//console.log('in?? '+cateProd+cateGen);
 			
 			$.ajax({
 				type : 'GET',
 				url : 'shopList',
 				data : {page, cateProd, cateGen, prodName, sort},
 				success : function(result) {
-					console.log(result.shopList);
 					$('#shopList').empty();
 					for(let prod of result.shopList) {
-						//console.log(prod);
 						let prodData = `<div class="product-card">
 											<div class="product__image__wrapper">
 											<!-- 상품 이미지 -->
@@ -752,8 +749,9 @@
 			$('#'+priceId).text(changePrice);
 		});
 	</script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> -->
 	<script>
-		new Swiper(".trending__Swiper", {
+		new Swiper(".swiper-wrapper", {
 			/* loop : true, */
 			loopPreventsSliding : true,
 			grabCursor : true,

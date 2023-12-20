@@ -152,7 +152,8 @@ public class MemberServiceImpl implements MemberService {
 		result += memberMapper.updateMemberInfo(memberVO);
 		result += memberMapper.updatePrInfo(memberVO);
 
-		if (result > 0) {			
+		if (result > 0) {	
+			System.out.println("일루옴?");
 			map.put("message", "프로필을 수정 하였습니다.");
 		}
 		

@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/main-layout}">
+<head>
+<link rel="stylesheet" href="assets/extensions/sweetalert2/sweetalert2.min.css">
+</head>
 
 
 <th:block layout:fragment="content">
@@ -288,8 +291,11 @@
 			</div>
 		</div>
 	</div>
+
 <script src="assets/extensions/sweetalert2/sweetalert2.min.js"></script>
 <script src="assets/static/js/pages/sweetalert2.js"></script>
+
+
 
 	<script>
 	
@@ -467,7 +473,6 @@ $('#searchCrtItem').on('change', function (e) {
         });
     })
 	</script>
-
 
 </th:block>
 

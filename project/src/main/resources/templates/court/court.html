@@ -293,7 +293,7 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="section-title" style="margin: 50px 0 0 0">
-								<h2><span style="font-size: 25px; color: #134631; font-family: 'Noto Sans KR', sans-serif;">최근 등록한 코트장</span></h2>
+								<h2 style="font-size: 25px;"><span style="color: #134631; font-family: 'Noto Sans KR', sans-serif;">최근 등록한 코트장</span></h2>
 							</div>
 						</div>
 					</div>
@@ -308,7 +308,7 @@
 												<div class="product__image__wrapper">
 													<a th:onclick="|location.href='@{/courtDetail(crtroomNo=${recentCrt.crtroomNo})}'|" class="product__image"
 													> <img
-														th:src="${recentCrt.attachPath}" alt="icon" style="overfit: cover;" />
+														th:src="${recentCrt.attachPath}" alt="icon" style="object-fit: cover;" />
 													</a>
 													<div class="badge" >New</div>
 												</div>

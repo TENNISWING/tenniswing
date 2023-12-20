@@ -36,7 +36,9 @@
 	.form-select {
     	font-family: 'Noto Sans KR', sans-serif;
     }
-
+	#table1 thead tr th {
+		text-align: center;
+	}
 	</style>
 	<!-- Main__container Start-->
 	<div class="main__container">
@@ -208,10 +210,10 @@
 												</div>
 											</div>
 											<div class="form-group mb-0">
-												<div class="form-group">
+												<div class="form-group" style="margin-bottom: 15px;">
 													<label for="description">상품 설명</label>
 													<textarea name="description" class="form-control"
-														id="description" cols="30" rows="4"
+														id="description" cols="30" rows="6"
 														readonly>[[ ${prod.prodExp} ]]</textarea>
 												</div>
 											</div>
@@ -936,6 +938,10 @@
 		$('#editDetailBnt').on('click', function() {
 			let editformData = $('#editDetailProdForm').serializeArray();
 			let editProdDetailSaleSts = $('#editDetailProdForm #editProdDetailSaleSts').is(':checked') ? 'p1' : 'p2';
+			console.log(editformData[2].value);
+			if(editformData[2].value == 0){
+				editProdDetailSaleSts = 'p2';
+			}
 			editformData.push({name: 'prodDetailSaleSts', value: editProdDetailSaleSts});
 
 			let editObjData = {};
