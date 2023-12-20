@@ -50,20 +50,30 @@
 									<td class="cart-pd__date text-start" data-title="Date">
 										[[${#dates.format(m.matchDate,'yyyy-MM-dd')}]]</td>
 									<td class="cart-pd__thumb">[[${m.crtroomName}]]</td>
-									<td th:if="${m.mhMemId == null}" class="cart-pd__thumb">[[${m.openName}]]</td>
-									<td th:unless="${m.mhMemId == null}" class="cart-pd__thumb">[[${m.depenName}]]</td>								
-									<td th:if="${m.mhMemId == null}" class="cart-pd__thumb">[[${m.depenName}]]</td>
-									<td th:unless="${m.mhMemId == null}" class="cart-pd__thumb">[[${m.openName}]]</td>								
+									<th:block th:if="${m.memId} == ${#authentication.name}">
+									<td class="cart-pd__thumb">[[${m.openName}]]</td>																
+									</th:block>
+									<th:block th:unless="${m.mhMemId} == ${#authentication.name}" >
+									<td class="cart-pd__thumb">[[${m.depenName}]]</td>										
+									</th:block>	
+									<th:block th:if="${m.memId} != ${#authentication.name}">
+									<td class="cart-pd__thumb">[[${m.depenName}]]</td>																
+									</th:block>
+									<th:block th:unless="${m.mhMemId} != ${#authentication.name}" >
+									<td class="cart-pd__thumb">[[${m.openName}]]</td>										
+									</th:block>		
 									<th:block th:if="${m.matchState == '승인대기'}">
-									<td class="reserveState"><span class="badge bg-light-warning">[[${m.matchState}]]</span></td>
+									<td class="reserveState"><span class="badge bg-light-warning">신청</span></td>
 									</th:block>
 									<th:block th:unless="${m.matchState == '승인대기'}">
-									<td class="reserveState"><span class="badge bg-light-success">[[${m.matchState}]]</span></td>
+									<td class="reserveState"><span class="badge bg-light-success" style="color: #00B96D;">등록</span></td>
 									</th:block>
-										<td><span class="badge"	style="border: 1px solid rgb(18, 183, 106, .5); color: #12b76a">신청취소</span>
-										</td>
-								
-														
+									<th:block th:if="${m.matchState == '승인대기'}">
+									<td class="reserveState"><button th:id="${m.matchHistNo}" class="badge bg-light-warning">신청취소</button></td>
+									</th:block>
+									<th:block th:unless="${m.matchState == '승인대기'}">
+									<td class="reserveState"><button th:id="${m.matchHistNo}" class="badge bg-light-success" th:onclick="|location.href='@{matchdetail(matchNo=${m.matchNo})}'|">이동</button></td>
+									</th:block>
 								</tr>
 							</th:block>
 						</tbody>

@@ -196,7 +196,7 @@ public class MemberController {
 
 	// 회원정보 수정
 	@PostMapping("profileUpdate")
-	public String profileUpdate(Model model, MemberVO memberVO) {
+	public String profileUpdate(Model model, MemberVO memberVO,RedirectAttributes rttr) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		Map<String, Object> map = new HashMap<>();
 
@@ -204,7 +204,7 @@ public class MemberController {
 
 		model.addAttribute("member", memberService.memberUpdateInfo(id));
 		model.addAttribute("nowpage", 10);
-		model.addAttribute("message", map.get("message"));
+		rttr.addFlashAttribute("message", map.get("message"));
 
 		return "member/mypage-profile";
 	}

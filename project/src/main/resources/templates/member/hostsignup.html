@@ -178,14 +178,14 @@
 		$('#duplicateBtn').on('click', function (e) {
 			let memId = $('#memId').val();
 			if (memId.length < 1) {
-				Swal2.fire({
+				Swal.fire({
 					icon: "error",
 					title: "아이디를 입력해주세요",
 				})
 				return;
 			}
 			if (!email.test(memId)) {
-				Swal2.fire({
+				Swal.fire({
 					icon: "error",
 					title: "이메일 형식으로 아이디를 입력해주세요",
 				})
@@ -199,13 +199,13 @@
 				success: function (result) {
 					if (result) {
 						$('#idck').prop('checked', true);
-						Swal2.fire({
+						Swal.fire({
 							icon: "success",
 							title: "가입 가능한 아이디입니다",
 						})
 					} else {
 						$('#idck').prop('checked', false);
-						Swal2.fire({
+						Swal.fire({
 							icon: "error",
 							title: "아이디가 중복 됩니다",
 						})
@@ -304,12 +304,12 @@
 				if ($('#phoneCk').is(':checked') && $('#idck').is(':checked')) {
 					$('form').submit();
 				} else if (!$('#idck').is(':checked')) {
-					Swal2.fire({
+					Swal.fire({
 						icon: "error",
 						title: "아이디 중복 확인이 필요합니다.",
 					})
 				} else {
-					Swal2.fire({
+					Swal.fire({
 						icon: "error",
 						title: "본인 인증이 필요합니다.",
 					})
@@ -319,7 +319,7 @@
 			IMP.init("imp48072683");
 			$('#phoneNoBtn').on('click', function (e) {
 				if ($('#phoneNo').val() == '') {
-					Swal2.fire({
+					Swal.fire({
 						icon: "error",
 						title: "번호를 입력 해 주세요.",
 					})
@@ -329,7 +329,7 @@
 				}, function (rsp) {
 					if (rsp.success) {
 						let impUid = rsp.imp_uid;
-						Swal2.fire({
+						Swal.fire({
 							icon: "success",
 							title: "본인 인증이 완료되었습니다.",
 						})
@@ -343,7 +343,7 @@
 			$('#forgotphoneNoBtn').on('click', function (e) {
 
 				if ($('#phoneNo').val() == '') {
-					Swal2.fire({
+					Swal.fire({
 						icon: "error",
 						title: "번호를 입력 해 주세요.",
 					})
@@ -353,7 +353,7 @@
 				IMP.certification({
 				}, function (rsp) {
 					if (rsp.success) {
-						Swal2.fire({
+						Swal.fire({
 							icon: "success",
 							title: "본인 인증이 완료되었습니다.",
 						})
@@ -370,7 +370,7 @@
 								console.log(result);
 								$('#myId').prop('hidden', false);
 								$('#memId').val(result);
-								Swal2.fire({
+								Swal.fire({
 									icon: "success",
 									title: "아이디 찾기 완료",
 								})
@@ -379,7 +379,7 @@
 							error: () => console.log(error)
 						})
 					} else {
-						Swal2.fire({
+						Swal.fire({
 							icon: "error",
 							title: "본인 인증 실패",
 						})
