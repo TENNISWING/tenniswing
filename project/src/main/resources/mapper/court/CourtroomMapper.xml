@@ -57,7 +57,8 @@
    		FROM crtroom c JOIN attach a
                        ON c.crtroom_no = a.attach_table_pk
         WHERE a.attach_table_div = 'cd'
-        AND a.attach_turn = 1   
+        AND a.attach_turn = 1
+        AND c.crtroom_state = 'm2'
         <if test="crtroomRegion != null and crtroomRegion != ''">AND c.crtroom_region = #{crtroomRegion}</if>
         <if test="minPrice != null and minPrice != ''">AND min_price <![CDATA[>]]> #{minPrice}</if>
    	</select>
