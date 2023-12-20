@@ -249,10 +249,10 @@
 						<div class="d-flex align-items-center">
 							<div class="avatar avatar-xl">
 							<th:block th:if="${hostInfo.attachPath != null}">
-								<img src="${hostInfo.attachPath}" alt="Face 1">
+								<img src="${hostInfo.attachPath}" alt="Face 1" style="object-fit: cover; width: 100%; height: 100%">
 							</th:block>
 							<th:block th:unless="${hostInfo.attachPath != null}">
-								<img src="./assets/img/logo.png" alt="Face 2">
+								<img src="./assets/img/logo.png" alt="Face 2" style="object-fit: cover; width: 100%; height: 100%">
 							</th:block>
 							</div>
 							<div class="ms-3 name">
@@ -314,6 +314,7 @@
 	let oct = `[[${yearPrice.oct}]]`;
 	let nov = `[[${yearPrice.nov}]]`;
 	let dec = `[[${yearPrice.dec}]]`;
+	
 	var optionsProfileVisit = {
 			  annotations: {
 			    position: "back",
