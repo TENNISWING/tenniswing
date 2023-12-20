@@ -70,6 +70,7 @@
 									<td class="cart-pd__thumb">[[${m.openName}]]</td>										
 									</th:block>		
 									<th:block th:if="${m.matchState == '승인대기'}">
+
 									<td class="reserveState"><span class="badge bg-light-success fs-6" style="background-color: #fff !important; border: 1px solid rgb(46, 144, 250, .5); color: #2e90fa">신청</span></td>
 									</th:block>
 									<th:block th:unless="${m.matchState == '승인대기'}">
@@ -80,6 +81,7 @@
 									</th:block>
 									<th:block th:unless="${m.matchState == '승인대기'}">
 									<td class="reserveState"><button th:id="${m.matchHistNo}" style="background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important" class="btn btn-outline" th:onclick="|location.href='@{matchdetail(matchNo=${m.matchNo})}'|">이동</button></td>
+
 									</th:block>
 								</tr>
 							</th:block>
