@@ -35,6 +35,9 @@ public class MatchVO {
 	private String detailCtt;
 	private Integer crtroomNo;
 	
+	private String crtroomRegionName;
+	private String crtroomRegion;
+	
 	private String clubName;
 	private int clubNo;
 	private String clubMatchRst;
