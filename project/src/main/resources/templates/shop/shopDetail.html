@@ -847,8 +847,9 @@ section h2, section h3, section h4, section h5, section h6, section pre {
 	<!-- Trending Section End -->
 	
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-
+	
 	<script th:inline="javascript">
+		console.log([[ ${image} ]]);
 		// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
 		Kakao.init('5cb79bd417ece35ea33fa7b756305a02');
 
@@ -861,17 +862,17 @@ section h2, section h3, section h4, section h5, section h6, section pre {
 				content : {
 					title : 'TENNISWING-SHOP',
 					description : [[ ${prod.prodName} ]],
-					imageUrl : 'https://tm.ajlabs.co.kr/common/prdAssets/008/WR142011U2/2.jpg',
+					imageUrl : 'http://tenniswing.site'+[[ ${image} ]],
 					link : {
-						mobileWebUrl : '카카오공유하기 시 클릭 후 이동 경로',
-						webUrl : '카카오공유하기 시 클릭 후 이동 경로',
+						mobileWebUrl : 'http://tenniswing.site/shopDetail?prodNo='+[[ ${prod.prodNo} ]],
+						webUrl : 'http://tenniswing.site/shopDetail?prodNo='+[[ ${prod.prodNo} ]],
 					},
 				},
 				buttons : [ {
 					title : '웹으로 보기',
 					link : {
-						mobileWebUrl : '카카오공유하기 시 클릭 후 이동 경로',
-						webUrl : '카카오공유하기 시 클릭 후 이동 경로',
+						mobileWebUrl : 'http://tenniswing.site/shopDetail?prodNo='+[[ ${prod.prodNo} ]],
+						webUrl : 'http://tenniswing.site/shopDetail?prodNo='+[[ ${prod.prodNo} ]],
 					},
 				}, ],
 				// 카카오톡 미설치 시 카카오톡 설치 경로이동
