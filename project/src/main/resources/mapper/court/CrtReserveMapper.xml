@@ -235,7 +235,7 @@
 		SET reserve_state = 'i2'
 		WHERE reserve_no IN (select reserve_no
 							from reserve_detail_inf
-							where reserve_date <![CDATA[<]]> #{reserveDate})
+							where TO_CHAR(reserve_date,'yyyy-MM-dd') <![CDATA[<]]> TO_CHAR(#{reserveDate},'yyyy-MM-dd'))
 		AND reserve_state = 'i1'
 </update>
 

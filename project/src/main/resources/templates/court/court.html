@@ -430,10 +430,12 @@
             <!-- End viewed history -->
 		<script>
 		courtAjax(1);
+		// 지역 필터
 		$('#crtroomRegion').on('change', function(e) {
 			pageNum = 1;
 			courtAjax(1);
 		});
+		// 정렬
 		$('#sortBy2').on('change', function(e) {
 			pageNum = 1;
 			courtAjax(1);
