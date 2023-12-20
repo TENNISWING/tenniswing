@@ -443,30 +443,6 @@
 	<script th:inline="javascript">
 		prodPage(1);
 		//changePrice();
-		
-		$('#cateProd').on('change', function(e) {
-			pageNum = 1;
-			prodPage(1);
-		});
-		$('#cateGen').on('change', function(e) {
-			pageNum = 1;
-			prodPage(1);
-		});
-		$('#prodName').on('keydown', function(e) {
-			console.log($('#prodName').val());
-			pageNum = 1;
-			prodPage(1);
-		});
-		$('#prodName').on('input', function(e) {
-			console.log($('#prodName').val());
-			pageNum = 1;
-			prodPage(1);
-		});
-		$('#sortBy2').on('change', function(e) {
-			pageNum = 1;
-			prodPage(1);
-		})
-		
 		/* $('#btnsearch').on('click', function(e) {
 			pageNum = 1;
 			prodPage(1);
@@ -485,6 +461,29 @@
 			prodPage(1);
 		});
 		
+		$('#prodName').on('input', function(e) {
+			pageNum = 1;
+			prodPage(1);
+		});
+		
+		
+		$('#cateProd').on('change', function(e) {
+			pageNum = 1;
+			prodPage(1);
+		});
+		$('#cateGen').on('change', function(e) {
+			pageNum = 1;
+			prodPage(1);
+		});
+		$('#prodName').on('keydown', function(e) {
+			pageNum = 1;
+			prodPage(1);
+		});
+		$('#sortBy2').on('change', function(e) {
+			pageNum = 1;
+			prodPage(1);
+		})
+		
 		function prodPage(page) {
 			let cateProd = $('#cateProd').val();
 			let cateGen = $('#cateGen').val();
@@ -498,17 +497,14 @@
 				sort = 'prod_price';
 			else if(sort == 3)
 				sort = 'prod_price DESC';
-			//console.log('in?? '+cateProd+cateGen);
 			
 			$.ajax({
 				type : 'GET',
 				url : 'shopList',
 				data : {page, cateProd, cateGen, prodName, sort},
 				success : function(result) {
-					console.log(result.shopList);
 					$('#shopList').empty();
 					for(let prod of result.shopList) {
-						//console.log(prod);
 						let prodData = `<div class="product-card">
 											<div class="product__image__wrapper">
 											<!-- 상품 이미지 -->
