@@ -144,7 +144,7 @@
 				$.ajax({
 					url: 'admin_Calc_proccess',
 					type: 'POST',
-					contentType : 'application/json',
+					contentType : 'application/json;charset:UTF-8',
 					data : results,
 					success: function(result){
 							Swal.fire({
@@ -155,7 +155,14 @@
 							})
 							console.log(result);
 					},
-					error: function(err) {console.log(err)}
+					error: function(err) {
+						Swal.fire({
+							icon: "error",
+							text: "정산 중 문제가 발생했습니다."
+						}).then(function(){
+							console.log(err);
+						})
+					}
 				})
 			}
 		})
