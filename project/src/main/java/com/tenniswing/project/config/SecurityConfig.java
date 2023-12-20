@@ -11,8 +11,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@Configuration // 스프링 환경 세팅을 돕는 어노테이션
-@EnableWebSecurity // 스프링 시큐리티 설정할 클래스라고 알려주는 어노테이션
+@Configuration 
+@EnableWebSecurity 
 public class SecurityConfig {
 	
 	@Autowired
@@ -21,37 +21,33 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-		http.csrf().disable().authorizeRequests()
-
-				.antMatchers("/mypage/**","/clubform","/clubdetail","/matchregi","/snsRegister","/reserveCourt","/snsEditForm","/snsMyList","/noticeForm","/checkout","/noticeForm","/noticeEditForm","/snsMyList").authenticated()
-
+		http	.csrf().disable()
+				
+				//경로 권한 설정
+				.authorizeRequests()				
+				.antMatchers("/mypage/**","/clubform","/clubdetail","/matchregi","/snsRegister"
+						,"/reserveCourt","/snsEditForm","/snsMyList","/noticeForm","/checkout"
+						,"/noticeForm","/noticeEditForm","/snsMyList").authenticated()		
 				.antMatchers("/admin**").hasRole("ADMIN")
 				.antMatchers("/host**").hasRole("HOST")				
-
+				
+				//권한 없는 접근 처리
 				.anyRequest().permitAll()
 				
-				.and()
-				
-				.formLogin()
+				//로그인 설정
+				.and().formLogin()
 				.loginPage("/loginform")
 				.loginProcessingUrl("/loginProc")
 				.usernameParameter("memId")
 				.passwordParameter("pwd")
 				.failureHandler(customFailureHandler)
 				.defaultSuccessUrl("/")
-			
+				
+				//로그 아웃 설정
 				.and()
 				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/");
-				
-//				.and()
-//				.sessionManagement((auth) -> auth
-//						//하나의 아이디에 대한 다중 로그인 허용 개수
-//						.maximumSessions(5)
-//						//다중 로그인 개수를 초과하였을 경우 처리 방법
-//						.maxSessionsPreventsLogin(true))				
-//				.sessionManagement((auth) -> auth
-//						.sessionFixation().changeSessionId());
+				.logoutSuccessUrl("/");				
+
 		return http.build();
 	}
 
