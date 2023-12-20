@@ -58,13 +58,12 @@
 								<div class="product-detail__qty">
 									<span class="product-detail--stroke">모집 인원 수</span>
 									<div class="quantity quantity--outline">
-										<button type="button" class="decressQnt" id="minusCount"
-											onclick='count("minus")'>
+										<button type="button" class="decressQnt" id="minusCount">
 											<span class="bar"></span>
 										</button>
 										<input id="clubMatchRecruitPsnNum" name="clubMatchRecruitPsnNum"
-											class="qnttinput" type="number" readonly="readonly" value="1" />
-										<button type="button" class="incressQnt" id="plusCount" onclick='count("plus")'>
+											class="qnttinput" type="number" readonly="readonly" value="1"/>
+										<button type="button" class="incressQnt" id="plusCount">
 											<span class="bar"></span>
 										</button>
 									</div>
@@ -299,8 +298,6 @@
 					data: { paramRecNo: clubMatchRecruitNo },
 					dataType: 'JSON',
 					success: function (result) {
-						
-							
 							Swal.fire({
 								backdrop: `
 									 rgba(100, 100, 100, 0.6)`,
@@ -309,7 +306,6 @@
 								timer: 1300
 							})
 							recruitListAjax()
-						}
 					},
 					error: function () {
 						Swal.fire({
@@ -325,30 +321,23 @@
 			};
 
 
-			// 이거 안되는데 왜 안되는지..?
-			function count(type) {
-				// 현재 화면에 표시된 값
+			
+			//인원선택
+			$('#plusCount').on('click', function (e) {
 				let number = $('.qnttinput').val();
-				console.log("넘버:" + number)
-
-				// 더하기/빼기
-				if (type === 'plus') {
-					number = number * 1 + 1;
-					if (number >= 8) {
-						$('#checkCount').attr("disabled", true);
-					}
-
-				} else if (type === 'minus') {
-					number = number * 1 - 1;
-					if (number <= 1) {
-						$('#minusCount').attr("disabled", true);
-					}
-				}
-
+				number = number * 1 + 1;
 				$('.qnttinput').val(number)
-			}
-
-
+			})
+			
+				$('#minusCount').on('click', function (e) {
+					
+				number = $('.qnttinput').val();
+				console.log(number)
+				number = number * 1 - 1;
+				
+				
+				$('.qnttinput').val(number)
+			})
 
 
 		</script>
