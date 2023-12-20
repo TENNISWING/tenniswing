@@ -938,6 +938,10 @@
 		$('#editDetailBnt').on('click', function() {
 			let editformData = $('#editDetailProdForm').serializeArray();
 			let editProdDetailSaleSts = $('#editDetailProdForm #editProdDetailSaleSts').is(':checked') ? 'p1' : 'p2';
+			console.log(editformData[2].value);
+			if(editformData[2].value == 0){
+				editProdDetailSaleSts = 'p2';
+			}
 			editformData.push({name: 'prodDetailSaleSts', value: editProdDetailSaleSts});
 
 			let editObjData = {};
