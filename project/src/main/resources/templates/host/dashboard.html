@@ -53,7 +53,14 @@
 									</div>
 									<div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
 										<h6 class="text-muted font-semibold">예약금액</h6>
-										<h6 class="font-extrabold mb-0" style="color: #3C3C3C">[[${#numbers.formatInteger(hostMonthReserve.monthReservePrice, 3, 'COMMA') + '원'}]]</h6>
+										<h6 class="font-extrabold mb-0" style="color: #3C3C3C">
+										<th:block th:if="${hostMonthReserve.monthReservePrice == 0}">
+											[[${#numbers.formatInteger(hostMonthReserve.monthReservePrice, 1, 'COMMA') + '원'}]]
+										</th:block>
+										<th:block th:unless="${hostMonthReserve.monthReservePrice == 0}">
+											[[${#numbers.formatInteger(hostMonthReserve.monthReservePrice, 3, 'COMMA') + '원'}]]
+										</th:block>
+										</h6>
 									</div>
 								</div>
 							</div>
