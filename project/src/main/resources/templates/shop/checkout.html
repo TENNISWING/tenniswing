@@ -453,7 +453,7 @@
 					.done(function(result) {
 						console.log(result.orderTableVO);
 						if (result.result) {
-							Swal2.fire({
+							Swal.fire({
 								title: "상품 주문",
 								text: "상품 주문이 완료되었습니다.",
 								icon: "success",
@@ -461,7 +461,7 @@
 								location.href = "/mypage-shop";
 							})
 						} else {
-							Swal2.fire({
+							Swal.fire({
 								title: "상품 주문",
 								text: "상품 주문이 실패되었습니다.",
 								icon: "error",
@@ -472,7 +472,7 @@
 					})
 					.fail(function(err) {
 						console.log(err);
-						Swal2.fire({
+						Swal.fire({
 							title: "상품 주문",
 							text: "상품 주문 시스템 문제 발생",
 							icon: "error",
@@ -482,7 +482,7 @@
 					})
 				}
 				else {
-					Swal2.fire({
+					Swal.fire({
 						title: "결제 실패",
 						text: "결제가 실패되었습니다.",
 						icon: "error",

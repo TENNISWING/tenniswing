@@ -313,6 +313,7 @@
   <!-- 멤버체크 -->
   <select id="selectCheckMem" resultType="clubVO">
   	SELECT club_no
+  	 	   ,CLUB_APPROVE
   	FROM club_mem
   	WHERE mem_id = #{memId}
   </select>

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tenniswing.project.attach.service.AttachService;
 import com.tenniswing.project.attach.service.AttachVO;
@@ -459,6 +461,37 @@ public class AdminController {
 	public String adminNoticePage(Model model) {
 		model.addAttribute("noticeList", brdService.noticeAllList());
 		return "admin/admin_Notice";
+	}
+	
+	// 공지사항 등록 페이지
+	@GetMapping("adminRegi_Notice")
+	public String adminRegiNoticePage() {
+		return "admin/adminRegi_notice";
+	}
+	
+	// 공지사항 등록 프로세스
+	@PostMapping("adminNoticeForm")
+	public String adminRegiNoticeProc(BrdVO brdVO, RedirectAttributes rttr, Model model){
+		
+		String id = SecurityContextHolder.getContext().getAuthentication().getName(); // 로그인 아닌 권한체크로 변경 
+		brdVO.setMemId(id);
+		
+		
+		if (id.equals("anonymousUser")) {
+			return "redirect:loginform";
+		}
+
+		brdService.insertBrd(brdVO);
+
+		rttr.addFlashAttribute("message", "등록되었습니다.");
+
+		// 사진 등록
+		// 테이블 구분, 게시글 번호, 파일목록
+		List<AttachVO> files = fileUtils.uploadFiles(brdVO.getFiles());
+
+		int n = attachService.saveAttach("s", brdVO.getBrdWrtNo(), files);
+		
+		return "redirect:admin_notice";
 	}
 
 	// 공지사항 상세페이지

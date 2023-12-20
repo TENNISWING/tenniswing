@@ -299,6 +299,28 @@
 								<div class="col-1"></div>
 								<!-- ntrp modal end -->
 							</div>
+							
+							<div class="d-flex flex-row justify-content-evenly">
+								<div class="col-4 mb-4">
+									<label for="age" class="mb-2">모집 인원수</label>
+									<div class="form-group">
+										<select class="choices form-select" style="font-size: 15px;"
+											name="recruitPsnNum" id="recruitPsnNum">
+											<optgroup label="모집인원수">
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
+											</optgroup>
+										</select>
+									</div>
+								</div>
+								<div class="col-6"></div>
+							</div>
 
 							<div class="d-flex flex-row justify-content-evenly">
 								<div class="col-4 mb-4">
@@ -350,7 +372,8 @@
     		  showCancelButton: true,
     		  confirmButtonColor: "#3085d6",
     		  cancelButtonColor: "#d33",
-    		  confirmButtonText: "예"
+    		  confirmButtonText: "예",
+    		  cancelButtonText: "아니오"
     		}).then((result) => {
     		  if (result.isConfirmed) {    			
     		    $('form').submit();

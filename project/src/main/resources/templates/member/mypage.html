@@ -16,6 +16,13 @@
 			font-size: 12px !important;
 			font-weight: 600 !important;
 		}
+		.reserveState span {
+			width: auto !important;
+			height: auto !important;
+			padding: 7px 15px !important;
+			font-size: 12px !important;
+			font-weight: 600 !important;
+		}
 
 		.stateOrder {
 			font-weight: 500;
@@ -50,20 +57,32 @@
 									<td class="cart-pd__date text-start" data-title="Date">
 										[[${#dates.format(m.matchDate,'yyyy-MM-dd')}]]</td>
 									<td class="cart-pd__thumb">[[${m.crtroomName}]]</td>
-									<td th:if="${m.mhMemId == null}" class="cart-pd__thumb">[[${m.openName}]]</td>
-									<td th:unless="${m.mhMemId == null}" class="cart-pd__thumb">[[${m.depenName}]]</td>								
-									<td th:if="${m.mhMemId == null}" class="cart-pd__thumb">[[${m.depenName}]]</td>
-									<td th:unless="${m.mhMemId == null}" class="cart-pd__thumb">[[${m.openName}]]</td>								
+									<th:block th:if="${m.memId} == ${#authentication.name}">
+									<td class="cart-pd__thumb">[[${m.openName}]]</td>																
+									</th:block>
+									<th:block th:unless="${m.mhMemId} == ${#authentication.name}" >
+									<td class="cart-pd__thumb">[[${m.depenName}]]</td>										
+									</th:block>	
+									<th:block th:if="${m.memId} != ${#authentication.name}">
+									<td class="cart-pd__thumb">[[${m.depenName}]]</td>																
+									</th:block>
+									<th:block th:unless="${m.mhMemId} != ${#authentication.name}" >
+									<td class="cart-pd__thumb">[[${m.openName}]]</td>										
+									</th:block>		
 									<th:block th:if="${m.matchState == '승인대기'}">
-									<td class="reserveState"><span class="badge bg-light-warning">[[${m.matchState}]]</span></td>
+
+									<td class="reserveState"><span class="badge bg-light-success fs-6" style="background-color: #fff !important; border: 1px solid rgb(46, 144, 250, .5); color: #2e90fa">신청</span></td>
 									</th:block>
 									<th:block th:unless="${m.matchState == '승인대기'}">
-									<td class="reserveState"><span class="badge bg-light-success">[[${m.matchState}]]</span></td>
+									<td class="reserveState"><span class="badge bg-light-success fs-6" style="background-color: #fff !important; border: 1px solid rgb(18, 183, 106, .5); color: #12b76a !important;">등록</span></td>
 									</th:block>
-										<td><span class="badge"	style="border: 1px solid rgb(18, 183, 106, .5); color: #12b76a">신청취소</span>
-										</td>
-								
-														
+									<th:block th:if="${m.matchState == '승인대기'}">
+									<td class="reserveState"><button th:id="${m.matchHistNo}" class="btn btn-outline" style="background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important">신청취소</button></td>
+									</th:block>
+									<th:block th:unless="${m.matchState == '승인대기'}">
+									<td class="reserveState"><button th:id="${m.matchHistNo}" style="background: transparent !important; border: 1px solid #fbd5ce !important; color: #eb5e28 !important" class="btn btn-outline" th:onclick="|location.href='@{matchdetail(matchNo=${m.matchNo})}'|">이동</button></td>
+
+									</th:block>
 								</tr>
 							</th:block>
 						</tbody>
@@ -86,7 +105,7 @@
 			});
 
 			let btnText = $('.reserveState button').text()
-			if (btnText == '승인') {
+			if (btnText == '승인대기') {
 				$('.reserveState button').attr('disabled', true);
 				$('.reserveState button').css('color', '#344054');
 				$('.reserveState button').css('font-weight', '800 !important');

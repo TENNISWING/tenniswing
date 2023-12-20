@@ -235,7 +235,7 @@
 		SET reserve_state = 'i2'
 		WHERE reserve_no IN (select reserve_no
 							from reserve_detail_inf
-							where reserve_date <![CDATA[<]]> #{reserveDate})
+							where TO_CHAR(reserve_date,'yyyy-MM-dd') <![CDATA[<]]> TO_CHAR(#{reserveDate},'yyyy-MM-dd'))
 		AND reserve_state = 'i1'
 </update>
 
@@ -244,14 +244,21 @@
  	SELECT sum(r.reserve_price) month_reserve_price, count(*) month_reserve_count
 	FROM reserve r JOIN reserve_detail_inf rd
 	                ON r.reserve_no = rd.reserve_no
+                    JOIN crtroom c
+                    ON c.crtroom_no = r.crtroom_no
 	WHERE EXTRACT (month from rd.reserve_date) = EXTRACT (month from SYSDATE)
+	AND c.host_id= #{hostId}
 </select>
   	
 <!-- 이번달 환불금액, 환불건수 -->
 <select id="hostMonthRefund" resultType="HostDashBoardVO">
   	SELECT sum(rc.refund_price) month_refund_price, count(*) month_refund_count
-	FROM reserve_cancel rc
+	FROM reserve_cancel rc JOIN reserve r
+                            ON rc.reserve_no = r.reserve_no
+                            JOIN crtroom c
+                            ON r.crtroom_no = c.crtroom_no
 	WHERE EXTRACT (month from rc.cancel_date) = EXTRACT (month from SYSDATE)
+    AND c.host_id = #{hostId}
 </select>
  
 <!-- 오늘의 예약 -->
@@ -264,6 +271,7 @@
                    JOIN reserve_detail_inf rd
                    ON r.reserve_no = rd.reserve_no
 	WHERE TO_CHAR(r.pay_date,'yyyy-MM-dd') = TO_CHAR(sysdate,'yyyy-MM-dd')
+    AND c.host_id = #{hostId}
 </select>
 
 <!-- 올해 월별 예약금액 -->
@@ -280,8 +288,10 @@
         ,(select sum(reserve_price) from reserve where EXTRACT(month from pay_date) = 10) OCT
         ,(select sum(reserve_price) from reserve where EXTRACT(month from pay_date) = 11) NOV
         ,(select sum(reserve_price) from reserve where EXTRACT(month from pay_date) = 12) DEC
-	FROM reserve
+	FROM reserve r JOIN crtroom c
+                    ON r.crtroom_no = c.crtroom_no
 	WHERE EXTRACT(year from pay_date) = EXTRACT(year from sysdate)
+    AND c.host_id = #{hostId}
 	AND <![CDATA[rownum = 1]]>
 </select>
 

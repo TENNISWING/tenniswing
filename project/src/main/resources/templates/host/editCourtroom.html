@@ -50,14 +50,14 @@
 										<div class="col-md-9 form-group">
 											<select class="form-control"
 												name="crtroomRegion" th:value="${crtroomVO.crtroomRegion}" style="width: 93%;">
-												<option value="b1">서울</option>
-	                                            <option value="b2">경기</option>
-	                                            <option value="b3">인천</option>
-	                                            <option value="b4">강원도</option>
-	                                            <option value="b5">전라도</option>
-	                                            <option value="b6">경상도</option>
-	                                            <option value="b7">충청도</option>
-	                                            <option value="b8">제주도</option>
+												<option th:selected="${crtroomVO.crtroomRegion}=='b1'" value="b1">서울</option>
+	                                            <option th:selected="${crtroomVO.crtroomRegion}=='b2'" value="b2">경기</option>
+	                                            <option th:selected="${crtroomVO.crtroomRegion}=='b3'" value="b3">인천</option>
+	                                            <option th:selected="${crtroomVO.crtroomRegion}=='b4'" value="b4">강원도</option>
+	                                            <option th:selected="${crtroomVO.crtroomRegion}=='b5'" value="b5">전라도</option>
+	                                            <option th:selected="${crtroomVO.crtroomRegion}=='b6'" value="b6">경상도</option>
+	                                            <option th:selected="${crtroomVO.crtroomRegion}=='b7'" value="b7">충청도</option>
+	                                            <option th:selected="${crtroomVO.crtroomRegion}=='b8'" value="b8">제주도</option>
 											</select>
 										</div>
 										<div class="col-md-3">

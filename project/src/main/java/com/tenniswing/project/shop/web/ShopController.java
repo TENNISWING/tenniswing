@@ -91,13 +91,14 @@ public class ShopController {
 		
 		// 첨부파일 불러오기
 		List<AttachVO> attachList = attachService.attachList("p", prodVO.getProdNo());
-		//String path = "";
+		String path = "";
 
 		if (attachList != null && attachList.size() != 0) {
-			//path = attachList.get(0).getAttachPath();
-			//model.addAttribute("image", path);
 			model.addAttribute("attachList", attachList);
+			path = attachList.get(0).getAttachPath();
+			model.addAttribute("image", path);
 		}
+		
 		
 		tempVO = prodService.selectProd(prodVO);
 		log.warn("=============="+tempVO);
