@@ -121,7 +121,7 @@
 						<div class="product-detail__qty">
 							<div class="product__bottom mtdbtn">
 								<div class="cart__action__btn">
-									<button type="button" class="btn btn-outline psbBtn"
+									<button type="button" class="btn btn-outline psbBtn" th:if="${#authentication.name}!=${matchInfo.memId}"
 										id="applyBtn" style="color: #00b96d;">신청하기</button>
 								</div>
 								<th:block th:if="${auth==true}">
@@ -175,7 +175,8 @@
            		  showCancelButton: true,
            		  confirmButtonColor: "#3085d6",
            		  cancelButtonColor: "#d33",
-           		  confirmButtonText: "예"
+	           	  confirmButtonText: "예",
+				  cancelButtonText: "아니오"
            		}).then((result) => {
            		  if (result.isConfirmed) {
            			 $.ajax({
@@ -209,7 +210,8 @@
   				  showCancelButton: true,
   				  confirmButtonColor: "#3085d6",
   				  cancelButtonColor: "#d33",
-  				  confirmButtonText: "예"
+  				  confirmButtonText: "예",
+  				cancelButtonText: "아니오"
   				}).then((result) => {
   				  if (result.isConfirmed) {
   					  
