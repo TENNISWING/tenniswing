@@ -1,6 +1,5 @@
 package com.tenniswing.project.court.service.impl;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,12 +20,9 @@ public class CrtReserveServiceImpl implements CrtReserveService {
 	@Autowired CrtReserveMapper crtReserveMapper;
 	
 	
-	@Scheduled(fixedRate = 86400000)
+	@Scheduled(cron = "0 59 23 * * *", zone = "Asia/Seoul")
 	public void reportCurrentTime() {
-		Date date = new Date();
-		CrtReserveVO crtReserveVO = new CrtReserveVO();
-		crtReserveVO.setReserveDate(date);
-		crtReserveMapper.updateState(crtReserveVO);
+		crtReserveMapper.updateState();
 	}
 	
 	@Override
