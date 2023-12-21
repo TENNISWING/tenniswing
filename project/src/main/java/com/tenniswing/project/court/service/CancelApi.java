@@ -32,8 +32,6 @@ public class CancelApi {
 		 headers.add("Authorization", "Bearer "+token);
 		 
 		 //토큰요청객체 생성
-		 //TokenVO token = new TokenVO();
-		 //RefundAppVO app = refundAppVO;
 		 
 		 //객체 -> json
 		 Gson gson = new Gson();
