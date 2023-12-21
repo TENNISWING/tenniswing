@@ -382,8 +382,6 @@
 		, m.ntrp
 		, m.in_date
 		, m.update_date
-		, m.in_date
-		, m.update_date
 		, m.lv
 		, FIND_CATEGORY_NAME (m.lv) lv_name
 		, m.crt_use_amt
@@ -394,8 +392,14 @@
 		, c.crtroom_name
 		, c.crtroom_location
 		, FIND_CATEGORY_NAME (c.crtroom_location) crtroom_location_name
-        , p.nick
+        , p.nick       
         , t.mem_id
+        ,(SELECT ATTACH_PATH
+			FROM ATTACH
+			where attach_table_pk = (select mem_no
+									 from mem
+									 where mem_id = t.mem_id)
+			AND attach_table_div = 'm') as ATTACH_PATH
         , p.gen
 		, FIND_CATEGORY_NAME (p.gen) gen_name
 		FROM club_match m, club t, crtroom c, pr p
