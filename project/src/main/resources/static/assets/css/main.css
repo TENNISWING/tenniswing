@@ -138,7 +138,7 @@ page-link.active, .active > .page-link {
 }
 
 .swiper-button-prev {
-	/* left: 0px !important; */
+	left: 0px;
 }
 
 .mmmttt {

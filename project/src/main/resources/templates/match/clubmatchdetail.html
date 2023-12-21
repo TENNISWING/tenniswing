@@ -54,10 +54,9 @@
 							<h3 class="product-detail__price"
 								style="font-family: 'NanumSquareNeo-Variable';">
 								[[${#numbers.formatInteger(clubMatchInfo.crtUseAmt, 3, 'COMMA')
-								+ ' 원'}]]</h3>
-							<p class="product-detail__short_desc"
-								style="font-family: 'NanumSquareNeo-Variable';">♦ 코멘트 영역
-								[[${clubMatchInfo.detailCtt}]]</p>
+								+ ' 원'}]]</h3><br>
+							<pre class="product-detail__short_desc"
+								style="font-family: 'NanumSquareNeo-Variable';">[[${clubMatchInfo.detailCtt}]]</pre>
 							<br>
 
 							<div class="product-detail__attr">
@@ -179,11 +178,11 @@
           		  showCancelButton: true,
           		  confirmButtonColor: "#3085d6",
           		  cancelButtonColor: "#d33",
-          		  confirmButtonText: "예"
+          		  confirmButtonText: "예",
+          		  cancelButtonText: "아니오"
           		}).then((result) => {
           		  if (result.isConfirmed) {
-          			  //내가 속한 클럽이 하나일때 			  
-          			  
+          			  //내가 속한 클럽이 하나일때 	  
           			$.ajax({
                       	 type: 'POST',
                       	 url: 'clubDetailInsert',
@@ -212,7 +211,8 @@
   				  showCancelButton: true,
   				  confirmButtonColor: "#3085d6",
   				  cancelButtonColor: "#d33",
-  				  confirmButtonText: "예"
+  				  confirmButtonText: "예",
+  				  cancelButtonText: "아니오"
   				}).then((result) => {
   				  if (result.isConfirmed) {
   					  console.log(result);

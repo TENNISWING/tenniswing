@@ -2,6 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/main-layout}">
+<head>
+<link rel="stylesheet" href="assets/extensions/sweetalert2/sweetalert2.min.css">
+</head>
+
 
 <th:block layout:fragment="content">
 	<h3 class="container p-3" style="font-family: 'Noto Sans KR', sans-serif !important; font-weight: 800;">프로필</h3>
@@ -288,9 +292,13 @@
 		</div>
 	</div>
 
+<script src="assets/extensions/sweetalert2/sweetalert2.min.js"></script>
+<script src="assets/static/js/pages/sweetalert2.js"></script>
+
 
 
 	<script>
+	
 	//비밀번호 보기
 	$(document).ready(function () {
 		$("#pwview").on("click", function (e) {
@@ -349,14 +357,14 @@
 		            data: JSON.stringify({ memId, div:'bh3' }),
 		            success: function (result) {   
 		                if (result > 0) {
-		                    Swal2.fire({
+		                    Swal.fire({
 		                        icon: "success",
 		                        title: "회원탈퇴를 완료하였습니다.",
 		                    }).then(result => {
 		                    	location.href="/logout";
 		                    })                   
 		                } else {
-		                    Swal2.fire({
+		                    Swal.fire({
 		                        icon: "error",
 		                        title: "회원탈퇴 실패",
 		                    })
@@ -383,12 +391,12 @@
                 processData: false,				
 				success : function(result){
 					if(result){
-						Swal2.fire({
+						Swal.fire({
 							icon: "success",
 							title: "프로필 사진 수정완료 새로고침 시 적용됩니다.",
 						})						
 					}else{
-						Swal2.fire({
+						Swal.fire({
 							icon: "error",
 							title: "프로필 사진 수정을 실패하였습니다.",
 						})
@@ -444,7 +452,7 @@ $('#searchCrtItem').on('change', function (e) {
   IMP.init("imp48072683");
     $('#phoneNoBtn').on('click', function (e) {
         if ($('#phoneNo').val() == '') {
-            Swal2.fire({
+            Swal.fire({
                 icon: "error",
                 title: "번호를 입력 해 주세요.",
             })
@@ -454,7 +462,7 @@ $('#searchCrtItem').on('change', function (e) {
         }, function (rsp) {
             if (rsp.success) {
                 let impUid = rsp.imp_uid;
-                Swal2.fire({
+                Swal.fire({
                     icon: "success",
                     title: "본인 인증이 완료되었습니다.",
                 })
@@ -465,7 +473,6 @@ $('#searchCrtItem').on('change', function (e) {
         });
     })
 	</script>
-
 
 </th:block>
 

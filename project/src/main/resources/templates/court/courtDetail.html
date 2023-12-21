@@ -210,8 +210,7 @@ body{
 								</div>
 								<h3 class="product-detail__price" style="font-family: 'Noto Sans KR', sans-serif;">[[
 									${#numbers.formatInteger(courtDetail.minPrice, 3, 'COMMA') + '원'} ]] ~</h3>
-								<p class="product-detail__short_desc" style="font-family: 'Noto Sans KR', sans-serif;"> [[
-									${courtDetail.crtroomExp} ]]</p>
+								<p class="product-detail__short_desc" style="font-family: 'Noto Sans KR', sans-serif;">[[${courtDetail.crtroomExp} ]]</p>
 								<br>
 								<div class="product-detail__attr">
 									<div class="product__attr">
@@ -828,7 +827,7 @@ body{
 					processData : false
 				}).done(results => {
 					if (results.result) {
-						Swal2.fire({
+						Swal.fire({
 							icon: "success",
 							text: "정상적으로 등록되었습니다.",
 						}).then(function(){
@@ -900,7 +899,7 @@ body{
 							$('#files').val('');
 						})
 					} else {
-						Swal2.fire({
+						Swal.fire({
 							icon: "error",
 							text: "정상적으로 등록되지 않았습니다.",
 						}).then(function(){

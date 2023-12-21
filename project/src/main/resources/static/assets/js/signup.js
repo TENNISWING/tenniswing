@@ -40,14 +40,14 @@ $('#memId').on('propertychange change keyup paste input', function (e) {
 $('#duplicateBtn').on('click', function (e) {
     let memId = $('#memId').val();
     if (memId.length < 1) {
-        Swal2.fire({
+        Swal.fire({
             icon: "error",
             title: "아이디를 입력해주세요",
         })
         return;
     }
     if (!email.test(memId)) {
-        Swal2.fire({
+        Swal.fire({
             icon: "error",
             title: "이메일 형식으로 아이디를 입력해주세요",
         })
@@ -61,13 +61,13 @@ $('#duplicateBtn').on('click', function (e) {
         success: function (result) {
             if (result) {
                 $('#idck').prop('checked', true);
-                Swal2.fire({
+                Swal.fire({
                     icon: "success",
                     title: "가입 가능한 아이디입니다",
                 })
             } else {
                 $('#idck').prop('checked', false);
-                Swal2.fire({
+                Swal.fire({
                     icon: "error",
                     title: "아이디가 중복 됩니다",
                 })
@@ -167,12 +167,12 @@ $(document).ready(function () {
         if ($('#phoneCk').is(':checked') && $('#idck').is(':checked')) {
             $('form').submit();
         } else if (!$('#idck').is(':checked')) {
-            Swal2.fire({
+            Swal.fire({
                 icon: "error",
                 title: "아이디 중복 확인이 필요합니다.",
             })
         } else {
-            Swal2.fire({
+            Swal.fire({
                 icon: "error",
                 title: "본인 인증이 필요합니다.",
             })
@@ -182,7 +182,7 @@ $(document).ready(function () {
     IMP.init("imp48072683");
     $('#phoneNoBtn').on('click', function (e) {
         if ($('#phoneNo').val() == '') {
-            Swal2.fire({
+            Swal.fire({
                 icon: "error",
                 title: "번호를 입력 해 주세요.",
             })
@@ -192,7 +192,7 @@ $(document).ready(function () {
         }, function (rsp) {
             if (rsp.success) {
                 let impUid = rsp.imp_uid;
-                Swal2.fire({
+                Swal.fire({
                     icon: "success",
                     title: "본인 인증이 완료되었습니다.",
                 })
@@ -206,7 +206,7 @@ $(document).ready(function () {
     $('#forgotphoneNoBtn').on('click', function (e) {
 
         if ($('#phoneNo').val() == '') {
-            Swal2.fire({
+            Swal.fire({
                 icon: "error",
                 title: "번호를 입력 해 주세요.",
             })
@@ -216,7 +216,7 @@ $(document).ready(function () {
         IMP.certification({
         }, function (rsp) {
             if (rsp.success) {
-                Swal2.fire({
+                Swal.fire({
                     icon: "success",
                     title: "본인 인증이 완료되었습니다.",
                 })
@@ -233,7 +233,7 @@ $(document).ready(function () {
                         console.log(result);
                         $('#myId').prop('hidden', false);
                         $('#memId').val(result);
-                        Swal2.fire({
+                        Swal.fire({
                             icon: "success",
                             title: "아이디 찾기 완료",
                         })
@@ -242,7 +242,7 @@ $(document).ready(function () {
                     error: () => console.log(error)
                 })
             } else {
-                Swal2.fire({
+                Swal.fire({
                     icon: "error",
                     title: "본인 인증 실패",
                 })
@@ -256,7 +256,7 @@ $(document).ready(function () {
 
     $('#forgotpwphoneNoBtn').on('click', function (e) {
         if ($('#phoneNo').val() == '') {
-            Swal2.fire({
+            Swal.fire({
                 icon: "error",
                 title: "번호를 입력 해 주세요.",
             })
@@ -267,7 +267,7 @@ $(document).ready(function () {
         }, function (rsp) {
             if (rsp.success) {
 
-                Swal2.fire({
+                Swal.fire({
                     icon: "success",
                     title: "본인 인증이 완료되었습니다.",
                 })
@@ -290,14 +290,14 @@ $(document).ready(function () {
             data: JSON.stringify({ phoneNo, memId, pwd }),
             success: function (result) {
                 if (result > 0) {
-                    Swal2.fire({
+                    Swal.fire({
                         icon: "success",
                         title: "비밀번호 수정 완료",
                     }).then(result => {
                         location.href = "/loginform";
                     })
                 } else {
-                    Swal2.fire({
+                    Swal.fire({
                         icon: "error",
                         title: "비밀번호 수정 실패",
                     })

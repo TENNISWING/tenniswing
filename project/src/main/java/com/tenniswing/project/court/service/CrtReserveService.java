@@ -37,16 +37,16 @@ public interface CrtReserveService {
 		public int updateCrtReserveState(CrtReserveVO crtReserveVO);
 		
 		// 대시보드 예약금액, 예약건수
-		public HostDashBoardVO hostMonthReserve();
+		public HostDashBoardVO hostMonthReserve(String hostId);
 		
 		// 대시보드 환불금액, 환불건수
-		public HostDashBoardVO hostMonthRefund();
+		public HostDashBoardVO hostMonthRefund(String hostId);
 		
 		// 오늘의 예약
-		public List<CrtReserveVO> todayReserve();
+		public List<CrtReserveVO> todayReserve(String hostId);
 		
 		// 올해 월별 예약금액
-		public HostDashBoardVO thisYearMonthPrice();
+		public HostDashBoardVO thisYearMonthPrice(String hostId);
 		
 		// 최근 리뷰 5개
 		public List<CrtroomVO> recentReview(String hostId);

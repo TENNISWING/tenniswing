@@ -417,6 +417,16 @@ public class CommunityController {
 		return "community/noticeEditForm";
 	}
 	
+	//공지사항 수정 처리
+	@PostMapping("noticeEditForm")
+	public String editnoticeForm(BrdVO brdVO, RedirectAttributes rttr, Model model) {
+		String id = SecurityContextHolder.getContext().getAuthentication().getName(); // 로그인 아닌 권한체크로 변경 
+		brdVO.setMemId(id);
+		
+		brdService.updateBrd(brdVO);
+		
+		return "redirect:noticeList";
+	}
 	
 	
 

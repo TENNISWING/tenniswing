@@ -60,6 +60,7 @@
 		m.mem_id,
 		m.match_date,
 		m.prog_state,
+		m.time,
 		FIND_CATEGORY_NAME (m.prog_state) prog_state_name,
 		m.in_date,
 		m.update_date,
@@ -137,6 +138,7 @@
 		select * from (
 		SELECT m.match_no,
 		m.match_date,
+		m.time,
 		m.in_date,
 		m.update_date,
 		m.prog_state,		

@@ -156,7 +156,7 @@
 			let auto = [[${#authentication.name}]]
 			console.log(auto);
 			if(auto == "anonymousUser"){
-				Swal2.fire({
+				Swal.fire({
 					icon: "error",
 					text: "로그인 페이지로 이동하시겠습니까?",
 					showCancelButton: true,
@@ -204,14 +204,8 @@
 					merchant_uid: makeMerchantUid,
 					name: crtroomName,
 					amount: reservePrice,
-					//amount: reservePrice,
-					/* buyer_email: reserveDate,
-					buyer_name: crtDetailNo,
-					buyer_tel: reserveTime,
-					buyer_addr: tReserveTime,
-					text_free: crtroomNo, */
 					display: {
-						card_quota: [6]  // 할부개월 6개월까지 활성화
+						card_quota: [6]  
 					}
 				}, function(rsp) { // callback
 
@@ -235,27 +229,17 @@
 								   tReserveTime,
 								   reserveUid: rsp.merchant_uid,
 								   reservePayNo: rsp.imp_uid}),
-							/* {
-								reservePrice: rsp.amount,
-								reservePayNo: rsp.imp_uid,     // 결제 고유번호
-								reserveUid: rsp.merchant_uid   // 주문번호
-								crtroomNo: rsp.text_free,
-								crtDetailNo: rsp.buyer_name,
-								reserveDate: rsp.buyer_email,
-								reserveTime: rsp.buyer_tel,
-								tReserveTime: rsp.buyer_addr
-							}, */
 							success: function (results) {
 								console.log(results.crtReserveVO)
 								if (results.result) {
-									Swal2.fire({
+									Swal.fire({
 										icon: "success",
 										text: "정상적으로 예약되었습니다.",
 									}).then(function(){
 										location.href = "/mypage-court";
 									})
 								} else {
-									Swal2.fire({
+									Swal.fire({
 										icon: "error",
 										text: "예약 실패되었습니다.",
 									}).then(function(){
@@ -267,7 +251,7 @@
 						})
 					} else {
 						//alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
-						 Swal2.fire({
+						 Swal.fire({
 							icon: "error",
 							text: "결제에 실패하였습니다.",
 						}).then(function(){
@@ -276,7 +260,7 @@
 					}
 				});
 				} else{
-						Swal2.fire({
+						Swal.fire({
 							icon: "error",
 							text: "위 내용에 동의하신다면 동의칸에 체크해주세요.",
 						})
@@ -365,14 +349,14 @@
 				success: function (results) {
 					console.log(results.crtReserveVO)
 					if (results.result) {						
-						Swal2.fire({
+						Swal.fire({
 							icon: "success",
 							text: "정상적으로 예약되었습니다.",
 						}).then(function(){
 							location.href = "/court";
 						})
 					} else {
-						Swal2.fire({
+						Swal.fire({
 							icon: "error",
 							text: "예약 실패되었습니다.",
 						}).then(function(){

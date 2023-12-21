@@ -54,12 +54,11 @@
   	
   	<select id="selectCount" resultType="int">
    		select count(*)
-   		FROM crtroom c JOIN crt_detail_inf d
-                       ON c.crtroom_no = d.crtroom_no
-                       JOIN attach a
+   		FROM crtroom c JOIN attach a
                        ON c.crtroom_no = a.attach_table_pk
         WHERE a.attach_table_div = 'cd'
-        AND a.attach_turn = 1   
+        AND a.attach_turn = 1
+        AND c.crtroom_state = 'm2'
         <if test="crtroomRegion != null and crtroomRegion != ''">AND c.crtroom_region = #{crtroomRegion}</if>
         <if test="minPrice != null and minPrice != ''">AND min_price <![CDATA[>]]> #{minPrice}</if>
    	</select>
@@ -152,7 +151,7 @@
 		, a.attach_ext
 		, a.attach_table_div
 		, a.attach_table_pk
-		FROM attach a JOIN crt_detail_inf c
+		FROM attach a JOIN crtroom c
 		ON a.attach_table_pk = c.crtroom_no
 		WHERE a.attach_table_div= 'cd'
 		AND c.crtroom_no = #{crtroomNo}

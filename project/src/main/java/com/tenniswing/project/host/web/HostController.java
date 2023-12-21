@@ -1,6 +1,5 @@
 package com.tenniswing.project.host.web;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +22,7 @@ import com.tenniswing.project.court.service.CrtDetailService;
 import com.tenniswing.project.court.service.CrtDetailVO;
 import com.tenniswing.project.court.service.CrtReserveService;
 import com.tenniswing.project.court.service.CrtroomVO;
+import com.tenniswing.project.court.service.HostDashBoardVO;
 
 @Controller
 public class HostController {
@@ -250,13 +250,42 @@ public class HostController {
 	@GetMapping("/host")
 	public String hostPage(Model model) { 		
 		String hostId = SecurityContextHolder.getContext().getAuthentication().getName();
-		model.addAttribute("hostMonthReserve", crtReserveService.hostMonthReserve());
-		model.addAttribute("hostMonthRefund", crtReserveService.hostMonthRefund());
-		model.addAttribute("todayReserve", crtReserveService.todayReserve());
-		model.addAttribute("yearPrice", crtReserveService.thisYearMonthPrice());
+		model.addAttribute("hostMonthReserve", crtReserveService.hostMonthReserve(hostId));
+		model.addAttribute("hostMonthRefund", crtReserveService.hostMonthRefund(hostId));
+		model.addAttribute("todayReserve", crtReserveService.todayReserve(hostId));
+		if(crtReserveService.thisYearMonthPrice(hostId) == null) {
+			HostDashBoardVO vo = new HostDashBoardVO();
+			vo.setJan(0);
+			vo.setFeb(0);
+			vo.setMar(0);
+			vo.setApr(0);
+			vo.setMay(0);
+			vo.setJun(0);
+			vo.setJul(0);
+			vo.setAug(0);
+			vo.setOct(0);
+			vo.setSep(0);
+			vo.setNov(0);
+			vo.setDec(0);
+			model.addAttribute("yearPrice", vo);
+		}else {
+			model.addAttribute("yearPrice", crtReserveService.thisYearMonthPrice(hostId));
+		}
 		model.addAttribute("recentReview", crtReserveService.recentReview(hostId));
 		model.addAttribute("hostInfo", crtReserveService.hostInfo(hostId));
-		model.addAttribute("hostStar", crtReserveService.hostStarInfo(hostId));
+		if(crtReserveService.hostStarInfo(hostId) == null) {
+			HostDashBoardVO vos = new HostDashBoardVO();
+			vos.setOne(0);
+			vos.setTwo(0);
+			vos.setThree(0);
+			vos.setFour(0);
+			vos.setFive(0);
+			model.addAttribute("hostStar", vos);
+		}else {
+			model.addAttribute("hostStar", crtReserveService.hostStarInfo(hostId));
+			
+		}
+		
 		return "host/dashboard";
 	}
 }
