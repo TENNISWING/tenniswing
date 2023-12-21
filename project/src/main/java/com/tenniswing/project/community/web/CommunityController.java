@@ -104,9 +104,7 @@ public class CommunityController {
 		snsService.insertSns(snsVO ,files);
 
 		// sns페이지로 이동
-		//rttr.addFlashAttribute("message", "등록되었습니다"); //플래시는 한번만 뜸 휘발성.
 		return "redirect:sns";
-
 
 	}
 

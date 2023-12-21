@@ -206,7 +206,8 @@ html {
 																	<div class="tag-wrap">
 																		<th:block
 																			th:each=" lang : ${#strings.arraySplit(s.snsTag,',')}">
-																			<a class="text-primary hashtag" th:href="@{sns(snsTag=${lang})}"> <span class="card-title tagVal">#[[${lang}]]</span></a>
+																			<a class="text-primary hashtag" th:href="@{sns(snsTag=${lang})}"> 
+																			<span class="card-title tagVal">#[[${lang}]]</span></a>
 																		</th:block>
 																	</div>
 																</div>
@@ -776,7 +777,7 @@ dribbble
 				<button id="load" class="btn btn-outline-success" style="width: 200px;">More</button>
 				`)
 		$('#replyList td').css('display','none');
-		$('#replyList td').slice(0,16).show();
+		$('#replyList td').slice(0,36).show();
 		$('#load').click(function(e){
 			e.preventDefault();
 			$('#replyList td:hidden').slice(0,16).show();
@@ -797,19 +798,16 @@ dribbble
 			url:'snsRep',
 			data: {snsWrtNo},
 			   success: function(data) {
-				   console.log('data');
-				   console.log(data);
 					$('#replyList').empty();
 		            for(let [index, repList] of data.entries()){
-
+						//댓글 대댓글 리스트 함수
 		            	makeReply(index,repList);
 						makeRreply(repList.snsRrepList);
 		            	 	
 		            }
+		          	//댓글 이벤트
 		            replyEvent(data);
-		            //대댓글이벤트
 		         }
-
 		})
 	}
 		
@@ -1001,15 +999,12 @@ dribbble
 							  showConfirmButton: false,
 							  timer: 1500
 							});
-						//if (result == "success") {
-						//}
 						$('#replyContents').val('') //댓글 등록시 댓글 등록창 초기화
 						 getRepList(snsWrtNo); //등록후 댓글 목록 불러오기 함수 실행
 						//DOM 조작 함수호츨 등 가능
 					},
 					error : function() {
 						alert("등록 실패")
-
 					}
 				})
 		} else if($(e.target).text() == '등록') {
