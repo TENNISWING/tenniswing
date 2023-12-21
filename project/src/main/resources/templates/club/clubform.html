@@ -208,7 +208,7 @@
 	    let clubName = $('#formClubName').val();
 	    console.log(clubName)
 	    if (clubName.length < 1) {
-	        Swal2.fire({
+	        Swal.fire({
 	            icon: "error",
 	            title: "클럽명을 입력해주세요",
 	        })
@@ -224,13 +224,13 @@
 	            if (result) {
 	                $('#nameCk').prop('checked', true);
 	                $('#formClubName').prop("class", "form-control is-valid");
-	                Swal2.fire({
+	                Swal.fire({
 	                    icon: "success",
 	                    title: "사용가능한 이름입니다.",
 	                })
 	            } else {
 	                $('#nameCk').prop('checked', false);
-	                Swal2.fire({
+	                Swal.fire({
 	                    icon: "error",
 	                    title: "이미 사용중인 이름입니다.",
 	                })

@@ -221,9 +221,10 @@
 		 							<img src="${clubList.attachPath}" onerror="this.onerror=null; this.src='/assets/img/sns/Tennis1.jpg';" 
 		 							     style="width: 100% ;height: 100%; object-fit:cover;">
 		 						</div>`
+		 						
 		 						let check = false;
 		 						for (let mem of result.memcheck) {
-								if (clubList.clubNo == mem.clubNo) {
+								if (clubList.clubNo == mem.clubNo && mem.clubApprove == 'm2') {
 									check = true;
 									break
 
@@ -305,10 +306,10 @@
  											<img src="${clubList.attachPath}" style="width: 450px;">
  										</div>
  										<br>
- 										<p style="text-align: left;">${clubList.clubIntro}</p>
+ 										<pre style="text-align: left; font-family: 'Noto Sans KR', sans-serif !important;">${clubList.clubIntro}</pre>
  									</div>
  									<div class="modal-footer" style="text-align: center;">
- 										<button type="button" class="btn btn-dark ms-1" id="wrtBtn"
+ 										<button type="button" class="btn btn-dark ms-1 wrtBtn " id="wrtBtn"
  											data-bs-dismiss="modal" data-bs-target="#join${clubList.clubNo}"
  											data-bs-toggle="modal">가입신청서 작성</button>
  									</div>
@@ -355,8 +356,8 @@
 					showPage(result.selectCount);
 
 					//가입 신청폼 초기화
-					$('#wrtBtn').on('click', function (e) {
-						console.log(memId)
+					$('.wrtBtn').on('click', function (e) {
+						console.log("로그인 되있나여"+memId)
 						if (memId == 'anonymousUser') {
 							location.href = 'loginform';
 						}
@@ -381,7 +382,12 @@
 								timer: 1300
 							})
 						}
+						
 					})
+					
+					
+					
+					
 						
  					
  				}
@@ -431,7 +437,7 @@
 			console.log(str);
 
 			$('.pagination').html(str);
-		}//여기까지는 똑같이 쌔비지
+		}
 
 
 
