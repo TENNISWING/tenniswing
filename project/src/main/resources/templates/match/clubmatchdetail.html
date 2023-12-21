@@ -96,13 +96,13 @@
 									<div class="review__desc">
 										<div class="review__wrap">
 											<h5>
-												<a href="#">[[${clubMatchInfo.nick}]]</a>
+												<a href="#">[[${clubMatchInfo.clubName}]]</a>
 											</h5>
 										</div>
 									</div>
 									<div class="review__para">
-										<p>성별 : [[${clubMatchInfo.genName}]]</p>
-										<p>레벨 : [[${clubMatchInfo.lvName}]]</p>
+										<p>모집인원 : [[${clubMatchInfo.recruitPsnNum}]]</p>
+										<p>NTRP : [[${clubMatchInfo.ntrp}]]</p>
 									</div>
 								</div>
 							</div>
@@ -188,12 +188,13 @@
                       	 url: 'clubDetailInsert',
                       	 data: {matchNo, clubNo},
                         success: function(result) {
+                        	console.log(result)
 		          		    Swal.fire({
 		          		      title: "신청 완료!",
 		          		      text: "신청 되었습니다.",
 		          		      icon: "success"
-	          		    }).then((result) => {
-	          			location.href=`/clubmatchdetail?matchNo=${matchNo}`
+	          		    }).then((r) => {
+	          			location.href=`/clubdetail?clubNo=${clubNo}`
 	          		    })
 	          		  }
 	          		});

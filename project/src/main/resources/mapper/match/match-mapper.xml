@@ -380,6 +380,7 @@
 		, FIND_CATEGORY_NAME (m.game_way) game_way_name
 		, m.prog_state
 		, m.ntrp
+		, FIND_CATEGORY_NAME (m.ntrp) ntrp_name
 		, m.in_date
 		, m.update_date
 		, m.lv
@@ -395,11 +396,9 @@
         , p.nick       
         , t.mem_id
         ,(SELECT ATTACH_PATH
-			FROM ATTACH
-			where attach_table_pk = (select mem_no
-									 from mem
-									 where mem_id = t.mem_id)
-			AND attach_table_div = 'm') as ATTACH_PATH
+                FROM ATTACH
+                where m.club_no = attach_table_pk
+                AND attach_table_div = 'cl') as ATTACH_PATH
         , p.gen
 		, FIND_CATEGORY_NAME (p.gen) gen_name
 		FROM club_match m, club t, crtroom c, pr p
