@@ -89,20 +89,20 @@
 						<div class="review__wrapper">
 							<div class="review__item" style="align-items: center;">
 								<div class="matchimg">
-									<img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+									<img th:src="${clubMatchInfo.attachPath}"
 										alt="avatar" />
 								</div>
 								<div class="review__content">
 									<div class="review__desc">
 										<div class="review__wrap">
 											<h5>
-												<a href="#">[[${clubMatchInfo.nick}]]</a>
+												<a href="#" style="font-weight: bold; font-family: 'NanumSquareNeo-Variable'; font-size:16px;">[[${clubMatchInfo.clubName}]]</a>
 											</h5>
 										</div>
 									</div>
 									<div class="review__para">
-										<p>성별 : [[${clubMatchInfo.genName}]]</p>
-										<p>레벨 : [[${clubMatchInfo.lvName}]]</p>
+										<p style="color:#3B3B3B"><b>모집인원</b> : [[${clubMatchInfo.recruitPsnNum}]]명</p>
+										<p style="color:#3B3B3B"><b>NTRP</b> : [[${clubMatchInfo.ntrpName}]]</p>
 									</div>
 								</div>
 							</div>
@@ -188,12 +188,13 @@
                       	 url: 'clubDetailInsert',
                       	 data: {matchNo, clubNo},
                         success: function(result) {
+                        	console.log(result)
 		          		    Swal.fire({
 		          		      title: "신청 완료!",
 		          		      text: "신청 되었습니다.",
 		          		      icon: "success"
-	          		    }).then((result) => {
-	          			location.href=`/clubmatchdetail?matchNo=${matchNo}`
+	          		    }).then((r) => {
+	          			location.href=`/clubdetail?clubNo=${clubNo}`
 	          		    })
 	          		  }
 	          		});

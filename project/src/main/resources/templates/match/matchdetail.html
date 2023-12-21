@@ -105,13 +105,13 @@
 									<div class="review__desc">
 										<div class="review__wrap">
 											<h5>
-												<a href="#">[[${matchInfo.nick}]]</a>
+												<a href="#" style="font-weight: bold; font-family: 'NanumSquareNeo-Variable'; font-size:16px;">[[${matchInfo.nick}]]</a>
 											</h5>
 										</div>
 									</div>
 									<div class="review__para">
-										<p>성별 : [[${matchInfo.genName}]]</p>
-										<p>레벨 : [[${matchInfo.lvName}]]</p>
+										<p style="color:#3B3B3B"><b>모집성별</b> : [[${matchInfo.genName}]]</p>
+										<p style="color:#3B3B3B"><b>레벨</b> : [[${matchInfo.lvName}]]</p>
 									</div>
 								</div>
 							</div>
@@ -190,7 +190,7 @@
                       		      icon: "success"
                       		    }).then((result) => {
                         	 
-                        	 location.href='/'
+                        	 location.href='/mypage'
                         	 })
                          }
                         })
