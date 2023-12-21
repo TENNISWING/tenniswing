@@ -111,8 +111,8 @@
 						</form>
 						<div class="shortBy-select select__style d-lg-flex d-none">
 							<select name="sortBy" id="sortBy">
-								<option value="0">최신순</option>
-								<option value="1">인기순</option>
+								<option value="0">인기순</option>
+								<option value="1">최신순</option>
 								<option value="2">이름순</option>
 							</select>
 						</div>
@@ -199,9 +199,9 @@
 			let clubName = $('#clubName').val();
 			let sort = $('#sortBy').val();
 			if (sort == 0)
-				sort = 'club_create_date DESC';
-			else if (sort == 1)
 				sort = 'club_mem_num DESC';
+			else if (sort == 1)
+				sort = 'club_create_date DESC';
 			else if (sort == 2)
 				sort = 'club_name';
 

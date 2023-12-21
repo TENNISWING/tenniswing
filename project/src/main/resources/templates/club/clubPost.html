@@ -277,15 +277,12 @@ color: #828282;
 					
 						$('#postUpdateBtn').on("click", function (e) { //수정 버튼 눌렀을때
 								console.log("수정 버튼 눌렀을때");
-								/* let postClubData = $("#postEditForm").serialize() + "&clubPostNo=" + no;
-								console.log(postClubData); */
 								
 								let form = $('#postEditForm')[0]
 								let postEditInfo = new FormData(form)
-								//postEditInfo.append('clubPostNo', data.post.clubPostNo); //클럽포스트넘버 추가
 								
 								$.ajax({
-									url: 'postUpdate',  //컨트롤러에 맵핑에 있는 경로
+									url: 'postUpdate',  
 									data: postEditInfo,
 									type: 'post',
 									enctype: 'multipart/form-data',
@@ -301,10 +298,7 @@ color: #828282;
 											timer: 1700
 										})
 										
-										//$('#postEditForm')[0].reset();	//폼값 초기화
 										postListPage(1);
-										// getRepList(snsWrtNo); //다시 메인 페이지 보여줘야하나요?
-										//DOM 조작 함수호츨 등 가능
 									},
 									error: function () {
 										Swal.fire({
@@ -462,14 +456,8 @@ color: #828282;
 						}
 						
 						
-					//$('#postList tr.accordion-header').on("click", repListAjax);
 					$('#postList td.accordion').on("click", repListAjax);
 						
-						//조회수 추가
-						
-						/* 	$('#postList tr.toggleBoard').css("display", "table-row;")
-								console.log("게시글 제목 클릭") */
-					
 							
 						
 						
@@ -494,18 +482,6 @@ color: #828282;
 						});
 
 						
-
-						//상세 조회 (제목 클릭)
-						/* 	$(".boardContainer").on("click", function (e) {
-								//const toggleAnswer = document.querySelector(".boardBody")
-	
-								$(this).parent().parent().next().toggle();
-								let clubPostNo = $(this).data('value');
-								console.log("댓글리스트에 게시글 번호"+clubPostNo);
-								// 댓글 리스트 아작스
-								repListAjax(clubPostNo);
-							});
-							 */
 
 						//댓글 등록 버튼 클릭
 						$('.repInserBtn').on("click", function (e) {
@@ -655,9 +631,6 @@ color: #828282;
 			//게시글 등록
 			//글쓰기 버튼 클릭했을때 클럽넘버 값 가지고가기
 			$('#WriteModal').on('show.bs.modal', function (e) {
-
-
-				//for(let value of postInfo.values())
 
 				let clubNo = $(e.relatedTarget).data('club-no');
 
