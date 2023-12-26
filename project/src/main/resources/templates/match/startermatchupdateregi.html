@@ -6,12 +6,12 @@
 <th:block layout:fragment="content">
 
 	<!-- signup form -->
-	<div class="container" id="signupForm">
+	<div class="container" id="signupForm" style="font-family: 'Noto Sans KR', sans-serif !important; font-size:15px;">
 		<form class="form form-vertical col-lg-10 mx-auto"
 			action="starterMatchUpdate" method="POST">
 			<div class="form-body">
 				<div class="text-center">
-					<h3 class="my-4">스타터 매치 수정</h3>
+					<h3 class="my-4" style="font-family: 'Noto Sans KR', sans-serif !important; color:#4C4C4C">스타터 매치 수정</h3>
 				</div>
 				<div th:text="${msg}"></div>
 			</div>
@@ -22,14 +22,14 @@
 					<div class="p-5 text-start shadow mb-5 ">
 						<div class="col-lg-12 p-5 mx-auto">
 							<!-- 코트 찾기 -->
-							<div class="d-flex flex-row justify-content-evenly mb-5">
-								<div class="col-6">
-									<label for="crtroomNo">코트 찾기</label><br>
+							<div class="d-flex flex-row justify-content-evenly mb-4">
+								<div class="col-4 mb-2">
+									<label for="crtroomNo" class="mb-2">코트 찾기</label><br>
 									<div class="input-group">
 										<input type="text" class="form-control" placeholder="코트 입력"
-											aria-describedby="crtroomBtn" id="crtroomName"
+											style="font-size:15px;" aria-describedby="crtroomBtn" id="crtroomName"
 											name="crtroomName" th:value="${starterMatchInfo.crtroomName}">
-										<button class="btn btn-success" type="button" id="crtroomBtn">찾기</button>
+										<button class="btn btn-success" style="font-size:15px;" type="button" id="crtroomBtn">찾기</button>
 
 										<input type="text" class="form-control" placeholder="코트 입력"
 											aria-describedby="crtroomBtn" id="crtroomNo" name="crtroomNo"
@@ -43,7 +43,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-4"></div>
+								<div class="col-6"></div>
 							</div>
 							<script>
 					$('#crtroomBtn').on('click', function (e) {
@@ -88,40 +88,55 @@
 					</script>
 
 							<div class="d-flex flex-row justify-content-evenly">
-								<div class="col-6 mb-4">
+								<div class="col-4 mb-4">
 									<label for="region">매치 일자</label> <input type="date"
-										id="matchDate" name="matchDate"
+										id="matchDate" name="matchDate" style="font-size:15px;"
 										th:value="${#dates.format(starterMatchInfo.matchDate,'yyyy-MM-dd')}"
-										class="form-control flatpickr-always-open"
+										class="form-control flatpickr-match"
 										placeholder="예약 일자 선택">
 								</div>
-
+								<div class="col-1"></div>
 								<div class="col-4 mb-4">
-									<label for="time">경기 시작 시간</label>
+									<label for="time" class="mb-2">경기 시작 시간</label>
 									<div class="form-group ">
-										<select class="choices form-select" id="time" name="time">
+										<select class="choices form-select" style="font-size:15px;" id="time" name="time"
+										 th:field="${starterMatchInfo.time}">
 											<optgroup label="경기시간">
-												<th:block th:each="num : ${#numbers.sequence(1,9)}">
-													<option>0[[${num}]]:00</option>
-												</th:block>
-												<th:block th:each="num : ${#numbers.sequence(10,24)}">
-													<option>[[${num}]]:00</option>
-												</th:block>
-											</optgroup>
+												<option value="01:00">01:00</option>
+												<option value="02:00">02:00</option>
+												<option value="03:00">03:00</option>
+												<option value="04:00">04:00</option>
+												<option value="05:00">05:00</option>
+												<option value="06:00">06:00</option>
+												<option value="07:00">07:00</option>
+												<option value="08:00">08:00</option>
+												<option value="09:00">09:00</option>
+												<option value="10:00">10:00</option>
+												<option value="11:00">11:00</option>
+												<option value="12:00">12:00</option>
+												<option value="13:00">13:00</option>
+												<option value="14:00">14:00</option>
+												<option value="15:00">15:00</option>
+												<option value="16:00">16:00</option>
+												<option value="17:00">17:00</option>
+												<option value="18:00">18:00</option>
+												<option value="19:00">19:00</option>
+												<option value="20:00">20:00</option>
+												<option value="21:00">21:00</option>
+												<option value="22:00">22:00</option>
+												<option value="23:00">23:00</option>
+												<option value="24:00">24:00</option>
+												</optgroup>
 										</select>
 									</div>
 								</div>
 							</div>
-							<br>
-
-							<div class="row"></div>
-
 
 							<div class="d-flex flex-row justify-content-evenly">
-								<div class="col-4 ">
-									<label for="age">연령대</label>
+								<div class="col-4 mb-4">
+									<label for="age" class="mb-2">연령대</label>
 									<div class="form-group">
-										<select class="choices form-select" name="age" id="age">
+										<select class="choices form-select" style="font-size:15px;" name="age" id="age">
 											<optgroup label="연령대">
 												<option value="a1"
 													th:selected="'a1' == ${starterMatchInfo.age}">10대</option>
@@ -140,10 +155,10 @@
 									</div>
 								</div>
 								<div class="col-1"></div>
-								<div class="col-4">
-									<label for="gen">모집 성별</label>
+								<div class="col-4 mb-4">
+									<label for="gen" class="mb-2">모집 성별</label>
 									<div class="form-group">
-										<select class="choices form-select" name="gen" id="gen">
+										<select class="choices form-select" style="font-size:15px;" name="gen" id="gen">
 											<optgroup label="성별">
 												<option value="c1"
 													th:selected="'c1' == ${starterMatchInfo.gen}">남성</option>
@@ -157,9 +172,9 @@
 
 							<div class="d-flex flex-row justify-content-evenly">
 								<div class="col-4">
-									<label for="lv">구력</label>
+									<label for="lv" class="mb-2">구력</label>
 									<div class="form-group">
-										<select class="choices form-select" name="lv" id="lv">
+										<select class="choices form-select" style="font-size:15px;" name="lv" id="lv">
 											<optgroup label="구력">
 												<option value="d1"
 													th:selected="'d1' == ${starterMatchInfo.lv}">입문</option>
@@ -174,12 +189,12 @@
 
 
 								<div class="col-1"></div>
-								<div class="col-4">
-									<label for="gameWay">경기 방식</label>
+								<div class="col-4 mb-4">
+									<label for="gameWay" class="mb-2">경기 방식</label>
 									<div class="form-group">
 										<select class="choices form-select" id="gameWay"
 											name="gameWay">
-											<optgroup label="경기방식">
+											<optgroup label="경기방식" style="font-size:15px;" id="gameWay" name="gameWay">
 												<option value="f1"
 													th:selected="'f1' == ${starterMatchInfo.gameWay}">단식</option>
 												<option value="f2"
@@ -198,10 +213,10 @@
 
 
 							<div class="d-flex flex-row justify-content-evenly">
-								<div class="col-4">
-									<label for="ntrp">ntrp</label>
+								<div class="col-4 mb-4">
+									<label for="ntrp" class="mb-2">ntrp</label>
 									<div class="form-group">
-										<select class="choices form-select" id="ntrp" name="ntrp">
+										<select class="choices form-select" style="font-size:15px;" id="ntrp" name="ntrp">
 											<optgroup label="ntpr">
 												<option value="e1">1.0</option>
 												<option value="e2">1.5</option>
@@ -214,7 +229,6 @@
 										</select>
 									</div>
 								</div>
-								<div class="col-1"></div>
 								<!-- ntrp modal start -->
 								<div class="col-4">
 									<br>
@@ -298,27 +312,28 @@
 										</div>
 									</div>
 								</div>
+								<div class="col-1"></div>
 								<!-- ntrp modal end -->
 							</div>
 
 
 							<div class="d-flex flex-row justify-content-evenly">
-								<div class="col-6">
-									<label for="name">레슨비</label><br>
+								<div class="col-4 mb-4">
+									<label for="name" class="mb-2">레슨비</label>
 									<div class="input-group mb-3">
-										<input type="text" class="form-control"
+										<input type="text" class="form-control"  style="font-size:15px;"
 											th:value="${starterMatchInfo.rsPrice}" placeholder="레슨비 입력"
 											id="rsPrice" name="rsPrice" maxlength="10" required>
 									</div>
 								</div>
-								<div class="col-4"></div>
+								<div class="col-6"></div>
 							</div>
 
 							<div class="d-flex flex-row justify-content-evenly">
-								<div class="col-6">
-									<label for="name">코멘트</label>
+								<div class="col-6 mb-4">
+									<label for="name" class="mb-2">코멘트</label>
 									<div class="input-group mb-3">
-										<textarea class="form-control"
+										<textarea class="form-control" style="font-size:15px;"
 											th:text="${starterMatchInfo.detailCtt}" placeholder="코멘트 입력"
 											id="detailCtt" name="detailCtt"></textarea>
 									</div>
@@ -327,11 +342,10 @@
 								</div>
 
 								<div class="ctrgbtns">
-									<br> <input type="number"
-										th:value="${starterMatchInfo.matchNo}" hidden="true"
-										name="matchNo">
-									<button class="btn btn-success" type="submit" id="applyBtn">수정하기</button>
-									<button class="btn btn-success" type="button"
+									<br> <input type="number" th:value="${starterMatchInfo.matchNo}" hidden="true" name="matchNo">
+									<button class="btn btn-outline psbBtn" type="submit" style="color: #00b96d;" id="applyBtn">수정하기</button>
+									<button class="btn btn-outline" type="button"
+										style="font-size: 12px; font-weight: 600 !important;"
 										th:onclick="|location.href='@{/startermatch}'|">취소</button>
 								</div>
 							</div>
