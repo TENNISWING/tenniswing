@@ -496,12 +496,6 @@ dribbble
 						installTalk : true,
 					})
 		}
-		// Twitter
-		function shareTwitter() {
-			const text = "TENNISWING-SNS";
-			const url = "https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800";
-			window.open("https://twitter.com/intent/tweet?text=" + url + text);
-		}
 		// NAVER
 		function shareNaver() {
 			const title = "TENNISWING";
@@ -538,7 +532,6 @@ dribbble
 			let snsWrtNo = $(this).attr('data-snswrtno');
 			let target = $(e.target);
 			if($(this).hasClass("active")){
-				console.log('액티브> 안눌린 스크랩버튼');
 				//인서트
 				$.ajax({
 					url : 'scrapInsert',
@@ -619,7 +612,6 @@ dribbble
 		//좋아요 insert, delete
 		$('.likeBtnC').on('click', function(e){
 			let auto = [[${#authentication.name}]]
-			console.log(auto);
 			if(auto == "anonymousUser"){
 				Swal.fire({
 					icon: "error",
@@ -636,7 +628,6 @@ dribbble
 				let target = $(e.target);
 				let snsWrtNo = $(this).attr('data-snsWrtNo');
 			      if($(this).hasClass("active")){
-		                console.log('액티브있는거찍는중');
 						//인서트
 						$.ajax({
 								url : 'snsLikeInsert',
@@ -647,17 +638,12 @@ dribbble
 									Swal.fire({
 										 title: '좋아요 등록 완료!',
 										 text: '마이페이지에서 확인하실 수 있습니다.',
-										//background: "url(assets/img/sns/heartboom.gif)",
 										 backdrop: `
 											 	rgba(230, 134, 163, 0.3)
 											    url("assets/img/sns/heartboom.gif")
 											    center
 											    no-repeat
 											  `,
-										  //imageUrl: 'assets/img/sns/heartboom.gif',
-										  //imageWidth: 400,
-										  //imageHeight: 200,
-										  //imageAlt: 'Custom image',
 										  showConfirmButton: false,
 										  timer: 1500
 										})
