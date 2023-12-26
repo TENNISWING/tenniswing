@@ -298,8 +298,7 @@ section pre{
 		$('#gen').val('');
 		$('#crtroomLocation').val('');
 	    $('select').niceSelect('update'); 
-		matchAjax(matchDate,1)
-		
+		matchAjax(matchDate,1)		
 	});
 	
 	function dateFormat(dd) {
@@ -363,10 +362,7 @@ section pre{
 		
 		var targetPageNum = $(this).attr("href");
 		
-		console.log("targetPageNum: " + targetPageNum);
-		
-		pageNum = targetPageNum;
-		
+		pageNum = targetPageNum;		
 		matchAjax(matchDate,targetPageNum);
 	
 	});
@@ -407,10 +403,7 @@ section pre{
 			str+= "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>Next</a><li>";
 		}
 		
-		str += "";
-		
-		console.log(str);
-		
+		str += "";				
 		$('.pagination').html(str);
 	}
 	
@@ -471,8 +464,7 @@ section pre{
                                 "day": days[weekName],
                                 "date": day.getDate(),
                                 "allDate": day.getFullYear()+"-"+(day.getMonth()+1)+"-"+day.getDate()
-                            })
- 
+                            }) 
                         }
                     
                         $.each(dateArry, (idx, ele) => {

@@ -465,12 +465,16 @@
 		, FIND_CATEGORY_NAME (c.crtroom_location) crtroom_location_name
 		, b.NAME
         , p.nick
+        , (SELECT ATTACH_PATH
+			FROM ATTACH
+			where  b.mem_no = attach_table_pk
+			AND attach_table_div = 'm') as ATTACH_PATH
 		FROM starter_match s, crtroom c, mem b, pr p
 		WHERE s.crtroom_no = c.crtroom_no
 		AND s.mem_id = b.mem_id
         AND b.mem_id = p.mem_id
 		AND match_no = #{matchNo}
-	</select>
+	</select>	
 
 	<!-- 등록 -->
 	<insert id="insertMatch" parameterType="MatchVO">

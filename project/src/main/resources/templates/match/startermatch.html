@@ -20,20 +20,9 @@
 	font-family: 'Noto Sans KR', sans-serif !important;
 }
 
-section a,
-section span,
-section button,
-section input,
-section h1,
-section h2,
-section h3,
-section h4,
-section h5,
-section h6,
-section tr,
-section td,
-section th,
-section pre{
+section a, section span, section button, section input, section h1,
+	section h2, section h3, section h4, section h5, section h6, section tr,
+	section td, section th, section pre {
 	font-family: 'Noto Sans KR', sans-serif !important;
 }
 </style>
@@ -43,13 +32,19 @@ section pre{
 	<div class="container mb-4" style="margin-bottom: 0 !important">
 		<ul class="nav d-flex justify-content-around text-center matchsidevar">
 			<li class="d-flex flex-column"><a href="/"><img
-					src="assets/img/winner.png" class=" miconimg" style="width: 1.5rem; opacity: 0.7;"><p>매치</p></a></li>
+					src="assets/img/winner.png" class=" miconimg"
+					style="width: 1.5rem; opacity: 0.7;">
+				<p>매치</p></a></li>
 			<li class="d-flex flex-column"><a href="clubmatch"><img
-					src="assets/img/medal.png" class=" miconimg" style="width: 1.5rem; opacity: 0.7;"><p>클럽</p></a></li>
+					src="assets/img/medal.png" class=" miconimg"
+					style="width: 1.5rem; opacity: 0.7;">
+				<p>클럽</p></a></li>
 			<!-- <li class="d-flex flex-column"><a href="contestmatch"><img
 					src="assets/img/match/icon/icon3.png" class=" miconimg">대회</a></li> -->
 			<li class="d-flex flex-column"><a href="startermatch"><img
-					src="assets/img/wreath.png" class=" miconimg" style="width: 1.5rem; opacity: 0.7;"><p class="sdbctn">스타터</p></a></li>
+					src="assets/img/wreath.png" class=" miconimg"
+					style="width: 1.5rem; opacity: 0.7;">
+				<p class="sdbctn">스타터</p></a></li>
 		</ul>
 	</div>
 	<!-- End match sub menu  -->
@@ -60,19 +55,22 @@ section pre{
 			<div class="swiper mySwiper banner" data-aos="fade-up">
 				<div class="swiper-wrapper banner">
 					<div class="swiper-slide banner text-center">
-						<img src="/assets/img/match/matchbanner01.png" class="img-fluid" alt="">
+						<img src="/assets/img/match/matchbanner01.png" class="img-fluid"
+							alt="">
 					</div>
 					<div class="swiper-slide banner text-center">
-						<img src="/assets/img/match/matchbanner02.png" class="img-fluid" alt="">
+						<img src="/assets/img/match/matchbanner02.png" class="img-fluid"
+							alt="">
 					</div>
 					<div class="swiper-slide banner text-center">
-						<img src="/assets/img/match/matchbanner03.png" class="img-fluid" alt="">
+						<img src="/assets/img/match/matchbanner03.png" class="img-fluid"
+							alt="">
 					</div>
 				</div>
 				<div class="swiper-pagination banner"></div>
 			</div>
 		</div>
-		
+
 	</div>
 	<!-- End slide banner -->
 
@@ -81,11 +79,10 @@ section pre{
 		<!-- Swiper -->
 		<div class="swiper mySwiper dateslide">
 			<div class="swiper-wrapper dateslide matchdate">
-				<!-- <div class="swiper-slide dateslide">resizeme</div>            -->
 			</div>
 			<div class="swiper-button-next dateslide text-green"></div>
 			<div class="swiper-button-prev dateslide text-green"></div>
-			
+
 		</div>
 	</div>
 	<!-- End date slide -->
@@ -118,7 +115,8 @@ section pre{
 								</select>
 							</div>
 							<div class="select__style" id="thirdDrop">
-								<select id="crtroomLocation" name="crtroomLocation" class="category-select">
+								<select id="crtroomLocation" name="crtroomLocation"
+									class="category-select">
 									<option value="">지역</option>
 									<option value="b1">서울</option>
 									<option value="b2">경기</option>
@@ -130,50 +128,51 @@ section pre{
 									<option value="b8">제주도</option>
 								</select>
 							</div>
-						<button type="button" id="btnreset" class="danger__btn border-30"
+							<button type="button" id="btnreset" class="danger__btn border-30"
 								style="background: rgba(18, 183, 106, 0.1) !important; color: #12b76a !important;">초기화</button>
 						</form>
 					</div>
-						<div class="col-lg-2 text-end">
-							<button type="button" class="btn btn-outline" id="regiBtn"
-								style="width: auto; font-weight: 600 !important;"
-								th:onclick="|location.href='@{startermatchregi}'|">매치등록</button>
-						</div>
+					<div class="col-lg-2 text-end">
+						<button type="button" class="btn btn-outline" id="regiBtn"
+							style="width: auto; font-weight: 600 !important;"
+							th:onclick="|location.href='@{startermatchregi}'|">매치등록</button>
+					</div>
 				</div>
 			</div>
 		</div>
 
-				<!-- Default Table -->
-				<table class="table fontt">
-				<thead>
-						<tr>
-							<th>날짜</th>
-							<th>경기 시간</th>
-							<th>모집 성별</th>
-							<th>NTRP</th>
-							<th>코트장 이름</th>
-							<th>지역</th>
-							<th>모집 상태</th>
-						</tr>
-					</thead>
-					<tbody id="matchList">
+		<!-- Default Table -->
+		<table class="table fontt">
+			<thead>
+				<tr>
+					<th>날짜</th>
+					<th>경기 시간</th>
+					<th>모집 성별</th>
+					<th>NTRP</th>
+					<th>코트장 이름</th>
+					<th>지역</th>
+					<th>모집 상태</th>
+				</tr>
+			</thead>
+			<tbody id="matchList">
 
-					</tbody>
-				</table>
-				<div class="container mt-5 mb-5">
-					<ul class="pagination justify-content-center">
-					</ul>
-				</div>
-			</div>
+			</tbody>
+		</table>
+		<div class="container mt-5 mb-5">
+			<ul class="pagination justify-content-center">
+			</ul>
 		</div>
-		<!-- End match table -->
+	</div>
+	</div>
+	<!-- End match table -->
 
 	<!-- 하단 상품 슬라이드 -->
 	<section class="trending__section pt-0">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
-						<h5 style="color: black">최근 등록된 매치</h5><br>
+					<h5 style="color: black">최근 등록된 매치</h5>
+					<br>
 				</div>
 			</div>
 			<div class="row">
@@ -192,22 +191,12 @@ section pre{
 											</a>
 										</div>
 										<div class="product__content">
-											<!-- <div class="product__rating">
-												<ul style="padding: 0">
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-solid fa-star"></i></li>
-													<li><i class="fa-regular fa-star"></i></li>
-												</ul>
-												<div class="total__rating">(321)</div>
-											</div> -->
 											<!-- 상품명 -->
 											<div class="product__title">
 												<h5>
 													<a href="product-single.html">[[ ${v.crtroomName} ]]</a>
 												</h5>
-													<a href="product-single.html">[[ ${#dates.format(v.matchDate,'MM월 dd일')} ]] / [[ ${v.time} ]]</a><br>
+												<a href="product-single.html" style="font-size:14px;">[[ ${#dates.format(v.matchDate,'MM월 dd일')} ]] / [[ ${v.time} ]]</a><br>
 											</div>
 											<div class="product__bottom">
 												<div class="cart__action__btn">
@@ -246,7 +235,6 @@ section pre{
 										stroke-linejoin="round" />
                                     </svg>
 							</div>
-							<!-- <div class="swiper-slide"></div> -->
 							<div class="swiper-pagination"></div>
 						</div>
 					</div>
@@ -255,7 +243,7 @@ section pre{
 		</div>
 	</section>
 	<!-- 슬라이드 닫히는 곳 -->
-	 <script src="/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
+	<script src="/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
 	<script src="/assets/static/js/pages/sweetalert2.js"></script>
 	<script>
 	let msg = "[[${message}]]"
