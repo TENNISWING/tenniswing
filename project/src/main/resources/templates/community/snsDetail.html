@@ -355,13 +355,14 @@ section pre{
 			}
 	});
 
-		let tennisUrl = [[${sDetail.snsWrtNo}]];
+		
 		// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
 		Kakao.init('a3f2337f2fab17974560df2e031393c0');
 
 		// SDK 초기화 여부를 판단합니다.
 		console.log(Kakao.isInitialized());
-
+		
+		let tennisUrl = [[${sDetail.snsWrtNo}]];
 		function kakaoShare() {
 			Kakao.Link
 					.sendDefault({
@@ -373,8 +374,6 @@ section pre{
 							link : {
 								mobileWebUrl : 'http://tenniswing.site/snsDetail?snsWrtNo='+tennisUrl,
 								webUrl : 'http://tenniswing.site/snsDetail?snsWrtNo='+tennisUrl, 
-							/* 	mobileWebUrl : 'http://localhost:8099/snsDetail?snsWrtNo='+tennisUrl,
-								webUrl : 'http://localhost:8099/snsDetail?snsWrtNo='+tennisUrl, */
 							},
 						},
 						buttons : [ {
@@ -387,12 +386,6 @@ section pre{
 						// 카카오톡 미설치 시 카카오톡 설치 경로이동
 						installTalk : true,
 					})
-		}
-		// Twitter
-		function shareTwitter() {
-			const text = "TENNISWING-SNS";
-			const url = "https://mblogthumb-phinf.pstatic.net/MjAyMjEyMjdfMjU0/MDAxNjcyMTA4NDk3Mjgz.FL2vinKY8blok71V-vE8Ragtb29OxcmA-8gD7a72rPsg.QmZok2QhKWPsRRnpmI1cWj1eNlcF60LQ9chHwyofRiAg.JPEG.qmfosej/IMG_4003.jpg?type=w800";
-			window.open("https://twitter.com/intent/tweet?text=" + url + text);
 		}
 		// NAVER
 		function shareNaver() {

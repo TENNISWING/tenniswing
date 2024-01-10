@@ -42,9 +42,6 @@ public class AdminCourtCalcServiceImpl implements AdminCourtCalcService {
 		for(MemberVO host: hostList) {
 			AdminCourtCalcVO vo = new AdminCourtCalcVO();
 			vo.setHostId(host.getMemId());
-			
-			
-			
 			LocalDate date = LocalDate.now();
 			int year = date.getYear();
 			int monthValue = date.getMonthValue()-1;
@@ -62,7 +59,7 @@ public class AdminCourtCalcServiceImpl implements AdminCourtCalcService {
 			try {
 				startPar = format.parse(start);
 				endPar = format.parse(end);
-				System.out.println("날짜 찍힘?"+startPar+endPar);
+				//System.out.println(startPar+endPar);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			} 

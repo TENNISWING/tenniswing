@@ -41,7 +41,7 @@ public interface CrtReserveMapper {
 		public int updateCrtReserveState(CrtReserveVO crtReserveVO);
 		
 		// 예약 시간 지나면 자동 상태변경
-		public int updateState(CrtReserveVO crtReserveVO);
+		public int updateState();
 		
 		// 대시보드 예약금액, 예약건수
 		public HostDashBoardVO hostMonthReserve(String hostId);

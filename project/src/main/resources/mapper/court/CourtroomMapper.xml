@@ -24,7 +24,7 @@
                 , MIN(d.crt_use_price) min_price
                 , a.attach_path
                 , TRUNC(SUM(r.review_star)/COUNT(r.review_no)) avg_star
-  				, COUNT(r.review_no)/COUNT(d.crt_detail_no) count_review
+  				, COUNT(r.review_no) count_review
   		FROM crtroom c JOIN crt_detail_inf d
                        ON c.crtroom_no = d.crtroom_no
                        JOIN attach a

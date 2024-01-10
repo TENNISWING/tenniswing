@@ -183,13 +183,13 @@ public class MatchController {
 	public String clubmatchdetailPage(Model model, MatchVO matchVO) {
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		String memId = SecurityContextHolder.getContext().getAuthentication().getName();
+		
 		matchVO =  matchService.selectClubMatch(matchVO);
 		if (memId.equals(matchVO.getMemId())) {
 			model.addAttribute("auth", true);
 		} else {
 			model.addAttribute("auth", false);
 		}
-		model.addAttribute("matchInfo", matchVO);
 		model.addAttribute("clubList",matchService.selectMyOwnerClub(id));
 		model.addAttribute("clubMatchInfo", matchVO);
 		return "match/clubmatchdetail";
