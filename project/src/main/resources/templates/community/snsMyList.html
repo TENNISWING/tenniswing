@@ -98,7 +98,7 @@
 																data-bs-target="#inlineForm"
 																th:attrappend="data-bs-target=${mg.snsGrpNo}"></i>
 															<!-- 삭제버튼 -->
-															<i type="button" class="fa-regular fa-trash-can delBtnClass"
+															<i type="button" class="fa-regular fa-trash-can grpAllDel"
 																id="delSnsListBtn" th:no="${mg.snsGrpNo}"></i>
 															</th:block>
 															</th:block>
@@ -522,7 +522,7 @@
 
 
 		// 그룹 sns 통으로 삭제
-		$('.delBtnClass').on('click', function (e) {
+		$('.grpAllDel').on('click', function (e) {
 			event.stopPropagation();
 			Swal.fire({
 				title: "정말 삭제하시겠습니까?",
