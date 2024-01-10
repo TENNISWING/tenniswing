@@ -821,11 +821,7 @@ dribbble
 
         // 댓글 삭제
 		$('.repDelBtn').on('click',function(e){
-        	//console.log("삭제클릭되나요");
-        	//console.log(e.target);
         	let cnt = $(e.target).prop("id").replace("delBtn","");
-        	console.log(cnt);
-
         	snsRepNo = $(e.target).closest('tr').prop('id');
         	/* sweetalert */
         		Swal.fire({
@@ -858,17 +854,10 @@ dribbble
 
 								}
 				        	})
-				    
-				    
 				  }
 				});
         	
         	/* sweetalert end */
-        	
-        	
-        	
-        	
-     
         });
         
         // 대댓글 등록 이벤트
@@ -876,9 +865,7 @@ dribbble
 			$('#loadDiv').empty();
 			$('#lastDiv').empty();
 			snsRepNo = $(e.target).closest('tr').prop('id');
-			//console.log(snsRepNo);
-			//console.log('대댓글 작성버튼 잘뜨는지');
-			//let snsRrepCtt = $("#replyContents").val();
+			
 			$('#replyList').empty();
 	
 	    	let num = $(e.target).prop('id').replace('reWrtBtn','');
@@ -890,11 +877,7 @@ dribbble
 						<td></td>
 					</tr>`
 	   		$('#replyList').append(b);
-			//snsRepNo = $(e.target).closest('tr').prop('id');
-			
 			$('#repSubmit').text('대댓글 등록');
-			//$('#replyContents').val(data[num].snsRepCtt);
- 		
 		})
 		
 		
@@ -1015,7 +998,6 @@ dribbble
 
 						$('#replyContents').val('') //댓글 등록시 댓글 등록창 초기화
 						 getRepList(snsWrtNo); //등록후 댓글 목록 불러오기 함수 실행
-						//DOM 조작 함수호츨 등 가능
 					},
 					error : function() {
 						alert("등록 실패")
@@ -1024,9 +1006,6 @@ dribbble
 
 			})
 		}else if($(e.target).text() == '대댓글 등록'){
-			//snsRepNo = $(e.target).closest('tr').prop('id');
-			console.log(snsRepNo);
-			console.log('대댓글 작성버튼 잘뜨는지');
 			let snsRrepCtt = $("#replyContents").val();
 	 		$.ajax({
 				url: 'snsRreInsert',
@@ -1044,7 +1023,7 @@ dribbble
 							});
 						$(e.target).text('등록')
 						$('#replyContents').val(''); //댓글 등록시 댓글 등록창 초기화
-						getRepList(snsWrtNo);
+						getRepList(snsWrtNo); //등록후 댓글 목록 불러오기 함수 실행
 					}else{
 						alert("대댓글 등록실패, 다시 시도해주세요.")
 						$('#replyContents').val('');
