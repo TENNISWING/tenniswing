@@ -456,6 +456,8 @@
 	</delete>
 
 	<!-- 첨부파일, 좋아요, 댓글, 대댓글, 그룹, sns 삭제 -->
+	
+	<!-- 그룹삭제 -->
 	<delete id="deleteGrp" statementType="CALLABLE" parameterType="map">
 		{ call DELETE_GRP(
 				#{snsGrpNo, mode=IN, jdbcType=DECIMAL},
@@ -464,7 +466,7 @@
 		}
 	</delete>
 
-	<!-- sns 리플 좋아요 한번에 삭제 -->
+	<!-- 커뮤니티 게시글 삭제 -->
 	<delete id="deleteSns" statementType="CALLABLE" parameterType="map">
 	    {call DELETE_SNS(
 	            #{snsWrtNo, mode=IN, jdbcType=DECIMAL},
